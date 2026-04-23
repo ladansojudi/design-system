@@ -5,7 +5,7 @@ import { SidebarShowcase } from "@/sections/sidebar/sidebar-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Sidebar — s4e Design System",
+  title: "Sidebar — Design System",
 };
 
 export default function Page() {

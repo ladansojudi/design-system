@@ -4,7 +4,7 @@ import { TextFieldShowcase } from "@/sections/text-field/text-field-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Text Field — s4e Design System",
+  title: "Text Field — Design System",
 };
 
 export default function TextFieldPage() {

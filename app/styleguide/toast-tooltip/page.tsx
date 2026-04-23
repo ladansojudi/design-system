@@ -5,7 +5,7 @@ import { ToastTooltipShowcase } from "@/sections/toast-tooltip/toast-tooltip-sho
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Toast · Tooltip — s4e Design System",
+  title: "Toast · Tooltip — Design System",
 };
 
 export default function ToastTooltipPage() {

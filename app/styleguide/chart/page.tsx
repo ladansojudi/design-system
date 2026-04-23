@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/styleguide/page-header";
 import { ChartShowcase } from "@/sections/chart/chart-showcase";
 
 export const metadata: Metadata = {
-  title: "Chart — s4e Design System",
+  title: "Chart — Design System",
 };
 
 export default function Page() {

@@ -5,7 +5,7 @@ import { FilterBarShowcase } from "@/sections/filter-bar/filter-bar-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Filter Bar — s4e Design System",
+  title: "Filter Bar — Design System",
 };
 
 export default function Page() {

@@ -14,8 +14,8 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "s4e.io — Design System",
-  description: "Living style guide for the s4e.io design system.",
+  title: "Design System",
+  description: "Living style guide for the design system.",
 };
 
 export default function RootLayout({

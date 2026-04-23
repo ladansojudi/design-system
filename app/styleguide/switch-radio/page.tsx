@@ -4,7 +4,7 @@ import { SwitchRadioShowcase } from "@/sections/switch-radio/switch-radio-showca
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Switch · Radio — s4e Design System",
+  title: "Switch · Radio — Design System",
 };
 
 export default function SwitchRadioPage() {

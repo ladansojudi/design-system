@@ -4,7 +4,7 @@ import { SeverityBadgeShowcase } from "@/sections/severity-badge/severity-badge-
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Severity Badge — s4e Design System",
+  title: "Severity Badge — Design System",
 };
 
 export default function SeverityBadgePage() {

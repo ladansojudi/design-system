@@ -4,7 +4,7 @@ import { TabsShowcase } from "@/sections/tabs/tabs-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Tabs — s4e Design System",
+  title: "Tabs — Design System",
 };
 
 export default function Page() {

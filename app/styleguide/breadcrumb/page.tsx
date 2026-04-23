@@ -4,7 +4,7 @@ import { BreadcrumbShowcase } from "@/sections/breadcrumb/breadcrumb-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Breadcrumb — s4e Design System",
+  title: "Breadcrumb — Design System",
 };
 
 export default function Page() {

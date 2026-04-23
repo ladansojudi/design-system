@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/styleguide/page-header";
 import { ColorsTable } from "@/sections/colors/colors-table";
 
 export const metadata: Metadata = {
-  title: "Colors & Tokens — s4e Design System",
+  title: "Colors & Tokens — Design System",
 };
 
 export default function ColorsPage() {

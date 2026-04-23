@@ -5,7 +5,7 @@ import { SearchBarShowcase } from "@/sections/search-bar/search-bar-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Search Bar — s4e Design System",
+  title: "Search Bar — Design System",
 };
 
 export default function Page() {

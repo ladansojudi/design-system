@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/styleguide/page-header";
 import { ComingSoon } from "@/components/styleguide/coming-soon";
 
 export const metadata: Metadata = {
-  title: "Scan Type Item — s4e Design System",
+  title: "Scan Type Item — Design System",
 };
 
 export default function Page() {

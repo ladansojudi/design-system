@@ -7,7 +7,7 @@ import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export const metadata: Metadata = {
-  title: "Cards — s4e Design System",
+  title: "Cards — Design System",
 };
 
 export default function Page() {

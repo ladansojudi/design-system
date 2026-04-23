@@ -5,7 +5,7 @@ import { TopBarShowcase } from "@/sections/top-bar/top-bar-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Top Bar — s4e Design System",
+  title: "Top Bar — Design System",
 };
 
 export default function Page() {

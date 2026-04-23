@@ -5,7 +5,7 @@ import { TextSpaceShowcase } from "@/sections/text-space/text-space-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Text Space — s4e Design System",
+  title: "Text Space — Design System",
 };
 
 export default function TextSpacePage() {

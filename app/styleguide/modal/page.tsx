@@ -4,7 +4,7 @@ import { ModalShowcase } from "@/sections/modal/modal-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Modal — s4e Design System",
+  title: "Modal — Design System",
 };
 
 export default function Page() {

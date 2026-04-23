@@ -5,7 +5,7 @@ import { ButtonShowcase } from "@/sections/button/button-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Button — s4e Design System",
+  title: "Button — Design System",
 };
 
 export default function ButtonPage() {

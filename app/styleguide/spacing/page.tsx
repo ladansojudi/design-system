@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/styleguide/page-header";
 import { SpacingScale } from "@/sections/spacing/spacing-scale";
 
 export const metadata: Metadata = {
-  title: "Spacing & Grid — s4e Design System",
+  title: "Spacing & Grid — Design System",
 };
 
 export default function SpacingPage() {

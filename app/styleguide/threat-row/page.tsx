@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/styleguide/page-header";
 import { ComingSoon } from "@/components/styleguide/coming-soon";
 
 export const metadata: Metadata = {
-  title: "Threat Row — s4e Design System",
+  title: "Threat Row — Design System",
 };
 
 export default function Page() {

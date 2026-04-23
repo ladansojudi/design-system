@@ -5,7 +5,7 @@ import { DataTableShowcase } from "@/sections/data-table/data-table-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Data Table — s4e Design System",
+  title: "Data Table — Design System",
 };
 
 export default function Page() {

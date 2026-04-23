@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/styleguide/page-header";
 import { IconsGrid } from "@/sections/icons/icons-grid";
 
 export const metadata: Metadata = {
-  title: "Icons — s4e Design System",
+  title: "Icons — Design System",
 };
 
 export default function IconsPage() {

@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/styleguide/page-header";
 import { TypographyScale } from "@/sections/typography/typography-scale";
 
 export const metadata: Metadata = {
-  title: "Typography — s4e Design System",
+  title: "Typography — Design System",
 };
 
 export default function TypographyPage() {

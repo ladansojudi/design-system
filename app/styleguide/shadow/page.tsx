@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/styleguide/page-header";
 import { ShadowScale } from "@/sections/shadow/shadow-scale";
 
 export const metadata: Metadata = {
-  title: "Shadow — s4e Design System",
+  title: "Shadow — Design System",
 };
 
 export default function ShadowPage() {

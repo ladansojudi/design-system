@@ -4,7 +4,7 @@ import { GaugeShowcase } from "@/sections/gauge/gauge-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Gauge — s4e Design System",
+  title: "Gauge — Design System",
 };
 
 export default function Page() {

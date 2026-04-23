@@ -4,7 +4,7 @@ import { BadgeTagShowcase } from "@/sections/badge-tag/badge-tag-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Badge · Tag — s4e Design System",
+  title: "Badge · Tag — Design System",
 };
 
 export default function Page() {
