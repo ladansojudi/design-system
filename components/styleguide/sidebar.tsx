@@ -126,10 +126,10 @@ export function Sidebar() {
             <span className="ml-2 text-[11px] text-s4e-text-secondary">Work in progress</span>
           </div>
           <a
-            href="mailto:ladanSojudi2@gmail.com"
+            href="mailto:ladansojudi2@gmail.com"
             className="block text-[10px] text-s4e-text-disabled hover:text-s4e-brand-primary-500 transition-colors truncate"
           >
-            ladanSojudi2@gmail.com
+            ladansojudi2@gmail.com
           </a>
         </div>
       </aside>
