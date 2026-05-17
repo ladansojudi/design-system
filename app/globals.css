@@ -205,6 +205,27 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: #1383d4;
+
+  /* Z-index — 7 fixed layers. Never invent ad-hoc values like z-[99]. */
+  --s4e-z-base:      0;
+  --s4e-z-sticky:    10;
+  --s4e-z-dropdown:  20;
+  --s4e-z-overlay:   30;
+  --s4e-z-sidebar:   40;
+  --s4e-z-modal:     50;
+  --s4e-z-toast:     60;
+
+  /* Motion — semantic durations + easings. */
+  --s4e-motion-duration-instant:    75ms;
+  --s4e-motion-duration-snap:      100ms;
+  --s4e-motion-duration-default:   150ms;
+  --s4e-motion-duration-emphasis:  200ms;
+  --s4e-motion-duration-spatial:   300ms;
+
+  --s4e-motion-ease-linear:   linear;
+  --s4e-motion-ease-in:       cubic-bezier(0.4, 0, 1, 1);
+  --s4e-motion-ease-out:      cubic-bezier(0, 0, 0.2, 1);
+  --s4e-motion-ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark,
@@ -573,6 +594,24 @@
   html {
     @apply font-sans;
   }
+}
+
+@layer utilities {
+  /* Z-index — named layers (back the --s4e-z-* tokens) */
+  .z-base     { z-index: var(--s4e-z-base);     }
+  .z-sticky   { z-index: var(--s4e-z-sticky);   }
+  .z-dropdown { z-index: var(--s4e-z-dropdown); }
+  .z-overlay  { z-index: var(--s4e-z-overlay);  }
+  .z-sidebar  { z-index: var(--s4e-z-sidebar);  }
+  .z-modal    { z-index: var(--s4e-z-modal);    }
+  .z-toast    { z-index: var(--s4e-z-toast);    }
+
+  /* Motion — semantic duration / easing utilities */
+  .duration-instant   { transition-duration: var(--s4e-motion-duration-instant);   }
+  .duration-snap      { transition-duration: var(--s4e-motion-duration-snap);      }
+  .duration-default   { transition-duration: var(--s4e-motion-duration-default);   }
+  .duration-emphasis  { transition-duration: var(--s4e-motion-duration-emphasis);  }
+  .duration-spatial   { transition-duration: var(--s4e-motion-duration-spatial);   }
 }
 
 @keyframes toast-timer {

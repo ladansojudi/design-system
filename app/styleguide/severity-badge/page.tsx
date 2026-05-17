@@ -13,6 +13,7 @@ export default function SeverityBadgePage() {
       <PageHeader
         category="Atoms"
         title="Severity Badge"
+        status="stable"
         description="Five severity levels — Low, Info, Medium, High, Critical — each with a distinct color accent. Available with label only or label plus score."
       />
 
@@ -20,17 +21,18 @@ export default function SeverityBadgePage() {
 
       <Anatomy
         parts={[
-          { label: "Accent bar",   description: "3px left bar that carries the severity color, giving instant recognition." },
-          { label: "Background",   description: "Tinted surface in the lightest scale of the severity color." },
-          { label: "Label",        description: "Severity name, colored to match the scale (600 weight)." },
+          { label: "Accent bar",       description: "3px left bar that carries the severity color, giving instant recognition." },
+          { label: "Background",       description: "Tinted surface in the lightest scale of the severity color." },
+          { label: "Label",            description: "Severity name, colored to match the scale (600 weight)." },
           { label: "Score (optional)", description: "Numeric CVSS score or risk value aligned to the right." },
         ]}
-      >
-        <div className="flex items-center justify-between rounded-md px-3 py-1.5 w-40 bg-s4e-scale-red-50 border-l-[3px] border-s4e-scale-red-500">
-          <span className="text-sm font-medium text-s4e-scale-red-600">High</span>
-          <span className="text-sm text-s4e-scale-red-600 opacity-80">8.4</span>
-        </div>
-      </Anatomy>
+        preview={
+          <div className="flex items-center justify-between rounded-md px-3 py-1.5 w-40 bg-s4e-scale-red-50 border-l-[3px] border-s4e-scale-red-500">
+            <span className="text-sm font-medium text-s4e-scale-red-600">High</span>
+            <span className="text-sm text-s4e-scale-red-600 opacity-80">8.4</span>
+          </div>
+        }
+      />
 
       <UseCases
         items={[

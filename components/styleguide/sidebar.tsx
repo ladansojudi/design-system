@@ -15,19 +15,35 @@ type NavGroup = {
 
 const navGroups: NavGroup[] = [
   {
+    label: "FOUNDATIONS",
+    items: [
+      { slug: "principles",      label: "Design Principles" },
+      { slug: "accessibility",   label: "Accessibility" },
+      { slug: "contribution",    label: "Contribution Guide" },
+      { slug: "colors",          label: "Colors & tokens" },
+      { slug: "typography",      label: "Typography" },
+      { slug: "spacing",         label: "Spacing & grid" },
+      { slug: "layout-behavior", label: "Layout & Behavior" },
+    ],
+  },
+  {
     label: "ATOMS",
     items: [
-      { slug: "colors",         label: "Colors & tokens" },
-      { slug: "typography",     label: "Typography" },
-      { slug: "spacing",        label: "Spacing & grid" },
       { slug: "shadow",         label: "Shadow" },
       { slug: "icons",          label: "Icons" },
       { slug: "button",         label: "Button" },
       { slug: "text-field",     label: "Text field" },
+      { slug: "textarea",       label: "Textarea" },
+      { slug: "checkbox",       label: "Checkbox" },
+      { slug: "select",         label: "Select" },
       { slug: "severity-badge", label: "Severity badge" },
       { slug: "switch-radio",   label: "Switch · Radio" },
       { slug: "toast-tooltip",  label: "Toast · Tooltip" },
       { slug: "badge-tag",      label: "Badge · Tag" },
+      { slug: "alert",          label: "Alert" },
+      { slug: "banner",         label: "Banner" },
+      { slug: "spinner",        label: "Spinner" },
+      { slug: "skeleton",       label: "Skeleton" },
     ],
   },
   {

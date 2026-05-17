@@ -13,6 +13,7 @@ export default function TextFieldPage() {
       <PageHeader
         category="Atoms"
         title="Text Field"
+        status="stable"
         description="Filled and outlined variants across five states. Text Space provides a rich-text editing surface with simple and full toolbar configurations."
       />
 
@@ -20,20 +21,21 @@ export default function TextFieldPage() {
 
       <Anatomy
         parts={[
-          { label: "Label",            description: "Always-visible descriptor placed above (outlined) or floating inside (filled)." },
-          { label: "Container",        description: "Surface that holds the input, defining border, background and state colors." },
-          { label: "Input",            description: "Text entry area that accepts user value and reflects focus, error and disabled states." },
-          { label: "Helper / error text (optional)", description: "Small caption directly below the field — plain helper text, or an AlertCircle icon + red message when validation fails." },
+          { label: "Label",       description: "Always-visible descriptor placed above (outlined) or floating inside (filled)." },
+          { label: "Container",   description: "Surface that holds the input, defining border, background and state colors." },
+          { label: "Input",       description: "Text entry area that accepts user value and reflects focus, error and disabled states." },
+          { label: "Helper text", description: "Small caption directly below the field — plain helper, or an icon + red message on error." },
         ]}
-      >
-        <div className="w-64 flex flex-col gap-1.5">
-          <span className="text-[11px] text-s4e-text-secondary">Asset name</span>
-          <div className="h-10 px-3 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app flex items-center text-[13px] text-s4e-text-primary">
-            zero.webappsecurity.com
+        preview={
+          <div className="w-64 flex flex-col gap-1.5">
+            <span className="text-[11px] text-s4e-text-secondary">Asset name</span>
+            <div className="h-10 px-3 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app flex items-center text-[13px] text-s4e-text-primary">
+              zero.webappsecurity.com
+            </div>
+            <span className="text-[11px] text-s4e-text-disabled">Use the primary domain you want to monitor.</span>
           </div>
-          <span className="text-[11px] text-s4e-text-disabled">Use the primary domain you want to monitor.</span>
-        </div>
-      </Anatomy>
+        }
+      />
 
       <UseCases
         items={[

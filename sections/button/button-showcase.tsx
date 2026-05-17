@@ -1,6 +1,6 @@
 "use client";
 
-import { Globe } from "lucide-react";
+import { ChevronDown, Download, Globe, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type State = "Enabled" | "Hover" | "Disabled";
@@ -215,12 +215,184 @@ function ButtonCard({
   );
 }
 
+// ── Loading state ─────────────────────────────────────────────────────────
+
+function Spinner({ size = 14, className }: { size?: number; className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={cn("inline-block rounded-full animate-spin border-2 border-current/30 border-t-current", className)}
+      style={{ width: size, height: size }}
+    />
+  );
+}
+
+function LoadingCard() {
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
+        <span className="text-[15px] font-semibold text-s4e-text-primary">Loading State</span>
+      </div>
+      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
+        <PropertyRow label="Contained">
+          <button
+            type="button"
+            disabled
+            className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-white text-sm font-medium opacity-90 cursor-wait"
+          >
+            <Spinner /> Saving
+          </button>
+          <button
+            type="button"
+            disabled
+            className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-error-600 text-white text-sm font-medium opacity-90 cursor-wait"
+          >
+            <Spinner /> Deleting
+          </button>
+        </PropertyRow>
+        <PropertyRow label="Outlined">
+          <button
+            type="button"
+            disabled
+            className="inline-flex items-center gap-2 h-9 px-4 rounded-lg border border-s4e-btn-primary-600 text-s4e-btn-primary-600 text-sm font-medium opacity-90 cursor-wait"
+          >
+            <Spinner /> Connecting
+          </button>
+        </PropertyRow>
+        <PropertyRow label="Text">
+          <button
+            type="button"
+            disabled
+            className="inline-flex items-center gap-2 px-2.5 py-1.5 text-s4e-btn-primary-600 text-sm font-medium opacity-90 cursor-wait"
+          >
+            <Spinner size={12} /> Loading
+          </button>
+        </PropertyRow>
+      </div>
+    </div>
+  );
+}
+
+// ── Icon-only ─────────────────────────────────────────────────────────────
+
+function IconOnlyCard() {
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
+        <span className="text-[15px] font-semibold text-s4e-text-primary">Icon-only Button</span>
+      </div>
+      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
+        <PropertyRow label="Variant">
+          <button type="button" aria-label="Edit"   className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-s4e-btn-neutral-700 text-white hover:bg-s4e-btn-neutral-800 transition-colors cursor-pointer">
+            <Pencil size={14} />
+          </button>
+          <button type="button" aria-label="Edit"   className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-s4e-btn-neutral-600 text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 transition-colors cursor-pointer">
+            <Pencil size={14} />
+          </button>
+          <button type="button" aria-label="Edit"   className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 transition-colors cursor-pointer">
+            <Pencil size={14} />
+          </button>
+          <button type="button" aria-label="Delete" className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-s4e-btn-error-600 hover:bg-s4e-btn-error-50 transition-colors cursor-pointer">
+            <Trash2 size={14} />
+          </button>
+        </PropertyRow>
+        <PropertyRow label="Size">
+          <button type="button" aria-label="Small"  className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-s4e-btn-neutral-600 text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 cursor-pointer">
+            <Pencil size={12} />
+          </button>
+          <button type="button" aria-label="Medium" className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-s4e-btn-neutral-600 text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 cursor-pointer">
+            <Pencil size={14} />
+          </button>
+          <button type="button" aria-label="Large"  className="inline-flex items-center justify-center w-11 h-11 rounded-lg border border-s4e-btn-neutral-600 text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 cursor-pointer">
+            <Pencil size={16} />
+          </button>
+        </PropertyRow>
+      </div>
+    </div>
+  );
+}
+
+// ── Button group ──────────────────────────────────────────────────────────
+
+function ButtonGroupCard() {
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
+        <span className="text-[15px] font-semibold text-s4e-text-primary">Button Group</span>
+      </div>
+      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
+        <PropertyRow label="Connected">
+          <div className="inline-flex rounded-lg overflow-hidden border border-s4e-btn-neutral-600">
+            <button type="button" className="px-3 h-9 text-sm font-medium text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 border-r border-s4e-btn-neutral-600 cursor-pointer">Day</button>
+            <button type="button" className="px-3 h-9 text-sm font-medium bg-s4e-btn-neutral-700 text-white cursor-pointer">Week</button>
+            <button type="button" className="px-3 h-9 text-sm font-medium text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 border-l border-s4e-btn-neutral-600 cursor-pointer">Month</button>
+          </div>
+        </PropertyRow>
+        <PropertyRow label="Split">
+          <div className="inline-flex rounded-lg overflow-hidden">
+            <button type="button" className="inline-flex items-center gap-2 px-4 h-9 rounded-l-lg bg-s4e-btn-primary-600 text-white text-sm font-medium hover:bg-s4e-btn-primary-700 cursor-pointer">
+              <Download size={14} /> Export CSV
+            </button>
+            <button type="button" aria-label="More" className="px-2 h-9 rounded-r-lg bg-s4e-btn-primary-700 text-white hover:bg-s4e-btn-primary-700/90 border-l border-white/15 cursor-pointer">
+              <ChevronDown size={14} />
+            </button>
+          </div>
+        </PropertyRow>
+        <PropertyRow label="Toolbar">
+          <div className="inline-flex rounded-md overflow-hidden border border-s4e-btn-neutral-300">
+            <button type="button" aria-label="Edit"   className="px-2.5 py-1.5 hover:bg-s4e-btn-neutral-100 text-s4e-btn-neutral-700 border-r border-s4e-btn-neutral-300 cursor-pointer">
+              <Pencil size={13} />
+            </button>
+            <button type="button" aria-label="Delete" className="px-2.5 py-1.5 hover:bg-s4e-btn-neutral-100 text-s4e-btn-neutral-700 border-r border-s4e-btn-neutral-300 cursor-pointer">
+              <Trash2 size={13} />
+            </button>
+            <button type="button" aria-label="More"   className="px-2.5 py-1.5 hover:bg-s4e-btn-neutral-100 text-s4e-btn-neutral-700 cursor-pointer">
+              <MoreHorizontal size={13} />
+            </button>
+          </div>
+        </PropertyRow>
+      </div>
+    </div>
+  );
+}
+
+// ── Full width ────────────────────────────────────────────────────────────
+
+function FullWidthCard() {
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
+        <span className="text-[15px] font-semibold text-s4e-text-primary">Full Width</span>
+      </div>
+      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5">
+        <button
+          type="button"
+          className="block w-full h-10 rounded-lg bg-s4e-btn-primary-600 text-white text-sm font-medium hover:bg-s4e-btn-primary-700 transition-colors cursor-pointer"
+        >
+          Continue to checkout
+        </button>
+        <p className="mt-2 text-[11px] text-s4e-text-disabled">
+          Use sparingly — full-width buttons make sense on narrow forms and mobile drawers, rarely on desktop dashboards.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function ButtonShowcase() {
   return (
     <div className="space-y-12">
       <ButtonCard title="Contained Button" type="contained" />
       <ButtonCard title="Outlined Button"  type="outlined" />
       <ButtonCard title="Text Button"      type="text" />
+      <LoadingCard />
+      <IconOnlyCard />
+      <ButtonGroupCard />
+      <FullWidthCard />
     </div>
   );
 }
