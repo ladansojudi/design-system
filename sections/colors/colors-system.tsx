@@ -23,30 +23,12 @@ const TABS: { key: TabKey; label: string }[] = [
 
 export function ColorsSystem() {
   const { theme }       = usePreviewTheme();
-  const [active, set]   = useState<TabKey>("scales");
-  const palettes        = useMemo(() => buildPalettes(theme), [theme]);
-  const tokenCount      = palettes.reduce((a, p) => a + p.swatches.length, 0);
+  const [active, set] = useState<TabKey>("scales");
+  const palettes      = useMemo(() => buildPalettes(theme), [theme]);
 
   return (
     <CopyToastProvider>
       <div className="mt-2">
-        {/* Header strip */}
-        <div className="flex flex-wrap items-end justify-between gap-3 pb-7 border-b border-s4e-neutral-divider-10 mb-7">
-          <div>
-            <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-s4e-text-primary leading-none">
-              Color <span className="text-s4e-brand-primary-500">System</span>
-            </h2>
-            <div className="mt-2 text-[10px] uppercase tracking-widest text-s4e-text-disabled">
-              {palettes.length} palet · {tokenCount} token · WCAG 2.1
-            </div>
-          </div>
-          <div className="text-right text-[10px] uppercase tracking-widest text-s4e-text-disabled leading-relaxed">
-            Brand · Scale · Severity<br />
-            Surface · Neutral · Feedback<br />
-            <span className="text-s4e-brand-primary-500">v2.0</span>
-          </div>
-        </div>
-
         {/* Tabs */}
         <div className="flex flex-wrap gap-1 mb-9">
           {TABS.map((t) => {

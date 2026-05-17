@@ -76,6 +76,27 @@ export function fontFor(rgb: [number, number, number]): "#ffffff" | "#000000" {
     : "#000000";
 }
 
+export function rgbToHsl([r, g, b]: [number, number, number]): [number, number, number] {
+  const rn = r / 255, gn = g / 255, bn = b / 255;
+  const max = Math.max(rn, gn, bn);
+  const min = Math.min(rn, gn, bn);
+  const l = (max + min) / 2;
+  let h = 0, s = 0;
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if      (max === rn) h = ((gn - bn) / d + (gn < bn ? 6 : 0));
+    else if (max === gn) h = ((bn - rn) / d + 2);
+    else                 h = ((rn - gn) / d + 4);
+    h *= 60;
+  }
+  return [Math.round(h), Math.round(s * 100), Math.round(l * 100)];
+}
+
+export function formatHsl([h, s, l]: [number, number, number]): string {
+  return `hsl(${h}, ${s}%, ${l}%)`;
+}
+
 export type WcagKey = "aaa" | "aa" | "aal" | "fail";
 
 export function wcagKey(ratio: number): WcagKey {

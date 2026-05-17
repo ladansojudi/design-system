@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/styleguide/page-header";
 import { TypographyScale } from "@/sections/typography/typography-scale";
+import { TextColors } from "@/sections/typography/text-colors";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
@@ -17,6 +18,8 @@ export default function TypographyPage() {
         description="Type scale for the s4e.io interface. All styles use the Inter variable font. Pair the size with the role — never pick by aesthetics alone."
       />
       <TypographyScale />
+
+      <TextColors />
 
       <UseCases
         items={[
