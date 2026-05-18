@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "tokens": "node scripts/export-tokens.js",
+    "prebuild": "node scripts/export-tokens.js"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
