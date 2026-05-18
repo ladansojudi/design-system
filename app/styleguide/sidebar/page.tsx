@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
-      <PageHeader category="Organisms" title="Sidebar" description="Primary navigation panel with expanded and collapsed variants, grouped links, and a plan-upgrade footer." />
+      <PageHeader category="Organisms" title="Sidebar" status="stable" description="Primary navigation panel with expanded and collapsed variants, grouped links, and a plan-upgrade footer." />
 
       <SidebarShowcase />
 

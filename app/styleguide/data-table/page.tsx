@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
-      <PageHeader category="Organisms" title="Data Table" description="Dashboard table surface for listing threats, assets and findings — configurable header with badge, description and View all link." />
+      <PageHeader category="Organisms" title="Data Table" status="stable" description="Dashboard table surface for listing threats, assets and findings — configurable header with badge, description and View all link." />
 
       <DataTableShowcase />
 

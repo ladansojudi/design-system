@@ -7,10 +7,11 @@ import { cn } from "@/lib/utils";
 
 type Tone = "neutral" | "promo" | "warning";
 
-const TONE: Record<Tone, { bg: string; text: string; icon: React.ComponentType<{ size?: number; className?: string }> }> = {
-  neutral: { bg: "bg-s4e-neutral-grey-800",       text: "text-s4e-text-white", icon: Megaphone     },
-  promo:   { bg: "bg-s4e-brand-primary-600",      text: "text-s4e-text-white", icon: Sparkles      },
-  warning: { bg: "bg-s4e-scale-yellow-500",       text: "text-s4e-scale-yellow-800", icon: AlertTriangle },
+const TONE: Record<Tone, { bg: string; text: string; hover: string; icon: React.ComponentType<{ size?: number; className?: string }> }> = {
+  // bg + text colors are static (don't flip) so banners read the same in light + dark
+  neutral: { bg: "bg-s4e-btn-neutral-800", text: "text-s4e-text-white",     hover: "hover:bg-s4e-text-white/10",  icon: Megaphone     },
+  promo:   { bg: "bg-s4e-btn-primary-600", text: "text-s4e-text-white",     hover: "hover:bg-s4e-text-white/10",  icon: Sparkles      },
+  warning: { bg: "bg-s4e-scale-yellow-500",text: "text-s4e-btn-neutral-800",hover: "hover:bg-s4e-btn-neutral-800/10", icon: AlertTriangle },
 };
 
 function Banner({
@@ -48,7 +49,7 @@ function Banner({
           type="button"
           aria-label="Dismiss"
           onClick={() => setOpen(false)}
-          className="shrink-0 p-1 -m-1 rounded hover:bg-white/10 cursor-pointer"
+          className={cn("shrink-0 p-1 -m-1 rounded cursor-pointer", cfg.hover)}
         >
           <X size={14} />
         </button>

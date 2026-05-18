@@ -65,10 +65,10 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 type DonutSegment = { label: string; value: number; color: string };
 
 const DONUT_DATA: DonutSegment[] = [
-  { label: "Category A", value: 420, color: "#9fc5e0" },
-  { label: "Category B", value: 120, color: "#4a9cd4" },
-  { label: "Category C", value: 60,  color: "#f5a88f" },
-  { label: "Category D", value: 30,  color: "#b8d4e8" },
+  { label: "Category A", value: 420, color: "var(--s4e-data-1)" },
+  { label: "Category B", value: 120, color: "var(--s4e-data-5)" },
+  { label: "Category C", value: 60,  color: "var(--s4e-data-2)" },
+  { label: "Category D", value: 30,  color: "var(--s4e-data-3)" },
 ];
 
 function Donut({ size = 180 }: { size?: number }) {
@@ -88,7 +88,7 @@ function Donut({ size = 180 }: { size?: number }) {
 
   return (
     <svg width={size} height={size} viewBox="-90 -90 180 180" className="shrink-0">
-      <circle r={RADIUS} fill="none" stroke="#f3f5f7" strokeWidth={STROKE} />
+      <circle r={RADIUS} fill="none" stroke="var(--s4e-neutral-grey-100)" strokeWidth={STROKE} />
       {segments.map((s) => (
         <circle
           key={s.label}
@@ -207,17 +207,17 @@ function TreemapSection() {
             </div>
 
             <div className="flex gap-1 h-64">
-              <div className="flex-1 rounded-md bg-[#4a9cd4] flex items-center justify-center text-white text-[13px] font-semibold">
+              <div className="flex-1 rounded-md bg-s4e-data-5 flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold">
                 Group A · 92
               </div>
-              <div className="flex-1 rounded-md bg-[#5aa6d9] flex items-center justify-center text-white text-[13px] font-semibold">
+              <div className="flex-1 rounded-md bg-s4e-data-7 flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold">
                 Group B · 78
               </div>
               <div className="flex-1 flex flex-col gap-1">
-                <div className="flex-1 rounded-md bg-[#7ec0e6] flex items-center justify-center text-white text-[13px] font-semibold">
+                <div className="flex-1 rounded-md bg-s4e-data-1 flex items-center justify-center text-s4e-text-primary text-[13px] font-semibold">
                   Group C · 42
                 </div>
-                <div className="flex-1 rounded-md bg-[#9cd0ec] flex items-center justify-center text-white text-[13px] font-semibold">
+                <div className="flex-1 rounded-md bg-s4e-data-3 flex items-center justify-center text-s4e-text-primary text-[13px] font-semibold">
                   Group D · 28
                 </div>
               </div>
@@ -235,9 +235,9 @@ function TreemapSection() {
         ]}
       >
         <div className="flex gap-1 w-64 h-24">
-          <div className="flex-1 rounded-md bg-[#4a9cd4] flex items-center justify-center text-white text-[11px] font-semibold">A · 92</div>
-          <div className="flex-1 rounded-md bg-[#7ec0e6] flex items-center justify-center text-white text-[11px] font-semibold">B · 42</div>
-          <div className="flex-1 rounded-md bg-[#b8d4e8] flex items-center justify-center text-white text-[11px] font-semibold">C · 28</div>
+          <div className="flex-1 rounded-md bg-s4e-data-5 flex items-center justify-center text-s4e-text-on-accent text-[11px] font-semibold">A · 92</div>
+          <div className="flex-1 rounded-md bg-s4e-data-1 flex items-center justify-center text-s4e-text-primary text-[11px] font-semibold">B · 42</div>
+          <div className="flex-1 rounded-md bg-s4e-data-3 flex items-center justify-center text-s4e-text-primary text-[11px] font-semibold">C · 28</div>
         </div>
       </Anatomy>
 
@@ -417,16 +417,16 @@ function LineChart() {
             <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-40">
               <defs>
                 <linearGradient id="line-area-fill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%"   stopColor="#0f69aa" stopOpacity="0.28" />
-                  <stop offset="100%" stopColor="#0f69aa" stopOpacity="0"    />
+                  <stop offset="0%"   stopColor="var(--s4e-brand-primary-500)" stopOpacity="0.28" />
+                  <stop offset="100%" stopColor="var(--s4e-brand-primary-500)" stopOpacity="0"    />
                 </linearGradient>
               </defs>
               {/* Horizontal grid */}
               {[0, 33, 66, 100].map((y) => (
-                <line key={y} x1="0" x2="100" y1={y} y2={y} stroke="#e5e7eb" strokeWidth="0.3" strokeDasharray="1 1" />
+                <line key={y} x1="0" x2="100" y1={y} y2={y} stroke="var(--s4e-neutral-grey-200)" strokeWidth="0.3" strokeDasharray="1 1" />
               ))}
               <path d={areaPath}  fill="url(#line-area-fill)" />
-              <path d={linePath}  fill="none" stroke="#0f69aa" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
+              <path d={linePath}  fill="none" stroke="var(--s4e-brand-primary-500)" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
 
@@ -462,12 +462,12 @@ function LineSection() {
         <svg viewBox="0 0 100 60" preserveAspectRatio="none" className="w-64 h-20">
           <defs>
             <linearGradient id="anatomy-line-area" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#0f69aa" stopOpacity="0.28" />
-              <stop offset="100%" stopColor="#0f69aa" stopOpacity="0" />
+              <stop offset="0%" stopColor="var(--s4e-brand-primary-500)" stopOpacity="0.28" />
+              <stop offset="100%" stopColor="var(--s4e-brand-primary-500)" stopOpacity="0" />
             </linearGradient>
           </defs>
           <path d="M 0 50 C 20 48, 40 42, 60 25 C 80 12, 95 10, 100 8 L 100 60 L 0 60 Z" fill="url(#anatomy-line-area)" />
-          <path d="M 0 50 C 20 48, 40 42, 60 25 C 80 12, 95 10, 100 8" fill="none" stroke="#0f69aa" strokeWidth="1" strokeLinecap="round" />
+          <path d="M 0 50 C 20 48, 40 42, 60 25 C 80 12, 95 10, 100 8" fill="none" stroke="var(--s4e-brand-primary-500)" strokeWidth="1" strokeLinecap="round" />
         </svg>
       </Anatomy>
 

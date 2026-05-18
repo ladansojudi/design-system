@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-4xl mx-auto">
-      <PageHeader category="Molecules" title="Scan Type Item" description="Selectable item representing a scan configuration type." />
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
+      <PageHeader category="Molecules" title="Scan Type Item" status="alpha" description="Selectable item representing a scan configuration type." />
       <ComingSoon title="Scan Type Item" />
     </div>
   );

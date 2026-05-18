@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-4xl mx-auto space-y-10">
-      <PageHeader category="Molecules" title="Search Bar" description="Input combined with search affordance for filtering and finding content." />
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
+      <PageHeader category="Molecules" title="Search Bar" status="stable" description="Input combined with search affordance for filtering and finding content." />
 
       <SearchBarShowcase />
 

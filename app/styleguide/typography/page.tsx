@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TypographyPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-4xl mx-auto space-y-10">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
       <PageHeader
         category="Foundations"
         title="Typography"
@@ -23,22 +23,25 @@ export default function TypographyPage() {
 
       <UseCases
         items={[
-          "Use H1 (24px / 600) once per page — for the page title only.",
-          "Use H2 (18px / 600) for major section headers inside a page.",
-          "Use H3 (15px / 600) for sub-sections, card titles and showcase labels.",
-          "Use Body-1 (13px / 400) for primary body copy and table cells.",
-          "Use Body-2 (12px / 400) for helper text, table descriptions and meta.",
-          "Use Caption (10–11px / 500 uppercase) for category labels, badges and tags.",
-          "Use Mono (12px Plex Mono) for tokens, code snippets and hex values.",
+          "Use display-lg / display-md only for marketing pages and hero sections — never inside dashboards.",
+          "Use heading-h1 once per page for the page title. Drop one level per nesting depth, never skip a level.",
+          "Use heading-h2 to heading-h5 for section hierarchy. Weight grades from Bold (h1) to SemiBold (h2-h5).",
+          "Use body-md (14px) as default body copy in dense product UI. Use body-lg (16px) on marketing or reading-heavy surfaces.",
+          "Use label-md / label-sm for form labels, badges, and table column headers — short non-prose UI text.",
+          "Use caption for helper text under inputs and table descriptions.",
+          "Use overline (10px / 600 / uppercase / +0.1em tracking) for small section markers above titles.",
+          "Use code-md / code-sm (IBM Plex Mono) for tokens, code snippets, and hex values.",
         ]}
       />
 
       <Guidelines
         items={[
-          { type: "do",   text: "Match weight to importance, not visibility — 600 is for hierarchy, not for emphasis inside body copy." },
-          { type: "dont", text: "Don't introduce sizes outside the scale (\"just 14px\") — every off-scale value compounds over time." },
+          { type: "do",   text: "Match weight to importance, not visibility — Bold for h1 + display, SemiBold for h2-h5, Medium for labels, Regular for body." },
+          { type: "dont", text: "Don't introduce sizes outside the scale (\"just 17px\") — every off-scale value compounds over time." },
           { type: "do",   text: "Keep line-length between 45–75 characters for body copy. Past 90 the eye loses the next line." },
-          { type: "dont", text: "Don't all-caps body text — reserve uppercase for short captions and category labels where letter-spacing carries the load." },
+          { type: "dont", text: "Don't all-caps body text — reserve uppercase for overline and short labels where letter-spacing carries the load." },
+          { type: "do",   text: "Use negative letter-spacing (-0.01em / -0.02em) on display + h1 sizes; default tracking on everything else." },
+          { type: "dont", text: "Don't use Light (300) or thinner weights for body text — fails accessibility at small sizes." },
         ]}
       />
     </div>

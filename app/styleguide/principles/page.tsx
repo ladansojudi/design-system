@@ -30,10 +30,11 @@ const principles = [
 
 export default function PrinciplesPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-4xl mx-auto">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
       <PageHeader
         category="Foundations"
         title="Design Principles"
+        status="stable"
         description="Five principles that guide every decision in this design system — from token names to component anatomy to the way severity is represented."
       />
 

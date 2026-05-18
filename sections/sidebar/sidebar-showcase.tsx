@@ -83,7 +83,7 @@ function Sidebar({
       {/* Logo */}
       <div className="flex items-center gap-2 h-[56px] px-4 border-b border-s4e-neutral-divider-10 shrink-0">
         <div className="w-8 h-8 rounded-lg bg-s4e-brand-primary-500 flex items-center justify-center shrink-0">
-          <div className="w-3.5 h-3.5 rounded-sm bg-white/90 rotate-45" />
+          <div className="w-3.5 h-3.5 rounded-sm bg-s4e-text-white/90 rotate-45" />
         </div>
         {!collapsed && (
           <>

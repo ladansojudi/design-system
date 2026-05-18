@@ -120,7 +120,7 @@ function TextSpace({
       className={cn(
         "rounded-lg border overflow-hidden",
         isError
-          ? "border-s4e-scale-red-600 bg-s4e-scale-red-50"
+          ? "border-s4e-text-error bg-s4e-scale-red-50"
           : "border-s4e-neutral-divider-10 bg-s4e-surface-app",
         isDisabled && "opacity-40",
       )}
@@ -129,7 +129,7 @@ function TextSpace({
       <div
         className={cn(
           "px-4 py-3 h-24 text-[12px]",
-          isError ? "text-s4e-scale-red-200" : "text-s4e-text-disabled",
+          isError ? "text-s4e-text-error" : "text-s4e-text-disabled",
           isDisabled && "cursor-not-allowed",
         )}
       >

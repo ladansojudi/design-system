@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 
 export default function BannerPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-4xl mx-auto space-y-10">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
       <PageHeader
         category="Atoms"
         title="Banner"
-        status="stable"
+        status="beta"
         description="Full-width page-level notification that sits above the app shell. Used for system-wide state — outages, trials, billing — not per-feature messages."
       />
 

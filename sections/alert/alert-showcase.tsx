@@ -14,35 +14,40 @@ const VARIANT: Record<Variant, {
   border: string;
   text:   string;
   title:  string;
-  icon:   React.ComponentType<{ size?: number }>;
+  iconClass: string;
+  icon:   React.ComponentType<{ size?: number; className?: string }>;
 }> = {
   info: {
-    bg:     "bg-s4e-scale-blue-50",
-    border: "border-s4e-scale-blue-200",
-    text:   "text-s4e-scale-blue-700",
-    title:  "text-s4e-scale-blue-700",
-    icon:   Info,
+    bg:        "bg-s4e-scale-blue-50",
+    border:    "border-s4e-scale-blue-200",
+    text:      "text-s4e-text-info",
+    title:     "text-s4e-text-info",
+    iconClass: "text-s4e-text-info",
+    icon:      Info,
   },
   success: {
-    bg:     "bg-s4e-scale-green-50",
-    border: "border-s4e-scale-green-200",
-    text:   "text-s4e-scale-green-700",
-    title:  "text-s4e-scale-green-700",
-    icon:   CheckCircle2,
+    bg:        "bg-s4e-scale-green-50",
+    border:    "border-s4e-scale-green-200",
+    text:      "text-s4e-text-success",
+    title:     "text-s4e-text-success",
+    iconClass: "text-s4e-text-success",
+    icon:      CheckCircle2,
   },
   warning: {
-    bg:     "bg-s4e-scale-yellow-50",
-    border: "border-s4e-scale-yellow-200",
-    text:   "text-s4e-scale-yellow-700",
-    title:  "text-s4e-scale-yellow-700",
-    icon:   AlertTriangle,
+    bg:        "bg-s4e-scale-yellow-50",
+    border:    "border-s4e-scale-yellow-200",
+    text:      "text-s4e-text-warning",
+    title:     "text-s4e-text-warning",
+    iconClass: "text-s4e-text-warning",
+    icon:      AlertTriangle,
   },
   error: {
-    bg:     "bg-s4e-scale-red-50",
-    border: "border-s4e-scale-red-200",
-    text:   "text-s4e-scale-red-700",
-    title:  "text-s4e-scale-red-700",
-    icon:   OctagonAlert,
+    bg:        "bg-s4e-scale-red-50",
+    border:    "border-s4e-scale-red-200",
+    text:      "text-s4e-text-error",
+    title:     "text-s4e-text-error",
+    iconClass: "text-s4e-text-error",
+    icon:      OctagonAlert,
   },
 };
 
@@ -74,7 +79,7 @@ function Alert({
         cfg.bg, cfg.border,
       )}
     >
-      <Icon size={16} />
+      <Icon size={16} className={cn("shrink-0 mt-px", cfg.iconClass)} />
       <div className="flex-1 min-w-0">
         {title && (
           <div className={cn("text-[13px] font-semibold leading-tight", cfg.title)}>
@@ -93,7 +98,7 @@ function Alert({
           type="button"
           aria-label="Dismiss"
           onClick={() => setOpen(false)}
-          className={cn("shrink-0 p-1 -m-1 rounded hover:bg-black/5 cursor-pointer", cfg.text)}
+          className={cn("shrink-0 p-1 -m-1 rounded hover:bg-s4e-neutral-divider-10 cursor-pointer", cfg.text)}
         >
           <X size={14} />
         </button>

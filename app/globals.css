@@ -146,13 +146,13 @@
   --s4e-text-inverse:     #ffffff;
   --s4e-text-on-accent:   #ffffff;
 
-  /* Text — semantic colored text. Reference primitive tokens so dark-mode flips happen automatically. */
-  --s4e-text-link:    var(--s4e-brand-primary-500);
-  --s4e-text-brand:   var(--s4e-brand-primary-600);
-  --s4e-text-success: var(--s4e-scale-green-600);
-  --s4e-text-warning: var(--s4e-scale-yellow-700);
-  --s4e-text-error:   var(--s4e-scale-red-600);
-  --s4e-text-info:    var(--s4e-scale-blue-600);
+  /* Text — semantic colored text. Tuned for WCAG AA+ on each mode's primary surface. */
+  --s4e-text-link:    #0066cc;                         /* vivid blue — 5.57:1 vs white, AA */
+  --s4e-text-brand:   var(--s4e-brand-primary-600);    /* = #0F69A9 light — 5.81:1, AA */
+  --s4e-text-success: #2f7d2c;                         /* deep readable green — 5.13:1, AA */
+  --s4e-text-warning: #8e6800;                         /* amber — 5.08:1, AA, looks yellow not brown */
+  --s4e-text-error:   #b0291e;                         /* deep red — 6.60:1, AA */
+  --s4e-text-info:    var(--s4e-scale-blue-600);       /* = #2F6893 light — 5.96:1, AA */
 
   /* Shadow — light-mode elevation */
   --s4e-shadow-xs:  0 1px 2px 0 rgba(0, 0, 0, 0.04);
@@ -357,6 +357,20 @@
   --s4e-text-disabled:    #657078;
   --s4e-text-placeholder: #657078;
   --s4e-text-inverse:     #121f28;
+
+  /* Text semantic — dark mode tuned for readability without glare. All AA+ on #0F1010 */
+  --s4e-text-link:    #5da8e8; /* medium blue — 7.47:1, AAA */
+  --s4e-text-success: #6fd367; /* balanced green — 10.15:1, AAA (replaces neon lime) */
+  --s4e-text-warning: #f5bf40; /* vivid amber — 11.26:1, AAA */
+  --s4e-text-error:   #f87171; /* coral red — 6.89:1, AA (replaces washed pink) */
+  --s4e-text-info:    #67a9dc; /* medium blue — 7.52:1, AAA (replaces pale wash) */
+
+  /* Button hover-overlay backgrounds — flipped to dark tints so hover doesn't appear as a bright patch on dark page surfaces */
+  --s4e-btn-primary-50:  #062c46;
+  --s4e-btn-success-50:  #192900;
+  --s4e-btn-warning-50:  #443104;
+  --s4e-btn-error-50:    #471510;
+  --s4e-btn-neutral-100: #1d2020;
 
   /* Shadow — stronger alpha on dark surfaces */
   --s4e-shadow-xs:  0 1px 2px 0 rgba(0, 0, 0, 0.24);

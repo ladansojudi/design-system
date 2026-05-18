@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import {
   Info, ChevronLeft, ChevronRight, ChevronDown,
 } from "lucide-react";
@@ -53,16 +53,32 @@ const SEVERITY_STYLES: Record<Severity, { label: string; bg: string; accent: str
 // ── Tooltip bubble ─────────────────────────────────────────────────────────
 
 function InfoTooltip({ text }: { text: string }) {
-  const [show, setShow] = useState(false);
+  const triggerRef = useRef<HTMLSpanElement>(null);
+  const [show, setShow]     = useState(false);
+  const [coords, setCoords] = useState({ top: 0, left: 0 });
+
+  useLayoutEffect(() => {
+    if (!show || !triggerRef.current) return;
+    const rect = triggerRef.current.getBoundingClientRect();
+    setCoords({
+      top:  rect.top - 8,
+      left: rect.left + rect.width / 2,
+    });
+  }, [show]);
+
   return (
     <span
-      className="relative inline-flex items-center shrink-0"
+      ref={triggerRef}
+      className="inline-flex items-center shrink-0"
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >
       <Info size={13} className="text-s4e-text-disabled hover:text-s4e-text-primary shrink-0 cursor-help transition-colors" />
       {show && (
-        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 px-3 py-2 rounded-lg bg-s4e-neutral-grey-800 text-white text-[11px] leading-relaxed pointer-events-none z-50 shadow-lg">
+        <span
+          style={{ top: coords.top, left: coords.left }}
+          className="fixed -translate-x-1/2 -translate-y-full w-56 px-3 py-2 rounded-lg bg-s4e-neutral-grey-900 text-s4e-text-inverse text-[11px] leading-relaxed pointer-events-none z-toast shadow-s4e-lg"
+        >
           {text}
         </span>
       )}

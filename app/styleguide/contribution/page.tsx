@@ -34,10 +34,11 @@ const steps = [
 
 export default function ContributionPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-4xl mx-auto">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
       <PageHeader
         category="Foundations"
         title="Contribution Guide"
+        status="stable"
         description="Six steps every contributor follows when adding or extending a component. Skipping a step is how the system drifts out of alignment."
       />
 

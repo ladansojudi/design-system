@@ -27,13 +27,13 @@ function FilterPill({
     <div className={cn(
       "inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border text-[12px] font-medium cursor-pointer select-none transition-colors shrink-0",
       active
-        ? "border-s4e-brand-primary-500 bg-s4e-btn-primary-50 text-s4e-brand-primary-500"
+        ? "border-s4e-brand-primary-500 bg-s4e-brand-primary-50 text-s4e-brand-primary-500"
         : "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-secondary hover:border-s4e-neutral-grey-300 hover:text-s4e-text-primary",
     )}>
       {Icon && <Icon size={12} className="opacity-70 shrink-0" />}
       <span>{label}</span>
       {count !== undefined && (
-        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-white text-[10px] font-bold">
+        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-s4e-text-on-accent text-[10px] font-bold">
           {count}
         </span>
       )}

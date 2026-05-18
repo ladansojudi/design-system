@@ -10,10 +10,11 @@ export const metadata: Metadata = {
 
 export default function TextSpacePage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-4xl mx-auto space-y-10">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
       <PageHeader
         category="Organisms"
         title="Text Space"
+        status="stable"
         description="Rich-text editing surface with simple and full toolbar configurations, shown across enabled, disabled, and error states."
       />
 

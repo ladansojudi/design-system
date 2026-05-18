@@ -12,6 +12,7 @@ export default function Page() {
       <PageHeader
         category="Organisms"
         title="Chart"
+        status="stable"
         description="Dashboard chart cards — Donut, Treemap, Bar and Line/Area. Each chart has its own examples and documentation in the tabs below."
       />
 

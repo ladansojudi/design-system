@@ -30,17 +30,17 @@ function TooltipBubble({
   };
 
   const arrowPos: Record<TooltipPos, string> = {
-    top:    "top-full left-1/2 -translate-x-1/2 border-t-s4e-neutral-grey-800",
-    bottom: "bottom-full left-1/2 -translate-x-1/2 border-b-s4e-neutral-grey-800",
-    left:   "left-full top-1/2 -translate-y-1/2 border-l-s4e-neutral-grey-800",
-    right:  "right-full top-1/2 -translate-y-1/2 border-r-s4e-neutral-grey-800",
+    top:    "top-full left-1/2 -translate-x-1/2 border-t-s4e-neutral-grey-900",
+    bottom: "bottom-full left-1/2 -translate-x-1/2 border-b-s4e-neutral-grey-900",
+    left:   "left-full top-1/2 -translate-y-1/2 border-l-s4e-neutral-grey-900",
+    right:  "right-full top-1/2 -translate-y-1/2 border-r-s4e-neutral-grey-900",
   };
 
   const arrowBorder: Record<TooltipPos, string> = {
-    top:    "border-t-s4e-neutral-grey-800 border-b-transparent border-x-transparent",
-    bottom: "border-b-s4e-neutral-grey-800 border-t-transparent border-x-transparent",
-    left:   "border-l-s4e-neutral-grey-800 border-r-transparent border-y-transparent",
-    right:  "border-r-s4e-neutral-grey-800 border-l-transparent border-y-transparent",
+    top:    "border-t-s4e-neutral-grey-900 border-b-transparent border-x-transparent",
+    bottom: "border-b-s4e-neutral-grey-900 border-t-transparent border-x-transparent",
+    left:   "border-l-s4e-neutral-grey-900 border-r-transparent border-y-transparent",
+    right:  "border-r-s4e-neutral-grey-900 border-l-transparent border-y-transparent",
   };
 
   return (
@@ -53,8 +53,8 @@ function TooltipBubble({
       {show && (
         <div
           className={cn(
-            "absolute z-20 w-56 px-3 py-2 rounded-xl text-[12px] text-white leading-relaxed pointer-events-none",
-            "bg-s4e-neutral-grey-800",
+            "absolute z-dropdown w-56 px-3 py-2 rounded-xl text-[12px] text-s4e-text-inverse leading-relaxed pointer-events-none",
+            "bg-s4e-neutral-grey-900",
             bubblePos[position],
           )}
         >

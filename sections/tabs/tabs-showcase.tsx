@@ -92,7 +92,7 @@ function TabBar({
             className={cn(
               "flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-[13px] font-medium transition-colors",
               isActive
-                ? "bg-white text-s4e-text-primary shadow-sm"
+                ? "bg-s4e-surface-row text-s4e-text-primary shadow-sm"
                 : isDisabled
                 ? "text-s4e-text-disabled cursor-not-allowed"
                 : "text-s4e-text-secondary hover:text-s4e-text-primary",

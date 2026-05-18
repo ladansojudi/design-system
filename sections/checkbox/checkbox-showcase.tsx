@@ -32,7 +32,7 @@ function Checkbox({
   const fillClass = filled
     ? tone === "primary"
       ? "bg-s4e-btn-primary-600 border-s4e-btn-primary-600"
-      : "bg-s4e-neutral-grey-800 border-s4e-neutral-grey-800"
+      : "bg-s4e-btn-neutral-800 border-s4e-btn-neutral-800"
     : "border-s4e-neutral-grey-400 bg-s4e-surface-row";
 
   return (
@@ -62,8 +62,8 @@ function Checkbox({
           )}
         >
           {indeterminate
-            ? <Minus size={12} className="text-white" />
-            : checked && <Check size={12} className="text-white" />
+            ? <Minus size={12} className="text-s4e-text-on-accent" />
+            : checked && <Check size={12} className="text-s4e-text-on-accent" />
           }
         </span>
       </span>

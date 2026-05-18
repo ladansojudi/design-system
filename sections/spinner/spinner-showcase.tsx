@@ -18,7 +18,7 @@ const SIZE: Record<Size, string> = {
 const TONE: Record<Tone, string> = {
   primary: "border-s4e-brand-primary-500/25 border-t-s4e-brand-primary-500",
   neutral: "border-s4e-text-disabled/25 border-t-s4e-text-secondary",
-  white:   "border-white/30 border-t-white",
+  white:   "border-s4e-text-white/30 border-t-s4e-text-white",
 };
 
 function Spinner({
@@ -79,7 +79,7 @@ export function SpinnerShowcase() {
           <PropertyRow label="Tone">
             <Spinner tone="primary" />
             <Spinner tone="neutral" />
-            <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-s4e-neutral-grey-800">
+            <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-s4e-btn-primary-600">
               <Spinner tone="white" size="sm" />
             </div>
           </PropertyRow>
@@ -95,7 +95,7 @@ export function SpinnerShowcase() {
             <button
               type="button"
               disabled
-              className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-s4e-btn-primary-600 text-white text-[13px] font-medium cursor-wait opacity-90"
+              className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium cursor-wait opacity-90"
             >
               <Spinner size="sm" tone="white" />
               Saving…

@@ -31,7 +31,7 @@ function ModalShell({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-s4e-neutral-grey-900/50 backdrop-blur-sm"
+      className="fixed inset-0 z-modal flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
     >
       <div

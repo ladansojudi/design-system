@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-4xl mx-auto space-y-10">
-      <PageHeader category="Molecules" title="Tabs" description="Horizontal navigation pattern for switching between related views." />
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
+      <PageHeader category="Molecules" title="Tabs" status="stable" description="Horizontal navigation pattern for switching between related views." />
 
       <TabsShowcase />
 

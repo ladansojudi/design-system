@@ -54,10 +54,10 @@ const BADGE_COLORS: Record<BadgeColor, BadgeConfig> = {
   },
   primary: {
     label:  "Primary",
-    bg:     "bg-s4e-btn-primary-50",
-    text:   "text-s4e-btn-primary-600",
-    dot:    "bg-s4e-btn-primary-600",
-    border: "border-s4e-btn-primary-600",
+    bg:     "bg-s4e-brand-primary-50",
+    text:   "text-s4e-brand-primary-600",
+    dot:    "bg-s4e-brand-primary-500",
+    border: "border-s4e-brand-primary-200",
   },
 };
 

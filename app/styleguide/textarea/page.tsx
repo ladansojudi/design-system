@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 export default function TextareaPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-4xl mx-auto space-y-10">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
       <PageHeader
         category="Atoms"
         title="Textarea"
-        status="stable"
+        status="beta"
         description="Multi-line text input. Use when the response is longer than one short phrase — descriptions, notes, reproduction steps."
       />
 

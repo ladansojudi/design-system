@@ -17,13 +17,14 @@ const navGroups: NavGroup[] = [
   {
     label: "FOUNDATIONS",
     items: [
-      { slug: "principles",      label: "Design Principles" },
-      { slug: "accessibility",   label: "Accessibility" },
-      { slug: "contribution",    label: "Contribution Guide" },
-      { slug: "colors",          label: "Colors & tokens" },
-      { slug: "typography",      label: "Typography" },
-      { slug: "spacing",         label: "Spacing & grid" },
-      { slug: "layout-behavior", label: "Layout & Behavior" },
+      { slug: "principles",       label: "Design Principles" },
+      { slug: "accessibility",    label: "Accessibility" },
+      { slug: "contribution",     label: "Contribution Guide" },
+      { slug: "component-status", label: "Component Status" },
+      { slug: "colors",           label: "Colors & tokens" },
+      { slug: "typography",       label: "Typography" },
+      { slug: "spacing",          label: "Spacing & grid" },
+      { slug: "layout-behavior",  label: "Layout & Behavior" },
     ],
   },
   {
