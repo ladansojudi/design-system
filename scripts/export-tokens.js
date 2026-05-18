@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 /**
- * Token export — reads design tokens from app/globals.css and writes
- * platform-specific outputs to public/tokens/.
+ * Token export — generates token files from app/globals.css.
  *
  * Outputs:
- *   public/tokens/tokens.css   — raw CSS variables (copied from :root)
- *   public/tokens/tokens.swift — Swift / iOS extensions
- *   public/tokens/tokens.xml   — Android resources
+ *   public/tokens/<slug>/tokens.css   — only the tokens used by <slug>
+ *   public/tokens/<slug>/tokens.swift
+ *   public/tokens/<slug>/tokens.xml
+ *
+ * Each <slug> matches a route under app/styleguide/<slug>. The script scans
+ * the matching sections/<slug>/ source (and the page itself) for s4e-*
+ * token references and emits a per-component subset.
  *
  * Run manually: `npm run tokens`
  * Auto-runs:   `npm run build` (via the prebuild script in package.json)
@@ -15,11 +18,13 @@
 const fs   = require("fs");
 const path = require("path");
 
-const ROOT     = path.resolve(__dirname, "..");
-const SRC_CSS  = path.join(ROOT, "app", "globals.css");
-const OUT_DIR  = path.join(ROOT, "public", "tokens");
+const ROOT       = path.resolve(__dirname, "..");
+const SRC_CSS    = path.join(ROOT, "app", "globals.css");
+const STYLEGUIDE = path.join(ROOT, "app", "styleguide");
+const SECTIONS   = path.join(ROOT, "sections");
+const OUT_DIR    = path.join(ROOT, "public", "tokens");
 
-// ── 1. Spacing scale (mirrors components/styleguide/spacing-data.ts) ──────
+// ── Spacing scale (mirrors components/styleguide/spacing-data.ts) ─────────
 
 const SPACING = [
   ["space-1",   4],
@@ -33,7 +38,9 @@ const SPACING = [
   ["space-16", 64],
 ];
 
-// ── 2. Read + parse :root block from globals.css ──────────────────────────
+const SPACING_INDEX = new Map(SPACING.map((s) => [s[0], s[1]]));
+
+// ── Read + parse :root block from globals.css ─────────────────────────────
 
 const css = fs.readFileSync(SRC_CSS, "utf8");
 
@@ -43,198 +50,219 @@ if (!match) {
   console.error("export-tokens: could not find :root block in globals.css");
   process.exit(1);
 }
-
 const rootBody = match[1];
 
-// Parse each `--token: value;` line
-const tokens = [];
-const TOKEN_RE = /--([a-z0-9-]+)\s*:\s*([^;]+);/g;
+// Parse all --s4e-* tokens
+const ALL_TOKENS = [];
+const TOKEN_RE   = /--([a-z0-9-]+)\s*:\s*([^;]+);/g;
 let m;
 while ((m = TOKEN_RE.exec(rootBody)) !== null) {
   const name  = m[1].trim();
   const value = m[2].trim();
   if (!name.startsWith("s4e-")) continue;
-  tokens.push({ name, value });
+  ALL_TOKENS.push({ name, value });
 }
 
-// Build maps by category
-const colors    = [];   // solid hex tokens — Swift UIColor + Android color
-const zIndex    = [];   // numeric integers — Android dimen
-const durations = [];   // Xms → Swift TimeInterval + Android dimen
-
-for (const { name, value } of tokens) {
-  const localName = name.replace(/^s4e-/, "");
-
-  // Skip shadow / easing (multi-value, format-specific)
-  if (localName.startsWith("shadow-"))      continue;
-  if (localName.startsWith("motion-ease-")) continue;
-
-  // Z-index: numeric integer
-  if (localName.startsWith("z-")) {
-    zIndex.push({ name: localName, value: Number(value) });
-    continue;
-  }
-
-  // Motion duration: "150ms"
-  if (localName.startsWith("motion-duration-")) {
-    const ms = parseInt(value, 10);
-    durations.push({ name: localName, ms });
-    continue;
-  }
-
-  // Solid color (#hex)
-  const hex = value.match(/^#[0-9a-fA-F]{6}$/);
-  if (hex) {
-    colors.push({ name: localName, hex: value.toUpperCase() });
-    continue;
-  }
-
-  // rgba colors with alpha — skip (Swift/Android need different handling)
+// Categorize one token: returns "color" | "z" | "duration" | null (skip)
+function categorize({ name, value }) {
+  const local = name.replace(/^s4e-/, "");
+  if (local.startsWith("shadow-"))      return null;
+  if (local.startsWith("motion-ease-")) return null;
+  if (local.startsWith("z-"))               return "z";
+  if (local.startsWith("motion-duration-")) return "duration";
+  if (/^#[0-9a-fA-F]{6}$/.test(value))      return "color";
+  return null; // rgba, etc.
 }
 
-// ── 3. Naming helpers ─────────────────────────────────────────────────────
+// ── Naming helpers ────────────────────────────────────────────────────────
 
 function toCamel(name) {
-  return name
-    .split("-")
-    .map((p, i) => (i === 0 ? p : p[0].toUpperCase() + p.slice(1)))
-    .join("");
+  return name.split("-").map((p, i) => (i === 0 ? p : p[0].toUpperCase() + p.slice(1))).join("");
+}
+function toSnake(name) { return name.replace(/-/g, "_"); }
+function escapeXml(s)  { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+// ── File walker — collect source files for a given slug ───────────────────
+
+function walk(dir, out = []) {
+  let entries;
+  try { entries = fs.readdirSync(dir, { withFileTypes: true }); }
+  catch { return out; }
+  for (const e of entries) {
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) walk(p, out);
+    else if (/\.(tsx?|jsx?)$/.test(e.name)) out.push(p);
+  }
+  return out;
 }
 
-function toSnake(name) {
-  return name.replace(/-/g, "_");
+function sourcesForSlug(slug) {
+  const files = [];
+  walk(path.join(SECTIONS, slug), files);
+  const pageFile = path.join(STYLEGUIDE, slug, "page.tsx");
+  if (fs.existsSync(pageFile)) files.push(pageFile);
+  return files;
 }
 
-// ── 4. CSS output (raw copy of :root block, isolated to a single file) ────
+// ── Token extraction from source ──────────────────────────────────────────
 
-function buildCss() {
+function extractTokensUsed(files) {
+  const used = new Set();
+  const spaces = new Set();
+  for (const file of files) {
+    const text = fs.readFileSync(file, "utf8");
+
+    // Tailwind class patterns: text-s4e-X, bg-s4e-X, border-s4e-X, ring-s4e-X,
+    // shadow-s4e-X, fill-s4e-X, stroke-s4e-X, divide-s4e-X, ...
+    const classMatches = text.matchAll(/(?:^|[^a-z])s4e-([a-z0-9-]+)/g);
+    for (const m of classMatches) used.add(`s4e-${m[1]}`);
+
+    // CSS var() references
+    const vars = text.matchAll(/var\(--s4e-([a-z0-9-]+)\)/g);
+    for (const m of vars) used.add(`s4e-${m[1]}`);
+
+    // Spacing — Tailwind class numbers like p-4, gap-2, mt-6
+    const spaceMatches = text.matchAll(/(?:^|[^a-z])(?:p|px|py|pt|pr|pb|pl|m|mx|my|mt|mr|mb|ml|gap|space-y|space-x|w|h|min-w|min-h|max-w|max-h)-(\d+(?:\.\d+)?)\b/g);
+    for (const m of spaceMatches) {
+      const n = m[1];
+      if (SPACING_INDEX.has(`space-${n}`)) spaces.add(`space-${n}`);
+    }
+  }
+  return { tokenNames: used, spaceNames: spaces };
+}
+
+// ── Builders for the three output formats ─────────────────────────────────
+
+function buildCss(tokens, spaces) {
   let out = "";
-  out += "/* Design System — Tokens (CSS Custom Properties)\n";
+  out += "/* Design System — Tokens used by this component\n";
   out += " * Auto-generated by scripts/export-tokens.js — do not edit by hand.\n";
-  out += " * Source: app/globals.css (:root block)\n";
-  out += " */\n\n";
-  out += ":root {\n";
+  out += " */\n\n:root {\n";
   for (const { name, value } of tokens) {
     out += `  --${name}: ${value};\n`;
   }
+  for (const n of spaces) {
+    out += `  --${n}: ${SPACING_INDEX.get(n)}px;\n`;
+  }
   out += "}\n";
   return out;
 }
 
-// ── 5. Swift / iOS output ─────────────────────────────────────────────────
+function buildSwift(tokens, spaces) {
+  const colors    = tokens.filter((t) => categorize(t) === "color");
+  const zIndex    = tokens.filter((t) => categorize(t) === "z");
+  const durations = tokens.filter((t) => categorize(t) === "duration");
 
-function buildSwift() {
   let out = "";
-  out += "// Design System — Tokens for iOS\n";
+  out += "// Design System — Tokens used by this component\n";
   out += "// Auto-generated by scripts/export-tokens.js — do not edit by hand.\n";
-  out += "//\n";
-  out += "// Usage:\n";
-  out += "//   view.backgroundColor = .severityCritical\n";
-  out += "//   constraint.constant  = .space4\n";
-  out += "//\n";
-  out += "// UIColor(hex:) is assumed to exist in your project. If not, add it once:\n";
-  out += "//   extension UIColor {\n";
-  out += "//     convenience init(hex: String) {\n";
-  out += "//       let v = UInt64(hex.dropFirst(), radix: 16) ?? 0\n";
-  out += "//       self.init(red:   CGFloat((v >> 16) & 0xff) / 255,\n";
-  out += "//                 green: CGFloat((v >>  8) & 0xff) / 255,\n";
-  out += "//                 blue:  CGFloat( v        & 0xff) / 255,\n";
-  out += "//                 alpha: 1)\n";
-  out += "//     }\n";
-  out += "//   }\n\n";
-  out += "import UIKit\n\n";
+  out += "// Assumes UIColor(hex:) initializer exists in your project.\n\n";
+  out += "import UIKit\n";
 
-  // Colors
-  out += "// MARK: - Colors\n\n";
-  out += "extension UIColor {\n";
-  for (const { name, hex } of colors) {
-    out += `    static let ${toCamel(name)} = UIColor(hex: "${hex}")\n`;
+  if (colors.length) {
+    out += "\n// MARK: - Colors\n\nextension UIColor {\n";
+    for (const { name, value } of colors) {
+      out += `    static let ${toCamel(name.replace(/^s4e-/, ""))} = UIColor(hex: "${value.toUpperCase()}")\n`;
+    }
+    out += "}\n";
   }
-  out += "}\n\n";
-
-  // Spacing
-  out += "// MARK: - Spacing\n\n";
-  out += "extension CGFloat {\n";
-  for (const [name, px] of SPACING) {
-    out += `    static let ${toCamel(name)}: CGFloat = ${px}\n`;
+  if (spaces.size) {
+    out += "\n// MARK: - Spacing\n\nextension CGFloat {\n";
+    for (const n of spaces) {
+      out += `    static let ${toCamel(n)}: CGFloat = ${SPACING_INDEX.get(n)}\n`;
+    }
+    out += "}\n";
   }
-  out += "}\n\n";
-
-  // Z-index layers
-  out += "// MARK: - Z-Index Layers\n\n";
-  out += "extension Int {\n";
-  for (const { name, value } of zIndex) {
-    out += `    static let ${toCamel(name)}: Int = ${value}\n`;
+  if (zIndex.length) {
+    out += "\n// MARK: - Z-Index Layers\n\nextension Int {\n";
+    for (const { name, value } of zIndex) {
+      out += `    static let ${toCamel(name.replace(/^s4e-/, ""))}: Int = ${Number(value)}\n`;
+    }
+    out += "}\n";
   }
-  out += "}\n\n";
-
-  // Motion durations (seconds for Swift)
-  out += "// MARK: - Motion Durations (TimeInterval, seconds)\n\n";
-  out += "extension TimeInterval {\n";
-  for (const { name, ms } of durations) {
-    const seconds = (ms / 1000).toFixed(3).replace(/0+$/, "").replace(/\.$/, "");
-    out += `    static let ${toCamel(name)}: TimeInterval = ${seconds}\n`;
+  if (durations.length) {
+    out += "\n// MARK: - Motion Durations (TimeInterval, seconds)\n\nextension TimeInterval {\n";
+    for (const { name, value } of durations) {
+      const ms = parseInt(value, 10);
+      const s  = (ms / 1000).toFixed(3).replace(/0+$/, "").replace(/\.$/, "");
+      out += `    static let ${toCamel(name.replace(/^s4e-/, ""))}: TimeInterval = ${s}\n`;
+    }
+    out += "}\n";
   }
-  out += "}\n";
-
   return out;
 }
 
-// ── 6. Android XML output ─────────────────────────────────────────────────
+function buildAndroidXml(tokens, spaces) {
+  const colors    = tokens.filter((t) => categorize(t) === "color");
+  const zIndex    = tokens.filter((t) => categorize(t) === "z");
+  const durations = tokens.filter((t) => categorize(t) === "duration");
 
-function escapeXml(s) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
+  let out = '<?xml version="1.0" encoding="utf-8"?>\n';
+  out += "<!-- Design System — Tokens used by this component\n";
+  out += "     Auto-generated by scripts/export-tokens.js — do not edit by hand. -->\n";
+  out += "<resources>\n";
 
-function buildAndroidXml() {
-  let out = "";
-  out += '<?xml version="1.0" encoding="utf-8"?>\n';
-  out += "<!-- Design System — Tokens for Android\n";
-  out += "     Auto-generated by scripts/export-tokens.js — do not edit by hand.\n";
-  out += "     Drop into res/values/design_tokens.xml. -->\n";
-  out += "<resources>\n\n";
-
-  out += "    <!-- Colors -->\n";
-  for (const { name, hex } of colors) {
-    out += `    <color name="${toSnake(name)}">${escapeXml(hex)}</color>\n`;
+  if (colors.length) {
+    out += "\n    <!-- Colors -->\n";
+    for (const { name, value } of colors) {
+      out += `    <color name="${toSnake(name.replace(/^s4e-/, ""))}">${escapeXml(value.toUpperCase())}</color>\n`;
+    }
   }
-
-  out += "\n    <!-- Spacing -->\n";
-  for (const [name, px] of SPACING) {
-    out += `    <dimen name="${toSnake(name)}">${px}dp</dimen>\n`;
+  if (spaces.size) {
+    out += "\n    <!-- Spacing -->\n";
+    for (const n of spaces) {
+      out += `    <dimen name="${toSnake(n)}">${SPACING_INDEX.get(n)}dp</dimen>\n`;
+    }
   }
-
-  out += "\n    <!-- Z-Index Layers -->\n";
-  for (const { name, value } of zIndex) {
-    out += `    <integer name="${toSnake(name)}">${value}</integer>\n`;
+  if (zIndex.length) {
+    out += "\n    <!-- Z-Index Layers -->\n";
+    for (const { name, value } of zIndex) {
+      out += `    <integer name="${toSnake(name.replace(/^s4e-/, ""))}">${Number(value)}</integer>\n`;
+    }
   }
-
-  out += "\n    <!-- Motion Durations (milliseconds) -->\n";
-  for (const { name, ms } of durations) {
-    out += `    <integer name="${toSnake(name)}">${ms}</integer>\n`;
+  if (durations.length) {
+    out += "\n    <!-- Motion Durations (milliseconds) -->\n";
+    for (const { name, value } of durations) {
+      const ms = parseInt(value, 10);
+      out += `    <integer name="${toSnake(name.replace(/^s4e-/, ""))}">${ms}</integer>\n`;
+    }
   }
-
   out += "\n</resources>\n";
   return out;
 }
 
-// ── 7. Write files ────────────────────────────────────────────────────────
+// ── Main: walk slugs under app/styleguide/ ────────────────────────────────
 
-fs.mkdirSync(OUT_DIR, { recursive: true });
-
-const targets = [
-  ["tokens.css",   buildCss()],
-  ["tokens.swift", buildSwift()],
-  ["tokens.xml",   buildAndroidXml()],
-];
-
-for (const [filename, content] of targets) {
-  fs.writeFileSync(path.join(OUT_DIR, filename), content, "utf8");
+function isSlugDir(name) {
+  return !name.startsWith("_") && !name.startsWith(".") && !name.endsWith(".tsx") && !name.endsWith(".ts");
 }
 
-console.log("✓ export-tokens —",
-  colors.length, "colors,",
-  SPACING.length, "spacing,",
-  zIndex.length, "z-index,",
-  durations.length, "durations →",
-  path.relative(ROOT, OUT_DIR) + "/");
+const slugs = fs.readdirSync(STYLEGUIDE, { withFileTypes: true })
+  .filter((e) => e.isDirectory() && isSlugDir(e.name))
+  .map((e) => e.name);
+
+let total = 0;
+fs.mkdirSync(OUT_DIR, { recursive: true });
+
+for (const slug of slugs) {
+  const sources = sourcesForSlug(slug);
+  if (sources.length === 0) continue;
+
+  const { tokenNames, spaceNames } = extractTokensUsed(sources);
+  const tokens = ALL_TOKENS.filter((t) => tokenNames.has(t.name));
+
+  // Skip slugs that don't actually use any design-system token
+  if (tokens.length === 0 && spaceNames.size === 0) continue;
+
+  const outDir = path.join(OUT_DIR, slug);
+  fs.mkdirSync(outDir, { recursive: true });
+
+  fs.writeFileSync(path.join(outDir, "tokens.css"),   buildCss(tokens, spaceNames));
+  fs.writeFileSync(path.join(outDir, "tokens.swift"), buildSwift(tokens, spaceNames));
+  fs.writeFileSync(path.join(outDir, "tokens.xml"),   buildAndroidXml(tokens, spaceNames));
+
+  total++;
+  console.log(`  ${slug}: ${tokens.length} tokens + ${spaceNames.size} spacing`);
+}
+
+console.log(`✓ export-tokens — generated per-component tokens for ${total} slugs → ${path.relative(ROOT, OUT_DIR)}/`);

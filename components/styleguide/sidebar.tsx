@@ -25,7 +25,6 @@ const navGroups: NavGroup[] = [
       { slug: "typography",       label: "Typography" },
       { slug: "spacing",          label: "Spacing & grid" },
       { slug: "layout-behavior",  label: "Layout & Behavior" },
-      { slug: "token-export",     label: "Token Export" },
     ],
   },
   {

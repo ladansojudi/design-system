@@ -79,21 +79,21 @@ const LABELS: Record<Format, string> = {
 function HighlightedCss({ palettes }: { palettes: Palette[] }) {
   return (
     <>
-      <span className="text-s4e-text-disabled italic">{`/* Design System — Color Tokens */`}</span>
+      <span className="text-[#8a8a8a] italic">{`/* Design System — Color Tokens */`}</span>
       {"\n"}
       <span className="text-s4e-brand-primary-500">:root</span>
       {" {"}
       {"\n"}
       {palettes.map((p) => (
         <span key={p.slug}>
-          {"  "}<span className="text-s4e-text-disabled italic">{`/* ${p.name} */`}</span>{"\n"}
+          {"  "}<span className="text-[#8a8a8a] italic">{`/* ${p.name} */`}</span>{"\n"}
           {p.swatches.map((s) => (
             <span key={s.name}>
               {"  "}
               <span className="text-s4e-brand-secondary-500">{tokenVar(s)}</span>
-              <span className="text-s4e-text-disabled">: </span>
-              <span className="text-s4e-text-primary">{s.hex}</span>
-              <span className="text-s4e-text-disabled">;</span>
+              <span className="text-[#8a8a8a]">: </span>
+              <span className="text-s4e-text-white">{s.hex}</span>
+              <span className="text-[#8a8a8a]">;</span>
               {"\n"}
             </span>
           ))}
@@ -138,7 +138,7 @@ export function ExportPanel({ palettes }: { palettes: Palette[] }) {
         ))}
       </div>
 
-      <div className="relative rounded-md border border-s4e-neutral-divider-10 bg-s4e-neutral-grey-900 overflow-hidden">
+      <div className="relative rounded-md border border-s4e-neutral-divider-10 bg-s4e-btn-neutral-800 overflow-hidden">
         <button
           type="button"
           onClick={() => copy(plain, `${LABELS[format]} kopyalandı`)}
@@ -146,7 +146,7 @@ export function ExportPanel({ palettes }: { palettes: Palette[] }) {
         >
           Tümünü Kopyala
         </button>
-        <pre className="px-8 py-7 overflow-x-auto text-[12px] leading-7 font-mono text-s4e-neutral-grey-300 whitespace-pre">
+        <pre className="px-8 py-7 overflow-x-auto text-[12px] leading-7 font-mono text-s4e-text-white whitespace-pre">
           {format === "css" ? <HighlightedCss palettes={palettes} /> : plain}
         </pre>
       </div>
