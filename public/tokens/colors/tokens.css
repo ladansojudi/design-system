@@ -22,7 +22,6 @@
   --s4e-scale-red-600: #8e2a1f;
   --s4e-neutral-grey-100: #f7f8f8;
   --s4e-neutral-grey-200: #f4f5f5;
-  --s4e-neutral-grey-300: #dfe2e2;
   --s4e-neutral-grey-900: #131515;
   --s4e-neutral-divider-10: rgba(0, 0, 0, 0.1);
   --s4e-neutral-divider-20: rgba(0, 0, 0, 0.2);
@@ -39,6 +38,7 @@
   --s4e-text-secondary: #657078;
   --s4e-text-disabled: #a7adb2;
   --s4e-text-white: #ffffff;
+  --s4e-btn-neutral-800: #202323;
   --space-2: 8px;
   --space-1: 4px;
   --space-4: 16px;

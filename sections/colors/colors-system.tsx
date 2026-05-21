@@ -9,16 +9,14 @@ import { ScalesPanel } from "@/sections/colors/scales-panel";
 import { TokensPanel } from "@/sections/colors/tokens-panel";
 import { WcagPanel } from "@/sections/colors/wcag-panel";
 import { PreviewPanel } from "@/sections/colors/preview-panel";
-import { ExportPanel } from "@/sections/colors/export-panel";
 
-type TabKey = "scales" | "tokens" | "wcag" | "preview" | "export";
+type TabKey = "scales" | "tokens" | "wcag" | "preview";
 
 const TABS: { key: TabKey; label: string }[] = [
   { key: "scales",  label: "Scales"  },
   { key: "tokens",  label: "Tokens"  },
   { key: "wcag",    label: "WCAG"    },
   { key: "preview", label: "Preview" },
-  { key: "export",  label: "Export"  },
 ];
 
 export function ColorsSystem() {
@@ -56,7 +54,6 @@ export function ColorsSystem() {
         {active === "tokens"  && <TokensPanel  palettes={palettes} />}
         {active === "wcag"    && <WcagPanel    palettes={palettes} />}
         {active === "preview" && <PreviewPanel palettes={palettes} />}
-        {active === "export"  && <ExportPanel  palettes={palettes} />}
       </div>
     </CopyToastProvider>
   );

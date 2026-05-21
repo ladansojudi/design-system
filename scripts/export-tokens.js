@@ -40,6 +40,18 @@ const SPACING = [
 
 const SPACING_INDEX = new Map(SPACING.map((s) => [s[0], s[1]]));
 
+// Prose / documentation / placeholder pages — no meaningful component tokens
+// to export, so they're skipped. TokenExportTabs auto-hides when files are
+// absent (the fetch 404s).
+const EXCLUDE = new Set([
+  "principles",
+  "accessibility",
+  "contribution",
+  "component-status",
+  "scan-type-item",
+  "threat-row",
+]);
+
 // ── Read + parse :root block from globals.css ─────────────────────────────
 
 const css = fs.readFileSync(SRC_CSS, "utf8");
@@ -245,6 +257,7 @@ let total = 0;
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 for (const slug of slugs) {
+  if (EXCLUDE.has(slug)) continue;
   const sources = sourcesForSlug(slug);
   if (sources.length === 0) continue;
 

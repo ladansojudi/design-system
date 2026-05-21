@@ -2,6 +2,7 @@
 
 import { TopBar } from "@/components/styleguide/top-bar";
 import { TokenExportTabs } from "@/components/styleguide/token-export-tabs";
+import { DeveloperNotes } from "@/components/styleguide/developer-notes";
 
 export function ContentWrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export function ContentWrapper({ children }: { children: React.ReactNode }) {
       <TopBar />
       {children}
       <div className="px-4 sm:px-6 lg:px-8 pb-10 sm:pb-16 max-w-5xl mx-auto">
+        <DeveloperNotes />
         <TokenExportTabs />
       </div>
     </main>

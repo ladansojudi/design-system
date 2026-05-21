@@ -48,6 +48,12 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
+    label: "PATTERNS",
+    items: [
+      { slug: "dashboard", label: "Dashboard" },
+    ],
+  },
+  {
     label: "MOLECULES",
     items: [
       { slug: "search-bar", label: "Search bar" },

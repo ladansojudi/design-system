@@ -26,7 +26,6 @@ extension UIColor {
     static let scaleRed600 = UIColor(hex: "#8E2A1F")
     static let neutralGrey100 = UIColor(hex: "#F7F8F8")
     static let neutralGrey200 = UIColor(hex: "#F4F5F5")
-    static let neutralGrey300 = UIColor(hex: "#DFE2E2")
     static let neutralGrey900 = UIColor(hex: "#131515")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
     static let surfacePage = UIColor(hex: "#FCFDFD")
@@ -41,6 +40,7 @@ extension UIColor {
     static let textSecondary = UIColor(hex: "#657078")
     static let textDisabled = UIColor(hex: "#A7ADB2")
     static let textWhite = UIColor(hex: "#FFFFFF")
+    static let btnNeutral800 = UIColor(hex: "#202323")
 }
 
 // MARK: - Spacing
