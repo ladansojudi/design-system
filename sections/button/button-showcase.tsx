@@ -4,7 +4,7 @@ import { ChevronDown, Download, Globe, MoreHorizontal, Pencil, Trash2 } from "lu
 import { cn } from "@/lib/utils";
 
 type State = "Enabled" | "Hover" | "Disabled";
-type Size = "Small" | "Medium";
+type Size = "Small" | "Medium" | "Large";
 type IconPos = "none" | "left" | "right";
 type ButtonType = "contained" | "outlined" | "text";
 
@@ -19,99 +19,99 @@ const COLOR_VARIANTS: ColorVariant[] = [
   {
     name: "Default",
     contained: {
-      Enabled:  "bg-s4e-btn-neutral-700 text-white",
-      Hover:    "bg-s4e-btn-neutral-800 text-white",
-      Disabled: "bg-s4e-btn-neutral-700 text-white opacity-40 cursor-not-allowed",
+      Enabled:  "bg-s4e-btn-neutral-700 text-s4e-text-on-accent",
+      Hover:    "bg-s4e-btn-neutral-800 text-s4e-text-on-accent",
+      Disabled: "bg-s4e-btn-neutral-700 text-s4e-text-on-accent opacity-40 cursor-not-allowed",
     },
     outlined: {
-      Enabled:  "border border-s4e-btn-neutral-600 text-s4e-btn-neutral-700 bg-transparent",
-      Hover:    "border border-s4e-btn-neutral-700 text-s4e-btn-neutral-800 bg-s4e-btn-neutral-100",
-      Disabled: "border border-s4e-btn-neutral-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
+      Enabled:  "border border-s4e-neutral-grey-400 text-s4e-text-primary bg-transparent",
+      Hover:    "border border-s4e-neutral-grey-500 text-s4e-text-primary bg-s4e-neutral-grey-100",
+      Disabled: "border border-s4e-neutral-grey-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
     },
     text: {
-      Enabled:  "text-s4e-btn-neutral-700",
-      Hover:    "text-s4e-btn-neutral-800 bg-s4e-btn-neutral-100",
+      Enabled:  "text-s4e-text-primary",
+      Hover:    "text-s4e-text-primary bg-s4e-neutral-grey-100",
       Disabled: "text-s4e-text-disabled opacity-40 cursor-not-allowed",
     },
   },
   {
     name: "Primary",
     contained: {
-      Enabled:  "bg-s4e-btn-primary-600 text-white",
-      Hover:    "bg-s4e-btn-primary-700 text-white",
-      Disabled: "bg-s4e-btn-primary-600 text-white opacity-40 cursor-not-allowed",
+      Enabled:  "bg-s4e-btn-primary-600 text-s4e-text-on-accent",
+      Hover:    "bg-s4e-btn-primary-700 text-s4e-text-on-accent",
+      Disabled: "bg-s4e-btn-primary-600 text-s4e-text-on-accent opacity-40 cursor-not-allowed",
     },
     outlined: {
-      Enabled:  "border border-s4e-btn-primary-600 text-s4e-btn-primary-600 bg-transparent",
-      Hover:    "border border-s4e-btn-primary-700 text-s4e-btn-primary-700 bg-s4e-btn-primary-50",
-      Disabled: "border border-s4e-btn-neutral-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
+      Enabled:  "border border-s4e-text-link text-s4e-text-link bg-transparent",
+      Hover:    "border border-s4e-text-link text-s4e-text-link bg-s4e-brand-primary-50",
+      Disabled: "border border-s4e-neutral-grey-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
     },
     text: {
-      Enabled:  "text-s4e-btn-primary-600",
-      Hover:    "text-s4e-btn-primary-700 bg-s4e-btn-primary-50",
+      Enabled:  "text-s4e-text-link",
+      Hover:    "text-s4e-text-link bg-s4e-brand-primary-50",
       Disabled: "text-s4e-text-disabled opacity-40 cursor-not-allowed",
     },
   },
   {
     name: "Success",
     contained: {
-      Enabled:  "bg-s4e-btn-success-600 text-white",
-      Hover:    "bg-s4e-btn-success-700 text-white",
-      Disabled: "bg-s4e-btn-success-600 text-white opacity-40 cursor-not-allowed",
+      Enabled:  "bg-s4e-btn-success-600 text-s4e-text-on-accent",
+      Hover:    "bg-s4e-btn-success-700 text-s4e-text-on-accent",
+      Disabled: "bg-s4e-btn-success-600 text-s4e-text-on-accent opacity-40 cursor-not-allowed",
     },
     outlined: {
-      Enabled:  "border border-s4e-btn-success-600 text-s4e-btn-success-600 bg-transparent",
-      Hover:    "border border-s4e-btn-success-700 text-s4e-btn-success-700 bg-s4e-btn-success-50",
-      Disabled: "border border-s4e-btn-neutral-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
+      Enabled:  "border border-s4e-text-success text-s4e-text-success bg-transparent",
+      Hover:    "border border-s4e-text-success text-s4e-text-success bg-s4e-scale-green-50",
+      Disabled: "border border-s4e-neutral-grey-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
     },
     text: {
-      Enabled:  "text-s4e-btn-success-600",
-      Hover:    "text-s4e-btn-success-700 bg-s4e-btn-success-50",
+      Enabled:  "text-s4e-text-success",
+      Hover:    "text-s4e-text-success bg-s4e-scale-green-50",
       Disabled: "text-s4e-text-disabled opacity-40 cursor-not-allowed",
     },
   },
   {
     name: "Warning",
     contained: {
-      Enabled:  "bg-s4e-btn-warning-600 text-white",
-      Hover:    "bg-s4e-btn-warning-700 text-white",
-      Disabled: "bg-s4e-btn-warning-600 text-white opacity-40 cursor-not-allowed",
+      Enabled:  "bg-s4e-btn-warning-600 text-s4e-text-on-accent",
+      Hover:    "bg-s4e-btn-warning-700 text-s4e-text-on-accent",
+      Disabled: "bg-s4e-btn-warning-600 text-s4e-text-on-accent opacity-40 cursor-not-allowed",
     },
     outlined: {
-      Enabled:  "border border-s4e-btn-warning-600 text-s4e-btn-warning-600 bg-transparent",
-      Hover:    "border border-s4e-btn-warning-700 text-s4e-btn-warning-700 bg-s4e-btn-warning-50",
-      Disabled: "border border-s4e-btn-neutral-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
+      Enabled:  "border border-s4e-text-warning text-s4e-text-warning bg-transparent",
+      Hover:    "border border-s4e-text-warning text-s4e-text-warning bg-s4e-scale-yellow-50",
+      Disabled: "border border-s4e-neutral-grey-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
     },
     text: {
-      Enabled:  "text-s4e-btn-warning-600",
-      Hover:    "text-s4e-btn-warning-700 bg-s4e-btn-warning-50",
+      Enabled:  "text-s4e-text-warning",
+      Hover:    "text-s4e-text-warning bg-s4e-scale-yellow-50",
       Disabled: "text-s4e-text-disabled opacity-40 cursor-not-allowed",
     },
   },
   {
     name: "Error",
     contained: {
-      Enabled:  "bg-s4e-btn-error-600 text-white",
-      Hover:    "bg-s4e-btn-error-700 text-white",
-      Disabled: "bg-s4e-btn-error-600 text-white opacity-40 cursor-not-allowed",
+      Enabled:  "bg-s4e-btn-error-600 text-s4e-text-on-accent",
+      Hover:    "bg-s4e-btn-error-700 text-s4e-text-on-accent",
+      Disabled: "bg-s4e-btn-error-600 text-s4e-text-on-accent opacity-40 cursor-not-allowed",
     },
     outlined: {
-      Enabled:  "border border-s4e-btn-error-600 text-s4e-btn-error-600 bg-transparent",
-      Hover:    "border border-s4e-btn-error-700 text-s4e-btn-error-700 bg-s4e-btn-error-50",
-      Disabled: "border border-s4e-btn-neutral-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
+      Enabled:  "border border-s4e-text-error text-s4e-text-error bg-transparent",
+      Hover:    "border border-s4e-text-error text-s4e-text-error bg-s4e-scale-red-50",
+      Disabled: "border border-s4e-neutral-grey-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
     },
     text: {
-      Enabled:  "text-s4e-btn-error-600",
-      Hover:    "text-s4e-btn-error-700 bg-s4e-btn-error-50",
+      Enabled:  "text-s4e-text-error",
+      Hover:    "text-s4e-text-error bg-s4e-scale-red-50",
       Disabled: "text-s4e-text-disabled opacity-40 cursor-not-allowed",
     },
   },
 ];
 
 const SIZE_CLASSES: Record<ButtonType, Record<Size, string>> = {
-  contained: { Small: "h-7 px-3 text-xs", Medium: "h-9 px-4 text-sm" },
-  outlined:  { Small: "h-7 px-3 text-xs", Medium: "h-9 px-4 text-sm" },
-  text:      { Small: "px-2 py-1 text-xs rounded-md", Medium: "px-2.5 py-1.5 text-sm rounded-md" },
+  contained: { Small: "h-7 px-3 text-xs", Medium: "h-9 px-4 text-sm", Large: "h-11 px-5 text-[15px]" },
+  outlined:  { Small: "h-7 px-3 text-xs", Medium: "h-9 px-4 text-sm", Large: "h-11 px-5 text-[15px]" },
+  text:      { Small: "px-2 py-1 text-xs rounded-md", Medium: "px-2.5 py-1.5 text-sm rounded-md", Large: "px-3 py-2.5 text-[15px] rounded-md" },
 };
 
 const BASE: Record<ButtonType, string> = {
@@ -138,7 +138,7 @@ function Btn({
   const cv = COLOR_VARIANTS[colorVariant];
   const colorClass = cv[type][state];
   const sizeClass = SIZE_CLASSES[type][size];
-  const iconSize = size === "Small" ? 13 : 15;
+  const iconSize = size === "Small" ? 13 : size === "Large" ? 17 : 15;
 
   return (
     <button
@@ -209,6 +209,7 @@ function ButtonCard({
         <PropertyRow label="Size">
           <Btn type={type} colorVariant={1} size="Small"  label="Small" />
           <Btn type={type} colorVariant={1} size="Medium" label="Medium" />
+          <Btn type={type} colorVariant={1} size="Large"  label="Large" />
         </PropertyRow>
       </div>
     </div>
@@ -239,14 +240,14 @@ function LoadingCard() {
           <button
             type="button"
             disabled
-            className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-white text-sm font-medium opacity-90 cursor-wait"
+            className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-sm font-medium opacity-90 cursor-wait"
           >
             <Spinner /> Saving
           </button>
           <button
             type="button"
             disabled
-            className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-error-600 text-white text-sm font-medium opacity-90 cursor-wait"
+            className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-error-600 text-s4e-text-on-accent text-sm font-medium opacity-90 cursor-wait"
           >
             <Spinner /> Deleting
           </button>
@@ -285,7 +286,7 @@ function IconOnlyCard() {
       </div>
       <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
         <PropertyRow label="Variant">
-          <button type="button" aria-label="Edit"   className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-s4e-btn-neutral-700 text-white hover:bg-s4e-btn-neutral-800 transition-colors cursor-pointer">
+          <button type="button" aria-label="Edit"   className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-s4e-btn-neutral-700 text-s4e-text-on-accent hover:bg-s4e-btn-neutral-800 transition-colors cursor-pointer">
             <Pencil size={14} />
           </button>
           <button type="button" aria-label="Edit"   className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-s4e-btn-neutral-600 text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 transition-colors cursor-pointer">
@@ -327,16 +328,16 @@ function ButtonGroupCard() {
         <PropertyRow label="Connected">
           <div className="inline-flex rounded-lg overflow-hidden border border-s4e-btn-neutral-600">
             <button type="button" className="px-3 h-9 text-sm font-medium text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 border-r border-s4e-btn-neutral-600 cursor-pointer">Day</button>
-            <button type="button" className="px-3 h-9 text-sm font-medium bg-s4e-btn-neutral-700 text-white cursor-pointer">Week</button>
+            <button type="button" className="px-3 h-9 text-sm font-medium bg-s4e-btn-neutral-700 text-s4e-text-on-accent cursor-pointer">Week</button>
             <button type="button" className="px-3 h-9 text-sm font-medium text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 border-l border-s4e-btn-neutral-600 cursor-pointer">Month</button>
           </div>
         </PropertyRow>
         <PropertyRow label="Split">
           <div className="inline-flex rounded-lg overflow-hidden">
-            <button type="button" className="inline-flex items-center gap-2 px-4 h-9 rounded-l-lg bg-s4e-btn-primary-600 text-white text-sm font-medium hover:bg-s4e-btn-primary-700 cursor-pointer">
+            <button type="button" className="inline-flex items-center gap-2 px-4 h-9 rounded-l-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-sm font-medium hover:bg-s4e-btn-primary-700 cursor-pointer">
               <Download size={14} /> Export CSV
             </button>
-            <button type="button" aria-label="More" className="px-2 h-9 rounded-r-lg bg-s4e-btn-primary-700 text-white hover:bg-s4e-btn-primary-700/90 border-l border-white/15 cursor-pointer">
+            <button type="button" aria-label="More" className="px-2 h-9 rounded-r-lg bg-s4e-btn-primary-700 text-s4e-text-on-accent hover:bg-s4e-btn-primary-700/90 border-l border-white/15 cursor-pointer">
               <ChevronDown size={14} />
             </button>
           </div>
@@ -371,7 +372,7 @@ function FullWidthCard() {
       <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5">
         <button
           type="button"
-          className="block w-full h-10 rounded-lg bg-s4e-btn-primary-600 text-white text-sm font-medium hover:bg-s4e-btn-primary-700 transition-colors cursor-pointer"
+          className="block w-full h-10 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-sm font-medium hover:bg-s4e-btn-primary-700 transition-colors cursor-pointer"
         >
           Continue to checkout
         </button>
