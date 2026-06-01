@@ -3,20 +3,42 @@
  */
 
 :root {
+  /* Colors */
   --s4e-brand-primary-500: #1383d4;
   --s4e-scale-green-500: #63a100;
   --s4e-neutral-grey-100: #f7f8f8;
-  --s4e-neutral-divider-10: rgba(0, 0, 0, 0.1);
   --s4e-surface-row-hover: #ebf2f7;
   --s4e-surface-table-header: #f7f8f8;
   --s4e-text-primary: #121f28;
   --s4e-text-secondary: #657078;
   --s4e-text-disabled: #a7adb2;
+
+  /* Spacing */
   --space-3: 12px;
+  --space-10: 40px;
+  --space-9: 36px;
   --space-8: 32px;
   --space-6: 24px;
   --space-12: 48px;
   --space-1: 4px;
   --space-4: 16px;
   --space-2: 8px;
+
+  /* Radius */
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* Border width */
+  --border-width-1: 1px;
+
+  /* Font size */
+  --font-size-10: 10px;
+  --font-size-12: 12px;
+  --font-size-13: 13px;
+  --font-size-14: 14px;
+  --font-size-15: 15px;
+
+  /* Font weight */
+  --font-weight-semibold: 600;
+  --font-weight-medium: 500;
 }

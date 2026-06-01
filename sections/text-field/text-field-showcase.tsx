@@ -2,10 +2,43 @@
 
 import type React from "react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
 type FieldState = "Default" | "Hover" | "Focused" | "Error" | "Disabled";
+type Variant   = "filled" | "outlined";
+
+function fieldSnippets(variant: Variant, state: FieldState): Record<Platform, string> {
+  const isError    = state === "Error";
+  const isDisabled = state === "Disabled";
+  const errorProp  = isError    ? ` state="error" errorText="Incorrect"` : "";
+  const disabled   = isDisabled ? " disabled" : "";
+  const swiftMods  = [
+    `.textFieldStyle(.s4e(.${variant}))`,
+    isError    ? `.s4eErrorText("Incorrect")` : null,
+    isDisabled ? `.disabled(true)`            : null,
+  ].filter(Boolean).join("\n    ");
+  const xmlErrorAttrs = isError
+    ? `\n    app:errorEnabled="true"\n    app:error="Incorrect"`
+    : "";
+  const xmlDisabledAttrs = isDisabled ? `\n    android:enabled="false"` : "";
+  return {
+    react: `<TextField label="Label" variant="${variant}" value="Value"${errorProp}${disabled} />`,
+    swift: `TextField("Label", text: $value)\n    ${swiftMods}`,
+    xml:   `<com.google.android.material.textfield.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Label"
+    app:s4eVariant="${variant}"${xmlErrorAttrs}>
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Value"${xmlDisabledAttrs} />
+</com.google.android.material.textfield.TextInputLayout>`,
+  };
+}
 
 // ── Styling maps ───────────────────────────────────────────────────────────
 
@@ -133,7 +166,9 @@ function FieldCard({ title, variant }: { title: string; variant: "filled" | "out
                 <div className="w-10 shrink-0 pt-2 text-[9px] font-medium uppercase tracking-widest text-s4e-text-disabled">
                   Value
                 </div>
-                <Field state={s} hasValue={true} />
+                <Copyable snippets={fieldSnippets(variant, s)} className="block flex-1 min-w-0">
+                  <Field state={s} hasValue={true} />
+                </Copyable>
               </div>
             </div>
           ))}
@@ -170,7 +205,9 @@ function FieldCard({ title, variant }: { title: string; variant: "filled" | "out
               Value
             </div>
             {STATES.map((s) => (
-              <Field key={s} state={s} hasValue={true} />
+              <Copyable key={s} snippets={fieldSnippets(variant, s)} className="block flex-1 min-w-0">
+                <Field state={s} hasValue={true} />
+              </Copyable>
             ))}
           </div>
         </div>

@@ -4,36 +4,63 @@
 <resources>
 
     <!-- Colors -->
+    <color name="brand_primary_50">#E8F4FD</color>
     <color name="brand_primary_500">#1383D4</color>
+    <color name="scale_red_50">#FCF3F2</color>
+    <color name="scale_red_500">#D13D2E</color>
+    <color name="neutral_grey_100">#F7F8F8</color>
+    <color name="neutral_grey_300">#DFE2E2</color>
+    <color name="neutral_grey_400">#C9CFCF</color>
+    <color name="neutral_grey_500">#949E9E</color>
+    <color name="neutral_grey_800">#1F2323</color>
+    <color name="surface_app">#FFFFFF</color>
     <color name="text_primary">#121F28</color>
+    <color name="text_secondary">#657078</color>
     <color name="text_disabled">#A7ADB2</color>
-    <color name="btn_neutral_100">#F7F8F8</color>
-    <color name="btn_neutral_300">#DFE2E2</color>
-    <color name="btn_neutral_600">#667070</color>
-    <color name="btn_neutral_700">#444B4B</color>
-    <color name="btn_neutral_800">#202323</color>
-    <color name="btn_primary_50">#EBF2F7</color>
+    <color name="text_inverse">#FFFFFF</color>
+    <color name="text_on_accent">#FFFFFF</color>
+    <color name="text_link">#0066CC</color>
+    <color name="text_error">#B0291E</color>
     <color name="btn_primary_600">#0F69AA</color>
     <color name="btn_primary_700">#024A72</color>
-    <color name="btn_success_50">#EFF7E5</color>
-    <color name="btn_success_600">#406800</color>
-    <color name="btn_success_700">#284000</color>
-    <color name="btn_warning_50">#FFFBF0</color>
-    <color name="btn_warning_600">#E6A200</color>
-    <color name="btn_warning_700">#805A00</color>
-    <color name="btn_error_50">#FFF0EF</color>
     <color name="btn_error_600">#AE2700</color>
     <color name="btn_error_700">#881F00</color>
 
     <!-- Spacing -->
+    <dimen name="space_8">32dp</dimen>
     <dimen name="space_3">12dp</dimen>
+    <dimen name="space_9">36dp</dimen>
     <dimen name="space_4">16dp</dimen>
     <dimen name="space_2">8dp</dimen>
-    <dimen name="space_1">4dp</dimen>
-    <dimen name="space_8">32dp</dimen>
-    <dimen name="space_16">64dp</dimen>
-    <dimen name="space_6">24dp</dimen>
+    <dimen name="space_11">44dp</dimen>
     <dimen name="space_5">20dp</dimen>
-    <dimen name="space_12">48dp</dimen>
+    <dimen name="space_6">24dp</dimen>
+    <dimen name="space_10">40dp</dimen>
+
+    <!-- Radius -->
+    <dimen name="radius_md">6dp</dimen>
+    <dimen name="radius_xl">12dp</dimen>
+    <dimen name="radius_full">9999dp</dimen>
+    <dimen name="radius_lg">8dp</dimen>
+
+    <!-- Border width -->
+    <dimen name="border_width_1">1dp</dimen>
+    <dimen name="border_width_2">2dp</dimen>
+
+    <!-- Font size -->
+    <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_11">11sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+    <dimen name="font_size_13">13sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+    <dimen name="font_size_15">15sp</dimen>
+
+    <!-- Font weight -->
+    <integer name="font_weight_medium">500</integer>
+    <integer name="font_weight_semibold">600</integer>
+
+    <!-- Focus ring -->
+    <dimen name="ring_width_2">2dp</dimen>
+    <dimen name="ring_offset_2">2dp</dimen>
 
 </resources>

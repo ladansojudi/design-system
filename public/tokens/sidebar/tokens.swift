@@ -18,12 +18,37 @@ extension UIColor {
     static let btnPrimary700 = UIColor(hex: "#024A72")
 }
 
-// MARK: - Spacing
+// MARK: - Sizing (CGFloat)
 
 extension CGFloat {
+    // Spacing
     static let space2: CGFloat = 8
     static let space4: CGFloat = 16
     static let space8: CGFloat = 32
     static let space3: CGFloat = 12
+    static let space9: CGFloat = 36
+    static let space10: CGFloat = 40
     static let space6: CGFloat = 24
+
+    // Radius
+    static let radiusSm: CGFloat = 2
+    static let radiusMd: CGFloat = 6
+    static let radiusLg: CGFloat = 8
+    static let radiusXl: CGFloat = 12
+    static let radiusFull: CGFloat = 9999
+
+    // Border width
+    static let borderWidth1: CGFloat = 1
+
+    // Font size
+    static let fontSize9: CGFloat = 9
+    static let fontSize10: CGFloat = 10
+    static let fontSize11: CGFloat = 11
+    static let fontSize13: CGFloat = 13
+    static let fontSize15: CGFloat = 15
 }
+
+// MARK: - Font weights (use UIFont.Weight directly)
+// font-weight-medium → .medium   (CSS 500)
+// font-weight-semibold → .semibold   (CSS 600)
+// font-weight-bold → .bold   (CSS 700)

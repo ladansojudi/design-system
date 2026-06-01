@@ -40,19 +40,53 @@ extension UIColor {
     static let textSecondary = UIColor(hex: "#657078")
     static let textDisabled = UIColor(hex: "#A7ADB2")
     static let textWhite = UIColor(hex: "#FFFFFF")
-    static let btnNeutral800 = UIColor(hex: "#202323")
 }
 
-// MARK: - Spacing
+// MARK: - Sizing (CGFloat)
 
 extension CGFloat {
+    // Spacing
     static let space2: CGFloat = 8
     static let space1: CGFloat = 4
+    static let space9: CGFloat = 36
     static let space4: CGFloat = 16
     static let space3: CGFloat = 12
     static let space6: CGFloat = 24
+    static let space10: CGFloat = 40
     static let space12: CGFloat = 48
-    static let space8: CGFloat = 32
     static let space5: CGFloat = 20
     static let space16: CGFloat = 64
+    static let space11: CGFloat = 44
+    static let space8: CGFloat = 32
+
+    // Radius
+    static let radiusMd: CGFloat = 6
+    static let radiusSm: CGFloat = 2
+    static let radiusFull: CGFloat = 9999
+    static let radiusXl: CGFloat = 12
+
+    // Border width
+    static let borderWidth1: CGFloat = 1
+
+    // Font size
+    static let fontSize8: CGFloat = 8
+    static let fontSize9: CGFloat = 9
+    static let fontSize10: CGFloat = 10
+    static let fontSize11: CGFloat = 11
+    static let fontSize12: CGFloat = 12
+    static let fontSize13: CGFloat = 13
+    static let fontSize14: CGFloat = 14
+    static let fontSize15: CGFloat = 15
+    static let fontSize17: CGFloat = 17
+    static let fontSize19: CGFloat = 19
+    static let fontSize20: CGFloat = 20
+
+    // Focus ring width
+    static let ringWidth1: CGFloat = 1
+    static let ringWidth2: CGFloat = 2
 }
+
+// MARK: - Font weights (use UIFont.Weight directly)
+// font-weight-medium → .medium   (CSS 500)
+// font-weight-semibold → .semibold   (CSS 600)
+// font-weight-normal → .regular   (CSS 400)

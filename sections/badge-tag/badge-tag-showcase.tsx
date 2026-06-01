@@ -2,6 +2,8 @@
 
 import type React from "react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Types & config ─────────────────────────────────────────────────────────
 
@@ -62,6 +64,36 @@ const BADGE_COLORS: Record<BadgeColor, BadgeConfig> = {
 };
 
 const ALL_COLORS: BadgeColor[] = ["warning", "error", "success", "neutral", "info", "primary"];
+
+// ── Snippet builders ───────────────────────────────────────────────────────
+
+function badgeSnippets(
+  color: BadgeColor,
+  label: string,
+  opts: { showDot?: boolean; dotPosition?: DotPosition; outlined?: boolean } = {},
+): Record<Platform, string> {
+  const { showDot = true, dotPosition = "left", outlined = false } = opts;
+  const reactProps = [`color="${color}"`];
+  if (!showDot) reactProps.push(`showDot={false}`);
+  if (showDot && dotPosition === "right") reactProps.push(`dotPosition="right"`);
+  if (outlined) reactProps.push(`outlined`);
+
+  const swiftArgs = [`color: .${color}`];
+  if (!showDot) swiftArgs.push(`showDot: false`);
+  if (showDot && dotPosition === "right") swiftArgs.push(`dotPosition: .right`);
+  if (outlined) swiftArgs.push(`outlined: true`);
+
+  const xmlProps = [`android:text="${label}"`, `app:color="${color}"`];
+  if (!showDot) xmlProps.push(`app:showDot="false"`);
+  if (showDot && dotPosition === "right") xmlProps.push(`app:dotPosition="right"`);
+  if (outlined) xmlProps.push(`app:outlined="true"`);
+
+  return {
+    react: `<BadgeTag ${reactProps.join(" ")}>${label}</BadgeTag>`,
+    swift: `BadgeTag("${label}", ${swiftArgs.join(", ")})`,
+    xml:   `<com.s4e.ui.BadgeTag\n    ${xmlProps.join("\n    ")} />`,
+  };
+}
 
 // ── Badge component ────────────────────────────────────────────────────────
 
@@ -127,7 +159,9 @@ export function BadgeTagShowcase() {
               <div className="space-y-2">
                 {ALL_COLORS.map((c) => (
                   <div key={c}>
-                    <Badge color={c} showDot dotPosition="left" />
+                    <Copyable snippets={badgeSnippets(c, BADGE_COLORS[c].label, { showDot: true, dotPosition: "left" })}>
+                      <Badge color={c} showDot dotPosition="left" />
+                    </Copyable>
                   </div>
                 ))}
               </div>
@@ -163,7 +197,9 @@ export function BadgeTagShowcase() {
               <div className="space-y-2">
                 {ALL_COLORS.map((c) => (
                   <div key={c}>
-                    <Badge color={c} showDot={false} />
+                    <Copyable snippets={badgeSnippets(c, BADGE_COLORS[c].label, { showDot: false })}>
+                      <Badge color={c} showDot={false} />
+                    </Copyable>
                   </div>
                 ))}
               </div>

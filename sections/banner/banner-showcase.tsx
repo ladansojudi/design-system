@@ -4,6 +4,8 @@ import type React from "react";
 import { useState } from "react";
 import { Megaphone, Sparkles, AlertTriangle, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
 type Tone = "neutral" | "promo" | "warning";
 
@@ -67,35 +69,98 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
+const NEUTRAL_SNIPPETS: Record<Platform, string> = {
+  react: `<Banner tone="neutral" message="Scheduled maintenance window starts at 02:00 UTC tomorrow." />`,
+  swift: `Banner(tone: .neutral, message: "Scheduled maintenance window starts at 02:00 UTC tomorrow.")`,
+  xml: `<com.s4e.ui.Banner
+    app:tone="neutral"
+    android:text="Scheduled maintenance window starts at 02:00 UTC tomorrow." />`,
+};
+
+const PROMO_SNIPPETS: Record<Platform, string> = {
+  react: `<Banner
+  tone="promo"
+  message="New: AI-assisted vulnerability triage is live for all teams."
+  cta={{ label: "Try it" }}
+/>`,
+  swift: `Banner(tone: .promo, message: "New: AI-assisted vulnerability triage is live for all teams.") {
+    Button("Try it") { /* action */ }
+}`,
+  xml: `<com.s4e.ui.Banner
+    app:tone="promo"
+    app:ctaLabel="Try it"
+    android:text="New: AI-assisted vulnerability triage is live for all teams." />`,
+};
+
+const WARNING_SNIPPETS: Record<Platform, string> = {
+  react: `<Banner
+  tone="warning"
+  message="Your trial expires in 3 days."
+  cta={{ label: "Upgrade now" }}
+/>`,
+  swift: `Banner(tone: .warning, message: "Your trial expires in 3 days.") {
+    Button("Upgrade now") { /* action */ }
+}`,
+  xml: `<com.s4e.ui.Banner
+    app:tone="warning"
+    app:ctaLabel="Upgrade now"
+    android:text="Your trial expires in 3 days." />`,
+};
+
+const NO_DISMISS_SNIPPETS: Record<Platform, string> = {
+  react: `<Banner
+  tone="warning"
+  dismissible={false}
+  message="Read-only mode — billing issue requires attention."
+  cta={{ label: "Resolve" }}
+/>`,
+  swift: `Banner(tone: .warning, dismissible: false, message: "Read-only mode — billing issue requires attention.") {
+    Button("Resolve") { /* action */ }
+}`,
+  xml: `<com.s4e.ui.Banner
+    app:tone="warning"
+    app:dismissible="false"
+    app:ctaLabel="Resolve"
+    android:text="Read-only mode — billing issue requires attention." />`,
+};
+
 export function BannerShowcase() {
   return (
     <div className="space-y-10">
       <div>
         <SectionTitle>Tones</SectionTitle>
         <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden divide-y divide-s4e-neutral-divider-10">
-          <Banner tone="neutral" message="Scheduled maintenance window starts at 02:00 UTC tomorrow." />
-          <Banner
-            tone="promo"
-            message="New: AI-assisted vulnerability triage is live for all teams."
-            cta={{ label: "Try it" }}
-          />
-          <Banner
-            tone="warning"
-            message="Your trial expires in 3 days."
-            cta={{ label: "Upgrade now" }}
-          />
+          <Copyable snippets={NEUTRAL_SNIPPETS} className="block">
+            <Banner tone="neutral" message="Scheduled maintenance window starts at 02:00 UTC tomorrow." />
+          </Copyable>
+          <Copyable snippets={PROMO_SNIPPETS} className="block">
+            <Banner
+              tone="promo"
+              message="New: AI-assisted vulnerability triage is live for all teams."
+              cta={{ label: "Try it" }}
+            />
+          </Copyable>
+          <Copyable snippets={WARNING_SNIPPETS} className="block">
+            <Banner
+              tone="warning"
+              message="Your trial expires in 3 days."
+              cta={{ label: "Upgrade now" }}
+            />
+          </Copyable>
         </div>
       </div>
 
       <div>
         <SectionTitle>Without dismiss</SectionTitle>
         <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
-          <Banner
-            tone="warning"
-            dismissible={false}
-            message="Read-only mode — billing issue requires attention."
-            cta={{ label: "Resolve" }}
-          />
+          <Copyable snippets={NO_DISMISS_SNIPPETS} className="block">
+            <Banner
+              tone="warning"
+              dismissible={false}
+              message="Read-only mode — billing issue requires attention."
+              cta={{ label: "Resolve" }}
+            />
+          </Copyable>
         </div>
       </div>
     </div>

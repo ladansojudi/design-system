@@ -3,19 +3,39 @@
  */
 
 :root {
+  /* Colors */
   --s4e-brand-primary-500: #1383d4;
   --s4e-neutral-grey-200: #f4f5f5;
-  --s4e-neutral-divider-10: rgba(0, 0, 0, 0.1);
   --s4e-surface-row: #ffffff;
   --s4e-surface-table-header: #f7f8f8;
   --s4e-text-primary: #121f28;
   --s4e-text-disabled: #a7adb2;
+
+  /* Spacing */
   --space-2: 8px;
   --space-4: 16px;
-  --space-5: 20px;
   --space-3: 12px;
-  --space-1: 4px;
-  --space-8: 32px;
   --space-16: 64px;
+  --space-10: 40px;
+  --space-5: 20px;
+  --space-1: 4px;
+  --space-11: 44px;
+  --space-8: 32px;
   --space-6: 24px;
+  --space-9: 36px;
+
+  /* Radius */
+  --radius-md: 6px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Border width */
+  --border-width-1: 1px;
+
+  /* Font size */
+  --font-size-10: 10px;
+  --font-size-15: 15px;
+
+  /* Font weight */
+  --font-weight-semibold: 600;
 }

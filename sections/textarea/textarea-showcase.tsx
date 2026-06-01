@@ -3,6 +3,8 @@
 import type React from "react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Textarea component ────────────────────────────────────────────────────
 
@@ -90,6 +92,64 @@ function Textarea({
   );
 }
 
+// ── Snippet builders ──────────────────────────────────────────────────────
+
+type SnippetOpts = {
+  label?:       string;
+  placeholder?: string;
+  helperText?:  string;
+  errorText?:   string;
+  maxLength?:   number;
+  rows?:        number;
+  state?:       State;
+};
+
+function textareaSnippets({
+  label, placeholder, helperText, errorText, maxLength, rows, state,
+}: SnippetOpts): Record<Platform, string> {
+  const isError = state === "Error";
+  const reactProps = [
+    label       ? ` label="${label}"`                       : "",
+    placeholder ? ` placeholder="${placeholder}"`            : "",
+    helperText  ? ` helperText="${helperText}"`              : "",
+    isError     ? ` state="error"`                           : "",
+    errorText   ? ` errorText="${errorText}"`                : "",
+    maxLength   ? ` maxLength={${maxLength}}`                : "",
+    rows        ? ` rows={${rows}}`                          : "",
+  ].join("");
+  const swiftMods = [
+    `.textEditorStyle(.s4e(.outlined))`,
+    label       ? `.s4eLabel("${label}")`                    : null,
+    helperText  ? `.s4eHelperText("${helperText}")`          : null,
+    isError && errorText ? `.s4eErrorText("${errorText}")`   : null,
+    maxLength   ? `.s4eMaxLength(${maxLength})`              : null,
+  ].filter(Boolean).join("\n    ");
+  const xmlAttrs = [
+    label       ? `\n    android:hint="${label}"`            : "",
+    isError     ? `\n    app:errorEnabled="true"`            : "",
+    errorText   ? `\n    app:error="${errorText}"`           : "",
+    helperText  ? `\n    app:helperText="${helperText}"`     : "",
+    maxLength   ? `\n    app:counterEnabled="true"\n    app:counterMaxLength="${maxLength}"` : "",
+  ].join("");
+  const editAttrs = [
+    `        android:layout_width="match_parent"`,
+    `        android:layout_height="wrap_content"`,
+    `        android:inputType="textMultiLine"`,
+    `        android:minLines="${rows ?? 4}"`,
+    placeholder ? `        android:hint="${placeholder}"` : null,
+  ].filter(Boolean).join("\n");
+  return {
+    react: `<Textarea${reactProps} />`,
+    swift: `TextEditor(text: $value)\n    ${swiftMods}`,
+    xml:   `<com.google.android.material.textfield.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"${xmlAttrs}>
+    <com.google.android.material.textfield.TextInputEditText
+${editAttrs} />
+</com.google.android.material.textfield.TextInputLayout>`,
+  };
+}
+
 // ── Showcase ──────────────────────────────────────────────────────────────
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -111,31 +171,65 @@ export function TextareaShowcase() {
       <div>
         <SectionTitle>Variants</SectionTitle>
         <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <Textarea
-            label="Finding description"
-            value={note}
-            onChange={setNote}
-            helperText="Markdown is supported."
-          />
-          <Textarea
-            label="Reproduction steps"
-            value={empty}
-            onChange={setEmpty}
-            placeholder="1. Visit …&#10;2. Click …&#10;3. Observe …"
-          />
-          <Textarea
-            label="With counter"
-            value={overLimit}
-            onChange={setOverLimit}
-            maxLength={200}
-            helperText="Keep the summary short — full details go in the body below."
-          />
-          <Textarea
-            label="With error"
-            value="Too vague"
-            state="Error"
-            errorText="Add at least 40 characters describing the issue."
-          />
+          <Copyable
+            className="block w-full"
+            snippets={textareaSnippets({
+              label: "Finding description",
+              helperText: "Markdown is supported.",
+            })}
+          >
+            <Textarea
+              label="Finding description"
+              value={note}
+              onChange={setNote}
+              helperText="Markdown is supported."
+            />
+          </Copyable>
+          <Copyable
+            className="block w-full"
+            snippets={textareaSnippets({
+              label: "Reproduction steps",
+              placeholder: "1. Visit …\\n2. Click …\\n3. Observe …",
+            })}
+          >
+            <Textarea
+              label="Reproduction steps"
+              value={empty}
+              onChange={setEmpty}
+              placeholder="1. Visit …&#10;2. Click …&#10;3. Observe …"
+            />
+          </Copyable>
+          <Copyable
+            className="block w-full"
+            snippets={textareaSnippets({
+              label: "With counter",
+              maxLength: 200,
+              helperText: "Keep the summary short — full details go in the body below.",
+            })}
+          >
+            <Textarea
+              label="With counter"
+              value={overLimit}
+              onChange={setOverLimit}
+              maxLength={200}
+              helperText="Keep the summary short — full details go in the body below."
+            />
+          </Copyable>
+          <Copyable
+            className="block w-full"
+            snippets={textareaSnippets({
+              label: "With error",
+              state: "Error",
+              errorText: "Add at least 40 characters describing the issue.",
+            })}
+          >
+            <Textarea
+              label="With error"
+              value="Too vague"
+              state="Error"
+              errorText="Add at least 40 characters describing the issue."
+            />
+          </Copyable>
         </div>
       </div>
 

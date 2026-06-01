@@ -11,7 +11,7 @@ export default function ShadowPage() {
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
       <PageHeader
-        category="Atoms"
+        category="Foundations"
         title="Shadow"
         status="stable"
         description="Elevation scale for surfacing UI above the page. Each level pairs to an interaction layer — pick by purpose, not by look."

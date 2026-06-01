@@ -1,168 +1,166 @@
 "use client";
 
-import { ChevronDown, Download, Globe, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import type React from "react";
+import { ArrowRight, ChevronDown, Download, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
-type State = "Enabled" | "Hover" | "Disabled";
-type Size = "Small" | "Medium" | "Large";
-type IconPos = "none" | "left" | "right";
-type ButtonType = "contained" | "outlined" | "text";
+// ── Types ─────────────────────────────────────────────────────────────────
 
-type ColorVariant = {
-  name: string;
-  contained: Record<State, string>;
-  outlined: Record<State, string>;
-  text: Record<State, string>;
+type Intent = "default" | "primary" | "destructive";
+type Style  = "solid" | "outline" | "ghost";
+type Size   = "sm" | "md" | "lg";
+
+const INTENT_LABEL: Record<Intent, string> = {
+  default:     "Default",
+  primary:     "Primary",
+  destructive: "Destructive",
 };
 
-const COLOR_VARIANTS: ColorVariant[] = [
-  {
-    name: "Default",
-    contained: {
-      Enabled:  "bg-s4e-btn-neutral-700 text-s4e-text-on-accent",
-      Hover:    "bg-s4e-btn-neutral-800 text-s4e-text-on-accent",
-      Disabled: "bg-s4e-btn-neutral-700 text-s4e-text-on-accent opacity-40 cursor-not-allowed",
-    },
-    outlined: {
-      Enabled:  "border border-s4e-neutral-grey-400 text-s4e-text-primary bg-transparent",
-      Hover:    "border border-s4e-neutral-grey-500 text-s4e-text-primary bg-s4e-neutral-grey-100",
-      Disabled: "border border-s4e-neutral-grey-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
-    },
-    text: {
-      Enabled:  "text-s4e-text-primary",
-      Hover:    "text-s4e-text-primary bg-s4e-neutral-grey-100",
-      Disabled: "text-s4e-text-disabled opacity-40 cursor-not-allowed",
-    },
-  },
-  {
-    name: "Primary",
-    contained: {
-      Enabled:  "bg-s4e-btn-primary-600 text-s4e-text-on-accent",
-      Hover:    "bg-s4e-btn-primary-700 text-s4e-text-on-accent",
-      Disabled: "bg-s4e-btn-primary-600 text-s4e-text-on-accent opacity-40 cursor-not-allowed",
-    },
-    outlined: {
-      Enabled:  "border border-s4e-text-link text-s4e-text-link bg-transparent",
-      Hover:    "border border-s4e-text-link text-s4e-text-link bg-s4e-brand-primary-50",
-      Disabled: "border border-s4e-neutral-grey-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
-    },
-    text: {
-      Enabled:  "text-s4e-text-link",
-      Hover:    "text-s4e-text-link bg-s4e-brand-primary-50",
-      Disabled: "text-s4e-text-disabled opacity-40 cursor-not-allowed",
-    },
-  },
-  {
-    name: "Success",
-    contained: {
-      Enabled:  "bg-s4e-btn-success-600 text-s4e-text-on-accent",
-      Hover:    "bg-s4e-btn-success-700 text-s4e-text-on-accent",
-      Disabled: "bg-s4e-btn-success-600 text-s4e-text-on-accent opacity-40 cursor-not-allowed",
-    },
-    outlined: {
-      Enabled:  "border border-s4e-text-success text-s4e-text-success bg-transparent",
-      Hover:    "border border-s4e-text-success text-s4e-text-success bg-s4e-scale-green-50",
-      Disabled: "border border-s4e-neutral-grey-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
-    },
-    text: {
-      Enabled:  "text-s4e-text-success",
-      Hover:    "text-s4e-text-success bg-s4e-scale-green-50",
-      Disabled: "text-s4e-text-disabled opacity-40 cursor-not-allowed",
-    },
-  },
-  {
-    name: "Warning",
-    contained: {
-      Enabled:  "bg-s4e-btn-warning-600 text-s4e-text-on-accent",
-      Hover:    "bg-s4e-btn-warning-700 text-s4e-text-on-accent",
-      Disabled: "bg-s4e-btn-warning-600 text-s4e-text-on-accent opacity-40 cursor-not-allowed",
-    },
-    outlined: {
-      Enabled:  "border border-s4e-text-warning text-s4e-text-warning bg-transparent",
-      Hover:    "border border-s4e-text-warning text-s4e-text-warning bg-s4e-scale-yellow-50",
-      Disabled: "border border-s4e-neutral-grey-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
-    },
-    text: {
-      Enabled:  "text-s4e-text-warning",
-      Hover:    "text-s4e-text-warning bg-s4e-scale-yellow-50",
-      Disabled: "text-s4e-text-disabled opacity-40 cursor-not-allowed",
-    },
-  },
-  {
-    name: "Error",
-    contained: {
-      Enabled:  "bg-s4e-btn-error-600 text-s4e-text-on-accent",
-      Hover:    "bg-s4e-btn-error-700 text-s4e-text-on-accent",
-      Disabled: "bg-s4e-btn-error-600 text-s4e-text-on-accent opacity-40 cursor-not-allowed",
-    },
-    outlined: {
-      Enabled:  "border border-s4e-text-error text-s4e-text-error bg-transparent",
-      Hover:    "border border-s4e-text-error text-s4e-text-error bg-s4e-scale-red-50",
-      Disabled: "border border-s4e-neutral-grey-300 text-s4e-text-disabled bg-transparent opacity-40 cursor-not-allowed",
-    },
-    text: {
-      Enabled:  "text-s4e-text-error",
-      Hover:    "text-s4e-text-error bg-s4e-scale-red-50",
-      Disabled: "text-s4e-text-disabled opacity-40 cursor-not-allowed",
-    },
-  },
-];
-
-const SIZE_CLASSES: Record<ButtonType, Record<Size, string>> = {
-  contained: { Small: "h-7 px-3 text-xs", Medium: "h-9 px-4 text-sm", Large: "h-11 px-5 text-[15px]" },
-  outlined:  { Small: "h-7 px-3 text-xs", Medium: "h-9 px-4 text-sm", Large: "h-11 px-5 text-[15px]" },
-  text:      { Small: "px-2 py-1 text-xs rounded-md", Medium: "px-2.5 py-1.5 text-sm rounded-md", Large: "px-3 py-2.5 text-[15px] rounded-md" },
+const STYLE_LABEL: Record<Style, string> = {
+  solid:   "Solid",
+  outline: "Outline",
+  ghost:   "Ghost",
 };
 
-const BASE: Record<ButtonType, string> = {
-  contained: "inline-flex items-center gap-1.5 font-medium rounded-lg select-none whitespace-nowrap",
-  outlined:  "inline-flex items-center gap-1.5 font-medium rounded-lg select-none whitespace-nowrap",
-  text:      "inline-flex items-center gap-1.5 font-medium select-none whitespace-nowrap",
+const SIZE_TO_SWIFT: Record<Size, string> = { sm: ".small", md: ".regular", lg: ".large" };
+
+// ── Class system (Tailwind-style: base + size + intent×style) ─────────────
+
+const BASE =
+  "inline-flex items-center justify-center font-medium rounded-md select-none whitespace-nowrap " +
+  "transition-colors cursor-pointer " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-s4e-surface-app " +
+  "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none";
+
+const SIZE_CLASS: Record<Size, string> = {
+  sm: "h-8 px-3 text-[13px] gap-1.5",
+  md: "h-9 px-4 text-[13px] gap-2",
+  lg: "h-11 px-5 text-[14px] gap-2",
 };
+
+const ICON_SIZE: Record<Size, number> = { sm: 13, md: 14, lg: 16 };
+
+const VARIANT_CLASS: Record<Intent, Record<Style, string>> = {
+  default: {
+    solid:
+      "bg-s4e-text-primary text-s4e-text-inverse " +
+      "hover:bg-s4e-neutral-grey-800 " +
+      "focus-visible:ring-s4e-neutral-grey-500",
+    outline:
+      "border border-s4e-neutral-grey-300 text-s4e-text-primary bg-transparent " +
+      "hover:bg-s4e-neutral-grey-100 " +
+      "focus-visible:ring-s4e-neutral-grey-400",
+    ghost:
+      "text-s4e-text-primary bg-transparent " +
+      "hover:bg-s4e-neutral-grey-100 " +
+      "focus-visible:ring-s4e-neutral-grey-300",
+  },
+  primary: {
+    solid:
+      "bg-s4e-btn-primary-600 text-s4e-text-on-accent " +
+      "hover:bg-s4e-btn-primary-700 " +
+      "focus-visible:ring-s4e-brand-primary-500",
+    outline:
+      "border border-s4e-text-link text-s4e-text-link bg-transparent " +
+      "hover:bg-s4e-brand-primary-50 " +
+      "focus-visible:ring-s4e-brand-primary-500",
+    ghost:
+      "text-s4e-text-link bg-transparent " +
+      "hover:bg-s4e-brand-primary-50 " +
+      "focus-visible:ring-s4e-brand-primary-500",
+  },
+  destructive: {
+    solid:
+      "bg-s4e-btn-error-600 text-s4e-text-on-accent " +
+      "hover:bg-s4e-btn-error-700 " +
+      "focus-visible:ring-s4e-scale-red-500",
+    outline:
+      "border border-s4e-text-error text-s4e-text-error bg-transparent " +
+      "hover:bg-s4e-scale-red-50 " +
+      "focus-visible:ring-s4e-scale-red-500",
+    ghost:
+      "text-s4e-text-error bg-transparent " +
+      "hover:bg-s4e-scale-red-50 " +
+      "focus-visible:ring-s4e-scale-red-500",
+  },
+};
+
+// ── Button primitive ───────────────────────────────────────────────────────
 
 function Btn({
-  type,
-  colorVariant = 1,
-  state = "Enabled",
-  size = "Medium",
+  intent  = "primary",
+  style   = "solid",
+  size    = "md",
   iconPos = "none",
+  loading = false,
+  disabled,
   label,
+  iconOnly,
+  Icon,
+  className,
 }: {
-  type: ButtonType;
-  colorVariant?: number;
-  state?: State;
-  size?: Size;
-  iconPos?: IconPos;
-  label?: string;
+  intent?:   Intent;
+  style?:    Style;
+  size?:     Size;
+  iconPos?:  "none" | "left" | "right";
+  loading?:  boolean;
+  disabled?: boolean;
+  label?:    string;
+  iconOnly?: boolean;
+  Icon?:     React.ComponentType<{ size?: number; className?: string }>;
+  className?: string;
 }) {
-  const cv = COLOR_VARIANTS[colorVariant];
-  const colorClass = cv[type][state];
-  const sizeClass = SIZE_CLASSES[type][size];
-  const iconSize = size === "Small" ? 13 : size === "Large" ? 17 : 15;
-
+  const IconEl = Icon ?? ArrowRight;
+  const ic = ICON_SIZE[size];
   return (
     <button
       type="button"
-      tabIndex={-1}
-      className={cn(BASE[type], sizeClass, colorClass)}
+      disabled={disabled || loading}
+      className={cn(
+        BASE,
+        iconOnly
+          ? size === "sm" ? "w-8 h-8 p-0" : size === "lg" ? "w-11 h-11 p-0" : "w-9 h-9 p-0"
+          : SIZE_CLASS[size],
+        VARIANT_CLASS[intent][style],
+        className,
+      )}
     >
-      {iconPos === "left" && <Globe size={iconSize} />}
-      {label ?? "s4e Button"}
-      {iconPos === "right" && <Globe size={iconSize} />}
+      {loading && <Spinner size={ic} />}
+      {!loading && iconPos === "left" && <IconEl size={ic} />}
+      {!iconOnly && (label ?? "Button")}
+      {iconOnly && !loading && <IconEl size={ic} />}
+      {!loading && iconPos === "right" && <IconEl size={ic} />}
     </button>
   );
 }
 
-function PropertyRow({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function Spinner({ size = 14 }: { size?: number }) {
   return (
-    <div className="flex items-center gap-8 py-4 border-b border-s4e-neutral-divider-10 last:border-b-0">
-      <span className="w-16 shrink-0 text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled">
+    <span
+      aria-hidden
+      className="inline-block rounded-full animate-spin border-2 border-current/30 border-t-current"
+      style={{ width: size, height: size }}
+    />
+  );
+}
+
+// ── Layout helpers ─────────────────────────────────────────────────────────
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-2 mb-4">
+      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
+      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+    </div>
+  );
+}
+
+function PropertyRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-[100px_minmax(0,1fr)] gap-6 items-center py-4 border-b border-s4e-neutral-divider-10 last:border-b-0">
+      <span className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled">
         {label}
       </span>
       <div className="flex flex-wrap items-center gap-3">{children}</div>
@@ -170,212 +168,406 @@ function PropertyRow({
   );
 }
 
-function ButtonCard({
-  title,
-  type,
-}: {
-  title: string;
-  type: ButtonType;
-}) {
+// ── Snippet builders ───────────────────────────────────────────────────────
+//
+// Each helper returns one snippet per platform for the same visual variant.
+// React = current actual API. Swift / XML = aspirational target APIs for the
+// future native libraries, kept consistent so the chips read as a contract.
+
+function variantSnippets(intent: Intent, style: Style, label = STYLE_LABEL[style]): Record<Platform, string> {
+  return {
+    react: `<Button intent="${intent}" variant="${style}">${label}</Button>`,
+    swift: `Button("${label}") { /* action */ }\n    .buttonStyle(.s4e(.${intent}, .${style}))`,
+    xml:   `<com.s4e.ui.Button\n    android:text="${label}"\n    app:intent="${intent}"\n    app:variant="${style}" />`,
+  };
+}
+
+function sizeSnippets(style: Style, size: Size, label: string): Record<Platform, string> {
+  return {
+    react: `<Button intent="primary" variant="${style}" size="${size}">${label}</Button>`,
+    swift: `Button("${label}") { /* action */ }\n    .buttonStyle(.s4e(.primary, .${style}))\n    .controlSize(${SIZE_TO_SWIFT[size]})`,
+    xml:   `<com.s4e.ui.Button\n    android:text="${label}"\n    app:intent="primary"\n    app:variant="${style}"\n    app:size="${size}" />`,
+  };
+}
+
+function disabledSnippets(style: Style, label: string): Record<Platform, string> {
+  return {
+    react: `<Button intent="primary" variant="${style}" disabled>${label}</Button>`,
+    swift: `Button("${label}") { /* action */ }\n    .buttonStyle(.s4e(.primary, .${style}))\n    .disabled(true)`,
+    xml:   `<com.s4e.ui.Button\n    android:text="${label}"\n    android:enabled="false"\n    app:intent="primary"\n    app:variant="${style}" />`,
+  };
+}
+
+function loadingSnippets(intent: Intent, label: string): Record<Platform, string> {
+  return {
+    react: `<Button intent="${intent}" loading>${label}</Button>`,
+    swift: `Button("${label}") { /* action */ }\n    .buttonStyle(.s4e(.${intent}, .solid))\n    .s4eLoading(true)`,
+    xml:   `<com.s4e.ui.Button\n    android:text="${label}"\n    app:intent="${intent}"\n    app:loading="true" />`,
+  };
+}
+
+function leadingIconSnippets(intent: Intent, style: Style, label: string, react: string, sf: string, drawable: string): Record<Platform, string> {
+  return {
+    react: `<Button intent="${intent}"${style !== "solid" ? ` variant="${style}"` : ""}><${react} size={14} /> ${label}</Button>`,
+    swift: `Button { /* action */ } label: {\n    Label("${label}", systemImage: "${sf}")\n}\n.buttonStyle(.s4e(.${intent}, .${style}))`,
+    xml:   `<com.s4e.ui.Button\n    android:text="${label}"\n    app:intent="${intent}"\n    app:variant="${style}"\n    app:iconStart="@drawable/${drawable}" />`,
+  };
+}
+
+function trailingIconSnippets(intent: Intent, style: Style, label: string, react: string, sf: string, drawable: string): Record<Platform, string> {
+  return {
+    react: `<Button intent="${intent}"${style !== "solid" ? ` variant="${style}"` : ""}>${label} <${react} size={14} /></Button>`,
+    swift: `Button { /* action */ } label: {\n    HStack(spacing: 6) {\n        Text("${label}")\n        Image(systemName: "${sf}")\n    }\n}\n.buttonStyle(.s4e(.${intent}, .${style}))`,
+    xml:   `<com.s4e.ui.Button\n    android:text="${label}"\n    app:intent="${intent}"\n    app:variant="${style}"\n    app:iconEnd="@drawable/${drawable}" />`,
+  };
+}
+
+function iconOnlySnippets(intent: Intent, style: Style, size: Size, aria: string, react: string, sf: string, drawable: string): Record<Platform, string> {
+  const sizePart = size === "md" ? "" : ` size="${size}"`;
+  return {
+    react: `<Button intent="${intent}"${style !== "solid" ? ` variant="${style}"` : ""}${sizePart} iconOnly aria-label="${aria}"><${react} size={${ICON_SIZE[size]}} /></Button>`,
+    swift: `Button { /* action */ } label: {\n    Image(systemName: "${sf}")\n}\n.buttonStyle(.s4e(.${intent}, .${style}))\n.controlSize(${SIZE_TO_SWIFT[size]})\n.s4eIconOnly()\n.accessibilityLabel("${aria}")`,
+    xml:   `<com.s4e.ui.Button\n    android:contentDescription="${aria}"\n    app:intent="${intent}"\n    app:variant="${style}"\n    app:size="${size}"\n    app:iconOnly="@drawable/${drawable}" />`,
+  };
+}
+
+// Multi-line group snippets — same shape across all platforms
+
+const SEGMENTED_SNIPPETS: Record<Platform, string> = {
+  react: `<ButtonGroup>
+  <Button variant="ghost">Day</Button>
+  <Button intent="default">Week</Button>
+  <Button variant="ghost">Month</Button>
+</ButtonGroup>`,
+  swift: `Picker("Period", selection: $period) {
+    Text("Day").tag(0)
+    Text("Week").tag(1)
+    Text("Month").tag(2)
+}
+.pickerStyle(.segmented)`,
+  xml: `<com.google.android.material.button.MaterialButtonToggleGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:singleSelection="true">
+    <com.s4e.ui.Button android:text="Day"   app:variant="ghost"   />
+    <com.s4e.ui.Button android:text="Week"  app:intent="default"  />
+    <com.s4e.ui.Button android:text="Month" app:variant="ghost"   />
+</com.google.android.material.button.MaterialButtonToggleGroup>`,
+};
+
+const SPLIT_SNIPPETS: Record<Platform, string> = {
+  react: `<SplitButton>
+  <Button intent="primary"><Download size={14} /> Export CSV</Button>
+  <Button intent="primary" iconOnly aria-label="More export options">
+    <ChevronDown size={14} />
+  </Button>
+</SplitButton>`,
+  swift: `HStack(spacing: 0) {
+    Button { /* primary */ } label: {
+        Label("Export CSV", systemImage: "square.and.arrow.down")
+    }
+    Menu { /* more options */ } label: {
+        Image(systemName: "chevron.down")
+    }
+    .s4eIconOnly()
+    .accessibilityLabel("More export options")
+}
+.buttonStyle(.s4e(.primary, .solid))`,
+  xml: `<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <com.s4e.ui.Button
+        android:text="Export CSV"
+        app:intent="primary"
+        app:iconStart="@drawable/ic_download" />
+    <com.s4e.ui.Button
+        android:contentDescription="More export options"
+        app:intent="primary"
+        app:iconOnly="@drawable/ic_chevron_down" />
+</LinearLayout>`,
+};
+
+const TOOLBAR_SNIPPETS: Record<Platform, string> = {
+  react: `<ButtonGroup variant="toolbar">
+  <Button variant="ghost" iconOnly aria-label="Edit"><Pencil size={13} /></Button>
+  <Button intent="destructive" variant="ghost" iconOnly aria-label="Delete"><Trash2 size={13} /></Button>
+  <Button variant="ghost" iconOnly aria-label="More"><MoreHorizontal size={13} /></Button>
+</ButtonGroup>`,
+  swift: `HStack(spacing: 0) {
+    Button { } label: { Image(systemName: "pencil") }
+        .buttonStyle(.s4e(.default, .ghost))
+        .s4eIconOnly()
+        .accessibilityLabel("Edit")
+    Button { } label: { Image(systemName: "trash") }
+        .buttonStyle(.s4e(.destructive, .ghost))
+        .s4eIconOnly()
+        .accessibilityLabel("Delete")
+    Button { } label: { Image(systemName: "ellipsis") }
+        .buttonStyle(.s4e(.default, .ghost))
+        .s4eIconOnly()
+        .accessibilityLabel("More")
+}`,
+  xml: `<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <com.s4e.ui.Button
+        android:contentDescription="Edit"
+        app:variant="ghost"
+        app:iconOnly="@drawable/ic_pencil" />
+    <com.s4e.ui.Button
+        android:contentDescription="Delete"
+        app:intent="destructive"
+        app:variant="ghost"
+        app:iconOnly="@drawable/ic_trash" />
+    <com.s4e.ui.Button
+        android:contentDescription="More"
+        app:variant="ghost"
+        app:iconOnly="@drawable/ic_more" />
+</LinearLayout>`,
+};
+
+const FULLWIDTH_SNIPPETS: Record<Platform, string> = {
+  react: `<Button intent="primary" size="lg" className="w-full">Continue to checkout</Button>`,
+  swift: `Button("Continue to checkout") { /* action */ }
+    .buttonStyle(.s4e(.primary, .solid))
+    .controlSize(.large)
+    .frame(maxWidth: .infinity)`,
+  xml: `<com.s4e.ui.Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Continue to checkout"
+    app:intent="primary"
+    app:size="lg" />`,
+};
+
+// ── Sections ───────────────────────────────────────────────────────────────
+
+function CopyableVariant({ intent, style }: { intent: Intent; style: Style }) {
+  return (
+    <Copyable snippets={variantSnippets(intent, style)}>
+      <Btn intent={intent} style={style} label={STYLE_LABEL[style]} />
+    </Copyable>
+  );
+}
+
+function VariantsMatrix() {
+  const intents = Object.keys(INTENT_LABEL) as Intent[];
+  const styles  = Object.keys(STYLE_LABEL)  as Style[];
   return (
     <div>
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-        <span className="text-[15px] font-semibold text-s4e-text-primary">{title}</span>
-      </div>
+      <SectionTitle>Variants</SectionTitle>
+      <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+        Hover any variant and click the chip to copy code in the format selected above.
+      </p>
 
-      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
-        {/* Color */}
-        <PropertyRow label="Color">
-          {COLOR_VARIANTS.map((cv, i) => (
-            <Btn key={cv.name} type={type} colorVariant={i} label={cv.name} />
+      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-4">
+        {intents.map((intent) => (
+          <PropertyRow key={intent} label={INTENT_LABEL[intent]}>
+            {styles.map((style) => (
+              <CopyableVariant key={style} intent={intent} style={style} />
+            ))}
+          </PropertyRow>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SizesCard() {
+  const rows: { style: Style; styleLabel: string }[] = [
+    { style: "solid",   styleLabel: "Solid"   },
+    { style: "outline", styleLabel: "Outline" },
+    { style: "ghost",   styleLabel: "Ghost"   },
+  ];
+  const cells: { size: Size; label: string }[] = [
+    { size: "sm", label: "Small"  },
+    { size: "md", label: "Medium" },
+    { size: "lg", label: "Large"  },
+  ];
+  return (
+    <div>
+      <SectionTitle>Sizes</SectionTitle>
+      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-4">
+        {rows.map(({ style, styleLabel }) => (
+          <PropertyRow key={style} label={styleLabel}>
+            {cells.map(({ size, label }) => (
+              <Copyable key={size} snippets={sizeSnippets(style, size, label)}>
+                <Btn intent="primary" style={style} size={size} label={label} />
+              </Copyable>
+            ))}
+          </PropertyRow>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StatesCard() {
+  const styles: Style[] = ["solid", "outline", "ghost"];
+  const loadings: { intent: Intent; label: string }[] = [
+    { intent: "primary",     label: "Saving…"   },
+    { intent: "default",     label: "Working…"  },
+    { intent: "destructive", label: "Deleting…" },
+  ];
+  return (
+    <div>
+      <SectionTitle>States</SectionTitle>
+      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-4">
+        <PropertyRow label="Default">
+          {styles.map((style) => (
+            <Copyable key={style} snippets={variantSnippets("primary", style, "Default")}>
+              <Btn intent="primary" style={style} label="Default" />
+            </Copyable>
           ))}
         </PropertyRow>
-
-        {/* States — shown with Primary color */}
-        <PropertyRow label="States">
-          <Btn type={type} colorVariant={1} state="Enabled"  label="Enabled" />
-          <Btn type={type} colorVariant={1} state="Hover"    label="Hover" />
-          <Btn type={type} colorVariant={1} state="Disabled" label="Disabled" />
+        <PropertyRow label="Disabled">
+          {styles.map((style) => (
+            <Copyable key={style} snippets={disabledSnippets(style, "Disabled")}>
+              <Btn intent="primary" style={style} disabled label="Disabled" />
+            </Copyable>
+          ))}
         </PropertyRow>
-
-        {/* Icon */}
-        <PropertyRow label="Icon">
-          <Btn type={type} colorVariant={1} iconPos="left"  label="Start Icon" />
-          <Btn type={type} colorVariant={1} iconPos="right" label="End Icon" />
-        </PropertyRow>
-
-        {/* Size */}
-        <PropertyRow label="Size">
-          <Btn type={type} colorVariant={1} size="Small"  label="Small" />
-          <Btn type={type} colorVariant={1} size="Medium" label="Medium" />
-          <Btn type={type} colorVariant={1} size="Large"  label="Large" />
+        <PropertyRow label="Loading">
+          {loadings.map(({ intent, label }) => (
+            <Copyable key={intent} snippets={loadingSnippets(intent, label)}>
+              <Btn intent={intent} loading label={label} />
+            </Copyable>
+          ))}
         </PropertyRow>
       </div>
     </div>
   );
 }
 
-// ── Loading state ─────────────────────────────────────────────────────────
-
-function Spinner({ size = 14, className }: { size?: number; className?: string }) {
-  return (
-    <span
-      aria-hidden
-      className={cn("inline-block rounded-full animate-spin border-2 border-current/30 border-t-current", className)}
-      style={{ width: size, height: size }}
-    />
-  );
-}
-
-function LoadingCard() {
+function IconCard() {
   return (
     <div>
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-        <span className="text-[15px] font-semibold text-s4e-text-primary">Loading State</span>
-      </div>
-      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
-        <PropertyRow label="Contained">
-          <button
-            type="button"
-            disabled
-            className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-sm font-medium opacity-90 cursor-wait"
-          >
-            <Spinner /> Saving
-          </button>
-          <button
-            type="button"
-            disabled
-            className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-error-600 text-s4e-text-on-accent text-sm font-medium opacity-90 cursor-wait"
-          >
-            <Spinner /> Deleting
-          </button>
+      <SectionTitle>With icon</SectionTitle>
+      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-4">
+        <PropertyRow label="Leading">
+          <Copyable snippets={leadingIconSnippets("default", "solid", "Export", "Download", "square.and.arrow.down", "ic_download")}>
+            <Btn intent="default" iconPos="left" Icon={Download} label="Export" />
+          </Copyable>
+          <Copyable snippets={leadingIconSnippets("primary", "solid", "Export", "Download", "square.and.arrow.down", "ic_download")}>
+            <Btn intent="primary" iconPos="left" Icon={Download} label="Export" />
+          </Copyable>
+          <Copyable snippets={leadingIconSnippets("destructive", "solid", "Delete", "Trash2", "trash", "ic_trash")}>
+            <Btn intent="destructive" iconPos="left" Icon={Trash2} label="Delete" />
+          </Copyable>
         </PropertyRow>
-        <PropertyRow label="Outlined">
-          <button
-            type="button"
-            disabled
-            className="inline-flex items-center gap-2 h-9 px-4 rounded-lg border border-s4e-btn-primary-600 text-s4e-btn-primary-600 text-sm font-medium opacity-90 cursor-wait"
-          >
-            <Spinner /> Connecting
-          </button>
-        </PropertyRow>
-        <PropertyRow label="Text">
-          <button
-            type="button"
-            disabled
-            className="inline-flex items-center gap-2 px-2.5 py-1.5 text-s4e-btn-primary-600 text-sm font-medium opacity-90 cursor-wait"
-          >
-            <Spinner size={12} /> Loading
-          </button>
+        <PropertyRow label="Trailing">
+          <Copyable snippets={trailingIconSnippets("default", "solid", "More", "ChevronDown", "chevron.down", "ic_chevron_down")}>
+            <Btn intent="default" iconPos="right" Icon={ChevronDown} label="More" />
+          </Copyable>
+          <Copyable snippets={trailingIconSnippets("primary", "solid", "Continue", "ArrowRight", "arrow.right", "ic_arrow_right")}>
+            <Btn intent="primary" iconPos="right" Icon={ArrowRight} label="Continue" />
+          </Copyable>
+          <Copyable snippets={trailingIconSnippets("primary", "ghost", "Learn more", "ArrowRight", "arrow.right", "ic_arrow_right")}>
+            <Btn intent="primary" style="ghost" iconPos="right" Icon={ArrowRight} label="Learn more" />
+          </Copyable>
         </PropertyRow>
       </div>
     </div>
   );
 }
-
-// ── Icon-only ─────────────────────────────────────────────────────────────
 
 function IconOnlyCard() {
+  const intents: Intent[] = ["default", "primary", "destructive"];
+  const iconFor: Record<Intent, { react: string; sf: string; drawable: string; label: string }> = {
+    default:     { react: "Pencil", sf: "pencil", drawable: "ic_pencil", label: "Edit"   },
+    primary:     { react: "Pencil", sf: "pencil", drawable: "ic_pencil", label: "Edit"   },
+    destructive: { react: "Trash2", sf: "trash",  drawable: "ic_trash",  label: "Delete" },
+  };
+  const renderRow = (style: Style) =>
+    intents.map((intent) => {
+      const meta = iconFor[intent];
+      return (
+        <Copyable
+          key={intent}
+          snippets={iconOnlySnippets(intent, style, "md", meta.label, meta.react, meta.sf, meta.drawable)}
+        >
+          <Btn intent={intent} style={style} iconOnly Icon={intent === "destructive" ? Trash2 : Pencil} />
+        </Copyable>
+      );
+    });
   return (
     <div>
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-        <span className="text-[15px] font-semibold text-s4e-text-primary">Icon-only Button</span>
-      </div>
-      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
-        <PropertyRow label="Variant">
-          <button type="button" aria-label="Edit"   className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-s4e-btn-neutral-700 text-s4e-text-on-accent hover:bg-s4e-btn-neutral-800 transition-colors cursor-pointer">
-            <Pencil size={14} />
-          </button>
-          <button type="button" aria-label="Edit"   className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-s4e-btn-neutral-600 text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 transition-colors cursor-pointer">
-            <Pencil size={14} />
-          </button>
-          <button type="button" aria-label="Edit"   className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 transition-colors cursor-pointer">
-            <Pencil size={14} />
-          </button>
-          <button type="button" aria-label="Delete" className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-s4e-btn-error-600 hover:bg-s4e-btn-error-50 transition-colors cursor-pointer">
-            <Trash2 size={14} />
-          </button>
-        </PropertyRow>
+      <SectionTitle>Icon-only</SectionTitle>
+      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-4">
+        <PropertyRow label="Solid">{renderRow("solid")}</PropertyRow>
+        <PropertyRow label="Outline">{renderRow("outline")}</PropertyRow>
+        <PropertyRow label="Ghost">{renderRow("ghost")}</PropertyRow>
         <PropertyRow label="Size">
-          <button type="button" aria-label="Small"  className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-s4e-btn-neutral-600 text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 cursor-pointer">
-            <Pencil size={12} />
-          </button>
-          <button type="button" aria-label="Medium" className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-s4e-btn-neutral-600 text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 cursor-pointer">
-            <Pencil size={14} />
-          </button>
-          <button type="button" aria-label="Large"  className="inline-flex items-center justify-center w-11 h-11 rounded-lg border border-s4e-btn-neutral-600 text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 cursor-pointer">
-            <Pencil size={16} />
-          </button>
+          {(["sm", "md", "lg"] as Size[]).map((size) => (
+            <Copyable
+              key={size}
+              snippets={iconOnlySnippets("default", "outline", size, "Edit", "Pencil", "pencil", "ic_pencil")}
+            >
+              <Btn intent="default" style="outline" iconOnly size={size} Icon={Pencil} />
+            </Copyable>
+          ))}
         </PropertyRow>
       </div>
     </div>
   );
 }
 
-// ── Button group ──────────────────────────────────────────────────────────
-
-function ButtonGroupCard() {
+function GroupCard() {
   return (
     <div>
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-        <span className="text-[15px] font-semibold text-s4e-text-primary">Button Group</span>
-      </div>
-      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
-        <PropertyRow label="Connected">
-          <div className="inline-flex rounded-lg overflow-hidden border border-s4e-btn-neutral-600">
-            <button type="button" className="px-3 h-9 text-sm font-medium text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 border-r border-s4e-btn-neutral-600 cursor-pointer">Day</button>
-            <button type="button" className="px-3 h-9 text-sm font-medium bg-s4e-btn-neutral-700 text-s4e-text-on-accent cursor-pointer">Week</button>
-            <button type="button" className="px-3 h-9 text-sm font-medium text-s4e-btn-neutral-700 hover:bg-s4e-btn-neutral-100 border-l border-s4e-btn-neutral-600 cursor-pointer">Month</button>
-          </div>
+      <SectionTitle>Button Group</SectionTitle>
+      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-4">
+        <PropertyRow label="Segmented">
+          <Copyable snippets={SEGMENTED_SNIPPETS}>
+            <div className="inline-flex rounded-md overflow-hidden border border-s4e-neutral-grey-300">
+              <button type="button" className="px-3 h-9 text-[13px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 border-r border-s4e-neutral-grey-300 cursor-pointer">Day</button>
+              <button type="button" className="px-3 h-9 text-[13px] font-medium bg-s4e-text-primary text-s4e-text-inverse cursor-pointer">Week</button>
+              <button type="button" className="px-3 h-9 text-[13px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 border-l border-s4e-neutral-grey-300 cursor-pointer">Month</button>
+            </div>
+          </Copyable>
         </PropertyRow>
         <PropertyRow label="Split">
-          <div className="inline-flex rounded-lg overflow-hidden">
-            <button type="button" className="inline-flex items-center gap-2 px-4 h-9 rounded-l-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-sm font-medium hover:bg-s4e-btn-primary-700 cursor-pointer">
-              <Download size={14} /> Export CSV
-            </button>
-            <button type="button" aria-label="More" className="px-2 h-9 rounded-r-lg bg-s4e-btn-primary-700 text-s4e-text-on-accent hover:bg-s4e-btn-primary-700/90 border-l border-white/15 cursor-pointer">
-              <ChevronDown size={14} />
-            </button>
-          </div>
+          <Copyable snippets={SPLIT_SNIPPETS}>
+            <div className="inline-flex rounded-md overflow-hidden">
+              <button type="button" className="inline-flex items-center gap-2 px-4 h-9 rounded-l-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium hover:bg-s4e-btn-primary-700 cursor-pointer">
+                <Download size={14} /> Export CSV
+              </button>
+              <button type="button" aria-label="More export options" className="px-2 h-9 rounded-r-md bg-s4e-btn-primary-700 text-s4e-text-on-accent hover:opacity-90 border-l border-s4e-text-on-accent/15 cursor-pointer">
+                <ChevronDown size={14} />
+              </button>
+            </div>
+          </Copyable>
         </PropertyRow>
         <PropertyRow label="Toolbar">
-          <div className="inline-flex rounded-md overflow-hidden border border-s4e-btn-neutral-300">
-            <button type="button" aria-label="Edit"   className="px-2.5 py-1.5 hover:bg-s4e-btn-neutral-100 text-s4e-btn-neutral-700 border-r border-s4e-btn-neutral-300 cursor-pointer">
-              <Pencil size={13} />
-            </button>
-            <button type="button" aria-label="Delete" className="px-2.5 py-1.5 hover:bg-s4e-btn-neutral-100 text-s4e-btn-neutral-700 border-r border-s4e-btn-neutral-300 cursor-pointer">
-              <Trash2 size={13} />
-            </button>
-            <button type="button" aria-label="More"   className="px-2.5 py-1.5 hover:bg-s4e-btn-neutral-100 text-s4e-btn-neutral-700 cursor-pointer">
-              <MoreHorizontal size={13} />
-            </button>
-          </div>
+          <Copyable snippets={TOOLBAR_SNIPPETS}>
+            <div className="inline-flex rounded-md overflow-hidden border border-s4e-neutral-grey-300">
+              <button type="button" aria-label="Edit"   className="px-2.5 py-1.5 text-s4e-text-primary hover:bg-s4e-neutral-grey-100 border-r border-s4e-neutral-grey-300 cursor-pointer">
+                <Pencil size={13} />
+              </button>
+              <button type="button" aria-label="Delete" className="px-2.5 py-1.5 text-s4e-text-error hover:bg-s4e-scale-red-50 border-r border-s4e-neutral-grey-300 cursor-pointer">
+                <Trash2 size={13} />
+              </button>
+              <button type="button" aria-label="More"   className="px-2.5 py-1.5 text-s4e-text-primary hover:bg-s4e-neutral-grey-100 cursor-pointer">
+                <MoreHorizontal size={13} />
+              </button>
+            </div>
+          </Copyable>
         </PropertyRow>
       </div>
     </div>
   );
 }
-
-// ── Full width ────────────────────────────────────────────────────────────
 
 function FullWidthCard() {
   return (
     <div>
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-        <span className="text-[15px] font-semibold text-s4e-text-primary">Full Width</span>
-      </div>
+      <SectionTitle>Full width</SectionTitle>
       <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5">
-        <button
-          type="button"
-          className="block w-full h-10 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-sm font-medium hover:bg-s4e-btn-primary-700 transition-colors cursor-pointer"
-        >
-          Continue to checkout
-        </button>
+        <Copyable snippets={FULLWIDTH_SNIPPETS} className="block w-full">
+          <Btn intent="primary" size="lg" label="Continue to checkout" className="w-full" />
+        </Copyable>
         <p className="mt-2 text-[11px] text-s4e-text-disabled">
           Use sparingly — full-width buttons make sense on narrow forms and mobile drawers, rarely on desktop dashboards.
         </p>
@@ -384,15 +576,17 @@ function FullWidthCard() {
   );
 }
 
+// ── Showcase ──────────────────────────────────────────────────────────────
+
 export function ButtonShowcase() {
   return (
-    <div className="space-y-12">
-      <ButtonCard title="Contained Button" type="contained" />
-      <ButtonCard title="Outlined Button"  type="outlined" />
-      <ButtonCard title="Text Button"      type="text" />
-      <LoadingCard />
+    <div className="space-y-10">
+      <VariantsMatrix />
+      <SizesCard />
+      <StatesCard />
+      <IconCard />
       <IconOnlyCard />
-      <ButtonGroupCard />
+      <GroupCard />
       <FullWidthCard />
     </div>
   );

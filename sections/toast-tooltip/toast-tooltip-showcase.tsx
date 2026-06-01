@@ -4,6 +4,8 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { CircleCheck, CircleAlert, Lightbulb, Ban, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Tooltip ────────────────────────────────────────────────────────────────
 
@@ -132,6 +134,37 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
+// ── Snippets ───────────────────────────────────────────────────────────────
+
+function tooltipSnippets(pos: TooltipPos): Record<Platform, string> {
+  return {
+    react: `<Tooltip position="${pos}" content="${TOOLTIP_TEXT}">
+  <button>${pos[0].toUpperCase()}${pos.slice(1)}</button>
+</Tooltip>`,
+    swift: `Button("${pos[0].toUpperCase()}${pos.slice(1)}") { /* action */ }
+    .help("${TOOLTIP_TEXT}")
+    .tooltipPosition(.${pos})`,
+    xml: `<com.s4e.ui.Tooltip
+    app:position="${pos}"
+    android:contentDescription="${TOOLTIP_TEXT}">
+    <Button android:text="${pos[0].toUpperCase()}${pos.slice(1)}" />
+</com.s4e.ui.Tooltip>`,
+  };
+}
+
+function toastSnippets(t: ToastType): Record<Platform, string> {
+  const label = TOAST_CONFIG[t].label;
+  return {
+    react: `<Toast type="${t}">${label}</Toast>`,
+    swift: `.toast(isPresented: $show, type: .${t}) {
+    Text("${label}")
+}`,
+    xml: `<com.s4e.ui.Toast
+    app:type="${t}"
+    android:text="${label}" />`,
+  };
+}
+
 // ── Showcase ───────────────────────────────────────────────────────────────
 
 export function ToastTooltipShowcase() {
@@ -151,14 +184,16 @@ export function ToastTooltipShowcase() {
         <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-8">
           <div className="flex flex-wrap justify-center gap-10">
             {(["top", "right", "bottom", "left"] as TooltipPos[]).map((pos) => (
-              <TooltipBubble key={pos} position={pos}>
-                <button
-                  type="button"
-                  className="px-4 py-2 rounded-lg border border-s4e-neutral-divider-10 text-[12px] font-medium text-s4e-text-secondary hover:bg-s4e-neutral-grey-100 transition-colors capitalize"
-                >
-                  {pos}
-                </button>
-              </TooltipBubble>
+              <Copyable key={pos} snippets={tooltipSnippets(pos)}>
+                <TooltipBubble position={pos}>
+                  <button
+                    type="button"
+                    className="px-4 py-2 rounded-lg border border-s4e-neutral-divider-10 text-[12px] font-medium text-s4e-text-secondary hover:bg-s4e-neutral-grey-100 transition-colors capitalize"
+                  >
+                    {pos}
+                  </button>
+                </TooltipBubble>
+              </Copyable>
             ))}
           </div>
           <p className="text-center text-[10px] text-s4e-text-disabled mt-6">
@@ -173,7 +208,9 @@ export function ToastTooltipShowcase() {
         <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
           <div className="space-y-2 max-w-sm">
             {TOAST_ORDER.filter((t) => !dismissed.has(t)).map((t) => (
-              <Toast key={t} type={t} onDismiss={() => dismiss(t)} />
+              <Copyable key={t} snippets={toastSnippets(t)} className="block">
+                <Toast type={t} onDismiss={() => dismiss(t)} />
+              </Copyable>
             ))}
 
             {allDismissed && (

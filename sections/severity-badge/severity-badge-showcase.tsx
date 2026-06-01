@@ -2,6 +2,8 @@
 
 import type React from "react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Types & config ─────────────────────────────────────────────────────────
 
@@ -48,6 +50,26 @@ const SEVERITY: Record<Severity, SeverityConfig> = {
 };
 
 const SEVERITIES: Severity[] = ["low", "critical", "high", "medium", "info"];
+
+// ── Snippet builders ───────────────────────────────────────────────────────
+
+function severitySnippets(severity: Severity, score?: number): Record<Platform, string> {
+  const label = SEVERITY[severity].label;
+  const reactProps = [`severity="${severity}"`];
+  if (score !== undefined) reactProps.push(`score={${score}}`);
+
+  const swiftArgs = [`severity: .${severity}`];
+  if (score !== undefined) swiftArgs.push(`score: ${score}`);
+
+  const xmlProps = [`app:severity="${severity}"`];
+  if (score !== undefined) xmlProps.push(`app:score="${score}"`);
+
+  return {
+    react: `<SeverityBadge ${reactProps.join(" ")} />`,
+    swift: `SeverityBadge(${swiftArgs.join(", ")})`,
+    xml:   `<com.s4e.ui.SeverityBadge\n    android:contentDescription="${label}"\n    ${xmlProps.join("\n    ")} />`,
+  };
+}
 
 // ── Badge component ────────────────────────────────────────────────────────
 
@@ -102,7 +124,9 @@ export function SeverityBadgeShowcase() {
               </p>
               <div className="space-y-2">
                 {SEVERITIES.map((s) => (
-                  <SeverityBadge key={s} severity={s} />
+                  <Copyable key={s} snippets={severitySnippets(s)}>
+                    <SeverityBadge severity={s} />
+                  </Copyable>
                 ))}
               </div>
             </div>
@@ -114,7 +138,9 @@ export function SeverityBadgeShowcase() {
               </p>
               <div className="space-y-2">
                 {SEVERITIES.map((s) => (
-                  <SeverityBadge key={s} severity={s} score={8.4} />
+                  <Copyable key={s} snippets={severitySnippets(s, 8.4)}>
+                    <SeverityBadge severity={s} score={8.4} />
+                  </Copyable>
                 ))}
               </div>
             </div>

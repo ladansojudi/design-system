@@ -4,6 +4,8 @@ import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -141,6 +143,65 @@ function Select({
   );
 }
 
+// ── Snippet builders ──────────────────────────────────────────────────────
+
+type SnippetOpts = {
+  label?:        string;
+  options:       Option[];
+  optionsName:   string;
+  bindingName:   string;
+  placeholder?:  string;
+  helperText?:   string;
+  errorText?:    string;
+  state?:        State;
+};
+
+function selectSnippets({
+  label, options, optionsName, bindingName, placeholder, helperText, errorText, state,
+}: SnippetOpts): Record<Platform, string> {
+  const isError = state === "Error";
+  const reactProps = [
+    label       ? ` label="${label}"`                : "",
+    ` options={${optionsName}}`,
+    ` value={${bindingName}}`,
+    ` onChange={set${bindingName[0].toUpperCase()}${bindingName.slice(1)}}`,
+    placeholder ? ` placeholder="${placeholder}"`    : "",
+    helperText  ? ` helperText="${helperText}"`      : "",
+    isError     ? ` state="error"`                   : "",
+    errorText   ? ` errorText="${errorText}"`        : "",
+  ].join("");
+  const swiftLabel = label ?? "Select";
+  const swiftCases = options.map(
+    (o) => `        Text("${o.label}").tag("${o.value}")`,
+  ).join("\n");
+  const swiftMods = [
+    `.pickerStyle(.menu)`,
+    isError && errorText ? `.s4eErrorText("${errorText}")` : null,
+    helperText           ? `.s4eHelperText("${helperText}")` : null,
+  ].filter(Boolean).join("\n    ");
+  const xmlItems = options.map(
+    (o) => `        <item>${o.label}</item>`,
+  ).join("\n");
+  return {
+    react: `<Select${reactProps} />`,
+    swift: `Picker("${swiftLabel}", selection: $${bindingName}) {
+${swiftCases}
+}
+${swiftMods}`,
+    xml:   `<com.google.android.material.textfield.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"${label ? `\n    android:hint="${label}"` : ""}${isError ? `\n    app:errorEnabled="true"` : ""}${errorText ? `\n    app:error="${errorText}"` : ""}${helperText ? `\n    app:helperText="${helperText}"` : ""}>
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="none"${placeholder ? `\n        android:hint="${placeholder}"` : ""}>
+${xmlItems}
+    </AutoCompleteTextView>
+</com.google.android.material.textfield.TextInputLayout>`,
+  };
+}
+
 // ── Showcase ──────────────────────────────────────────────────────────────
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -176,33 +237,77 @@ export function SelectShowcase() {
       <div>
         <SectionTitle>Variants</SectionTitle>
         <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <Select
-            label="Region"
-            options={REGIONS}
-            value={region}
-            onChange={setRegion}
-            helperText="Data is processed in this region only."
-          />
-          <Select
-            label="Subscription tier"
-            options={TIERS}
-            value={tier}
-            onChange={setTier}
-          />
-          <Select
-            label="Empty"
-            options={REGIONS}
-            value={empty}
-            onChange={setEmpty}
-            placeholder="Pick a region"
-          />
-          <Select
-            label="With error"
-            options={REGIONS}
-            value=""
-            state="Error"
-            errorText="This field is required."
-          />
+          <Copyable
+            className="block w-full"
+            snippets={selectSnippets({
+              label: "Region",
+              options: REGIONS,
+              optionsName: "REGIONS",
+              bindingName: "region",
+              helperText: "Data is processed in this region only.",
+            })}
+          >
+            <Select
+              label="Region"
+              options={REGIONS}
+              value={region}
+              onChange={setRegion}
+              helperText="Data is processed in this region only."
+            />
+          </Copyable>
+          <Copyable
+            className="block w-full"
+            snippets={selectSnippets({
+              label: "Subscription tier",
+              options: TIERS,
+              optionsName: "TIERS",
+              bindingName: "tier",
+            })}
+          >
+            <Select
+              label="Subscription tier"
+              options={TIERS}
+              value={tier}
+              onChange={setTier}
+            />
+          </Copyable>
+          <Copyable
+            className="block w-full"
+            snippets={selectSnippets({
+              label: "Empty",
+              options: REGIONS,
+              optionsName: "REGIONS",
+              bindingName: "region",
+              placeholder: "Pick a region",
+            })}
+          >
+            <Select
+              label="Empty"
+              options={REGIONS}
+              value={empty}
+              onChange={setEmpty}
+              placeholder="Pick a region"
+            />
+          </Copyable>
+          <Copyable
+            className="block w-full"
+            snippets={selectSnippets({
+              label: "With error",
+              options: REGIONS,
+              optionsName: "REGIONS",
+              bindingName: "region",
+              state: "Error",
+              errorText: "This field is required.",
+            })}
+          >
+            <Select
+              label="With error"
+              options={REGIONS}
+              value=""
+              state="Error"
+              errorText="This field is required."
+            />
+          </Copyable>
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 {
   "name": "design-system",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "tokens": "node scripts/export-tokens.js",
-    "prebuild": "node scripts/export-tokens.js"
+    "components": "node scripts/export-components.js",
+    "export": "npm run tokens && npm run components",
+    "prebuild": "npm run export"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

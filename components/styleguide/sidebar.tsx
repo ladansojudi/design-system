@@ -7,6 +7,9 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useMobileSidebar } from "@/components/styleguide/mobile-sidebar-provider";
+import { version as PKG_VERSION } from "@/package.json";
+
+const RELEASE_URL = `https://github.com/ladansojudi/design-system/releases/tag/v${PKG_VERSION}`;
 
 type NavGroup = {
   label: string;
@@ -21,23 +24,24 @@ const navGroups: NavGroup[] = [
       { slug: "accessibility",    label: "Accessibility" },
       { slug: "contribution",     label: "Contribution Guide" },
       { slug: "component-status", label: "Component Status" },
-      { slug: "colors",           label: "Colors & tokens" },
+      { slug: "theming",          label: "Theming" },
+      { slug: "colors",           label: "Colors & Tokens" },
       { slug: "typography",       label: "Typography" },
-      { slug: "spacing",          label: "Spacing & grid" },
+      { slug: "spacing",          label: "Spacing & Grid" },
+      { slug: "shadow",           label: "Shadow" },
+      { slug: "icons",            label: "Icons" },
       { slug: "layout-behavior",  label: "Layout & Behavior" },
     ],
   },
   {
     label: "ATOMS",
     items: [
-      { slug: "shadow",         label: "Shadow" },
-      { slug: "icons",          label: "Icons" },
       { slug: "button",         label: "Button" },
-      { slug: "text-field",     label: "Text field" },
+      { slug: "text-field",     label: "Text Field" },
       { slug: "textarea",       label: "Textarea" },
       { slug: "checkbox",       label: "Checkbox" },
       { slug: "select",         label: "Select" },
-      { slug: "severity-badge", label: "Severity badge" },
+      { slug: "severity-badge", label: "Severity Badge" },
       { slug: "switch-radio",   label: "Switch · Radio" },
       { slug: "toast-tooltip",  label: "Toast · Tooltip" },
       { slug: "badge-tag",      label: "Badge · Tag" },
@@ -56,23 +60,23 @@ const navGroups: NavGroup[] = [
   {
     label: "MOLECULES",
     items: [
-      { slug: "search-bar", label: "Search bar" },
+      { slug: "search-bar", label: "Search Bar" },
       { slug: "tabs",       label: "Tabs" },
       { slug: "breadcrumb", label: "Breadcrumb" },
-      { slug: "filter-bar", label: "Filter bar" },
+      { slug: "filter-bar", label: "Filter Bar" },
     ],
   },
   {
     label: "ORGANISMS",
     items: [
       { slug: "sidebar",     label: "Sidebar" },
-      { slug: "top-bar",     label: "Top bar" },
+      { slug: "top-bar",     label: "Top Bar" },
       { slug: "text-space",  label: "Text Space" },
-      { slug: "data-table",  label: "Data table" },
+      { slug: "data-table",  label: "Data Table" },
       { slug: "cards",       label: "Cards" },
       { slug: "chart",       label: "Chart" },
       { slug: "modal",       label: "Modal" },
-      { slug: "empty-state", label: "Empty state" },
+      { slug: "empty-state", label: "Empty State" },
       { slug: "gauge",       label: "Gauge" },
     ],
   },
@@ -105,8 +109,19 @@ export function Sidebar() {
         )}
       >
         <div className="h-[52px] px-4 flex flex-col justify-center border-b border-s4e-neutral-divider-10 shrink-0">
-          <div className="text-[12px] font-semibold tracking-tight text-s4e-text-primary">
-            Design System
+          <div className="flex items-center gap-2">
+            <span className="text-[12px] font-semibold tracking-tight text-s4e-text-primary">
+              Design System
+            </span>
+            <a
+              href={RELEASE_URL}
+              target="_blank"
+              rel="noreferrer"
+              title={`v${PKG_VERSION} — release notes on GitHub`}
+              className="inline-flex items-center font-mono text-[9.5px] tracking-tight px-1.5 py-0.5 rounded-[3px] bg-s4e-brand-primary-500/10 text-s4e-brand-primary-500 hover:bg-s4e-brand-primary-500/20 transition-colors"
+            >
+              v{PKG_VERSION}
+            </a>
           </div>
           <div className="mt-0.5 text-[10.5px] text-s4e-text-secondary">
             by Laden Sojudi

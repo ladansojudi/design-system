@@ -19,7 +19,7 @@ export default function IconsPage() {
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
       <PageHeader
-        category="Atoms"
+        category="Foundations"
         title="Icons"
         status="stable"
         description="Lucide React icon set. Click any icon to copy its component name. Stick to the five sizes below — there's no need for 13px or 22px."

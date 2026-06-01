@@ -3,6 +3,8 @@
 import type React from "react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Toggle ─────────────────────────────────────────────────────────────────
 
@@ -111,6 +113,78 @@ function ItemLabel({ label, disabled }: { label: string; disabled?: boolean }) {
   );
 }
 
+// ── Snippet builders ──────────────────────────────────────────────────────
+
+function switchSnippets(variant: ToggleVariant, checked: boolean, label: string): Record<Platform, string> {
+  return {
+    react: `<Switch checked={${checked}} variant="${variant}" onChange={setOn} />`,
+    swift: `Toggle("${label}", isOn: $isOn)
+    .toggleStyle(.s4e(.${variant}))`,
+    xml:   `<com.google.android.material.materialswitch.MaterialSwitch
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:checked="${checked}"
+    app:variant="${variant}" />`,
+  };
+}
+
+function switchDisabledSnippets(variant: ToggleVariant, checked: boolean): Record<Platform, string> {
+  return {
+    react: `<Switch checked={${checked}} variant="${variant}" disabled />`,
+    swift: `Toggle("Disabled", isOn: .constant(${checked}))
+    .toggleStyle(.s4e(.${variant}))
+    .disabled(true)`,
+    xml:   `<com.google.android.material.materialswitch.MaterialSwitch
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:checked="${checked}"
+    android:enabled="false"
+    app:variant="${variant}" />`,
+  };
+}
+
+const RADIO_GROUP_SNIPPETS: Record<Platform, string> = {
+  react: `<RadioGroup value={selected} onChange={setSelected}>
+  <Radio value="Option 1">Option 1</Radio>
+  <Radio value="Option 2">Option 2</Radio>
+  <Radio value="Option 3">Option 3</Radio>
+  <Radio value="Option 4">Option 4</Radio>
+</RadioGroup>`,
+  swift: `Picker("Options", selection: $selected) {
+    Text("Option 1").tag("Option 1")
+    Text("Option 2").tag("Option 2")
+    Text("Option 3").tag("Option 3")
+    Text("Option 4").tag("Option 4")
+}
+.pickerStyle(.radioGroup)`,
+  xml: `<RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RadioButton android:id="@+id/opt1" android:text="Option 1" android:checked="true" />
+    <RadioButton android:id="@+id/opt2" android:text="Option 2" />
+    <RadioButton android:id="@+id/opt3" android:text="Option 3" />
+    <RadioButton android:id="@+id/opt4" android:text="Option 4" />
+</RadioGroup>`,
+};
+
+function radioDisabledSnippets(checked: boolean): Record<Platform, string> {
+  return {
+    react: `<Radio checked={${checked}} disabled>${checked ? "Checked" : "Unchecked"}</Radio>`,
+    swift: `Picker("", selection: .constant("${checked ? "yes" : "no"}")) {
+    Text("${checked ? "Checked" : "Unchecked"}").tag("${checked ? "yes" : "no"}")
+}
+.pickerStyle(.radioGroup)
+.disabled(true)`,
+    xml: `<RadioButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="${checked ? "Checked" : "Unchecked"}"
+    android:checked="${checked}"
+    android:enabled="false" />`,
+  };
+}
+
 // ── Switch showcase ────────────────────────────────────────────────────────
 
 function SwitchCard() {
@@ -122,29 +196,39 @@ function SwitchCard() {
       <SectionTitle>Switch</SectionTitle>
       <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
         <PropertyRow label="Variant">
-          <div className="flex items-center gap-2.5">
-            <Toggle checked={darkOn} onChange={setDarkOn} variant="dark" />
-            <ItemLabel label={darkOn ? "Checked" : "UnChecked"} />
-          </div>
-          <div className="flex items-center gap-2.5">
-            <Toggle checked={primaryOn} onChange={setPrimaryOn} variant="primary" />
-            <ItemLabel label={primaryOn ? "Checked" : "UnChecked"} />
-          </div>
+          <Copyable snippets={switchSnippets("dark", darkOn, darkOn ? "Checked" : "UnChecked")}>
+            <div className="flex items-center gap-2.5">
+              <Toggle checked={darkOn} onChange={setDarkOn} variant="dark" />
+              <ItemLabel label={darkOn ? "Checked" : "UnChecked"} />
+            </div>
+          </Copyable>
+          <Copyable snippets={switchSnippets("primary", primaryOn, primaryOn ? "Checked" : "UnChecked")}>
+            <div className="flex items-center gap-2.5">
+              <Toggle checked={primaryOn} onChange={setPrimaryOn} variant="primary" />
+              <ItemLabel label={primaryOn ? "Checked" : "UnChecked"} />
+            </div>
+          </Copyable>
         </PropertyRow>
 
         <PropertyRow label="Disabled">
-          <div className="flex items-center gap-2.5">
-            <Toggle checked={false} disabled />
-            <ItemLabel label="Disabled" disabled />
-          </div>
-          <div className="flex items-center gap-2.5">
-            <Toggle checked={true} variant="dark" disabled />
-            <ItemLabel label="Disabled" disabled />
-          </div>
-          <div className="flex items-center gap-2.5">
-            <Toggle checked={true} variant="primary" disabled />
-            <ItemLabel label="Disabled" disabled />
-          </div>
+          <Copyable snippets={switchDisabledSnippets("dark", false)}>
+            <div className="flex items-center gap-2.5">
+              <Toggle checked={false} disabled />
+              <ItemLabel label="Disabled" disabled />
+            </div>
+          </Copyable>
+          <Copyable snippets={switchDisabledSnippets("dark", true)}>
+            <div className="flex items-center gap-2.5">
+              <Toggle checked={true} variant="dark" disabled />
+              <ItemLabel label="Disabled" disabled />
+            </div>
+          </Copyable>
+          <Copyable snippets={switchDisabledSnippets("primary", true)}>
+            <div className="flex items-center gap-2.5">
+              <Toggle checked={true} variant="primary" disabled />
+              <ItemLabel label="Disabled" disabled />
+            </div>
+          </Copyable>
         </PropertyRow>
       </div>
     </div>
@@ -163,30 +247,36 @@ function RadioCard() {
       <SectionTitle>Radio</SectionTitle>
       <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
         <PropertyRow label="Options">
-          <div className="flex flex-wrap gap-x-6 gap-y-3">
-            {RADIO_OPTIONS.map((opt) => (
-              <label
-                key={opt}
-                className="flex items-center gap-2.5 cursor-pointer group"
-              >
-                <RadioButton checked={selected === opt} onChange={() => setSelected(opt)} />
-                <span className="text-[13px] text-s4e-text-primary">
-                  {opt}
-                </span>
-              </label>
-            ))}
-          </div>
+          <Copyable snippets={RADIO_GROUP_SNIPPETS}>
+            <div className="flex flex-wrap gap-x-6 gap-y-3">
+              {RADIO_OPTIONS.map((opt) => (
+                <label
+                  key={opt}
+                  className="flex items-center gap-2.5 cursor-pointer group"
+                >
+                  <RadioButton checked={selected === opt} onChange={() => setSelected(opt)} />
+                  <span className="text-[13px] text-s4e-text-primary">
+                    {opt}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </Copyable>
         </PropertyRow>
 
         <PropertyRow label="Disabled">
-          <div className="flex items-center gap-2.5">
-            <RadioButton checked={false} disabled />
-            <ItemLabel label="Unchecked" disabled />
-          </div>
-          <div className="flex items-center gap-2.5">
-            <RadioButton checked={true} disabled />
-            <ItemLabel label="Checked" disabled />
-          </div>
+          <Copyable snippets={radioDisabledSnippets(false)}>
+            <div className="flex items-center gap-2.5">
+              <RadioButton checked={false} disabled />
+              <ItemLabel label="Unchecked" disabled />
+            </div>
+          </Copyable>
+          <Copyable snippets={radioDisabledSnippets(true)}>
+            <div className="flex items-center gap-2.5">
+              <RadioButton checked={true} disabled />
+              <ItemLabel label="Checked" disabled />
+            </div>
+          </Copyable>
         </PropertyRow>
       </div>
     </div>

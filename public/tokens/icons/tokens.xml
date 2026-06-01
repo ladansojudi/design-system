@@ -15,11 +15,31 @@
 
     <!-- Spacing -->
     <dimen name="space_3">12dp</dimen>
+    <dimen name="space_10">40dp</dimen>
+    <dimen name="space_9">36dp</dimen>
     <dimen name="space_8">32dp</dimen>
     <dimen name="space_6">24dp</dimen>
     <dimen name="space_12">48dp</dimen>
     <dimen name="space_1">4dp</dimen>
     <dimen name="space_4">16dp</dimen>
     <dimen name="space_2">8dp</dimen>
+
+    <!-- Radius -->
+    <dimen name="radius_lg">8dp</dimen>
+    <dimen name="radius_xl">12dp</dimen>
+
+    <!-- Border width -->
+    <dimen name="border_width_1">1dp</dimen>
+
+    <!-- Font size -->
+    <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+    <dimen name="font_size_13">13sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+    <dimen name="font_size_15">15sp</dimen>
+
+    <!-- Font weight -->
+    <integer name="font_weight_semibold">600</integer>
+    <integer name="font_weight_medium">500</integer>
 
 </resources>

@@ -16,10 +16,33 @@
     <color name="btn_primary_700">#024A72</color>
 
     <!-- Spacing -->
+    <dimen name="space_9">36dp</dimen>
     <dimen name="space_4">16dp</dimen>
     <dimen name="space_2">8dp</dimen>
     <dimen name="space_8">32dp</dimen>
     <dimen name="space_16">64dp</dimen>
     <dimen name="space_6">24dp</dimen>
+    <dimen name="space_10">40dp</dimen>
+
+    <!-- Radius -->
+    <dimen name="radius_xl">12dp</dimen>
+    <dimen name="radius_full">9999dp</dimen>
+
+    <!-- Border width -->
+    <dimen name="border_width_1">1dp</dimen>
+    <dimen name="border_width_2">2dp</dimen>
+
+    <!-- Font size -->
+    <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_13">13sp</dimen>
+    <dimen name="font_size_15">15sp</dimen>
+
+    <!-- Font weight -->
+    <integer name="font_weight_medium">500</integer>
+    <integer name="font_weight_semibold">600</integer>
+
+    <!-- Focus ring -->
+    <dimen name="ring_width_2">2dp</dimen>
+    <dimen name="ring_offset_1">1dp</dimen>
 
 </resources>

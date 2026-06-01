@@ -4,8 +4,15 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Download, FileCode } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { usePlatform, type Platform } from "@/components/styleguide/platform-provider";
 
 type Format = "css" | "swift" | "xml";
+
+const PLATFORM_TO_FORMAT: Record<Platform, Format> = {
+  react: "css",
+  swift: "swift",
+  xml:   "xml",
+};
 
 type FileSpec = {
   key:      Format;
@@ -114,20 +121,39 @@ function hlXml(src: string): React.ReactNode[] {
 
 // ── Component ─────────────────────────────────────────────────────────────
 
-export function TokenExportTabs() {
-  const pathname = usePathname();
-  const slug = pathname?.match(/\/styleguide\/([^/]+)/)?.[1];
+export interface TokenExportTabsProps {
+  /** When set, fetches /tokens/<slugOverride>/tokens.* instead of deriving from URL. */
+  slugOverride?: string;
+  /** Section header title. Default: "Token Export". */
+  title?: string;
+  /** Pill badge label. Default: "Used by this component". */
+  badge?: string;
+  /** Intro paragraph (overrides default copy). */
+  intro?: React.ReactNode;
+}
 
-  const [active, setActive]     = useState<Format>("css");
-  const [contents, setContents] = useState<Partial<Record<Format, string>>>({});
-  const [status, setStatus]     = useState<"loading" | "ready" | "missing">("loading");
-  const [lastSlug, setLastSlug] = useState<string | undefined>(slug);
+export function TokenExportTabs({ slugOverride, title, badge, intro }: TokenExportTabsProps = {}) {
+  const pathname = usePathname();
+  const urlSlug  = pathname?.match(/\/styleguide\/([^/]+)/)?.[1];
+  const slug     = slugOverride ?? urlSlug;
+  const { platform } = usePlatform();
+
+  const [active, setActive]         = useState<Format>(PLATFORM_TO_FORMAT[platform]);
+  const [contents, setContents]     = useState<Partial<Record<Format, string>>>({});
+  const [status, setStatus]         = useState<"loading" | "ready" | "missing">("loading");
+  const [lastSlug, setLastSlug]     = useState<string | undefined>(slug);
+  const [lastPlatform, setLastPlatform] = useState<Platform>(platform);
 
   // Derived-state reset when slug changes (React 19 idiomatic pattern)
   if (slug !== lastSlug) {
     setLastSlug(slug);
     setContents({});
     setStatus("loading");
+  }
+  // Sync active tab to global platform when it changes
+  if (platform !== lastPlatform) {
+    setLastPlatform(platform);
+    setActive(PLATFORM_TO_FORMAT[platform]);
   }
 
   useEffect(() => {
@@ -164,15 +190,17 @@ export function TokenExportTabs() {
     <section className="mt-12">
       <div className="flex items-center gap-2 mb-4">
         <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-        <span className="text-[15px] font-semibold text-s4e-text-primary">Token Export</span>
+        <span className="text-[15px] font-semibold text-s4e-text-primary">{title ?? "Token Export"}</span>
         <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-s4e-brand-primary-500/10 text-s4e-brand-primary-500">
-          Used by this component
+          {badge ?? "Used by this component"}
         </span>
       </div>
-      <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
-        The exact tokens this page references — exported per platform. Auto-regenerated from
-        the component sources by <code className="font-mono text-s4e-text-primary">scripts/export-tokens.js</code>.
-      </p>
+      {intro ?? (
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          The exact tokens this page references — exported per platform. Auto-regenerated from
+          the component sources by <code className="font-mono text-s4e-text-primary">scripts/export-tokens.js</code>.
+        </p>
+      )}
 
       <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
         {/* Tab bar */}

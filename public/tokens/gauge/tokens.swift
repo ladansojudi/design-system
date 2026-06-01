@@ -34,11 +34,29 @@ extension UIColor {
     static let textDisabled = UIColor(hex: "#A7ADB2")
 }
 
-// MARK: - Spacing
+// MARK: - Sizing (CGFloat)
 
 extension CGFloat {
+    // Spacing
     static let space2: CGFloat = 8
     static let space4: CGFloat = 16
+    static let space10: CGFloat = 40
     static let space6: CGFloat = 24
     static let space8: CGFloat = 32
+
+    // Radius
+    static let radiusXl: CGFloat = 12
+
+    // Border width
+    static let borderWidth1: CGFloat = 1
+
+    // Font size
+    static let fontSize10: CGFloat = 10
+    static let fontSize12: CGFloat = 12
+    static let fontSize13: CGFloat = 13
+    static let fontSize15: CGFloat = 15
 }
+
+// MARK: - Font weights (use UIFont.Weight directly)
+// font-weight-semibold → .semibold   (CSS 600)
+// font-weight-bold → .bold   (CSS 700)

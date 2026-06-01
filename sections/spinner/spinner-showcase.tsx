@@ -2,6 +2,8 @@
 
 import type React from "react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Spinner primitive ─────────────────────────────────────────────────────
 
@@ -20,6 +22,31 @@ const TONE: Record<Tone, string> = {
   neutral: "border-s4e-text-disabled/25 border-t-s4e-text-secondary",
   white:   "border-s4e-text-white/30 border-t-s4e-text-white",
 };
+
+// ── Snippet builders ───────────────────────────────────────────────────────
+
+function spinnerSnippets(opts: { size?: Size; tone?: Tone } = {}): Record<Platform, string> {
+  const { size, tone } = opts;
+  const reactProps: string[] = [];
+  if (size) reactProps.push(`size="${size}"`);
+  if (tone) reactProps.push(`tone="${tone}"`);
+
+  const swiftArgs: string[] = [];
+  if (size) swiftArgs.push(`size: .${size}`);
+  if (tone) swiftArgs.push(`tone: .${tone}`);
+
+  const xmlProps: string[] = [];
+  if (size) xmlProps.push(`app:size="${size}"`);
+  if (tone) xmlProps.push(`app:tone="${tone}"`);
+
+  const reactTag = reactProps.length ? `<Spinner ${reactProps.join(" ")} />` : `<Spinner />`;
+  const swiftTag = swiftArgs.length ? `Spinner(${swiftArgs.join(", ")})` : `Spinner()`;
+  const xmlTag = xmlProps.length
+    ? `<com.s4e.ui.Spinner\n    ${xmlProps.join("\n    ")} />`
+    : `<com.s4e.ui.Spinner />`;
+
+  return { react: reactTag, swift: swiftTag, xml: xmlTag };
+}
 
 function Spinner({
   size = "md",
@@ -71,17 +98,25 @@ export function SpinnerShowcase() {
           <PropertyRow label="Size">
             {(["xs", "sm", "md", "lg"] as Size[]).map((s) => (
               <div key={s} className="flex flex-col items-center gap-1.5">
-                <Spinner size={s} />
+                <Copyable snippets={spinnerSnippets({ size: s })}>
+                  <Spinner size={s} />
+                </Copyable>
                 <span className="text-[10px] uppercase tracking-widest text-s4e-text-disabled">{s}</span>
               </div>
             ))}
           </PropertyRow>
           <PropertyRow label="Tone">
-            <Spinner tone="primary" />
-            <Spinner tone="neutral" />
-            <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-s4e-btn-primary-600">
-              <Spinner tone="white" size="sm" />
-            </div>
+            <Copyable snippets={spinnerSnippets({ tone: "primary" })}>
+              <Spinner tone="primary" />
+            </Copyable>
+            <Copyable snippets={spinnerSnippets({ tone: "neutral" })}>
+              <Spinner tone="neutral" />
+            </Copyable>
+            <Copyable snippets={spinnerSnippets({ tone: "white", size: "sm" })}>
+              <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-s4e-btn-primary-600">
+                <Spinner tone="white" size="sm" />
+              </div>
+            </Copyable>
           </PropertyRow>
         </div>
       </div>

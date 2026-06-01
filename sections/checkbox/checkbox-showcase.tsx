@@ -4,6 +4,8 @@ import type React from "react";
 import { useState } from "react";
 import { Check, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Copyable } from "@/components/styleguide/copyable";
+import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Checkbox primitive ────────────────────────────────────────────────────
 
@@ -110,6 +112,118 @@ function PropertyRow({ label, children }: { label: string; children: React.React
   );
 }
 
+// ── Snippets ──────────────────────────────────────────────────────────────
+
+type CheckboxSnippetOpts = {
+  checked?:       boolean;
+  indeterminate?: boolean;
+  disabled?:      boolean;
+  tone?:          Tone;
+  label?:         string;
+  description?:   string;
+};
+
+function checkboxSnippets(opts: CheckboxSnippetOpts): Record<Platform, string> {
+  const {
+    checked = false,
+    indeterminate = false,
+    disabled = false,
+    tone = "primary",
+    label,
+    description,
+  } = opts;
+
+  const reactProps = [
+    checked && "checked",
+    indeterminate && "indeterminate",
+    disabled && "disabled",
+    tone !== "primary" && `tone="${tone}"`,
+    label && `label="${label}"`,
+    description && `description="${description}"`,
+  ].filter(Boolean).join(" ");
+
+  const swiftState = indeterminate ? ".mixed" : checked ? ".on" : ".off";
+  const swiftMods = [
+    tone !== "primary" && `.checkboxStyle(.s4e(.${tone}))`,
+    disabled && `.disabled(true)`,
+  ].filter(Boolean).join("\n    ");
+
+  const xmlProps = [
+    `android:layout_width="wrap_content"`,
+    `android:layout_height="wrap_content"`,
+    label && `android:text="${label}"`,
+    checked && `android:checked="true"`,
+    indeterminate && `app:indeterminate="true"`,
+    disabled && `android:enabled="false"`,
+    tone !== "primary" && `app:tone="${tone}"`,
+  ].filter(Boolean).join("\n    ");
+
+  return {
+    react: `<Checkbox ${reactProps} />`,
+    swift: label
+      ? `Checkbox("${label}", state: ${swiftState})${swiftMods ? "\n    " + swiftMods : ""}`
+      : `Checkbox(state: ${swiftState})${swiftMods ? "\n    " + swiftMods : ""}`,
+    xml: `<com.s4e.ui.Checkbox
+    ${xmlProps} />`,
+  };
+}
+
+const PARENT_GROUP_SNIPPETS: Record<Platform, string> = {
+  react: `const ITEMS = ["Firewalls", "Endpoints", "Containers", "Cloud services"];
+const all  = ITEMS.every((i) => list[i]);
+const some = !all && ITEMS.some((i) => list[i]);
+
+<Checkbox
+  checked={all}
+  indeterminate={some}
+  onChange={(v) => setList(Object.fromEntries(ITEMS.map((i) => [i, v])))}
+  label="All asset types"
+/>
+{ITEMS.map((item) => (
+  <Checkbox
+    key={item}
+    checked={list[item]}
+    onChange={(v) => setList((p) => ({ ...p, [item]: v }))}
+    label={item}
+  />
+))}`,
+  swift: `let items = ["Firewalls", "Endpoints", "Containers", "Cloud services"]
+@State private var list: [String: Bool] = [:]
+var allOn:  Bool { items.allSatisfy { list[$0] == true } }
+var someOn: Bool { !allOn && items.contains { list[$0] == true } }
+
+Checkbox(
+    "All asset types",
+    state: someOn ? .mixed : (allOn ? .on : .off)
+) { isOn in
+    items.forEach { list[$0] = isOn }
+}
+
+ForEach(items, id: \\.self) { item in
+    Checkbox(item, state: list[item] == true ? .on : .off) { isOn in
+        list[item] = isOn
+    }
+}`,
+  xml: `<!-- Parent triState checkbox + children in a LinearLayout -->
+<com.s4e.ui.Checkbox
+    android:id="@+id/parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="All asset types"
+    app:triState="true" />
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="24dp">
+    <com.s4e.ui.Checkbox android:text="Firewalls"      android:checked="true"  />
+    <com.s4e.ui.Checkbox android:text="Endpoints"      android:checked="false" />
+    <com.s4e.ui.Checkbox android:text="Containers"    android:checked="true"  />
+    <com.s4e.ui.Checkbox android:text="Cloud services" android:checked="false" />
+</LinearLayout>`,
+};
+
 const ITEMS = ["Firewalls", "Endpoints", "Containers", "Cloud services"];
 
 export function CheckboxShowcase() {
@@ -126,15 +240,29 @@ export function CheckboxShowcase() {
         <SectionTitle>States</SectionTitle>
         <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
           <PropertyRow label="Variants">
-            <Checkbox checked={false}                 onChange={() => {}} />
-            <Checkbox checked={single} onChange={setSingle} />
-            <Checkbox checked={false} indeterminate onChange={() => {}} />
-            <Checkbox checked tone="neutral" onChange={() => {}} />
+            <Copyable snippets={checkboxSnippets({ checked: false })}>
+              <Checkbox checked={false}                 onChange={() => {}} />
+            </Copyable>
+            <Copyable snippets={checkboxSnippets({ checked: true })}>
+              <Checkbox checked={single} onChange={setSingle} />
+            </Copyable>
+            <Copyable snippets={checkboxSnippets({ indeterminate: true })}>
+              <Checkbox checked={false} indeterminate onChange={() => {}} />
+            </Copyable>
+            <Copyable snippets={checkboxSnippets({ checked: true, tone: "neutral" })}>
+              <Checkbox checked tone="neutral" onChange={() => {}} />
+            </Copyable>
           </PropertyRow>
           <PropertyRow label="Disabled">
-            <Checkbox checked={false} disabled />
-            <Checkbox checked        disabled />
-            <Checkbox checked={false} indeterminate disabled />
+            <Copyable snippets={checkboxSnippets({ checked: false, disabled: true })}>
+              <Checkbox checked={false} disabled />
+            </Copyable>
+            <Copyable snippets={checkboxSnippets({ checked: true, disabled: true })}>
+              <Checkbox checked        disabled />
+            </Copyable>
+            <Copyable snippets={checkboxSnippets({ indeterminate: true, disabled: true })}>
+              <Checkbox checked={false} indeterminate disabled />
+            </Copyable>
           </PropertyRow>
         </div>
       </div>
@@ -142,38 +270,61 @@ export function CheckboxShowcase() {
       <div>
         <SectionTitle>With label · description</SectionTitle>
         <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5 space-y-4">
-          <Checkbox
-            checked={single}
-            onChange={setSingle}
-            label="Enable real-time alerts"
-            description="Notifies you within seconds when a new critical finding lands."
-          />
-          <Checkbox checked={false} onChange={() => {}} label="Subscribe to weekly digest" />
-          <Checkbox checked disabled label="Account already verified" />
+          <Copyable
+            snippets={checkboxSnippets({
+              checked: true,
+              label: "Enable real-time alerts",
+              description: "Notifies you within seconds when a new critical finding lands.",
+            })}
+            className="block w-full"
+          >
+            <Checkbox
+              checked={single}
+              onChange={setSingle}
+              label="Enable real-time alerts"
+              description="Notifies you within seconds when a new critical finding lands."
+            />
+          </Copyable>
+          <Copyable
+            snippets={checkboxSnippets({ checked: false, label: "Subscribe to weekly digest" })}
+            className="block w-full"
+          >
+            <Checkbox checked={false} onChange={() => {}} label="Subscribe to weekly digest" />
+          </Copyable>
+          <Copyable
+            snippets={checkboxSnippets({ checked: true, disabled: true, label: "Account already verified" })}
+            className="block w-full"
+          >
+            <Checkbox checked disabled label="Account already verified" />
+          </Copyable>
         </div>
       </div>
 
       <div>
         <SectionTitle>Indeterminate parent (multi-select pattern)</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5 space-y-3">
-          <Checkbox
-            checked={all}
-            indeterminate={some}
-            onChange={(v) =>
-              setList(Object.fromEntries(ITEMS.map((i) => [i, v])))
-            }
-            label="All asset types"
-          />
-          <div className="pl-6 space-y-2 border-l border-s4e-neutral-divider-10">
-            {ITEMS.map((item) => (
+        <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5">
+          <Copyable snippets={PARENT_GROUP_SNIPPETS} className="block w-full">
+            <div className="space-y-3">
               <Checkbox
-                key={item}
-                checked={list[item]}
-                onChange={(v) => setList((prev) => ({ ...prev, [item]: v }))}
-                label={item}
+                checked={all}
+                indeterminate={some}
+                onChange={(v) =>
+                  setList(Object.fromEntries(ITEMS.map((i) => [i, v])))
+                }
+                label="All asset types"
               />
-            ))}
-          </div>
+              <div className="pl-6 space-y-2 border-l border-s4e-neutral-divider-10">
+                {ITEMS.map((item) => (
+                  <Checkbox
+                    key={item}
+                    checked={list[item]}
+                    onChange={(v) => setList((prev) => ({ ...prev, [item]: v }))}
+                    label={item}
+                  />
+                ))}
+              </div>
+            </div>
+          </Copyable>
         </div>
       </div>
     </div>

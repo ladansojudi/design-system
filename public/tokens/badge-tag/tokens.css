@@ -3,6 +3,7 @@
  */
 
 :root {
+  /* Colors */
   --s4e-brand-primary-50: #e8f4fd;
   --s4e-brand-primary-200: #8ac8f5;
   --s4e-brand-primary-500: #1383d4;
@@ -21,15 +22,33 @@
   --s4e-scale-red-600: #8e2a1f;
   --s4e-neutral-grey-100: #f7f8f8;
   --s4e-neutral-grey-400: #c9cfcf;
-  --s4e-neutral-divider-10: rgba(0, 0, 0, 0.1);
   --s4e-text-primary: #121f28;
   --s4e-text-secondary: #657078;
   --s4e-text-disabled: #a7adb2;
+
+  /* Spacing */
   --space-1: 4px;
   --space-2: 8px;
   --space-4: 16px;
+  --space-10: 40px;
   --space-6: 24px;
   --space-5: 20px;
   --space-8: 32px;
   --space-3: 12px;
+
+  /* Radius */
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Border width */
+  --border-width-1: 1px;
+
+  /* Font size */
+  --font-size-10: 10px;
+  --font-size-12: 12px;
+  --font-size-15: 15px;
+
+  /* Font weight */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
 }

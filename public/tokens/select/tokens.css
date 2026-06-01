@@ -3,22 +3,46 @@
  */
 
 :root {
+  /* Colors */
   --s4e-brand-primary-500: #1383d4;
   --s4e-brand-primary-600: #0f69a9;
   --s4e-scale-red-600: #8e2a1f;
   --s4e-neutral-grey-300: #dfe2e2;
   --s4e-neutral-grey-500: #949e9e;
-  --s4e-neutral-divider-10: rgba(0, 0, 0, 0.1);
   --s4e-surface-row: #ffffff;
   --s4e-surface-row-hover: #ebf2f7;
   --s4e-text-primary: #121f28;
   --s4e-text-secondary: #657078;
   --s4e-text-disabled: #a7adb2;
+
+  /* Spacing */
   --space-2: 8px;
+  --space-9: 36px;
   --space-3: 12px;
   --space-1: 4px;
   --space-4: 16px;
+  --space-10: 40px;
   --space-6: 24px;
   --space-5: 20px;
   --space-8: 32px;
+
+  /* Radius */
+  --radius-md: 6px;
+  --radius-xl: 12px;
+
+  /* Border width */
+  --border-width-1: 1px;
+
+  /* Font size */
+  --font-size-10: 10px;
+  --font-size-11: 11px;
+  --font-size-13: 13px;
+  --font-size-15: 15px;
+
+  /* Font weight */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* Focus ring */
+  --ring-width-2: 2px;
 }
