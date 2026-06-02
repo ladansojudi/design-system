@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Types ─────────────────────────────────────────────────────────────────
@@ -327,6 +328,122 @@ export function SelectShowcase() {
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function SelectExamples() {
+  const [region, setRegion] = useState<string>("eu-west-1");
+  const [empty, setEmpty]   = useState<string>("");
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Default · With helper"
+        code={selectSnippets({
+          label: "Region",
+          options: REGIONS,
+          optionsName: "REGIONS",
+          bindingName: "region",
+          helperText: "Data is processed in this region only.",
+        }).react}
+        preview={
+          <div className="w-full max-w-xs">
+            <Select
+              label="Region"
+              options={REGIONS}
+              value={region}
+              onChange={setRegion}
+              helperText="Data is processed in this region only."
+            />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Empty · With placeholder"
+        code={selectSnippets({
+          label: "Region",
+          options: REGIONS,
+          optionsName: "REGIONS",
+          bindingName: "region",
+          placeholder: "Pick a region",
+        }).react}
+        preview={
+          <div className="w-full max-w-xs">
+            <Select
+              label="Region"
+              options={REGIONS}
+              value={empty}
+              onChange={setEmpty}
+              placeholder="Pick a region"
+            />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Error"
+        code={selectSnippets({
+          label: "Region",
+          options: REGIONS,
+          optionsName: "REGIONS",
+          bindingName: "region",
+          state: "Error",
+          errorText: "This field is required.",
+        }).react}
+        preview={
+          <div className="w-full max-w-xs">
+            <Select
+              label="Region"
+              options={REGIONS}
+              value=""
+              state="Error"
+              errorText="This field is required."
+            />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Focused"
+        code={selectSnippets({
+          label: "Region",
+          options: REGIONS,
+          optionsName: "REGIONS",
+          bindingName: "region",
+          state: "Focused",
+        }).react}
+        preview={
+          <div className="w-full max-w-xs">
+            <Select
+              label="Region"
+              options={REGIONS}
+              value="eu-west-1"
+              state="Focused"
+            />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Disabled"
+        code={selectSnippets({
+          label: "Region",
+          options: REGIONS,
+          optionsName: "REGIONS",
+          bindingName: "region",
+          state: "Disabled",
+        }).react}
+        preview={
+          <div className="w-full max-w-xs">
+            <Select
+              label="Region"
+              options={REGIONS}
+              value="eu-west-1"
+              state="Disabled"
+              disabled
+            />
+          </div>
+        }
+      />
     </div>
   );
 }

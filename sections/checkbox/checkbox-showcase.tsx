@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Check, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Checkbox primitive ────────────────────────────────────────────────────
@@ -240,13 +241,13 @@ export function CheckboxShowcase() {
         <SectionTitle>States</SectionTitle>
         <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
           <PropertyRow label="Variants">
-            <Copyable snippets={checkboxSnippets({ checked: false })}>
+            <Copyable snippets={checkboxSnippets({ checked: false })} svgPath="/svg/checkbox/unchecked.svg">
               <Checkbox checked={false}                 onChange={() => {}} />
             </Copyable>
-            <Copyable snippets={checkboxSnippets({ checked: true })}>
+            <Copyable snippets={checkboxSnippets({ checked: true })} svgPath="/svg/checkbox/checked.svg">
               <Checkbox checked={single} onChange={setSingle} />
             </Copyable>
-            <Copyable snippets={checkboxSnippets({ indeterminate: true })}>
+            <Copyable snippets={checkboxSnippets({ indeterminate: true })} svgPath="/svg/checkbox/indeterminate.svg">
               <Checkbox checked={false} indeterminate onChange={() => {}} />
             </Copyable>
             <Copyable snippets={checkboxSnippets({ checked: true, tone: "neutral" })}>
@@ -327,6 +328,58 @@ export function CheckboxShowcase() {
           </Copyable>
         </div>
       </div>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function CheckboxExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Unchecked"
+        code={checkboxSnippets({ checked: false }).react}
+        preview={<Checkbox checked={false} onChange={() => {}} />}
+      />
+      <ExampleCard
+        title="Checked"
+        code={checkboxSnippets({ checked: true }).react}
+        preview={<Checkbox checked onChange={() => {}} />}
+      />
+      <ExampleCard
+        title="Indeterminate"
+        code={checkboxSnippets({ indeterminate: true }).react}
+        preview={<Checkbox checked={false} indeterminate onChange={() => {}} />}
+      />
+      <ExampleCard
+        title="Neutral tone"
+        code={checkboxSnippets({ checked: true, tone: "neutral" }).react}
+        preview={<Checkbox checked tone="neutral" onChange={() => {}} />}
+      />
+      <ExampleCard
+        title="Disabled · Checked"
+        code={checkboxSnippets({ checked: true, disabled: true }).react}
+        preview={<Checkbox checked disabled />}
+      />
+      <ExampleCard
+        title="With label and description"
+        code={checkboxSnippets({
+          checked: true,
+          label: "Enable real-time alerts",
+          description: "Notifies you within seconds when a new critical finding lands.",
+        }).react}
+        preview={
+          <div className="w-full max-w-sm">
+            <Checkbox
+              checked
+              onChange={() => {}}
+              label="Enable real-time alerts"
+              description="Notifies you within seconds when a new critical finding lands."
+            />
+          </div>
+        }
+      />
     </div>
   );
 }

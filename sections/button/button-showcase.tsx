@@ -1,9 +1,11 @@
 "use client";
 
 import type React from "react";
-import { ArrowRight, ChevronDown, Download, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Check, ChevronDown, Copy, Download, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Types ─────────────────────────────────────────────────────────────────
@@ -35,7 +37,7 @@ const BASE =
   "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none";
 
 const SIZE_CLASS: Record<Size, string> = {
-  sm: "h-8 px-3 text-[13px] gap-1.5",
+  sm: "h-8 px-3 text-[13px] gap-1",
   md: "h-9 px-4 text-[13px] gap-2",
   lg: "h-11 px-5 text-[14px] gap-2",
 };
@@ -346,7 +348,10 @@ const FULLWIDTH_SNIPPETS: Record<Platform, string> = {
 
 function CopyableVariant({ intent, style }: { intent: Intent; style: Style }) {
   return (
-    <Copyable snippets={variantSnippets(intent, style)}>
+    <Copyable
+      snippets={variantSnippets(intent, style)}
+      svgPath={`/svg/button/${intent}-${style}.svg`}
+    >
       <Btn intent={intent} style={style} label={STYLE_LABEL[style]} />
     </Copyable>
   );
@@ -359,7 +364,7 @@ function VariantsMatrix() {
     <div>
       <SectionTitle>Variants</SectionTitle>
       <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
-        Hover any variant and click the chip to copy code in the format selected above.
+        Hover any variant and click the chip to copy its JSX.
       </p>
 
       <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-4">
@@ -371,6 +376,100 @@ function VariantsMatrix() {
           </PropertyRow>
         ))}
       </div>
+    </div>
+  );
+}
+
+// ── Per-cell expand (kept for possible future use; not rendered today) ─────
+
+function ExpandableRow({ intent, styles }: { intent: Intent; styles: Style[] }) {
+  const [expandedStyle, setExpandedStyle] = useState<Style | null>(null);
+  return (
+    <div className="py-4 border-b border-s4e-neutral-divider-10 last:border-b-0">
+      <div className="grid grid-cols-[100px_minmax(0,1fr)] gap-6 items-center">
+        <span className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled">
+          {INTENT_LABEL[intent]}
+        </span>
+        <div className="flex flex-wrap items-center gap-3">
+          {styles.map((style) => (
+            <VariantWithExpand
+              key={style}
+              intent={intent}
+              style={style}
+              isExpanded={expandedStyle === style}
+              onToggle={() => setExpandedStyle(expandedStyle === style ? null : style)}
+            />
+          ))}
+        </div>
+      </div>
+      {expandedStyle && (
+        <div className="grid grid-cols-[100px_minmax(0,1fr)] gap-6 mt-3">
+          <span aria-hidden />
+          <ExpandedCodeLine code={variantSnippets(intent, expandedStyle).react} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function VariantWithExpand({
+  intent, style, isExpanded, onToggle,
+}: {
+  intent: Intent; style: Style;
+  isExpanded: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="relative group">
+      <Btn intent={intent} style={style} label={STYLE_LABEL[style]} />
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-label={isExpanded ? "Hide code" : "Show code"}
+        aria-expanded={isExpanded}
+        className={cn(
+          "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full border shadow-s4e-xs z-10",
+          "flex items-center justify-center cursor-pointer transition-all",
+          isExpanded
+            ? "opacity-100 bg-s4e-brand-primary-500 text-white border-s4e-brand-primary-500"
+            : "opacity-0 group-hover:opacity-100 focus:opacity-100 bg-s4e-surface-app border-s4e-neutral-divider-10 text-s4e-text-disabled hover:text-s4e-text-primary hover:bg-s4e-neutral-grey-100",
+        )}
+      >
+        <ChevronDown
+          size={11}
+          className={cn("transition-transform", isExpanded && "rotate-180")}
+        />
+      </button>
+    </div>
+  );
+}
+
+function ExpandedCodeLine({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false);
+  const onCopy = () => {
+    void navigator.clipboard?.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
+  };
+  return (
+    <div className="flex items-center justify-between gap-3 rounded-md bg-s4e-btn-neutral-800 px-3 py-1.5">
+      <code className="font-mono text-[11px] text-s4e-text-white overflow-x-auto s4e-scrollbar-hide whitespace-nowrap">
+        {code}
+      </code>
+      <button
+        type="button"
+        onClick={onCopy}
+        aria-label={copied ? "Copied" : "Copy code"}
+        className={cn(
+          "shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium cursor-pointer transition-colors",
+          copied
+            ? "bg-s4e-scale-green-500/15 text-s4e-scale-green-600"
+            : "text-[#8a8a8a] hover:text-s4e-text-white hover:bg-white/5",
+        )}
+      >
+        {copied ? <Check size={10} /> : <Copy size={10} />}
+        {copied ? "Copied" : "Copy"}
+      </button>
     </div>
   );
 }
@@ -588,6 +687,111 @@ export function ButtonShowcase() {
       <IconOnlyCard />
       <GroupCard />
       <FullWidthCard />
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+// Uses the shared ExampleCard from components/styleguide.
+
+export function ButtonExamples() {
+  const intents = Object.keys(INTENT_LABEL) as Intent[];
+  const styles  = Object.keys(STYLE_LABEL)  as Style[];
+  return (
+    <div className="space-y-10">
+      <div>
+        <SectionTitle>Variants</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Each variant rendered alongside the exact JSX. Copy any card to use it in your app.
+        </p>
+        <div className="space-y-4">
+          {intents.flatMap((intent) =>
+            styles.map((style) => (
+              <ExampleCard
+                key={`${intent}-${style}`}
+                title={`${INTENT_LABEL[intent]} · ${STYLE_LABEL[style]}`}
+                code={variantSnippets(intent, style).react}
+                preview={<Btn intent={intent} style={style} label={STYLE_LABEL[style]} />}
+              />
+            )),
+          )}
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle>Sizes</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Three control heights — match the surrounding form density.
+        </p>
+        <div className="space-y-4">
+          {(["sm", "md", "lg"] as Size[]).map((size) => {
+            const label = size === "sm" ? "Small" : size === "md" ? "Medium" : "Large";
+            return (
+              <ExampleCard
+                key={size}
+                title={`Primary · ${label}`}
+                code={sizeSnippets("solid", size, label).react}
+                preview={<Btn intent="primary" size={size} label={label} />}
+              />
+            );
+          })}
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle>States</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Disabled and loading variants.
+        </p>
+        <div className="space-y-4">
+          <ExampleCard
+            title="Disabled"
+            code={disabledSnippets("solid", "Disabled").react}
+            preview={<Btn intent="primary" disabled label="Disabled" />}
+          />
+          <ExampleCard
+            title="Loading"
+            code={loadingSnippets("primary", "Saving…").react}
+            preview={<Btn intent="primary" loading label="Saving…" />}
+          />
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle>With icon</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Leading and trailing icons sit inline with the label.
+        </p>
+        <div className="space-y-4">
+          <ExampleCard
+            title="Leading icon · Primary"
+            code={leadingIconSnippets("primary", "solid", "Export", "Download", "square.and.arrow.down", "ic_download").react}
+            preview={<Btn intent="primary" iconPos="left" Icon={Download} label="Export" />}
+          />
+          <ExampleCard
+            title="Trailing icon · Primary"
+            code={trailingIconSnippets("primary", "solid", "Continue", "ArrowRight", "arrow.right", "ic_arrow_right").react}
+            preview={<Btn intent="primary" iconPos="right" Icon={ArrowRight} label="Continue" />}
+          />
+          <ExampleCard
+            title="Icon-only · Primary"
+            code={iconOnlySnippets("primary", "solid", "md", "Edit", "Pencil", "pencil", "ic_pencil").react}
+            preview={<Btn intent="primary" iconOnly Icon={Pencil} />}
+          />
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle>Full width</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          For narrow forms and mobile drawers.
+        </p>
+        <ExampleCard
+          title="Full width · Primary · Large"
+          code={FULLWIDTH_SNIPPETS.react}
+          preview={<Btn intent="primary" size="lg" label="Continue to checkout" className="w-full" />}
+        />
+      </div>
     </div>
   );
 }

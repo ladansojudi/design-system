@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { CircleCheck, CircleAlert, Lightbulb, Ban, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Tooltip ────────────────────────────────────────────────────────────────
@@ -229,6 +230,83 @@ export function ToastTooltipShowcase() {
         </div>
       </div>
 
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+function StaticToast({ type }: { type: ToastType }) {
+  const { label, Icon, color, bar } = TOAST_CONFIG[type];
+  return (
+    <div className="w-80 overflow-hidden bg-s4e-surface-app border border-s4e-neutral-divider-10 rounded-xl shadow-sm">
+      <div className="flex items-center gap-3 px-4 py-3">
+        <Icon size={20} className={cn("shrink-0", color)} />
+        <span className="flex-1 text-[13px] font-semibold text-s4e-text-primary">{label}</span>
+        <button
+          type="button"
+          className="shrink-0 text-s4e-text-disabled hover:text-s4e-text-primary transition-colors"
+        >
+          <X size={15} />
+        </button>
+      </div>
+      <div className="h-[3px] w-full bg-s4e-neutral-grey-100">
+        <div className={cn("h-full w-1/3", bar)} />
+      </div>
+    </div>
+  );
+}
+
+function StaticTooltipPreview({ position }: { position: TooltipPos }) {
+  return (
+    <TooltipBubble position={position}>
+      <button
+        type="button"
+        className="px-4 py-2 rounded-lg border border-s4e-neutral-divider-10 text-[12px] font-medium text-s4e-text-secondary hover:bg-s4e-neutral-grey-100 transition-colors capitalize"
+      >
+        {position}
+      </button>
+    </TooltipBubble>
+  );
+}
+
+export function ToastTooltipExamples() {
+  return (
+    <div className="space-y-10">
+      <div>
+        <SectionTitle>Tooltip</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Anchor the tooltip to the side with most available space. Hover the trigger to see the bubble.
+        </p>
+        <div className="space-y-4">
+          {(["top", "right", "bottom", "left"] as TooltipPos[]).map((pos) => (
+            <ExampleCard
+              key={pos}
+              title={`Position · ${pos[0].toUpperCase()}${pos.slice(1)}`}
+              code={tooltipSnippets(pos).react}
+              preview={<StaticTooltipPreview position={pos} />}
+              density="tall"
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle>Toast</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Four feedback variants. Toasts auto-dismiss after 4 seconds; users can close earlier with the × button.
+        </p>
+        <div className="space-y-4">
+          {TOAST_ORDER.map((t) => (
+            <ExampleCard
+              key={t}
+              title={`Type · ${t[0].toUpperCase()}${t.slice(1)}`}
+              code={toastSnippets(t).react}
+              preview={<StaticToast type={t} />}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -20,6 +20,7 @@
     <dimen name="space_4">16dp</dimen>
     <dimen name="space_8">32dp</dimen>
     <dimen name="space_5">20dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_sm">2dp</dimen>

@@ -4,6 +4,7 @@ import type React from "react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Textarea component ────────────────────────────────────────────────────
@@ -245,6 +246,128 @@ export function TextareaShowcase() {
               state={s}
               disabled={s === "Disabled"}
               errorText={s === "Error" ? "Required field" : undefined}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function TextareaExamples() {
+  return (
+    <div className="space-y-10">
+      <div>
+        <SectionTitle>Variants</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Common configurations — with helper, placeholder, counter, and error.
+        </p>
+        <div className="space-y-4">
+          <ExampleCard
+            title="With helper text"
+            code={textareaSnippets({
+              label: "Finding description",
+              helperText: "Markdown is supported.",
+            }).react}
+            preview={
+              <div className="w-full max-w-md">
+                <Textarea
+                  label="Finding description"
+                  value="Found exposed credentials in the staging .env file."
+                  helperText="Markdown is supported."
+                />
+              </div>
+            }
+            density="tall"
+          />
+          <ExampleCard
+            title="With placeholder"
+            code={textareaSnippets({
+              label: "Reproduction steps",
+              placeholder: "1. Visit …\\n2. Click …\\n3. Observe …",
+            }).react}
+            preview={
+              <div className="w-full max-w-md">
+                <Textarea
+                  label="Reproduction steps"
+                  value=""
+                  placeholder="1. Visit …&#10;2. Click …&#10;3. Observe …"
+                />
+              </div>
+            }
+            density="tall"
+          />
+          <ExampleCard
+            title="With counter"
+            code={textareaSnippets({
+              label: "With counter",
+              maxLength: 200,
+              helperText: "Keep the summary short — full details go in the body below.",
+            }).react}
+            preview={
+              <div className="w-full max-w-md">
+                <Textarea
+                  label="With counter"
+                  value="This text is intentionally long to demonstrate the counter approaching the soft limit. Keep typing and the counter will turn amber."
+                  maxLength={200}
+                  helperText="Keep the summary short — full details go in the body below."
+                />
+              </div>
+            }
+            density="tall"
+          />
+          <ExampleCard
+            title="With error"
+            code={textareaSnippets({
+              label: "With error",
+              state: "Error",
+              errorText: "Add at least 40 characters describing the issue.",
+            }).react}
+            preview={
+              <div className="w-full max-w-md">
+                <Textarea
+                  label="With error"
+                  value="Too vague"
+                  state="Error"
+                  errorText="Add at least 40 characters describing the issue."
+                />
+              </div>
+            }
+            density="tall"
+          />
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle>States</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Five field states.
+        </p>
+        <div className="space-y-4">
+          {(["Default", "Focused", "Error", "Disabled"] as State[]).map((s) => (
+            <ExampleCard
+              key={s}
+              title={`State · ${s}`}
+              code={textareaSnippets({
+                label: s,
+                state: s,
+                errorText: s === "Error" ? "Required field" : undefined,
+              }).react}
+              preview={
+                <div className="w-full max-w-md">
+                  <Textarea
+                    label={s}
+                    rows={3}
+                    value="Sample value"
+                    state={s}
+                    disabled={s === "Disabled"}
+                    errorText={s === "Error" ? "Required field" : undefined}
+                  />
+                </div>
+              }
+              density="tall"
             />
           ))}
         </div>

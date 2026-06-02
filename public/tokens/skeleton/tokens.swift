@@ -12,6 +12,7 @@ extension UIColor {
     static let surfaceRow = UIColor(hex: "#FFFFFF")
     static let surfaceTableHeader = UIColor(hex: "#F7F8F8")
     static let textPrimary = UIColor(hex: "#121F28")
+    static let textSecondary = UIColor(hex: "#657078")
     static let textDisabled = UIColor(hex: "#A7ADB2")
 }
 
@@ -30,6 +31,7 @@ extension CGFloat {
     static let space8: CGFloat = 32
     static let space6: CGFloat = 24
     static let space9: CGFloat = 36
+    static let space12: CGFloat = 48
 
     // Radius
     static let radiusMd: CGFloat = 6
@@ -41,6 +43,7 @@ extension CGFloat {
 
     // Font size
     static let fontSize10: CGFloat = 10
+    static let fontSize12: CGFloat = 12
     static let fontSize15: CGFloat = 15
 }
 

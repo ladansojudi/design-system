@@ -6,6 +6,7 @@ import {
   Plus, RefreshCw, Filter,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -192,6 +193,99 @@ export function EmptyStateShowcase() {
         </div>
       </div>
 
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function EmptyStateExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="No data yet"
+        density="tall"
+        code={`<EmptyState
+  icon={Inbox}
+  title="No scans yet"
+  description="Run your first crawler to start collecting assets and security findings."
+  primaryAction={{ label: "Start a scan", icon: Plus }}
+  secondaryAction={{ label: "Read docs" }}
+/>`}
+        preview={
+          <div className="w-full max-w-md">
+            <EmptyState
+              icon={Inbox}
+              title="No scans yet"
+              description="Run your first crawler to start collecting assets and security findings."
+              primaryAction={{ label: "Start a scan", icon: Plus }}
+              secondaryAction={{ label: "Read docs" }}
+            />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="No results (search empty)"
+        density="tall"
+        code={`<EmptyState
+  icon={SearchX}
+  title="No findings match your filters"
+  description="Try widening the severity range or clearing one of the active filters."
+  secondaryAction={{ label: "Clear filters", icon: Filter }}
+/>`}
+        preview={
+          <div className="w-full max-w-md">
+            <EmptyState
+              icon={SearchX}
+              title="No findings match your filters"
+              description="Try widening the severity range or clearing one of the active filters."
+              secondaryAction={{ label: "Clear filters", icon: Filter }}
+            />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Error"
+        density="tall"
+        code={`<EmptyState
+  icon={AlertTriangle}
+  tone="alert"
+  title="Couldn't load findings"
+  description="The request failed while fetching data. Check your connection and try again."
+  primaryAction={{ label: "Retry", icon: RefreshCw }}
+/>`}
+        preview={
+          <div className="w-full max-w-md">
+            <EmptyState
+              icon={AlertTriangle}
+              tone="alert"
+              title="Couldn't load findings"
+              description="The request failed while fetching data. Check your connection and try again."
+              primaryAction={{ label: "Retry", icon: RefreshCw }}
+            />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Inline (small)"
+        density="default"
+        code={`<EmptyState
+  size="sm"
+  icon={Inbox}
+  title="No enrichments found"
+  description="This asset hasn't produced enrichment data yet."
+/>`}
+        preview={
+          <div className="w-full max-w-md border border-dashed border-s4e-neutral-divider-10 rounded-lg">
+            <EmptyState
+              size="sm"
+              icon={Inbox}
+              title="No enrichments found"
+              description="This asset hasn't produced enrichment data yet."
+            />
+          </div>
+        }
+      />
     </div>
   );
 }

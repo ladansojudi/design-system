@@ -30,7 +30,7 @@ const principles = [
 
 export default function PrinciplesPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
       <PageHeader
         category="Foundations"
         title="Design Principles"
@@ -38,20 +38,22 @@ export default function PrinciplesPage() {
         description="Five principles that guide every decision in this design system — from token names to component anatomy to the way severity is represented."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {principles.map((p) => (
-          <div
-            key={p.title}
-            className="border-[0.5px] border-s4e-neutral-divider-10 rounded-lg p-5"
-          >
-            <h2 className="text-[13px] font-medium text-s4e-text-primary">
-              {p.title}
-            </h2>
-            <p className="mt-2 text-[12px] text-s4e-text-secondary leading-[1.7]">
-              {p.body}
-            </p>
-          </div>
-        ))}
+      <div className="mt-12 sm:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {principles.map((p) => (
+            <div
+              key={p.title}
+              className="border-[0.5px] border-s4e-neutral-divider-10 rounded-lg p-5"
+            >
+              <h2 className="text-[13px] font-medium text-s4e-text-primary">
+                {p.title}
+              </h2>
+              <p className="mt-2 text-[12px] text-s4e-text-secondary leading-[1.7]">
+                {p.body}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

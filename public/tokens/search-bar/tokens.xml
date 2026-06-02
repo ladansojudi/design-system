@@ -6,8 +6,10 @@
     <!-- Colors -->
     <color name="brand_primary_500">#1383D4</color>
     <color name="neutral_grey_100">#F7F8F8</color>
+    <color name="neutral_grey_200">#F4F5F5</color>
     <color name="surface_app">#FFFFFF</color>
     <color name="text_primary">#121F28</color>
+    <color name="text_secondary">#657078</color>
     <color name="text_disabled">#A7ADB2</color>
 
     <!-- Spacing -->
@@ -19,6 +21,8 @@
     <dimen name="space_5">20dp</dimen>
     <dimen name="space_10">40dp</dimen>
     <dimen name="space_8">32dp</dimen>
+    <dimen name="space_12">48dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_lg">8dp</dimen>
@@ -29,6 +33,7 @@
 
     <!-- Font size -->
     <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_11">11sp</dimen>
     <dimen name="font_size_13">13sp</dimen>
     <dimen name="font_size_15">15sp</dimen>
 

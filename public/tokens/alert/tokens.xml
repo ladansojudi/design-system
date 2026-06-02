@@ -7,13 +7,17 @@
     <color name="brand_primary_500">#1383D4</color>
     <color name="scale_blue_50">#F7FAFD</color>
     <color name="scale_blue_200">#C9DEEE</color>
+    <color name="scale_blue_500">#7DAFD6</color>
     <color name="scale_green_50">#F1FFDB</color>
     <color name="scale_green_200">#A5FF14</color>
+    <color name="scale_green_500">#63A100</color>
     <color name="scale_yellow_50">#FEFAF0</color>
     <color name="scale_yellow_200">#F8D072</color>
+    <color name="scale_yellow_500">#F5BF40</color>
     <color name="scale_yellow_700">#795706</color>
     <color name="scale_red_50">#FCF3F2</color>
     <color name="scale_red_200">#EBAAA3</color>
+    <color name="scale_red_500">#D13D2E</color>
     <color name="text_primary">#121F28</color>
     <color name="text_success">#2F7D2C</color>
     <color name="text_warning">#8E6800</color>
@@ -28,6 +32,8 @@
     <dimen name="space_6">24dp</dimen>
     <dimen name="space_5">20dp</dimen>
     <dimen name="space_8">32dp</dimen>
+    <dimen name="space_12">48dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_base">4dp</dimen>

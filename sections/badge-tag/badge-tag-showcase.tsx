@@ -3,6 +3,7 @@
 import type React from "react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Types & config ─────────────────────────────────────────────────────────
@@ -159,7 +160,10 @@ export function BadgeTagShowcase() {
               <div className="space-y-2">
                 {ALL_COLORS.map((c) => (
                   <div key={c}>
-                    <Copyable snippets={badgeSnippets(c, BADGE_COLORS[c].label, { showDot: true, dotPosition: "left" })}>
+                    <Copyable
+                      snippets={badgeSnippets(c, BADGE_COLORS[c].label, { showDot: true, dotPosition: "left" })}
+                      svgPath={`/svg/badge-tag/${c}-filled-dot.svg`}
+                    >
                       <Badge color={c} showDot dotPosition="left" />
                     </Copyable>
                   </div>
@@ -197,7 +201,10 @@ export function BadgeTagShowcase() {
               <div className="space-y-2">
                 {ALL_COLORS.map((c) => (
                   <div key={c}>
-                    <Copyable snippets={badgeSnippets(c, BADGE_COLORS[c].label, { showDot: false })}>
+                    <Copyable
+                      snippets={badgeSnippets(c, BADGE_COLORS[c].label, { showDot: false })}
+                      svgPath={`/svg/badge-tag/${c}-filled.svg`}
+                    >
                       <Badge color={c} showDot={false} />
                     </Copyable>
                   </div>
@@ -222,6 +229,51 @@ export function BadgeTagShowcase() {
         </div>
       </div>
 
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function BadgeTagExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Success · Dot left"
+        density="tight"
+        code={badgeSnippets("success", "Success").react}
+        preview={<Badge color="success" />}
+      />
+      <ExampleCard
+        title="Warning · Dot left"
+        density="tight"
+        code={badgeSnippets("warning", "Warning").react}
+        preview={<Badge color="warning" />}
+      />
+      <ExampleCard
+        title="Error · Dot left"
+        density="tight"
+        code={badgeSnippets("error", "Error").react}
+        preview={<Badge color="error" />}
+      />
+      <ExampleCard
+        title="Info · Dot right"
+        density="tight"
+        code={badgeSnippets("info", "Info", { showDot: true, dotPosition: "right" }).react}
+        preview={<Badge color="info" showDot dotPosition="right" />}
+      />
+      <ExampleCard
+        title="Neutral · No dot"
+        density="tight"
+        code={badgeSnippets("neutral", "Neutral", { showDot: false }).react}
+        preview={<Badge color="neutral" showDot={false} />}
+      />
+      <ExampleCard
+        title="Primary · Outlined"
+        density="tight"
+        code={badgeSnippets("primary", "Primary", { showDot: false, outlined: true }).react}
+        preview={<Badge color="primary" showDot={false} outlined />}
+      />
     </div>
   );
 }

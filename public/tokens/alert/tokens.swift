@@ -10,13 +10,17 @@ extension UIColor {
     static let brandPrimary500 = UIColor(hex: "#1383D4")
     static let scaleBlue50 = UIColor(hex: "#F7FAFD")
     static let scaleBlue200 = UIColor(hex: "#C9DEEE")
+    static let scaleBlue500 = UIColor(hex: "#7DAFD6")
     static let scaleGreen50 = UIColor(hex: "#F1FFDB")
     static let scaleGreen200 = UIColor(hex: "#A5FF14")
+    static let scaleGreen500 = UIColor(hex: "#63A100")
     static let scaleYellow50 = UIColor(hex: "#FEFAF0")
     static let scaleYellow200 = UIColor(hex: "#F8D072")
+    static let scaleYellow500 = UIColor(hex: "#F5BF40")
     static let scaleYellow700 = UIColor(hex: "#795706")
     static let scaleRed50 = UIColor(hex: "#FCF3F2")
     static let scaleRed200 = UIColor(hex: "#EBAAA3")
+    static let scaleRed500 = UIColor(hex: "#D13D2E")
     static let textPrimary = UIColor(hex: "#121F28")
     static let textSuccess = UIColor(hex: "#2F7D2C")
     static let textWarning = UIColor(hex: "#8E6800")
@@ -35,6 +39,8 @@ extension CGFloat {
     static let space6: CGFloat = 24
     static let space5: CGFloat = 20
     static let space8: CGFloat = 32
+    static let space12: CGFloat = 48
+    static let space16: CGFloat = 64
 
     // Radius
     static let radiusBase: CGFloat = 4

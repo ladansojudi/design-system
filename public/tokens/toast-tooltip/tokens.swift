@@ -11,6 +11,7 @@ extension UIColor {
     static let brandPrimary600 = UIColor(hex: "#0F69A9")
     static let brandPrimary700 = UIColor(hex: "#09436C")
     static let neutralGrey100 = UIColor(hex: "#F7F8F8")
+    static let neutralGrey400 = UIColor(hex: "#C9CFCF")
     static let neutralGrey900 = UIColor(hex: "#131515")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
     static let feedbackInfo = UIColor(hex: "#7DAFD6")
@@ -35,10 +36,13 @@ extension CGFloat {
     static let space8: CGFloat = 32
     static let space5: CGFloat = 20
     static let space1: CGFloat = 4
+    static let space12: CGFloat = 48
+    static let space16: CGFloat = 64
 
     // Radius
     static let radiusLg: CGFloat = 8
     static let radiusXl: CGFloat = 12
+    static let radiusFull: CGFloat = 9999
 
     // Border width
     static let borderWidth1: CGFloat = 1

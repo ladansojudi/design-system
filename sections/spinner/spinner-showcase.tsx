@@ -3,6 +3,7 @@
 import type React from "react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Spinner primitive ─────────────────────────────────────────────────────
@@ -106,13 +107,13 @@ export function SpinnerShowcase() {
             ))}
           </PropertyRow>
           <PropertyRow label="Tone">
-            <Copyable snippets={spinnerSnippets({ tone: "primary" })}>
+            <Copyable snippets={spinnerSnippets({ tone: "primary" })} svgPath="/svg/spinner/primary.svg">
               <Spinner tone="primary" />
             </Copyable>
-            <Copyable snippets={spinnerSnippets({ tone: "neutral" })}>
+            <Copyable snippets={spinnerSnippets({ tone: "neutral" })} svgPath="/svg/spinner/neutral.svg">
               <Spinner tone="neutral" />
             </Copyable>
-            <Copyable snippets={spinnerSnippets({ tone: "white", size: "sm" })}>
+            <Copyable snippets={spinnerSnippets({ tone: "white", size: "sm" })} svgPath="/svg/spinner/white.svg">
               <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-s4e-btn-primary-600">
                 <Spinner tone="white" size="sm" />
               </div>
@@ -152,6 +153,105 @@ export function SpinnerShowcase() {
               <Spinner size="lg" />
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function SpinnerExamples() {
+  return (
+    <div className="space-y-10">
+      <div>
+        <SectionTitle>Sizes</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Four sizes — match the spinner to the surrounding text or container.
+        </p>
+        <div className="space-y-4">
+          {(["xs", "sm", "md", "lg"] as Size[]).map((s) => (
+            <ExampleCard
+              key={s}
+              title={`Size · ${s.toUpperCase()}`}
+              code={spinnerSnippets({ size: s }).react}
+              preview={<Spinner size={s} />}
+              density="tight"
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle>Tones</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Three colorways — brand for primary actions, neutral for ambient loading, white on dark surfaces.
+        </p>
+        <div className="space-y-4">
+          <ExampleCard
+            title="Primary"
+            code={spinnerSnippets({ tone: "primary" }).react}
+            preview={<Spinner tone="primary" />}
+            density="tight"
+          />
+          <ExampleCard
+            title="Neutral"
+            code={spinnerSnippets({ tone: "neutral" }).react}
+            preview={<Spinner tone="neutral" />}
+            density="tight"
+          />
+          <ExampleCard
+            title="White (on dark surface)"
+            code={spinnerSnippets({ tone: "white", size: "sm" }).react}
+            preview={
+              <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-s4e-btn-primary-600">
+                <Spinner tone="white" size="sm" />
+              </div>
+            }
+            density="tight"
+          />
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle>In context</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Common placements — inside a button, inline with text, or centered on an empty surface.
+        </p>
+        <div className="space-y-4">
+          <ExampleCard
+            title="Inside button"
+            code={`<button disabled>\n  <Spinner size="sm" tone="white" /> Saving…\n</button>`}
+            preview={
+              <button
+                type="button"
+                disabled
+                className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium cursor-wait opacity-90"
+              >
+                <Spinner size="sm" tone="white" />
+                Saving…
+              </button>
+            }
+          />
+          <ExampleCard
+            title="Inline text"
+            code={`<span><Spinner size="xs" /> Scanning 1,248 endpoints…</span>`}
+            preview={
+              <span className="inline-flex items-center gap-2 text-[12px] text-s4e-text-secondary">
+                <Spinner size="xs" /> Scanning 1,248 endpoints…
+              </span>
+            }
+            density="tight"
+          />
+          <ExampleCard
+            title="Centered on surface"
+            code={`<div className="h-24 flex items-center justify-center">\n  <Spinner size="lg" />\n</div>`}
+            preview={
+              <div className="w-full max-w-sm h-24 rounded-md bg-s4e-neutral-grey-100 flex items-center justify-center">
+                <Spinner size="lg" />
+              </div>
+            }
+          />
         </div>
       </div>
     </div>

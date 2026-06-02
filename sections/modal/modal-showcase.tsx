@@ -4,6 +4,7 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { X, Info, AlertTriangle, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 // ── Shared: backdrop + container ───────────────────────────────────────────
 
@@ -429,6 +430,160 @@ export function ModalShowcase() {
       <OnboardingModal open={open === "onboarding"} onClose={close} />
       <DetailModal     open={open === "detail"}     onClose={close} />
 
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+//
+// Modal previews render a STYLED FAKE card (header + body + footer) instead
+// of opening the real portal — the portal overlay can't be embedded inline.
+
+function FakeModalCard({
+  children,
+  size = "sm",
+}: {
+  children: React.ReactNode;
+  size?:    "sm" | "md";
+}) {
+  return (
+    <div
+      className={cn(
+        "w-full bg-s4e-surface-app border border-s4e-neutral-divider-10 rounded-xl shadow-s4e-lg",
+        size === "sm" ? "max-w-sm" : "max-w-md",
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+export function ModalExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Alert"
+        density="tall"
+        code={`<Modal variant="alert" open={open} onClose={close}>
+  <Modal.Body
+    icon={<CheckCircle />}
+    iconTone="success"
+    title="Scan completed"
+  >
+    We finished scanning your asset. All detected findings are now
+    available in the dashboard.
+  </Modal.Body>
+  <Modal.Footer>
+    <Button intent="primary" onClick={close}>Got it</Button>
+  </Modal.Footer>
+</Modal>`}
+        preview={
+          <FakeModalCard size="sm">
+            <div className="px-5 pt-5 pb-4">
+              <div className="w-10 h-10 rounded-full bg-s4e-scale-green-50 flex items-center justify-center mb-3">
+                <CheckCircle size={18} className="text-s4e-scale-green-600" />
+              </div>
+              <div className="text-[14px] font-semibold text-s4e-text-primary mb-1">Scan completed</div>
+              <p className="text-[13px] text-s4e-text-disabled leading-relaxed">
+                We finished scanning your asset. All detected findings are now available in the dashboard.
+              </p>
+            </div>
+            <div className="flex justify-end px-5 pb-4">
+              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-white text-[13px] font-medium">
+                Got it
+              </span>
+            </div>
+          </FakeModalCard>
+        }
+      />
+      <ExampleCard
+        title="Confirm · Destructive"
+        density="tall"
+        code={`<Modal variant="confirm" destructive open={open} onClose={close}>
+  <Modal.Body
+    icon={<AlertTriangle />}
+    iconTone="destructive"
+    title="Delete asset?"
+  >
+    This permanently removes the asset and all of its findings.
+    This action cannot be undone.
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="outline" onClick={close}>Cancel</Button>
+    <Button intent="destructive" onClick={onDelete}>Delete</Button>
+  </Modal.Footer>
+</Modal>`}
+        preview={
+          <FakeModalCard size="sm">
+            <div className="px-5 pt-5 pb-4">
+              <div className="w-10 h-10 rounded-full bg-s4e-scale-red-50 flex items-center justify-center mb-3">
+                <AlertTriangle size={18} className="text-s4e-scale-red-600" />
+              </div>
+              <div className="text-[14px] font-semibold text-s4e-text-primary mb-1">Delete asset?</div>
+              <p className="text-[13px] text-s4e-text-disabled leading-relaxed">
+                This permanently removes the asset and all of its findings. This action cannot be undone.
+              </p>
+            </div>
+            <div className="flex justify-end gap-2 px-5 pb-4">
+              <span className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary">
+                Cancel
+              </span>
+              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-scale-red-600 text-white text-[13px] font-medium">
+                Delete
+              </span>
+            </div>
+          </FakeModalCard>
+        }
+      />
+      <ExampleCard
+        title="Detail"
+        density="tall"
+        code={`<Modal variant="detail" size="lg" open={open} onClose={close}>
+  <Modal.Header title="CVE-2014-0224 · Detail" onClose={close} />
+  <Modal.Body>
+    <Tag tone="critical">High</Tag>
+    <Section title="Description">…</Section>
+    <Section title="Affected assets">…</Section>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="outline" onClick={close}>Close</Button>
+    <Button intent="primary">Open ticket</Button>
+  </Modal.Footer>
+</Modal>`}
+        preview={
+          <FakeModalCard size="md">
+            <div className="flex items-center justify-between px-5 py-3.5 border-b border-s4e-neutral-divider-10">
+              <span className="text-[14px] font-semibold text-s4e-text-primary">CVE-2014-0224 · Detail</span>
+              <span className="w-7 h-7 rounded-md flex items-center justify-center text-s4e-text-disabled">
+                <X size={15} />
+              </span>
+            </div>
+            <div className="px-5 py-5 space-y-4">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center rounded-md px-2.5 py-1 bg-s4e-scale-red-50 border-l-[3px] border-s4e-scale-red-500 text-[12px] font-medium text-s4e-scale-red-600">
+                  High
+                </span>
+                <span className="text-[12px] text-s4e-text-disabled">Found on 18 Apr 2026</span>
+              </div>
+              <div className="space-y-1.5">
+                <div className="text-[12px] font-semibold uppercase tracking-widest text-s4e-text-disabled">Description</div>
+                <p className="text-[13px] text-s4e-text-primary leading-relaxed">
+                  OpenSSL before 0.9.8za does not properly restrict processing of ChangeCipherSpec messages,
+                  allowing man-in-the-middle attackers to trigger use of a zero-length master key.
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-end gap-2 px-5 py-3.5 border-t border-s4e-neutral-divider-10">
+              <span className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary">
+                Close
+              </span>
+              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-white text-[13px] font-medium">
+                Open ticket
+              </span>
+            </div>
+          </FakeModalCard>
+        }
+      />
     </div>
   );
 }

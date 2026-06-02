@@ -6,6 +6,8 @@
     <!-- Colors -->
     <color name="brand_primary_50">#E8F4FD</color>
     <color name="brand_primary_500">#1383D4</color>
+    <color name="scale_green_500">#63A100</color>
+    <color name="scale_green_600">#3F6600</color>
     <color name="scale_red_50">#FCF3F2</color>
     <color name="scale_red_500">#D13D2E</color>
     <color name="neutral_grey_100">#F7F8F8</color>
@@ -14,13 +16,16 @@
     <color name="neutral_grey_500">#949E9E</color>
     <color name="neutral_grey_800">#1F2323</color>
     <color name="surface_app">#FFFFFF</color>
+    <color name="surface_table_header">#F7F8F8</color>
     <color name="text_primary">#121F28</color>
     <color name="text_secondary">#657078</color>
     <color name="text_disabled">#A7ADB2</color>
+    <color name="text_white">#FFFFFF</color>
     <color name="text_inverse">#FFFFFF</color>
     <color name="text_on_accent">#FFFFFF</color>
     <color name="text_link">#0066CC</color>
     <color name="text_error">#B0291E</color>
+    <color name="btn_neutral_800">#202323</color>
     <color name="btn_primary_600">#0F69AA</color>
     <color name="btn_primary_700">#024A72</color>
     <color name="btn_error_600">#AE2700</color>
@@ -29,6 +34,7 @@
     <!-- Spacing -->
     <dimen name="space_8">32dp</dimen>
     <dimen name="space_3">12dp</dimen>
+    <dimen name="space_1">4dp</dimen>
     <dimen name="space_9">36dp</dimen>
     <dimen name="space_4">16dp</dimen>
     <dimen name="space_2">8dp</dimen>
@@ -36,8 +42,11 @@
     <dimen name="space_5">20dp</dimen>
     <dimen name="space_6">24dp</dimen>
     <dimen name="space_10">40dp</dimen>
+    <dimen name="space_12">48dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
+    <dimen name="radius_base">4dp</dimen>
     <dimen name="radius_md">6dp</dimen>
     <dimen name="radius_xl">12dp</dimen>
     <dimen name="radius_full">9999dp</dimen>

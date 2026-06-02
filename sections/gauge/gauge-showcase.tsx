@@ -2,6 +2,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -225,6 +226,45 @@ export function GaugeShowcase() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function GaugeExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Blue"
+        density="tall"
+        code={`<Gauge value={42} color="blue" />`}
+        preview={<Gauge color="blue" value={42} />}
+      />
+      <ExampleCard
+        title="Green"
+        density="tall"
+        code={`<Gauge value={78} color="green" />`}
+        preview={<Gauge color="green" value={78} />}
+      />
+      <ExampleCard
+        title="Yellow"
+        density="tall"
+        code={`<Gauge value={55} color="yellow" />`}
+        preview={<Gauge color="yellow" value={55} />}
+      />
+      <ExampleCard
+        title="Red"
+        density="tall"
+        code={`<Gauge value={88} color="red" />`}
+        preview={<Gauge color="red" value={88} />}
+      />
+      <ExampleCard
+        title="Purple"
+        density="tall"
+        code={`<Gauge value={33} color="purple" />`}
+        preview={<Gauge color="purple" value={33} />}
+      />
     </div>
   );
 }

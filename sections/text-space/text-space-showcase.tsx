@@ -11,6 +11,7 @@ import {
   ChevronDown, Type,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -190,6 +191,45 @@ export function TextSpaceShowcase() {
           ))}
         </div>
       </TextSpaceCard>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function TextSpaceExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Simple toolbar"
+        density="tall"
+        code={`<TextSpace toolbar="simple" placeholder="Write something awesome…" />`}
+        preview={
+          <div className="w-full max-w-lg">
+            <TextSpace toolbarSize="simple" />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Full toolbar"
+        density="tall"
+        code={`<TextSpace toolbar="full" placeholder="Write something awesome…" />`}
+        preview={
+          <div className="w-full max-w-lg">
+            <TextSpace toolbarSize="full" />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Error state"
+        density="tall"
+        code={`<TextSpace toolbar="full" state="error" placeholder="Write something awesome…" />`}
+        preview={
+          <div className="w-full max-w-lg">
+            <TextSpace toolbarSize="full" state="error" />
+          </div>
+        }
+      />
     </div>
   );
 }

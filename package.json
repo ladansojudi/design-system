@@ -1,6 +1,6 @@
 {
   "name": "design-system",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,8 @@
     "lint": "eslint",
     "tokens": "node scripts/export-tokens.js",
     "components": "node scripts/export-components.js",
-    "export": "npm run tokens && npm run components",
+    "svg": "node scripts/export-svg.js",
+    "export": "npm run tokens && npm run components && npm run svg",
     "prebuild": "npm run export"
   },
   "dependencies": {

@@ -42,10 +42,14 @@ extension CGFloat {
     static let space4: CGFloat = 16
     static let space10: CGFloat = 40
     static let space6: CGFloat = 24
+    static let space3: CGFloat = 12
     static let space8: CGFloat = 32
+    static let space12: CGFloat = 48
+    static let space16: CGFloat = 64
 
     // Radius
     static let radiusXl: CGFloat = 12
+    static let radiusFull: CGFloat = 9999
 
     // Border width
     static let borderWidth1: CGFloat = 1

@@ -3,6 +3,7 @@
 import type React from "react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -183,6 +184,84 @@ export function TabsShowcase() {
     <div className="space-y-10">
       <VariantCard title="Underline" variant="underline" />
       <VariantCard title="Pill"      variant="pill"      />
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+function ExampleTabs({ variant, items, initialId }: { variant: TabVariant; items: TabItem[]; initialId?: string }) {
+  const [active, setActive] = useState(initialId ?? items[0]!.id);
+  return (
+    <div className="w-full max-w-md">
+      <TabBar variant={variant} items={items} activeId={active} onSelect={setActive} />
+    </div>
+  );
+}
+
+export function TabsExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Underline"
+        density="default"
+        code={`<Tabs variant="underline">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+    <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+  </TabsList>
+</Tabs>`}
+        preview={<ExampleTabs variant="underline" items={BASE_TABS} />}
+      />
+      <ExampleCard
+        title="Pill"
+        density="default"
+        code={`<Tabs variant="pill">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+    <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+  </TabsList>
+</Tabs>`}
+        preview={<ExampleTabs variant="pill" items={BASE_TABS} />}
+      />
+      <ExampleCard
+        title="Underline · With badge"
+        density="default"
+        code={`<Tabs variant="underline" defaultValue="tab2">
+  <TabsList>
+    <TabsTrigger value="tab1">Overview</TabsTrigger>
+    <TabsTrigger value="tab2">Findings <Badge>12</Badge></TabsTrigger>
+    <TabsTrigger value="tab3">Assets <Badge>4</Badge></TabsTrigger>
+  </TabsList>
+</Tabs>`}
+        preview={<ExampleTabs variant="underline" items={BADGE_TABS} initialId="tab2" />}
+      />
+      <ExampleCard
+        title="Pill · With badge"
+        density="default"
+        code={`<Tabs variant="pill" defaultValue="tab2">
+  <TabsList>
+    <TabsTrigger value="tab1">Overview</TabsTrigger>
+    <TabsTrigger value="tab2">Findings <Badge>12</Badge></TabsTrigger>
+    <TabsTrigger value="tab3">Assets <Badge>4</Badge></TabsTrigger>
+  </TabsList>
+</Tabs>`}
+        preview={<ExampleTabs variant="pill" items={BADGE_TABS} initialId="tab2" />}
+      />
+      <ExampleCard
+        title="Underline · With disabled tab"
+        density="default"
+        code={`<Tabs variant="underline">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+    <TabsTrigger value="tab3" disabled>Tab 3</TabsTrigger>
+  </TabsList>
+</Tabs>`}
+        preview={<ExampleTabs variant="underline" items={DISABLED_TABS} />}
+      />
     </div>
   );
 }

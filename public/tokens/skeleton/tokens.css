@@ -9,6 +9,7 @@
   --s4e-surface-row: #ffffff;
   --s4e-surface-table-header: #f7f8f8;
   --s4e-text-primary: #121f28;
+  --s4e-text-secondary: #657078;
   --s4e-text-disabled: #a7adb2;
 
   /* Spacing */
@@ -23,6 +24,7 @@
   --space-8: 32px;
   --space-6: 24px;
   --space-9: 36px;
+  --space-12: 48px;
 
   /* Radius */
   --radius-md: 6px;
@@ -34,6 +36,7 @@
 
   /* Font size */
   --font-size-10: 10px;
+  --font-size-12: 12px;
   --font-size-15: 15px;
 
   /* Font weight */

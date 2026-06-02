@@ -7,6 +7,7 @@ import {
   Tag, CheckCircle, Shield, Calendar, Radar, Network,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 // ── Filter Pill ────────────────────────────────────────────────────────────
 
@@ -249,6 +250,140 @@ export function FilterBarShowcase() {
         </div>
       </div>
 
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+function SearchOnlyExample() {
+  const [v, setV] = useState("");
+  return (
+    <div className="w-full max-w-2xl border border-s4e-neutral-divider-10 rounded-xl p-3">
+      <div className="flex items-center gap-2">
+        <SearchInput value={v} onChange={setV} />
+        <VDivider />
+        <FilterPill label="Tags" icon={Tag} />
+        <FilterPill label="Verify Status" icon={CheckCircle} />
+      </div>
+    </div>
+  );
+}
+
+function FullBarExample() {
+  const [v, setV] = useState("");
+  return (
+    <div className="w-full max-w-3xl border border-s4e-neutral-divider-10 rounded-xl p-3 overflow-x-auto s4e-scrollbar-hide">
+      <div className="flex items-center gap-2 w-max md:w-auto">
+        <div className="flex items-center gap-2 md:flex-1 md:min-w-0">
+          <SearchInput value={v} onChange={setV} />
+          <VDivider />
+          {VISIBLE_PILLS.map((p) => (
+            <FilterPill key={p.label} {...p} />
+          ))}
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <VDivider />
+          <ActionBtn icon={Upload} label="Export" iconOnly />
+          <ActionBtn icon={SlidersHorizontal} label="Bulk Actions" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ActivePillsExample() {
+  return (
+    <div className="w-full max-w-2xl border border-s4e-neutral-divider-10 rounded-xl p-3">
+      <div className="flex items-center gap-2">
+        <FilterPill label="Tags" icon={Tag} count={2} active onClear={() => {}} />
+        <FilterPill label="Advanced Security" icon={Shield} count={1} active onClear={() => {}} />
+        <FilterPill label="Verify Status" icon={CheckCircle} />
+        <ClearBtn onClick={() => {}} />
+      </div>
+    </div>
+  );
+}
+
+function OverflowExample() {
+  const [v, setV] = useState("");
+  return (
+    <div className="w-full max-w-3xl border border-s4e-neutral-divider-10 rounded-xl p-3 overflow-x-auto s4e-scrollbar-hide">
+      <div className="flex items-center gap-2 w-max md:w-auto">
+        <div className="flex items-center gap-2 md:flex-1 md:min-w-0">
+          <SearchInput value={v} onChange={setV} />
+          <VDivider />
+          {VISIBLE_PILLS.map((p) => (
+            <FilterPill key={p.label} {...p} />
+          ))}
+          <button
+            type="button"
+            className="inline-flex items-center gap-1 h-8 px-3 rounded-lg border border-dashed border-s4e-neutral-divider-10 text-[12px] font-medium text-s4e-text-secondary hover:border-s4e-brand-primary-500 hover:text-s4e-brand-primary-500 transition-colors shrink-0"
+          >
+            <Plus size={12} />
+            {OVERFLOW_PILLS.length}
+          </button>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <VDivider />
+          <ActionBtn icon={Upload} label="Export" iconOnly />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function FilterBarExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Full bar — search + filters + actions"
+        density="default"
+        code={`<FilterBar>
+  <SearchInput />
+  <FilterPill label="Tags" icon={Tag} />
+  <FilterPill label="Verify Status" icon={CheckCircle} />
+  <FilterPill label="Advanced Security" icon={Shield} count={1} active />
+  <FilterBarActions>
+    <Button variant="outline" iconOnly><Upload /></Button>
+    <Button variant="outline">Bulk Actions</Button>
+  </FilterBarActions>
+</FilterBar>`}
+        preview={<FullBarExample />}
+      />
+      <ExampleCard
+        title="Search only"
+        density="default"
+        code={`<FilterBar>
+  <SearchInput />
+  <FilterPill label="Tags" icon={Tag} />
+  <FilterPill label="Verify Status" icon={CheckCircle} />
+</FilterBar>`}
+        preview={<SearchOnlyExample />}
+      />
+      <ExampleCard
+        title="With active pills"
+        density="default"
+        code={`<FilterBar>
+  <FilterPill label="Tags" icon={Tag} count={2} active onClear={...} />
+  <FilterPill label="Advanced Security" icon={Shield} count={1} active onClear={...} />
+  <FilterPill label="Verify Status" icon={CheckCircle} />
+  <FilterBarClear onClick={...} />
+</FilterBar>`}
+        preview={<ActivePillsExample />}
+      />
+      <ExampleCard
+        title="With overflow"
+        density="default"
+        code={`<FilterBar>
+  <SearchInput />
+  <FilterPill label="Tags" icon={Tag} />
+  <FilterPill label="Verify Status" icon={CheckCircle} />
+  <FilterPill label="Advanced Security" icon={Shield} count={1} active />
+  <FilterBarOverflow count={3} />
+</FilterBar>`}
+        preview={<OverflowExample />}
+      />
     </div>
   );
 }

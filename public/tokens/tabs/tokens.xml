@@ -7,6 +7,8 @@
     <color name="brand_primary_500">#1383D4</color>
     <color name="neutral_grey_100">#F7F8F8</color>
     <color name="neutral_grey_200">#F4F5F5</color>
+    <color name="neutral_grey_300">#DFE2E2</color>
+    <color name="surface_app">#FFFFFF</color>
     <color name="surface_row">#FFFFFF</color>
     <color name="text_primary">#121F28</color>
     <color name="text_secondary">#657078</color>
@@ -21,18 +23,22 @@
     <dimen name="space_8">32dp</dimen>
     <dimen name="space_3">12dp</dimen>
     <dimen name="space_10">40dp</dimen>
+    <dimen name="space_12">48dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_md">6dp</dimen>
     <dimen name="radius_lg">8dp</dimen>
     <dimen name="radius_xl">12dp</dimen>
     <dimen name="radius_full">9999dp</dimen>
+    <dimen name="radius_base">4dp</dimen>
 
     <!-- Border width -->
     <dimen name="border_width_1">1dp</dimen>
 
     <!-- Font size -->
     <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_11">11sp</dimen>
     <dimen name="font_size_13">13sp</dimen>
     <dimen name="font_size_15">15sp</dimen>
 

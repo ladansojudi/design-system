@@ -6,6 +6,7 @@ import {
   Info, ChevronLeft, ChevronRight, ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -300,6 +301,66 @@ export function DataTableShowcase() {
         />
       </div>
 
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function DataTableExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Full — Badge + View all"
+        density="tall"
+        code={`<DataTable
+  title="Priority Actions"
+  description="Security issues prioritized by risk growth."
+  badge="Live"
+  viewAllLabel="View all"
+  columns={[
+    { key: "threat", label: "Threats" },
+    { key: "asset",  label: "Asset"   },
+    { key: "date",   label: "Date", align: "right" },
+    { key: "severity", label: "Severity", align: "right", render: (r) => <SeverityBadge level={r.severity} /> },
+  ]}
+  rows={rows}
+/>`}
+        preview={
+          <div className="w-full">
+            <DataTable
+              header={{
+                title:        "Priority Actions",
+                description:  "Security issues prioritized by risk growth, not severity alone.",
+                badge:        "Live",
+                viewAllLabel: "View all",
+              }}
+              rows={ROWS_SHORT}
+            />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Minimal — Title + Description only"
+        density="tall"
+        code={`<DataTable
+  title="All Findings"
+  description="Every active finding across the monitored asset surface."
+  columns={columns}
+  rows={rows}
+/>`}
+        preview={
+          <div className="w-full">
+            <DataTable
+              header={{
+                title:       "All Findings",
+                description: "Every active finding across the monitored asset surface.",
+              }}
+              rows={ROWS_SHORT}
+            />
+          </div>
+        }
+      />
     </div>
   );
 }

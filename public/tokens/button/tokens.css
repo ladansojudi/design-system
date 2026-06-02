@@ -6,6 +6,8 @@
   /* Colors */
   --s4e-brand-primary-50: #e8f4fd;
   --s4e-brand-primary-500: #1383d4;
+  --s4e-scale-green-500: #63a100;
+  --s4e-scale-green-600: #3f6600;
   --s4e-scale-red-50: #fcf3f2;
   --s4e-scale-red-500: #d13d2e;
   --s4e-neutral-grey-100: #f7f8f8;
@@ -14,13 +16,16 @@
   --s4e-neutral-grey-500: #949e9e;
   --s4e-neutral-grey-800: #1f2323;
   --s4e-surface-app: #ffffff;
+  --s4e-surface-table-header: #f7f8f8;
   --s4e-text-primary: #121f28;
   --s4e-text-secondary: #657078;
   --s4e-text-disabled: #a7adb2;
+  --s4e-text-white: #ffffff;
   --s4e-text-inverse: #ffffff;
   --s4e-text-on-accent: #ffffff;
   --s4e-text-link: #0066cc;
   --s4e-text-error: #b0291e;
+  --s4e-btn-neutral-800: #202323;
   --s4e-btn-primary-600: #0f69aa;
   --s4e-btn-primary-700: #024a72;
   --s4e-btn-error-600: #ae2700;
@@ -29,6 +34,7 @@
   /* Spacing */
   --space-8: 32px;
   --space-3: 12px;
+  --space-1: 4px;
   --space-9: 36px;
   --space-4: 16px;
   --space-2: 8px;
@@ -36,8 +42,11 @@
   --space-5: 20px;
   --space-6: 24px;
   --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
 
   /* Radius */
+  --radius-base: 4px;
   --radius-md: 6px;
   --radius-xl: 12px;
   --radius-full: 9999px;

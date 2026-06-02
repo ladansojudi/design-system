@@ -38,6 +38,7 @@ extension CGFloat {
     static let space5: CGFloat = 20
     static let space1: CGFloat = 4
     static let space12: CGFloat = 48
+    static let space16: CGFloat = 64
 
     // Radius
     static let radiusMd: CGFloat = 6

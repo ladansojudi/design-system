@@ -34,7 +34,7 @@ const steps = [
 
 export default function ContributionPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
       <PageHeader
         category="Foundations"
         title="Contribution Guide"
@@ -42,23 +42,25 @@ export default function ContributionPage() {
         description="Six steps every contributor follows when adding or extending a component. Skipping a step is how the system drifts out of alignment."
       />
 
-      <ol className="space-y-5">
-        {steps.map((step, i) => (
-          <li key={step.title} className="flex items-start gap-4">
-            <span className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-s4e-neutral-grey-200 text-s4e-text-primary text-[12px] font-medium">
-              {i + 1}
-            </span>
-            <div className="flex-1 min-w-0 pt-0.5">
-              <h2 className="text-[13px] font-medium text-s4e-text-primary">
-                {step.title}
-              </h2>
-              <p className="mt-1 text-[12px] text-s4e-text-secondary leading-[1.7]">
-                {step.body}
-              </p>
-            </div>
-          </li>
-        ))}
-      </ol>
+      <div className="mt-12 sm:mt-16">
+        <ol className="space-y-5">
+          {steps.map((step, i) => (
+            <li key={step.title} className="flex items-start gap-4">
+              <span className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-s4e-neutral-grey-200 text-s4e-text-primary text-[12px] font-medium">
+                {i + 1}
+              </span>
+              <div className="flex-1 min-w-0 pt-0.5">
+                <h2 className="text-[13px] font-medium text-s4e-text-primary">
+                  {step.title}
+                </h2>
+                <p className="mt-1 text-[12px] text-s4e-text-secondary leading-[1.7]">
+                  {step.body}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 }

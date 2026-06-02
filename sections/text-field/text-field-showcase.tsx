@@ -3,6 +3,7 @@
 import type React from "react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -223,6 +224,50 @@ export function TextFieldShowcase() {
     <div className="space-y-10">
       <FieldCard title="Filled" variant="filled" />
       <FieldCard title="Outlined" variant="outlined" />
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+function FieldExamplePreview({
+  variant,
+  state,
+}: {
+  variant: Variant;
+  state: FieldState;
+}) {
+  const Field = variant === "filled" ? FilledField : OutlinedField;
+  return (
+    <div className="w-64">
+      <Field state={state} hasValue={true} />
+    </div>
+  );
+}
+
+export function TextFieldExamples() {
+  const variants: Variant[] = ["filled", "outlined"];
+  return (
+    <div className="space-y-10">
+      {variants.map((variant) => (
+        <div key={variant}>
+          <SectionTitle>{variant === "filled" ? "Filled" : "Outlined"}</SectionTitle>
+          <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+            Five states for the {variant} variant — copy the JSX directly into your form.
+          </p>
+          <div className="space-y-4">
+            {STATES.map((state) => (
+              <ExampleCard
+                key={`${variant}-${state}`}
+                title={`${variant === "filled" ? "Filled" : "Outlined"} · ${state}`}
+                code={fieldSnippets(variant, state).react}
+                preview={<FieldExamplePreview variant={variant} state={state} />}
+                density="tall"
+              />
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

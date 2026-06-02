@@ -31,6 +31,9 @@
     <dimen name="space_6">24dp</dimen>
     <dimen name="space_5">20dp</dimen>
     <dimen name="space_8">32dp</dimen>
+    <dimen name="space_1">4dp</dimen>
+    <dimen name="space_12">48dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_md">6dp</dimen>
@@ -41,6 +44,7 @@
 
     <!-- Font size -->
     <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
     <dimen name="font_size_14">14sp</dimen>
     <dimen name="font_size_15">15sp</dimen>
 

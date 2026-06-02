@@ -4,6 +4,7 @@ import type React from "react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Toggle ─────────────────────────────────────────────────────────────────
@@ -196,13 +197,19 @@ function SwitchCard() {
       <SectionTitle>Switch</SectionTitle>
       <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
         <PropertyRow label="Variant">
-          <Copyable snippets={switchSnippets("dark", darkOn, darkOn ? "Checked" : "UnChecked")}>
+          <Copyable
+            snippets={switchSnippets("dark", darkOn, darkOn ? "Checked" : "UnChecked")}
+            svgPath={`/svg/switch/${darkOn ? "on" : "off"}.svg`}
+          >
             <div className="flex items-center gap-2.5">
               <Toggle checked={darkOn} onChange={setDarkOn} variant="dark" />
               <ItemLabel label={darkOn ? "Checked" : "UnChecked"} />
             </div>
           </Copyable>
-          <Copyable snippets={switchSnippets("primary", primaryOn, primaryOn ? "Checked" : "UnChecked")}>
+          <Copyable
+            snippets={switchSnippets("primary", primaryOn, primaryOn ? "Checked" : "UnChecked")}
+            svgPath={`/svg/switch/${primaryOn ? "on" : "off"}.svg`}
+          >
             <div className="flex items-center gap-2.5">
               <Toggle checked={primaryOn} onChange={setPrimaryOn} variant="primary" />
               <ItemLabel label={primaryOn ? "Checked" : "UnChecked"} />
@@ -290,6 +297,118 @@ export function SwitchRadioShowcase() {
     <div className="space-y-10">
       <SwitchCard />
       <RadioCard />
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+function SwitchExamplePreview({
+  variant,
+  checked,
+  disabled = false,
+  label,
+}: {
+  variant?: ToggleVariant;
+  checked: boolean;
+  disabled?: boolean;
+  label: string;
+}) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <Toggle checked={checked} variant={variant} disabled={disabled} />
+      <ItemLabel label={label} disabled={disabled} />
+    </div>
+  );
+}
+
+function RadioExamplePreview({
+  checked,
+  disabled = false,
+  label,
+}: {
+  checked: boolean;
+  disabled?: boolean;
+  label: string;
+}) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <RadioButton checked={checked} disabled={disabled} />
+      <ItemLabel label={label} disabled={disabled} />
+    </div>
+  );
+}
+
+export function SwitchRadioExamples() {
+  return (
+    <div className="space-y-10">
+      <div>
+        <SectionTitle>Switch</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Toggle variants across dark and primary, plus disabled states.
+        </p>
+        <div className="space-y-4">
+          <ExampleCard
+            title="Dark · Unchecked"
+            code={`<Switch checked={false} variant="dark" onChange={setOn} />`}
+            preview={<SwitchExamplePreview variant="dark" checked={false} label="UnChecked" />}
+            density="tight"
+          />
+          <ExampleCard
+            title="Primary · Checked"
+            code={`<Switch checked={true} variant="primary" onChange={setOn} />`}
+            preview={<SwitchExamplePreview variant="primary" checked={true} label="Checked" />}
+            density="tight"
+          />
+          <ExampleCard
+            title="Disabled · Unchecked"
+            code={`<Switch checked={false} variant="dark" disabled />`}
+            preview={<SwitchExamplePreview variant="dark" checked={false} disabled label="Disabled" />}
+            density="tight"
+          />
+          <ExampleCard
+            title="Disabled · Checked"
+            code={`<Switch checked={true} variant="primary" disabled />`}
+            preview={<SwitchExamplePreview variant="primary" checked={true} disabled label="Disabled" />}
+            density="tight"
+          />
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle>Radio</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Single options and grouped radio buttons.
+        </p>
+        <div className="space-y-4">
+          <ExampleCard
+            title="Radio group"
+            code={RADIO_GROUP_SNIPPETS.react}
+            preview={
+              <div className="flex flex-wrap gap-x-6 gap-y-3">
+                {RADIO_OPTIONS.map((opt, i) => (
+                  <label key={opt} className="flex items-center gap-2.5">
+                    <RadioButton checked={i === 0} />
+                    <span className="text-[13px] text-s4e-text-primary">{opt}</span>
+                  </label>
+                ))}
+              </div>
+            }
+          />
+          <ExampleCard
+            title="Disabled · Unchecked"
+            code={`<Radio checked={false} disabled>Unchecked</Radio>`}
+            preview={<RadioExamplePreview checked={false} disabled label="Unchecked" />}
+            density="tight"
+          />
+          <ExampleCard
+            title="Disabled · Checked"
+            code={`<Radio checked={true} disabled>Checked</Radio>`}
+            preview={<RadioExamplePreview checked={true} disabled label="Checked" />}
+            density="tight"
+          />
+        </div>
+      </div>
     </div>
   );
 }

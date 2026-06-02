@@ -35,10 +35,14 @@
     <dimen name="space_4">16dp</dimen>
     <dimen name="space_10">40dp</dimen>
     <dimen name="space_6">24dp</dimen>
+    <dimen name="space_3">12dp</dimen>
     <dimen name="space_8">32dp</dimen>
+    <dimen name="space_12">48dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_xl">12dp</dimen>
+    <dimen name="radius_full">9999dp</dimen>
 
     <!-- Border width -->
     <dimen name="border_width_1">1dp</dimen>

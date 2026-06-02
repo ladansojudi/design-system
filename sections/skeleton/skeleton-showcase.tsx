@@ -3,6 +3,7 @@
 import type React from "react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Skeleton primitive ────────────────────────────────────────────────────
@@ -264,19 +265,19 @@ export function SkeletonShowcase() {
         <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5 space-y-3">
           <div className="flex items-center gap-3">
             <span className="w-16 text-[10px] uppercase tracking-widest text-s4e-text-disabled">Line</span>
-            <Copyable snippets={LINE_SNIPPETS}>
+            <Copyable snippets={LINE_SNIPPETS} svgPath="/svg/skeleton/line.svg">
               <Skeleton className="h-3 w-48" />
             </Copyable>
           </div>
           <div className="flex items-center gap-3">
             <span className="w-16 text-[10px] uppercase tracking-widest text-s4e-text-disabled">Block</span>
-            <Copyable snippets={BLOCK_SNIPPETS}>
+            <Copyable snippets={BLOCK_SNIPPETS} svgPath="/svg/skeleton/block.svg">
               <Skeleton className="h-16 w-48" />
             </Copyable>
           </div>
           <div className="flex items-center gap-3">
             <span className="w-16 text-[10px] uppercase tracking-widest text-s4e-text-disabled">Avatar</span>
-            <Copyable snippets={AVATAR_SNIPPETS}>
+            <Copyable snippets={AVATAR_SNIPPETS} svgPath="/svg/skeleton/avatar.svg">
               <Skeleton className="h-10 w-10 rounded-full" />
             </Copyable>
           </div>
@@ -307,6 +308,79 @@ export function SkeletonShowcase() {
           <Copyable snippets={TABLE_SNIPPETS} className="block w-full">
             <TableSkeleton />
           </Copyable>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function SkeletonExamples() {
+  return (
+    <div className="space-y-10">
+      <div>
+        <SectionTitle>Primitives</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Three building blocks — line, block, and avatar — composed together to match real content shapes.
+        </p>
+        <div className="space-y-4">
+          <ExampleCard
+            title="Line"
+            code={LINE_SNIPPETS.react}
+            preview={<Skeleton className="h-3 w-48" />}
+            density="tight"
+          />
+          <ExampleCard
+            title="Block"
+            code={BLOCK_SNIPPETS.react}
+            preview={<Skeleton className="h-16 w-48" />}
+          />
+          <ExampleCard
+            title="Avatar"
+            code={AVATAR_SNIPPETS.react}
+            preview={<Skeleton className="h-10 w-10 rounded-full" />}
+            density="tight"
+          />
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle>Compositions</SectionTitle>
+        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+          Compose primitives into placeholders that mirror the real layout — same shapes, same counts.
+        </p>
+        <div className="space-y-4">
+          <ExampleCard
+            title="Card placeholder"
+            code={CARD_SNIPPETS.react}
+            preview={
+              <div className="w-full max-w-md">
+                <CardSkeleton />
+              </div>
+            }
+            density="tall"
+          />
+          <ExampleCard
+            title="List placeholder"
+            code={LIST_SNIPPETS.react}
+            preview={
+              <div className="w-full max-w-md">
+                <ListSkeleton />
+              </div>
+            }
+            density="tall"
+          />
+          <ExampleCard
+            title="Table placeholder"
+            code={TABLE_SNIPPETS.react}
+            preview={
+              <div className="w-full max-w-md">
+                <TableSkeleton />
+              </div>
+            }
+            density="tall"
+          />
         </div>
       </div>
     </div>

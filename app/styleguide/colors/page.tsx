@@ -8,14 +8,16 @@ export const metadata: Metadata = {
 
 export default function ColorsPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
       <PageHeader
         category="Foundations"
         title="Colors & Tokens"
         status="stable"
         description="Every visual decision in the system references a named token. No component uses a hardcoded color value."
       />
-      <ColorsSystem />
+      <div className="mt-12 sm:mt-16">
+        <ColorsSystem />
+      </div>
     </div>
   );
 }

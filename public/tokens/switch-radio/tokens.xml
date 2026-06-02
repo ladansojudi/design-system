@@ -11,6 +11,7 @@
     <color name="neutral_grey_800">#1F2323</color>
     <color name="neutral_grey_900">#131515</color>
     <color name="text_primary">#121F28</color>
+    <color name="text_secondary">#657078</color>
     <color name="text_disabled">#A7ADB2</color>
     <color name="btn_primary_600">#0F69AA</color>
     <color name="btn_primary_700">#024A72</color>
@@ -23,10 +24,14 @@
     <dimen name="space_16">64dp</dimen>
     <dimen name="space_6">24dp</dimen>
     <dimen name="space_10">40dp</dimen>
+    <dimen name="space_5">20dp</dimen>
+    <dimen name="space_3">12dp</dimen>
+    <dimen name="space_12">48dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_xl">12dp</dimen>
     <dimen name="radius_full">9999dp</dimen>
+    <dimen name="radius_base">4dp</dimen>
 
     <!-- Border width -->
     <dimen name="border_width_1">1dp</dimen>
@@ -34,6 +39,7 @@
 
     <!-- Font size -->
     <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
     <dimen name="font_size_13">13sp</dimen>
     <dimen name="font_size_15">15sp</dimen>
 

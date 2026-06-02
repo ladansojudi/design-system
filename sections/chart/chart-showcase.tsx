@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Sliders } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 // ── Shared primitives ──────────────────────────────────────────────────────
 
@@ -535,6 +536,131 @@ export function ChartShowcase() {
       {active === "treemap" && <TreemapSection />}
       {active === "bar"     && <BarSection     />}
       {active === "line"    && <LineSection    />}
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function ChartExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="DonutChart"
+        density="tall"
+        code={`<DonutChart
+  title="Items by Category"
+  data={[
+    { label: "Category A", value: 420, color: "var(--s4e-data-1)" },
+    { label: "Category B", value: 120, color: "var(--s4e-data-5)" },
+    { label: "Category C", value: 60,  color: "var(--s4e-data-2)" },
+    { label: "Category D", value: 30,  color: "var(--s4e-data-3)" },
+  ]}
+  layout="horizontal"
+/>`}
+        preview={
+          <div className="w-full">
+            <ChartCard title="Items by Category">
+              <div className="flex items-center gap-8 flex-wrap">
+                <Donut />
+                <DonutLegend />
+              </div>
+            </ChartCard>
+          </div>
+        }
+      />
+      <ExampleCard
+        title="BarChart"
+        density="tall"
+        code={`<BarChart
+  title="Top Items"
+  description="Frequency of the top five items"
+  viewAll
+  data={[
+    { label: "Item A", value: 48 },
+    { label: "Item B", value: 42 },
+    { label: "Item C", value: 27 },
+    { label: "Item D", value: 18 },
+    { label: "Item E", value: 9  },
+  ]}
+  yTicks={[0, 10, 20, 30, 40, 50]}
+/>`}
+        preview={
+          <div className="w-full">
+            <BarChart />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="LineChart · Area"
+        density="tall"
+        code={`<LineChart
+  title="Total Items"
+  description="Growth of items within the selected time range"
+  viewAll
+  data={timeseries}
+  fill="area"
+  stats={[
+    { label: "Current Total", value: "816" },
+    { label: "Last Week",     value: "+1.1%", tone: "positive" },
+    { label: "Peak Day",      value: "20 Feb 2026" },
+  ]}
+/>`}
+        preview={
+          <div className="w-full">
+            <LineChart />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="TreemapChart"
+        density="tall"
+        code={`<TreemapChart
+  title="Group Distribution"
+  description="Overview of the top four groups by size"
+  data={[
+    { label: "Group A", value: 92, color: "var(--s4e-data-5)" },
+    { label: "Group B", value: 78, color: "var(--s4e-data-7)" },
+    { label: "Group C", value: 42, color: "var(--s4e-data-1)" },
+    { label: "Group D", value: 28, color: "var(--s4e-data-3)" },
+  ]}
+  stats={[
+    { label: "Total Items", value: "240" },
+    { label: "Top Group",   value: "Group A" },
+  ]}
+/>`}
+        preview={
+          <div className="w-full">
+            <ChartCard
+              title="Group Distribution"
+              description="Overview of the top four groups by size"
+            >
+              <div className="space-y-4">
+                <div className="flex gap-3">
+                  <StatBlock label="Total Items" value="240" />
+                  <StatBlock label="Top Group"   value="Group A" />
+                </div>
+                <div className="flex gap-1 h-64">
+                  <div className="flex-1 rounded-md bg-s4e-data-5 flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold">
+                    Group A · 92
+                  </div>
+                  <div className="flex-1 rounded-md bg-s4e-data-7 flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold">
+                    Group B · 78
+                  </div>
+                  <div className="flex-1 flex flex-col gap-1">
+                    <div className="flex-1 rounded-md bg-s4e-data-1 flex items-center justify-center text-s4e-text-primary text-[13px] font-semibold">
+                      Group C · 42
+                    </div>
+                    <div className="flex-1 rounded-md bg-s4e-data-3 flex items-center justify-center text-s4e-text-primary text-[13px] font-semibold">
+                      Group D · 28
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ChartCard>
+          </div>
+        }
+      />
     </div>
   );
 }

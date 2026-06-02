@@ -6,6 +6,8 @@
     <!-- Colors -->
     <color name="brand_primary_500">#1383D4</color>
     <color name="neutral_grey_100">#F7F8F8</color>
+    <color name="neutral_grey_300">#DFE2E2</color>
+    <color name="neutral_grey_800">#1F2323</color>
     <color name="text_primary">#121F28</color>
     <color name="text_secondary">#657078</color>
     <color name="text_disabled">#A7ADB2</color>
@@ -23,6 +25,7 @@
     <dimen name="space_16">64dp</dimen>
     <dimen name="space_10">40dp</dimen>
     <dimen name="space_5">20dp</dimen>
+    <dimen name="space_12">48dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_md">6dp</dimen>

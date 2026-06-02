@@ -9,6 +9,7 @@
     <color name="surface_row">#FFFFFF</color>
     <color name="surface_table_header">#F7F8F8</color>
     <color name="text_primary">#121F28</color>
+    <color name="text_secondary">#657078</color>
     <color name="text_disabled">#A7ADB2</color>
 
     <!-- Spacing -->
@@ -23,6 +24,7 @@
     <dimen name="space_8">32dp</dimen>
     <dimen name="space_6">24dp</dimen>
     <dimen name="space_9">36dp</dimen>
+    <dimen name="space_12">48dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_md">6dp</dimen>
@@ -34,6 +36,7 @@
 
     <!-- Font size -->
     <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
     <dimen name="font_size_15">15sp</dimen>
 
     <!-- Font weight -->

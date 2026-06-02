@@ -10,6 +10,7 @@
   --s4e-scale-red-500: #d13d2e;
   --s4e-scale-red-600: #8e2a1f;
   --s4e-neutral-grey-100: #f7f8f8;
+  --s4e-neutral-grey-200: #f4f5f5;
   --s4e-surface-app: #ffffff;
   --s4e-text-primary: #121f28;
   --s4e-text-secondary: #657078;
@@ -23,6 +24,8 @@
   --space-10: 40px;
   --space-6: 24px;
   --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
   --space-3: 12px;
 
   /* Radius */

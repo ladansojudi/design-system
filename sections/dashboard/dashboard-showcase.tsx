@@ -8,6 +8,7 @@ import { DetailsTab } from "@/sections/dashboard/details-tab";
 import { ComplianceTab } from "@/sections/dashboard/compliance-tab";
 import { AppSidebar } from "@/sections/dashboard/app-sidebar";
 import { AppTopbar } from "@/sections/dashboard/app-topbar";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 type Tab = "overview" | "details" | "compliance";
 
@@ -74,6 +75,72 @@ export function DashboardShowcase() {
         {tab === "compliance" && <ComplianceTab />}
       </div>
       </div>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function DashboardExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Full dashboard layout"
+        density="tall"
+        code={`<DashboardLayout
+  sidebar={<AppSidebar />}
+  topbar={<AppTopbar />}
+  header={
+    <DashboardHeader
+      title="Dashboard"
+      actions={[
+        <Button intent="primary">Start a Scan</Button>,
+        <Button variant="outline">Scan Reports</Button>,
+        <Button variant="outline">Add Asset</Button>,
+      ]}
+    />
+  }
+  tabs={[
+    { key: "overview",   label: "Overview",   content: <OverviewTab /> },
+    { key: "details",    label: "Details",    content: <DetailsTab /> },
+    { key: "compliance", label: "Compliance", content: <ComplianceTab /> },
+  ]}
+/>`}
+        preview={
+          <div className="w-full">
+            <DashboardShowcase />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Page header with action group"
+        density="tall"
+        code={`<DashboardHeader title="Dashboard">
+  <Button intent="primary" trailing={<ArrowRight />}>Start a Scan</Button>
+  <Button variant="outline">Scan Reports <Tag>24 new!</Tag></Button>
+  <Button variant="outline">Add Asset <Tag tone="muted">12 in total</Tag></Button>
+</DashboardHeader>`}
+        preview={
+          <div className="w-full bg-s4e-surface-app rounded-xl border border-s4e-neutral-divider-10 px-5 sm:px-7 py-6">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-[22px] font-bold text-s4e-text-primary">Dashboard</h2>
+              <div className="flex items-center gap-2.5">
+                <span className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium">
+                  Start a Scan <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/20"><ArrowRight size={11} /></span>
+                </span>
+                <span className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary">
+                  Scan Reports <span className="text-s4e-brand-primary-500">24 new!</span>
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-white"><ArrowRight size={11} /></span>
+                </span>
+                <span className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary">
+                  Add Asset <span className="text-s4e-text-disabled">12 in total</span>
+                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-white"><Plus size={11} /></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        }
+      />
     </div>
   );
 }

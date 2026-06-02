@@ -8,6 +8,7 @@
   --s4e-brand-primary-600: #0f69a9;
   --s4e-brand-primary-700: #09436c;
   --s4e-neutral-grey-100: #f7f8f8;
+  --s4e-neutral-grey-400: #c9cfcf;
   --s4e-neutral-grey-900: #131515;
   --s4e-surface-app: #ffffff;
   --s4e-feedback-info: #7dafd6;
@@ -28,10 +29,13 @@
   --space-8: 32px;
   --space-5: 20px;
   --space-1: 4px;
+  --space-12: 48px;
+  --space-16: 64px;
 
   /* Radius */
   --radius-lg: 8px;
   --radius-xl: 12px;
+  --radius-full: 9999px;
 
   /* Border width */
   --border-width-1: 1px;

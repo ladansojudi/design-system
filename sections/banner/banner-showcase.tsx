@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Megaphone, Sparkles, AlertTriangle, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 type Tone = "neutral" | "promo" | "warning";
@@ -163,6 +164,68 @@ export function BannerShowcase() {
           </Copyable>
         </div>
       </div>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function BannerExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Neutral"
+        density="tall"
+        code={NEUTRAL_SNIPPETS.react}
+        preview={
+          <div className="w-full">
+            <Banner tone="neutral" message="Scheduled maintenance window starts at 02:00 UTC tomorrow." />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Promo · With CTA"
+        density="tall"
+        code={PROMO_SNIPPETS.react}
+        preview={
+          <div className="w-full">
+            <Banner
+              tone="promo"
+              message="New: AI-assisted vulnerability triage is live for all teams."
+              cta={{ label: "Try it" }}
+            />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Warning · With CTA"
+        density="tall"
+        code={WARNING_SNIPPETS.react}
+        preview={
+          <div className="w-full">
+            <Banner
+              tone="warning"
+              message="Your trial expires in 3 days."
+              cta={{ label: "Upgrade now" }}
+            />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Warning · Not dismissible"
+        density="tall"
+        code={NO_DISMISS_SNIPPETS.react}
+        preview={
+          <div className="w-full">
+            <Banner
+              tone="warning"
+              dismissible={false}
+              message="Read-only mode — billing issue requires attention."
+              cta={{ label: "Resolve" }}
+            />
+          </div>
+        }
+      />
     </div>
   );
 }

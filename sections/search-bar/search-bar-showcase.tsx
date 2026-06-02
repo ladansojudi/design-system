@@ -4,6 +4,7 @@ import type React from "react";
 import { useState } from "react";
 import { Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -153,6 +154,76 @@ export function SearchBarShowcase() {
     <div className="space-y-10">
       <VariantCard title="Default" variant="default" />
       <VariantCard title="Ghost"   variant="ghost"   />
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+function FilledSearchBar({ variant }: { variant: SearchVariant }) {
+  const [value, setValue] = useState("asset.example.com");
+  return (
+    <div className="w-full max-w-sm">
+      <SearchBar variant={variant} value={value} onChange={setValue} placeholder="Search assets…" />
+    </div>
+  );
+}
+
+export function SearchBarExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Default"
+        density="default"
+        code={`<SearchBar placeholder="Search assets…" />`}
+        preview={
+          <div className="w-full max-w-sm">
+            <SearchBar variant="default" placeholder="Search assets…" />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Ghost"
+        density="default"
+        code={`<SearchBar variant="ghost" placeholder="Search assets…" />`}
+        preview={
+          <div className="w-full max-w-sm">
+            <SearchBar variant="ghost" placeholder="Search assets…" />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Focused"
+        density="default"
+        code={`<SearchBar placeholder="Search assets…" autoFocus />`}
+        preview={
+          <div className="w-full max-w-sm">
+            <SearchBar variant="default" state="focused" placeholder="Search assets…" />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Disabled"
+        density="default"
+        code={`<SearchBar placeholder="Search assets…" disabled />`}
+        preview={
+          <div className="w-full max-w-sm">
+            <SearchBar variant="default" state="disabled" placeholder="Search assets…" />
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Filled (with clear)"
+        density="default"
+        code={`<SearchBar value={value} onChange={setValue} placeholder="Search assets…" />`}
+        preview={<FilledSearchBar variant="default" />}
+      />
+      <ExampleCard
+        title="Ghost · Filled"
+        density="default"
+        code={`<SearchBar variant="ghost" value={value} onChange={setValue} placeholder="Search assets…" />`}
+        preview={<FilledSearchBar variant="ghost" />}
+      />
     </div>
   );
 }

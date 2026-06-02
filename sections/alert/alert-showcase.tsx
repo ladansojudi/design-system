@@ -5,6 +5,7 @@ import { useState } from "react";
 import { CheckCircle2, Info, AlertTriangle, OctagonAlert, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Variant config ────────────────────────────────────────────────────────
@@ -243,6 +244,97 @@ export function AlertShowcase() {
           </Copyable>
         </div>
       </div>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function AlertExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Info"
+        density="tall"
+        code={variantSnippets("info").react}
+        preview={
+          <div className="w-full max-w-md">
+            <Alert variant="info" title="Info alert">
+              {VARIANT_BODY}
+            </Alert>
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Success"
+        density="tall"
+        code={variantSnippets("success").react}
+        preview={
+          <div className="w-full max-w-md">
+            <Alert variant="success" title="Success alert">
+              {VARIANT_BODY}
+            </Alert>
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Warning"
+        density="tall"
+        code={variantSnippets("warning").react}
+        preview={
+          <div className="w-full max-w-md">
+            <Alert variant="warning" title="Warning alert">
+              {VARIANT_BODY}
+            </Alert>
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Error"
+        density="tall"
+        code={variantSnippets("error").react}
+        preview={
+          <div className="w-full max-w-md">
+            <Alert variant="error" title="Error alert">
+              {VARIANT_BODY}
+            </Alert>
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Warning · Dismissible with action"
+        density="tall"
+        code={QUOTA_SNIPPETS.react}
+        preview={
+          <div className="w-full max-w-md">
+            <Alert
+              variant="warning"
+              title="Quota almost exceeded"
+              dismissible
+              action={
+                <button
+                  type="button"
+                  className="text-[11px] font-medium underline text-s4e-scale-yellow-700 hover:opacity-80 cursor-pointer"
+                >
+                  Upgrade plan
+                </button>
+              }
+            >
+              You have used 9.2 GB of your 10 GB monthly allowance.
+            </Alert>
+          </div>
+        }
+      />
+      <ExampleCard
+        title="Title only"
+        density="tall"
+        code={TITLE_ONLY_SNIPPETS.react}
+        preview={
+          <div className="w-full max-w-md">
+            <Alert variant="success" title="Scan completed in 4.3 seconds" />
+          </div>
+        }
+      />
     </div>
   );
 }

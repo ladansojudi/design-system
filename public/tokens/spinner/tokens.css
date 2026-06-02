@@ -6,6 +6,8 @@
   /* Colors */
   --s4e-brand-primary-500: #1383d4;
   --s4e-neutral-grey-100: #f7f8f8;
+  --s4e-neutral-grey-300: #dfe2e2;
+  --s4e-neutral-grey-800: #1f2323;
   --s4e-text-primary: #121f28;
   --s4e-text-secondary: #657078;
   --s4e-text-disabled: #a7adb2;
@@ -23,6 +25,7 @@
   --space-16: 64px;
   --space-10: 40px;
   --space-5: 20px;
+  --space-12: 48px;
 
   /* Radius */
   --radius-md: 6px;

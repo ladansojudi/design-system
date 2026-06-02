@@ -3,6 +3,7 @@
 import type React from "react";
 import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
+import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 
 // ── Types & config ─────────────────────────────────────────────────────────
@@ -124,7 +125,7 @@ export function SeverityBadgeShowcase() {
               </p>
               <div className="space-y-2">
                 {SEVERITIES.map((s) => (
-                  <Copyable key={s} snippets={severitySnippets(s)}>
+                  <Copyable key={s} snippets={severitySnippets(s)} svgPath={`/svg/severity-badge/${s}.svg`}>
                     <SeverityBadge severity={s} />
                   </Copyable>
                 ))}
@@ -138,7 +139,7 @@ export function SeverityBadgeShowcase() {
               </p>
               <div className="space-y-2">
                 {SEVERITIES.map((s) => (
-                  <Copyable key={s} snippets={severitySnippets(s, 8.4)}>
+                  <Copyable key={s} snippets={severitySnippets(s, 8.4)} svgPath={`/svg/severity-badge/${s}.svg`}>
                     <SeverityBadge severity={s} score={8.4} />
                   </Copyable>
                 ))}
@@ -147,6 +148,45 @@ export function SeverityBadgeShowcase() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function SeverityBadgeExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Critical · With score"
+        density="tight"
+        code={severitySnippets("critical", 9.8).react}
+        preview={<SeverityBadge severity="critical" score={9.8} />}
+      />
+      <ExampleCard
+        title="High · With score"
+        density="tight"
+        code={severitySnippets("high", 8.4).react}
+        preview={<SeverityBadge severity="high" score={8.4} />}
+      />
+      <ExampleCard
+        title="Medium · With score"
+        density="tight"
+        code={severitySnippets("medium", 5.5).react}
+        preview={<SeverityBadge severity="medium" score={5.5} />}
+      />
+      <ExampleCard
+        title="Low · Label only"
+        density="tight"
+        code={severitySnippets("low").react}
+        preview={<SeverityBadge severity="low" />}
+      />
+      <ExampleCard
+        title="Info · Label only"
+        density="tight"
+        code={severitySnippets("info").react}
+        preview={<SeverityBadge severity="info" />}
+      />
     </div>
   );
 }

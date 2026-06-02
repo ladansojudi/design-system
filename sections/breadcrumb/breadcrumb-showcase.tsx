@@ -3,6 +3,7 @@
 import type React from "react";
 import { Fragment } from "react";
 import { cn } from "@/lib/utils";
+import { ExampleCard } from "@/components/styleguide/example-card";
 
 // ── Breadcrumb ─────────────────────────────────────────────────────────────
 
@@ -116,6 +117,61 @@ export function BreadcrumbShowcase() {
         </div>
       </div>
 
+    </div>
+  );
+}
+
+// ── Dev-view Examples (shadcn-style per-variant cards) ────────────────────
+
+export function BreadcrumbExamples() {
+  return (
+    <div className="space-y-4">
+      <ExampleCard
+        title="Three levels"
+        density="tight"
+        code={`<Breadcrumb>
+  <BreadcrumbLink href="/">Root</BreadcrumbLink>
+  <BreadcrumbLink href="/link">Link</BreadcrumbLink>
+  <BreadcrumbItem current>Current</BreadcrumbItem>
+</Breadcrumb>`}
+        preview={
+          <Breadcrumb items={[
+            { type: "link",    label: "Root"    },
+            { type: "link",    label: "Link"    },
+            { type: "current", label: "Current" },
+          ]} />
+        }
+      />
+      <ExampleCard
+        title="Two levels"
+        density="tight"
+        code={`<Breadcrumb>
+  <BreadcrumbLink href="/">Root</BreadcrumbLink>
+  <BreadcrumbItem current>Current</BreadcrumbItem>
+</Breadcrumb>`}
+        preview={
+          <Breadcrumb items={[
+            { type: "link",    label: "Root"    },
+            { type: "current", label: "Current" },
+          ]} />
+        }
+      />
+      <ExampleCard
+        title="With visited link"
+        density="tight"
+        code={`<Breadcrumb>
+  <BreadcrumbLink href="/" state="visited">Root</BreadcrumbLink>
+  <BreadcrumbLink href="/link">Link</BreadcrumbLink>
+  <BreadcrumbItem current>Current</BreadcrumbItem>
+</Breadcrumb>`}
+        preview={
+          <Breadcrumb items={[
+            { type: "link",    label: "Root", state: "visited" },
+            { type: "link",    label: "Link"                    },
+            { type: "current", label: "Current"                 },
+          ]} />
+        }
+      />
     </div>
   );
 }
