@@ -33,8 +33,8 @@ const BASE =
   "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none";
 
 const SIZE_CLASS: Record<Size, string> = {
-  sm: "h-8 px-3 text-[13px] gap-1",
-  md: "h-9 px-4 text-[13px] gap-2",
+  sm: "h-8 px-3 text-[14px] gap-1",
+  md: "h-9 px-4 text-[14px] gap-2",
   lg: "h-11 px-5 text-[14px] gap-2",
 };
 

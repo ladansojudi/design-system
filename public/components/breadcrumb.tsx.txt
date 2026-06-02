@@ -44,7 +44,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLAnchorElement, BreadcrumbItem
       return (
         <span
           aria-current="page"
-          className={cn("text-[13px] text-s4e-text-disabled", className)}
+          className={cn("text-[14px] text-s4e-text-disabled", className)}
         >
           {children}
         </span>
@@ -56,7 +56,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLAnchorElement, BreadcrumbItem
         ref={ref}
         href={href}
         className={cn(
-          "text-[13px] font-medium cursor-pointer transition-colors",
+          "text-[14px] font-medium cursor-pointer transition-colors",
           visited
             ? "text-s4e-text-disabled"
             : "text-s4e-text-primary hover:text-s4e-brand-primary-500 hover:underline hover:underline-offset-2",

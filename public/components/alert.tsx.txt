@@ -109,7 +109,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         <Icon size={16} className={cn("shrink-0 mt-px", cfg.iconClass)} />
         <div className="flex-1 min-w-0">
           {title && (
-            <div className={cn("text-[13px] font-semibold leading-tight", cfg.title)}>
+            <div className={cn("text-[14px] font-semibold leading-tight", cfg.title)}>
               {title}
             </div>
           )}

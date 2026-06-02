@@ -1,7 +1,6 @@
 "use client";
 
-import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
-
+import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -13,22 +12,61 @@ import { cn } from "@/lib/utils";
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
  *   • s4e-* design tokens — grab tokens.css from the Theming page.
- *   • @base-ui/react (for accessibility / keyboard / aria handling)
+ *
+ * Usage:
+ *   <Tabs defaultValue="overview">
+ *     <TabsList>
+ *       <TabsTrigger value="overview">Overview</TabsTrigger>
+ *       <TabsTrigger value="details">Details</TabsTrigger>
+ *     </TabsList>
+ *     <TabsContent value="overview">…</TabsContent>
+ *     <TabsContent value="details">…</TabsContent>
+ *   </Tabs>
  */
 
-function Tabs({ className, ...props }: TabsPrimitive.Root.Props) {
-  return (
-    <TabsPrimitive.Root
-      data-slot="tabs"
-      className={cn("flex flex-col gap-6", className)}
-      {...props}
-    />
-  );
+type TabsContextValue = { value: string; setValue: (v: string) => void };
+
+const TabsContext = React.createContext<TabsContextValue | null>(null);
+
+function useTabs(): TabsContextValue {
+  const ctx = React.useContext(TabsContext);
+  if (!ctx) throw new Error("Tabs.* must be used inside <Tabs>");
+  return ctx;
 }
 
-function TabsList({ className, ...props }: TabsPrimitive.List.Props) {
-  return (
-    <TabsPrimitive.List
+export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Controlled active value. */
+  value?:        string;
+  /** Uncontrolled initial value. */
+  defaultValue?: string;
+  onValueChange?: (v: string) => void;
+}
+
+export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
+  ({ className, value, defaultValue, onValueChange, children, ...props }, ref) => {
+    const isControlled = value !== undefined;
+    const [internal, setInternal] = React.useState(defaultValue ?? "");
+    const current = isControlled ? (value as string) : internal;
+    const setValue = (v: string) => {
+      if (!isControlled) setInternal(v);
+      onValueChange?.(v);
+    };
+    return (
+      <TabsContext.Provider value={{ value: current, setValue }}>
+        <div ref={ref} data-slot="tabs" className={cn("flex flex-col gap-6", className)} {...props}>
+          {children}
+        </div>
+      </TabsContext.Provider>
+    );
+  },
+);
+Tabs.displayName = "Tabs";
+
+export const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      role="tablist"
       data-slot="tabs-list"
       className={cn(
         "flex items-end border-b border-s4e-neutral-divider-10 overflow-x-auto s4e-scrollbar-hide",
@@ -36,35 +74,60 @@ function TabsList({ className, ...props }: TabsPrimitive.List.Props) {
       )}
       {...props}
     />
-  );
+  ),
+);
+TabsList.displayName = "TabsList";
+
+export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  value: string;
 }
 
-function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
-  return (
-    <TabsPrimitive.Tab
-      data-slot="tabs-trigger"
-      className={cn(
-        "px-4 pt-2 pb-2.5 -mb-px text-[14px] font-medium whitespace-nowrap shrink-0",
-        "border-b-2 border-transparent text-s4e-text-secondary",
-        "hover:text-s4e-text-primary transition-colors",
-        "data-active:text-s4e-brand-primary-500 data-active:border-s4e-brand-primary-500",
-        "disabled:opacity-50 disabled:pointer-events-none",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500/40",
-        className,
-      )}
-      {...props}
-    />
-  );
+export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
+  ({ className, value, ...props }, ref) => {
+    const { value: current, setValue } = useTabs();
+    const isActive = current === value;
+    return (
+      <button
+        ref={ref}
+        type="button"
+        role="tab"
+        aria-selected={isActive}
+        data-slot="tabs-trigger"
+        onClick={() => setValue(value)}
+        className={cn(
+          "inline-flex items-center px-4 pt-2 pb-2.5 -mb-px text-[14px] font-medium whitespace-nowrap tracking-tight shrink-0",
+          "border-b-[2px] transition-colors cursor-pointer",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-s4e-brand-primary-500/40",
+          "disabled:opacity-50 disabled:pointer-events-none",
+          isActive
+            ? "text-s4e-text-primary border-s4e-brand-primary-500"
+            : "text-s4e-text-secondary border-transparent hover:text-s4e-text-primary",
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
+TabsTrigger.displayName = "TabsTrigger";
+
+export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  value: string;
 }
 
-function TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {
-  return (
-    <TabsPrimitive.Panel
-      data-slot="tabs-content"
-      className={cn("outline-none", className)}
-      {...props}
-    />
-  );
-}
-
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
+  ({ className, value, ...props }, ref) => {
+    const { value: current } = useTabs();
+    if (current !== value) return null;
+    return (
+      <div
+        ref={ref}
+        role="tabpanel"
+        data-slot="tabs-content"
+        className={cn("outline-none", className)}
+        {...props}
+      />
+    );
+  },
+);
+TabsContent.displayName = "TabsContent";

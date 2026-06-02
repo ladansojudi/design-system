@@ -50,7 +50,7 @@ export const InsightCard = React.forwardRef<HTMLDivElement, InsightCardProps>(
           {rows.map((row) => (
             <div key={row.label} className="flex items-center justify-between py-2.5">
               <span className="text-[12px] text-s4e-text-secondary">{row.label}</span>
-              <span className="text-[13px] font-semibold text-s4e-text-primary">{row.value}</span>
+              <span className="text-[14px] font-semibold text-s4e-text-primary">{row.value}</span>
             </div>
           ))}
         </div>
@@ -105,7 +105,7 @@ export const AlertCard = React.forwardRef<HTMLDivElement, AlertCardProps>(
         <div className="px-4 py-4 space-y-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[13px] font-semibold text-s4e-text-primary">{alertTitle}</span>
+              <span className="text-[14px] font-semibold text-s4e-text-primary">{alertTitle}</span>
               {alertBadge && (
                 <span className="px-2 py-0.5 rounded-full bg-s4e-neutral-grey-100 text-[10px] font-medium text-s4e-text-secondary">
                   {alertBadge}

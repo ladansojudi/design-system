@@ -144,7 +144,7 @@ export const ModalDescription = React.forwardRef<HTMLParagraphElement, ModalDesc
     return (
       <p
         ref={ref}
-        className={cn("text-[13px] text-s4e-text-disabled leading-relaxed", className)}
+        className={cn("text-[14px] text-s4e-text-disabled leading-relaxed", className)}
         {...props}
       >
         {children}
