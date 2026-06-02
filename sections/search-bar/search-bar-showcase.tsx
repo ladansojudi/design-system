@@ -62,7 +62,7 @@ function SearchBar({
         value={value ?? ""}
         onChange={(e) => onChange?.(e.target.value)}
         className={cn(
-          "flex-1 bg-transparent text-[13px] outline-none placeholder:text-s4e-text-disabled",
+          "flex-1 bg-transparent text-[14px] outline-none placeholder:text-s4e-text-disabled",
           isDisabled ? "cursor-not-allowed text-s4e-text-disabled" : "text-s4e-text-primary",
         )}
       />

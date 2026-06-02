@@ -78,8 +78,8 @@ export function DonutLegend({ data, suffix }: { data: DonutSlice[]; suffix?: (d:
       {data.map((d) => (
         <div key={d.label} className="flex items-center gap-3 py-2">
           <span className="w-[10px] h-[10px] rounded-full shrink-0" style={{ background: d.color }} />
-          <span className="text-[13px] text-s4e-text-primary flex-1 min-w-0 truncate">{d.label}</span>
-          <span className="text-[13px] font-semibold text-s4e-text-primary tabular-nums">{d.value.toLocaleString()}</span>
+          <span className="text-[14px] text-s4e-text-primary flex-1 min-w-0 truncate">{d.label}</span>
+          <span className="text-[14px] font-semibold text-s4e-text-primary tabular-nums">{d.value.toLocaleString()}</span>
           {suffix && <span className="shrink-0">{suffix(d)}</span>}
         </div>
       ))}

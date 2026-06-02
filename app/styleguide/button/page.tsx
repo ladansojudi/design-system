@@ -40,7 +40,7 @@ export default function ButtonPage() {
               preview={
                 <button
                   type="button"
-                  className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-s4e-btn-primary-600 text-white text-[13px] font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500/40"
+                  className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-s4e-btn-primary-600 text-white text-[14px] font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500/40"
                 >
                   Continue
                   <ArrowRight size={14} />

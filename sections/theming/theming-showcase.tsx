@@ -226,7 +226,7 @@ function ThreeFlavors() {
         <div className="border border-s4e-neutral-divider-10 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <span className="inline-block w-2 h-2 rounded-full bg-s4e-brand-primary-500" />
-            <h3 className="text-[13px] font-semibold text-s4e-text-primary">Semantic · theme-aware</h3>
+            <h3 className="text-[14px] font-semibold text-s4e-text-primary">Semantic · theme-aware</h3>
             <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-s4e-brand-primary-500/10 text-s4e-brand-primary-500">Reach for these first</span>
           </div>
           <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-3">
@@ -242,7 +242,7 @@ function ThreeFlavors() {
         <div className="border border-s4e-neutral-divider-10 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <span className="inline-block w-2 h-2 rounded-full bg-s4e-btn-warning-600" />
-            <h3 className="text-[13px] font-semibold text-s4e-text-primary">Static · same in both modes</h3>
+            <h3 className="text-[14px] font-semibold text-s4e-text-primary">Static · same in both modes</h3>
           </div>
           <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-3">
             Identical in light and dark. Use for accent fills that should never flip — button backgrounds, brand colors, severity indicators.
@@ -258,7 +258,7 @@ function ThreeFlavors() {
         <div className="border border-s4e-neutral-divider-10 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <span className="inline-block w-2 h-2 rounded-full bg-s4e-neutral-grey-500" />
-            <h3 className="text-[13px] font-semibold text-s4e-text-primary">Scale · raw primitives</h3>
+            <h3 className="text-[14px] font-semibold text-s4e-text-primary">Scale · raw primitives</h3>
           </div>
           <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-3">
             The lowest layer. Most of these flip in dark mode (e.g. <TokenChip name="s4e-brand-primary-50" /> swaps with <TokenChip name="s4e-brand-primary-800" />). Prefer a semantic token over a raw scale step.
@@ -345,14 +345,14 @@ function PreviewTile({ scheme }: { scheme: "light" | "dark" }) {
       <div className="flex items-center gap-2 pt-1">
         <button
           type="button"
-          className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium hover:bg-s4e-btn-primary-700 transition-colors"
+          className="inline-flex items-center justify-center h-9 px-4 rounded-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[14px] font-medium hover:bg-s4e-btn-primary-700 transition-colors"
         >
           Review now
         </button>
         <button
           type="button"
           className={cn(
-            "inline-flex items-center justify-center h-9 px-4 rounded-md border text-[13px] font-medium transition-colors",
+            "inline-flex items-center justify-center h-9 px-4 rounded-md border text-[14px] font-medium transition-colors",
             scheme === "light"
               ? "border-s4e-neutral-grey-300 text-s4e-text-primary hover:bg-s4e-neutral-grey-100"
               : "border-white/15 text-white hover:bg-white/5",
@@ -362,7 +362,7 @@ function PreviewTile({ scheme }: { scheme: "light" | "dark" }) {
         </button>
         <a
           href="#"
-          className="inline-flex items-center text-[13px] font-medium underline-offset-2 hover:underline"
+          className="inline-flex items-center text-[14px] font-medium underline-offset-2 hover:underline"
           style={{ color: scheme === "light" ? "#0066cc" : "#56b3ff" }}
         >
           View dashboard

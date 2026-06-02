@@ -140,8 +140,8 @@ export function EmptyStateSpecs() {
               { label: "Desc → actions gap",  values: ["20px",  "20px"] },
               { label: "Action button height",values: ["32px",  "32px"] },
               { label: "Action gap (primary/secondary)", values: ["8px", "8px"] },
-              { label: "Title font size",     values: ["13px",  "16px"], note: "Inter Semibold." },
-              { label: "Description font size", values: ["12px",  "13px"], note: "Max-width ≈ 384px." },
+              { label: "Title font size",     values: ["14px",  "16px"], note: "Inter Semibold." },
+              { label: "Description font size", values: ["12px",  "14px"], note: "Max-width ≈ 384px." },
               { label: "Border radius (container)", values: ["8px", "12px"], note: "When wrapping a card surface." },
             ]}
           />

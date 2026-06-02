@@ -108,7 +108,7 @@ function Toast({
     <div className="overflow-hidden bg-s4e-surface-app border border-s4e-neutral-divider-10 rounded-xl shadow-sm">
       <div className="flex items-center gap-3 px-4 py-3">
         <Icon size={20} className={cn("shrink-0", color)} />
-        <span className="flex-1 text-[13px] font-semibold text-s4e-text-primary">{label}</span>
+        <span className="flex-1 text-[14px] font-semibold text-s4e-text-primary">{label}</span>
         <button
           type="button"
           onClick={onDismiss}
@@ -242,7 +242,7 @@ function StaticToast({ type }: { type: ToastType }) {
     <div className="w-80 overflow-hidden bg-s4e-surface-app border border-s4e-neutral-divider-10 rounded-xl shadow-sm">
       <div className="flex items-center gap-3 px-4 py-3">
         <Icon size={20} className={cn("shrink-0", color)} />
-        <span className="flex-1 text-[13px] font-semibold text-s4e-text-primary">{label}</span>
+        <span className="flex-1 text-[14px] font-semibold text-s4e-text-primary">{label}</span>
         <button
           type="button"
           className="shrink-0 text-s4e-text-disabled hover:text-s4e-text-primary transition-colors"

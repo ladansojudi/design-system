@@ -108,7 +108,7 @@ function PropertyRow({ label, children }: { label: string; children: React.React
 
 function ItemLabel({ label, disabled }: { label: string; disabled?: boolean }) {
   return (
-    <span className={cn("text-[13px]", disabled ? "text-s4e-text-disabled" : "text-s4e-text-primary")}>
+    <span className={cn("text-[14px]", disabled ? "text-s4e-text-disabled" : "text-s4e-text-primary")}>
       {label}
     </span>
   );
@@ -262,7 +262,7 @@ function RadioCard() {
                   className="flex items-center gap-2.5 cursor-pointer group"
                 >
                   <RadioButton checked={selected === opt} onChange={() => setSelected(opt)} />
-                  <span className="text-[13px] text-s4e-text-primary">
+                  <span className="text-[14px] text-s4e-text-primary">
                     {opt}
                   </span>
                 </label>
@@ -389,7 +389,7 @@ export function SwitchRadioExamples() {
                 {RADIO_OPTIONS.map((opt, i) => (
                   <label key={opt} className="flex items-center gap-2.5">
                     <RadioButton checked={i === 0} />
-                    <span className="text-[13px] text-s4e-text-primary">{opt}</span>
+                    <span className="text-[14px] text-s4e-text-primary">{opt}</span>
                   </label>
                 ))}
               </div>

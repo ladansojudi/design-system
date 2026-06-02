@@ -57,7 +57,7 @@ export default function Page() {
                     </div>
                     <div className="px-4 py-4 space-y-4">
                       <div>
-                        <div className="text-[13px] font-semibold text-s4e-text-primary">Security Blind Spots</div>
+                        <div className="text-[14px] font-semibold text-s4e-text-primary">Security Blind Spots</div>
                         <p className="text-[12px] text-s4e-text-disabled leading-relaxed">Assets excluded from scheduled scans.</p>
                       </div>
                       <button type="button" className="flex items-center gap-1 text-[12px] font-medium text-s4e-brand-primary-500">

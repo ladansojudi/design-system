@@ -56,8 +56,8 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
   ) => {
     const iconBox   = size === "sm" ? "w-10 h-10"   : "w-14 h-14";
     const iconSize  = size === "sm" ? 18            : 24;
-    const titleSize = size === "sm" ? "text-[13px]" : "text-[15px]";
-    const descSize  = size === "sm" ? "text-[12px]" : "text-[13px]";
+    const titleSize = size === "sm" ? "text-[14px]" : "text-[15px]";
+    const descSize  = size === "sm" ? "text-[12px]" : "text-[14px]";
     const pad       = size === "sm" ? "px-6 py-8"   : "px-6 py-12";
 
     return (

@@ -93,7 +93,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           <span className="flex-1 min-w-0">
             {label && (
               <span className={cn(
-                "block text-[13px] leading-tight",
+                "block text-[14px] leading-tight",
                 disabled ? "text-s4e-text-disabled" : "text-s4e-text-primary",
               )}>
                 {label}

@@ -76,7 +76,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
           <Icon size={20} className={cn("shrink-0", TOAST_COLOR[intent])} />
           <div className="flex-1 min-w-0">
             {title && (
-              <div className="text-[13px] font-semibold text-s4e-text-primary">{title}</div>
+              <div className="text-[14px] font-semibold text-s4e-text-primary">{title}</div>
             )}
             {description && (
               <div className="text-[12px] text-s4e-text-secondary">{description}</div>

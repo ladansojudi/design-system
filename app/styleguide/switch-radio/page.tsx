@@ -40,7 +40,7 @@ export default function SwitchRadioPage() {
                 <div className="relative w-9 h-[22px] rounded-full bg-s4e-btn-primary-600">
                   <div className="absolute top-[3px] w-4 h-4 rounded-full bg-white shadow-sm translate-x-[18px]" />
                 </div>
-                <span className="text-[13px] text-s4e-text-primary">Continuous monitoring</span>
+                <span className="text-[14px] text-s4e-text-primary">Continuous monitoring</span>
               </div>
             </Anatomy>
 

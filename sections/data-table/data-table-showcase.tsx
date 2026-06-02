@@ -163,12 +163,12 @@ function TableBody({ rows }: { rows: Row[] }) {
         >
           {/* Threat cell — tooltip sticks to the end of the text */}
           <div className="flex items-center gap-1.5 min-w-0">
-            <span className="text-[13px] text-s4e-text-primary truncate">{row.threat}</span>
+            <span className="text-[14px] text-s4e-text-primary truncate">{row.threat}</span>
             <InfoTooltip text={row.threat} />
           </div>
           {/* Asset cell — tooltip sticks to the end of the text */}
           <div className="flex items-center gap-1.5 min-w-0">
-            <span className="text-[13px] text-s4e-text-primary truncate">{row.asset}</span>
+            <span className="text-[14px] text-s4e-text-primary truncate">{row.asset}</span>
             <InfoTooltip text={row.asset} />
           </div>
           <span className="text-[12px] text-s4e-text-secondary text-right tabular-nums">{row.date}</span>

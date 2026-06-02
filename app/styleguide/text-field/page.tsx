@@ -39,7 +39,7 @@ export default function TextFieldPage() {
               preview={
                 <div className="w-64 flex flex-col gap-1.5">
                   <span className="text-[11px] text-s4e-text-secondary">Asset name</span>
-                  <div className="h-10 px-3 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app flex items-center text-[13px] text-s4e-text-primary">
+                  <div className="h-10 px-3 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app flex items-center text-[14px] text-s4e-text-primary">
                     zero.webappsecurity.com
                   </div>
                   <span className="text-[11px] text-s4e-text-disabled">Use the primary domain you want to monitor.</span>

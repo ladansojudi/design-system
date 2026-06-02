@@ -113,7 +113,7 @@ export function ModalSpecs() {
             { label: "Body · padding X",           values: ["24px",  "24px",  "24px"] },
             { label: "Body · padding Y",           values: ["20px",  "20px",  "20px"] },
             { label: "Body · max height",          values: ["—",     "—",     "60vh"], note: "Detail variant scrolls inside body." },
-            { label: "Body · text size",           values: ["13px",  "13px",  "13px"] },
+            { label: "Body · text size",           values: ["14px",  "14px",  "14px"] },
             { label: "Body · line height",         values: ["20px",  "20px",  "20px"] },
             { label: "Footer · padding X",         values: ["24px",  "24px",  "24px"] },
             { label: "Footer · padding Y",         values: ["16px",  "16px",  "16px"] },

@@ -129,7 +129,7 @@ function Table({ rows }: { rows: Row[] }) {
                   "inline-flex items-center px-3 py-2 rounded-md ring-1 ring-inset ring-s4e-neutral-divider-10 max-w-full",
                   r.surface,
                 )}>
-                  <span className={cn("text-[13px] font-medium leading-tight truncate", r.textClass)}>
+                  <span className={cn("text-[14px] font-medium leading-tight truncate", r.textClass)}>
                     {r.example}
                   </span>
                 </div>

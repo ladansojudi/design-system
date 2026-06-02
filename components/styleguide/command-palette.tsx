@@ -37,7 +37,7 @@ export function SearchTrigger() {
         )}
       >
         <Search size={15} />
-        <span className="text-[13px] font-medium">Search</span>
+        <span className="text-[14px] font-medium">Search</span>
       </button>
 
       {open && <CommandPaletteModal onClose={() => setOpen(false)} />}

@@ -22,7 +22,7 @@ function Breadcrumb({ items }: { items: CrumbItem[] }) {
           {item.type === "link" ? (
             <span
               className={cn(
-                "text-[13px] font-medium cursor-pointer transition-colors",
+                "text-[14px] font-medium cursor-pointer transition-colors",
                 item.state === "hover"
                   ? "text-s4e-brand-primary-500 underline underline-offset-2"
                   : item.state === "visited"
@@ -33,7 +33,7 @@ function Breadcrumb({ items }: { items: CrumbItem[] }) {
               {item.label}
             </span>
           ) : (
-            <span className="text-[13px] text-s4e-text-disabled">
+            <span className="text-[14px] text-s4e-text-disabled">
               {item.label}
             </span>
           )}

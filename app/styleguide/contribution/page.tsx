@@ -50,7 +50,7 @@ export default function ContributionPage() {
                 {i + 1}
               </span>
               <div className="flex-1 min-w-0 pt-0.5">
-                <h2 className="text-[13px] font-medium text-s4e-text-primary">
+                <h2 className="text-[14px] font-medium text-s4e-text-primary">
                   {step.title}
                 </h2>
                 <p className="mt-1 text-[12px] text-s4e-text-secondary leading-[1.7]">

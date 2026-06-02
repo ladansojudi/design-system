@@ -37,8 +37,8 @@ const BASE =
   "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none";
 
 const SIZE_CLASS: Record<Size, string> = {
-  sm: "h-8 px-3 text-[13px] gap-1",
-  md: "h-9 px-4 text-[13px] gap-2",
+  sm: "h-8 px-3 text-[14px] gap-1",
+  md: "h-9 px-4 text-[14px] gap-2",
   lg: "h-11 px-5 text-[14px] gap-2",
 };
 
@@ -621,16 +621,16 @@ function GroupCard() {
         <PropertyRow label="Segmented">
           <Copyable snippets={SEGMENTED_SNIPPETS}>
             <div className="inline-flex rounded-md overflow-hidden border border-s4e-neutral-grey-300">
-              <button type="button" className="px-3 h-9 text-[13px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 border-r border-s4e-neutral-grey-300 cursor-pointer">Day</button>
-              <button type="button" className="px-3 h-9 text-[13px] font-medium bg-s4e-text-primary text-s4e-text-inverse cursor-pointer">Week</button>
-              <button type="button" className="px-3 h-9 text-[13px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 border-l border-s4e-neutral-grey-300 cursor-pointer">Month</button>
+              <button type="button" className="px-3 h-9 text-[14px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 border-r border-s4e-neutral-grey-300 cursor-pointer">Day</button>
+              <button type="button" className="px-3 h-9 text-[14px] font-medium bg-s4e-text-primary text-s4e-text-inverse cursor-pointer">Week</button>
+              <button type="button" className="px-3 h-9 text-[14px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 border-l border-s4e-neutral-grey-300 cursor-pointer">Month</button>
             </div>
           </Copyable>
         </PropertyRow>
         <PropertyRow label="Split">
           <Copyable snippets={SPLIT_SNIPPETS}>
             <div className="inline-flex rounded-md overflow-hidden">
-              <button type="button" className="inline-flex items-center gap-2 px-4 h-9 rounded-l-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium hover:bg-s4e-btn-primary-700 cursor-pointer">
+              <button type="button" className="inline-flex items-center gap-2 px-4 h-9 rounded-l-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[14px] font-medium hover:bg-s4e-btn-primary-700 cursor-pointer">
                 <Download size={14} /> Export CSV
               </button>
               <button type="button" aria-label="More export options" className="px-2 h-9 rounded-r-md bg-s4e-btn-primary-700 text-s4e-text-on-accent hover:opacity-90 border-l border-s4e-text-on-accent/15 cursor-pointer">

@@ -203,11 +203,11 @@ export const DataTableRow = React.forwardRef<HTMLDivElement, DataTableRowProps>(
         {...props}
       >
         <div className="flex items-center gap-1.5 min-w-0">
-          <span className="text-[13px] text-s4e-text-primary truncate">{threat}</span>
+          <span className="text-[14px] text-s4e-text-primary truncate">{threat}</span>
           <InfoTooltip text={threat} />
         </div>
         <div className="flex items-center gap-1.5 min-w-0">
-          <span className="text-[13px] text-s4e-text-primary truncate">{asset}</span>
+          <span className="text-[14px] text-s4e-text-primary truncate">{asset}</span>
           <InfoTooltip text={asset} />
         </div>
         <span className="text-[12px] text-s4e-text-secondary text-right tabular-nums">{date}</span>

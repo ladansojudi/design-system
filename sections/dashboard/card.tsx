@@ -84,7 +84,7 @@ export function StatCard({
 }) {
   return (
     <div className="border border-s4e-neutral-divider-10 rounded-xl bg-s4e-surface-app px-5 py-4">
-      <div className="text-[13px] font-semibold text-s4e-text-primary">{label}</div>
+      <div className="text-[14px] font-semibold text-s4e-text-primary">{label}</div>
       <div className="mt-2 text-[26px] font-bold leading-none text-s4e-text-primary tabular-nums">{value}</div>
       {sub && <div className="mt-2 text-[12px] text-s4e-text-secondary leading-snug">{sub}</div>}
     </div>

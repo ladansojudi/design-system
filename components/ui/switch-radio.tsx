@@ -181,7 +181,7 @@ export const Radio = React.forwardRef<HTMLButtonElement, RadioProps>(
         {control}
         <span
           className={cn(
-            "text-[13px]",
+            "text-[14px]",
             disabled ? "text-s4e-text-disabled" : "text-s4e-text-primary",
           )}
         >

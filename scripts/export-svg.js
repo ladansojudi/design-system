@@ -85,7 +85,7 @@ function generateButtons() {
   const intents = Object.keys(BUTTON_VARIANT);
   const styles  = ["solid", "outline", "ghost"];
   const labels  = { solid: "Solid", outline: "Outline", ghost: "Ghost" };
-  const H = 36, font = 13, padX = 16, radius = 6;
+  const H = 36, font = 14, padX = 16, radius = 6;
   let count = 0;
   for (const intent of intents) {
     for (const style of styles) {

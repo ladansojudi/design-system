@@ -97,7 +97,7 @@ export function AlertSpecs() {
           <div className="w-full h-full flex items-start gap-3 rounded-md border border-s4e-scale-blue-200 bg-s4e-scale-blue-50 px-4 py-3">
             <Info size={16} className="text-s4e-text-info shrink-0 mt-px" />
             <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-semibold leading-tight text-s4e-text-info">Info alert</div>
+              <div className="text-[14px] font-semibold leading-tight text-s4e-text-info">Info alert</div>
               <div className="text-[12px] leading-relaxed mt-1 text-s4e-text-info">Title + description sample.</div>
             </div>
           </div>
@@ -116,7 +116,7 @@ export function AlertSpecs() {
               { label: "Icon · text gap",       values: ["12px", "12px", "12px"] },
               { label: "Title · body gap",      values: ["4px",  "—",    "—"] },
               { label: "Body · action gap",     values: ["8px",  "—",    "8px"], note: "Only when action is present." },
-              { label: "Title font size",       values: ["13px", "13px", "—"], note: "Semibold." },
+              { label: "Title font size",       values: ["14px", "14px", "—"], note: "Semibold." },
               { label: "Body font size",        values: ["12px", "—",    "12px"] },
               { label: "Dismiss icon size",     values: ["14px", "14px", "14px"] },
             ]}

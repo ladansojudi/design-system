@@ -89,7 +89,7 @@ export const typographyScale: TypographyEntry[] = [
     name:      "body-sm",
     group:     "body",
     example:   "Manage how your data is processed across regions and retention windows.",
-    className: "text-[13px] font-normal leading-[1.55]",
+    className: "text-[14px] font-normal leading-[1.55]",
     specs: { size: "13px", weight: "Regular", lineHeight: "1.55" },
   },
 
@@ -98,7 +98,7 @@ export const typographyScale: TypographyEntry[] = [
     name:      "label-md",
     group:     "label",
     example:   "Email address",
-    className: "text-[13px] font-medium leading-[1.4]",
+    className: "text-[14px] font-medium leading-[1.4]",
     specs: { size: "13px", weight: "Medium", lineHeight: "1.4" },
   },
   {
@@ -138,7 +138,7 @@ export const typographyScale: TypographyEntry[] = [
     name:      "code-md",
     group:     "code",
     example:   "--s4e-brand-primary-500",
-    className: "text-[13px] font-normal leading-[1.55] font-mono",
+    className: "text-[14px] font-normal leading-[1.55] font-mono",
     specs: { size: "13px", weight: "Regular", lineHeight: "1.55", family: "IBM Plex Mono" },
   },
   {

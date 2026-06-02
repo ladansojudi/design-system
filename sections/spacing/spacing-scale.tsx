@@ -36,7 +36,7 @@ export function SpacingScale() {
             <span className="sm:w-24 shrink-0 text-[14px] font-semibold text-s4e-brand-primary-500">
               {range}
             </span>
-            <span className="text-[13px] sm:text-[14px] text-s4e-text-secondary">
+            <span className="text-[14px] sm:text-[14px] text-s4e-text-secondary">
               {description}
             </span>
           </div>

@@ -70,7 +70,7 @@ function Trigger({ onClick, children }: { onClick: () => void; children: React.R
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[13px] font-medium text-s4e-text-primary hover:border-s4e-brand-primary-500 hover:text-s4e-brand-primary-500 transition-colors"
+      className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[14px] font-medium text-s4e-text-primary hover:border-s4e-brand-primary-500 hover:text-s4e-brand-primary-500 transition-colors"
     >
       {children}
     </button>
@@ -87,7 +87,7 @@ function AlertModal({ open, onClose }: { open: boolean; onClose: () => void }) {
           <CheckCircle size={18} className="text-s4e-scale-green-600" />
         </div>
         <div className="text-[14px] font-semibold text-s4e-text-primary mb-1">Scan completed</div>
-        <p className="text-[13px] text-s4e-text-disabled leading-relaxed">
+        <p className="text-[14px] text-s4e-text-disabled leading-relaxed">
           We finished scanning your asset. All detected findings are now available in the dashboard.
         </p>
       </div>
@@ -95,7 +95,7 @@ function AlertModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 hover:bg-s4e-btn-primary-700 text-white text-[13px] font-medium transition-colors"
+          className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 hover:bg-s4e-btn-primary-700 text-white text-[14px] font-medium transition-colors"
         >
           Got it
         </button>
@@ -130,7 +130,7 @@ function ConfirmModal({
         <div className="text-[14px] font-semibold text-s4e-text-primary mb-1">
           {destructive ? "Delete asset?" : "Restart continuous monitoring?"}
         </div>
-        <p className="text-[13px] text-s4e-text-disabled leading-relaxed">
+        <p className="text-[14px] text-s4e-text-disabled leading-relaxed">
           {destructive
             ? "This permanently removes the asset and all of its findings. This action cannot be undone."
             : "Monitoring will resume on the next scan cycle. You can pause again at any time."
@@ -141,7 +141,7 @@ function ConfirmModal({
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors"
+          className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 text-[14px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors"
         >
           Cancel
         </button>
@@ -149,7 +149,7 @@ function ConfirmModal({
           type="button"
           onClick={onClose}
           className={cn(
-            "inline-flex items-center h-9 px-4 rounded-lg text-white text-[13px] font-medium transition-colors",
+            "inline-flex items-center h-9 px-4 rounded-lg text-white text-[14px] font-medium transition-colors",
             destructive
               ? "bg-s4e-scale-red-600 hover:bg-s4e-scale-red-700"
               : "bg-s4e-btn-primary-600 hover:bg-s4e-btn-primary-700",
@@ -228,7 +228,7 @@ function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void
           <textarea
             rows={2}
             placeholder="Write your asset (Domain, Subdomain, IPv4/IPv6 Address, CIDR Subnet)"
-            className="w-full px-3 py-2 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[13px] text-s4e-text-primary placeholder:text-s4e-text-disabled outline-none focus:border-s4e-brand-primary-500 focus:ring-2 focus:ring-s4e-brand-primary-500/20 transition-colors resize-none"
+            className="w-full px-3 py-2 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[14px] text-s4e-text-primary placeholder:text-s4e-text-disabled outline-none focus:border-s4e-brand-primary-500 focus:ring-2 focus:ring-s4e-brand-primary-500/20 transition-colors resize-none"
           />
           <p className="text-[11px] text-s4e-text-disabled">
             To add more than one asset, type each asset on a separate line.
@@ -239,7 +239,7 @@ function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void
           <textarea
             rows={2}
             placeholder="You can write a description for your asset here."
-            className="w-full px-3 py-2 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[13px] text-s4e-text-primary placeholder:text-s4e-text-disabled outline-none focus:border-s4e-brand-primary-500 focus:ring-2 focus:ring-s4e-brand-primary-500/20 transition-colors resize-none"
+            className="w-full px-3 py-2 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[14px] text-s4e-text-primary placeholder:text-s4e-text-disabled outline-none focus:border-s4e-brand-primary-500 focus:ring-2 focus:ring-s4e-brand-primary-500/20 transition-colors resize-none"
           />
           <p className="text-[11px] text-s4e-text-disabled">
             Description&apos;s length must be between 3 and 300 characters
@@ -274,7 +274,7 @@ function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void
           disabled={!canSubmit}
           onClick={onClose}
           className={cn(
-            "w-full h-10 rounded-lg text-[13px] font-medium transition-colors mt-1",
+            "w-full h-10 rounded-lg text-[14px] font-medium transition-colors mt-1",
             canSubmit
               ? "bg-s4e-btn-primary-600 hover:bg-s4e-btn-primary-700 text-white"
               : "bg-s4e-neutral-grey-200 text-s4e-text-disabled cursor-not-allowed",
@@ -303,7 +303,7 @@ function DetailModal({ open, onClose }: { open: boolean; onClose: () => void }) 
 
         <div className="space-y-1.5">
           <div className="text-[12px] font-semibold uppercase tracking-widest text-s4e-text-disabled">Description</div>
-          <p className="text-[13px] text-s4e-text-primary leading-relaxed">
+          <p className="text-[14px] text-s4e-text-primary leading-relaxed">
             OpenSSL before 0.9.8za, 1.0.0 before 1.0.0m, and 1.0.1 before 1.0.1h does not properly restrict processing of ChangeCipherSpec messages,
             which allows man-in-the-middle attackers to trigger use of a zero-length master key.
           </p>
@@ -311,7 +311,7 @@ function DetailModal({ open, onClose }: { open: boolean; onClose: () => void }) 
 
         <div className="space-y-1.5">
           <div className="text-[12px] font-semibold uppercase tracking-widest text-s4e-text-disabled">Affected assets</div>
-          <ul className="text-[13px] text-s4e-text-primary space-y-1">
+          <ul className="text-[14px] text-s4e-text-primary space-y-1">
             <li>• zero.webappsecurity.com:443</li>
             <li>• server.lababidi.it:443</li>
           </ul>
@@ -319,7 +319,7 @@ function DetailModal({ open, onClose }: { open: boolean; onClose: () => void }) 
 
         <div className="space-y-1.5">
           <div className="text-[12px] font-semibold uppercase tracking-widest text-s4e-text-disabled">Recommended fix</div>
-          <p className="text-[13px] text-s4e-text-primary leading-relaxed">
+          <p className="text-[14px] text-s4e-text-primary leading-relaxed">
             Upgrade OpenSSL to 0.9.8za, 1.0.0m, or 1.0.1h. Restart any services that load the library.
           </p>
         </div>
@@ -328,14 +328,14 @@ function DetailModal({ open, onClose }: { open: boolean; onClose: () => void }) 
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors"
+          className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 text-[14px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors"
         >
           Close
         </button>
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 hover:bg-s4e-btn-primary-700 text-white text-[13px] font-medium transition-colors"
+          className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 hover:bg-s4e-btn-primary-700 text-white text-[14px] font-medium transition-colors"
         >
           Open ticket
         </button>
@@ -367,7 +367,7 @@ function VariantRow({
   return (
     <div className="flex items-center gap-5">
       <div className="flex-1 min-w-0">
-        <div className="text-[13px] font-medium text-s4e-text-primary">{label}</div>
+        <div className="text-[14px] font-medium text-s4e-text-primary">{label}</div>
         <div className="text-[12px] text-s4e-text-disabled mt-0.5">{description}</div>
       </div>
       {children}
@@ -484,12 +484,12 @@ export function ModalExamples() {
                 <CheckCircle size={18} className="text-s4e-scale-green-600" />
               </div>
               <div className="text-[14px] font-semibold text-s4e-text-primary mb-1">Scan completed</div>
-              <p className="text-[13px] text-s4e-text-disabled leading-relaxed">
+              <p className="text-[14px] text-s4e-text-disabled leading-relaxed">
                 We finished scanning your asset. All detected findings are now available in the dashboard.
               </p>
             </div>
             <div className="flex justify-end px-5 pb-4">
-              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-white text-[13px] font-medium">
+              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-white text-[14px] font-medium">
                 Got it
               </span>
             </div>
@@ -520,15 +520,15 @@ export function ModalExamples() {
                 <AlertTriangle size={18} className="text-s4e-scale-red-600" />
               </div>
               <div className="text-[14px] font-semibold text-s4e-text-primary mb-1">Delete asset?</div>
-              <p className="text-[13px] text-s4e-text-disabled leading-relaxed">
+              <p className="text-[14px] text-s4e-text-disabled leading-relaxed">
                 This permanently removes the asset and all of its findings. This action cannot be undone.
               </p>
             </div>
             <div className="flex justify-end gap-2 px-5 pb-4">
-              <span className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary">
+              <span className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 text-[14px] font-medium text-s4e-text-primary">
                 Cancel
               </span>
-              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-scale-red-600 text-white text-[13px] font-medium">
+              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-scale-red-600 text-white text-[14px] font-medium">
                 Delete
               </span>
             </div>
@@ -567,17 +567,17 @@ export function ModalExamples() {
               </div>
               <div className="space-y-1.5">
                 <div className="text-[12px] font-semibold uppercase tracking-widest text-s4e-text-disabled">Description</div>
-                <p className="text-[13px] text-s4e-text-primary leading-relaxed">
+                <p className="text-[14px] text-s4e-text-primary leading-relaxed">
                   OpenSSL before 0.9.8za does not properly restrict processing of ChangeCipherSpec messages,
                   allowing man-in-the-middle attackers to trigger use of a zero-length master key.
                 </p>
               </div>
             </div>
             <div className="flex justify-end gap-2 px-5 py-3.5 border-t border-s4e-neutral-divider-10">
-              <span className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary">
+              <span className="inline-flex items-center h-9 px-4 rounded-lg border border-s4e-neutral-divider-10 text-[14px] font-medium text-s4e-text-primary">
                 Close
               </span>
-              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-white text-[13px] font-medium">
+              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-white text-[14px] font-medium">
                 Open ticket
               </span>
             </div>

@@ -100,8 +100,8 @@ export function BreadcrumbSpecs() {
           columns={["value"]}
           rows={[
             { label: "Line height",          values: ["20px"], note: "Sets effective row height." },
-            { label: "Font size · link",     values: ["13px"], note: "Inter Medium (500)." },
-            { label: "Font size · current",  values: ["13px"], note: "Inter Regular (400)." },
+            { label: "Font size · link",     values: ["14px"], note: "Inter Medium (500)." },
+            { label: "Font size · current",  values: ["14px"], note: "Inter Regular (400)." },
             { label: "Font size · separator",values: ["12px"], note: "Slightly smaller for visual balance." },
             { label: "Item · separator gap", values: ["8px"],  note: "Horizontal flex gap on both sides of the separator." },
             { label: "Hover underline offset", values: ["2px"] },

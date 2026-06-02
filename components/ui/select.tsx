@@ -108,7 +108,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             aria-haspopup="listbox"
             aria-expanded={open}
             className={cn(
-              "w-full flex items-center justify-between gap-2 h-9 px-3 rounded-md text-[13px] text-left transition-colors",
+              "w-full flex items-center justify-between gap-2 h-9 px-3 rounded-md text-[14px] text-left transition-colors",
               "border", borderClass, "bg-s4e-surface-row",
               isDisabled
                 ? "opacity-40 cursor-not-allowed"
@@ -154,7 +154,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                       }
                     }}
                     className={cn(
-                      "w-full flex items-center justify-between gap-2 px-3 py-2 text-[13px] text-left",
+                      "w-full flex items-center justify-between gap-2 px-3 py-2 text-[14px] text-left",
                       opt.disabled
                         ? "text-s4e-text-disabled cursor-not-allowed"
                         : "text-s4e-text-primary cursor-pointer hover:bg-s4e-surface-row-hover",

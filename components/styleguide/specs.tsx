@@ -208,7 +208,7 @@ export function ColorTokenTabs({ groups }: { groups: ColorTokenGroup[] }) {
               aria-selected={isActive}
               onClick={() => setActive(g.id)}
               className={cn(
-                "inline-flex items-center px-4 pt-2 pb-2.5 -mb-px text-[13px] font-medium whitespace-nowrap tracking-tight",
+                "inline-flex items-center px-4 pt-2 pb-2.5 -mb-px text-[14px] font-medium whitespace-nowrap tracking-tight",
                 "border-b-[2px] transition-colors cursor-pointer",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-s4e-brand-primary-500/40",
                 isActive

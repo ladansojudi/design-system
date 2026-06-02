@@ -174,11 +174,11 @@ export function OverviewTab() {
               <span className="text-[14px] font-semibold text-s4e-scale-red-600">Security Blind Spots</span>
               <span className="ml-auto text-[12px] text-s4e-text-secondary bg-s4e-scale-red-50 px-2 py-0.5 rounded-md shrink-0">4 Assets</span>
             </div>
-            <p className="text-[13px] text-s4e-text-primary font-medium">4 assets are not being Continuously Monitored.</p>
+            <p className="text-[14px] text-s4e-text-primary font-medium">4 assets are not being Continuously Monitored.</p>
             <p className="text-[12px] text-s4e-text-secondary mt-1 leading-relaxed">
               These assets are currently outside your security coverage. Hidden vulnerabilities may go undetected.
             </p>
-            <button type="button" className="mt-3 inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium hover:bg-s4e-btn-primary-700 transition-colors">
+            <button type="button" className="mt-3 inline-flex items-center h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[14px] font-medium hover:bg-s4e-btn-primary-700 transition-colors">
               Review Assets
             </button>
             <div className="flex items-center gap-1.5 mt-4">
@@ -192,15 +192,15 @@ export function OverviewTab() {
           <Inspectable slug="severity-badge" label="Severity Badge">
           <Card title="Quick Stats" description="Issue distribution" viewAll="Scan Reports">
             <div className="flex items-center justify-between rounded-lg bg-s4e-neutral-grey-100 px-4 py-3 mb-2">
-              <span className="text-[13px] font-semibold text-s4e-text-primary">Total Issues:</span>
+              <span className="text-[14px] font-semibold text-s4e-text-primary">Total Issues:</span>
               <span className="text-[15px] font-bold text-s4e-text-primary tabular-nums inline-flex items-center gap-1">266 <span className="text-s4e-scale-red-600 text-[12px]">↗</span></span>
             </div>
             <div className="divide-y divide-s4e-neutral-divider-10">
               {DIST.map((d) => (
                 <div key={d.sev} className="flex items-center gap-3 py-2.5">
                   <SeverityDot severity={d.sev} />
-                  <span className="text-[13px] text-s4e-text-primary flex-1">{SEV_LABEL[d.sev]}</span>
-                  <span className="text-[13px] font-semibold text-s4e-text-primary tabular-nums">{d.count}</span>
+                  <span className="text-[14px] text-s4e-text-primary flex-1">{SEV_LABEL[d.sev]}</span>
+                  <span className="text-[14px] font-semibold text-s4e-text-primary tabular-nums">{d.count}</span>
                   <Delta value={d.delta} />
                 </div>
               ))}

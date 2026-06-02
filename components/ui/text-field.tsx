@@ -82,7 +82,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
               ref={ref}
               disabled={isDisabled}
               value={value}
-              className="block w-full bg-transparent border-0 p-0 text-[13px] text-s4e-text-primary placeholder:text-s4e-text-disabled focus:outline-none disabled:cursor-not-allowed"
+              className="block w-full bg-transparent border-0 p-0 text-[14px] text-s4e-text-primary placeholder:text-s4e-text-disabled focus:outline-none disabled:cursor-not-allowed"
               {...props}
             />
           </div>
@@ -116,7 +116,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
             ref={ref}
             disabled={isDisabled}
             value={value}
-            className="block w-full bg-transparent border-0 p-0 text-[13px] text-s4e-text-primary placeholder:text-s4e-text-disabled focus:outline-none disabled:cursor-not-allowed"
+            className="block w-full bg-transparent border-0 p-0 text-[14px] text-s4e-text-primary placeholder:text-s4e-text-disabled focus:outline-none disabled:cursor-not-allowed"
             {...props}
           />
         </div>

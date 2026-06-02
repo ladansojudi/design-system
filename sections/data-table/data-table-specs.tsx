@@ -118,7 +118,7 @@ export function DataTableSpecs() {
               { label: "Row · padding X",               values: ["20px"] },
               { label: "Row · padding Y",               values: ["12px"] },
               { label: "Row · cell gap",                values: ["12px"] },
-              { label: "Row · font size",               values: ["13px"] },
+              { label: "Row · font size",               values: ["14px"] },
               { label: "Severity badge · padding X",    values: ["12px"] },
               { label: "Severity badge · padding Y",    values: ["4px"] },
               { label: "Severity badge · border radius",values: ["4px"] },

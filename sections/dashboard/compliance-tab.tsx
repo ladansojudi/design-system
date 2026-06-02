@@ -36,9 +36,9 @@ export function ComplianceTab() {
           <input
             type="text"
             placeholder="Label"
-            className="h-9 w-56 px-3 rounded-md border border-s4e-neutral-divider-10 bg-s4e-surface-row text-[13px] text-s4e-text-primary placeholder:text-s4e-text-disabled outline-none focus:border-s4e-brand-primary-500"
+            className="h-9 w-56 px-3 rounded-md border border-s4e-neutral-divider-10 bg-s4e-surface-row text-[14px] text-s4e-text-primary placeholder:text-s4e-text-disabled outline-none focus:border-s4e-brand-primary-500"
           />
-          <button type="button" className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-s4e-neutral-divider-10 text-[13px] text-s4e-text-secondary hover:text-s4e-text-primary">
+          <button type="button" className="inline-flex items-center gap-2 h-9 px-3 rounded-md border border-s4e-neutral-divider-10 text-[14px] text-s4e-text-secondary hover:text-s4e-text-primary">
             Date <ChevronDown size={14} />
           </button>
         </div>
@@ -57,14 +57,14 @@ export function ComplianceTab() {
               {Array.from({ length: 5 }).map((_, i) => (
                 <tr key={i} className="border-t border-s4e-neutral-divider-10">
                   <td className="py-2.5 px-4">
-                    <span className="inline-flex items-center gap-2 text-[13px] text-s4e-text-primary">
+                    <span className="inline-flex items-center gap-2 text-[14px] text-s4e-text-primary">
                       <ChevronDown size={13} className="text-s4e-text-disabled" />
                       s4e-web-ng
                     </span>
                   </td>
-                  <td className="py-2.5 px-4 text-[13px] text-s4e-text-secondary tabular-nums">3.21.0</td>
-                  <td className="py-2.5 px-4 text-[13px] text-s4e-text-secondary tabular-nums">30 Sep 2025 18:36</td>
-                  <td className="py-2.5 px-4 text-[13px] text-s4e-text-secondary tabular-nums">323</td>
+                  <td className="py-2.5 px-4 text-[14px] text-s4e-text-secondary tabular-nums">3.21.0</td>
+                  <td className="py-2.5 px-4 text-[14px] text-s4e-text-secondary tabular-nums">30 Sep 2025 18:36</td>
+                  <td className="py-2.5 px-4 text-[14px] text-s4e-text-secondary tabular-nums">323</td>
                   <td className="py-2.5 px-4">
                     <button type="button" aria-label="Actions" className="text-s4e-text-disabled hover:text-s4e-text-primary">
                       <MoreHorizontal size={16} />
@@ -88,7 +88,7 @@ export function ComplianceTab() {
           <span className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-s4e-brand-primary-50 text-s4e-brand-primary-500">
             <Wrench size={18} />
           </span>
-          <p className="text-[13px] text-s4e-text-secondary leading-relaxed max-w-2xl">
+          <p className="text-[14px] text-s4e-text-secondary leading-relaxed max-w-2xl">
             Automated Security Validation (ASV) reports are currently under development. This feature will provide
             comprehensive security assessments and compliance documentation for PCI-DSS requirements.
           </p>

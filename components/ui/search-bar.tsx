@@ -40,7 +40,7 @@ const VARIANT_CONTAINER: Record<Variant, string> = {
 };
 
 const INPUT_BASE =
-  "flex-1 bg-transparent text-[13px] outline-none placeholder:text-s4e-text-disabled " +
+  "flex-1 bg-transparent text-[14px] outline-none placeholder:text-s4e-text-disabled " +
   "text-s4e-text-primary disabled:cursor-not-allowed disabled:text-s4e-text-disabled";
 
 export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(

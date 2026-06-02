@@ -45,7 +45,7 @@ export default function CheckboxPage() {
                     </span>
                   </span>
                   <span className="flex-1 min-w-0">
-                    <span className="block text-[13px] leading-tight text-s4e-text-primary">
+                    <span className="block text-[14px] leading-tight text-s4e-text-primary">
                       Enable real-time alerts
                     </span>
                     <span className="block text-[11px] text-s4e-text-disabled mt-0.5 leading-snug">

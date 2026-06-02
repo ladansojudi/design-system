@@ -19,7 +19,7 @@ export function ComingSoon({ title }: { title: string }) {
           <polyline points="12 6 12 12 16 14" />
         </svg>
       </div>
-      <p className="text-[13px] font-medium text-s4e-text-primary mb-1">{title}</p>
+      <p className="text-[14px] font-medium text-s4e-text-primary mb-1">{title}</p>
       <p className="text-[12px] text-s4e-text-disabled">This component is on its way.</p>
     </div>
   );

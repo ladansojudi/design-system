@@ -117,7 +117,7 @@ export function SelectSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={240} height={36} padX={12} padY={8} radius={8}>
-          <div className="w-full h-full flex items-center justify-between gap-2 px-3 rounded-md border border-s4e-neutral-grey-300 bg-s4e-surface-row text-[13px]">
+          <div className="w-full h-full flex items-center justify-between gap-2 px-3 rounded-md border border-s4e-neutral-grey-300 bg-s4e-surface-row text-[14px]">
             <span className="text-s4e-text-primary truncate">Europe (Frankfurt)</span>
             <ChevronDown size={14} className="shrink-0 text-s4e-text-disabled" />
           </div>

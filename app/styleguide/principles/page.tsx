@@ -45,7 +45,7 @@ export default function PrinciplesPage() {
               key={p.title}
               className="border-[0.5px] border-s4e-neutral-divider-10 rounded-lg p-5"
             >
-              <h2 className="text-[13px] font-medium text-s4e-text-primary">
+              <h2 className="text-[14px] font-medium text-s4e-text-primary">
                 {p.title}
               </h2>
               <p className="mt-2 text-[12px] text-s4e-text-secondary leading-[1.7]">

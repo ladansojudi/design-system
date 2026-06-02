@@ -153,7 +153,7 @@ export function ToastTooltipSpecs() {
               { label: "Border width",       values: ["1px",       "0"],     note: "Tooltip is solid fill, no border." },
               { label: "Icon size",          values: ["20px",      "—"] },
               { label: "Icon · text gap",    values: ["12px",      "—"] },
-              { label: "Font size",          values: ["13px",      "12px"] },
+              { label: "Font size",          values: ["14px",      "12px"] },
               { label: "Font weight",        values: ["600",       "400"],   note: "Toast title bold; tooltip body regular." },
               { label: "Timer bar height",   values: ["4px",       "—"],     note: "Bottom progress bar." },
               { label: "Arrow size",         values: ["—",         "8px"],   note: "Triangle pointing at trigger." },

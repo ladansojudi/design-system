@@ -131,7 +131,7 @@ export function SpinnerShowcase() {
             <button
               type="button"
               disabled
-              className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium cursor-wait opacity-90"
+              className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[14px] font-medium cursor-wait opacity-90"
             >
               <Spinner size="sm" tone="white" />
               Saving…
@@ -226,7 +226,7 @@ export function SpinnerExamples() {
               <button
                 type="button"
                 disabled
-                className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium cursor-wait opacity-90"
+                className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[14px] font-medium cursor-wait opacity-90"
               >
                 <Spinner size="sm" tone="white" />
                 Saving…

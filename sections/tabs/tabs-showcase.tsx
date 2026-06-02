@@ -59,7 +59,7 @@ function TabBar({
               disabled={isDisabled}
               onClick={() => !isDisabled && onSelect(tab.id)}
               className={cn(
-                "flex items-center gap-1.5 px-4 pb-2.5 pt-2 text-[13px] font-medium border-b-2 -mb-px transition-colors",
+                "flex items-center gap-1.5 px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px transition-colors",
                 isActive
                   ? "border-s4e-brand-primary-500 text-s4e-brand-primary-500"
                   : isDisabled
@@ -91,7 +91,7 @@ function TabBar({
             disabled={isDisabled}
             onClick={() => !isDisabled && onSelect(tab.id)}
             className={cn(
-              "flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-[13px] font-medium transition-colors",
+              "flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-[14px] font-medium transition-colors",
               isActive
                 ? "bg-s4e-surface-row text-s4e-text-primary shadow-sm"
                 : isDisabled

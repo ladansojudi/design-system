@@ -34,7 +34,7 @@ export default function Page() {
             >
               <div className="flex items-center gap-2 rounded-lg px-3 h-9 w-72 border border-s4e-neutral-divider-10 bg-s4e-surface-app">
                 <Search size={14} className="text-s4e-text-disabled shrink-0" />
-                <span className="flex-1 text-[13px] text-s4e-text-disabled">Search assets…</span>
+                <span className="flex-1 text-[14px] text-s4e-text-disabled">Search assets…</span>
               </div>
             </Anatomy>
 

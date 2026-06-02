@@ -117,7 +117,7 @@ export function IconsGrid() {
           {filtered.map((group) => (
             <section key={group.name}>
               <div className="pb-3 mb-1 border-b border-s4e-neutral-divider-10">
-                <h2 className="text-[13px] font-semibold text-s4e-text-primary">
+                <h2 className="text-[14px] font-semibold text-s4e-text-primary">
                   {group.name}
                 </h2>
               </div>

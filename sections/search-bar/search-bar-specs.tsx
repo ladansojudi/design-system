@@ -116,7 +116,7 @@ export function SearchBarSpecs() {
         <SpacingDiagram width={240} height={36} padX={12} padY={8} radius={8}>
           <div className="w-full h-full flex items-center gap-2 rounded-lg px-3 border border-s4e-neutral-divider-10 bg-s4e-surface-app">
             <Search size={14} className="text-s4e-text-disabled shrink-0" />
-            <span className="text-[13px] text-s4e-text-disabled">Search…</span>
+            <span className="text-[14px] text-s4e-text-disabled">Search…</span>
           </div>
         </SpacingDiagram>
 
@@ -135,7 +135,7 @@ export function SearchBarSpecs() {
               { label: "Focus ring · width",    values: ["2px"],  note: "Inset 2px brand glow." },
               { label: "Search icon size",      values: ["14px"], note: "Lucide stroke 2px." },
               { label: "Clear icon size",       values: ["12px"] },
-              { label: "Font size",             values: ["13px"], note: "Inter Regular." },
+              { label: "Font size",             values: ["14px"], note: "Inter Regular." },
             ]}
           />
         </div>

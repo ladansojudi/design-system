@@ -65,9 +65,9 @@ const TREE_FILL: Record<number, string> = {
 export function Treemap() {
   return (
     <div className="grid grid-cols-4 gap-1 h-44">
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold row-span-2", TREE_FILL[3])}>6</div>
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold row-span-1", TREE_FILL[2])}>5</div>
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold col-span-2 row-span-3", TREE_FILL[4])}>14</div>
+      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold row-span-2", TREE_FILL[3])}>6</div>
+      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold row-span-1", TREE_FILL[2])}>5</div>
+      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold col-span-2 row-span-3", TREE_FILL[4])}>14</div>
       <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[12px] font-semibold", TREE_FILL[1])}>2</div>
       <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[12px] font-semibold", TREE_FILL[2])}>4</div>
       <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[12px] font-semibold", TREE_FILL[1])}>2</div>

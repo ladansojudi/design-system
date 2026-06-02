@@ -119,8 +119,8 @@ function DonutLegend({ fullWidth = false }: { fullWidth?: boolean }) {
       {DONUT_DATA.map((d) => (
         <div key={d.label} className="flex items-center gap-3 py-2.5">
           <span className="w-[10px] h-[10px] rounded-full shrink-0" style={{ backgroundColor: d.color }} />
-          <span className="text-[13px] text-s4e-text-primary flex-1">{d.label}</span>
-          <span className="text-[13px] font-semibold text-s4e-text-primary tabular-nums">
+          <span className="text-[14px] text-s4e-text-primary flex-1">{d.label}</span>
+          <span className="text-[14px] font-semibold text-s4e-text-primary tabular-nums">
             {d.value.toLocaleString()}
           </span>
         </div>
@@ -208,17 +208,17 @@ function TreemapSection() {
             </div>
 
             <div className="flex gap-1 h-64">
-              <div className="flex-1 rounded-md bg-s4e-data-5 flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold">
+              <div className="flex-1 rounded-md bg-s4e-data-5 flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold">
                 Group A · 92
               </div>
-              <div className="flex-1 rounded-md bg-s4e-data-7 flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold">
+              <div className="flex-1 rounded-md bg-s4e-data-7 flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold">
                 Group B · 78
               </div>
               <div className="flex-1 flex flex-col gap-1">
-                <div className="flex-1 rounded-md bg-s4e-data-1 flex items-center justify-center text-s4e-text-primary text-[13px] font-semibold">
+                <div className="flex-1 rounded-md bg-s4e-data-1 flex items-center justify-center text-s4e-text-primary text-[14px] font-semibold">
                   Group C · 42
                 </div>
-                <div className="flex-1 rounded-md bg-s4e-data-3 flex items-center justify-center text-s4e-text-primary text-[13px] font-semibold">
+                <div className="flex-1 rounded-md bg-s4e-data-3 flex items-center justify-center text-s4e-text-primary text-[14px] font-semibold">
                   Group D · 28
                 </div>
               </div>
@@ -520,7 +520,7 @@ export function ChartShowcase() {
               type="button"
               onClick={() => setActive(tab.id)}
               className={cn(
-                "px-4 pb-2.5 pt-2 text-[13px] font-medium border-b-2 -mb-px transition-colors",
+                "px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px transition-colors",
                 isActive
                   ? "border-s4e-brand-primary-500 text-s4e-brand-primary-500"
                   : "border-transparent text-s4e-text-secondary hover:text-s4e-text-primary",
@@ -641,17 +641,17 @@ export function ChartExamples() {
                   <StatBlock label="Top Group"   value="Group A" />
                 </div>
                 <div className="flex gap-1 h-64">
-                  <div className="flex-1 rounded-md bg-s4e-data-5 flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold">
+                  <div className="flex-1 rounded-md bg-s4e-data-5 flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold">
                     Group A · 92
                   </div>
-                  <div className="flex-1 rounded-md bg-s4e-data-7 flex items-center justify-center text-s4e-text-on-accent text-[13px] font-semibold">
+                  <div className="flex-1 rounded-md bg-s4e-data-7 flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold">
                     Group B · 78
                   </div>
                   <div className="flex-1 flex flex-col gap-1">
-                    <div className="flex-1 rounded-md bg-s4e-data-1 flex items-center justify-center text-s4e-text-primary text-[13px] font-semibold">
+                    <div className="flex-1 rounded-md bg-s4e-data-1 flex items-center justify-center text-s4e-text-primary text-[14px] font-semibold">
                       Group C · 42
                     </div>
-                    <div className="flex-1 rounded-md bg-s4e-data-3 flex items-center justify-center text-s4e-text-primary text-[13px] font-semibold">
+                    <div className="flex-1 rounded-md bg-s4e-data-3 flex items-center justify-center text-s4e-text-primary text-[14px] font-semibold">
                       Group D · 28
                     </div>
                   </div>

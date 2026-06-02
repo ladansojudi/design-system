@@ -108,7 +108,7 @@ export function SwitchRadioSpecs() {
               { label: "Ring stroke",          values: ["—",    "2px"],  note: "Radio: outer ring border thickness." },
               { label: "Border radius",        values: ["full", "full"], note: "Both are fully rounded." },
               { label: "Control · label gap",  values: ["8px",  "8px"] },
-              { label: "Label font size",      values: ["13px", "13px"] },
+              { label: "Label font size",      values: ["14px", "14px"] },
               { label: "Row gap (radio group)",values: ["—",    "12px"], note: "Vertical spacing between options." },
               { label: "Focus ring · width",   values: ["2px",  "2px"] },
               { label: "Focus ring · offset",  values: ["4px",  "4px"] },

@@ -39,7 +39,7 @@ export default function Page() {
                   <Inbox size={24} />
                 </div>
                 <div className="text-[15px] font-semibold text-s4e-text-primary">No scans yet</div>
-                <p className="mt-1.5 text-[13px] text-s4e-text-secondary">Run your first crawler to start collecting assets.</p>
+                <p className="mt-1.5 text-[14px] text-s4e-text-secondary">Run your first crawler to start collecting assets.</p>
                 <button
                   type="button"
                   className="mt-5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-s4e-brand-primary-500 text-s4e-text-white text-[12px] font-medium"

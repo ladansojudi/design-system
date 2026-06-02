@@ -160,8 +160,8 @@ export const DonutLegend = React.forwardRef<HTMLDivElement, DonutLegendProps>(
         {data.map((d) => (
           <div key={d.label} className="flex items-center gap-3 py-2.5">
             <span className="w-[10px] h-[10px] rounded-full shrink-0" style={{ backgroundColor: d.color }} />
-            <span className="text-[13px] text-s4e-text-primary flex-1">{d.label}</span>
-            <span className="text-[13px] font-semibold text-s4e-text-primary tabular-nums">
+            <span className="text-[14px] text-s4e-text-primary flex-1">{d.label}</span>
+            <span className="text-[14px] font-semibold text-s4e-text-primary tabular-nums">
               {d.value.toLocaleString()}
             </span>
           </div>
@@ -358,7 +358,7 @@ export const TreemapChart = React.forwardRef<HTMLDivElement, TreemapChartProps>(
       <div
         key={b.label}
         className={cn(
-          "flex-1 rounded-md flex items-center justify-center text-[13px] font-semibold",
+          "flex-1 rounded-md flex items-center justify-center text-[14px] font-semibold",
           b.textOn === "primary" ? "text-s4e-text-primary" : "text-s4e-text-on-accent",
         )}
         style={{ backgroundColor: b.color }}

@@ -43,14 +43,14 @@ export default function SelectPage() {
                 <div className="w-[260px]">
                   <label className="block text-[11px] font-medium mb-1.5 text-s4e-text-secondary">Region</label>
                   <div className="relative">
-                    <div className="w-full flex items-center justify-between gap-2 h-9 px-3 rounded-md text-[13px] border border-s4e-brand-primary-600 bg-s4e-surface-row ring-2 ring-s4e-brand-primary-500/20">
+                    <div className="w-full flex items-center justify-between gap-2 h-9 px-3 rounded-md text-[14px] border border-s4e-brand-primary-600 bg-s4e-surface-row ring-2 ring-s4e-brand-primary-500/20">
                       <span className="text-s4e-text-primary truncate">Europe (Frankfurt)</span>
                       <ChevronDown size={14} className="text-s4e-text-disabled rotate-180" />
                     </div>
                     <div className="absolute left-0 right-0 mt-1.5 rounded-md border border-s4e-neutral-divider-10 bg-s4e-surface-row shadow-s4e-lg">
-                      <div className="px-3 py-2 text-[13px] text-s4e-text-primary bg-s4e-brand-primary-500/8">Europe (Frankfurt)</div>
-                      <div className="px-3 py-2 text-[13px] text-s4e-text-primary">US East (Virginia)</div>
-                      <div className="px-3 py-2 text-[13px] text-s4e-text-primary">US West (Oregon)</div>
+                      <div className="px-3 py-2 text-[14px] text-s4e-text-primary bg-s4e-brand-primary-500/8">Europe (Frankfurt)</div>
+                      <div className="px-3 py-2 text-[14px] text-s4e-text-primary">US East (Virginia)</div>
+                      <div className="px-3 py-2 text-[14px] text-s4e-text-primary">US West (Oregon)</div>
                     </div>
                   </div>
                   <div className="mt-1 text-[10.5px] text-s4e-text-disabled">Data is processed in this region only.</div>

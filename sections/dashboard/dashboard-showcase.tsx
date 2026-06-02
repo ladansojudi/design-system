@@ -35,14 +35,14 @@ export function DashboardShowcase() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-[22px] font-bold text-s4e-text-primary">Dashboard</h2>
           <div className="flex items-center gap-2.5">
-            <button type="button" className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium hover:bg-s4e-btn-primary-700 transition-colors">
+            <button type="button" className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[14px] font-medium hover:bg-s4e-btn-primary-700 transition-colors">
               Start a Scan <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/20"><ArrowRight size={11} /></span>
             </button>
-            <button type="button" className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors">
+            <button type="button" className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-s4e-neutral-divider-10 text-[14px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors">
               Scan Reports <span className="text-s4e-brand-primary-500">24 new!</span>
               <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-white"><ArrowRight size={11} /></span>
             </button>
-            <button type="button" className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors">
+            <button type="button" className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-s4e-neutral-divider-10 text-[14px] font-medium text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors">
               Add Asset <span className="text-s4e-text-disabled">12 in total</span>
               <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-white"><Plus size={11} /></span>
             </button>
@@ -125,14 +125,14 @@ export function DashboardExamples() {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-[22px] font-bold text-s4e-text-primary">Dashboard</h2>
               <div className="flex items-center gap-2.5">
-                <span className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[13px] font-medium">
+                <span className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-s4e-btn-primary-600 text-s4e-text-on-accent text-[14px] font-medium">
                   Start a Scan <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/20"><ArrowRight size={11} /></span>
                 </span>
-                <span className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary">
+                <span className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-s4e-neutral-divider-10 text-[14px] font-medium text-s4e-text-primary">
                   Scan Reports <span className="text-s4e-brand-primary-500">24 new!</span>
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-white"><ArrowRight size={11} /></span>
                 </span>
-                <span className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-s4e-neutral-divider-10 text-[13px] font-medium text-s4e-text-primary">
+                <span className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-s4e-neutral-divider-10 text-[14px] font-medium text-s4e-text-primary">
                   Add Asset <span className="text-s4e-text-disabled">12 in total</span>
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-white"><Plus size={11} /></span>
                 </span>

@@ -32,8 +32,8 @@ export default function Page() {
               ]}
             >
               <div className="flex items-end border-b border-s4e-neutral-divider-10">
-                <span className="px-4 pb-2.5 pt-2 text-[13px] font-medium border-b-2 -mb-px border-s4e-brand-primary-500 text-s4e-brand-primary-500">Findings</span>
-                <span className="px-4 pb-2.5 pt-2 text-[13px] font-medium border-b-2 -mb-px border-transparent text-s4e-text-secondary">Assets</span>
+                <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-s4e-brand-primary-500 text-s4e-brand-primary-500">Findings</span>
+                <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-transparent text-s4e-text-secondary">Assets</span>
               </div>
             </Anatomy>
 

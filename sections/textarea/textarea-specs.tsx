@@ -172,7 +172,7 @@ export function TextareaSpecs() {
               { label: "Label · field gap",     values: ["4px",  "4px",  "4px"] },
               { label: "Field · helper gap",    values: ["4px",  "4px",  "4px"] },
               { label: "Helper · counter gap",  values: ["8px",  "8px",  "8px"], note: "Horizontal gap on the row below." },
-              { label: "Font size · value",     values: ["13px", "13px", "14px"] },
+              { label: "Font size · value",     values: ["14px", "14px", "14px"] },
               { label: "Font size · label",     values: ["11px", "11px", "12px"] },
               { label: "Font size · helper",    values: ["11px", "11px", "12px"] },
               { label: "Resize handle size",    values: ["12px", "12px", "12px"], note: "Bottom-right grab area." },

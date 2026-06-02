@@ -137,7 +137,7 @@ function FontSpecimen({
         <div className="mt-3 text-[10px] uppercase tracking-widest text-s4e-text-disabled mb-2">
           Symbols
         </div>
-        <div className="text-[13px] text-s4e-text-secondary break-words">{charset.symbols}</div>
+        <div className="text-[14px] text-s4e-text-secondary break-words">{charset.symbols}</div>
       </div>
 
       {/* Sample paragraph — readability check */}

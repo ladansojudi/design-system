@@ -108,7 +108,7 @@ function SeverityNotColorAlone() {
     <div>
       <SectionTitle>Severity is never color alone</SectionTitle>
       <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5 space-y-5">
-        <p className="text-[13px] text-s4e-text-secondary leading-relaxed max-w-2xl">
+        <p className="text-[14px] text-s4e-text-secondary leading-relaxed max-w-2xl">
           Color is never the only signal. Every severity badge pairs its color with a
           shape (the dot) and a written label, so the level is readable for users with
           low vision, color-blindness, or in print and grayscale exports.

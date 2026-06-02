@@ -116,7 +116,7 @@ export function TabsSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={120} height={40} padX={16} padY={12} radius={4}>
-          <div className="w-full h-full flex items-center justify-center border-b-2 border-s4e-brand-primary-500 text-s4e-brand-primary-500 text-[13px] font-medium">
+          <div className="w-full h-full flex items-center justify-center border-b-2 border-s4e-brand-primary-500 text-s4e-brand-primary-500 text-[14px] font-medium">
             Findings
           </div>
         </SpacingDiagram>
@@ -136,7 +136,7 @@ export function TabsSpecs() {
               { label: "Label · badge gap",      values: ["8px",  "8px"] },
               { label: "Badge min-width",        values: ["20px", "20px"], note: "Pill-shaped chip, height 20px." },
               { label: "Badge padding · X",      values: ["8px",  "8px"] },
-              { label: "Font size",              values: ["13px", "13px"], note: "Inter Medium." },
+              { label: "Font size",              values: ["14px", "14px"], note: "Inter Medium." },
               { label: "Font weight",            values: ["500",  "500"] },
             ]}
           />

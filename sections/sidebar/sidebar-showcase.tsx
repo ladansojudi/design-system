@@ -130,7 +130,7 @@ function Sidebar({
                   <Icon size={16} className="shrink-0" />
                   {!collapsed && (
                     <>
-                      <span className="text-[13px] font-medium flex-1 text-left">{item.label}</span>
+                      <span className="text-[14px] font-medium flex-1 text-left">{item.label}</span>
                       {item.expandable && (
                         <ChevronDown size={14} className="text-s4e-text-disabled shrink-0" />
                       )}
@@ -154,7 +154,7 @@ function Sidebar({
             </div>
             <button
               type="button"
-              className="w-full inline-flex items-center justify-center gap-1.5 h-9 rounded-lg bg-s4e-btn-primary-600 hover:bg-s4e-btn-primary-700 text-white text-[13px] font-medium transition-colors"
+              className="w-full inline-flex items-center justify-center gap-1.5 h-9 rounded-lg bg-s4e-btn-primary-600 hover:bg-s4e-btn-primary-700 text-white text-[14px] font-medium transition-colors"
             >
               <Zap size={13} />
               Upgrade plan

@@ -41,7 +41,7 @@ export default function ToastTooltipPage() {
               <div className="w-80 overflow-hidden bg-s4e-surface-app border border-s4e-neutral-divider-10 rounded-xl shadow-sm">
                 <div className="flex items-center gap-3 px-4 py-3">
                   <CircleCheck size={20} className="text-s4e-feedback-success shrink-0" />
-                  <span className="flex-1 text-[13px] font-semibold text-s4e-text-primary">Scan completed successfully.</span>
+                  <span className="flex-1 text-[14px] font-semibold text-s4e-text-primary">Scan completed successfully.</span>
                 </div>
                 <div className="h-[3px] w-full bg-s4e-neutral-grey-100">
                   <div className="h-full bg-s4e-feedback-success w-1/3" />

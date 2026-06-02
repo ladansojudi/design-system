@@ -220,7 +220,7 @@ export function Anatomy({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className={cn(
-                      "text-[13px] font-medium transition-colors",
+                      "text-[14px] font-medium transition-colors",
                       hover === i ? "text-s4e-brand-primary-500" : "text-s4e-text-primary",
                     )}>
                       {p.label}
@@ -251,7 +251,7 @@ export function UseCases({ items }: { items: string[] }) {
       <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5">
         <ul className="space-y-2.5">
           {items.map((item) => (
-            <li key={item} className="flex items-start gap-2.5 text-[13px] text-s4e-text-secondary leading-relaxed">
+            <li key={item} className="flex items-start gap-2.5 text-[14px] text-s4e-text-secondary leading-relaxed">
               <span className="shrink-0 mt-[7px] w-1 h-1 rounded-full bg-s4e-brand-primary-500" />
               {item}
             </li>

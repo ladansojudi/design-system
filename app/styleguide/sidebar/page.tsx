@@ -28,7 +28,7 @@ export default function Page() {
         <div className="flex items-center gap-2.5 h-9 w-56 px-4 bg-s4e-neutral-grey-100 rounded-lg relative">
           <span className="absolute left-0 top-1 bottom-1 w-[2px] bg-s4e-brand-primary-500 rounded-r" />
           <LayoutDashboard size={16} className="text-s4e-text-primary" />
-          <span className="text-[13px] font-medium text-s4e-text-primary">Dashboard</span>
+          <span className="text-[14px] font-medium text-s4e-text-primary">Dashboard</span>
         </div>
       </Anatomy>
 

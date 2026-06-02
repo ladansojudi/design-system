@@ -127,7 +127,7 @@ export function CardsSpecs() {
             </div>
             <div className="px-4 py-4 flex-1 flex flex-col justify-between">
               <div>
-                <div className="text-[13px] font-semibold text-s4e-text-primary">Security Blind Spots</div>
+                <div className="text-[14px] font-semibold text-s4e-text-primary">Security Blind Spots</div>
                 <p className="text-[12px] text-s4e-text-disabled leading-relaxed">20 assets excluded from scans.</p>
               </div>
               <button type="button" className="flex items-center gap-1 text-[12px] font-medium text-s4e-brand-primary-500">
@@ -155,7 +155,7 @@ export function CardsSpecs() {
               { label: "Row · row divider",     values: ["1px",   "—"],   note: "Hairline between metric rows." },
               { label: "Row padding · Y",       values: ["12px",  "—"] },
               { label: "Label font size",       values: ["12px",  "12px"] },
-              { label: "Value font size",       values: ["13px",  "13px"] },
+              { label: "Value font size",       values: ["14px",  "14px"] },
               { label: "Action gap · text/icon", values: ["4px",   "4px"] },
               { label: "Pulse dot size",        values: ["—",     "8px"],   note: "Animated; alert tone only." },
             ]}

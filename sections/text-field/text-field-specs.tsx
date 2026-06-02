@@ -168,7 +168,7 @@ export function TextFieldSpecs() {
               { label: "Border width · focused",values: ["2px",  "2px",  "2px"], note: "Doubles on focus for visibility." },
               { label: "Label · field gap",     values: ["4px",  "4px",  "4px"], note: "Outlined: floats; filled: stays in surface." },
               { label: "Field · helper gap",    values: ["4px",  "4px",  "4px"] },
-              { label: "Font size · value",     values: ["13px", "13px", "14px"] },
+              { label: "Font size · value",     values: ["14px", "14px", "14px"] },
               { label: "Font size · label",     values: ["11px", "11px", "12px"] },
               { label: "Font size · helper",    values: ["11px", "11px", "12px"] },
               { label: "Icon size",             values: ["16px", "16px", "20px"], note: "Leading or trailing slot." },

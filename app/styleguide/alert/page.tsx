@@ -43,7 +43,7 @@ export default function AlertPage() {
                 <div className="flex items-start gap-3 rounded-md border border-s4e-scale-yellow-200 bg-s4e-scale-yellow-50 px-4 py-3 w-[320px]">
                   <AlertTriangle size={16} className="text-s4e-scale-yellow-700 shrink-0 mt-px" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-[13px] font-semibold text-s4e-scale-yellow-700 leading-tight">
+                    <div className="text-[14px] font-semibold text-s4e-scale-yellow-700 leading-tight">
                       Quota almost exceeded
                     </div>
                     <div className="text-[12px] text-s4e-scale-yellow-700 mt-1 leading-relaxed">
