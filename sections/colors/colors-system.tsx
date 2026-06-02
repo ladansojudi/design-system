@@ -28,19 +28,23 @@ export function ColorsSystem() {
     <CopyToastProvider>
       <div className="mt-2">
         {/* Tabs */}
-        <div className="flex flex-wrap gap-1 mb-9">
+        <div role="tablist" aria-label="Color view" className="flex items-end border-b border-s4e-neutral-divider-10 mb-8 overflow-x-auto s4e-scrollbar-hide">
           {TABS.map((t) => {
             const isActive = active === t.key;
             return (
               <button
                 key={t.key}
                 type="button"
+                role="tab"
+                aria-selected={isActive}
                 onClick={() => set(t.key)}
                 className={cn(
-                  "px-4 py-2 rounded-md border text-[10.5px] font-medium uppercase tracking-widest cursor-pointer transition-colors",
+                  "inline-flex items-center px-4 pt-2 pb-2.5 -mb-px text-[14px] font-medium whitespace-nowrap tracking-tight shrink-0",
+                  "border-b-[2px] transition-colors cursor-pointer",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-s4e-brand-primary-500/40",
                   isActive
-                    ? "bg-s4e-brand-primary-500 text-s4e-text-white border-s4e-brand-primary-500"
-                    : "border-s4e-neutral-divider-10 text-s4e-text-secondary hover:text-s4e-text-primary hover:border-s4e-neutral-divider-20",
+                    ? "text-s4e-text-primary border-s4e-brand-primary-500"
+                    : "text-s4e-text-secondary border-transparent hover:text-s4e-text-primary",
                 )}
               >
                 {t.label}
