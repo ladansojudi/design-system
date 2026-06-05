@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] — 2026-06-05
+
+### Changed
+
+- **View mode is now URL-driven** — the Design / Dev toggle is reflected in the URL (`?view=dev`), so a chosen mode is shareable, bookmarkable and survives a reload. Implemented with the native History API + `usePathname` instead of `useSearchParams`, so every styleguide page stays statically prerendered (no Suspense bailout / client-side rendering).
+
 ## [1.3.0] — 2026-06-05
 
 ### Added
