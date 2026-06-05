@@ -33,7 +33,6 @@ extension CGFloat {
     static let space10: CGFloat = 40
     static let space5: CGFloat = 20
     static let space3: CGFloat = 12
-    static let space12: CGFloat = 48
 
     // Radius
     static let radiusXl: CGFloat = 12
@@ -47,7 +46,7 @@ extension CGFloat {
     // Font size
     static let fontSize10: CGFloat = 10
     static let fontSize12: CGFloat = 12
-    static let fontSize13: CGFloat = 13
+    static let fontSize14: CGFloat = 14
     static let fontSize15: CGFloat = 15
 
     // Focus ring width

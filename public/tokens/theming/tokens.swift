@@ -13,7 +13,6 @@ extension UIColor {
     static let brandPrimary600 = UIColor(hex: "#0F69A9")
     static let brandPrimary700 = UIColor(hex: "#09436C")
     static let brandPrimary800 = UIColor(hex: "#062C46")
-    static let brandSecondary500 = UIColor(hex: "#EE7B59")
     static let scaleGreen500 = UIColor(hex: "#63A100")
     static let scaleGreen600 = UIColor(hex: "#3F6600")
     static let scaleRed600 = UIColor(hex: "#8E2A1F")
@@ -25,11 +24,9 @@ extension UIColor {
     static let textPrimary = UIColor(hex: "#121F28")
     static let textSecondary = UIColor(hex: "#657078")
     static let textDisabled = UIColor(hex: "#A7ADB2")
-    static let textWhite = UIColor(hex: "#FFFFFF")
     static let textInverse = UIColor(hex: "#FFFFFF")
     static let textOnAccent = UIColor(hex: "#FFFFFF")
     static let textLink = UIColor(hex: "#0066CC")
-    static let btnNeutral800 = UIColor(hex: "#202323")
     static let btnPrimary600 = UIColor(hex: "#0F69AA")
     static let btnPrimary700 = UIColor(hex: "#024A72")
     static let btnWarning600 = UIColor(hex: "#E6A200")
@@ -42,14 +39,10 @@ extension CGFloat {
     static let space2: CGFloat = 8
     static let space4: CGFloat = 16
     static let space1: CGFloat = 4
-    static let space5: CGFloat = 20
     static let space3: CGFloat = 12
+    static let space5: CGFloat = 20
     static let space9: CGFloat = 36
     static let space10: CGFloat = 40
-    static let space6: CGFloat = 24
-    static let space8: CGFloat = 32
-    static let space12: CGFloat = 48
-    static let space16: CGFloat = 64
 
     // Radius
     static let radiusBase: CGFloat = 4
@@ -64,7 +57,7 @@ extension CGFloat {
     static let fontSize10: CGFloat = 10
     static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
-    static let fontSize13: CGFloat = 13
+    static let fontSize14: CGFloat = 14
     static let fontSize15: CGFloat = 15
 }
 

@@ -67,7 +67,6 @@ extension CGFloat {
     static let fontSize10: CGFloat = 10
     static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
-    static let fontSize13: CGFloat = 13
     static let fontSize14: CGFloat = 14
     static let fontSize15: CGFloat = 15
 
