@@ -4,66 +4,9 @@ import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TokenExportTabs } from "@/components/styleguide/token-export-tabs";
+import { HighlightedCode } from "@/components/styleguide/highlighted-code";
 
-// ── Code block helper + highlighters ───────────────────────────────────────
-
-function hlCss(src: string): React.ReactNode[] {
-  return src.split("\n").map((line, i) => {
-    // Block comment lines
-    if (/^\s*\/\*/.test(line) || /^\s*\*/.test(line) || /\*\/\s*$/.test(line)) {
-      return <span key={i} className="text-[#8a8a8a] italic block">{line || " "}{"\n"}</span>;
-    }
-    // Custom property declarations: `--foo: value;` with optional trailing comment
-    const m = line.match(/^(\s*)(--[a-z0-9-]+)(\s*:\s*)([^;\/]+)(;?)\s*(\/\*.*\*\/)?\s*$/);
-    if (m) {
-      return (
-        <span key={i} className="block">
-          {m[1]}
-          <span className="text-s4e-brand-secondary-500">{m[2]}</span>
-          <span className="text-[#8a8a8a]">{m[3]}</span>
-          <span className="text-s4e-text-white">{m[4].trim()}</span>
-          <span className="text-[#8a8a8a]">{m[5]}</span>
-          {m[6] && <span className="text-[#8a8a8a] italic">  {m[6]}</span>}
-          {"\n"}
-        </span>
-      );
-    }
-    // Selectors / braces / at-rules
-    if (/\{\s*$/.test(line) || /^\s*\}/.test(line) || /^\s*[:.[@]/.test(line) || /,\s*$/.test(line)) {
-      return <span key={i} className="text-s4e-brand-primary-500 block">{line || " "}{"\n"}</span>;
-    }
-    return <span key={i} className="block">{line || " "}{"\n"}</span>;
-  });
-}
-
-function hlHtml(src: string): React.ReactNode[] {
-  return src.split("\n").map((line, i) => {
-    // Whole-line comment
-    if (/^\s*<!--.*-->\s*$/.test(line) || /^\s*<!--/.test(line) || /-->\s*$/.test(line)) {
-      return <span key={i} className="text-[#8a8a8a] italic block">{line || " "}{"\n"}</span>;
-    }
-    // Tokenize: tags, closes, attrs (=val pattern), strings
-    const parts = line.split(/(<\/?[A-Za-z][A-Za-z0-9-]*|\/?>|"[^"]*"|\s+[a-z][a-z0-9-]*(?==))/g);
-    return (
-      <span key={i} className="block">
-        {parts.map((p, j) => {
-          if (!p) return null;
-          if (/^<\/?[A-Za-z]/.test(p) || p === ">" || p === "/>") {
-            return <span key={j} className="text-s4e-brand-primary-500">{p}</span>;
-          }
-          if (/^"/.test(p)) {
-            return <span key={j} className="text-s4e-text-white">{p}</span>;
-          }
-          if (/^\s+[a-z]/.test(p)) {
-            return <span key={j} className="text-s4e-brand-secondary-500">{p}</span>;
-          }
-          return p;
-        })}
-        {"\n"}
-      </span>
-    );
-  });
-}
+// ── Code block helper ───────────────────────────────────────────────────────
 
 function CodeBlock({ code, lang = "css" }: { code: string; lang?: "css" | "html" }) {
   const [copied, setCopied] = useState(false);
@@ -90,9 +33,7 @@ function CodeBlock({ code, lang = "css" }: { code: string; lang?: "css" | "html"
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <pre className="px-5 py-4 text-[11px] leading-6 font-mono bg-s4e-btn-neutral-800 text-s4e-text-white overflow-auto max-h-[420px]">
-        {lang === "html" ? hlHtml(code) : hlCss(code)}
-      </pre>
+      <HighlightedCode code={code} lang={lang} className="max-h-[420px]" />
     </div>
   );
 }

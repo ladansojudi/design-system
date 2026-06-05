@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { SpinnerShowcase, SpinnerExamples } from "@/sections/spinner/spinner-showcase";
 import { SpinnerSpecs } from "@/sections/spinner/spinner-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
@@ -12,17 +14,18 @@ export const metadata: Metadata = {
 
 export default function SpinnerPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Atoms"
         title="Spinner"
         status="beta"
         description="Indeterminate loading indicator. Used when the operation duration is unknown — for known progress, use a progress bar."
+        actions={<OpenInFigma />}
+        tabs={<ViewModeTabs />}
       />
 
-      <div className="mt-12 sm:mt-16">
-        <ViewModeTabs />
-      </div>
+      <PageBody>
+
 
       <ModeAware
         design={
@@ -64,6 +67,7 @@ export default function SpinnerPage() {
           </div>
         }
       />
-    </div>
+      </PageBody>
+    </>
   );
 }

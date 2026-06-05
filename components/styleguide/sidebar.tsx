@@ -9,10 +9,19 @@ import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useMobileSidebar } from "@/components/styleguide/mobile-sidebar-provider";
 import { navGroups, findGroupForPath } from "@/components/styleguide/nav-data";
+import type { ComponentStatus } from "@/components/styleguide/page-header";
 import { version as PKG_VERSION } from "@/package.json";
 
 const RELEASE_URL = `https://github.com/ladansojudi/design-system/releases/tag/v${PKG_VERSION}`;
 const EXPANDED_KEY = "s4e:sidebar-expanded-groups";
+
+// Dot + label per status, for the nav markers. `stable` is intentionally absent:
+// stable items show no marker, so only the in-flux / notable ones stand out.
+const STATUS_DOT: Record<Exclude<ComponentStatus, "stable">, { dot: string; label: string }> = {
+  alpha:      { dot: "bg-s4e-scale-yellow-500",  label: "alpha" },
+  beta:       { dot: "bg-s4e-brand-primary-500", label: "beta" },
+  deprecated: { dot: "bg-s4e-scale-red-500",     label: "deprecated" },
+};
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -115,7 +124,15 @@ export function Sidebar() {
                     aria-expanded={isOpen}
                     className="w-full flex items-center justify-between px-4 pt-2.5 pb-1 text-[10px] uppercase tracking-widest text-s4e-text-disabled hover:text-s4e-text-secondary cursor-pointer"
                   >
-                    <span>{group.label}</span>
+                    <span className="flex items-center gap-2">
+                      {group.label}
+                      {group.status && group.status !== "stable" && (
+                        <span className="inline-flex items-center gap-1 normal-case tracking-normal font-normal text-[9px] text-s4e-text-disabled">
+                          <span className={cn("size-[5px] rounded-full", STATUS_DOT[group.status].dot)} />
+                          {STATUS_DOT[group.status].label}
+                        </span>
+                      )}
+                    </span>
                     <ChevronDown
                       size={12}
                       className={cn("transition-transform duration-150", isOpen ? "rotate-0" : "-rotate-90")}
@@ -135,7 +152,18 @@ export function Sidebar() {
                             : "text-s4e-text-secondary border-l-transparent hover:text-s4e-text-primary hover:bg-s4e-neutral-grey-100",
                         )}
                       >
-                        {item.label}
+                        <span className="flex-1 truncate">{item.label}</span>
+                        {item.status && item.status !== "stable" && (
+                          <span
+                            title={STATUS_DOT[item.status].label}
+                            className="ml-2 flex items-center gap-1 shrink-0"
+                          >
+                            <span className={cn("size-[6px] rounded-full", STATUS_DOT[item.status].dot)} />
+                            <span className="text-[9px] tracking-wide text-s4e-text-disabled">
+                              {STATUS_DOT[item.status].label}
+                            </span>
+                          </span>
+                        )}
                       </Link>
                     );
                   })}

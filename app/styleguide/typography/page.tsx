@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { TypographyScale } from "@/sections/typography/typography-scale";
 import { TextColors } from "@/sections/typography/text-colors";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
@@ -10,14 +12,17 @@ export const metadata: Metadata = {
 
 export default function TypographyPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Foundations"
         title="Typography"
         status="stable"
         description="Type scale for the s4e.io interface. All styles use the Inter variable font. Pair the size with the role — never pick by aesthetics alone."
+        actions={<OpenInFigma />}
       />
-      <div className="mt-12 sm:mt-16 space-y-10">
+
+      <PageBody>
+      <div className="space-y-10">
         <TypographyScale />
 
         <TextColors />
@@ -46,6 +51,7 @@ export default function TypographyPage() {
           ]}
         />
       </div>
-    </div>
+      </PageBody>
+    </>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 
 export const metadata: Metadata = {
   title: "Contribution Guide — Design System",
@@ -34,15 +36,18 @@ const steps = [
 
 export default function ContributionPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Foundations"
         title="Contribution Guide"
         status="stable"
         description="Six steps every contributor follows when adding or extending a component. Skipping a step is how the system drifts out of alignment."
+        actions={<OpenInFigma />}
       />
 
-      <div className="mt-12 sm:mt-16">
+      <PageBody>
+
+      <div>
         <ol className="space-y-5">
           {steps.map((step, i) => (
             <li key={step.title} className="flex items-start gap-4">
@@ -61,6 +66,7 @@ export default function ContributionPage() {
           ))}
         </ol>
       </div>
-    </div>
+      </PageBody>
+    </>
   );
 }

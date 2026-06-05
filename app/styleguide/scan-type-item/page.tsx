@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { ComingSoon } from "@/components/styleguide/coming-soon";
 
 export const metadata: Metadata = {
@@ -8,9 +10,16 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
-      <PageHeader category="Molecules" title="Scan Type Item" status="alpha" description="Selectable item representing a scan configuration type." />
+    <>
+      <PageHero category="Molecules" title="Scan Type Item" status="alpha" description="Selectable item representing a scan configuration type."
+        actions={<OpenInFigma />}
+      />
+
+      <PageBody>
+        <div className="space-y-10">
       <ComingSoon title="Scan Type Item" />
-    </div>
+        </div>
+      </PageBody>
+    </>
   );
 }

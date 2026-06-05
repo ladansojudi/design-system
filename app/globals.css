@@ -753,3 +753,20 @@
 .s4e-scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ===================================================================
+   CODE BLOCKS — Shiki (VS Code "Dark+")
+   <HighlightedCode> renders Shiki's <pre class="shiki">…</pre>. We normalise
+   its padding / metrics so it matches the rest of the styleguide chrome; the
+   token colours and #1e1e1e background come straight from the dark-plus theme.
+   =================================================================== */
+.ds-code .shiki {
+  margin: 0;
+  padding: 1rem 1.25rem; /* py-4 px-5 */
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+}
+.ds-code .shiki code {
+  font-family: inherit;
+}

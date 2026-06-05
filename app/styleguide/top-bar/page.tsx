@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Sparkles, Bell } from "lucide-react";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { TopBarShowcase } from "@/sections/top-bar/top-bar-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
@@ -10,8 +12,13 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
-      <PageHeader category="Organisms" title="Top Bar" status="stable" description="Persistent header with a Test Mode toggle on the left and Ask AI, notifications and account on the right." />
+    <>
+      <PageHero category="Organisms" title="Top Bar" status="stable" description="Persistent header with a Test Mode toggle on the left and Ask AI, notifications and account on the right."
+        actions={<OpenInFigma />}
+      />
+
+      <PageBody>
+        <div className="space-y-10">
 
       <TopBarShowcase />
 
@@ -65,6 +72,8 @@ export default function Page() {
           { type: "dont", text: "Don't stack badges on the avatar — put upgrade CTAs in the Sidebar footer, not here." },
         ]}
       />
-    </div>
+        </div>
+      </PageBody>
+    </>
   );
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { ButtonShowcase, ButtonExamples } from "@/sections/button/button-showcase";
 import { ButtonSpecs } from "@/sections/button/button-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
@@ -13,18 +15,17 @@ export const metadata: Metadata = {
 
 export default function ButtonPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Atoms"
         title="Button"
         status="stable"
         description="Three intents (Default, Primary, Destructive) × three styles (Solid, Outline, Ghost) × three sizes (Sm, Md, Lg). Plus loading, icon-only, button group and full-width patterns."
+        actions={<OpenInFigma />}
+        tabs={<ViewModeTabs />}
       />
 
-      <div className="mt-12 sm:mt-16">
-        <ViewModeTabs />
-      </div>
-
+      <PageBody>
       <ModeAware
         design={
           <div className="space-y-10 mt-8 sm:mt-10">
@@ -84,6 +85,7 @@ export default function ButtonPage() {
           </div>
         }
       />
-    </div>
+      </PageBody>
+    </>
   );
 }

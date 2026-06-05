@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Bold, Italic, Underline } from "lucide-react";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { TextSpaceShowcase, TextSpaceExamples } from "@/sections/text-space/text-space-showcase";
 import { TextSpaceSpecs } from "@/sections/text-space/text-space-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
@@ -13,17 +15,18 @@ export const metadata: Metadata = {
 
 export default function TextSpacePage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Organisms"
         title="Text Space"
         status="stable"
         description="Rich-text editing surface with simple and full toolbar configurations, shown across enabled, disabled, and error states."
+        actions={<OpenInFigma />}
+        tabs={<ViewModeTabs />}
       />
 
-      <div className="mt-12 sm:mt-16">
-        <ViewModeTabs />
-      </div>
+      <PageBody>
+
 
       <ModeAware
         design={
@@ -73,6 +76,7 @@ export default function TextSpacePage() {
           </div>
         }
       />
-    </div>
+      </PageBody>
+    </>
   );
 }

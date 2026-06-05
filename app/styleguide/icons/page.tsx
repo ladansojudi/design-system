@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { IconsGrid } from "@/sections/icons/icons-grid";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
@@ -17,15 +19,18 @@ const SIZE_GUIDE = [
 
 export default function IconsPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Foundations"
         title="Icons"
         status="stable"
         description="Lucide React icon set. Click any icon to copy its component name. Stick to the five sizes below — there's no need for 13px or 22px."
+        actions={<OpenInFigma />}
       />
 
-      <div className="mt-12 sm:mt-16 space-y-10">
+      <PageBody>
+
+      <div className="space-y-10">
         <div>
           <div className="flex items-center gap-2 mb-4">
             <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
@@ -71,6 +76,7 @@ export default function IconsPage() {
           ]}
         />
       </div>
-    </div>
+      </PageBody>
+    </>
   );
 }

@@ -15,28 +15,33 @@ interface PageHeaderProps {
   description?: string;
   status?:      ComponentStatus;
   version?:     string;
+  /** Right-aligned actions in the title row (e.g. "Open in Figma"). */
+  actions?:     React.ReactNode;
 }
 
-export function PageHeader({ category, title, description, status, version }: PageHeaderProps) {
+export function PageHeader({ category, title, description, status, version, actions }: PageHeaderProps) {
   return (
     <header className="mb-2 sm:mb-4">
-      {/* Breadcrumb path */}
-      <nav aria-label="Breadcrumb" className="mb-4">
-        <ol className="flex items-center gap-1.5 text-[12px] text-s4e-text-disabled">
-          <li>
-            <Link
-              href="/"
-              className="hover:text-s4e-text-primary transition-colors"
-            >
-              Design System
-            </Link>
-          </li>
-          <li aria-hidden className="text-s4e-neutral-grey-300">/</li>
-          <li className="text-s4e-text-secondary">{category}</li>
-          <li aria-hidden className="text-s4e-neutral-grey-300">/</li>
-          <li className="text-s4e-text-primary font-medium">{title}</li>
-        </ol>
-      </nav>
+      {/* Breadcrumb path + page actions */}
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <nav aria-label="Breadcrumb">
+          <ol className="flex items-center gap-1.5 text-[12px] text-s4e-text-disabled">
+            <li>
+              <Link
+                href="/"
+                className="hover:text-s4e-text-primary transition-colors"
+              >
+                Design System
+              </Link>
+            </li>
+            <li aria-hidden className="text-s4e-neutral-grey-300">/</li>
+            <li className="text-s4e-text-secondary">{category}</li>
+            <li aria-hidden className="text-s4e-neutral-grey-300">/</li>
+            <li className="text-s4e-text-primary font-medium">{title}</li>
+          </ol>
+        </nav>
+        {actions && <div className="shrink-0">{actions}</div>}
+      </div>
 
       {/* Title row */}
       <div className="flex flex-wrap items-center gap-3 mb-3">

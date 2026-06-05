@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Download, FileCode } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePlatform, type Platform } from "@/components/styleguide/platform-provider";
+import { HighlightedCode } from "@/components/styleguide/highlighted-code";
 
 type Format = "css" | "swift" | "xml";
 
@@ -26,98 +27,6 @@ const FILES: FileSpec[] = [
   { key: "swift", label: "Swift",   filename: "tokens.swift", note: "iOS · UIKit"    },
   { key: "xml",   label: "Android", filename: "tokens.xml",   note: "Android · XML"  },
 ];
-
-// ── Inline syntax highlighters (reused from the dropdown variant) ──────────
-
-function hl(format: Format, src: string): React.ReactNode[] {
-  if (format === "css")   return hlCss(src);
-  if (format === "swift") return hlSwift(src);
-  return hlXml(src);
-}
-
-function hlCss(src: string): React.ReactNode[] {
-  return src.split("\n").map((line, i) => {
-    if (/^\s*\/\*/.test(line) || /^\s*\*/.test(line) || /\*\/\s*$/.test(line)) {
-      return <span key={i} className="text-[#8a8a8a] italic block">{line || " "}{"\n"}</span>;
-    }
-    const m = line.match(/^(\s*)(--[a-z0-9-]+)(\s*:\s*)([^;]+)(;?)$/);
-    if (m) {
-      return (
-        <span key={i} className="block">
-          {m[1]}
-          <span className="text-s4e-brand-secondary-500">{m[2]}</span>
-          <span className="text-[#8a8a8a]">{m[3]}</span>
-          <span className="text-s4e-text-white">{m[4]}</span>
-          <span className="text-[#8a8a8a]">{m[5]}</span>
-          {"\n"}
-        </span>
-      );
-    }
-    if (/\{\s*$/.test(line) || /^\s*\}/.test(line) || /^:/.test(line)) {
-      return <span key={i} className="text-s4e-brand-primary-500 block">{line}{"\n"}</span>;
-    }
-    return <span key={i} className="block">{line || " "}{"\n"}</span>;
-  });
-}
-
-function hlSwift(src: string): React.ReactNode[] {
-  return src.split("\n").map((line, i) => {
-    if (/^\s*\/\//.test(line)) {
-      return <span key={i} className="text-[#8a8a8a] italic block">{line || " "}{"\n"}</span>;
-    }
-    if (/^\s*import\s/.test(line)) {
-      return <span key={i} className="text-s4e-brand-primary-500 block">{line}{"\n"}</span>;
-    }
-    const ext = line.match(/^(extension)(\s+)([A-Z][A-Za-z]+)(.*)$/);
-    if (ext) {
-      return (
-        <span key={i} className="block">
-          <span className="text-s4e-brand-primary-500">{ext[1]}</span>
-          {ext[2]}
-          <span className="text-s4e-text-white font-semibold">{ext[3]}</span>
-          {ext[4]}{"\n"}
-        </span>
-      );
-    }
-    const decl = line.match(/^(\s+)(static\s+let)(\s+)([a-zA-Z0-9_]+)(\s*[:=].+)$/);
-    if (decl) {
-      return (
-        <span key={i} className="block">
-          {decl[1]}
-          <span className="text-s4e-brand-primary-500">{decl[2]}</span>
-          {decl[3]}
-          <span className="text-s4e-text-white">{decl[4]}</span>
-          <span className="text-s4e-brand-secondary-500">{decl[5]}</span>
-          {"\n"}
-        </span>
-      );
-    }
-    return <span key={i} className="block">{line || " "}{"\n"}</span>;
-  });
-}
-
-function hlXml(src: string): React.ReactNode[] {
-  return src.split("\n").map((line, i) => {
-    if (/^\s*<!--/.test(line) || /-->\s*$/.test(line)) {
-      return <span key={i} className="text-[#8a8a8a] italic block">{line || " "}{"\n"}</span>;
-    }
-    const m = line.match(/^(\s*)(<\/?[a-z?]+)\s*([^>]*)?(\/?>)([^<]*)(<\/[a-z]+>)?$/i);
-    if (m) {
-      return (
-        <span key={i} className="block">
-          {m[1]}
-          <span className="text-s4e-brand-primary-500">{m[2]}</span>
-          {m[3] && <span className="text-s4e-brand-secondary-500"> {m[3]}</span>}
-          <span className="text-s4e-brand-primary-500">{m[4]}</span>
-          <span className="text-s4e-text-white">{m[5]}</span>
-          {m[6] && <span className="text-s4e-brand-primary-500">{m[6]}</span>}
-          {"\n"}
-        </span>
-      );
-    }
-    return <span key={i} className="block">{line || " "}{"\n"}</span>;
-  });
-}
 
 // ── Component ─────────────────────────────────────────────────────────────
 
@@ -237,9 +146,7 @@ export function TokenExportTabs({ slugOverride, title, badge, intro }: TokenExpo
         </div>
 
         {/* Code preview */}
-        <pre className="px-5 py-4 text-[11px] leading-6 font-mono bg-s4e-btn-neutral-800 text-s4e-text-white overflow-auto max-h-[420px]">
-          {hl(active, activeContent)}
-        </pre>
+        <HighlightedCode code={activeContent} lang={active} className="max-h-[420px]" />
       </div>
     </section>
   );

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { ShadowScale } from "@/sections/shadow/shadow-scale";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
@@ -9,14 +11,17 @@ export const metadata: Metadata = {
 
 export default function ShadowPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Foundations"
         title="Shadow"
         status="stable"
         description="Elevation scale for surfacing UI above the page. Each level pairs to an interaction layer — pick by purpose, not by look."
+        actions={<OpenInFigma />}
       />
-      <div className="mt-12 sm:mt-16 space-y-10">
+
+      <PageBody>
+      <div className="space-y-10">
         <ShadowScale />
 
         <UseCases
@@ -39,6 +44,7 @@ export default function ShadowPage() {
           ]}
         />
       </div>
-    </div>
+      </PageBody>
+    </>
   );
 }

@@ -2,29 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { DEV_NOTES } from "@/components/styleguide/developer-notes-data";
-
-// ── Minimal code highlighter for the snippets (static dark surface) ────────
-
-function highlight(src: string): React.ReactNode[] {
-  return src.split("\n").map((line, i) => {
-    if (/^\s*\/\//.test(line)) {
-      return <span key={i} className="text-[#8a8a8a] italic block">{line || " "}{"\n"}</span>;
-    }
-    // JSX tags + import keywords
-    const parts = line.split(/(<\/?[A-Za-z][\w]*|\/?>|"[^"]*"|\bimport\b|\bfrom\b|\bconst\b|\buseState\b)/g);
-    return (
-      <span key={i} className="block">
-        {parts.map((p, j) => {
-          if (/^<\/?[A-Za-z]/.test(p) || p === "/>" || p === ">")        return <span key={j} className="text-s4e-brand-primary-500">{p}</span>;
-          if (/^"/.test(p))                                              return <span key={j} className="text-s4e-brand-secondary-500">{p}</span>;
-          if (["import", "from", "const", "useState"].includes(p))       return <span key={j} className="text-s4e-brand-primary-500">{p}</span>;
-          return p;
-        })}
-        {"\n"}
-      </span>
-    );
-  });
-}
+import { HighlightedCode } from "@/components/styleguide/highlighted-code";
 
 export function DeveloperNotes() {
   const pathname = usePathname();
@@ -48,10 +26,10 @@ export function DeveloperNotes() {
           <div className="px-4 py-2 text-[10px] uppercase tracking-widest text-s4e-text-disabled bg-s4e-surface-table-header">
             Import &amp; usage
           </div>
-          <pre className="px-5 py-4 text-[11px] leading-6 font-mono bg-s4e-btn-neutral-800 text-s4e-text-white overflow-x-auto">
-            {highlight(note.importLine)}
-            {note.usage && <>{"\n"}{highlight(note.usage)}</>}
-          </pre>
+          <HighlightedCode
+            code={note.usage ? `${note.importLine}\n${note.usage}` : note.importLine}
+            lang="tsx"
+          />
         </div>
 
         {/* Props */}

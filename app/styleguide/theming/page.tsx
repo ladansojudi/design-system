@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { ThemingShowcase } from "@/sections/theming/theming-showcase";
 
 export const metadata: Metadata = {
@@ -8,16 +10,20 @@ export const metadata: Metadata = {
 
 export default function ThemingPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Foundations"
         title="Theming"
         status="stable"
         description="How light and dark modes are wired, what each kind of token does, and how to brand the system for your own product."
+        actions={<OpenInFigma />}
       />
-      <div className="mt-12 sm:mt-16">
+
+      <PageBody>
+      <div>
         <ThemingShowcase />
       </div>
-    </div>
+      </PageBody>
+    </>
   );
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { AlertTriangle, X } from "lucide-react";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { AlertShowcase, AlertExamples } from "@/sections/alert/alert-showcase";
 import { AlertSpecs } from "@/sections/alert/alert-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
@@ -13,17 +15,18 @@ export const metadata: Metadata = {
 
 export default function AlertPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Atoms"
         title="Alert"
         status="beta"
         description="Persistent in-page message that announces state the user must read or act on. Distinct from Toast (temporal) and Banner (page-level)."
+        actions={<OpenInFigma />}
+        tabs={<ViewModeTabs />}
       />
 
-      <div className="mt-12 sm:mt-16">
-        <ViewModeTabs />
-      </div>
+      <PageBody>
+
 
       <ModeAware
         design={
@@ -94,6 +97,7 @@ export default function AlertPage() {
           </div>
         }
       />
-    </div>
+      </PageBody>
+    </>
   );
 }

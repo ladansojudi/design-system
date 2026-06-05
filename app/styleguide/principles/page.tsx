@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 
 export const metadata: Metadata = {
   title: "Design Principles — Design System",
@@ -30,15 +32,18 @@ const principles = [
 
 export default function PrinciplesPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Foundations"
         title="Design Principles"
         status="stable"
         description="Five principles that guide every decision in this design system — from token names to component anatomy to the way severity is represented."
+        actions={<OpenInFigma />}
       />
 
-      <div className="mt-12 sm:mt-16">
+      <PageBody>
+
+      <div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {principles.map((p) => (
             <div
@@ -55,6 +60,7 @@ export default function PrinciplesPage() {
           ))}
         </div>
       </div>
-    </div>
+      </PageBody>
+    </>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { ChartShowcase, ChartExamples } from "@/sections/chart/chart-showcase";
 import { ChartSpecs } from "@/sections/chart/chart-specs";
 import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
@@ -11,17 +13,18 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Organisms"
         title="Chart"
         status="stable"
         description="Dashboard chart cards — Donut, Treemap, Bar and Line/Area. Each chart has its own examples and documentation in the tabs below."
+        actions={<OpenInFigma />}
+        tabs={<ViewModeTabs />}
       />
 
-      <div className="mt-12 sm:mt-16">
-        <ViewModeTabs />
-      </div>
+      <PageBody>
+
 
       <ModeAware
         design={
@@ -36,6 +39,7 @@ export default function Page() {
           </div>
         }
       />
-    </div>
+      </PageBody>
+    </>
   );
 }

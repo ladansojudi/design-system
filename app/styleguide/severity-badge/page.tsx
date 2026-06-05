@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { SeverityBadgeShowcase, SeverityBadgeExamples } from "@/sections/severity-badge/severity-badge-showcase";
 import { SeverityBadgeSpecs } from "@/sections/severity-badge/severity-badge-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
@@ -12,17 +14,18 @@ export const metadata: Metadata = {
 
 export default function SeverityBadgePage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Atoms"
         title="Severity Badge"
         status="stable"
         description="Five severity levels — Low, Info, Medium, High, Critical — each with a distinct color accent. Available with label only or label plus score."
+        actions={<OpenInFigma />}
+        tabs={<ViewModeTabs />}
       />
 
-      <div className="mt-12 sm:mt-16">
-        <ViewModeTabs />
-      </div>
+      <PageBody>
+
 
       <ModeAware
         design={
@@ -70,6 +73,7 @@ export default function SeverityBadgePage() {
           </div>
         }
       />
-    </div>
+      </PageBody>
+    </>
   );
 }

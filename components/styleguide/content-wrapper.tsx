@@ -1,29 +1,15 @@
-"use client";
-
-import { usePathname } from "next/navigation";
-
 import { TopBar } from "@/components/styleguide/top-bar";
-import { InstallationTabs } from "@/components/styleguide/installation-tabs";
-import { DeveloperNotes } from "@/components/styleguide/developer-notes";
-import { useViewMode } from "@/components/styleguide/view-mode-provider";
+
+// The scrolling main column. The sticky TopBar lives here; page content (hero
+// band + body) is provided as children. Dev-mode panels (Installation /
+// Developer Notes) render inside each page's <PageBody>, not here, so they sit
+// in the content column under the same on-this-page TOC.
 
 export function ContentWrapper({ children }: { children: React.ReactNode }) {
-  // key={pathname} forces these per-route panels to remount on every
-  // navigation. Without it, browser back from another route can leave them
-  // wedged in a stale "missing" / "loading" state because the layout never
-  // unmounts. Cheap; the panels just re-fetch their tiny .tsx.txt source.
-  const pathname = usePathname();
-  const { mode } = useViewMode();
   return (
     <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden bg-s4e-surface-app">
       <TopBar />
       {children}
-      {mode === "dev" && (
-        <div className="px-4 sm:px-6 lg:px-8 pb-10 sm:pb-16 max-w-5xl mx-auto">
-          <InstallationTabs key={`install:${pathname}`} />
-          <DeveloperNotes  key={`devnote:${pathname}`} />
-        </div>
-      )}
     </main>
   );
 }

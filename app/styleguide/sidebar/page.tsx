@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { LayoutDashboard } from "lucide-react";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { SidebarShowcase } from "@/sections/sidebar/sidebar-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
@@ -10,8 +12,13 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto space-y-10">
-      <PageHeader category="Organisms" title="Sidebar" status="stable" description="Primary navigation panel with expanded and collapsed variants, grouped links, and a plan-upgrade footer." />
+    <>
+      <PageHero category="Organisms" title="Sidebar" status="stable" description="Primary navigation panel with expanded and collapsed variants, grouped links, and a plan-upgrade footer."
+        actions={<OpenInFigma />}
+      />
+
+      <PageBody>
+        <div className="space-y-10">
 
       <SidebarShowcase />
 
@@ -52,6 +59,8 @@ export default function Page() {
           { type: "dont", text: "Don't nest expandable menus deeper than two levels; consider a separate page instead." },
         ]}
       />
-    </div>
+        </div>
+      </PageBody>
+    </>
   );
 }

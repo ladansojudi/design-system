@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Check } from "lucide-react";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { CheckboxShowcase, CheckboxExamples } from "@/sections/checkbox/checkbox-showcase";
 import { CheckboxSpecs } from "@/sections/checkbox/checkbox-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
@@ -13,17 +15,18 @@ export const metadata: Metadata = {
 
 export default function CheckboxPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Atoms"
         title="Checkbox"
         status="beta"
         description="Independent on/off control used for multi-select lists and single-option toggles. Indeterminate state communicates a partial parent selection."
+        actions={<OpenInFigma />}
+        tabs={<ViewModeTabs />}
       />
 
-      <div className="mt-12 sm:mt-16">
-        <ViewModeTabs />
-      </div>
+      <PageBody>
+
 
       <ModeAware
         design={
@@ -83,6 +86,7 @@ export default function CheckboxPage() {
           </div>
         }
       />
-    </div>
+      </PageBody>
+    </>
   );
 }

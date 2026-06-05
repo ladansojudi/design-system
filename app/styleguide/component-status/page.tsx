@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { ComponentStatusShowcase } from "@/sections/component-status/component-status-showcase";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
@@ -9,15 +11,18 @@ export const metadata: Metadata = {
 
 export default function ComponentStatusPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader
+    <>
+      <PageHero
         category="Foundations"
         title="Component Status"
         status="stable"
         description="Every component carries an Alpha / Beta / Stable / Deprecated badge so consumers know how confidently they can depend on it. This page is the contract behind those badges."
+        actions={<OpenInFigma />}
       />
 
-      <div className="mt-12 sm:mt-16 space-y-10">
+      <PageBody>
+
+      <div className="space-y-10">
         <ComponentStatusShowcase />
 
         <UseCases
@@ -40,6 +45,7 @@ export default function ComponentStatusPage() {
           ]}
         />
       </div>
-    </div>
+      </PageBody>
+    </>
   );
 }

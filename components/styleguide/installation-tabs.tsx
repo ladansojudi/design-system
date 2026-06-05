@@ -5,94 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Check, Copy, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { HighlightedCode } from "@/components/styleguide/highlighted-code";
 
 // The Installation section renders whenever a matching source file exists at
 // public/components/<slug>.tsx.txt. Slugs that have no file (Foundations
 // pages, work-in-progress components) just see a 404 → the section auto-hides.
-
-// ── Inline TSX / JSX syntax highlighter ────────────────────────────────────
-//
-// Line-by-line, no parser — covers the common shapes used in our component
-// sources (imports, type aliases, JSX, strings, numbers, block comments).
-
-const KEYWORDS = new Set([
-  "import", "from", "export", "default", "as",
-  "const", "let", "var", "function", "return",
-  "if", "else", "for", "while", "switch", "case", "break",
-  "interface", "type", "extends", "implements",
-  "true", "false", "null", "undefined", "void",
-  "new", "in", "of", "typeof", "instanceof",
-]);
-
-function hlTsx(src: string): React.ReactNode[] {
-  return src.split("\n").map((line, i) => {
-    // Block comment / JSDoc lines
-    if (
-      /^\s*\/\*/.test(line) ||
-      /^\s*\*/.test(line)   ||
-      /\*\/\s*$/.test(line)
-    ) {
-      return (
-        <span key={i} className="text-[#8a8a8a] italic block">
-          {line || " "}{"\n"}
-        </span>
-      );
-    }
-    // Single-line comment
-    if (/^\s*\/\//.test(line)) {
-      return (
-        <span key={i} className="text-[#8a8a8a] italic block">
-          {line || " "}{"\n"}
-        </span>
-      );
-    }
-
-    // Tokenize via a single capturing regex with alternatives.
-    // Order matters: strings first so quoted words don't get re-tokenized.
-    const parts = line.split(
-      /("[^"]*"|`[^`]*`|'[^']*'|\/\/.*$|<\/?[A-Za-z][A-Za-z0-9_.]*|\/?>|\.\.\.|\b(?:import|from|export|default|as|const|let|var|function|return|if|else|for|while|switch|case|break|interface|type|extends|implements|true|false|null|undefined|void|new|in|of|typeof|instanceof)\b|\b[A-Z][A-Za-z0-9_]*\b|\b\d+(?:\.\d+)?\b)/g,
-    );
-
-    return (
-      <span key={i} className="block">
-        {parts.map((p, j) => {
-          if (!p) return null;
-
-          // Strings + template literals → secondary
-          if (/^["'`]/.test(p)) {
-            return <span key={j} className="text-s4e-brand-secondary-500">{p}</span>;
-          }
-          // Trailing line comment
-          if (/^\/\//.test(p)) {
-            return <span key={j} className="text-[#8a8a8a] italic">{p}</span>;
-          }
-          // JSX tag opens / closes
-          if (/^<\/?[A-Za-z]/.test(p) || p === ">" || p === "/>") {
-            return <span key={j} className="text-s4e-brand-primary-500">{p}</span>;
-          }
-          // Spread
-          if (p === "...") {
-            return <span key={j} className="text-s4e-brand-primary-500">{p}</span>;
-          }
-          // Keywords
-          if (KEYWORDS.has(p)) {
-            return <span key={j} className="text-s4e-brand-primary-500">{p}</span>;
-          }
-          // PascalCase identifiers → type/component
-          if (/^[A-Z][A-Za-z0-9_]*$/.test(p)) {
-            return <span key={j} className="text-s4e-scale-yellow-500">{p}</span>;
-          }
-          // Numbers
-          if (/^\d/.test(p)) {
-            return <span key={j} className="text-s4e-scale-yellow-500">{p}</span>;
-          }
-          return p;
-        })}
-        {"\n"}
-      </span>
-    );
-  });
-}
 
 export function InstallationTabs() {
   const pathname = usePathname();
@@ -197,9 +114,7 @@ export function InstallationTabs() {
             </button>
           </div>
         </div>
-        <pre className="px-5 py-4 text-[11px] leading-6 font-mono bg-s4e-btn-neutral-800 text-s4e-text-white overflow-auto max-h-[480px]">
-          {hlTsx(source)}
-        </pre>
+        <HighlightedCode code={source} lang="tsx" className="max-h-[480px]" />
         {/* Usage hint */}
         <div className="px-4 py-3 border-t border-s4e-neutral-divider-10 bg-s4e-surface-app">
           <div className="text-[10px] uppercase tracking-widest text-s4e-text-disabled mb-1.5">Then import</div>

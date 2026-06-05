@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { HighlightedCode } from "@/components/styleguide/highlighted-code";
 
 export interface ExampleCardProps {
   title:    string;
@@ -57,9 +58,7 @@ export function ExampleCard({ title, code, preview, density = "default" }: Examp
       <div className={cn("flex items-center justify-center border-b border-s4e-neutral-divider-10 bg-s4e-surface-app", PREVIEW_PAD[density])}>
         {preview}
       </div>
-      <pre className="px-5 py-3 text-[11px] leading-6 font-mono bg-s4e-btn-neutral-800 text-s4e-text-white overflow-auto">
-        {code}
-      </pre>
+      <HighlightedCode code={code} lang="tsx" />
     </div>
   );
 }

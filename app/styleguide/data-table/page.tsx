@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Info, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { DataTableShowcase, DataTableExamples } from "@/sections/data-table/data-table-showcase";
 import { DataTableSpecs } from "@/sections/data-table/data-table-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
@@ -13,12 +15,14 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader category="Organisms" title="Data Table" status="stable" description="Dashboard table surface for listing threats, assets and findings — configurable header with badge, description and View all link." />
+    <>
+      <PageHero category="Organisms" title="Data Table" status="stable" description="Dashboard table surface for listing threats, assets and findings — configurable header with badge, description and View all link."
+        actions={<OpenInFigma />}
+        tabs={<ViewModeTabs />}
+      />
 
-      <div className="mt-12 sm:mt-16">
-        <ViewModeTabs />
-      </div>
+      <PageBody>
+
 
       <ModeAware
         design={
@@ -133,6 +137,7 @@ export default function Page() {
           </div>
         }
       />
-    </div>
+      </PageBody>
+    </>
   );
 }

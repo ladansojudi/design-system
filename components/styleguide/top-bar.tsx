@@ -10,7 +10,7 @@ export function TopBar() {
   const { open, setOpen } = useMobileSidebar();
 
   return (
-    <div className="sticky top-0 z-sticky bg-s4e-surface-app border-b border-s4e-neutral-divider-10 h-[52px] px-4 md:px-8 flex items-center gap-3">
+    <div className="sticky top-0 z-sticky bg-s4e-surface-app/85 backdrop-blur-md border-b border-s4e-neutral-divider-10 shadow-s4e-xs h-[52px] px-4 md:px-8 flex items-center gap-3">
       <button
         type="button"
         onClick={() => setOpen(!open)}

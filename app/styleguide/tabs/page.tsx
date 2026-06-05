@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/styleguide/page-header";
+import { PageHero } from "@/components/styleguide/page-hero";
+import { PageBody } from "@/components/styleguide/page-body";
+import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { TabsShowcase, TabsExamples } from "@/sections/tabs/tabs-showcase";
 import { TabsSpecs } from "@/sections/tabs/tabs-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
@@ -12,12 +14,14 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-10 max-w-5xl mx-auto">
-      <PageHeader category="Molecules" title="Tabs" status="stable" description="Horizontal navigation pattern for switching between related views." />
+    <>
+      <PageHero category="Molecules" title="Tabs" status="stable" description="Horizontal navigation pattern for switching between related views."
+        actions={<OpenInFigma />}
+        tabs={<ViewModeTabs />}
+      />
 
-      <div className="mt-12 sm:mt-16">
-        <ViewModeTabs />
-      </div>
+      <PageBody>
+
 
       <ModeAware
         design={
@@ -63,6 +67,7 @@ export default function Page() {
           </div>
         }
       />
-    </div>
+      </PageBody>
+    </>
   );
 }

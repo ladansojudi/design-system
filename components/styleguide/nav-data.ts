@@ -1,5 +1,13 @@
-export type NavItem = { slug: string; label: string };
-export type NavGroup = { label: string; items: NavItem[] };
+import type { ComponentStatus } from "@/components/styleguide/page-header";
+
+// `status` is optional and only set on items worth flagging in the nav. Stable
+// items are left undefined → no marker (keeps the menu quiet). Today these are a
+// handful of illustrative examples; the per-page PageHeader remains the source
+// of truth for a component's real maturity.
+export type NavItem = { slug: string; label: string; status?: ComponentStatus };
+// A group can carry its own status when the whole section is at one maturity
+// (e.g. PATTERNS is alpha — only just being built out).
+export type NavGroup = { label: string; items: NavItem[]; status?: ComponentStatus };
 
 export const navGroups: NavGroup[] = [
   {
@@ -24,20 +32,21 @@ export const navGroups: NavGroup[] = [
       { slug: "button",         label: "Button" },
       { slug: "text-field",     label: "Text Field" },
       { slug: "textarea",       label: "Textarea" },
-      { slug: "checkbox",       label: "Checkbox" },
-      { slug: "select",         label: "Select" },
+      { slug: "checkbox",       label: "Checkbox", status: "beta" },
+      { slug: "select",         label: "Select",   status: "beta" },
       { slug: "severity-badge", label: "Severity Badge" },
       { slug: "switch-radio",   label: "Switch · Radio" },
       { slug: "toast-tooltip",  label: "Toast · Tooltip" },
       { slug: "badge-tag",      label: "Badge · Tag" },
       { slug: "alert",          label: "Alert" },
-      { slug: "banner",         label: "Banner" },
-      { slug: "spinner",        label: "Spinner" },
-      { slug: "skeleton",       label: "Skeleton" },
+      { slug: "banner",         label: "Banner",   status: "deprecated" },
+      { slug: "spinner",        label: "Spinner",  status: "alpha" },
+      { slug: "skeleton",       label: "Skeleton", status: "beta" },
     ],
   },
   {
     label: "PATTERNS",
+    status: "alpha",
     items: [
       { slug: "dashboard", label: "Dashboard" },
     ],
