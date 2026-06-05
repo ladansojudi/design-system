@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] — 2026-06-05
+
+### Added
+
+- **Real syntax highlighting in Dev mode** — every code block now renders through [Shiki](https://shiki.style) with the VS Code "Dark+" theme (pure-JS engine, no WASM shipped to the client). One shared `<HighlightedCode>` component replaces the five hand-rolled regex highlighters that used to live in Installation, example cards, theming, token export and developer notes.
+- **On-this-page TOC** — a sticky "On this page" panel on the right of every component / foundation page (wide screens). Auto-built from each page's section headings via a runtime DOM scan, with an `IntersectionObserver` scrollspy. Works in both Design and Dev mode — a `MutationObserver` re-scans when the view-mode content swaps or async panels (Installation / Developer Notes) finish loading.
+- **Hero band** — full-width, faintly brand-tinted header band wrapping the breadcrumb, title, description and page tabs, closed by a full-width divider at the tab baseline. New `<PageHero>` (with a `fluid` option for full-width pages like Dashboard) and `<PageBody>` (content + TOC column) layout primitives, rolled out across all 40 pages.
+- **Sidebar status markers** — non-stable nav items now show a small colored dot + label (alpha / beta / deprecated); the PATTERNS group is flagged `alpha` at the section level.
+- **"Open in Figma"** — a quiet, in-progress action in every page header's breadcrumb row (disabled placeholder until the Figma files land).
+
+### Changed
+
+- **Top bar** — subtle elevated tint + backdrop blur + soft shadow so the header reads as a distinct bar.
+- Dev-mode **Installation / Developer Notes** panels now render inside the page content column (under the same on-this-page TOC) instead of below the whole page.
+
+### Removed
+
+- The five inline regex syntax highlighters, superseded by Shiki.
+
 ## [1.2.0] — 2026-06-02
 
 ### Added
