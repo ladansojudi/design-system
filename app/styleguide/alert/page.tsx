@@ -18,7 +18,7 @@ export default function AlertPage() {
     <>
       <PageHero
         category="Atoms"
-        title="Alert"
+        title="Alert (Test)"
         status="beta"
         description="Persistent in-page message that announces state the user must read or act on. Distinct from Toast (temporal) and Banner (page-level)."
         actions={<OpenInFigma />}
