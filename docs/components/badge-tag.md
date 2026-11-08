@@ -5,7 +5,7 @@ category: Atom
 status: stable
 source: components/ui/badge-tag.tsx
 styleguide: /styleguide/badge-tag
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=3-58
 apg: N/A (static content)
 ---
 
@@ -71,10 +71,10 @@ Static. No hover, focus or disabled states.
 
 | Role | Token |
 |---|---|
-| Filled bg | `s4e-scale-{green,yellow,red,blue}-50`, `s4e-brand-primary-50`, `s4e-bg-subtle` |
-| Label | `s4e-scale-*-600` (yellow `-700`), `s4e-brand-primary-600`, `s4e-text-secondary` |
-| Dot | `s4e-scale-*-500`, `s4e-brand-primary-500`, `s4e-neutral-grey-400` |
-| Outlined border | `s4e-scale-*-200`, `s4e-brand-primary-200`, `s4e-border-default` |
+| Filled bg | `snt-scale-{green,yellow,red,blue}-50`, `snt-brand-primary-50`, `snt-bg-subtle` |
+| Label | `snt-scale-*-600` (yellow `-700`), `snt-brand-primary-600`, `snt-text-secondary` |
+| Dot | `snt-scale-*-500`, `snt-brand-primary-500`, `snt-neutral-grey-400` |
+| Outlined border | `snt-scale-*-200`, `snt-brand-primary-200`, `snt-border-default` |
 
 ## Design ↔ Code
 
@@ -108,7 +108,7 @@ Exports: `Badge`, `Tag` (`TagProps = BadgeProps`).
 ```
 
 ## Known gaps
-- [ ] The styleguide showcase (`sections/badge-tag/`) still uses `s4e-scale-*-300` border tokens, which don't exist (the scale has no 300 step), so its outlined badges have no coloured border. `components/ui` was fixed to `-200`; decide whether the scale needs a 300 step.
+- [ ] The styleguide showcase (`sections/badge-tag/`) still uses `snt-scale-*-300` border tokens, which don't exist (the scale has no 300 step), so its outlined badges have no coloured border. `components/ui` was fixed to `-200`; decide whether the scale needs a 300 step.
 - [ ] No size scale (`sm` for tables).
 - [ ] No removable-tag variant (✕ button with an accessible name).
 

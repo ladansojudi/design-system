@@ -16,27 +16,27 @@ import {
 function VariantSwatch({ variant }: { variant: "filled" | "outlined" }) {
   if (variant === "filled") {
     return (
-      <span className="inline-block w-4 h-3 rounded-t-[2px] bg-s4e-neutral-grey-100 border-b border-s4e-neutral-grey-400" aria-hidden />
+      <span className="inline-block w-4 h-3 rounded-t-[2px] bg-snt-neutral-grey-100 border-b border-snt-neutral-grey-400" aria-hidden />
     );
   }
   return (
-    <span className="inline-block w-4 h-3 rounded-[2px] border border-s4e-neutral-grey-400" aria-hidden />
+    <span className="inline-block w-4 h-3 rounded-[2px] border border-snt-neutral-grey-400" aria-hidden />
   );
 }
 
 function StateSwatch({ state }: { state: "default" | "focused" | "error" | "disabled" }) {
   const cls = {
-    default:  "border-s4e-neutral-grey-400",
-    focused:  "border-s4e-brand-primary-600",
-    error:    "border-s4e-scale-red-600",
-    disabled: "border-s4e-neutral-grey-200 opacity-50",
+    default:  "border-snt-neutral-grey-400",
+    focused:  "border-snt-brand-primary-600",
+    error:    "border-snt-scale-red-600",
+    disabled: "border-snt-neutral-grey-200 opacity-50",
   }[state];
   return <span className={`inline-block w-4 h-3 rounded-[2px] border-2 ${cls}`} aria-hidden />;
 }
 
 function SizeSwatch({ size }: { size: "sm" | "md" | "lg" }) {
   const h = { sm: 8, md: 11, lg: 14 }[size];
-  return <span className="inline-block w-4 rounded-[2px] border border-s4e-neutral-grey-400" style={{ height: h }} aria-hidden />;
+  return <span className="inline-block w-4 rounded-[2px] border border-snt-neutral-grey-400" style={{ height: h }} aria-hidden />;
 }
 
 // ── Spec section ──────────────────────────────────────────────────────────
@@ -146,11 +146,11 @@ export function TextFieldSpecs() {
 
         <SpacingDiagram width={240} height={40} padX={12} padY={8} radius={8}>
           <div
-            className="absolute inset-0 bg-s4e-surface-app border border-s4e-neutral-grey-300 flex items-center px-3"
+            className="absolute inset-0 bg-snt-surface-app border border-snt-neutral-grey-300 flex items-center px-3"
             style={{ borderRadius: 8 * 1.8 }}
           >
-            <span className="text-[16px] text-s4e-text-primary">Value</span>
-            <span className="absolute -top-[8px] left-2 bg-s4e-surface-app px-1 text-[11px] text-s4e-text-secondary">
+            <span className="text-[16px] text-snt-text-primary">Value</span>
+            <span className="absolute -top-[8px] left-2 bg-snt-surface-app px-1 text-[11px] text-snt-text-secondary">
               Label
             </span>
           </div>

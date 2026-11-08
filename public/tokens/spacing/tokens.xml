@@ -4,11 +4,11 @@
 <resources>
 
     <!-- Colors -->
-    <color name="brand_primary_100">#C7E5FA</color>
-    <color name="brand_primary_200">#8AC8F5</color>
-    <color name="brand_primary_500">#1383D4</color>
-    <color name="text_secondary">#657078</color>
-    <color name="text_disabled">#A7ADB2</color>
+    <color name="brand_primary_100">#E0E3FF</color>
+    <color name="brand_primary_200">#C7CCFE</color>
+    <color name="brand_primary_500">#5B5BD6</color>
+    <color name="text_secondary">#52525B</color>
+    <color name="text_disabled">#A1A1AA</color>
 
     <!-- Spacing -->
     <dimen name="space_3">12dp</dimen>

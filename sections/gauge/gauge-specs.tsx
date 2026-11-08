@@ -12,7 +12,7 @@ import {
 function ColorSwatch({ hex }: { hex: string }) {
   return (
     <span
-      className="inline-block w-3 h-3 rounded-full border border-s4e-neutral-divider-10"
+      className="inline-block w-3 h-3 rounded-full border border-snt-neutral-divider-10"
       style={{ backgroundColor: hex }}
       aria-hidden
     />

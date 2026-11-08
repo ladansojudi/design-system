@@ -4,27 +4,23 @@
 
 :root {
   /* Colors */
-  --s4e-brand-primary-50: #e8f4fd;
-  --s4e-brand-primary-500: #1383d4;
-  --s4e-scale-red-600: #8e2a1f;
-  --s4e-scale-red-700: #712219;
-  --s4e-neutral-grey-300: #dfe2e2;
-  --s4e-surface-app: #ffffff;
-  --s4e-text-primary: #121f28;
-  --s4e-text-secondary: #657078;
-  --s4e-text-disabled: #a7adb2;
-  --s4e-text-on-accent: #ffffff;
-  --s4e-btn-primary-50: #ebf2f7;
+  --snt-brand-primary-50: #eef0ff;
+  --snt-brand-primary-500: #5b5bd6;
+  --snt-surface-app: #ffffff;
+  --snt-text-primary: #09090b;
+  --snt-text-secondary: #52525b;
+  --snt-text-disabled: #a1a1aa;
+  --snt-btn-primary-50: #eef0ff;
 
   /* Spacing */
-  --space-8: 32px;
-  --space-4: 16px;
-  --space-3: 12px;
-  --space-1: 4px;
   --space-2: 8px;
-  --space-5: 20px;
+  --space-4: 16px;
   --space-10: 40px;
   --space-6: 24px;
+  --space-5: 20px;
+  --space-3: 12px;
+  --space-1: 4px;
+  --space-8: 32px;
 
   /* Radius */
   --radius-lg: 8px;
@@ -44,7 +40,4 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-
-  /* Focus ring */
-  --ring-width-2: 2px;
 }

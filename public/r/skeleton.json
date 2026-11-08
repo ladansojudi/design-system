@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "A pulsing placeholder that mirrors the shape of content while it loads.",
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/skeleton.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — Skeleton\n *\n * Drop this file into your project at components/ui/skeleton.tsx.\n *\n * Requires:\n *   • Tailwind CSS v4\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n *   • The `snt-pulse-dot` keyframe utility from tokens.css.\n *\n * Usage:\n *   <Skeleton className=\"h-3 w-48\" />            // line\n *   <Skeleton className=\"h-16 w-48\" />           // block\n *   <Skeleton className=\"h-10 w-10 rounded-full\" />  // avatar\n */\n\nexport const Skeleton = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>(\n  ({ className, ...props }, ref) => (\n    <span\n      ref={ref}\n      aria-hidden\n      className={cn(\"block bg-snt-neutral-grey-200 rounded-md snt-pulse-dot\", className)}\n      {...props}\n    />\n  ),\n);\nSkeleton.displayName = \"Skeleton\";\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "beta"
+  },
+  "docs": "Skeleton (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/skeleton.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { cn } from "@/lib/utils";
+import { Badge as UIBadge } from "@/components/ui/badge-tag";
 import { Copyable } from "@/components/styleguide/copyable";
 import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
@@ -11,56 +11,26 @@ import { type Platform } from "@/components/styleguide/platform-provider";
 type BadgeColor = "warning" | "error" | "success" | "neutral" | "info" | "primary";
 type DotPosition = "left" | "right";
 
-type BadgeConfig = {
-  label: string;
-  bg: string;
-  text: string;
-  dot: string;
-  border: string;
-};
+type BadgeConfig = { label: string };
 
 const BADGE_COLORS: Record<BadgeColor, BadgeConfig> = {
   warning: {
     label:  "Warning",
-    bg:     "bg-s4e-scale-yellow-50",
-    text:   "text-s4e-scale-yellow-700",
-    dot:    "bg-s4e-scale-yellow-500",
-    border: "border-s4e-scale-yellow-300",
   },
   error: {
     label:  "Error",
-    bg:     "bg-s4e-scale-red-50",
-    text:   "text-s4e-scale-red-600",
-    dot:    "bg-s4e-scale-red-500",
-    border: "border-s4e-scale-red-300",
   },
   success: {
     label:  "Success",
-    bg:     "bg-s4e-scale-green-50",
-    text:   "text-s4e-scale-green-600",
-    dot:    "bg-s4e-scale-green-500",
-    border: "border-s4e-scale-green-300",
   },
   neutral: {
     label:  "Neutral",
-    bg:     "bg-s4e-neutral-grey-100",
-    text:   "text-s4e-text-secondary",
-    dot:    "bg-s4e-neutral-grey-400",
-    border: "border-s4e-neutral-divider-10",
   },
   info: {
     label:  "Info",
-    bg:     "bg-s4e-scale-blue-50",
-    text:   "text-s4e-scale-blue-600",
-    dot:    "bg-s4e-scale-blue-500",
-    border: "border-s4e-scale-blue-300",
   },
   primary: {
     label:  "Primary",
-    bg:     "bg-s4e-brand-primary-50",
-    text:   "text-s4e-brand-primary-600",
-    dot:    "bg-s4e-brand-primary-500",
-    border: "border-s4e-brand-primary-200",
   },
 };
 
@@ -74,7 +44,7 @@ function badgeSnippets(
   opts: { showDot?: boolean; dotPosition?: DotPosition; outlined?: boolean } = {},
 ): Record<Platform, string> {
   const { showDot = true, dotPosition = "left", outlined = false } = opts;
-  const reactProps = [`color="${color}"`];
+  const reactProps = [`tone="${color}"`];
   if (!showDot) reactProps.push(`showDot={false}`);
   if (showDot && dotPosition === "right") reactProps.push(`dotPosition="right"`);
   if (outlined) reactProps.push(`outlined`);
@@ -90,9 +60,9 @@ function badgeSnippets(
   if (outlined) xmlProps.push(`app:outlined="true"`);
 
   return {
-    react: `<BadgeTag ${reactProps.join(" ")}>${label}</BadgeTag>`,
+    react: `<Badge ${reactProps.join(" ")}>${label}</Badge>`,
     swift: `BadgeTag("${label}", ${swiftArgs.join(", ")})`,
-    xml:   `<com.s4e.ui.BadgeTag\n    ${xmlProps.join("\n    ")} />`,
+    xml:   `<com.sentinel.ui.BadgeTag\n    ${xmlProps.join("\n    ")} />`,
   };
 }
 
@@ -109,24 +79,12 @@ function Badge({
   dotPosition?: DotPosition;
   outlined?: boolean;
 }) {
-  const cfg = BADGE_COLORS[color];
-  const dot = (
-    <span className={cn("inline-block w-[7px] h-[7px] rounded-full shrink-0", cfg.dot)} />
-  );
-
+  // The real component from components/ui — the styleguide renders exactly
+  // what ships.
   return (
-    <div
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium",
-        outlined
-          ? cn("border bg-transparent", cfg.border, cfg.text)
-          : cn(cfg.bg, cfg.text),
-      )}
-    >
-      {showDot && dotPosition === "left" && dot}
-      <span>{cfg.label}</span>
-      {showDot && dotPosition === "right" && dot}
-    </div>
+    <UIBadge tone={color} showDot={showDot} dotPosition={dotPosition} outlined={outlined}>
+      {BADGE_COLORS[color].label}
+    </UIBadge>
   );
 }
 
@@ -135,8 +93,8 @@ function Badge({
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
     </div>
   );
 }
@@ -150,11 +108,11 @@ export function BadgeTagShowcase() {
       {/* With dot */}
       <div>
         <SectionTitle>With Dot</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
             {/* Dot left */}
             <div>
-              <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+              <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
                 Dot Left
               </p>
               <div className="space-y-2">
@@ -173,7 +131,7 @@ export function BadgeTagShowcase() {
 
             {/* Dot right */}
             <div>
-              <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+              <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
                 Dot Right
               </p>
               <div className="space-y-2">
@@ -191,11 +149,11 @@ export function BadgeTagShowcase() {
       {/* Without dot */}
       <div>
         <SectionTitle>Without Dot</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
             {/* Filled */}
             <div>
-              <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+              <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
                 Filled
               </p>
               <div className="space-y-2">
@@ -214,7 +172,7 @@ export function BadgeTagShowcase() {
 
             {/* Outlined */}
             <div>
-              <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+              <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
                 Outlined
               </p>
               <div className="space-y-2">

@@ -7,7 +7,7 @@ import { TopBarShowcase } from "@/sections/top-bar/top-bar-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Top Bar — Design System",
+  title: "Top Bar — Sentinel Design System",
 };
 
 export default function Page() {
@@ -32,9 +32,9 @@ export default function Page() {
           { label: "Avatar",          description: "Circular initial badge that opens the account menu on click." },
         ]}
       >
-        <div className="w-full max-w-2xl flex items-center h-[52px] px-4 bg-s4e-surface-app border border-s4e-neutral-divider-10 rounded-xl">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-s4e-scale-red-50 text-s4e-scale-red-600">
-            <span className="s4e-pulse-dot w-[7px] h-[7px] rounded-full bg-s4e-scale-red-500 shrink-0" />
+        <div className="w-full max-w-2xl flex items-center h-[52px] px-4 bg-snt-surface-app border border-snt-neutral-divider-10 rounded-xl">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-snt-scale-red-50 text-snt-scale-red-600">
+            <span className="snt-pulse-dot w-[7px] h-[7px] rounded-full bg-snt-scale-red-500 shrink-0" />
             <span className="text-[11px] font-semibold">Test Mode</span>
           </span>
           <div className="ml-auto flex items-center gap-1">
@@ -42,13 +42,13 @@ export default function Page() {
               <Sparkles size={14} className="ai-gradient-icon" />
               <span className="ai-gradient-text">Ask AI</span>
             </span>
-            <span className="w-px h-5 bg-s4e-neutral-divider-10 mx-1.5" />
-            <span className="relative w-8 h-8 rounded-lg flex items-center justify-center text-s4e-text-secondary">
+            <span className="w-px h-5 bg-snt-neutral-divider-10 mx-1.5" />
+            <span className="relative w-8 h-8 rounded-lg flex items-center justify-center text-snt-text-secondary">
               <Bell size={15} />
-              <span className="absolute top-1.5 right-1.5 w-[7px] h-[7px] rounded-full bg-s4e-scale-red-500 ring-2 ring-s4e-surface-app" />
+              <span className="absolute top-1.5 right-1.5 w-[7px] h-[7px] rounded-full bg-snt-scale-red-500 ring-2 ring-snt-surface-app" />
             </span>
-            <span className="w-px h-5 bg-s4e-neutral-divider-10 mx-1.5" />
-            <span className="w-8 h-8 rounded-full bg-s4e-neutral-grey-200 border border-s4e-neutral-divider-10 text-s4e-text-primary text-[12px] font-semibold flex items-center justify-center">S</span>
+            <span className="w-px h-5 bg-snt-neutral-divider-10 mx-1.5" />
+            <span className="w-8 h-8 rounded-full bg-snt-neutral-grey-200 border border-snt-neutral-divider-10 text-snt-text-primary text-[12px] font-semibold flex items-center justify-center">S</span>
           </div>
         </div>
       </Anatomy>

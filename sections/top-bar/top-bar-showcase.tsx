@@ -10,8 +10,8 @@ import { cn } from "@/lib/utils";
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
     </div>
   );
 }
@@ -24,9 +24,9 @@ function TestModePill({ onClick }: { onClick: () => void }) {
       type="button"
       onClick={onClick}
       title="Click to exit Test Mode"
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-s4e-scale-red-50 hover:bg-s4e-scale-red-100 text-s4e-scale-red-600 transition-colors"
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-snt-scale-red-50 hover:bg-snt-scale-red-100 text-snt-scale-red-600 transition-colors"
     >
-      <span className="s4e-pulse-dot w-[7px] h-[7px] rounded-full bg-s4e-scale-red-500 shrink-0" />
+      <span className="snt-pulse-dot w-[7px] h-[7px] rounded-full bg-snt-scale-red-500 shrink-0" />
       <span className="text-[11px] font-semibold">Test Mode</span>
     </button>
   );
@@ -40,7 +40,7 @@ function TestModeTrigger({ onClick }: { onClick: () => void }) {
       type="button"
       onClick={onClick}
       title="Preview the dashboard with demo data"
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-dashed border-s4e-neutral-divider-10 text-s4e-text-disabled hover:border-s4e-brand-primary-500 hover:text-s4e-brand-primary-500 transition-colors"
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-dashed border-snt-neutral-divider-10 text-snt-text-disabled hover:border-snt-brand-primary-500 hover:text-snt-brand-primary-500 transition-colors"
     >
       <FlaskConical size={12} />
       <span className="text-[11px] font-medium">Try demo data</span>
@@ -74,10 +74,10 @@ function NotificationBell() {
     <button
       type="button"
       title="Notifications"
-      className="relative w-8 h-8 rounded-lg hover:bg-s4e-neutral-grey-100 flex items-center justify-center text-s4e-text-secondary hover:text-s4e-text-primary transition-colors"
+      className="relative w-8 h-8 rounded-lg hover:bg-snt-neutral-grey-100 flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors"
     >
       <Bell size={15} />
-      <span className="absolute top-1.5 right-1.5 w-[7px] h-[7px] rounded-full bg-s4e-scale-red-500 ring-2 ring-s4e-surface-app" />
+      <span className="absolute top-1.5 right-1.5 w-[7px] h-[7px] rounded-full bg-snt-scale-red-500 ring-2 ring-snt-surface-app" />
     </button>
   );
 }
@@ -89,7 +89,7 @@ function Avatar() {
     <button
       type="button"
       title="Account"
-      className="w-8 h-8 rounded-full bg-s4e-neutral-grey-200 border border-s4e-neutral-divider-10 text-s4e-text-primary text-[12px] font-semibold flex items-center justify-center hover:border-s4e-brand-primary-500 transition-colors"
+      className="w-8 h-8 rounded-full bg-snt-neutral-grey-200 border border-snt-neutral-divider-10 text-snt-text-primary text-[12px] font-semibold flex items-center justify-center hover:border-snt-brand-primary-500 transition-colors"
     >
       S
     </button>
@@ -106,7 +106,7 @@ function TopBar({
   onToggleTest: () => void;
 }) {
   return (
-    <div className="flex items-center h-[52px] px-4 bg-s4e-surface-app border border-s4e-neutral-divider-10 rounded-xl">
+    <div className="flex items-center h-[52px] px-4 bg-snt-surface-app border border-snt-neutral-divider-10 rounded-xl">
       {/* Left */}
       <div className="flex items-center">
         {testMode
@@ -118,9 +118,9 @@ function TopBar({
       {/* Right */}
       <div className="ml-auto flex items-center gap-1">
         <AskAIButton />
-        <div className="w-px h-5 bg-s4e-neutral-divider-10 mx-1.5" />
+        <div className="w-px h-5 bg-snt-neutral-divider-10 mx-1.5" />
         <NotificationBell />
-        <div className="w-px h-5 bg-s4e-neutral-divider-10 mx-1.5" />
+        <div className="w-px h-5 bg-snt-neutral-divider-10 mx-1.5" />
         <Avatar />
       </div>
     </div>
@@ -138,8 +138,8 @@ export function TopBarShowcase() {
       {/* Interactive */}
       <div>
         <SectionTitle>Interactive</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-8 bg-s4e-neutral-grey-100/40">
-          <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-4 text-center">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-8 bg-snt-neutral-grey-100/40">
+          <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-4 text-center">
             Click the Test Mode pill to toggle · Hover Ask AI for the shimmer
           </p>
           <TopBar testMode={interactive} onToggleTest={() => setInteractive(!interactive)} />
@@ -149,15 +149,15 @@ export function TopBarShowcase() {
       {/* Variants */}
       <div>
         <SectionTitle>Variants</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-6">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-6">
 
           <div>
-            <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">Test Mode · On</p>
+            <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">Test Mode · On</p>
             <TopBar testMode onToggleTest={() => {}} />
           </div>
 
           <div>
-            <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">Test Mode · Off</p>
+            <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">Test Mode · Off</p>
             <TopBar testMode={false} onToggleTest={() => {}} />
           </div>
 
@@ -167,12 +167,12 @@ export function TopBarShowcase() {
       {/* Ask AI focus */}
       <div>
         <SectionTitle>Ask AI · Hover Effect</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-8 flex items-center justify-center">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-8 flex items-center justify-center">
           <div className={cn(
-            "inline-flex items-center gap-2 p-4 rounded-xl bg-s4e-neutral-grey-100/50",
+            "inline-flex items-center gap-2 p-4 rounded-xl bg-snt-neutral-grey-100/50",
           )}>
             <AskAIButton />
-            <span className="text-[11px] text-s4e-text-disabled ml-2">← hover me</span>
+            <span className="text-[11px] text-snt-text-disabled ml-2">← hover me</span>
           </div>
         </div>
       </div>

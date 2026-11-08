@@ -5,7 +5,7 @@ category: Atom
 status: stable
 source: components/ui/textarea.tsx
 styleguide: /styleguide/textarea
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-134
 apg: N/A (native <textarea>)
 ---
 
@@ -74,11 +74,11 @@ A multi-line plain-text input for notes, descriptions and justifications.
 
 | Role | Token |
 |---|---|
-| Background | `s4e-surface-row` |
-| Border default / focus / error / disabled | `s4e-border-strong` / `s4e-border-focus` / `s4e-border-error` / `s4e-neutral-grey-200` |
-| Focus ring | `s4e-focus-ring` @ 20% |
-| Text / placeholder / helper | `s4e-text-primary` / `s4e-text-secondary` / `s4e-text-secondary` |
-| Counter warning | `s4e-scale-yellow-700` |
+| Background | `snt-surface-row` |
+| Border default / focus / error / disabled | `snt-border-strong` / `snt-border-focus` / `snt-border-error` / `snt-neutral-grey-200` |
+| Focus ring | `snt-focus-ring` @ 20% |
+| Text / placeholder / helper | `snt-text-primary` / `snt-text-secondary` / `snt-text-secondary` |
+| Counter warning | `snt-scale-yellow-700` |
 
 ## Design ↔ Code
 

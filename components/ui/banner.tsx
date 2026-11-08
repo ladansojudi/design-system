@@ -5,14 +5,14 @@ import { Megaphone, Sparkles, AlertTriangle, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Banner
+ * sentinel/ui — Banner
  *
  * Drop this file into your project at components/ui/banner.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  *   • lucide-react for icons.
  */
 
@@ -40,21 +40,21 @@ type ToneConfig = {
 
 const TONE_CLASS: Record<Tone, ToneConfig> = {
   neutral: {
-    bg:    "bg-s4e-btn-neutral-800",
-    text:  "text-s4e-text-white",
-    hover: "hover:bg-s4e-text-white/10",
+    bg:    "bg-snt-btn-neutral-800",
+    text:  "text-snt-text-white",
+    hover: "hover:bg-snt-text-white/10",
     icon:  Megaphone,
   },
   promo: {
-    bg:    "bg-s4e-btn-primary-600",
-    text:  "text-s4e-text-white",
-    hover: "hover:bg-s4e-text-white/10",
+    bg:    "bg-snt-btn-primary-600",
+    text:  "text-snt-text-white",
+    hover: "hover:bg-snt-text-white/10",
     icon:  Sparkles,
   },
   warning: {
-    bg:    "bg-s4e-scale-yellow-500",
-    text:  "text-s4e-btn-neutral-800",
-    hover: "hover:bg-s4e-btn-neutral-800/10",
+    bg:    "bg-snt-scale-yellow-500",
+    text:  "text-snt-btn-neutral-800",
+    hover: "hover:bg-snt-btn-neutral-800/10",
     icon:  AlertTriangle,
   },
 };
@@ -94,11 +94,11 @@ export const Banner = React.forwardRef<HTMLDivElement, BannerProps>(
         {...props}
       >
         <Icon size={14} className="shrink-0" />
-        <div className="flex-1 min-w-0 text-[12px] leading-tight">{message}</div>
+        <div className="flex-1 min-w-0 text-snt-12 leading-tight">{message}</div>
         {cta && (
           <a
             href={cta.href ?? "#"}
-            className="text-[11px] font-semibold underline underline-offset-2 hover:opacity-80 shrink-0"
+            className="text-snt-11 font-semibold underline underline-offset-2 hover:opacity-80 shrink-0"
           >
             {cta.label}
           </a>

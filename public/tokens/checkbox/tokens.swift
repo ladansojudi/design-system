@@ -7,15 +7,11 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
-    static let neutralGrey400 = UIColor(hex: "#C9CFCF")
-    static let neutralGrey600 = UIColor(hex: "#667070")
-    static let surfaceRow = UIColor(hex: "#FFFFFF")
-    static let textPrimary = UIColor(hex: "#121F28")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
-    static let textOnAccent = UIColor(hex: "#FFFFFF")
-    static let btnNeutral800 = UIColor(hex: "#202323")
-    static let btnPrimary600 = UIColor(hex: "#0F69AA")
+    static let neutralGrey400 = UIColor(hex: "#8F8F98")
+    static let textPrimary = UIColor(hex: "#09090B")
+    static let textDisabled = UIColor(hex: "#A1A1AA")
+    static let btnNeutral800 = UIColor(hex: "#18181B")
+    static let btnPrimary600 = UIColor(hex: "#4F46E5")
 }
 
 // MARK: - Sizing (CGFloat)
@@ -43,12 +39,6 @@ extension CGFloat {
     static let fontSize11: CGFloat = 11
     static let fontSize14: CGFloat = 14
     static let fontSize15: CGFloat = 15
-
-    // Focus ring width
-    static let ringWidth2: CGFloat = 2
-
-    // Focus ring offset
-    static let ringOffset1: CGFloat = 1
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)

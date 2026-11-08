@@ -61,7 +61,7 @@ function Card({ c }: { c: CardCfg }) {
   return (
     <div
       style={{ background: c.bg, color: c.fg }}
-      className="rounded-md px-7 py-7 ring-1 ring-inset ring-s4e-neutral-divider-10"
+      className="rounded-md px-7 py-7 ring-1 ring-inset ring-snt-neutral-divider-10"
     >
       <h3 className="text-[19px] font-semibold mb-1" style={{ color: c.accent }}>
         {c.title}
@@ -83,8 +83,8 @@ export function PreviewPanel({ palettes }: { palettes: Palette[] }) {
   return (
     <div>
       <div className="flex items-center gap-3 mb-5">
-        <h2 className="text-[15px] font-semibold text-s4e-text-primary">Kullanım Önizlemesi</h2>
-        <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-s4e-brand-primary-500/10 text-s4e-brand-primary-500">
+        <h2 className="text-[15px] font-semibold text-snt-text-primary">Kullanım Önizlemesi</h2>
+        <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-snt-brand-primary-500/10 text-snt-brand-primary-500">
           Aktif tema
         </span>
       </div>

@@ -19,7 +19,6 @@ const OUT_DIR = path.join(ROOT, "public", "components");
 // scaffolding or third-party wrappers we don't want users to copy.
 const EXCLUDE = new Set([
   "scroll-area.tsx",  // utility used by sidebar, not a documented component
-  "card.tsx",         // unused shadcn scaffold; Cards organism uses cards.tsx
 ]);
 
 fs.mkdirSync(OUT_DIR, { recursive: true });

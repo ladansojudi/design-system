@@ -10,7 +10,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Filter Bar — Design System",
+  title: "Filter Bar — Sentinel Design System",
 };
 
 export default function Page() {
@@ -37,10 +37,10 @@ export default function Page() {
                 { label: "Actions",       description: "Right-aligned buttons (Export, Bulk Actions) separated from filters." },
               ]}
             >
-              <div className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-s4e-brand-primary-500 bg-s4e-btn-primary-50 text-s4e-brand-primary-500 text-[12px] font-medium">
+              <div className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-snt-brand-primary-500 bg-snt-btn-primary-50 text-snt-brand-primary-500 text-[12px] font-medium">
                 <Tag size={12} className="opacity-70" />
                 <span>Tags</span>
-                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-white text-[10px] font-bold">2</span>
+                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-snt-brand-primary-500 text-white text-[10px] font-bold">2</span>
                 <ChevronDown size={11} className="opacity-50" />
               </div>
             </Anatomy>

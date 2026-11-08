@@ -5,7 +5,7 @@ category: Atom
 status: stable
 source: components/ui/severity-badge.tsx
 styleguide: /styleguide/severity-badge
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=3-96
 apg: N/A (static content)
 ---
 
@@ -20,7 +20,7 @@ The canonical way to show a finding's severity (Critical → Info), optionally w
 
 ### When not to use
 - Generic statuses (Active, Failed) → [Badge](./badge-tag.md).
-- Aggregate severity charts → [Chart](./chart.md), which uses the same `s4e-severity-*` palette.
+- Aggregate severity charts → [Chart](./chart.md), which uses the same `snt-severity-*` palette.
 
 ## Anatomy
 
@@ -70,10 +70,10 @@ Static.
 
 | Role | Token |
 |---|---|
-| Background | `s4e-scale-{purple,red,yellow,green,blue}-50` |
-| Accent | `s4e-scale-*-500` |
-| Text | `s4e-scale-*-600` (yellow `-700`) |
-| Data-viz equivalent | `--s4e-severity-{critical,high,medium,low,info}` |
+| Background | `snt-scale-{purple,red,yellow,green,blue}-50` |
+| Accent | `snt-scale-*-500` |
+| Text | `snt-scale-*-600` (yellow `-700`) |
+| Data-viz equivalent | `--snt-severity-{critical,high,medium,low,info}` |
 
 ## Design ↔ Code
 
@@ -99,7 +99,7 @@ Static.
 
 ## Known gaps
 - [ ] The fixed `w-40` width doesn't adapt to narrow columns. Add a `size="sm"` / auto-width option.
-- [ ] Uses primitive `scale-*` tokens. It should use the semantic `s4e-severity-*` tokens so chart and badge colours can't drift apart.
+- [ ] Uses primitive `scale-*` tokens. It should use the semantic `snt-severity-*` tokens so chart and badge colours can't drift apart.
 - [ ] No compact dot-only variant for dense lists (it would need hidden text).
 
 ## Related

@@ -5,7 +5,7 @@ category: Organism
 status: stable
 source: components/ui/empty-state.tsx
 styleguide: /styleguide/empty-state
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=11-50
 apg: N/A
 ---
 
@@ -75,10 +75,10 @@ Fills a region that has no content yet. It explains why it's empty and what to d
 
 | Role | Token |
 |---|---|
-| Container border / surface | `s4e-border-default` / `s4e-surface-app` |
-| Icon circle (neutral / warning / alert) | `s4e-bg-subtle` / `s4e-bg-warning-subtle` + `-600` / `s4e-bg-error-subtle` + `-600` |
-| Title / description | `s4e-text-primary` / `s4e-text-secondary` |
-| Primary action | `s4e-brand-primary-500` (hover `-600`) / `s4e-text-white` |
+| Container border / surface | `snt-border-default` / `snt-surface-app` |
+| Icon circle (neutral / warning / alert) | `snt-bg-subtle` / `snt-bg-warning-subtle` + `-600` / `snt-bg-error-subtle` + `-600` |
+| Title / description | `snt-text-primary` / `snt-text-secondary` |
+| Primary action | `snt-brand-primary-500` (hover `-600`) / `snt-text-white` |
 
 ## Design ↔ Code
 

@@ -5,7 +5,7 @@ category: Atom
 status: stable
 source: components/ui/button.tsx
 styleguide: /styleguide/button
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=3-2
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/button/
 ---
 
@@ -67,7 +67,7 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 | Hover | One step darker bg (`*-700`) or tinted bg for outline / ghost | Pointer cursor |
 | Focus (keyboard) | 2px ring + 2px offset in the intent colour | Only on `:focus-visible`, never on mouse click |
 | Active / pressed | Inherits hover | — |
-| Loading | Label replaced by spinner | `disabled` is set while loading. Double submit is impossible. |
+| Loading | Spinner over the (transparent) label | Width stays put, the label stays readable to screen readers, `aria-busy` is set and the button is disabled — no double submit. |
 | Disabled | 40% opacity, `not-allowed` cursor | Not focusable. Avoid it when you can (see Do / Don't). |
 
 ## Content guidelines
@@ -104,15 +104,15 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 
 | Role | Token |
 |---|---|
-| Primary bg / hover | `s4e-btn-primary-600` / `s4e-btn-primary-700` |
-| Destructive bg / hover | `s4e-btn-error-600` / `s4e-btn-error-700` |
-| Default solid bg / hover | `s4e-text-primary` / `s4e-neutral-grey-800` |
-| Label on solid | `s4e-text-on-accent`, `s4e-text-inverse` |
-| Outline / ghost label | `s4e-text-link`, `s4e-text-error`, `s4e-text-primary` |
-| Outline border | `s4e-border-strong` |
-| Tinted hover | `s4e-bg-brand-subtle`, `s4e-bg-error-subtle`, `s4e-bg-subtle` |
-| Focus ring | `s4e-focus-ring`, `s4e-focus-ring-error`, `s4e-neutral-grey-300…500` |
-| Ring offset | `s4e-surface-app` |
+| Primary bg / hover | `snt-btn-primary-600` / `snt-btn-primary-700` |
+| Destructive bg / hover | `snt-btn-error-600` / `snt-btn-error-700` |
+| Default solid bg / hover | `snt-text-primary` / `snt-neutral-grey-800` |
+| Label on solid | `snt-text-on-accent`, `snt-text-inverse` |
+| Outline / ghost label | `snt-text-link`, `snt-text-error`, `snt-text-primary` |
+| Outline border | `snt-border-strong` |
+| Tinted hover | `snt-bg-brand-subtle`, `snt-bg-error-subtle`, `snt-bg-subtle` |
+| Focus ring | `snt-focus-ring`, `snt-focus-ring-error`, `snt-neutral-grey-300…500` |
+| Ring offset | `snt-surface-app` |
 
 ## Design ↔ Code
 
@@ -137,6 +137,8 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 | `type` | `"button" \| "submit" \| "reset"` | `"button"` | Native type |
 | …rest | `ButtonHTMLAttributes` | — | Forwarded to `<button>`; `ref` forwarded |
 
+Also exported: `buttonVariants({ intent, variant, size, iconOnly })` — the class string, for links that should look like buttons. Button has no `"use client"`, so both work in Server Components.
+
 ## Examples
 
 ```tsx
@@ -148,13 +150,13 @@ import { Trash2, Play } from "lucide-react";
 <Button intent="destructive"><Trash2 size={14} aria-hidden /> Delete asset</Button>
 <Button iconOnly variant="ghost" intent="default" aria-label="Run again"><Play size={16} aria-hidden /></Button>
 <Button type="submit" loading={isSaving}>Save changes</Button>
+
+// Navigation that looks like a button — a real link, not a <button>
+<Link href="/scans" className={buttonVariants({ intent: "default", variant: "outline" })}>View scans</Link>
 ```
 
 ## Known gaps
-- [ ] `loading` swaps the label for a spinner, so the width jumps and screen readers lose the label. Keep the label visually hidden, overlay the spinner, and add `aria-busy`.
-- [ ] No `asChild` / `href` support for link-styled buttons. Consumers hand-roll `<a>` styling.
 - [ ] Hover uses primitive scale tokens (`neutral-grey-800`, `scale-red-50`). Move to semantic `bg-hover-*` tokens.
-- [ ] Font size is a hard-coded `text-[14px]`. Should use a typography token.
 
 ## Related
 - [Spinner](./spinner.md) · [Modal](./modal.md) · [Filter Bar](./filter-bar.md) · [Tooltip](./toast-tooltip.md)

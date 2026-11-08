@@ -17,22 +17,22 @@ type Color = "warning" | "error" | "success" | "neutral" | "info" | "primary";
 
 function ColorSwatch({ color }: { color: Color }) {
   const cls = {
-    warning: "bg-s4e-scale-yellow-500",
-    error:   "bg-s4e-scale-red-500",
-    success: "bg-s4e-scale-green-500",
-    neutral: "bg-s4e-neutral-grey-400",
-    info:    "bg-s4e-scale-blue-500",
-    primary: "bg-s4e-brand-primary-500",
+    warning: "bg-snt-scale-yellow-500",
+    error:   "bg-snt-scale-red-500",
+    success: "bg-snt-scale-green-500",
+    neutral: "bg-snt-neutral-grey-400",
+    info:    "bg-snt-scale-blue-500",
+    primary: "bg-snt-brand-primary-500",
   }[color];
   return <span className={`inline-block w-3 h-3 rounded-full ${cls}`} aria-hidden />;
 }
 
 function DotPositionSwatch({ side }: { side: "left" | "right" }) {
   return (
-    <span className="inline-flex items-center gap-0.5 w-5 h-3 rounded-full border border-s4e-neutral-divider-10 bg-white px-0.5">
-      {side === "left" && <span className="inline-block w-1.5 h-1.5 rounded-full bg-s4e-brand-primary-500" />}
+    <span className="inline-flex items-center gap-0.5 w-5 h-3 rounded-full border border-snt-neutral-divider-10 bg-white px-0.5">
+      {side === "left" && <span className="inline-block w-1.5 h-1.5 rounded-full bg-snt-brand-primary-500" />}
       <span className="flex-1" />
-      {side === "right" && <span className="inline-block w-1.5 h-1.5 rounded-full bg-s4e-brand-primary-500" />}
+      {side === "right" && <span className="inline-block w-1.5 h-1.5 rounded-full bg-snt-brand-primary-500" />}
     </span>
   );
 }
@@ -119,8 +119,8 @@ export function BadgeTagSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={80} height={24} padX={8} padY={4} radius={12}>
-          <div className="w-full h-full inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-[12px] font-medium bg-s4e-scale-green-50 text-s4e-scale-green-600">
-            <span className="inline-block w-[7px] h-[7px] rounded-full bg-s4e-scale-green-500 shrink-0" />
+          <div className="w-full h-full inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-[12px] font-medium bg-snt-scale-green-50 text-snt-scale-green-600">
+            <span className="inline-block w-[7px] h-[7px] rounded-full bg-snt-scale-green-500 shrink-0" />
             <span>Success</span>
           </div>
         </SpacingDiagram>
@@ -136,7 +136,7 @@ export function BadgeTagSpecs() {
               { label: "Border radius",         values: ["12px"], note: "Full pill — half of height." },
               { label: "Border width",          values: ["1px"], note: "Outlined variant only." },
               { label: "Font size",             values: ["12px"] },
-              { label: "Font weight",           values: ["500"], note: "Inter Medium." },
+              { label: "Font weight",           values: ["500"], note: "Geist Medium." },
               { label: "Dot size",              values: ["8px"], note: "Rounded full circle." },
               { label: "Dot · label gap",       values: ["4px"] },
             ]}

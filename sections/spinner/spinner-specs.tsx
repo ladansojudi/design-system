@@ -15,7 +15,7 @@ function SizeSwatch({ size }: { size: "xs" | "sm" | "md" | "lg" }) {
   const d = { xs: 8, sm: 10, md: 12, lg: 14 }[size];
   return (
     <span
-      className="inline-block rounded-full border-2 border-s4e-neutral-grey-300 border-t-s4e-text-primary"
+      className="inline-block rounded-full border-2 border-snt-neutral-grey-300 border-t-snt-text-primary"
       style={{ width: d, height: d }}
       aria-hidden
     />
@@ -24,13 +24,13 @@ function SizeSwatch({ size }: { size: "xs" | "sm" | "md" | "lg" }) {
 
 function ToneSwatch({ tone }: { tone: "primary" | "neutral" | "white" }) {
   const cls = {
-    primary: "border-s4e-brand-primary-500/30 border-t-s4e-brand-primary-500",
-    neutral: "border-s4e-text-disabled/25 border-t-s4e-text-secondary",
+    primary: "border-snt-brand-primary-500/30 border-t-snt-brand-primary-500",
+    neutral: "border-snt-text-disabled/25 border-t-snt-text-secondary",
     white:   "border-white/40 border-t-white",
   }[tone];
   return (
     <span
-      className={`inline-block w-3 h-3 rounded-full border-2 ${cls} ${tone === "white" ? "bg-s4e-neutral-grey-800" : ""}`}
+      className={`inline-block w-3 h-3 rounded-full border-2 ${cls} ${tone === "white" ? "bg-snt-neutral-grey-800" : ""}`}
       aria-hidden
     />
   );

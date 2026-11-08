@@ -7,36 +7,34 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
-    static let brandPrimary600 = UIColor(hex: "#0F69A9")
+    static let brandPrimary600 = UIColor(hex: "#4F46E5")
     static let scaleYellow500 = UIColor(hex: "#F5BF40")
-    static let textPrimary = UIColor(hex: "#121F28")
+    static let textPrimary = UIColor(hex: "#09090B")
     static let textWhite = UIColor(hex: "#FFFFFF")
-    static let btnNeutral800 = UIColor(hex: "#202323")
-    static let btnPrimary600 = UIColor(hex: "#0F69AA")
+    static let btnNeutral800 = UIColor(hex: "#18181B")
+    static let btnPrimary600 = UIColor(hex: "#4F46E5")
 }
 
 // MARK: - Sizing (CGFloat)
 
 extension CGFloat {
     // Spacing
-    static let space3: CGFloat = 12
-    static let space4: CGFloat = 16
-    static let space1: CGFloat = 4
     static let space2: CGFloat = 8
+    static let space4: CGFloat = 16
     static let space10: CGFloat = 40
+    static let space3: CGFloat = 12
+    static let space1: CGFloat = 4
     static let space6: CGFloat = 24
     static let space8: CGFloat = 32
 
     // Radius
-    static let radiusBase: CGFloat = 4
     static let radiusXl: CGFloat = 12
+    static let radiusBase: CGFloat = 4
 
     // Border width
     static let borderWidth1: CGFloat = 1
 
     // Font size
-    static let fontSize10: CGFloat = 10
     static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
     static let fontSize15: CGFloat = 15

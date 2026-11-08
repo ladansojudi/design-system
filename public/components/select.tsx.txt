@@ -1,18 +1,19 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Select
+ * sentinel/ui — Select
  *
  * Drop this file into your project at components/ui/select.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  *   • lucide-react for the Check / ChevronDown icons.
  */
 
@@ -40,11 +41,11 @@ export interface SelectProps
 }
 
 const BORDER_CLASS: Record<SelectState, string> = {
-  default:  "border-s4e-border-strong",
-  hover:    "border-s4e-neutral-grey-500",
-  focused:  "border-s4e-border-focus",
-  error:    "border-s4e-border-error",
-  disabled: "border-s4e-border-strong",
+  default:  "border-snt-border-strong",
+  hover:    "border-snt-neutral-grey-500",
+  focused:  "border-snt-border-focus",
+  error:    "border-snt-border-error",
+  disabled: "border-snt-border-strong",
 };
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
@@ -69,6 +70,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     const [activeIndex, setActive]   = React.useState(-1);
     const innerRef                   = React.useRef<HTMLDivElement>(null);
     const listRef                    = React.useRef<HTMLDivElement>(null);
+    const triggerRef                 = React.useRef<HTMLButtonElement>(null);
     const typeahead                  = React.useRef({ query: "", timer: 0 });
     React.useImperativeHandle(forwardedRef, () => innerRef.current as HTMLDivElement);
 
@@ -83,7 +85,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     React.useEffect(() => {
       if (!open) return;
       const handler = (e: MouseEvent) => {
-        if (innerRef.current && !innerRef.current.contains(e.target as Node)) {
+        const target = e.target as Node;
+        if (innerRef.current && !innerRef.current.contains(target) && !listRef.current?.contains(target)) {
           setOpen(false);
         }
       };
@@ -100,6 +103,37 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     }, [open, activeIndex]);
 
     const state      = stateProp.toLowerCase() as SelectState;
+    // Place the portalled listbox under the trigger — or above it when there
+    // isn't room below — and keep it there while the page scrolls or resizes.
+    React.useLayoutEffect(() => {
+      if (!open) return;
+      const place = () => {
+        const trigger = triggerRef.current, list = listRef.current;
+        if (!trigger || !list) return;
+        const rect   = trigger.getBoundingClientRect();
+        const gap    = 6;
+        const below  = window.innerHeight - rect.bottom - gap;
+        const above  = rect.top - gap;
+        const wanted = Math.min(list.scrollHeight, 240);
+        const flip   = below < wanted && above > below;
+        const room   = Math.max(120, Math.min(240, flip ? above : below));
+        list.style.left      = `${rect.left}px`;
+        list.style.width     = `${rect.width}px`;
+        list.style.maxHeight = `${room}px`;
+        list.style.top       = flip ? `${rect.top - gap - Math.min(wanted, room)}px` : `${rect.bottom + gap}px`;
+        // Carry a nested theme (e.g. a dark preview panel) into the portal.
+        const themed = trigger.closest<HTMLElement>("[data-snt-theme]");
+        if (themed) list.setAttribute("data-snt-theme", themed.dataset.sntTheme ?? "");
+      };
+      place();
+      window.addEventListener("resize", place);
+      window.addEventListener("scroll", place, true);
+      return () => {
+        window.removeEventListener("resize", place);
+        window.removeEventListener("scroll", place, true);
+      };
+    }, [open]);
+
     const isError    = state === "error";
     const isDisabled = disabled || state === "disabled";
     const isFocused  = state === "focused" || open;
@@ -200,8 +234,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             id={labelId}
             htmlFor={triggerId}
             className={cn(
-              "block text-[11px] font-medium mb-1.5",
-              isError ? "text-s4e-text-error" : "text-s4e-text-secondary",
+              "block text-snt-11 font-medium mb-1.5",
+              isError ? "text-snt-text-error" : "text-snt-text-secondary",
             )}
           >
             {label}
@@ -209,6 +243,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
         )}
         <div className="relative">
           <button
+            ref={triggerRef}
             id={triggerId}
             type="button"
             role="combobox"
@@ -223,17 +258,17 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             aria-invalid={isError || undefined}
             aria-describedby={message ? helperId : undefined}
             className={cn(
-              "w-full flex items-center justify-between gap-2 h-9 px-3 rounded-md text-[14px] text-left transition-colors",
-              "border", borderClass, "bg-s4e-surface-row",
+              "w-full flex items-center justify-between gap-2 h-9 px-3 rounded-md text-snt-14 text-left transition-colors",
+              "border", borderClass, "bg-snt-surface-row",
               isDisabled
                 ? "opacity-40 cursor-not-allowed"
-                : "cursor-pointer hover:border-s4e-neutral-grey-500 focus:outline-none focus:border-s4e-border-focus focus-visible:ring-2 focus-visible:ring-s4e-focus-ring/40",
-              isFocused && !isError && "ring-2 ring-s4e-focus-ring/20",
+                : "cursor-pointer hover:border-snt-neutral-grey-500 focus:outline-none focus:border-snt-border-focus focus-visible:ring-2 focus-visible:ring-snt-focus-ring/40",
+              isFocused && !isError && "ring-2 ring-snt-focus-ring/20",
             )}
           >
             <span
               className={cn(
-                selected ? "text-s4e-text-primary" : "text-s4e-text-secondary",
+                selected ? "text-snt-text-primary" : "text-snt-text-secondary",
                 "truncate",
               )}
             >
@@ -243,19 +278,21 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               size={14}
               aria-hidden
               className={cn(
-                "shrink-0 text-s4e-text-secondary transition-transform",
+                "shrink-0 text-snt-text-secondary transition-transform",
                 open && "rotate-180",
               )}
             />
           </button>
 
-          {open && !isDisabled && (
+          {open && !isDisabled && createPortal(
             <div
               ref={listRef}
               id={listId}
               role="listbox"
               aria-labelledby={label ? labelId : undefined}
-              className="absolute z-20 left-0 right-0 mt-1.5 max-h-60 overflow-auto rounded-md border border-s4e-border-default bg-s4e-surface-row shadow-s4e-lg"
+              // Portalled to <body> so overflow:hidden parents can't clip it;
+              // z-toast keeps it above modals. Position is set in the layout effect.
+              className="fixed z-toast top-0 left-0 overflow-auto rounded-md border border-snt-border-default bg-snt-surface-row shadow-snt-lg"
             >
               {options.map((opt, i) => {
                 const isSel    = opt.value === value;
@@ -272,30 +309,31 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                     onMouseEnter={() => !opt.disabled && setActive(i)}
                     onClick={() => commit(i)}
                     className={cn(
-                      "w-full flex items-center justify-between gap-2 px-3 py-2 text-[14px] text-left",
+                      "w-full flex items-center justify-between gap-2 px-3 py-2 text-snt-14 text-left",
                       opt.disabled
-                        ? "text-s4e-text-disabled cursor-not-allowed"
-                        : "text-s4e-text-primary cursor-pointer",
-                      isActive && !opt.disabled && "bg-s4e-surface-row-hover",
-                      isSel && !isActive && "bg-s4e-brand-primary-500/8",
+                        ? "text-snt-text-disabled cursor-not-allowed"
+                        : "text-snt-text-primary cursor-pointer",
+                      isActive && !opt.disabled && "bg-snt-surface-row-hover",
+                      isSel && !isActive && "bg-snt-brand-primary-500/8",
                     )}
                   >
                     <span className="truncate">{opt.label}</span>
                     {isSel && (
-                      <Check size={14} aria-hidden className="text-s4e-brand-primary-500 shrink-0" />
+                      <Check size={14} aria-hidden className="text-snt-brand-primary-500 shrink-0" />
                     )}
                   </div>
                 );
               })}
-            </div>
+            </div>,
+            document.body,
           )}
         </div>
         {message && (
           <div
             id={helperId}
             className={cn(
-              "mt-1 text-[11px] leading-tight",
-              isError ? "text-s4e-text-error" : "text-s4e-text-secondary",
+              "mt-1 text-snt-11 leading-tight",
+              isError ? "text-snt-text-error" : "text-snt-text-secondary",
             )}
           >
             {message}

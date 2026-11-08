@@ -34,10 +34,10 @@ const RANGE = ["7 Days", "30 Days", "90 Days"] as const;
 
 function MiniStat({ label, value, sub }: { label: string; value: React.ReactNode; sub: string }) {
   return (
-    <div className="border border-s4e-neutral-divider-10 rounded-lg px-3 py-2">
-      <div className="text-[16px] font-bold text-s4e-text-primary tabular-nums leading-none">{value}</div>
-      <div className="text-[11px] text-s4e-text-secondary mt-1">{sub}</div>
-      <div className="text-[10px] text-s4e-text-disabled">{label}</div>
+    <div className="border border-snt-neutral-divider-10 rounded-lg px-3 py-2">
+      <div className="text-[16px] font-bold text-snt-text-primary tabular-nums leading-none">{value}</div>
+      <div className="text-[11px] text-snt-text-secondary mt-1">{sub}</div>
+      <div className="text-[10px] text-snt-text-disabled">{label}</div>
     </div>
   );
 }
@@ -46,7 +46,7 @@ function PortChips({ ports }: { ports: number[] }) {
   return (
     <div className="flex flex-wrap gap-1">
       {ports.map((p, i) => (
-        <span key={i} className="inline-flex items-center px-1.5 py-0.5 rounded bg-s4e-scale-blue-50 text-s4e-scale-blue-600 text-[10px] font-medium tabular-nums">
+        <span key={i} className="inline-flex items-center px-1.5 py-0.5 rounded bg-snt-scale-blue-50 text-snt-scale-blue-600 text-[10px] font-medium tabular-nums">
           {p}
         </span>
       ))}
@@ -72,7 +72,7 @@ export function DetailsTab() {
         </Card>
         </Inspectable>
         <Inspectable slug="chart" label="Chart">
-        <Card title="Scan reports by severities" description="Severity distribution of findings" trailing={<span className="text-[11px] text-s4e-text-disabled">Status</span>}>
+        <Card title="Scan reports by severities" description="Severity distribution of findings" trailing={<span className="text-[11px] text-snt-text-disabled">Status</span>}>
           <div className="flex items-center gap-6">
             <Donut data={SEVERITIES} />
             <DonutLegend data={SEVERITIES} />
@@ -90,7 +90,7 @@ export function DetailsTab() {
             {RANGE.map((r) => (
               <button key={r} type="button" onClick={() => setRange(r)}
                 className={cn("px-2 py-1 rounded-md text-[11px] font-medium transition-colors",
-                  range === r ? "bg-s4e-brand-primary-500/10 text-s4e-brand-primary-500" : "text-s4e-text-secondary hover:text-s4e-text-primary")}>
+                  range === r ? "bg-snt-brand-primary-500/10 text-snt-brand-primary-500" : "text-snt-text-secondary hover:text-snt-text-primary")}>
                 {r}
               </button>
             ))}
@@ -111,25 +111,25 @@ export function DetailsTab() {
       {/* Assets by vulnerabilities */}
       <Inspectable slug="data-table" label="Data Table">
       <Card title="Assets by Vulnerabilities" viewAll="View all in Asset Manager">
-        <div className="grid grid-cols-[60px_minmax(0,1fr)_minmax(0,1fr)] gap-3 px-3 py-2 rounded-md bg-s4e-surface-table-header">
-          <span className="text-[11px] uppercase tracking-wide text-s4e-text-disabled">Risk Score</span>
-          <span className="text-[11px] uppercase tracking-wide text-s4e-text-disabled inline-flex items-center gap-1">Asset <Info size={11} /></span>
-          <span className="text-[11px] uppercase tracking-wide text-s4e-text-disabled">Severity</span>
+        <div className="grid grid-cols-[60px_minmax(0,1fr)_minmax(0,1fr)] gap-3 px-3 py-2 rounded-md bg-snt-surface-table-header">
+          <span className="text-[11px] uppercase tracking-wide text-snt-text-disabled">Risk Score</span>
+          <span className="text-[11px] uppercase tracking-wide text-snt-text-disabled inline-flex items-center gap-1">Asset <Info size={11} /></span>
+          <span className="text-[11px] uppercase tracking-wide text-snt-text-disabled">Severity</span>
         </div>
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="grid grid-cols-[60px_minmax(0,1fr)_minmax(0,1fr)] gap-3 px-3 py-2.5 items-center border-b border-s4e-neutral-divider-10 last:border-b-0">
+          <div key={i} className="grid grid-cols-[60px_minmax(0,1fr)_minmax(0,1fr)] gap-3 px-3 py-2.5 items-center border-b border-snt-neutral-divider-10 last:border-b-0">
             <MiniGauge value={20} />
-            <span className="text-[12px] text-s4e-text-primary truncate">Oorem ipsum dolor sit amet, dolore eu fugiat nulla pariatur.</span>
+            <span className="text-[12px] text-snt-text-primary truncate">Oorem ipsum dolor sit amet, dolore eu fugiat nulla pariatur.</span>
             <div className="flex items-center gap-1 text-[11px] font-medium tabular-nums">
-              <span className="px-1.5 py-0.5 rounded bg-s4e-scale-blue-50 text-s4e-scale-blue-600">60</span>
-              <span className="px-1.5 py-0.5 rounded bg-s4e-scale-green-50 text-s4e-scale-green-600">85</span>
-              <span className="px-1.5 py-0.5 rounded bg-s4e-scale-yellow-50 text-s4e-scale-yellow-700">305</span>
-              <span className="px-1.5 py-0.5 rounded bg-s4e-scale-red-50 text-s4e-scale-red-600">3</span>
-              <span className="px-1.5 py-0.5 rounded bg-s4e-scale-purple-50 text-s4e-scale-purple-600">100000000</span>
+              <span className="px-1.5 py-0.5 rounded bg-snt-scale-blue-50 text-snt-scale-blue-600">60</span>
+              <span className="px-1.5 py-0.5 rounded bg-snt-scale-green-50 text-snt-scale-green-600">85</span>
+              <span className="px-1.5 py-0.5 rounded bg-snt-scale-yellow-50 text-snt-scale-yellow-700">305</span>
+              <span className="px-1.5 py-0.5 rounded bg-snt-scale-red-50 text-snt-scale-red-600">3</span>
+              <span className="px-1.5 py-0.5 rounded bg-snt-scale-purple-50 text-snt-scale-purple-600">100000000</span>
             </div>
           </div>
         ))}
-        <div className="flex items-center justify-end gap-2 pt-3 text-[11px] text-s4e-text-disabled">
+        <div className="flex items-center justify-end gap-2 pt-3 text-[11px] text-snt-text-disabled">
           Row per page: 3 · 1–3 of 492 ‹ ›
         </div>
       </Card>
@@ -138,25 +138,25 @@ export function DetailsTab() {
       {/* Crawler history */}
       <Inspectable slug="data-table" label="Data Table">
       <Card title="Crawler History" info>
-        <div className="overflow-x-auto s4e-scrollbar-hide">
+        <div className="overflow-x-auto snt-scrollbar-hide">
           <table className="w-full min-w-[640px] text-sm">
-            <thead className="bg-s4e-surface-table-header">
+            <thead className="bg-snt-surface-table-header">
               <tr className="text-left">
                 {["Asset", "Port", "Count", "Last Crawl URL #", "Unique Request #", "Change URL #", "Unique Request #"].map((h, i) => (
-                  <th key={i} className="py-2.5 px-3 text-[10px] uppercase tracking-wide font-medium text-s4e-text-disabled first:rounded-l-md last:rounded-r-md">{h}</th>
+                  <th key={i} className="py-2.5 px-3 text-[10px] uppercase tracking-wide font-medium text-snt-text-disabled first:rounded-l-md last:rounded-r-md">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {Array.from({ length: 4 }).map((_, i) => (
-                <tr key={i} className="border-b border-s4e-neutral-divider-10 last:border-b-0">
-                  <td className="py-2.5 px-3 text-[12px] text-s4e-text-primary">s4e.kazverse.com</td>
-                  <td className="py-2.5 px-3 text-[12px] text-s4e-text-secondary tabular-nums">10</td>
-                  <td className="py-2.5 px-3 text-[12px] text-s4e-text-secondary tabular-nums">20</td>
-                  <td className="py-2.5 px-3 text-[12px] text-s4e-text-secondary tabular-nums">60</td>
-                  <td className="py-2.5 px-3 text-[12px] text-s4e-text-secondary tabular-nums">50</td>
-                  <td className="py-2.5 px-3 text-[12px] text-s4e-scale-green-600 tabular-nums">30 (%70+)</td>
-                  <td className="py-2.5 px-3 text-[12px] text-s4e-scale-red-600 tabular-nums">400 (%200+)</td>
+                <tr key={i} className="border-b border-snt-neutral-divider-10 last:border-b-0">
+                  <td className="py-2.5 px-3 text-[12px] text-snt-text-primary">portal.example.com</td>
+                  <td className="py-2.5 px-3 text-[12px] text-snt-text-secondary tabular-nums">10</td>
+                  <td className="py-2.5 px-3 text-[12px] text-snt-text-secondary tabular-nums">20</td>
+                  <td className="py-2.5 px-3 text-[12px] text-snt-text-secondary tabular-nums">60</td>
+                  <td className="py-2.5 px-3 text-[12px] text-snt-text-secondary tabular-nums">50</td>
+                  <td className="py-2.5 px-3 text-[12px] text-snt-scale-green-600 tabular-nums">30 (%70+)</td>
+                  <td className="py-2.5 px-3 text-[12px] text-snt-scale-red-600 tabular-nums">400 (%200+)</td>
                 </tr>
               ))}
             </tbody>
@@ -171,8 +171,8 @@ export function DetailsTab() {
           <div className="space-y-3">
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i}>
-                <div className="text-[12px] text-s4e-text-primary">zero.webappsecurity.com</div>
-                <div className="text-[10px] text-s4e-text-disabled mb-1.5">19.09.2024</div>
+                <div className="text-[12px] text-snt-text-primary">zero.webappsecurity.com</div>
+                <div className="text-[10px] text-snt-text-disabled mb-1.5">19.09.2024</div>
                 <PortChips ports={[80, 4900, 4900, 4900, 4900, 4900, 4900, 4900, 4900, 4900, 4900]} />
               </div>
             ))}
@@ -182,7 +182,7 @@ export function DetailsTab() {
           <div className="flex flex-col items-center gap-4">
             <Donut data={[{ label: "verified", value: 34, color: DATA.blue }, { label: "unverified", value: 7, color: DATA.navy }]} centerLabel="" />
             <div className="w-full">
-              <div className="text-[12px] text-s4e-text-secondary mb-2">Total Assets <span className="font-semibold text-s4e-text-primary">42</span></div>
+              <div className="text-[12px] text-snt-text-secondary mb-2">Total Assets <span className="font-semibold text-snt-text-primary">42</span></div>
               <DonutLegend data={[{ label: "verified", value: 34, color: DATA.blue }, { label: "unverified", value: 7, color: DATA.navy }]} />
             </div>
           </div>
@@ -194,7 +194,7 @@ export function DetailsTab() {
         <Card title="Total URLs over time" description="Growth of discovered URLs within the selected time range">
           <div className="grid grid-cols-3 gap-2 mb-4">
             <MiniStat label="" value="128,450" sub="Current total" />
-            <MiniStat label="" value={<span className="text-s4e-scale-green-600">+12%</span>} sub="Last 24h change" />
+            <MiniStat label="" value={<span className="text-snt-scale-green-600">+12%</span>} sub="Last 24h change" />
             <MiniStat label="" value="14:00" sub="Peak hour" />
           </div>
           <AreaChart points={[20, 35, 30, 48, 42, 60, 55, 72, 68, 80]} height={120} />
@@ -215,7 +215,7 @@ export function DetailsTab() {
           <div className="grid grid-cols-3 gap-2 mb-4">
             <MiniStat label="" value="42" sub="Last 24h requests" />
             <MiniStat label="" value="42" sub="Max RPS" />
-            <MiniStat label="" value={<span className="text-s4e-scale-green-600">No</span>} sub="Anomaly" />
+            <MiniStat label="" value={<span className="text-snt-scale-green-600">No</span>} sub="Anomaly" />
           </div>
           <AreaChart points={[40, 30, 45, 35, 50, 42, 55, 48, 60]} height={120} />
         </Card>
@@ -223,7 +223,7 @@ export function DetailsTab() {
           <div className="grid grid-cols-3 gap-2 mb-4">
             <MiniStat label="" value="42" sub="Total open ports" />
             <MiniStat label="" value="443 (HTTPS)" sub="Most common" />
-            <MiniStat label="" value={<span className="text-s4e-scale-green-600">+3</span>} sub="New since last scan" />
+            <MiniStat label="" value={<span className="text-snt-scale-green-600">+3</span>} sub="New since last scan" />
           </div>
           <Treemap />
         </Card>
@@ -234,7 +234,7 @@ export function DetailsTab() {
         <div className="grid grid-cols-3 gap-2 mb-4 max-w-md">
           <MiniStat label="" value="42" sub="Total records" />
           <MiniStat label="" value="4" sub="Misconfigured" />
-          <MiniStat label="" value={<span className="text-s4e-scale-green-600">+3</span>} sub="New since last scan" />
+          <MiniStat label="" value={<span className="text-snt-scale-green-600">+3</span>} sub="New since last scan" />
         </div>
         <Treemap />
       </Card>
@@ -243,8 +243,8 @@ export function DetailsTab() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <Card title="Asset Sources" info>
           <div className="flex flex-col items-center gap-4">
-            <Donut data={[{ label: "S4E Subdomain Finder", value: 102, color: DATA.rust }]} />
-            <DonutLegend data={[{ label: "S4E Subdomain Finder", value: 102, color: DATA.rust }]} />
+            <Donut data={[{ label: "Sentinel Subdomain Finder", value: 102, color: DATA.rust }]} />
+            <DonutLegend data={[{ label: "Sentinel Subdomain Finder", value: 102, color: DATA.rust }]} />
           </div>
         </Card>
         <Card title="Private vs Public Asset" info>

@@ -13,14 +13,14 @@ import {
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — TextSpace
+ * sentinel/ui — TextSpace
  *
  * Drop this file into your project at components/ui/text-space.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 export type TextSpaceState = "default" | "disabled" | "error";
@@ -132,7 +132,7 @@ export const TextSpaceToolbar = React.forwardRef<HTMLDivElement, TextSpaceToolba
           if (e.key === "End")        { e.preventDefault(); move(tools.length - 1); }
         }}
         className={cn(
-          "flex items-center flex-wrap gap-0.5 px-3 py-1.5 border-b border-s4e-border-default",
+          "flex items-center flex-wrap gap-0.5 px-3 py-1.5 border-b border-snt-border-default",
           disabled && "opacity-40 pointer-events-none",
           className,
         )}
@@ -141,25 +141,25 @@ export const TextSpaceToolbar = React.forwardRef<HTMLDivElement, TextSpaceToolba
         {/* Font pickers are visual placeholders — hidden from AT until built. */}
         {size === "full" && (
           <span aria-hidden className="flex items-center">
-            <span className="flex items-center gap-0.5 text-[11px] text-s4e-text-secondary pr-1">
-              <Type size={12} className="text-s4e-text-secondary" />
-              <ChevronDown size={10} className="text-s4e-text-secondary" />
+            <span className="flex items-center gap-0.5 text-snt-11 text-snt-text-secondary pr-1">
+              <Type size={12} className="text-snt-text-secondary" />
+              <ChevronDown size={10} className="text-snt-text-secondary" />
             </span>
-            <span className="flex items-center gap-0.5 text-[11px] text-s4e-text-secondary pr-1">
-              16px <ChevronDown size={10} className="text-s4e-text-secondary" />
+            <span className="flex items-center gap-0.5 text-snt-11 text-snt-text-secondary pr-1">
+              16px <ChevronDown size={10} className="text-snt-text-secondary" />
             </span>
-            <span className="flex items-center gap-0.5 text-[11px] text-s4e-text-secondary pr-1">
-              Normal <ChevronDown size={10} className="text-s4e-text-secondary" />
+            <span className="flex items-center gap-0.5 text-snt-11 text-snt-text-secondary pr-1">
+              Normal <ChevronDown size={10} className="text-snt-text-secondary" />
             </span>
-            <span className="w-px h-4 bg-s4e-border-default mx-1" />
+            <span className="w-px h-4 bg-snt-border-default mx-1" />
           </span>
         )}
         {size === "simple" && (
-          <span aria-hidden className="text-[11px] text-s4e-text-secondary mr-1.5">Font</span>
+          <span aria-hidden className="text-snt-11 text-snt-text-secondary mr-1.5">Font</span>
         )}
         {TOOL_ITEMS.map((item, i) => {
           if (item.type === "sep") {
-            return <div key={i} role="separator" aria-orientation="vertical" className="w-px h-4 bg-s4e-border-default mx-0.5" />;
+            return <div key={i} role="separator" aria-orientation="vertical" className="w-px h-4 bg-snt-border-default mx-0.5" />;
           }
           const index = ++toolIndex;
           const Icon  = item.icon;
@@ -179,12 +179,12 @@ export const TextSpaceToolbar = React.forwardRef<HTMLDivElement, TextSpaceToolba
               onFocus={() => setFocusIndex(index)}
               onClick={() => { runCommand(item); onCommand?.(); }}
               className={cn(
-                "p-1 rounded hover:bg-s4e-bg-subtle disabled:pointer-events-none",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-focus-ring",
-                pressed && "bg-s4e-bg-subtle",
+                "p-1 rounded hover:bg-snt-bg-subtle disabled:pointer-events-none",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring",
+                pressed && "bg-snt-bg-subtle",
               )}
             >
-              <Icon size={13} className={pressed ? "text-s4e-text-primary" : "text-s4e-text-secondary"} />
+              <Icon size={13} className={pressed ? "text-snt-text-primary" : "text-snt-text-secondary"} />
             </button>
           );
         })}
@@ -260,8 +260,8 @@ export const TextSpace = React.forwardRef<HTMLDivElement, TextSpaceProps>(
         className={cn(
           "rounded-lg border overflow-hidden",
           isError
-            ? "border-s4e-text-error bg-s4e-bg-error-subtle"
-            : "border-s4e-border-default bg-s4e-surface-app focus-within:border-s4e-brand-primary-500",
+            ? "border-snt-text-error bg-snt-bg-error-subtle"
+            : "border-snt-border-default bg-snt-surface-app focus-within:border-snt-brand-primary-500",
           isDisabled && "opacity-40",
           className,
         )}
@@ -278,8 +278,8 @@ export const TextSpace = React.forwardRef<HTMLDivElement, TextSpaceProps>(
             <span
               aria-hidden
               className={cn(
-                "absolute left-4 top-3 text-[12px] pointer-events-none",
-                isError ? "text-s4e-text-error" : "text-s4e-text-secondary",
+                "absolute left-4 top-3 text-snt-12 pointer-events-none",
+                isError ? "text-snt-text-error" : "text-snt-text-secondary",
               )}
             >
               {placeholder}
@@ -298,10 +298,10 @@ export const TextSpace = React.forwardRef<HTMLDivElement, TextSpaceProps>(
             suppressContentEditableWarning
             onInput={sync}
             className={cn(
-              "px-4 py-3 min-h-24 text-[14px] text-s4e-text-primary outline-none",
-              "[&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-5 [&_ol]:pl-5 [&_a]:text-s4e-text-link [&_a]:underline",
-              "[&_blockquote]:border-l-2 [&_blockquote]:border-s4e-border-default [&_blockquote]:pl-3",
-              "[&_pre]:font-mono [&_pre]:text-[12px] [&_pre]:bg-s4e-bg-subtle [&_pre]:rounded [&_pre]:p-2",
+              "px-4 py-3 min-h-24 text-snt-14 text-snt-text-primary outline-none",
+              "[&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-5 [&_ol]:pl-5 [&_a]:text-snt-text-link [&_a]:underline",
+              "[&_blockquote]:border-l-2 [&_blockquote]:border-snt-border-default [&_blockquote]:pl-3",
+              "[&_pre]:font-mono [&_pre]:text-snt-12 [&_pre]:bg-snt-bg-subtle [&_pre]:rounded [&_pre]:p-2",
               isDisabled && "cursor-not-allowed",
             )}
           />

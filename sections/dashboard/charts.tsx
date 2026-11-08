@@ -18,15 +18,15 @@ export function AreaChart({ points, height = 180 }: { points: number[]; height?:
     <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="w-full" style={{ height }}>
       <defs>
         <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stopColor="var(--s4e-brand-primary-500)" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="var(--s4e-brand-primary-500)" stopOpacity="0" />
+          <stop offset="0%"   stopColor="var(--snt-brand-primary-500)" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="var(--snt-brand-primary-500)" stopOpacity="0" />
         </linearGradient>
       </defs>
       {[0.25, 0.5, 0.75, 1].map((f) => (
-        <line key={f} x1="0" x2={W} y1={H * f} y2={H * f} stroke="var(--s4e-neutral-grey-200)" strokeWidth="1" strokeDasharray="3 3" />
+        <line key={f} x1="0" x2={W} y1={H * f} y2={H * f} stroke="var(--snt-neutral-grey-200)" strokeWidth="1" strokeDasharray="3 3" />
       ))}
       <path d={area} fill="url(#area-grad)" />
-      <path d={line} fill="none" stroke="var(--s4e-brand-primary-500)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={line} fill="none" stroke="var(--snt-brand-primary-500)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -40,10 +40,10 @@ export function BarChart({ data, height = 180 }: { data: { label: string; value:
       {data.map((d) => (
         <div key={d.label} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
           <div
-            className="w-full max-w-[56px] rounded-t-md bg-s4e-data-1"
+            className="w-full max-w-[56px] rounded-t-md bg-snt-data-1"
             style={{ height: `${(d.value / max) * 100}%` }}
           />
-          <span className="text-[11px] text-s4e-text-secondary whitespace-nowrap">{d.label}</span>
+          <span className="text-[11px] text-snt-text-secondary whitespace-nowrap">{d.label}</span>
         </div>
       ))}
     </div>
@@ -55,25 +55,25 @@ export function BarChart({ data, height = 180 }: { data: { label: string; value:
 export type TreeCell = { value: number; tone: 1 | 2 | 3 | 4 };
 
 const TREE_FILL: Record<number, string> = {
-  1: "bg-s4e-scale-blue-200",
-  2: "bg-s4e-scale-blue-500",
-  3: "bg-s4e-brand-primary-500",
-  4: "bg-s4e-brand-primary-600",
+  1: "bg-snt-scale-blue-200",
+  2: "bg-snt-scale-blue-500",
+  3: "bg-snt-brand-primary-500",
+  4: "bg-snt-brand-primary-600",
 };
 
 /** Simple fixed-layout treemap matching the mockup's blocky grid. */
 export function Treemap() {
   return (
     <div className="grid grid-cols-4 gap-1 h-44">
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold row-span-2", TREE_FILL[3])}>6</div>
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold row-span-1", TREE_FILL[2])}>5</div>
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold col-span-2 row-span-3", TREE_FILL[4])}>14</div>
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[12px] font-semibold", TREE_FILL[1])}>2</div>
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[12px] font-semibold", TREE_FILL[2])}>4</div>
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[12px] font-semibold", TREE_FILL[1])}>2</div>
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[12px] font-semibold", TREE_FILL[3])}>3</div>
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[12px] font-semibold", TREE_FILL[2])}>4</div>
-      <div className={cn("rounded-md flex items-center justify-center text-s4e-text-on-accent text-[12px] font-semibold", TREE_FILL[1])}>2</div>
+      <div className={cn("rounded-md flex items-center justify-center text-snt-text-on-accent text-[14px] font-semibold row-span-2", TREE_FILL[3])}>6</div>
+      <div className={cn("rounded-md flex items-center justify-center text-snt-text-on-accent text-[14px] font-semibold row-span-1", TREE_FILL[2])}>5</div>
+      <div className={cn("rounded-md flex items-center justify-center text-snt-text-on-accent text-[14px] font-semibold col-span-2 row-span-3", TREE_FILL[4])}>14</div>
+      <div className={cn("rounded-md flex items-center justify-center text-snt-text-on-accent text-[12px] font-semibold", TREE_FILL[1])}>2</div>
+      <div className={cn("rounded-md flex items-center justify-center text-snt-text-on-accent text-[12px] font-semibold", TREE_FILL[2])}>4</div>
+      <div className={cn("rounded-md flex items-center justify-center text-snt-text-on-accent text-[12px] font-semibold", TREE_FILL[1])}>2</div>
+      <div className={cn("rounded-md flex items-center justify-center text-snt-text-on-accent text-[12px] font-semibold", TREE_FILL[3])}>3</div>
+      <div className={cn("rounded-md flex items-center justify-center text-snt-text-on-accent text-[12px] font-semibold", TREE_FILL[2])}>4</div>
+      <div className={cn("rounded-md flex items-center justify-center text-snt-text-on-accent text-[12px] font-semibold", TREE_FILL[1])}>2</div>
     </div>
   );
 }
@@ -81,7 +81,7 @@ export function Treemap() {
 // ── Mini gauge (for asset risk rows) ──────────────────────────────────────────
 
 export function MiniGauge({ value, color = "green" }: { value: number; color?: "green" | "yellow" | "red" }) {
-  const stroke = color === "red" ? "stroke-s4e-scale-red-500" : color === "yellow" ? "stroke-s4e-scale-yellow-500" : "stroke-s4e-scale-green-500";
+  const stroke = color === "red" ? "stroke-snt-scale-red-500" : color === "yellow" ? "stroke-snt-scale-yellow-500" : "stroke-snt-scale-green-500";
   const R = 18, CX = 24, CY = 24;
   const pct = value / 100;
   const a = (deg: number) => ({ x: CX + R * Math.cos((deg * Math.PI) / 180), y: CY + R * Math.sin((deg * Math.PI) / 180) });
@@ -91,9 +91,9 @@ export function MiniGauge({ value, color = "green" }: { value: number; color?: "
   };
   return (
     <svg viewBox="0 4 48 26" className="w-12 shrink-0">
-      <path d={arc(180, 360)} fill="none" strokeWidth="5" strokeLinecap="round" className="stroke-s4e-neutral-grey-200" />
+      <path d={arc(180, 360)} fill="none" strokeWidth="5" strokeLinecap="round" className="stroke-snt-neutral-grey-200" />
       <path d={arc(180, 180 + 180 * pct)} fill="none" strokeWidth="5" strokeLinecap="round" className={stroke} />
-      <text x={CX} y={CY - 2} textAnchor="middle" fontSize="9" className="fill-s4e-text-disabled">Low</text>
+      <text x={CX} y={CY - 2} textAnchor="middle" fontSize="9" className="fill-snt-text-disabled">Low</text>
     </svg>
   );
 }

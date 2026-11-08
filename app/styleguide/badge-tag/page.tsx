@@ -9,7 +9,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Badge · Tag — Design System",
+  title: "Badge · Tag — Sentinel Design System",
 };
 
 export default function Page() {
@@ -35,8 +35,8 @@ export default function Page() {
                 { label: "Surface",        description: "Filled pill or outlined border depending on the variant." },
               ]}
             >
-              <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium bg-s4e-scale-green-50 text-s4e-scale-green-600">
-                <span className="w-[7px] h-[7px] rounded-full bg-s4e-scale-green-500 shrink-0" />
+              <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium bg-snt-scale-green-50 text-snt-scale-green-600">
+                <span className="w-[7px] h-[7px] rounded-full bg-snt-scale-green-500 shrink-0" />
                 Success
               </div>
             </Anatomy>

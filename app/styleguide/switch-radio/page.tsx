@@ -9,7 +9,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Switch · Radio — Design System",
+  title: "Switch · Radio — Sentinel Design System",
 };
 
 export default function SwitchRadioPage() {
@@ -40,10 +40,10 @@ export default function SwitchRadioPage() {
               ]}
             >
               <div className="flex items-center gap-2.5">
-                <div className="relative w-9 h-[22px] rounded-full bg-s4e-btn-primary-600">
+                <div className="relative w-9 h-[22px] rounded-full bg-snt-btn-primary-600">
                   <div className="absolute top-[3px] w-4 h-4 rounded-full bg-white shadow-sm translate-x-[18px]" />
                 </div>
-                <span className="text-[14px] text-s4e-text-primary">Continuous monitoring</span>
+                <span className="text-[14px] text-snt-text-primary">Continuous monitoring</span>
               </div>
             </Anatomy>
 

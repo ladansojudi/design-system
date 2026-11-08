@@ -5,7 +5,7 @@ category: Organism
 status: stable
 source: components/ui/text-space.tsx
 styleguide: /styleguide/text-space
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=15-50
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/
 ---
 
@@ -84,11 +84,11 @@ A rich-text composer (toolbar + writing area) for formatted notes, reports and c
 
 | Role | Token |
 |---|---|
-| Border / surface / focus | `s4e-border-default` / `s4e-surface-app` / `s4e-brand-primary-500` |
-| Toolbar hover / pressed | `s4e-bg-subtle` |
-| Icons / placeholder | `s4e-text-secondary` (pressed `s4e-text-primary`) |
-| Text / links | `s4e-text-primary` / `s4e-text-link` |
-| Error | `s4e-text-error`, `s4e-bg-error-subtle` |
+| Border / surface / focus | `snt-border-default` / `snt-surface-app` / `snt-brand-primary-500` |
+| Toolbar hover / pressed | `snt-bg-subtle` |
+| Icons / placeholder | `snt-text-secondary` (pressed `snt-text-primary`) |
+| Text / links | `snt-text-primary` / `snt-text-link` |
+| Error | `snt-text-error`, `snt-bg-error-subtle` |
 
 ## Design ↔ Code
 

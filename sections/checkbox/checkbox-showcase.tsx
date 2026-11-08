@@ -2,110 +2,30 @@
 
 import type React from "react";
 import { useState } from "react";
-import { Check, Minus } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
 import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
+import { Checkbox } from "@/components/ui/checkbox";
 
 // ── Checkbox primitive ────────────────────────────────────────────────────
 
 type Tone = "primary" | "neutral";
-
-function Checkbox({
-  checked,
-  indeterminate = false,
-  onChange,
-  disabled = false,
-  tone = "primary",
-  label,
-  description,
-  id,
-}: {
-  checked:        boolean;
-  indeterminate?: boolean;
-  onChange?:      (v: boolean) => void;
-  disabled?:      boolean;
-  tone?:          Tone;
-  label?:         string;
-  description?:   string;
-  id?:            string;
-}) {
-  const filled = checked || indeterminate;
-  const fillClass = filled
-    ? tone === "primary"
-      ? "bg-s4e-btn-primary-600 border-s4e-btn-primary-600"
-      : "bg-s4e-btn-neutral-800 border-s4e-btn-neutral-800"
-    : "border-s4e-neutral-grey-400 bg-s4e-surface-row";
-
-  return (
-    <label
-      htmlFor={id}
-      className={cn(
-        "flex items-start gap-2.5 group",
-        disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer",
-      )}
-    >
-      <span className="relative inline-flex items-center justify-center mt-[1px]">
-        <input
-          id={id}
-          type="checkbox"
-          checked={checked}
-          disabled={disabled}
-          onChange={(e) => onChange?.(e.target.checked)}
-          className="peer sr-only"
-        />
-        <span
-          aria-hidden
-          className={cn(
-            "w-[18px] h-[18px] rounded-[3px] border-2 flex items-center justify-center transition-colors",
-            "peer-focus-visible:ring-2 peer-focus-visible:ring-offset-1 peer-focus-visible:ring-s4e-brand-primary-500",
-            fillClass,
-            !disabled && !filled && "group-hover:border-s4e-neutral-grey-600",
-          )}
-        >
-          {indeterminate
-            ? <Minus size={12} className="text-s4e-text-on-accent" />
-            : checked && <Check size={12} className="text-s4e-text-on-accent" />
-          }
-        </span>
-      </span>
-      {(label || description) && (
-        <span className="flex-1 min-w-0">
-          {label && (
-            <span className={cn(
-              "block text-[14px] leading-tight",
-              disabled ? "text-s4e-text-disabled" : "text-s4e-text-primary",
-            )}>
-              {label}
-            </span>
-          )}
-          {description && (
-            <span className="block text-[11px] text-s4e-text-disabled mt-0.5 leading-snug">
-              {description}
-            </span>
-          )}
-        </span>
-      )}
-    </label>
-  );
-}
 
 // ── Showcase ──────────────────────────────────────────────────────────────
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
     </div>
   );
 }
 
 function PropertyRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-start gap-8 py-4 border-b border-s4e-neutral-divider-10 last:border-b-0">
-      <span className="w-20 shrink-0 pt-1 text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled">
+    <div className="flex items-start gap-8 py-4 border-b border-snt-neutral-divider-10 last:border-b-0">
+      <span className="w-20 shrink-0 pt-1 text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled">
         {label}
       </span>
       <div className="flex flex-wrap items-center gap-6">{children}</div>
@@ -145,7 +65,7 @@ function checkboxSnippets(opts: CheckboxSnippetOpts): Record<Platform, string> {
 
   const swiftState = indeterminate ? ".mixed" : checked ? ".on" : ".off";
   const swiftMods = [
-    tone !== "primary" && `.checkboxStyle(.s4e(.${tone}))`,
+    tone !== "primary" && `.checkboxStyle(.sentinel(.${tone}))`,
     disabled && `.disabled(true)`,
   ].filter(Boolean).join("\n    ");
 
@@ -164,7 +84,7 @@ function checkboxSnippets(opts: CheckboxSnippetOpts): Record<Platform, string> {
     swift: label
       ? `Checkbox("${label}", state: ${swiftState})${swiftMods ? "\n    " + swiftMods : ""}`
       : `Checkbox(state: ${swiftState})${swiftMods ? "\n    " + swiftMods : ""}`,
-    xml: `<com.s4e.ui.Checkbox
+    xml: `<com.sentinel.ui.Checkbox
     ${xmlProps} />`,
   };
 }
@@ -206,7 +126,7 @@ ForEach(items, id: \\.self) { item in
     }
 }`,
   xml: `<!-- Parent triState checkbox + children in a LinearLayout -->
-<com.s4e.ui.Checkbox
+<com.sentinel.ui.Checkbox
     android:id="@+id/parent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -218,10 +138,10 @@ ForEach(items, id: \\.self) { item in
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="24dp">
-    <com.s4e.ui.Checkbox android:text="Firewalls"      android:checked="true"  />
-    <com.s4e.ui.Checkbox android:text="Endpoints"      android:checked="false" />
-    <com.s4e.ui.Checkbox android:text="Containers"    android:checked="true"  />
-    <com.s4e.ui.Checkbox android:text="Cloud services" android:checked="false" />
+    <com.sentinel.ui.Checkbox android:text="Firewalls"      android:checked="true"  />
+    <com.sentinel.ui.Checkbox android:text="Endpoints"      android:checked="false" />
+    <com.sentinel.ui.Checkbox android:text="Containers"    android:checked="true"  />
+    <com.sentinel.ui.Checkbox android:text="Cloud services" android:checked="false" />
 </LinearLayout>`,
 };
 
@@ -239,7 +159,7 @@ export function CheckboxShowcase() {
     <div className="space-y-10">
       <div>
         <SectionTitle>States</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-6">
           <PropertyRow label="Variants">
             <Copyable snippets={checkboxSnippets({ checked: false })} svgPath="/svg/checkbox/unchecked.svg">
               <Checkbox checked={false}                 onChange={() => {}} />
@@ -270,7 +190,7 @@ export function CheckboxShowcase() {
 
       <div>
         <SectionTitle>With label · description</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5 space-y-4">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-6 py-5 space-y-4">
           <Copyable
             snippets={checkboxSnippets({
               checked: true,
@@ -303,7 +223,7 @@ export function CheckboxShowcase() {
 
       <div>
         <SectionTitle>Indeterminate parent (multi-select pattern)</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-6 py-5">
           <Copyable snippets={PARENT_GROUP_SNIPPETS} className="block w-full">
             <div className="space-y-3">
               <Checkbox
@@ -314,7 +234,7 @@ export function CheckboxShowcase() {
                 }
                 label="All asset types"
               />
-              <div className="pl-6 space-y-2 border-l border-s4e-neutral-divider-10">
+              <div className="pl-6 space-y-2 border-l border-snt-neutral-divider-10">
                 {ITEMS.map((item) => (
                   <Checkbox
                     key={item}

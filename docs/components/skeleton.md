@@ -5,7 +5,7 @@ category: Atom
 status: beta
 source: components/ui/skeleton.tsx
 styleguide: /styleguide/skeleton
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=7-150
 apg: N/A (decorative)
 ---
 
@@ -24,7 +24,7 @@ A pulsing placeholder that mirrors the shape of content while it loads.
 - Background refreshes of content that's already shown. Keep the stale content and show a subtle indicator instead.
 
 ## Anatomy
-A single `<span class="block">` with the `s4e-pulse-dot` animation and `rounded-md`. Shape it with `className`:
+A single `<span class="block">` with the `snt-pulse-dot` animation and `rounded-md`. Shape it with `className`:
 
 | Shape | Recipe |
 |---|---|
@@ -54,7 +54,7 @@ Single state. The pulse stops under `prefers-reduced-motion`.
 
 | Role | Token |
 |---|---|
-| Fill | `s4e-neutral-grey-200` |
+| Fill | `snt-neutral-grey-200` |
 
 ## Design ↔ Code
 

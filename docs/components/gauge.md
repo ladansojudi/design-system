@@ -5,7 +5,7 @@ category: Organism
 status: stable
 source: components/ui/gauge.tsx
 styleguide: /styleguide/gauge
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=11-212
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/meter/
 ---
 
@@ -72,10 +72,10 @@ Pick the colour from **thresholds** documented with the metric, not by eye. Writ
 
 | Role | Token |
 |---|---|
-| Track | `s4e-scale-{blue,green,yellow,red,purple}-100` |
-| Fill | `s4e-scale-*-500` |
-| Ticks | `s4e-scale-*-200` / `s4e-scale-*-600` |
-| Value / max | `s4e-text-primary` / `s4e-text-secondary` |
+| Track | `snt-scale-{blue,green,yellow,red,purple}-100` |
+| Fill | `snt-scale-*-500` |
+| Ticks | `snt-scale-*-200` / `snt-scale-*-600` |
+| Value / max | `snt-text-primary` / `snt-text-secondary` |
 
 ## Design ↔ Code
 
@@ -97,7 +97,7 @@ Pick the colour from **thresholds** documented with the metric, not by eye. Writ
 
 ```tsx
 <div>
-  <h3 id="score-label" className="text-[12px] text-s4e-text-secondary">Security score</h3>
+  <h3 id="score-label" className="text-[12px] text-snt-text-secondary">Security score</h3>
   <Gauge value={72} max={100} color={score >= 80 ? "green" : score >= 50 ? "yellow" : "red"} />
 </div>
 ```

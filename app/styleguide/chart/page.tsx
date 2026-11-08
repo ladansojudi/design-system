@@ -8,7 +8,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Chart — Design System",
+  title: "Chart — Sentinel Design System",
 };
 
 export default function Page() {

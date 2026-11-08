@@ -5,7 +5,7 @@ category: Atom
 status: beta
 source: components/ui/checkbox.tsx
 styleguide: /styleguide/checkbox
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=4-56
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/
 ---
 
@@ -84,11 +84,11 @@ Lets the user turn an independent option on or off, or pick several items from a
 
 | Role | Token |
 |---|---|
-| Fill (primary / neutral) | `s4e-btn-primary-600` / `s4e-btn-neutral-800` |
-| Empty border / bg | `s4e-neutral-grey-400` / `s4e-surface-row` |
-| Check icon | `s4e-text-on-accent` |
-| Label / description / disabled | `s4e-text-primary` / `s4e-text-secondary` / `s4e-text-disabled` |
-| Focus ring | `s4e-focus-ring` |
+| Fill (primary / neutral) | `snt-btn-primary-600` / `snt-btn-neutral-800` |
+| Empty border / bg | `snt-neutral-grey-400` / `snt-surface-row` |
+| Check icon | `snt-text-on-accent` |
+| Label / description / disabled | `snt-text-primary` / `snt-text-secondary` / `snt-text-disabled` |
+| Focus ring | `snt-focus-ring` |
 
 ## Design ↔ Code
 

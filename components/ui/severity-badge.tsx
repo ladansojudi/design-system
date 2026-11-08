@@ -4,14 +4,14 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — SeverityBadge
+ * sentinel/ui — SeverityBadge
  *
  * Drop this file into your project at components/ui/severity-badge.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 type Severity = "low" | "critical" | "high" | "medium" | "info";
@@ -31,33 +31,33 @@ type SeverityConfig = {
 const SEVERITY: Record<Severity, SeverityConfig> = {
   low: {
     label:  "Low",
-    bg:     "bg-s4e-scale-green-50",
-    accent: "border-l-[3px] border-s4e-scale-green-500",
-    text:   "text-s4e-scale-green-600",
+    bg:     "bg-snt-scale-green-50",
+    accent: "border-l-[3px] border-snt-scale-green-500",
+    text:   "text-snt-scale-green-600",
   },
   critical: {
     label:  "Critical",
-    bg:     "bg-s4e-scale-purple-50",
-    accent: "border-l-[3px] border-s4e-scale-purple-500",
-    text:   "text-s4e-scale-purple-600",
+    bg:     "bg-snt-scale-purple-50",
+    accent: "border-l-[3px] border-snt-scale-purple-500",
+    text:   "text-snt-scale-purple-600",
   },
   high: {
     label:  "High",
-    bg:     "bg-s4e-scale-red-50",
-    accent: "border-l-[3px] border-s4e-scale-red-500",
-    text:   "text-s4e-scale-red-600",
+    bg:     "bg-snt-scale-red-50",
+    accent: "border-l-[3px] border-snt-scale-red-500",
+    text:   "text-snt-scale-red-600",
   },
   medium: {
     label:  "Medium",
-    bg:     "bg-s4e-scale-yellow-50",
-    accent: "border-l-[3px] border-s4e-scale-yellow-500",
-    text:   "text-s4e-scale-yellow-700",
+    bg:     "bg-snt-scale-yellow-50",
+    accent: "border-l-[3px] border-snt-scale-yellow-500",
+    text:   "text-snt-scale-yellow-700",
   },
   info: {
     label:  "Info",
-    bg:     "bg-s4e-scale-blue-50",
-    accent: "border-l-[3px] border-s4e-scale-blue-500",
-    text:   "text-s4e-scale-blue-600",
+    bg:     "bg-snt-scale-blue-50",
+    accent: "border-l-[3px] border-snt-scale-blue-500",
+    text:   "text-snt-scale-blue-600",
   },
 };
 
@@ -78,9 +78,9 @@ export const SeverityBadge = React.forwardRef<HTMLDivElement, SeverityBadgeProps
         )}
         {...props}
       >
-        <span className={cn("text-sm font-medium", cfg.text)}>{cfg.label}</span>
+        <span className={cn("text-snt-14 font-medium", cfg.text)}>{cfg.label}</span>
         {score !== undefined && (
-          <span className={cn("text-sm font-normal opacity-80", cfg.text)}>{score}</span>
+          <span className={cn("text-snt-14 font-normal opacity-80", cfg.text)}>{score}</span>
         )}
       </div>
     );

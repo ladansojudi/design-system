@@ -7,24 +7,22 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
-    static let neutralGrey100 = UIColor(hex: "#F7F8F8")
-    static let neutralGrey200 = UIColor(hex: "#F4F5F5")
-    static let neutralGrey300 = UIColor(hex: "#DFE2E2")
+    static let brandPrimary500 = UIColor(hex: "#5B5BD6")
+    static let neutralGrey100 = UIColor(hex: "#F4F4F5")
+    static let neutralGrey200 = UIColor(hex: "#E4E4E7")
+    static let neutralGrey300 = UIColor(hex: "#D4D4D8")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
-    static let surfaceRow = UIColor(hex: "#FFFFFF")
-    static let textPrimary = UIColor(hex: "#121F28")
-    static let textSecondary = UIColor(hex: "#657078")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
+    static let textPrimary = UIColor(hex: "#09090B")
+    static let textSecondary = UIColor(hex: "#52525B")
+    static let textDisabled = UIColor(hex: "#A1A1AA")
 }
 
 // MARK: - Sizing (CGFloat)
 
 extension CGFloat {
     // Spacing
-    static let space4: CGFloat = 16
     static let space2: CGFloat = 8
-    static let space1: CGFloat = 4
+    static let space4: CGFloat = 16
     static let space6: CGFloat = 24
     static let space5: CGFloat = 20
     static let space8: CGFloat = 32
@@ -32,10 +30,7 @@ extension CGFloat {
     static let space10: CGFloat = 40
 
     // Radius
-    static let radiusMd: CGFloat = 6
-    static let radiusLg: CGFloat = 8
     static let radiusXl: CGFloat = 12
-    static let radiusFull: CGFloat = 9999
     static let radiusBase: CGFloat = 4
 
     // Border width

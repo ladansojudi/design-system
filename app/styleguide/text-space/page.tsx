@@ -10,7 +10,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Text Space — Design System",
+  title: "Text Space — Sentinel Design System",
 };
 
 export default function TextSpacePage() {
@@ -40,13 +40,13 @@ export default function TextSpacePage() {
                 { label: "Container",  description: "Rounded surface with border that shifts to Error or Disabled when needed." },
               ]}
             >
-              <div className="w-80 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app overflow-hidden">
-                <div className="flex items-center gap-1 px-3 py-1.5 border-b border-s4e-neutral-divider-10">
-                  <Bold size={13} className="text-s4e-text-secondary" />
-                  <Italic size={13} className="text-s4e-text-secondary" />
-                  <Underline size={13} className="text-s4e-text-secondary" />
+              <div className="w-80 rounded-lg border border-snt-neutral-divider-10 bg-snt-surface-app overflow-hidden">
+                <div className="flex items-center gap-1 px-3 py-1.5 border-b border-snt-neutral-divider-10">
+                  <Bold size={13} className="text-snt-text-secondary" />
+                  <Italic size={13} className="text-snt-text-secondary" />
+                  <Underline size={13} className="text-snt-text-secondary" />
                 </div>
-                <div className="px-4 py-3 h-20 text-[12px] text-s4e-text-disabled">Write something awesome…</div>
+                <div className="px-4 py-3 h-20 text-[12px] text-snt-text-disabled">Write something awesome…</div>
               </div>
             </Anatomy>
 

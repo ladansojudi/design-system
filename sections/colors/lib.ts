@@ -193,53 +193,53 @@ export const SEMANTIC_ROLES: { label: string; chips: RoleChip[] }[] = [
   {
     label: "Surface",
     chips: [
-      { token: "Surface/App",        bgClass: "bg-s4e-surface-app" },
-      { token: "Surface/Page",       bgClass: "bg-s4e-surface-page" },
-      { token: "Surface/Row-Hover",  bgClass: "bg-s4e-surface-row-hover" },
-      { token: "Surface/Table-Hdr",  bgClass: "bg-s4e-surface-table-header" },
+      { token: "Surface/App",        bgClass: "bg-snt-surface-app" },
+      { token: "Surface/Page",       bgClass: "bg-snt-surface-page" },
+      { token: "Surface/Row-Hover",  bgClass: "bg-snt-surface-row-hover" },
+      { token: "Surface/Table-Hdr",  bgClass: "bg-snt-surface-table-header" },
     ],
   },
   {
     label: "Text",
     chips: [
-      { token: "Text/Primary",   bgClass: "bg-s4e-text-primary" },
-      { token: "Text/Secondary", bgClass: "bg-s4e-text-secondary" },
-      { token: "Text/Disabled",  bgClass: "bg-s4e-text-disabled" },
+      { token: "Text/Primary",   bgClass: "bg-snt-text-primary" },
+      { token: "Text/Secondary", bgClass: "bg-snt-text-secondary" },
+      { token: "Text/Disabled",  bgClass: "bg-snt-text-disabled" },
     ],
   },
   {
     label: "Brand / Primary",
     chips: [
-      { token: "Primary-500", bgClass: "bg-s4e-brand-primary-500" },
-      { token: "Primary-600", bgClass: "bg-s4e-brand-primary-600" },
-      { token: "Primary-200", bgClass: "bg-s4e-brand-primary-200" },
+      { token: "Primary-500", bgClass: "bg-snt-brand-primary-500" },
+      { token: "Primary-600", bgClass: "bg-snt-brand-primary-600" },
+      { token: "Primary-200", bgClass: "bg-snt-brand-primary-200" },
     ],
   },
   {
     label: "Brand / Secondary",
     chips: [
-      { token: "Secondary-500", bgClass: "bg-s4e-brand-secondary-500" },
-      { token: "Secondary-600", bgClass: "bg-s4e-brand-secondary-600" },
-      { token: "Secondary-200", bgClass: "bg-s4e-brand-secondary-200" },
+      { token: "Secondary-500", bgClass: "bg-snt-brand-secondary-500" },
+      { token: "Secondary-600", bgClass: "bg-snt-brand-secondary-600" },
+      { token: "Secondary-200", bgClass: "bg-snt-brand-secondary-200" },
     ],
   },
   {
     label: "Feedback",
     chips: [
-      { token: "Feedback/Info",    bgClass: "bg-s4e-feedback-info" },
-      { token: "Feedback/Success", bgClass: "bg-s4e-feedback-success" },
-      { token: "Feedback/Warning", bgClass: "bg-s4e-feedback-warning" },
-      { token: "Feedback/Alert",   bgClass: "bg-s4e-feedback-alert" },
+      { token: "Feedback/Info",    bgClass: "bg-snt-feedback-info" },
+      { token: "Feedback/Success", bgClass: "bg-snt-feedback-success" },
+      { token: "Feedback/Warning", bgClass: "bg-snt-feedback-warning" },
+      { token: "Feedback/Alert",   bgClass: "bg-snt-feedback-alert" },
     ],
   },
   {
     label: "Severity",
     chips: [
-      { token: "Severity/Info",     bgClass: "bg-s4e-severity-info" },
-      { token: "Severity/Low",      bgClass: "bg-s4e-severity-low" },
-      { token: "Severity/Medium",   bgClass: "bg-s4e-severity-medium" },
-      { token: "Severity/High",     bgClass: "bg-s4e-severity-high" },
-      { token: "Severity/Critical", bgClass: "bg-s4e-severity-critical" },
+      { token: "Severity/Info",     bgClass: "bg-snt-severity-info" },
+      { token: "Severity/Low",      bgClass: "bg-snt-severity-low" },
+      { token: "Severity/Medium",   bgClass: "bg-snt-severity-medium" },
+      { token: "Severity/High",     bgClass: "bg-snt-severity-high" },
+      { token: "Severity/Critical", bgClass: "bg-snt-severity-critical" },
     ],
   },
 ];
@@ -247,7 +247,7 @@ export const SEMANTIC_ROLES: { label: string; chips: RoleChip[] }[] = [
 // ── CSS-variable name used in exports for a token ─────────────────────────
 
 export function tokenVar(sw: Swatch): string {
-  return "--s4e-" + sw.name
+  return "--snt-" + sw.name
     .replace(/\s*\/\s*/g, "-")
     .replace(/\s+/g, "-")
     .toLowerCase();

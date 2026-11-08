@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { CircleCheck, CircleAlert, Lightbulb, Ban, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Toast & Tooltip
+ * sentinel/ui — Toast & Tooltip
  *
  * Drop this file into your project at components/ui/toast-tooltip.tsx.
  *
@@ -13,39 +14,43 @@ import { cn } from "@/lib/utils";
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
  *   • lucide-react icons
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 // ── Toast ──────────────────────────────────────────────────────────────────
 
-type ToastIntent = "success" | "alert" | "info" | "warning";
+export type ToastIntent = "success" | "alert" | "info" | "warning";
 
 export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
   intent?:      ToastIntent;
   title?:       string;
   description?: string;
   onDismiss?:   () => void;
+  /** Length of the countdown bar in ms (matches auto-dismiss in ToastProvider). */
+  duration?:    number;
+  /** Freezes the countdown bar (hover / focus in ToastProvider). */
+  paused?:      boolean;
 }
 
 const TOAST_ICON: Record<ToastIntent, React.ComponentType<{ size?: number; className?: string }>> = {
   success: CircleCheck,
-  alert:   CircleAlert,
+  alert:   Ban,
   info:    Lightbulb,
-  warning: Ban,
+  warning: CircleAlert,
 };
 
 const TOAST_COLOR: Record<ToastIntent, string> = {
-  success: "text-s4e-feedback-success",
-  alert:   "text-s4e-feedback-warning",
-  info:    "text-s4e-feedback-info",
-  warning: "text-s4e-feedback-alert",
+  success: "text-snt-feedback-success",
+  alert:   "text-snt-feedback-alert",
+  info:    "text-snt-feedback-info",
+  warning: "text-snt-feedback-warning",
 };
 
 const TOAST_BAR: Record<ToastIntent, string> = {
-  success: "bg-s4e-feedback-success",
-  alert:   "bg-s4e-feedback-warning",
-  info:    "bg-s4e-feedback-info",
-  warning: "bg-s4e-feedback-alert",
+  success: "bg-snt-feedback-success",
+  alert:   "bg-snt-feedback-alert",
+  info:    "bg-snt-feedback-info",
+  warning: "bg-snt-feedback-warning",
 };
 
 export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
@@ -55,6 +60,8 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       title,
       description,
       onDismiss,
+      duration = 4000,
+      paused = false,
       className,
       children,
       ...props
@@ -71,7 +78,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         aria-live={intent === "alert" ? "assertive" : "polite"}
         aria-atomic="true"
         className={cn(
-          "overflow-hidden bg-s4e-surface-app border border-s4e-border-default rounded-xl shadow-sm",
+          "overflow-hidden bg-snt-surface-app border border-snt-border-default rounded-xl shadow-sm",
           className,
         )}
         {...props}
@@ -80,10 +87,10 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
           <Icon size={20} aria-hidden className={cn("shrink-0", TOAST_COLOR[intent])} />
           <div className="flex-1 min-w-0">
             {title && (
-              <div className="text-[14px] font-semibold text-s4e-text-primary">{title}</div>
+              <div className="text-snt-14 font-semibold text-snt-text-primary">{title}</div>
             )}
             {description && (
-              <div className="text-[12px] text-s4e-text-secondary">{description}</div>
+              <div className="text-snt-12 text-snt-text-secondary">{description}</div>
             )}
             {!title && !description && children}
           </div>
@@ -91,21 +98,117 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
             <button
               type="button"
               onClick={onDismiss}
-              className="shrink-0 rounded text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-focus-ring"
+              className="shrink-0 rounded text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
               aria-label="Dismiss"
             >
               <X size={15} aria-hidden />
             </button>
           )}
         </div>
-        <div className="h-[3px] w-full bg-s4e-bg-subtle">
-          <div className={cn("h-full toast-timer-bar", TOAST_BAR[intent])} />
+        <div className="h-[3px] w-full bg-snt-bg-subtle">
+          <div
+            className={cn("h-full toast-timer-bar", TOAST_BAR[intent])}
+            style={{ animationDuration: `${duration}ms`, animationPlayState: paused ? "paused" : "running" }}
+          />
         </div>
       </div>
     );
   },
 );
 Toast.displayName = "Toast";
+
+// ── Toast manager ──────────────────────────────────────────────────────────
+//
+//   <ToastProvider>…app…</ToastProvider>
+//   const toast = useToast();
+//   toast({ intent: "success", title: "Scan scheduled" });
+//
+// Toasts stack bottom-right, auto-dismiss after `duration` and pause while
+// hovered or focused (WCAG 2.2.1). At most `max` are shown at once.
+
+export interface ToastOptions {
+  intent?:      ToastIntent;
+  title?:       string;
+  description?: string;
+  /** Auto-dismiss delay in ms. Default 4000; failures default to 8000. */
+  duration?:    number;
+}
+
+type ToastEntry = ToastOptions & { id: number };
+
+const ToastContext = React.createContext<((options: ToastOptions) => number) | null>(null);
+
+export function useToast() {
+  const toast = React.useContext(ToastContext);
+  if (!toast) throw new Error("useToast() must be used inside <ToastProvider>");
+  return toast;
+}
+
+const noopSubscribe = () => () => {};
+
+export function ToastProvider({ children, max = 3 }: { children: React.ReactNode; max?: number }) {
+  const [toasts, setToasts] = React.useState<ToastEntry[]>([]);
+  const nextId = React.useRef(0);
+  const isClient = React.useSyncExternalStore(noopSubscribe, () => true, () => false);
+
+  const dismiss = React.useCallback((id: number) => setToasts((all) => all.filter((t) => t.id !== id)), []);
+  const toast = React.useCallback(
+    (options: ToastOptions) => {
+      const id = ++nextId.current;
+      setToasts((all) => [...all, { ...options, id }].slice(-max));
+      return id;
+    },
+    [max],
+  );
+
+  return (
+    <ToastContext.Provider value={toast}>
+      {children}
+      {isClient && createPortal(
+        <section
+          aria-label="Notifications"
+          className="fixed bottom-4 right-4 z-toast flex w-[360px] max-w-[calc(100vw-2rem)] flex-col gap-2"
+        >
+          {toasts.map((t) => (
+            <ManagedToast key={t.id} entry={t} onDismiss={() => dismiss(t.id)} />
+          ))}
+        </section>,
+        document.body,
+      )}
+    </ToastContext.Provider>
+  );
+}
+
+function ManagedToast({ entry, onDismiss }: { entry: ToastEntry; onDismiss: () => void }) {
+  const duration = entry.duration ?? (entry.intent === "alert" ? 8000 : 4000);
+  const [paused, setPaused] = React.useState(false);
+  const remaining = React.useRef(duration);
+
+  React.useEffect(() => {
+    if (paused) return;
+    const started = Date.now();
+    const timer = window.setTimeout(onDismiss, remaining.current);
+    return () => {
+      window.clearTimeout(timer);
+      remaining.current -= Date.now() - started;
+    };
+  }, [paused, onDismiss]);
+
+  return (
+    <Toast
+      intent={entry.intent}
+      title={entry.title}
+      description={entry.description}
+      duration={duration}
+      paused={paused}
+      onDismiss={onDismiss}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    />
+  );
+}
 
 // ── Tooltip ────────────────────────────────────────────────────────────────
 
@@ -135,10 +238,10 @@ const ARROW_POS: Record<TooltipPosition, string> = {
 };
 
 const ARROW_BORDER: Record<TooltipPosition, string> = {
-  top:    "border-t-s4e-neutral-grey-900 border-b-transparent border-x-transparent",
-  bottom: "border-b-s4e-neutral-grey-900 border-t-transparent border-x-transparent",
-  left:   "border-l-s4e-neutral-grey-900 border-r-transparent border-y-transparent",
-  right:  "border-r-s4e-neutral-grey-900 border-l-transparent border-y-transparent",
+  top:    "border-t-snt-neutral-grey-900 border-b-transparent border-x-transparent",
+  bottom: "border-b-snt-neutral-grey-900 border-t-transparent border-x-transparent",
+  left:   "border-l-snt-neutral-grey-900 border-r-transparent border-y-transparent",
+  right:  "border-r-snt-neutral-grey-900 border-l-transparent border-y-transparent",
 };
 
 export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
@@ -204,8 +307,8 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
           role="tooltip"
           hidden={!open}
           className={cn(
-            "absolute z-50 w-56 px-3 py-2 rounded-xl text-[12px] text-s4e-text-inverse leading-relaxed pointer-events-none",
-            "bg-s4e-neutral-grey-900",
+            "absolute z-50 w-56 px-3 py-2 rounded-xl text-snt-12 text-snt-text-inverse leading-relaxed pointer-events-none",
+            "bg-snt-neutral-grey-900",
             BUBBLE_POS[position],
           )}
         >

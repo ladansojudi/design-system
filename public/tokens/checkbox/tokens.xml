@@ -4,15 +4,11 @@
 <resources>
 
     <!-- Colors -->
-    <color name="brand_primary_500">#1383D4</color>
-    <color name="neutral_grey_400">#C9CFCF</color>
-    <color name="neutral_grey_600">#667070</color>
-    <color name="surface_row">#FFFFFF</color>
-    <color name="text_primary">#121F28</color>
-    <color name="text_disabled">#A7ADB2</color>
-    <color name="text_on_accent">#FFFFFF</color>
-    <color name="btn_neutral_800">#202323</color>
-    <color name="btn_primary_600">#0F69AA</color>
+    <color name="neutral_grey_400">#8F8F98</color>
+    <color name="text_primary">#09090B</color>
+    <color name="text_disabled">#A1A1AA</color>
+    <color name="btn_neutral_800">#18181B</color>
+    <color name="btn_primary_600">#4F46E5</color>
 
     <!-- Spacing -->
     <dimen name="space_2">8dp</dimen>
@@ -40,9 +36,5 @@
     <!-- Font weight -->
     <integer name="font_weight_medium">500</integer>
     <integer name="font_weight_semibold">600</integer>
-
-    <!-- Focus ring -->
-    <dimen name="ring_width_2">2dp</dimen>
-    <dimen name="ring_offset_1">1dp</dimen>
 
 </resources>

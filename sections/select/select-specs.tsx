@@ -16,11 +16,11 @@ import {
 
 function StateSwatch({ state }: { state: "Default" | "Hover" | "Focused" | "Error" | "Disabled" }) {
   const cls = {
-    Default:  "border-s4e-neutral-grey-300",
-    Hover:    "border-s4e-neutral-grey-500",
-    Focused:  "border-s4e-brand-primary-600",
-    Error:    "border-s4e-scale-red-600",
-    Disabled: "border-s4e-neutral-grey-300 opacity-40",
+    Default:  "border-snt-neutral-grey-300",
+    Hover:    "border-snt-neutral-grey-500",
+    Focused:  "border-snt-brand-primary-600",
+    Error:    "border-snt-scale-red-600",
+    Disabled: "border-snt-neutral-grey-300 opacity-40",
   }[state];
   return <span className={`inline-block w-5 h-3 rounded-[2px] bg-white border ${cls}`} aria-hidden />;
 }
@@ -117,9 +117,9 @@ export function SelectSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={240} height={36} padX={12} padY={8} radius={8}>
-          <div className="w-full h-full flex items-center justify-between gap-2 px-3 rounded-md border border-s4e-neutral-grey-300 bg-s4e-surface-row text-[14px]">
-            <span className="text-s4e-text-primary truncate">Europe (Frankfurt)</span>
-            <ChevronDown size={14} className="shrink-0 text-s4e-text-disabled" />
+          <div className="w-full h-full flex items-center justify-between gap-2 px-3 rounded-md border border-snt-neutral-grey-300 bg-snt-surface-row text-[14px]">
+            <span className="text-snt-text-primary truncate">Europe (Frankfurt)</span>
+            <ChevronDown size={14} className="shrink-0 text-snt-text-disabled" />
           </div>
         </SpacingDiagram>
 

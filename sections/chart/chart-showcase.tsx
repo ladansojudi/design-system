@@ -6,57 +6,15 @@ import { Sliders } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 import { ExampleCard } from "@/components/styleguide/example-card";
+import { ChartCard, StatBlock, DonutLegend as UIDonutLegend } from "@/components/ui/chart";
 
 // ── Shared primitives ──────────────────────────────────────────────────────
-
-function ChartCard({
-  title,
-  description,
-  viewAll,
-  trailing,
-  children,
-}: {
-  title:        string;
-  description?: string;
-  viewAll?:     boolean;
-  trailing?:    React.ReactNode;
-  children:     React.ReactNode;
-}) {
-  return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl bg-s4e-surface-app">
-      <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-s4e-neutral-grey-100 border-b border-s4e-neutral-divider-10 rounded-t-xl">
-        <span className="text-[14px] font-semibold text-s4e-text-primary shrink-0">{title}</span>
-        {description && (
-          <span className="hidden sm:inline text-[12px] text-s4e-text-disabled truncate flex-1 min-w-0">{description}</span>
-        )}
-        {trailing}
-        {viewAll && (
-          <button type="button" className="ml-auto text-[12px] font-medium text-s4e-brand-primary-500 hover:text-s4e-brand-primary-600 transition-colors shrink-0 underline underline-offset-2">
-            View all
-          </button>
-        )}
-      </div>
-      <div className="px-4 sm:px-5 py-5">{children}</div>
-    </div>
-  );
-}
-
-function StatBlock({ label, value, accent }: { label: string; value: string; accent?: string }) {
-  return (
-    <div className="flex-1 min-w-0 rounded-lg bg-s4e-neutral-grey-100 px-4 py-3">
-      <div className="text-[12px] text-s4e-text-disabled mb-1 truncate">{label}</div>
-      <div className={cn("text-[16px] font-bold tabular-nums truncate", accent ?? "text-s4e-text-primary")}>
-        {value}
-      </div>
-    </div>
-  );
-}
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
     </div>
   );
 }
@@ -66,10 +24,10 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 type DonutSegment = { label: string; value: number; color: string };
 
 const DONUT_DATA: DonutSegment[] = [
-  { label: "Category A", value: 420, color: "var(--s4e-data-1)" },
-  { label: "Category B", value: 120, color: "var(--s4e-data-5)" },
-  { label: "Category C", value: 60,  color: "var(--s4e-data-2)" },
-  { label: "Category D", value: 30,  color: "var(--s4e-data-3)" },
+  { label: "Category A", value: 420, color: "var(--snt-data-1)" },
+  { label: "Category B", value: 120, color: "var(--snt-data-5)" },
+  { label: "Category C", value: 60,  color: "var(--snt-data-2)" },
+  { label: "Category D", value: 30,  color: "var(--snt-data-3)" },
 ];
 
 function Donut({ size = 180 }: { size?: number }) {
@@ -79,17 +37,16 @@ function Donut({ size = 180 }: { size?: number }) {
   // pathLength normalises the stroke to 100 units, killing float drift between segments
   const PATH_LEN = 100;
 
-  let offset = 0;
-  const segments = DONUT_DATA.map((d) => {
-    const dash = (d.value / total) * PATH_LEN;
-    const seg  = { ...d, dash, offset };
-    offset += dash;
-    return seg;
-  });
+  const dashes   = DONUT_DATA.map((d) => (d.value / total) * PATH_LEN);
+  const segments = DONUT_DATA.map((d, i) => ({
+    ...d,
+    dash:   dashes[i],
+    offset: dashes.slice(0, i).reduce((sum, v) => sum + v, 0),
+  }));
 
   return (
     <svg width={size} height={size} viewBox="-90 -90 180 180" className="shrink-0">
-      <circle r={RADIUS} fill="none" stroke="var(--s4e-neutral-grey-100)" strokeWidth={STROKE} />
+      <circle r={RADIUS} fill="none" stroke="var(--snt-neutral-grey-100)" strokeWidth={STROKE} />
       {segments.map((s) => (
         <circle
           key={s.label}
@@ -103,7 +60,7 @@ function Donut({ size = 180 }: { size?: number }) {
           transform="rotate(-90)"
         />
       ))}
-      <text x="0" y="6" textAnchor="middle" className="fill-s4e-text-primary" fontSize="22" fontWeight="600">
+      <text x="0" y="6" textAnchor="middle" className="fill-snt-text-primary" fontSize="22" fontWeight="600">
         {total.toLocaleString()}
       </text>
     </svg>
@@ -111,22 +68,7 @@ function Donut({ size = 180 }: { size?: number }) {
 }
 
 function DonutLegend({ fullWidth = false }: { fullWidth?: boolean }) {
-  return (
-    <div className={cn(
-      "divide-y divide-s4e-neutral-divider-10",
-      fullWidth ? "w-full" : "flex-1 min-w-0 sm:min-w-[200px]",
-    )}>
-      {DONUT_DATA.map((d) => (
-        <div key={d.label} className="flex items-center gap-3 py-2.5">
-          <span className="w-[10px] h-[10px] rounded-full shrink-0" style={{ backgroundColor: d.color }} />
-          <span className="text-[14px] text-s4e-text-primary flex-1">{d.label}</span>
-          <span className="text-[14px] font-semibold text-s4e-text-primary tabular-nums">
-            {d.value.toLocaleString()}
-          </span>
-        </div>
-      ))}
-    </div>
-  );
+  return <UIDonutLegend data={DONUT_DATA} fullWidth={fullWidth} />;
 }
 
 function DonutSection() {
@@ -196,7 +138,7 @@ function TreemapSection() {
           title="Group Distribution"
           description="Overview of the top four groups by size"
           trailing={
-            <button type="button" className="ml-auto shrink-0 w-7 h-7 rounded-md hover:bg-s4e-neutral-divider-10 flex items-center justify-center text-s4e-text-disabled hover:text-s4e-text-primary transition-colors">
+            <button type="button" className="ml-auto shrink-0 w-7 h-7 rounded-md hover:bg-snt-neutral-divider-10 flex items-center justify-center text-snt-text-disabled hover:text-snt-text-primary transition-colors">
               <Sliders size={14} />
             </button>
           }
@@ -208,17 +150,17 @@ function TreemapSection() {
             </div>
 
             <div className="flex gap-1 h-64">
-              <div className="flex-1 rounded-md bg-s4e-data-5 flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold">
+              <div className="flex-1 rounded-md bg-snt-data-5 flex items-center justify-center text-snt-text-on-accent text-[14px] font-semibold">
                 Group A · 92
               </div>
-              <div className="flex-1 rounded-md bg-s4e-data-7 flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold">
+              <div className="flex-1 rounded-md bg-snt-data-7 flex items-center justify-center text-snt-text-on-accent text-[14px] font-semibold">
                 Group B · 78
               </div>
               <div className="flex-1 flex flex-col gap-1">
-                <div className="flex-1 rounded-md bg-s4e-data-1 flex items-center justify-center text-s4e-text-primary text-[14px] font-semibold">
+                <div className="flex-1 rounded-md bg-snt-data-1 flex items-center justify-center text-snt-text-primary text-[14px] font-semibold">
                   Group C · 42
                 </div>
-                <div className="flex-1 rounded-md bg-s4e-data-3 flex items-center justify-center text-s4e-text-primary text-[14px] font-semibold">
+                <div className="flex-1 rounded-md bg-snt-data-3 flex items-center justify-center text-snt-text-primary text-[14px] font-semibold">
                   Group D · 28
                 </div>
               </div>
@@ -236,9 +178,9 @@ function TreemapSection() {
         ]}
       >
         <div className="flex gap-1 w-64 h-24">
-          <div className="flex-1 rounded-md bg-s4e-data-5 flex items-center justify-center text-s4e-text-on-accent text-[11px] font-semibold">A · 92</div>
-          <div className="flex-1 rounded-md bg-s4e-data-1 flex items-center justify-center text-s4e-text-primary text-[11px] font-semibold">B · 42</div>
-          <div className="flex-1 rounded-md bg-s4e-data-3 flex items-center justify-center text-s4e-text-primary text-[11px] font-semibold">C · 28</div>
+          <div className="flex-1 rounded-md bg-snt-data-5 flex items-center justify-center text-snt-text-on-accent text-[11px] font-semibold">A · 92</div>
+          <div className="flex-1 rounded-md bg-snt-data-1 flex items-center justify-center text-snt-text-primary text-[11px] font-semibold">B · 42</div>
+          <div className="flex-1 rounded-md bg-snt-data-3 flex items-center justify-center text-snt-text-primary text-[11px] font-semibold">C · 28</div>
         </div>
       </Anatomy>
 
@@ -288,7 +230,7 @@ function BarChart() {
           {/* Y axis labels */}
           <div className="flex flex-col-reverse justify-between h-60 text-right pr-1 w-8">
             {TICKS.map((t) => (
-              <span key={t} className="text-[10px] text-s4e-text-disabled tabular-nums">{t}</span>
+              <span key={t} className="text-[10px] text-snt-text-disabled tabular-nums">{t}</span>
             ))}
           </div>
 
@@ -297,20 +239,20 @@ function BarChart() {
             {/* Grid lines */}
             <div className="absolute inset-0 flex flex-col-reverse justify-between pointer-events-none">
               {TICKS.map((t) => (
-                <div key={t} className="border-t border-s4e-neutral-divider-10/70" />
+                <div key={t} className="border-t border-snt-neutral-divider-10/70" />
               ))}
             </div>
             {/* Bars + values */}
             <div className="relative h-60 flex items-end gap-2 sm:gap-6">
               {BAR_DATA.map((b, i) => (
                 <div key={b.label} className="flex-1 flex flex-col items-center justify-end gap-1.5 h-full">
-                  <span className="text-[11px] font-semibold text-s4e-text-primary tabular-nums">{b.value}</span>
+                  <span className="text-[11px] font-semibold text-snt-text-primary tabular-nums">{b.value}</span>
                   <div
                     className={cn(
                       "w-full max-w-[54px] rounded-t-md transition-all",
                       i === 0
-                        ? "bg-s4e-brand-primary-600"
-                        : "bg-s4e-brand-primary-500",
+                        ? "bg-snt-brand-primary-600"
+                        : "bg-snt-brand-primary-500",
                     )}
                     style={{ height: `${(b.value / MAX) * 100}%` }}
                   />
@@ -323,7 +265,7 @@ function BarChart() {
         {/* X axis labels */}
         <div className="flex gap-2 sm:gap-6 pl-11">
           {BAR_DATA.map((b) => (
-            <div key={b.label} className="flex-1 text-center text-[11px] text-s4e-text-secondary">
+            <div key={b.label} className="flex-1 text-center text-[11px] text-snt-text-secondary">
               {b.label}
             </div>
           ))}
@@ -351,10 +293,10 @@ function BarSection() {
         ]}
       >
         <div className="flex items-end gap-2 h-20">
-          <div className="w-6 h-full rounded-t-md bg-gradient-to-t from-s4e-brand-primary-600 to-s4e-brand-primary-500" />
-          <div className="w-6 h-[80%] rounded-t-md bg-gradient-to-t from-s4e-brand-primary-500 to-s4e-brand-primary-400" />
-          <div className="w-6 h-[55%] rounded-t-md bg-gradient-to-t from-s4e-brand-primary-500 to-s4e-brand-primary-400" />
-          <div className="w-6 h-[35%] rounded-t-md bg-gradient-to-t from-s4e-brand-primary-500 to-s4e-brand-primary-400" />
+          <div className="w-6 h-full rounded-t-md bg-gradient-to-t from-snt-brand-primary-600 to-snt-brand-primary-500" />
+          <div className="w-6 h-[80%] rounded-t-md bg-gradient-to-t from-snt-brand-primary-500 to-snt-brand-primary-400" />
+          <div className="w-6 h-[55%] rounded-t-md bg-gradient-to-t from-snt-brand-primary-500 to-snt-brand-primary-400" />
+          <div className="w-6 h-[35%] rounded-t-md bg-gradient-to-t from-snt-brand-primary-500 to-snt-brand-primary-400" />
         </div>
       </Anatomy>
 
@@ -400,13 +342,13 @@ function LineChart() {
       <div className="space-y-4">
         <div className="flex gap-3">
           <StatBlock label="Current Total"     value="816" />
-          <StatBlock label="Last Week"         value="+1.1%" accent="text-s4e-scale-green-600" />
+          <StatBlock label="Last Week"         value="+1.1%" accent="text-snt-scale-green-600" />
           <StatBlock label="Peak Day"          value="20 Feb 2026" />
         </div>
 
         <div className="relative">
           {/* Y axis labels */}
-          <div className="absolute left-0 top-0 bottom-5 flex flex-col justify-between text-[10px] text-s4e-text-disabled">
+          <div className="absolute left-0 top-0 bottom-5 flex flex-col justify-between text-[10px] text-snt-text-disabled">
             <span>1500</span>
             <span>1000</span>
             <span>500</span>
@@ -418,21 +360,21 @@ function LineChart() {
             <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-40">
               <defs>
                 <linearGradient id="line-area-fill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%"   stopColor="var(--s4e-brand-primary-500)" stopOpacity="0.28" />
-                  <stop offset="100%" stopColor="var(--s4e-brand-primary-500)" stopOpacity="0"    />
+                  <stop offset="0%"   stopColor="var(--snt-brand-primary-500)" stopOpacity="0.28" />
+                  <stop offset="100%" stopColor="var(--snt-brand-primary-500)" stopOpacity="0"    />
                 </linearGradient>
               </defs>
               {/* Horizontal grid */}
               {[0, 33, 66, 100].map((y) => (
-                <line key={y} x1="0" x2="100" y1={y} y2={y} stroke="var(--s4e-neutral-grey-200)" strokeWidth="0.3" strokeDasharray="1 1" />
+                <line key={y} x1="0" x2="100" y1={y} y2={y} stroke="var(--snt-neutral-grey-200)" strokeWidth="0.3" strokeDasharray="1 1" />
               ))}
               <path d={areaPath}  fill="url(#line-area-fill)" />
-              <path d={linePath}  fill="none" stroke="var(--s4e-brand-primary-500)" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
+              <path d={linePath}  fill="none" stroke="var(--snt-brand-primary-500)" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
 
           {/* X axis labels */}
-          <div className="ml-10 mt-2 flex justify-between text-[10px] text-s4e-text-disabled">
+          <div className="ml-10 mt-2 flex justify-between text-[10px] text-snt-text-disabled">
             {["Mar 25", "Jun 25", "Sep 25", "Dec 25", "Feb 26", "Apr 26"].map((d) => (
               <span key={d} className="whitespace-nowrap">{d}</span>
             ))}
@@ -463,12 +405,12 @@ function LineSection() {
         <svg viewBox="0 0 100 60" preserveAspectRatio="none" className="w-64 h-20">
           <defs>
             <linearGradient id="anatomy-line-area" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--s4e-brand-primary-500)" stopOpacity="0.28" />
-              <stop offset="100%" stopColor="var(--s4e-brand-primary-500)" stopOpacity="0" />
+              <stop offset="0%" stopColor="var(--snt-brand-primary-500)" stopOpacity="0.28" />
+              <stop offset="100%" stopColor="var(--snt-brand-primary-500)" stopOpacity="0" />
             </linearGradient>
           </defs>
           <path d="M 0 50 C 20 48, 40 42, 60 25 C 80 12, 95 10, 100 8 L 100 60 L 0 60 Z" fill="url(#anatomy-line-area)" />
-          <path d="M 0 50 C 20 48, 40 42, 60 25 C 80 12, 95 10, 100 8" fill="none" stroke="var(--s4e-brand-primary-500)" strokeWidth="1" strokeLinecap="round" />
+          <path d="M 0 50 C 20 48, 40 42, 60 25 C 80 12, 95 10, 100 8" fill="none" stroke="var(--snt-brand-primary-500)" strokeWidth="1" strokeLinecap="round" />
         </svg>
       </Anatomy>
 
@@ -511,7 +453,7 @@ export function ChartShowcase() {
   return (
     <div>
       {/* Tab bar */}
-      <div className="flex items-end border-b border-s4e-neutral-divider-10 mb-8">
+      <div className="flex items-end border-b border-snt-neutral-divider-10 mb-8">
         {TABS.map((tab) => {
           const isActive = active === tab.id;
           return (
@@ -522,8 +464,8 @@ export function ChartShowcase() {
               className={cn(
                 "px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px transition-colors",
                 isActive
-                  ? "border-s4e-brand-primary-500 text-s4e-brand-primary-500"
-                  : "border-transparent text-s4e-text-secondary hover:text-s4e-text-primary",
+                  ? "border-snt-brand-primary-500 text-snt-brand-primary-500"
+                  : "border-transparent text-snt-text-secondary hover:text-snt-text-primary",
               )}
             >
               {tab.label}
@@ -551,10 +493,10 @@ export function ChartExamples() {
         code={`<DonutChart
   title="Items by Category"
   data={[
-    { label: "Category A", value: 420, color: "var(--s4e-data-1)" },
-    { label: "Category B", value: 120, color: "var(--s4e-data-5)" },
-    { label: "Category C", value: 60,  color: "var(--s4e-data-2)" },
-    { label: "Category D", value: 30,  color: "var(--s4e-data-3)" },
+    { label: "Category A", value: 420, color: "var(--snt-data-1)" },
+    { label: "Category B", value: 120, color: "var(--snt-data-5)" },
+    { label: "Category C", value: 60,  color: "var(--snt-data-2)" },
+    { label: "Category D", value: 30,  color: "var(--snt-data-3)" },
   ]}
   layout="horizontal"
 />`}
@@ -619,10 +561,10 @@ export function ChartExamples() {
   title="Group Distribution"
   description="Overview of the top four groups by size"
   data={[
-    { label: "Group A", value: 92, color: "var(--s4e-data-5)" },
-    { label: "Group B", value: 78, color: "var(--s4e-data-7)" },
-    { label: "Group C", value: 42, color: "var(--s4e-data-1)" },
-    { label: "Group D", value: 28, color: "var(--s4e-data-3)" },
+    { label: "Group A", value: 92, color: "var(--snt-data-5)" },
+    { label: "Group B", value: 78, color: "var(--snt-data-7)" },
+    { label: "Group C", value: 42, color: "var(--snt-data-1)" },
+    { label: "Group D", value: 28, color: "var(--snt-data-3)" },
   ]}
   stats={[
     { label: "Total Items", value: "240" },
@@ -641,17 +583,17 @@ export function ChartExamples() {
                   <StatBlock label="Top Group"   value="Group A" />
                 </div>
                 <div className="flex gap-1 h-64">
-                  <div className="flex-1 rounded-md bg-s4e-data-5 flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold">
+                  <div className="flex-1 rounded-md bg-snt-data-5 flex items-center justify-center text-snt-text-on-accent text-[14px] font-semibold">
                     Group A · 92
                   </div>
-                  <div className="flex-1 rounded-md bg-s4e-data-7 flex items-center justify-center text-s4e-text-on-accent text-[14px] font-semibold">
+                  <div className="flex-1 rounded-md bg-snt-data-7 flex items-center justify-center text-snt-text-on-accent text-[14px] font-semibold">
                     Group B · 78
                   </div>
                   <div className="flex-1 flex flex-col gap-1">
-                    <div className="flex-1 rounded-md bg-s4e-data-1 flex items-center justify-center text-s4e-text-primary text-[14px] font-semibold">
+                    <div className="flex-1 rounded-md bg-snt-data-1 flex items-center justify-center text-snt-text-primary text-[14px] font-semibold">
                       Group C · 42
                     </div>
-                    <div className="flex-1 rounded-md bg-s4e-data-3 flex items-center justify-center text-s4e-text-primary text-[14px] font-semibold">
+                    <div className="flex-1 rounded-md bg-snt-data-3 flex items-center justify-center text-snt-text-primary text-[14px] font-semibold">
                       Group D · 28
                     </div>
                   </div>

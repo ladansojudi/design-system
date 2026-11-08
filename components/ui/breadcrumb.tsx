@@ -4,14 +4,14 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Breadcrumb
+ * sentinel/ui — Breadcrumb
  *
  * Drop this file into your project at components/ui/breadcrumb.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 export type BreadcrumbProps = React.HTMLAttributes<HTMLElement>;
@@ -44,7 +44,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLAnchorElement, BreadcrumbItem
       return (
         <span
           aria-current="page"
-          className={cn("text-[14px] text-s4e-text-secondary", className)}
+          className={cn("text-snt-14 text-snt-text-secondary", className)}
         >
           {children}
         </span>
@@ -56,10 +56,10 @@ export const BreadcrumbItem = React.forwardRef<HTMLAnchorElement, BreadcrumbItem
         ref={ref}
         href={href}
         className={cn(
-          "text-[14px] font-medium cursor-pointer transition-colors",
+          "text-snt-14 font-medium cursor-pointer transition-colors",
           visited
-            ? "text-s4e-text-secondary"
-            : "text-s4e-text-primary hover:text-s4e-brand-primary-500 hover:underline hover:underline-offset-2",
+            ? "text-snt-text-secondary"
+            : "text-snt-text-primary hover:text-snt-brand-primary-500 hover:underline hover:underline-offset-2",
           className,
         )}
         {...props}
@@ -79,7 +79,7 @@ export const BreadcrumbSeparator = React.forwardRef<HTMLSpanElement, BreadcrumbS
       <span
         ref={ref}
         aria-hidden
-        className={cn("text-s4e-text-secondary text-[12px] select-none", className)}
+        className={cn("text-snt-text-secondary text-snt-12 select-none", className)}
         {...props}
       >
         {children ?? "•"}

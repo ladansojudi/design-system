@@ -5,7 +5,7 @@ category: Atom
 status: stable
 source: components/ui/alert.tsx
 styleguide: /styleguide/alert
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-214
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/alert/
 ---
 
@@ -81,9 +81,9 @@ An inline message tied to a page or section. It communicates a status that persi
 
 | Role | Token |
 |---|---|
-| Background | `s4e-scale-{blue,green,yellow,red}-50` |
-| Border | `s4e-scale-*-200` |
-| Text / icon | `s4e-text-info`, `s4e-text-success`, `s4e-text-warning`, `s4e-text-error` |
+| Background | `snt-scale-{blue,green,yellow,red}-50` |
+| Border | `snt-scale-*-200` |
+| Text / icon | `snt-text-info`, `snt-text-success`, `snt-text-warning`, `snt-text-error` |
 
 ## Design ↔ Code
 

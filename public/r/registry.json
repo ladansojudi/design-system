@@ -1,0 +1,628 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "sentinel",
+  "homepage": "http://localhost:3000",
+  "items": [
+    {
+      "name": "theme",
+      "type": "registry:item",
+      "title": "Sentinel theme",
+      "description": "Sentinel design tokens (light + dark) and the Tailwind v4 @theme mapping. Install once before any component.",
+      "files": [
+        {
+          "path": "public/theme.css",
+          "type": "registry:file",
+          "target": "styles/sentinel-theme.css"
+        }
+      ],
+      "docs": "Add `@import \"../styles/sentinel-theme.css\";` (path relative to your global CSS) right after `@import \"tailwindcss\";`. Dark mode: add `.dark` or `[data-snt-theme=\"dark\"]` to an ancestor.",
+      "categories": [
+        "theme"
+      ]
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "Sentinel utils",
+      "description": "cn() — merges Tailwind class names (clsx + tailwind-merge). Required by every Sentinel component.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "categories": [
+        "lib"
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "An inline message tied to a page or section. It communicates a status that persists until the condition changes or the user dismisses it.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Alert (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/alert.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "badge-tag",
+      "type": "registry:ui",
+      "title": "Badge · Tag",
+      "description": "A small pill that labels an object with a status (**Badge**) or a category (**Tag**). It's the same primitive; Badge shows a status dot by default.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/badge-tag.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Badge · Tag (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/badge-tag.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "banner",
+      "type": "registry:ui",
+      "title": "Banner",
+      "description": "A full-width strip at the top of the app for product-wide announcements, promotions or warnings.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/banner.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Banner (deprecated). Usage, accessibility and known gaps: http://localhost:3000/docs/components/banner.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "deprecated"
+      }
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Shows where the current page sits in the hierarchy and lets users jump back up.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Breadcrumb (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/breadcrumb.md",
+      "categories": [
+        "molecule"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Buttons trigger an action on the current page: submitting a form, opening a modal, starting a scan.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Button (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/button.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "cards",
+      "type": "registry:ui",
+      "title": "Cards",
+      "description": "Dashboard cards that summarise a topic and lead to a next step. There are two presets: **InsightCard** (a key/value list) and **AlertCard** (an active-issue callout).",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/cards.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Cards (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/cards.md",
+      "categories": [
+        "organism"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "A dependency-free set of SVG chart primitives in a shared card shell: donut, bar, line and treemap, plus stat blocks.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Chart (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/chart.md",
+      "categories": [
+        "organism"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Lets the user turn an independent option on or off, or pick several items from a list.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Checkbox (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/checkbox.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "beta"
+      }
+    },
+    {
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "Data Table",
+      "description": "A composable card that lists findings (threat, asset, date, severity) with a header, column headers, rows and a pagination footer.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/data-table.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Data Table (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/data-table.md",
+      "categories": [
+        "organism"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "title": "Empty State",
+      "description": "Fills a region that has no content yet. It explains why it's empty and what to do next.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/empty-state.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Empty State (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/empty-state.md",
+      "categories": [
+        "organism"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "filter-bar",
+      "type": "registry:ui",
+      "title": "Filter Bar",
+      "description": "A horizontal toolbar that combines search, filter pills and view actions above a table or list.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/filter-bar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Filter Bar (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/filter-bar.md",
+      "categories": [
+        "molecule"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "gauge",
+      "type": "registry:ui",
+      "title": "Gauge",
+      "description": "A semicircular meter that shows a single value against a known maximum, such as a security score.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/gauge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Gauge (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/gauge.md",
+      "categories": [
+        "organism"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "modal",
+      "type": "registry:ui",
+      "title": "Modal",
+      "description": "A dialog that interrupts the current task to request a decision or focused input. It traps focus and blocks interaction with the rest of the page until it closes.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/modal.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Modal (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/modal.md",
+      "categories": [
+        "organism"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "search-bar",
+      "type": "registry:ui",
+      "title": "Search Bar",
+      "description": "A text input dedicated to searching or filtering content, with a search icon and a clear button.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/search-bar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Search Bar (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/search-bar.md",
+      "categories": [
+        "molecule"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A single-choice dropdown that picks one value from a list of options.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Select (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/select.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "beta"
+      }
+    },
+    {
+      "name": "severity-badge",
+      "type": "registry:ui",
+      "title": "Severity Badge",
+      "description": "The canonical way to show a finding's severity (Critical → Info), optionally with its numeric score (e.g. CVSS).",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/severity-badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Severity Badge (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/severity-badge.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "A pulsing placeholder that mirrors the shape of content while it loads.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Skeleton (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/skeleton.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "beta"
+      }
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "An indeterminate loading indicator for short waits when the shape of the result is unknown.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Spinner (alpha). Usage, accessibility and known gaps: http://localhost:3000/docs/components/spinner.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "alpha"
+      }
+    },
+    {
+      "name": "switch-radio",
+      "type": "registry:ui",
+      "title": "Switch · Radio",
+      "description": "**Switch** turns a single setting on or off, effective immediately. **Radio** picks exactly one option from a small, visible set.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/switch-radio.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Switch · Radio (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/switch-radio.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Switches between related views of the same object without leaving the page.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Tabs (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/tabs.md",
+      "categories": [
+        "molecule"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "text-field",
+      "type": "registry:ui",
+      "title": "Text Field",
+      "description": "A single-line input for short free text: names, domains, IPs, emails.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/text-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Text Field (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/text-field.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "text-space",
+      "type": "registry:ui",
+      "title": "Text Space",
+      "description": "A rich-text composer (toolbar + writing area) for formatted notes, reports and comments.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/text-space.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Text Space (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/text-space.md",
+      "categories": [
+        "organism"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "A multi-line plain-text input for notes, descriptions and justifications.",
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Textarea (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/textarea.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    },
+    {
+      "name": "toast-tooltip",
+      "type": "registry:ui",
+      "title": "Toast · Tooltip",
+      "description": "**Toast** is a brief, non-blocking confirmation of something that just happened. **Tooltip** is a short label or hint that appears on hover or focus of a control.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "http://localhost:3000/r/utils.json",
+        "http://localhost:3000/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/toast-tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Toast · Tooltip (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/toast-tooltip.md",
+      "categories": [
+        "atom"
+      ],
+      "meta": {
+        "status": "stable"
+      }
+    }
+  ]
+}

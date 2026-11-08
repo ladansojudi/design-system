@@ -98,22 +98,22 @@ export function TokenExportTabs({ slugOverride, title, badge, intro }: TokenExpo
   return (
     <section className="mt-12">
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-        <span className="text-[15px] font-semibold text-s4e-text-primary">{title ?? "Token Export"}</span>
-        <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-s4e-brand-primary-500/10 text-s4e-brand-primary-500">
+        <span aria-hidden className="hidden">▶▶</span>
+        <span className="text-[15px] font-semibold text-snt-text-primary">{title ?? "Token Export"}</span>
+        <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-snt-brand-primary-500/10 text-snt-brand-primary-500">
           {badge ?? "Used by this component"}
         </span>
       </div>
       {intro ?? (
-        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+        <p className="text-[12px] text-snt-text-secondary leading-relaxed mb-4 max-w-2xl">
           The exact tokens this page references — exported per platform. Auto-regenerated from
-          the component sources by <code className="font-mono text-s4e-text-primary">scripts/export-tokens.js</code>.
+          the component sources by <code className="font-mono text-snt-text-primary">scripts/export-tokens.js</code>.
         </p>
       )}
 
-      <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
+      <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
         {/* Tab bar */}
-        <div className="flex items-center justify-between gap-3 px-2 py-2 border-b border-s4e-neutral-divider-10 bg-s4e-surface-table-header">
+        <div className="flex items-center justify-between gap-3 px-2 py-2 border-b border-snt-neutral-divider-10 bg-snt-surface-table-header">
           <div className="flex items-center gap-1">
             {FILES.map((f) => (
               <button
@@ -124,8 +124,8 @@ export function TokenExportTabs({ slugOverride, title, badge, intro }: TokenExpo
                 className={cn(
                   "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer",
                   active === f.key
-                    ? "bg-s4e-surface-row text-s4e-text-primary shadow-s4e-xs"
-                    : "text-s4e-text-secondary hover:text-s4e-text-primary",
+                    ? "bg-snt-surface-row text-snt-text-primary shadow-snt-xs"
+                    : "text-snt-text-secondary hover:text-snt-text-primary",
                   !contents[f.key] && "opacity-40 cursor-not-allowed",
                 )}
               >
@@ -138,7 +138,7 @@ export function TokenExportTabs({ slugOverride, title, badge, intro }: TokenExpo
           <a
             href={`/tokens/${slug}/${activeSpec.filename}`}
             download={activeSpec.filename}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11px] font-medium text-s4e-text-on-accent bg-s4e-btn-primary-600 hover:bg-s4e-btn-primary-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[11px] font-medium text-snt-text-on-accent bg-snt-btn-primary-600 hover:bg-snt-btn-primary-700 transition-colors"
           >
             <Download size={12} />
             Download {activeSpec.filename}

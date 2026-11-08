@@ -4,15 +4,11 @@
 
 :root {
   /* Colors */
-  --s4e-brand-primary-500: #1383d4;
-  --s4e-neutral-grey-400: #c9cfcf;
-  --s4e-neutral-grey-600: #667070;
-  --s4e-surface-row: #ffffff;
-  --s4e-text-primary: #121f28;
-  --s4e-text-disabled: #a7adb2;
-  --s4e-text-on-accent: #ffffff;
-  --s4e-btn-neutral-800: #202323;
-  --s4e-btn-primary-600: #0f69aa;
+  --snt-neutral-grey-400: #8f8f98;
+  --snt-text-primary: #09090b;
+  --snt-text-disabled: #a1a1aa;
+  --snt-btn-neutral-800: #18181b;
+  --snt-btn-primary-600: #4f46e5;
 
   /* Spacing */
   --space-2: 8px;
@@ -40,8 +36,4 @@
   /* Font weight */
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
-
-  /* Focus ring */
-  --ring-width-2: 2px;
-  --ring-offset-1: 1px;
 }

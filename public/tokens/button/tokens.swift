@@ -7,53 +7,39 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary50 = UIColor(hex: "#E8F4FD")
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
-    static let scaleGreen500 = UIColor(hex: "#63A100")
-    static let scaleGreen600 = UIColor(hex: "#3F6600")
+    static let brandPrimary500 = UIColor(hex: "#5B5BD6")
     static let scaleRed50 = UIColor(hex: "#FCF3F2")
-    static let scaleRed500 = UIColor(hex: "#D13D2E")
-    static let neutralGrey100 = UIColor(hex: "#F7F8F8")
-    static let neutralGrey300 = UIColor(hex: "#DFE2E2")
-    static let neutralGrey400 = UIColor(hex: "#C9CFCF")
-    static let neutralGrey500 = UIColor(hex: "#949E9E")
-    static let neutralGrey800 = UIColor(hex: "#1F2323")
+    static let neutralGrey100 = UIColor(hex: "#F4F4F5")
+    static let neutralGrey300 = UIColor(hex: "#D4D4D8")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
-    static let surfaceTableHeader = UIColor(hex: "#F7F8F8")
-    static let textPrimary = UIColor(hex: "#121F28")
-    static let textSecondary = UIColor(hex: "#657078")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
-    static let textWhite = UIColor(hex: "#FFFFFF")
+    static let surfaceTableHeader = UIColor(hex: "#F4F4F5")
+    static let textPrimary = UIColor(hex: "#09090B")
+    static let textSecondary = UIColor(hex: "#52525B")
+    static let textDisabled = UIColor(hex: "#A1A1AA")
     static let textInverse = UIColor(hex: "#FFFFFF")
     static let textOnAccent = UIColor(hex: "#FFFFFF")
-    static let textLink = UIColor(hex: "#0066CC")
     static let textError = UIColor(hex: "#B0291E")
-    static let btnNeutral800 = UIColor(hex: "#202323")
-    static let btnPrimary600 = UIColor(hex: "#0F69AA")
-    static let btnPrimary700 = UIColor(hex: "#024A72")
+    static let btnPrimary600 = UIColor(hex: "#4F46E5")
+    static let btnPrimary700 = UIColor(hex: "#4338CA")
     static let btnError600 = UIColor(hex: "#AE2700")
-    static let btnError700 = UIColor(hex: "#881F00")
 }
 
 // MARK: - Sizing (CGFloat)
 
 extension CGFloat {
     // Spacing
-    static let space8: CGFloat = 32
-    static let space3: CGFloat = 12
-    static let space1: CGFloat = 4
-    static let space9: CGFloat = 36
-    static let space4: CGFloat = 16
     static let space2: CGFloat = 8
-    static let space11: CGFloat = 44
-    static let space5: CGFloat = 20
+    static let space4: CGFloat = 16
     static let space6: CGFloat = 24
+    static let space3: CGFloat = 12
+    static let space9: CGFloat = 36
+    static let space5: CGFloat = 20
     static let space10: CGFloat = 40
+    static let space8: CGFloat = 32
     static let space12: CGFloat = 48
     static let space16: CGFloat = 64
 
     // Radius
-    static let radiusBase: CGFloat = 4
     static let radiusMd: CGFloat = 6
     static let radiusXl: CGFloat = 12
     static let radiusFull: CGFloat = 9999
@@ -61,7 +47,6 @@ extension CGFloat {
 
     // Border width
     static let borderWidth1: CGFloat = 1
-    static let borderWidth2: CGFloat = 2
 
     // Font size
     static let fontSize10: CGFloat = 10
@@ -72,9 +57,6 @@ extension CGFloat {
 
     // Focus ring width
     static let ringWidth2: CGFloat = 2
-
-    // Focus ring offset
-    static let ringOffset2: CGFloat = 2
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)

@@ -5,7 +5,7 @@ category: Atom
 status: alpha
 source: components/ui/spinner.tsx
 styleguide: /styleguide/spinner
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=7-124
 apg: N/A (role="status")
 ---
 
@@ -68,7 +68,7 @@ Single state. When reduced motion is on, the global rule stops the rotation, so 
 
 | Role | Token |
 |---|---|
-| Ring (primary / neutral / white) | `s4e-brand-primary-500` / `s4e-text-disabled` / `s4e-text-white` |
+| Ring (primary / neutral / white) | `snt-brand-primary-500` / `snt-text-disabled` / `snt-text-white` |
 
 ## Design ↔ Code
 

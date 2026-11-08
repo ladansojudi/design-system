@@ -29,19 +29,19 @@ const groupByName = new Map(colorGroups.map((g) => [g.name, g]));
 function GroupBlock({ group, theme }: { group: ColorGroup; theme: "light" | "dark" }) {
   return (
     <section>
-      <div className="pb-3 mb-1 border-b border-s4e-neutral-divider-10">
-        <h2 className="text-[14px] font-semibold text-s4e-text-primary">{group.name}</h2>
-        <p className="mt-0.5 text-xs text-s4e-text-secondary">{group.description}</p>
+      <div className="pb-3 mb-1 border-b border-snt-neutral-divider-10">
+        <h2 className="text-[14px] font-semibold text-snt-text-primary">{group.name}</h2>
+        <p className="mt-0.5 text-xs text-snt-text-secondary">{group.description}</p>
       </div>
 
-      <div className="overflow-x-auto s4e-scrollbar-hide">
+      <div className="overflow-x-auto snt-scrollbar-hide">
       <table className="w-full min-w-[420px] text-sm">
         <thead>
           <tr className="text-left">
-            <th className="py-2 pr-6 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled w-56">
+            <th className="py-2 pr-6 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled w-56">
               Token
             </th>
-            <th className="py-2 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled">
+            <th className="py-2 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">
               Value
             </th>
           </tr>
@@ -50,16 +50,16 @@ function GroupBlock({ group, theme }: { group: ColorGroup; theme: "light" | "dar
           {group.colors.map((color) => (
             <tr
               key={color.name}
-              className="border-t border-s4e-neutral-divider-10 hover:bg-s4e-surface-row-hover transition-colors duration-75"
+              className="border-t border-snt-neutral-divider-10 hover:bg-snt-surface-row-hover transition-colors duration-75"
             >
               <td className="py-2.5 pr-6">
-                <span className="font-mono text-xs text-s4e-text-secondary">{color.name}</span>
+                <span className="font-mono text-xs text-snt-text-secondary">{color.name}</span>
               </td>
               <td className="py-2.5">
-                <span className="inline-flex items-center gap-2 px-2 py-1 rounded-md bg-s4e-neutral-grey-100">
+                <span className="inline-flex items-center gap-2 px-2 py-1 rounded-md bg-snt-neutral-grey-100">
                   <span
                     className={cn(
-                      "h-6 w-6 rounded-sm shrink-0 border border-s4e-neutral-divider-10",
+                      "h-6 w-6 rounded-sm shrink-0 border border-snt-neutral-divider-10",
                       color.bgClass,
                     )}
                   />

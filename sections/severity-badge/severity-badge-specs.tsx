@@ -16,11 +16,11 @@ type Severity = "low" | "info" | "medium" | "high" | "critical";
 
 function SeveritySwatch({ severity }: { severity: Severity }) {
   const cls = {
-    low:      "bg-s4e-scale-green-500",
-    info:     "bg-s4e-scale-blue-500",
-    medium:   "bg-s4e-scale-yellow-500",
-    high:     "bg-s4e-scale-red-500",
-    critical: "bg-s4e-scale-purple-500",
+    low:      "bg-snt-scale-green-500",
+    info:     "bg-snt-scale-blue-500",
+    medium:   "bg-snt-scale-yellow-500",
+    high:     "bg-snt-scale-red-500",
+    critical: "bg-snt-scale-purple-500",
   }[severity];
   return <span className={`inline-block w-1 h-3 rounded-[1px] ${cls}`} aria-hidden />;
 }
@@ -70,9 +70,9 @@ export function SeverityBadgeSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={160} height={32} padX={12} padY={8} radius={8}>
-          <div className="w-full h-full flex items-center justify-between rounded-md px-3 py-1.5 bg-s4e-scale-red-50 border-l-[3px] border-s4e-scale-red-500">
-            <span className="text-[12px] font-medium text-s4e-scale-red-600">High</span>
-            <span className="text-[12px] text-s4e-scale-red-600 opacity-80">8.4</span>
+          <div className="w-full h-full flex items-center justify-between rounded-md px-3 py-1.5 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500">
+            <span className="text-[12px] font-medium text-snt-scale-red-600">High</span>
+            <span className="text-[12px] text-snt-scale-red-600 opacity-80">8.4</span>
           </div>
         </SpacingDiagram>
 
@@ -87,7 +87,7 @@ export function SeverityBadgeSpecs() {
               { label: "Border radius",        values: ["8px",   "8px"], note: "rounded-md token." },
               { label: "Accent bar · width",   values: ["4px",   "4px"], note: "Left edge only." },
               { label: "Font size",            values: ["12px",  "12px"] },
-              { label: "Font weight",          values: ["500",   "500"], note: "Inter Medium." },
+              { label: "Font weight",          values: ["500",   "500"], note: "Geist Medium." },
               { label: "Score font weight",    values: ["—",     "400"], note: "Regular; 80% opacity." },
               { label: "Label · score gap",    values: ["—",     "auto"], note: "Justify-between." },
             ]}

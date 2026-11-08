@@ -9,7 +9,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Tabs — Design System",
+  title: "Tabs — Sentinel Design System",
 };
 
 export default function Page() {
@@ -35,9 +35,9 @@ export default function Page() {
                 { label: "Badge (optional)", description: "Count chip used to surface activity (Findings · 12)." },
               ]}
             >
-              <div className="flex items-end border-b border-s4e-neutral-divider-10">
-                <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-s4e-brand-primary-500 text-s4e-brand-primary-500">Findings</span>
-                <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-transparent text-s4e-text-secondary">Assets</span>
+              <div className="flex items-end border-b border-snt-neutral-divider-10">
+                <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-snt-brand-primary-500 text-snt-brand-primary-500">Findings</span>
+                <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-transparent text-snt-text-secondary">Assets</span>
               </div>
             </Anatomy>
 

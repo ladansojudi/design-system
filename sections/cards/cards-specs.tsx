@@ -18,24 +18,24 @@ function KindSwatch({ kind }: { kind: "insight" | "alert" }) {
   if (kind === "insight") {
     return (
       <span className="inline-flex flex-col gap-0.5 w-4" aria-hidden>
-        <span className="block h-1 rounded-[1px] bg-s4e-text-primary" />
-        <span className="block h-px bg-s4e-neutral-divider-10" />
-        <span className="block h-px bg-s4e-neutral-divider-10" />
+        <span className="block h-1 rounded-[1px] bg-snt-text-primary" />
+        <span className="block h-px bg-snt-neutral-divider-10" />
+        <span className="block h-px bg-snt-neutral-divider-10" />
       </span>
     );
   }
   return (
-    <span className="inline-flex flex-col w-4 rounded-[2px] overflow-hidden border border-s4e-neutral-divider-10" aria-hidden>
-      <span className="block h-1 bg-s4e-neutral-grey-200" />
-      <span className="block h-1 bg-s4e-surface-app" />
+    <span className="inline-flex flex-col w-4 rounded-[2px] overflow-hidden border border-snt-neutral-divider-10" aria-hidden>
+      <span className="block h-1 bg-snt-neutral-grey-200" />
+      <span className="block h-1 bg-snt-surface-app" />
     </span>
   );
 }
 
 function ToneSwatch({ tone }: { tone: "neutral" | "alert" }) {
   const cls = {
-    neutral: "bg-s4e-neutral-grey-200",
-    alert:   "bg-s4e-scale-red-500",
+    neutral: "bg-snt-neutral-grey-200",
+    alert:   "bg-snt-scale-red-500",
   }[tone];
   return <span className={cn("inline-block w-2.5 h-2.5 rounded-full", cls)} aria-hidden />;
 }
@@ -68,21 +68,21 @@ export function CardsSpecs() {
             {
               name:    "title",
               type:    "string",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">e.g. &quot;Live Risk Score&quot;</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. &quot;Live Risk Score&quot;</span>,
               default: "—",
               description: "Card header text — short label that names the dataset or alert category.",
             },
             {
               name:    "rows",
               type:    "{ label, value }[]",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">insight only · ≤5</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">insight only · ≤5</span>,
               default: "—",
               description: "Label/value pairs rendered with hairline dividers between rows.",
             },
             {
               name:    "activeCount",
               type:    "number",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">alert only</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">alert only</span>,
               default: "—",
               description: "Number shown in the red header pill alongside the pulse dot.",
             },
@@ -101,7 +101,7 @@ export function CardsSpecs() {
             {
               name:    "action",
               type:    "string",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">e.g. &quot;Review Assets&quot;</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. &quot;Review Assets&quot;</span>,
               default: "—",
               description: "Text-style link with arrow rendered at the bottom of the card body.",
             },
@@ -117,20 +117,20 @@ export function CardsSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={320} height={160} padX={16} padY={16} radius={12}>
-          <div className="w-full h-full rounded-xl overflow-hidden border border-s4e-neutral-divider-10 bg-s4e-surface-app flex flex-col">
-            <div className="flex items-center justify-between px-4 py-2 bg-s4e-neutral-grey-100 border-b border-s4e-neutral-divider-10">
-              <span className="text-[12px] font-semibold text-s4e-text-primary">Attention Needed</span>
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-s4e-scale-red-50 text-[11px] font-semibold text-s4e-scale-red-600">
-                <span className="w-[6px] h-[6px] rounded-full bg-s4e-scale-red-500" />
+          <div className="w-full h-full rounded-xl overflow-hidden border border-snt-neutral-divider-10 bg-snt-surface-app flex flex-col">
+            <div className="flex items-center justify-between px-4 py-2 bg-snt-neutral-grey-100 border-b border-snt-neutral-divider-10">
+              <span className="text-[12px] font-semibold text-snt-text-primary">Attention Needed</span>
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-snt-scale-red-50 text-[11px] font-semibold text-snt-scale-red-600">
+                <span className="w-[6px] h-[6px] rounded-full bg-snt-scale-red-500" />
                 2 Active
               </span>
             </div>
             <div className="px-4 py-4 flex-1 flex flex-col justify-between">
               <div>
-                <div className="text-[14px] font-semibold text-s4e-text-primary">Security Blind Spots</div>
-                <p className="text-[12px] text-s4e-text-disabled leading-relaxed">20 assets excluded from scans.</p>
+                <div className="text-[14px] font-semibold text-snt-text-primary">Security Blind Spots</div>
+                <p className="text-[12px] text-snt-text-disabled leading-relaxed">20 assets excluded from scans.</p>
               </div>
-              <button type="button" className="flex items-center gap-1 text-[12px] font-medium text-s4e-brand-primary-500">
+              <button type="button" className="flex items-center gap-1 text-[12px] font-medium text-snt-brand-primary-500">
                 Review Assets
                 <ArrowRight size={12} />
               </button>

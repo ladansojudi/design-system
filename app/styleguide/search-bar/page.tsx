@@ -10,7 +10,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Search Bar — Design System",
+  title: "Search Bar — Sentinel Design System",
 };
 
 export default function Page() {
@@ -36,9 +36,9 @@ export default function Page() {
                 { label: "Clear (optional)", description: "× appears on the right only when the input has value." },
               ]}
             >
-              <div className="flex items-center gap-2 rounded-lg px-3 h-9 w-72 border border-s4e-neutral-divider-10 bg-s4e-surface-app">
-                <Search size={14} className="text-s4e-text-disabled shrink-0" />
-                <span className="flex-1 text-[14px] text-s4e-text-disabled">Search assets…</span>
+              <div className="flex items-center gap-2 rounded-lg px-3 h-9 w-72 border border-snt-neutral-divider-10 bg-snt-surface-app">
+                <Search size={14} className="text-snt-text-disabled shrink-0" />
+                <span className="flex-1 text-[14px] text-snt-text-disabled">Search assets…</span>
               </div>
             </Anatomy>
 

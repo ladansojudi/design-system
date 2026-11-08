@@ -8,15 +8,15 @@ import { cn } from "@/lib/utils";
 export function SpecSectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
     </div>
   );
 }
 
 export function SpecLede({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[12.5px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+    <p className="text-[12.5px] text-snt-text-secondary leading-relaxed mb-4 max-w-2xl">
       {children}
     </p>
   );
@@ -34,13 +34,13 @@ export type PropertyRow = {
 
 export function PropertiesTable({ rows }: { rows: PropertyRow[] }) {
   return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
+    <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[640px] text-sm">
-          <thead className="bg-s4e-surface-table-header">
+          <thead className="bg-snt-surface-table-header">
             <tr className="text-left">
               {["Property", "Type", "Options", "Default", "Description"].map((h) => (
-                <th key={h} className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled">
+                <th key={h} className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">
                   {h}
                 </th>
               ))}
@@ -48,12 +48,12 @@ export function PropertiesTable({ rows }: { rows: PropertyRow[] }) {
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.name} className="border-t border-s4e-neutral-divider-10 align-top">
-                <td className="py-3 px-4 font-mono text-[12px] text-s4e-brand-primary-500 whitespace-nowrap">{r.name}</td>
-                <td className="py-3 px-4 font-mono text-[12px] text-s4e-text-secondary whitespace-nowrap">{r.type}</td>
+              <tr key={r.name} className="border-t border-snt-neutral-divider-10 align-top">
+                <td className="py-3 px-4 font-mono text-[12px] text-snt-brand-primary-500 whitespace-nowrap">{r.name}</td>
+                <td className="py-3 px-4 font-mono text-[12px] text-snt-text-secondary whitespace-nowrap">{r.type}</td>
                 <td className="py-3 px-4">{r.values}</td>
-                <td className="py-3 px-4 font-mono text-[12px] text-s4e-text-disabled whitespace-nowrap">{r.default}</td>
-                <td className="py-3 px-4 text-[12.5px] text-s4e-text-secondary">{r.description}</td>
+                <td className="py-3 px-4 font-mono text-[12px] text-snt-text-disabled whitespace-nowrap">{r.default}</td>
+                <td className="py-3 px-4 text-[12.5px] text-snt-text-secondary">{r.description}</td>
               </tr>
             ))}
           </tbody>
@@ -65,7 +65,7 @@ export function PropertiesTable({ rows }: { rows: PropertyRow[] }) {
 
 export function OptionPill({ swatch, label }: { swatch?: React.ReactNode; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[5px] border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[11px] font-mono text-s4e-text-primary">
+    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[5px] border border-snt-neutral-divider-10 bg-snt-surface-app text-[11px] font-mono text-snt-text-primary">
       {swatch}
       {label}
     </span>
@@ -77,7 +77,7 @@ export function BoolSwatch({ on }: { on: boolean }) {
     <span
       className={cn(
         "inline-flex items-center justify-center w-8 h-4 rounded-full transition-colors",
-        on ? "bg-s4e-brand-primary-500" : "bg-s4e-neutral-grey-300",
+        on ? "bg-snt-brand-primary-500" : "bg-snt-neutral-grey-300",
       )}
       aria-hidden
     >
@@ -97,28 +97,28 @@ export type DimRow = { label: string; values: string[]; note?: string };
 
 export function DimensionsTable({ columns, rows }: { columns: string[]; rows: DimRow[] }) {
   return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
+    <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[480px] text-sm">
-          <thead className="bg-s4e-surface-table-header">
+          <thead className="bg-snt-surface-table-header">
             <tr className="text-left">
-              <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled">Property</th>
+              <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">Property</th>
               {columns.map((c) => (
-                <th key={c} className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled font-mono">
+                <th key={c} className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled font-mono">
                   {c}
                 </th>
               ))}
-              <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled">Notes</th>
+              <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">Notes</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.label} className="border-t border-s4e-neutral-divider-10">
-                <td className="py-2.5 px-4 text-[12.5px] text-s4e-text-primary">{r.label}</td>
+              <tr key={r.label} className="border-t border-snt-neutral-divider-10">
+                <td className="py-2.5 px-4 text-[12.5px] text-snt-text-primary">{r.label}</td>
                 {r.values.map((v, i) => (
-                  <td key={i} className="py-2.5 px-4 font-mono text-[12px] text-s4e-text-secondary">{v}</td>
+                  <td key={i} className="py-2.5 px-4 font-mono text-[12px] text-snt-text-secondary">{v}</td>
                 ))}
-                <td className="py-2.5 px-4 text-[11.5px] text-s4e-text-disabled">{r.note ?? ""}</td>
+                <td className="py-2.5 px-4 text-[11.5px] text-snt-text-disabled">{r.note ?? ""}</td>
               </tr>
             ))}
           </tbody>
@@ -142,18 +142,18 @@ export type TokenRow = {
 
 export function ColorTokenTable({ title, rows }: { title?: string; rows: TokenRow[] }) {
   return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
+    <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
       {title && (
-        <div className="px-4 py-2 bg-s4e-surface-table-header text-[11px] font-semibold text-s4e-text-primary uppercase tracking-wider">
+        <div className="px-4 py-2 bg-snt-surface-table-header text-[11px] font-semibold text-snt-text-primary uppercase tracking-wider">
           {title}
         </div>
       )}
       <div className="overflow-x-auto">
         <table className="w-full min-w-[540px] text-sm">
-          <thead className="bg-s4e-surface-app">
+          <thead className="bg-snt-surface-app">
             <tr className="text-left">
               {["Variant", "Background", "Text", "Border", "Hover"].map((h) => (
-                <th key={h} className="py-2 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled border-b border-s4e-neutral-divider-10">
+                <th key={h} className="py-2 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled border-b border-snt-neutral-divider-10">
                   {h}
                 </th>
               ))}
@@ -161,8 +161,8 @@ export function ColorTokenTable({ title, rows }: { title?: string; rows: TokenRo
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.variant} className="border-b border-s4e-neutral-divider-10 last:border-b-0">
-                <td className="py-2.5 px-4 text-[12.5px] text-s4e-text-primary font-medium">{r.variant}</td>
+              <tr key={r.variant} className="border-b border-snt-neutral-divider-10 last:border-b-0">
+                <td className="py-2.5 px-4 text-[12.5px] text-snt-text-primary font-medium">{r.variant}</td>
                 <TokenCell t={r.bg} />
                 <TokenCell t={r.text} />
                 <TokenCell t={r.border} />
@@ -196,7 +196,7 @@ export function ColorTokenTabs({ groups }: { groups: ColorTokenGroup[] }) {
       <div
         role="tablist"
         aria-label="Color token groups"
-        className="flex items-center gap-2 border-b border-s4e-neutral-divider-10 mb-4 overflow-x-auto s4e-scrollbar-hide"
+        className="flex items-center gap-2 border-b border-snt-neutral-divider-10 mb-4 overflow-x-auto snt-scrollbar-hide"
       >
         {groups.map((g) => {
           const isActive = active === g.id;
@@ -210,10 +210,10 @@ export function ColorTokenTabs({ groups }: { groups: ColorTokenGroup[] }) {
               className={cn(
                 "inline-flex items-center px-4 pt-2 pb-2.5 -mb-px text-[14px] font-medium whitespace-nowrap tracking-tight",
                 "border-b-[2px] transition-colors cursor-pointer",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-s4e-brand-primary-500/40",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-snt-brand-primary-500/40",
                 isActive
-                  ? "text-s4e-text-primary border-s4e-brand-primary-500"
-                  : "text-s4e-text-secondary border-transparent hover:text-s4e-text-primary",
+                  ? "text-snt-text-primary border-snt-brand-primary-500"
+                  : "text-snt-text-secondary border-transparent hover:text-snt-text-primary",
               )}
             >
               {g.label}
@@ -227,14 +227,14 @@ export function ColorTokenTabs({ groups }: { groups: ColorTokenGroup[] }) {
 }
 
 function TokenCell({ t }: { t?: TokenSwatch }) {
-  if (!t) return <td className="py-2.5 px-4 text-[12px] text-s4e-text-disabled">—</td>;
+  if (!t) return <td className="py-2.5 px-4 text-[12px] text-snt-text-disabled">—</td>;
   return (
     <td className="py-2.5 px-4">
       <div className="flex items-center gap-2">
-        <span className="inline-block w-4 h-4 rounded-[3px] border border-s4e-neutral-divider-10 shrink-0" style={{ backgroundColor: t.hex }} aria-hidden />
+        <span className="inline-block w-4 h-4 rounded-[3px] border border-snt-neutral-divider-10 shrink-0" style={{ backgroundColor: t.hex }} aria-hidden />
         <div className="min-w-0">
-          <div className="font-mono text-[11px] text-s4e-text-primary truncate">{t.token}</div>
-          <div className="font-mono text-[10.5px] text-s4e-text-disabled truncate">{t.hex}</div>
+          <div className="font-mono text-[11px] text-snt-text-primary truncate">{t.token}</div>
+          <div className="font-mono text-[10.5px] text-snt-text-disabled truncate">{t.hex}</div>
         </div>
       </div>
     </td>
@@ -275,7 +275,7 @@ export function SpacingDiagram({
 }: SpacingDiagramProps) {
   const W = width, H = height, SCALE = scale;
   return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl bg-s4e-neutral-grey-100/30 px-12 py-16 flex items-center justify-center">
+    <div className="border border-snt-neutral-divider-10 rounded-xl bg-snt-neutral-grey-100/30 px-12 py-16 flex items-center justify-center">
       <div className="relative" style={{ width: W * SCALE, height: H * SCALE }}>
         {/* Component preview fills the box */}
         <div className="absolute inset-0">{children}</div>

@@ -1,10 +1,13 @@
-// "Open in Figma" affordance for a component page. Intentionally NOT wired to a
-// file yet — it renders as a disabled control with an "In progress" marker so
-// the surface exists and signals the Figma source is on the way. When a file is
-// ready, swap the <button> for an <a href={figmaUrl} target="_blank"> and drop
-// the disabled / "In progress" treatment.
+"use client";
 
-function FigmaMark({ size = 13 }: { size?: number }) {
+import { usePathname } from "next/navigation";
+import { figmaUrlFor } from "@/components/styleguide/figma-data";
+
+// "Open in Figma" for the current styleguide page. Resolves the Figma page from
+// the route (/styleguide/<slug>) via figma-data.ts and hides itself on pages
+// that have no Figma counterpart.
+
+export function FigmaMark({ size = 13 }: { size?: number }) {
   return (
     <svg
       width={size}
@@ -27,17 +30,21 @@ function FigmaMark({ size = 13 }: { size?: number }) {
 }
 
 export function OpenInFigma() {
+  const pathname = usePathname();
+  const slug = pathname?.split("/").filter(Boolean)[1] ?? "";
+  const href = figmaUrlFor(slug);
+  if (!href) return null;
+
   return (
-    <button
-      type="button"
-      disabled
-      aria-disabled
-      title="Figma file in progress — coming soon"
-      className="inline-flex items-center gap-1.5 text-[12px] font-medium text-s4e-text-secondary cursor-not-allowed select-none whitespace-nowrap"
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center gap-1.5 rounded text-snt-12 font-medium text-snt-text-secondary hover:text-snt-text-primary transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
     >
       <FigmaMark size={12} />
       Open in Figma
-      <span className="text-[11px] font-normal text-s4e-text-disabled">· In progress</span>
-    </button>
+      <span className="sr-only">(opens in a new tab)</span>
+    </a>
   );
 }

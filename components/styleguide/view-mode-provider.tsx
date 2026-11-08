@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 
 export type ViewMode = "design" | "dev";
@@ -14,6 +14,8 @@ export type ViewMode = "design" | "dev";
 const PARAM = "view";
 const DEV: ViewMode = "dev";
 
+const noopSubscribe = () => () => {};
+
 const ViewModeContext = createContext<{
   mode: ViewMode;
   setMode: (m: ViewMode) => void;
@@ -21,14 +23,17 @@ const ViewModeContext = createContext<{
 
 export function ViewModeProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const [mode, setMode] = useState<ViewMode>("design");
-
-  // Adopt the mode from the URL on first mount (e.g. a shared ?view=dev link).
-  useEffect(() => {
-    if (new URLSearchParams(window.location.search).get(PARAM) === DEV) {
-      setMode(DEV);
-    }
-  }, []);
+  // The URL's mode (a shared ?view=dev link) — "design" during SSR/hydration so
+  // the prerendered HTML matches, then the real value on the client.
+  const urlMode = useSyncExternalStore(
+    noopSubscribe,
+    () => (new URLSearchParams(window.location.search).get(PARAM) === DEV ? DEV : "design"),
+    () => "design" as ViewMode,
+  );
+  const [chosen, setMode] = useState<ViewMode | null>(null);
+  // Adopt a ?view=dev link once, so it survives navigations that drop the query.
+  if (chosen === null && urlMode === DEV) setMode(DEV);
+  const mode = chosen ?? urlMode;
 
   // Keep the URL in sync with the mode. Also re-asserts the param after client
   // navigations, since the sidebar <Link>s don't carry the query string.

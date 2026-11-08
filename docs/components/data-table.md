@@ -5,7 +5,7 @@ category: Organism
 status: stable
 source: components/ui/data-table.tsx
 styleguide: /styleguide/data-table
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=13-50
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/table/
 ---
 
@@ -75,12 +75,12 @@ Grid: `1fr 1fr 90px 80px`, gap 12px. Column headers are 11px uppercase.
 
 | Role | Token |
 |---|---|
-| Card border / surface | `s4e-border-default` / `s4e-surface-app` |
-| Row hover / button hover | `s4e-bg-subtle` |
-| Header text / body text | `s4e-text-secondary` / `s4e-text-primary` |
-| Badge / link | `s4e-brand-primary-500/600` |
-| Severity tints | `s4e-scale-{purple,red,yellow}-50/500/600` |
-| Tooltip | `s4e-neutral-grey-900` / `s4e-text-inverse`, `shadow-s4e-lg` |
+| Card border / surface | `snt-border-default` / `snt-surface-app` |
+| Row hover / button hover | `snt-bg-subtle` |
+| Header text / body text | `snt-text-secondary` / `snt-text-primary` |
+| Badge / link | `snt-brand-primary-500/600` |
+| Severity tints | `snt-scale-{purple,red,yellow}-50/500/600` |
+| Tooltip | `snt-neutral-grey-900` / `snt-text-inverse`, `shadow-snt-lg` |
 
 ## Design ↔ Code
 

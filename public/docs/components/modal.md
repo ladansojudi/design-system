@@ -5,7 +5,7 @@ category: Organism
 status: stable
 source: components/ui/modal.tsx
 styleguide: /styleguide/modal
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=10-50
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
 ---
 
@@ -56,7 +56,7 @@ A dialog that interrupts the current task to request a decision or focused input
 | State | Behaviour |
 |---|---|
 | Opening | Focus moves to the element with `data-autofocus`, else the first focusable element, else the panel |
-| Open | Tab / Shift+Tab are trapped inside; body scroll is locked |
+| Open | Tab / Shift+Tab are trapped inside; body scroll is locked; every other top-level element is `inert` |
 | Closing | Escape (`closeOnEscape`), backdrop click (`closeOnBackdrop`) or ✕ → `onOpenChange(false)` |
 | Closed | Focus returns to the element that opened it |
 
@@ -90,9 +90,9 @@ A dialog that interrupts the current task to request a decision or focused input
 
 | Role | Token |
 |---|---|
-| Panel / border | `s4e-surface-app` / `s4e-border-default` |
-| Title / description | `s4e-text-primary` / `s4e-text-secondary` |
-| Close hover / focus ring | `s4e-bg-subtle` / `s4e-focus-ring` |
+| Panel / border | `snt-surface-app` / `snt-border-default` |
+| Title / description | `snt-text-primary` / `snt-text-secondary` |
+| Close hover / focus ring | `snt-bg-subtle` / `snt-focus-ring` |
 | Layer | `z-modal` |
 
 ## Design ↔ Code
@@ -137,7 +137,6 @@ A dialog that interrupts the current task to request a decision or focused input
 ```
 
 ## Known gaps
-- [ ] The rest of the page isn't marked `inert`, so screen-reader virtual cursors can still reach background content. Add `inert` to siblings of the portal root.
 - [ ] No enter / exit animation.
 - [ ] No alert-dialog variant (`role="alertdialog"`) for destructive confirms.
 

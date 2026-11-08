@@ -14,7 +14,7 @@ import {
 // ── Visual swatches ───────────────────────────────────────────────────────
 
 function VariantSwatch({ variant }: { variant: "dark" | "primary" }) {
-  const cls = variant === "primary" ? "bg-s4e-btn-primary-600" : "bg-s4e-neutral-grey-800";
+  const cls = variant === "primary" ? "bg-snt-btn-primary-600" : "bg-snt-neutral-grey-800";
   return (
     <span className={`inline-flex items-center w-5 h-3 rounded-full ${cls}`} aria-hidden>
       <span className="inline-block w-2 h-2 rounded-full bg-white translate-x-2.5 shadow-sm" />
@@ -92,7 +92,7 @@ export function SwitchRadioSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={40} height={20} padX={4} padY={4} radius={16}>
-          <div className="absolute inset-0 rounded-full bg-s4e-btn-primary-600 flex items-center">
+          <div className="absolute inset-0 rounded-full bg-snt-btn-primary-600 flex items-center">
             <span className="block w-[16px] h-[16px] rounded-full bg-white shadow-sm ml-auto mr-[2px]" />
           </div>
         </SpacingDiagram>

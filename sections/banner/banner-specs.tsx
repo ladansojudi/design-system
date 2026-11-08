@@ -16,9 +16,9 @@ import {
 
 function ToneSwatch({ tone }: { tone: "neutral" | "promo" | "warning" }) {
   const cls = {
-    neutral: "bg-s4e-btn-neutral-800",
-    promo:   "bg-s4e-btn-primary-600",
-    warning: "bg-s4e-scale-yellow-500",
+    neutral: "bg-snt-btn-neutral-800",
+    promo:   "bg-snt-btn-primary-600",
+    warning: "bg-snt-scale-yellow-500",
   }[tone];
   return <span className={`inline-block w-4 h-3 rounded-[2px] ${cls}`} aria-hidden />;
 }
@@ -85,7 +85,7 @@ export function BannerSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={460} height={40} padX={16} padY={12} radius={0}>
-          <div className="w-full h-full flex items-center gap-3 px-4 py-2.5 bg-s4e-btn-primary-600 text-s4e-text-white">
+          <div className="w-full h-full flex items-center gap-3 px-4 py-2.5 bg-snt-btn-primary-600 text-snt-text-white">
             <Sparkles size={14} className="shrink-0" />
             <div className="flex-1 min-w-0 text-[12px] leading-tight">
               New: AI-assisted vulnerability triage is live.

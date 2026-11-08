@@ -7,31 +7,7 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
-    static let scaleBlue100 = UIColor(hex: "#E8F1F8")
-    static let scaleBlue200 = UIColor(hex: "#C9DEEE")
-    static let scaleBlue500 = UIColor(hex: "#7DAFD6")
-    static let scaleBlue600 = UIColor(hex: "#2F6893")
-    static let scaleGreen100 = UIColor(hex: "#E8FFC2")
-    static let scaleGreen200 = UIColor(hex: "#A5FF14")
-    static let scaleGreen500 = UIColor(hex: "#63A100")
-    static let scaleGreen600 = UIColor(hex: "#3F6600")
-    static let scaleYellow100 = UIColor(hex: "#FCEBC5")
-    static let scaleYellow200 = UIColor(hex: "#F8D072")
-    static let scaleYellow500 = UIColor(hex: "#F5BF40")
-    static let scaleYellow600 = UIColor(hex: "#DA9C0B")
-    static let scaleRed100 = UIColor(hex: "#F4D1CD")
-    static let scaleRed200 = UIColor(hex: "#EBAAA3")
-    static let scaleRed500 = UIColor(hex: "#D13D2E")
-    static let scaleRed600 = UIColor(hex: "#8E2A1F")
-    static let scalePurple100 = UIColor(hex: "#DCC9F3")
-    static let scalePurple200 = UIColor(hex: "#AB7DE3")
-    static let scalePurple500 = UIColor(hex: "#772ED1")
-    static let scalePurple600 = UIColor(hex: "#5D24A3")
-    static let neutralGrey500 = UIColor(hex: "#949E9E")
-    static let neutralGrey600 = UIColor(hex: "#667070")
-    static let textPrimary = UIColor(hex: "#121F28")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
+    static let textPrimary = UIColor(hex: "#09090B")
 }
 
 // MARK: - Sizing (CGFloat)
@@ -53,12 +29,8 @@ extension CGFloat {
     static let borderWidth1: CGFloat = 1
 
     // Font size
-    static let fontSize10: CGFloat = 10
-    static let fontSize12: CGFloat = 12
-    static let fontSize14: CGFloat = 14
     static let fontSize15: CGFloat = 15
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)
 // font-weight-semibold → .semibold   (CSS 600)
-// font-weight-bold → .bold   (CSS 700)

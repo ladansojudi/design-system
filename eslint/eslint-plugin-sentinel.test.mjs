@@ -1,6 +1,6 @@
-// Run: node eslint/eslint-plugin-s4e.test.mjs  (also `npm run lint:rules`)
+// Run: node eslint/eslint-plugin-sentinel.test.mjs  (also `npm run lint:rules`)
 import { RuleTester } from "eslint";
-import plugin from "./eslint-plugin-s4e.mjs";
+import plugin from "./eslint-plugin-sentinel.mjs";
 
 const tester = new RuleTester({
   languageOptions: { ecmaVersion: 2022, sourceType: "module", parserOptions: { ecmaFeatures: { jsx: true } } },
@@ -9,11 +9,11 @@ const { rules } = plugin;
 
 tester.run("no-hardcoded-colors", rules["no-hardcoded-colors"], {
   valid: [
-    `<div className="bg-s4e-surface-app text-s4e-text-secondary" />`,
+    `<div className="bg-snt-surface-app text-snt-text-secondary" />`,
     `<a href="#abc">skip</a>`,
     `const id = "#fff"; // not a styling context`,
-    `<div style={{ color: "var(--s4e-text-primary)" }} />`,
-    `cn("border-s4e-border-default", isOpen && "ring-s4e-focus-ring")`,
+    `<div style={{ color: "var(--snt-text-primary)" }} />`,
+    `cn("border-snt-border-default", isOpen && "ring-snt-focus-ring")`,
   ],
   invalid: [
     { code: `<div className="bg-red-500" />`, errors: [{ messageId: "palette" }] },
@@ -27,18 +27,18 @@ tester.run("no-hardcoded-colors", rules["no-hardcoded-colors"], {
 
 tester.run("prefer-semantic-tokens", rules["prefer-semantic-tokens"], {
   valid: [
-    `<div className="border-s4e-border-default bg-s4e-bg-subtle" />`,
-    `<div className="bg-s4e-scale-red-50" />`, // ambiguous (error vs severity) — left alone
+    `<div className="border-snt-border-default bg-snt-bg-subtle" />`,
+    `<div className="bg-snt-scale-red-50" />`, // ambiguous (error vs severity) — left alone
   ],
   invalid: [
     {
-      code: `<div className="border border-s4e-neutral-divider-10 hover:bg-s4e-neutral-grey-100" />`,
-      output: `<div className="border border-s4e-border-default hover:bg-s4e-neutral-grey-100" />`,
+      code: `<div className="border border-snt-neutral-divider-10 hover:bg-snt-neutral-grey-100" />`,
+      output: `<div className="border border-snt-border-default hover:bg-snt-neutral-grey-100" />`,
       errors: [{ messageId: "prefer" }, { messageId: "prefer" }],
     },
     {
-      code: `const c = "focus-visible:ring-s4e-brand-primary-500/40";`,
-      output: `const c = "focus-visible:ring-s4e-focus-ring/40";`,
+      code: `const c = "focus-visible:ring-snt-brand-primary-500/40";`,
+      output: `const c = "focus-visible:ring-snt-focus-ring/40";`,
       errors: [{ messageId: "prefer" }],
     },
   ],
@@ -63,8 +63,11 @@ tester.run("no-deprecated-components", rules["no-deprecated-components"], {
 });
 
 tester.run("no-arbitrary-values", rules["no-arbitrary-values"], {
-  valid: [`<p className="text-sm p-3 w-[calc(100%-2rem)]" />`],
-  invalid: [{ code: `<p className="text-[13px]" />`, errors: [{ messageId: "arbitrary" }] }],
+  valid: [`<p className="text-snt-14 p-3 w-[calc(100%-2rem)]" />`, `<span className="w-[7px] h-[7px] top-[3px]" />`],
+  invalid: [
+    { code: `<p className="text-[13px]" />`, errors: [{ messageId: "arbitrary" }] },
+    { code: `<p className="hover:px-[7px]" />`, errors: [{ messageId: "arbitrary" }] },
+  ],
 });
 
-console.log("✓ eslint-plugin-s4e: all rule tests passed");
+console.log("✓ eslint-plugin-sentinel: all rule tests passed");

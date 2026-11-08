@@ -21,7 +21,7 @@ export function InstallationTabs() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (!filename) { setStatus("missing"); return; }
+    if (!filename) return; // nothing to fetch; render bails out on !filename
     let cancelled = false;
     fetch(`/components/${filename}.txt`)
       .then((r) => (r.ok ? r.text() : null))
@@ -72,29 +72,29 @@ export function InstallationTabs() {
   return (
     <section className="mt-12">
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-        <span className="text-[15px] font-semibold text-s4e-text-primary">Installation</span>
-        <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-s4e-brand-primary-500/10 text-s4e-brand-primary-500">
+        <span aria-hidden className="hidden">▶▶</span>
+        <span className="text-[15px] font-semibold text-snt-text-primary">Installation</span>
+        <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-snt-brand-primary-500/10 text-snt-brand-primary-500">
           React only
         </span>
       </div>
-      <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+      <p className="text-[12px] text-snt-text-secondary leading-relaxed mb-4 max-w-2xl">
         Copy the source file into your project. You will also need the design tokens — install them once on the{" "}
-        <Link href="/styleguide/theming" className="text-s4e-text-link hover:underline">Theming page</Link>.
+        <Link href="/styleguide/theming" className="text-snt-text-link hover:underline">Theming page</Link>.
       </p>
 
-      <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
+      <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
         {/* Action bar above source */}
-        <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-s4e-neutral-divider-10 bg-s4e-surface-app">
+        <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-snt-neutral-divider-10 bg-snt-surface-app">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-[10px] uppercase tracking-widest text-s4e-text-disabled shrink-0">Source</span>
-            <code className="font-mono text-[11px] text-s4e-text-secondary truncate">components/ui/{filename}</code>
+            <span className="text-[10px] uppercase tracking-widest text-snt-text-disabled shrink-0">Source</span>
+            <code className="font-mono text-[11px] text-snt-text-secondary truncate">components/ui/{filename}</code>
           </div>
           <div className="flex items-center gap-1.5">
             <button
               type="button"
               onClick={onDownload}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium text-s4e-text-secondary hover:text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium text-snt-text-secondary hover:text-snt-text-primary hover:bg-snt-neutral-grey-100 transition-colors cursor-pointer"
             >
               <Download size={11} />
               Download
@@ -105,8 +105,8 @@ export function InstallationTabs() {
               className={cn(
                 "inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium cursor-pointer transition-colors",
                 copied
-                  ? "bg-s4e-scale-green-500/15 text-s4e-scale-green-600"
-                  : "text-s4e-text-on-accent bg-s4e-btn-primary-600 hover:bg-s4e-btn-primary-700",
+                  ? "bg-snt-scale-green-500/15 text-snt-scale-green-600"
+                  : "text-snt-text-on-accent bg-snt-btn-primary-600 hover:bg-snt-btn-primary-700",
               )}
             >
               {copied ? <Check size={11} /> : <Copy size={11} />}
@@ -116,9 +116,9 @@ export function InstallationTabs() {
         </div>
         <HighlightedCode code={source} lang="tsx" className="max-h-[480px]" />
         {/* Usage hint */}
-        <div className="px-4 py-3 border-t border-s4e-neutral-divider-10 bg-s4e-surface-app">
-          <div className="text-[10px] uppercase tracking-widest text-s4e-text-disabled mb-1.5">Then import</div>
-          <code className="font-mono text-[11px] text-s4e-text-primary block break-all">
+        <div className="px-4 py-3 border-t border-snt-neutral-divider-10 bg-snt-surface-app">
+          <div className="text-[10px] uppercase tracking-widest text-snt-text-disabled mb-1.5">Then import</div>
+          <code className="font-mono text-[11px] text-snt-text-primary block break-all">
             {importLine}
           </code>
         </div>

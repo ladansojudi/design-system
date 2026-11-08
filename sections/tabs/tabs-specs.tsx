@@ -18,14 +18,14 @@ function VariantSwatch({ variant }: { variant: "underline" | "pill" }) {
   if (variant === "underline") {
     return (
       <span className="inline-flex items-end gap-0.5" aria-hidden>
-        <span className="inline-block w-3 h-3 border-b-2 border-s4e-brand-primary-500" />
+        <span className="inline-block w-3 h-3 border-b-2 border-snt-brand-primary-500" />
         <span className="inline-block w-3 h-3 border-b-2 border-transparent" />
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-0.5 bg-s4e-neutral-grey-100 rounded-[3px] p-0.5" aria-hidden>
-      <span className="inline-block w-3 h-2 rounded-[2px] bg-s4e-surface-app shadow-sm" />
+    <span className="inline-flex items-center gap-0.5 bg-snt-neutral-grey-100 rounded-[3px] p-0.5" aria-hidden>
+      <span className="inline-block w-3 h-2 rounded-[2px] bg-snt-surface-app shadow-sm" />
       <span className="inline-block w-3 h-2 rounded-[2px]" />
     </span>
   );
@@ -33,9 +33,9 @@ function VariantSwatch({ variant }: { variant: "underline" | "pill" }) {
 
 function StateSwatch({ state }: { state: "active" | "inactive" | "disabled" }) {
   const cls = {
-    active:   "bg-s4e-brand-primary-500",
-    inactive: "bg-s4e-neutral-grey-300",
-    disabled: "bg-s4e-neutral-grey-200 opacity-60",
+    active:   "bg-snt-brand-primary-500",
+    inactive: "bg-snt-neutral-grey-300",
+    disabled: "bg-snt-neutral-grey-200 opacity-60",
   }[state];
   return <span className={cn("inline-block w-4 h-2 rounded-[2px]", cls)} aria-hidden />;
 }
@@ -81,14 +81,14 @@ export function TabsSpecs() {
             {
               name:    "label",
               type:    "string",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">e.g. &quot;Findings&quot;</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. &quot;Findings&quot;</span>,
               default: "—",
               description: "Short tab name — keep to 1–2 words so all tabs fit one row.",
             },
             {
               name:    "badge",
               type:    "number",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">e.g. 12</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. 12</span>,
               default: "—",
               description: "Optional count chip rendered to the right of the label.",
             },
@@ -116,7 +116,7 @@ export function TabsSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={120} height={40} padX={16} padY={12} radius={4}>
-          <div className="w-full h-full flex items-center justify-center border-b-2 border-s4e-brand-primary-500 text-s4e-brand-primary-500 text-[14px] font-medium">
+          <div className="w-full h-full flex items-center justify-center border-b-2 border-snt-brand-primary-500 text-snt-brand-primary-500 text-[14px] font-medium">
             Findings
           </div>
         </SpacingDiagram>
@@ -136,7 +136,7 @@ export function TabsSpecs() {
               { label: "Label · badge gap",      values: ["8px",  "8px"] },
               { label: "Badge min-width",        values: ["20px", "20px"], note: "Pill-shaped chip, height 20px." },
               { label: "Badge padding · X",      values: ["8px",  "8px"] },
-              { label: "Font size",              values: ["14px", "14px"], note: "Inter Medium." },
+              { label: "Font size",              values: ["14px", "14px"], note: "Geist Medium." },
               { label: "Font weight",            values: ["500",  "500"] },
             ]}
           />

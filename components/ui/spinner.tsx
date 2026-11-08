@@ -4,14 +4,14 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Spinner
+ * sentinel/ui — Spinner
  *
  * Drop this file into your project at components/ui/spinner.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 type Size = "xs" | "sm" | "md" | "lg";
@@ -31,9 +31,9 @@ const SIZE_CLASS: Record<Size, string> = {
 };
 
 const TONE_CLASS: Record<Tone, string> = {
-  primary: "border-s4e-brand-primary-500/25 border-t-s4e-brand-primary-500",
-  neutral: "border-s4e-text-disabled/25 border-t-s4e-text-secondary",
-  white:   "border-s4e-text-white/30 border-t-s4e-text-white",
+  primary: "border-snt-brand-primary-500/25 border-t-snt-brand-primary-500",
+  neutral: "border-snt-text-disabled/25 border-t-snt-text-secondary",
+  white:   "border-snt-text-white/30 border-t-snt-text-white",
 };
 
 export const Spinner = React.forwardRef<HTMLSpanElement, SpinnerProps>(

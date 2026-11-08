@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "banner",
+  "title": "Banner",
+  "description": "A full-width strip at the top of the app for product-wide announcements, promotions or warnings.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/banner.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Megaphone, Sparkles, AlertTriangle, X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — Banner\n *\n * Drop this file into your project at components/ui/banner.tsx.\n *\n * Requires:\n *   • Tailwind CSS v4\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n *   • lucide-react for icons.\n */\n\ntype Tone = \"neutral\" | \"promo\" | \"warning\";\n\nexport interface BannerCta {\n  label: string;\n  href?: string;\n}\n\nexport interface BannerProps extends React.HTMLAttributes<HTMLDivElement> {\n  tone?:        Tone;\n  message:      React.ReactNode;\n  cta?:         BannerCta;\n  dismissible?: boolean;\n  onDismiss?:   () => void;\n}\n\ntype ToneConfig = {\n  bg:    string;\n  text:  string;\n  hover: string;\n  icon:  React.ComponentType<{ size?: number; className?: string }>;\n};\n\nconst TONE_CLASS: Record<Tone, ToneConfig> = {\n  neutral: {\n    bg:    \"bg-snt-btn-neutral-800\",\n    text:  \"text-snt-text-white\",\n    hover: \"hover:bg-snt-text-white/10\",\n    icon:  Megaphone,\n  },\n  promo: {\n    bg:    \"bg-snt-btn-primary-600\",\n    text:  \"text-snt-text-white\",\n    hover: \"hover:bg-snt-text-white/10\",\n    icon:  Sparkles,\n  },\n  warning: {\n    bg:    \"bg-snt-scale-yellow-500\",\n    text:  \"text-snt-btn-neutral-800\",\n    hover: \"hover:bg-snt-btn-neutral-800/10\",\n    icon:  AlertTriangle,\n  },\n};\n\nexport const Banner = React.forwardRef<HTMLDivElement, BannerProps>(\n  (\n    {\n      tone        = \"neutral\",\n      message,\n      cta,\n      dismissible = true,\n      onDismiss,\n      className,\n      ...props\n    },\n    ref,\n  ) => {\n    const [open, setOpen] = React.useState(true);\n    const cfg = TONE_CLASS[tone];\n    const Icon = cfg.icon;\n    if (!open) return null;\n\n    const handleDismiss = () => {\n      setOpen(false);\n      onDismiss?.();\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"w-full flex items-center gap-3 px-4 py-2.5\",\n          cfg.bg,\n          cfg.text,\n          className,\n        )}\n        {...props}\n      >\n        <Icon size={14} className=\"shrink-0\" />\n        <div className=\"flex-1 min-w-0 text-snt-12 leading-tight\">{message}</div>\n        {cta && (\n          <a\n            href={cta.href ?? \"#\"}\n            className=\"text-snt-11 font-semibold underline underline-offset-2 hover:opacity-80 shrink-0\"\n          >\n            {cta.label}\n          </a>\n        )}\n        {dismissible && (\n          <button\n            type=\"button\"\n            aria-label=\"Dismiss\"\n            onClick={handleDismiss}\n            className={cn(\"shrink-0 p-1 -m-1 rounded cursor-pointer\", cfg.hover)}\n          >\n            <X size={14} />\n          </button>\n        )}\n      </div>\n    );\n  },\n);\nBanner.displayName = \"Banner\";\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "deprecated"
+  },
+  "docs": "Banner (deprecated). Usage, accessibility and known gaps: http://localhost:3000/docs/components/banner.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

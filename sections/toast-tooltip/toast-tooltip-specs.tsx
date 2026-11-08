@@ -16,10 +16,10 @@ import {
 
 function ToastTypeSwatch({ tone }: { tone: "success" | "alert" | "info" | "warning" }) {
   const map = {
-    success: { Icon: CircleCheck, cls: "text-s4e-feedback-success" },
-    alert:   { Icon: CircleAlert, cls: "text-s4e-feedback-warning" },
-    info:    { Icon: Lightbulb,   cls: "text-s4e-feedback-info" },
-    warning: { Icon: Ban,         cls: "text-s4e-feedback-alert" },
+    success: { Icon: CircleCheck, cls: "text-snt-feedback-success" },
+    alert:   { Icon: CircleAlert, cls: "text-snt-feedback-warning" },
+    info:    { Icon: Lightbulb,   cls: "text-snt-feedback-info" },
+    warning: { Icon: Ban,         cls: "text-snt-feedback-alert" },
   }[tone];
   const Icon = map.Icon;
   return <Icon size={12} className={map.cls} aria-hidden />;
@@ -33,8 +33,8 @@ function PositionSwatch({ pos }: { pos: "top" | "bottom" | "left" | "right" }) {
     right:  "right-0 top-1/2 -translate-y-1/2",
   }[pos];
   return (
-    <span className="relative inline-block w-3 h-3 border border-s4e-neutral-grey-400 rounded-[2px]" aria-hidden>
-      <span className={`absolute w-1 h-1 rounded-full bg-s4e-text-primary ${dot}`} />
+    <span className="relative inline-block w-3 h-3 border border-snt-neutral-grey-400 rounded-[2px]" aria-hidden>
+      <span className={`absolute w-1 h-1 rounded-full bg-snt-text-primary ${dot}`} />
     </span>
   );
 }
@@ -128,15 +128,15 @@ export function ToastTooltipSpecs() {
 
         <SpacingDiagram width={320} height={56} padX={16} padY={12} radius={8}>
           <div
-            className="absolute inset-0 bg-s4e-surface-app border border-s4e-neutral-divider-10 shadow-sm overflow-hidden flex flex-col"
+            className="absolute inset-0 bg-snt-surface-app border border-snt-neutral-divider-10 shadow-sm overflow-hidden flex flex-col"
             style={{ borderRadius: 8 * 1.8 }}
           >
             <div className="flex-1 flex items-center gap-3 px-4">
-              <CircleCheck size={20} className="text-s4e-feedback-success shrink-0" />
-              <span className="flex-1 text-[12px] font-semibold text-s4e-text-primary">Toast message</span>
+              <CircleCheck size={20} className="text-snt-feedback-success shrink-0" />
+              <span className="flex-1 text-[12px] font-semibold text-snt-text-primary">Toast message</span>
             </div>
-            <div className="h-[3px] bg-s4e-neutral-grey-100">
-              <div className="h-full w-1/3 bg-s4e-feedback-success" />
+            <div className="h-[3px] bg-snt-neutral-grey-100">
+              <div className="h-full w-1/3 bg-snt-feedback-success" />
             </div>
           </div>
         </SpacingDiagram>

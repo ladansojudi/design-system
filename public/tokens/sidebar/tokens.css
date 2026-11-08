@@ -4,15 +4,15 @@
 
 :root {
   /* Colors */
-  --s4e-brand-primary-500: #1383d4;
-  --s4e-neutral-grey-100: #f7f8f8;
-  --s4e-surface-app: #ffffff;
-  --s4e-text-primary: #121f28;
-  --s4e-text-secondary: #657078;
-  --s4e-text-disabled: #a7adb2;
-  --s4e-text-white: #ffffff;
-  --s4e-btn-primary-600: #0f69aa;
-  --s4e-btn-primary-700: #024a72;
+  --snt-brand-primary-500: #5b5bd6;
+  --snt-neutral-grey-100: #f4f4f5;
+  --snt-surface-app: #ffffff;
+  --snt-text-primary: #09090b;
+  --snt-text-secondary: #52525b;
+  --snt-text-disabled: #a1a1aa;
+  --snt-text-white: #ffffff;
+  --snt-btn-primary-600: #4f46e5;
+  --snt-btn-primary-700: #4338ca;
 
   /* Spacing */
   --space-2: 8px;

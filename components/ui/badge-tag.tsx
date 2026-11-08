@@ -4,14 +4,14 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Badge & Tag
+ * sentinel/ui — Badge & Tag
  *
  * Drop this file into your project at components/ui/badge-tag.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  *
  * Badge — status pill (defaults to a colored dot).
  * Tag   — label pill (same primitive, no dot by default).
@@ -40,45 +40,45 @@ type ColorConfig = {
 
 const TONE_CLASS: Record<Tone, ColorConfig> = {
   warning: {
-    bg:     "bg-s4e-bg-warning-subtle",
-    text:   "text-s4e-scale-yellow-700",
-    dot:    "bg-s4e-scale-yellow-500",
-    border: "border-s4e-scale-yellow-200",
+    bg:     "bg-snt-bg-warning-subtle",
+    text:   "text-snt-scale-yellow-700",
+    dot:    "bg-snt-scale-yellow-500",
+    border: "border-snt-scale-yellow-200",
   },
   error: {
-    bg:     "bg-s4e-bg-error-subtle",
-    text:   "text-s4e-text-error",
-    dot:    "bg-s4e-scale-red-500",
-    border: "border-s4e-scale-red-200",
+    bg:     "bg-snt-bg-error-subtle",
+    text:   "text-snt-text-error",
+    dot:    "bg-snt-scale-red-500",
+    border: "border-snt-scale-red-200",
   },
   success: {
-    bg:     "bg-s4e-bg-success-subtle",
-    text:   "text-s4e-scale-green-600",
-    dot:    "bg-s4e-scale-green-500",
-    border: "border-s4e-scale-green-200",
+    bg:     "bg-snt-bg-success-subtle",
+    text:   "text-snt-scale-green-600",
+    dot:    "bg-snt-scale-green-500",
+    border: "border-snt-scale-green-200",
   },
   neutral: {
-    bg:     "bg-s4e-bg-subtle",
-    text:   "text-s4e-text-secondary",
-    dot:    "bg-s4e-neutral-grey-400",
-    border: "border-s4e-border-default",
+    bg:     "bg-snt-bg-subtle",
+    text:   "text-snt-text-secondary",
+    dot:    "bg-snt-neutral-grey-400",
+    border: "border-snt-border-default",
   },
   info: {
-    bg:     "bg-s4e-bg-info-subtle",
-    text:   "text-s4e-scale-blue-600",
-    dot:    "bg-s4e-scale-blue-500",
-    border: "border-s4e-scale-blue-200",
+    bg:     "bg-snt-bg-info-subtle",
+    text:   "text-snt-scale-blue-600",
+    dot:    "bg-snt-scale-blue-500",
+    border: "border-snt-scale-blue-200",
   },
   primary: {
-    bg:     "bg-s4e-bg-brand-subtle",
-    text:   "text-s4e-brand-primary-600",
-    dot:    "bg-s4e-brand-primary-500",
-    border: "border-s4e-brand-primary-200",
+    bg:     "bg-snt-bg-brand-subtle",
+    text:   "text-snt-brand-primary-600",
+    dot:    "bg-snt-brand-primary-500",
+    border: "border-snt-brand-primary-200",
   },
 };
 
 const BASE =
-  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium";
+  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-snt-12 font-medium";
 
 function renderPill(
   {

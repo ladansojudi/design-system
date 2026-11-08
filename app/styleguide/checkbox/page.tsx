@@ -10,7 +10,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Checkbox — Design System",
+  title: "Checkbox — Sentinel Design System",
 };
 
 export default function CheckboxPage() {
@@ -43,15 +43,15 @@ export default function CheckboxPage() {
               preview={
                 <label className="flex items-start gap-2.5 w-[280px]">
                   <span className="relative inline-flex items-center justify-center mt-[1px]">
-                    <span className="w-[18px] h-[18px] rounded-[3px] flex items-center justify-center bg-s4e-btn-primary-600">
+                    <span className="w-[18px] h-[18px] rounded-[3px] flex items-center justify-center bg-snt-btn-primary-600">
                       <Check size={12} className="text-white" />
                     </span>
                   </span>
                   <span className="flex-1 min-w-0">
-                    <span className="block text-[14px] leading-tight text-s4e-text-primary">
+                    <span className="block text-[14px] leading-tight text-snt-text-primary">
                       Enable real-time alerts
                     </span>
-                    <span className="block text-[11px] text-s4e-text-disabled mt-0.5 leading-snug">
+                    <span className="block text-[11px] text-snt-text-disabled mt-0.5 leading-snug">
                       Notifies you within seconds when a critical finding lands.
                     </span>
                   </span>

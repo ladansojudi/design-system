@@ -4,14 +4,14 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Switch & Radio
+ * sentinel/ui — Switch & Radio
  *
  * Drop this file into your project at components/ui/switch-radio.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 type SwitchVariant = "dark" | "primary";
@@ -24,13 +24,13 @@ export interface SwitchProps
 }
 
 const TRACK_ON: Record<SwitchVariant, string> = {
-  dark:    "bg-s4e-neutral-grey-800",
-  primary: "bg-s4e-btn-primary-600",
+  dark:    "bg-snt-neutral-grey-800",
+  primary: "bg-snt-btn-primary-600",
 };
 
 const TRACK_ON_HOVER: Record<SwitchVariant, string> = {
-  dark:    "hover:bg-s4e-neutral-grey-900",
-  primary: "hover:bg-s4e-btn-primary-700",
+  dark:    "hover:bg-snt-neutral-grey-900",
+  primary: "hover:bg-snt-btn-primary-700",
 };
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
@@ -47,7 +47,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
   ) => {
     const track = checked
       ? cn(TRACK_ON[variant], !disabled && TRACK_ON_HOVER[variant])
-      : cn("bg-s4e-neutral-grey-300", !disabled && "hover:bg-s4e-neutral-grey-400");
+      : cn("bg-snt-neutral-grey-300", !disabled && "hover:bg-snt-neutral-grey-400");
 
     return (
       <button
@@ -58,7 +58,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
         disabled={disabled}
         onClick={() => onChange?.(!checked)}
         className={cn(
-          "relative w-9 h-[22px] rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-s4e-focus-ring",
+          "relative w-9 h-[22px] rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-snt-focus-ring",
           track,
           disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer",
           className,
@@ -67,7 +67,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
       >
         <span
           className={cn(
-            "absolute top-[3px] w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200 ease-in-out",
+            "absolute top-[3px] left-0 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200 ease-in-out",
             checked ? "translate-x-[18px]" : "translate-x-[3px]",
           )}
         />
@@ -187,17 +187,17 @@ export const Radio = React.forwardRef<HTMLButtonElement, RadioProps>(
         disabled={disabled}
         onClick={handleClick}
         className={cn(
-          "w-[18px] h-[18px] rounded-full border-2 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-s4e-focus-ring",
+          "w-[18px] h-[18px] rounded-full border-2 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-snt-focus-ring",
           checked
-            ? "border-s4e-neutral-grey-800"
-            : "border-s4e-neutral-grey-400 hover:border-s4e-neutral-grey-600",
+            ? "border-snt-neutral-grey-800"
+            : "border-snt-neutral-grey-400 hover:border-snt-neutral-grey-600",
           disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer",
           !children && className,
         )}
         {...(!children ? props : {})}
       >
         {checked && (
-          <span className="w-2 h-2 rounded-full bg-s4e-neutral-grey-800 transition-transform scale-100" />
+          <span className="w-2 h-2 rounded-full bg-snt-neutral-grey-800 transition-transform scale-100" />
         )}
       </button>
     );
@@ -215,8 +215,8 @@ export const Radio = React.forwardRef<HTMLButtonElement, RadioProps>(
         {control}
         <span
           className={cn(
-            "text-[14px]",
-            disabled ? "text-s4e-text-disabled" : "text-s4e-text-primary",
+            "text-snt-14",
+            disabled ? "text-snt-text-disabled" : "text-snt-text-primary",
           )}
         >
           {children}

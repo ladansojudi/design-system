@@ -5,7 +5,7 @@ category: Atom
 status: stable
 source: components/ui/switch-radio.tsx
 styleguide: /styleguide/switch-radio
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=4-126
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/switch/ · https://www.w3.org/WAI/ARIA/apg/patterns/radio/
 ---
 
@@ -83,11 +83,11 @@ Switch                      Radio group
 
 | Role | Token |
 |---|---|
-| Switch track off | `s4e-neutral-grey-300` |
-| Switch track on (dark / primary) | `s4e-neutral-grey-900` / `s4e-btn-primary-600` (hover `-700`) |
-| Radio border / dot | `s4e-neutral-grey-400` → `s4e-neutral-grey-800` |
-| Label / disabled | `s4e-text-primary` / `s4e-text-disabled` |
-| Focus ring | `s4e-focus-ring` |
+| Switch track off | `snt-neutral-grey-300` |
+| Switch track on (dark / primary) | `snt-neutral-grey-900` / `snt-btn-primary-600` (hover `-700`) |
+| Radio border / dot | `snt-neutral-grey-400` → `snt-neutral-grey-800` |
+| Label / disabled | `snt-text-primary` / `snt-text-disabled` |
+| Focus ring | `snt-focus-ring` |
 
 ## Design ↔ Code
 
@@ -137,7 +137,6 @@ Switch                      Radio group
 ## Known gaps
 - [ ] The switch has no built-in `label` prop, so it's easy to ship unlabeled.
 - [ ] The radio group has no `<fieldset>` / `<legend>` option, and `name` isn't used for native form submit.
-- [ ] Thumb animation should respect reduced motion. The global rule now covers it.
 
 ## Related
 - [Checkbox](./checkbox.md) · [Select](./select.md)

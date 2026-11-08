@@ -5,7 +5,7 @@ category: Organism
 status: stable
 source: components/ui/cards.tsx
 styleguide: /styleguide/cards
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=12-50
 apg: N/A
 ---
 
@@ -68,11 +68,11 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 
 | Role | Token |
 |---|---|
-| Shell | `s4e-surface-app`, `s4e-border-default` |
-| Title / value / label | `s4e-text-primary` / `s4e-text-primary` / `s4e-text-secondary` |
-| Action | `s4e-brand-primary-500` (hover `-600`) |
-| Active pill | `s4e-bg-error-subtle` / `s4e-scale-red-500` / `s4e-text-error` |
-| Badge | `s4e-bg-subtle` / `s4e-text-secondary` |
+| Shell | `snt-surface-app`, `snt-border-default` |
+| Title / value / label | `snt-text-primary` / `snt-text-primary` / `snt-text-secondary` |
+| Action | `snt-brand-primary-500` (hover `-600`) |
+| Active pill | `snt-bg-error-subtle` / `snt-scale-red-500` / `snt-text-error` |
+| Badge | `snt-bg-subtle` / `snt-text-secondary` |
 
 ## Design ↔ Code
 
@@ -82,6 +82,8 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 | Card / Alert | `AlertCard` (`title`, `activeCount`, `alertTitle`, `alertBadge`, `description`, `action`) |
 
 ## API
+
+**Card** (generic container): `Card`, `CardHeader`, `CardTitle` (`as="h2" | "h3" | "h4"`, default h3), `CardDescription`, `CardContent`, `CardFooter`. InsightCard and AlertCard are built on it and accept `headingLevel`.
 
 **InsightCard**
 
@@ -116,8 +118,6 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 ```
 
 ## Known gaps
-- [ ] **Two card systems.** `card.tsx` (shadcn, uses `bg-card` / `text-card-foreground`) and `cards.tsx` (s4e tokens) coexist. Pick one generic `Card` primitive on s4e tokens and build InsightCard / AlertCard on it.
-- [ ] Titles aren't headings. There's no `headingLevel` prop.
 - [ ] No loading (Skeleton) or empty state preset.
 
 ## Related

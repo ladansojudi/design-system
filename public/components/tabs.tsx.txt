@@ -4,14 +4,14 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Tabs
+ * sentinel/ui — Tabs
  *
  * Drop this file into your project at components/ui/tabs.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  *
  * Usage:
  *   <Tabs defaultValue="overview">
@@ -34,6 +34,9 @@ const idFor = (baseId: string, part: "trigger" | "panel", value: string) =>
   `${baseId}-${part}-${value.replace(/[^A-Za-z0-9_-]/g, "_")}`;
 
 const TabsContext = React.createContext<TabsContextValue | null>(null);
+
+export type TabsVariant = "underline" | "pill";
+const TabsVariantContext = React.createContext<TabsVariant>("underline");
 
 function useTabs(): TabsContextValue {
   const ctx = React.useContext(TabsContext);
@@ -72,8 +75,13 @@ Tabs.displayName = "Tabs";
 
 // Arrow / Home / End move focus between tabs and activate them (APG
 // "automatic activation"). Only the active tab is in the Tab order.
-export const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, onKeyDown, ...props }, ref) => {
+export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** underline (default): page-level sections. pill: compact segmented control. */
+  variant?: TabsVariant;
+}
+
+export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
+  ({ variant = "underline", className, onKeyDown, ...props }, ref) => {
     const listRef = React.useRef<HTMLDivElement>(null);
     React.useImperativeHandle(ref, () => listRef.current as HTMLDivElement);
     const { value } = useTabs();
@@ -107,18 +115,23 @@ export const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
     };
 
     return (
-      <div
-        ref={listRef}
-        role="tablist"
-        aria-orientation="horizontal"
-        data-slot="tabs-list"
-        onKeyDown={handleKeyDown}
-        className={cn(
-          "flex items-end border-b border-s4e-border-default overflow-x-auto s4e-scrollbar-hide",
-          className,
-        )}
-        {...props}
-      />
+      <TabsVariantContext.Provider value={variant}>
+        <div
+          ref={listRef}
+          role="tablist"
+          aria-orientation="horizontal"
+          data-slot="tabs-list"
+          data-variant={variant}
+          onKeyDown={handleKeyDown}
+          className={cn(
+            variant === "pill"
+              ? "inline-flex w-fit self-start items-center gap-1 rounded-lg bg-snt-bg-subtle p-1"
+              : "flex items-end border-b border-snt-border-default overflow-x-auto snt-scrollbar-hide",
+            className,
+          )}
+          {...props}
+        />
+      </TabsVariantContext.Provider>
     );
   },
 );
@@ -126,11 +139,14 @@ TabsList.displayName = "TabsList";
 
 export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
+  /** Optional count chip after the label (e.g. open findings). */
+  count?: number;
 }
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ className, value, ...props }, ref) => {
+  ({ className, value, count, children, ...props }, ref) => {
     const { value: current, setValue, baseId } = useTabs();
+    const variant = React.useContext(TabsVariantContext);
     const isActive = current === value;
     return (
       <button
@@ -144,17 +160,36 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
         data-slot="tabs-trigger"
         onClick={() => setValue(value)}
         className={cn(
-          "inline-flex items-center px-4 pt-2 pb-2.5 -mb-px text-[14px] font-medium whitespace-nowrap tracking-tight shrink-0",
-          "border-b-[2px] transition-colors cursor-pointer",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-s4e-focus-ring/40",
+          "inline-flex items-center gap-1.5 text-snt-14 font-medium whitespace-nowrap tracking-tight shrink-0 transition-colors cursor-pointer",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-snt-focus-ring/40",
           "disabled:opacity-50 disabled:pointer-events-none",
-          isActive
-            ? "text-s4e-text-primary border-s4e-brand-primary-500"
-            : "text-s4e-text-secondary border-transparent hover:text-s4e-text-primary",
+          variant === "pill"
+            ? cn(
+                "px-3.5 py-1.5 rounded-md",
+                isActive ? "bg-snt-surface-row text-snt-text-primary shadow-snt-sm" : "text-snt-text-secondary hover:text-snt-text-primary",
+              )
+            : cn(
+                "px-4 pt-2 pb-2.5 -mb-px border-b-[2px]",
+                isActive
+                  ? "text-snt-text-primary border-snt-brand-primary-500"
+                  : "text-snt-text-secondary border-transparent hover:text-snt-text-primary",
+              ),
           className,
         )}
         {...props}
-      />
+      >
+        {children}
+        {count !== undefined && (
+          <span
+            className={cn(
+              "inline-flex items-center justify-center rounded-full px-1.5 min-w-[18px] h-[18px] text-snt-10 font-semibold tabular-nums",
+              isActive ? "bg-snt-btn-primary-600 text-snt-text-on-accent" : "bg-snt-neutral-grey-200 text-snt-text-secondary",
+            )}
+          >
+            {count}
+          </span>
+        )}
+      </button>
     );
   },
 );

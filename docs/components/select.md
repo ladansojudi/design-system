@@ -5,7 +5,7 @@ category: Atom
 status: beta
 source: components/ui/select.tsx
 styleguide: /styleguide/select
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-56
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
 ---
 
@@ -52,7 +52,7 @@ A single-choice dropdown that picks one value from a list of options.
 | Default | Grey border | — |
 | Hover | `neutral-grey-500` border | — |
 | Focus | Brand border + `focus-visible` ring | — |
-| Open | Brand border + soft ring, listbox below | Closes on outside click, Escape, Tab or selection |
+| Open | Brand border + soft ring, listbox below (above when there's no room) | Listbox is portalled to `<body>`, so `overflow: hidden` parents can't clip it; it follows scroll/resize and inherits a nested `data-snt-theme`. Closes on outside click, Escape, Tab or selection |
 | Error | Red border, label and helper | `aria-invalid` |
 | Disabled | 40% opacity | Not focusable |
 | Option disabled | `text-disabled` | Skipped by arrow keys and typeahead |
@@ -90,12 +90,12 @@ A single-choice dropdown that picks one value from a list of options.
 
 | Role | Token |
 |---|---|
-| Trigger / listbox bg | `s4e-surface-row` |
-| Option hover / active | `s4e-surface-row-hover` |
-| Selected option tint / check | `s4e-brand-primary-500` @ 8% / `s4e-brand-primary-500` |
-| Border default / hover / focus / error | `s4e-border-strong` / `-500` / `s4e-border-focus` / `s4e-border-error` |
-| Listbox border / shadow | `s4e-border-default` / `shadow-s4e-lg` |
-| Value / placeholder / helper | `s4e-text-primary` / `s4e-text-secondary` / `s4e-text-secondary` |
+| Trigger / listbox bg | `snt-surface-row` |
+| Option hover / active | `snt-surface-row-hover` |
+| Selected option tint / check | `snt-brand-primary-500` @ 8% / `snt-brand-primary-500` |
+| Border default / hover / focus / error | `snt-border-strong` / `-500` / `snt-border-focus` / `snt-border-error` |
+| Listbox border / shadow | `snt-border-default` / `shadow-snt-lg` |
+| Value / placeholder / helper | `snt-text-primary` / `snt-text-secondary` / `snt-text-secondary` |
 
 ## Design ↔ Code
 
@@ -137,7 +137,6 @@ A single-choice dropdown that picks one value from a list of options.
 ```
 
 ## Known gaps
-- [ ] The listbox is absolutely positioned. It can be clipped by `overflow: hidden` parents and doesn't flip near the viewport edge. Portal + collision handling (or `@base-ui/react` Select) needed.
 - [ ] No `name` / hidden input, so it doesn't participate in native `<form>` submit.
 - [ ] No option groups, icons or descriptions.
 

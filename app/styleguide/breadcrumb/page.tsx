@@ -9,7 +9,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Breadcrumb — Design System",
+  title: "Breadcrumb — Sentinel Design System",
 };
 
 export default function Page() {
@@ -36,11 +36,11 @@ export default function Page() {
               ]}
             >
               <div className="flex items-center gap-2">
-                <span className="text-[14px] font-medium text-s4e-text-primary">Main</span>
-                <span className="text-s4e-text-disabled text-[12px]">•</span>
-                <span className="text-[14px] font-medium text-s4e-text-primary">Asset Manager</span>
-                <span className="text-s4e-text-disabled text-[12px]">•</span>
-                <span className="text-[14px] text-s4e-text-disabled">zero.webappsecurity.com</span>
+                <span className="text-[14px] font-medium text-snt-text-primary">Main</span>
+                <span className="text-snt-text-disabled text-[12px]">•</span>
+                <span className="text-[14px] font-medium text-snt-text-primary">Asset Manager</span>
+                <span className="text-snt-text-disabled text-[12px]">•</span>
+                <span className="text-[14px] text-snt-text-disabled">zero.webappsecurity.com</span>
               </div>
             </Anatomy>
 

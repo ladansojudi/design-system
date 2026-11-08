@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, CornerDownLeft, Search } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { useIsClient } from "@/components/styleguide/use-is-client";
 import { navGroups } from "@/components/styleguide/nav-data";
 
 // ── Compact Search trigger (Atlassian-style) ───────────────────────────────
@@ -32,8 +33,8 @@ export function SearchTrigger() {
         aria-label="Search"
         className={cn(
           "group inline-flex items-center gap-2 h-9 px-3 rounded-md cursor-pointer transition-colors",
-          "text-s4e-text-secondary hover:text-s4e-text-primary hover:bg-s4e-neutral-grey-100",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500/30",
+          "text-snt-text-secondary hover:text-snt-text-primary hover:bg-snt-neutral-grey-100",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-brand-primary-500/30",
         )}
       >
         <Search size={15} />
@@ -53,11 +54,10 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
   const listRef  = useRef<HTMLDivElement>(null);
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [query, setQuery] = useState("");
-  const [mounted, setMounted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
-  useEffect(() => { setMounted(true); }, []);
+  const mounted = useIsClient();
   useEffect(() => { inputRef.current?.focus(); }, []);
 
   useEffect(() => {
@@ -84,7 +84,6 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
     [filtered],
   );
 
-  useEffect(() => { setActiveIndex(0); }, [query]);
   useEffect(() => {
     const el = listRef.current?.querySelector<HTMLElement>(`[data-index="${activeIndex}"]`);
     el?.scrollIntoView({ block: "nearest" });
@@ -134,27 +133,27 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
         onClick={(e) => e.stopPropagation()}
         className={cn(
           "w-full max-w-[860px] flex flex-col overflow-hidden",
-          "bg-s4e-surface-app rounded-lg",
-          "border border-s4e-neutral-divider-10",
+          "bg-snt-surface-app rounded-lg",
+          "border border-snt-neutral-divider-10",
           "shadow-[0_24px_60px_rgba(9,30,66,0.18),_0_4px_12px_rgba(9,30,66,0.08)]",
           "max-h-[68vh]",
         )}
       >
         {/* Input bar */}
-        <div className="flex items-center gap-3 px-5 border-b border-s4e-neutral-divider-10 shrink-0">
-          <Search size={18} className="text-s4e-text-secondary shrink-0" />
+        <div className="flex items-center gap-3 px-5 border-b border-snt-neutral-divider-10 shrink-0">
+          <Search size={18} className="text-snt-text-secondary shrink-0" />
           <input
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => { setQuery(e.target.value); setActiveIndex(0); }}
             placeholder="Search components, foundations, patterns…"
-            className="flex-1 h-14 bg-transparent text-[15px] text-s4e-text-primary placeholder:text-s4e-text-disabled focus:outline-none"
+            className="flex-1 h-14 bg-transparent text-[15px] text-snt-text-primary placeholder:text-snt-text-disabled focus:outline-none"
           />
           <button
             type="button"
             onClick={onClose}
-            className="text-[11px] font-mono text-s4e-text-disabled px-2 py-1 rounded-[4px] border border-s4e-neutral-divider-10 hover:text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors cursor-pointer shrink-0"
+            className="text-[11px] font-mono text-snt-text-disabled px-2 py-1 rounded-[4px] border border-snt-neutral-divider-10 hover:text-snt-text-primary hover:bg-snt-neutral-grey-100 transition-colors cursor-pointer shrink-0"
           >
             Esc
           </button>
@@ -173,10 +172,10 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
                   ref={(el) => { groupRefs.current[group.label] = el; }}
                   className={cn(
                     "mb-1.5 last:mb-0 transition-colors",
-                    hoveredCategory === group.label && "bg-s4e-brand-primary-500/5",
+                    hoveredCategory === group.label && "bg-snt-brand-primary-500/5",
                   )}
                 >
-                  <div className="px-5 pt-3 pb-1.5 text-[10.5px] uppercase tracking-[0.08em] text-s4e-text-disabled font-semibold">
+                  <div className="px-5 pt-3 pb-1.5 text-[10.5px] uppercase tracking-[0.08em] text-snt-text-disabled font-semibold">
                     {group.label}
                   </div>
                   {group.items.map((item) => {
@@ -193,8 +192,8 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
                         className={cn(
                           "w-full flex items-center justify-between gap-3 px-5 py-2 text-left cursor-pointer transition-colors duration-75",
                           active
-                            ? "bg-s4e-brand-primary-500/8 text-s4e-text-primary"
-                            : "text-s4e-text-secondary hover:bg-s4e-neutral-grey-100",
+                            ? "bg-snt-brand-primary-500/8 text-snt-text-primary"
+                            : "text-snt-text-secondary hover:bg-snt-neutral-grey-100",
                         )}
                       >
                         <div className="flex items-center gap-3 min-w-0">
@@ -202,20 +201,20 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
                             className={cn(
                               "inline-flex items-center justify-center w-5 h-5 rounded-[4px] shrink-0 transition-colors",
                               active
-                                ? "bg-s4e-brand-primary-500/15 text-s4e-brand-primary-500"
-                                : "bg-s4e-neutral-grey-100 text-s4e-text-disabled",
+                                ? "bg-snt-brand-primary-500/15 text-snt-brand-primary-500"
+                                : "bg-snt-neutral-grey-100 text-snt-text-disabled",
                             )}
                           >
                             <ArrowRight size={11} />
                           </span>
-                          <span className={cn("text-[13.5px] truncate", active ? "font-medium text-s4e-text-primary" : "font-normal")}>
+                          <span className={cn("text-[13.5px] truncate", active ? "font-medium text-snt-text-primary" : "font-normal")}>
                             {item.label}
                           </span>
                         </div>
-                        <span className="text-[10.5px] font-mono text-s4e-text-disabled truncate hidden sm:inline-block">
+                        <span className="text-[10.5px] font-mono text-snt-text-disabled truncate hidden sm:inline-block">
                           /{item.slug}
                         </span>
-                        {active && <CornerDownLeft size={13} className="text-s4e-brand-primary-500 shrink-0 ml-2" />}
+                        {active && <CornerDownLeft size={13} className="text-snt-brand-primary-500 shrink-0 ml-2" />}
                       </button>
                     );
                   })}
@@ -225,8 +224,8 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* Right — categories (Atlassian-style sidebar) */}
-          <div className="hidden md:flex flex-col w-[200px] shrink-0 border-l border-s4e-neutral-divider-10 bg-s4e-neutral-grey-100/40 py-3">
-            <div className="px-4 pb-2 text-[10.5px] uppercase tracking-[0.08em] text-s4e-text-disabled font-semibold">
+          <div className="hidden md:flex flex-col w-[200px] shrink-0 border-l border-snt-neutral-divider-10 bg-snt-neutral-grey-100/40 py-3">
+            <div className="px-4 pb-2 text-[10.5px] uppercase tracking-[0.08em] text-snt-text-disabled font-semibold">
               Categories
             </div>
             <div className="flex flex-col">
@@ -237,20 +236,20 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
                   onClick={() => jumpToGroup(group.label)}
                   onMouseEnter={() => setHoveredCategory(group.label)}
                   onMouseLeave={() => setHoveredCategory(null)}
-                  className="group flex items-center justify-between px-4 py-1.5 text-left cursor-pointer transition-colors hover:bg-s4e-surface-app"
+                  className="group flex items-center justify-between px-4 py-1.5 text-left cursor-pointer transition-colors hover:bg-snt-surface-app"
                 >
-                  <span className="text-[12.5px] font-medium text-s4e-text-secondary group-hover:text-s4e-text-primary capitalize">
+                  <span className="text-[12.5px] font-medium text-snt-text-secondary group-hover:text-snt-text-primary capitalize">
                     {group.label.toLowerCase()}
                   </span>
-                  <span className="text-[11px] font-mono text-s4e-text-disabled">
+                  <span className="text-[11px] font-mono text-snt-text-disabled">
                     {group.items.length}
                   </span>
                 </button>
               ))}
             </div>
 
-            <div className="mt-auto px-4 pt-3 border-t border-s4e-neutral-divider-10 mt-3">
-              <div className="text-[10px] text-s4e-text-disabled">
+            <div className="mt-auto px-4 pt-3 border-t border-snt-neutral-divider-10 mt-3">
+              <div className="text-[10px] text-snt-text-disabled">
                 {flatItems.length} {flatItems.length === 1 ? "result" : "results"}
               </div>
             </div>
@@ -258,7 +257,7 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
         </div>
 
         {/* Footer hints */}
-        <div className="flex items-center gap-4 px-5 py-2.5 border-t border-s4e-neutral-divider-10 bg-s4e-neutral-grey-100/50 shrink-0">
+        <div className="flex items-center gap-4 px-5 py-2.5 border-t border-snt-neutral-divider-10 bg-snt-neutral-grey-100/50 shrink-0">
           <Hint k="↑↓" text="Navigate" />
           <Hint k="↵"  text="Open" />
           <Hint k="esc" text="Close" />
@@ -272,13 +271,13 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
 function EmptyState({ query }: { query: string }) {
   return (
     <div className="px-5 py-14 text-center">
-      <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-s4e-neutral-grey-100 mb-3">
-        <Search size={16} className="text-s4e-text-disabled" />
+      <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-snt-neutral-grey-100 mb-3">
+        <Search size={16} className="text-snt-text-disabled" />
       </div>
-      <p className="text-[13.5px] text-s4e-text-primary font-medium">
+      <p className="text-[13.5px] text-snt-text-primary font-medium">
         No matches for &ldquo;{query}&rdquo;
       </p>
-      <p className="mt-1 text-[12px] text-s4e-text-disabled">
+      <p className="mt-1 text-[12px] text-snt-text-disabled">
         Try a different keyword or browse the sidebar.
       </p>
     </div>
@@ -287,8 +286,8 @@ function EmptyState({ query }: { query: string }) {
 
 function Hint({ k, text }: { k: string; text: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-[10.5px] text-s4e-text-disabled">
-      <kbd className="font-mono px-1.5 py-[1px] rounded-[3px] border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[10px] min-w-[18px] text-center">
+    <span className="inline-flex items-center gap-1.5 text-[10.5px] text-snt-text-disabled">
+      <kbd className="font-mono px-1.5 py-[1px] rounded-[3px] border border-snt-neutral-divider-10 bg-snt-surface-app text-[10px] min-w-[18px] text-center">
         {k}
       </kbd>
       {text}

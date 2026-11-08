@@ -4,27 +4,26 @@
 
 :root {
   /* Colors */
-  --s4e-brand-primary-500: #1383d4;
-  --s4e-neutral-grey-100: #f7f8f8;
-  --s4e-neutral-grey-300: #dfe2e2;
-  --s4e-neutral-grey-800: #1f2323;
-  --s4e-text-primary: #121f28;
-  --s4e-text-secondary: #657078;
-  --s4e-text-disabled: #a7adb2;
-  --s4e-text-white: #ffffff;
-  --s4e-text-on-accent: #ffffff;
-  --s4e-btn-primary-600: #0f69aa;
+  --snt-brand-primary-500: #5b5bd6;
+  --snt-neutral-grey-100: #f4f4f5;
+  --snt-neutral-grey-300: #d4d4d8;
+  --snt-neutral-grey-800: #27272a;
+  --snt-text-primary: #09090b;
+  --snt-text-secondary: #52525b;
+  --snt-text-disabled: #a1a1aa;
+  --snt-text-on-accent: #ffffff;
+  --snt-btn-primary-600: #4f46e5;
 
   /* Spacing */
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-9: 36px;
   --space-2: 8px;
+  --space-4: 16px;
   --space-8: 32px;
   --space-16: 64px;
+  --space-6: 24px;
   --space-10: 40px;
   --space-5: 20px;
+  --space-3: 12px;
+  --space-9: 36px;
 
   /* Radius */
   --radius-md: 6px;

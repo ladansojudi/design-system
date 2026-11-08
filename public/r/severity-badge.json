@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "severity-badge",
+  "title": "Severity Badge",
+  "description": "The canonical way to show a finding's severity (Critical → Info), optionally with its numeric score (e.g. CVSS).",
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/severity-badge.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — SeverityBadge\n *\n * Drop this file into your project at components/ui/severity-badge.tsx.\n *\n * Requires:\n *   • Tailwind CSS v4\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n */\n\ntype Severity = \"low\" | \"critical\" | \"high\" | \"medium\" | \"info\";\n\nexport interface SeverityBadgeProps extends React.HTMLAttributes<HTMLDivElement> {\n  severity: Severity;\n  score?:   number;\n}\n\ntype SeverityConfig = {\n  label:  string;\n  bg:     string;\n  accent: string;\n  text:   string;\n};\n\nconst SEVERITY: Record<Severity, SeverityConfig> = {\n  low: {\n    label:  \"Low\",\n    bg:     \"bg-snt-scale-green-50\",\n    accent: \"border-l-[3px] border-snt-scale-green-500\",\n    text:   \"text-snt-scale-green-600\",\n  },\n  critical: {\n    label:  \"Critical\",\n    bg:     \"bg-snt-scale-purple-50\",\n    accent: \"border-l-[3px] border-snt-scale-purple-500\",\n    text:   \"text-snt-scale-purple-600\",\n  },\n  high: {\n    label:  \"High\",\n    bg:     \"bg-snt-scale-red-50\",\n    accent: \"border-l-[3px] border-snt-scale-red-500\",\n    text:   \"text-snt-scale-red-600\",\n  },\n  medium: {\n    label:  \"Medium\",\n    bg:     \"bg-snt-scale-yellow-50\",\n    accent: \"border-l-[3px] border-snt-scale-yellow-500\",\n    text:   \"text-snt-scale-yellow-700\",\n  },\n  info: {\n    label:  \"Info\",\n    bg:     \"bg-snt-scale-blue-50\",\n    accent: \"border-l-[3px] border-snt-scale-blue-500\",\n    text:   \"text-snt-scale-blue-600\",\n  },\n};\n\nconst BASE = \"flex items-center rounded-md px-3 py-1.5 w-40\";\n\nexport const SeverityBadge = React.forwardRef<HTMLDivElement, SeverityBadgeProps>(\n  ({ severity, score, className, ...props }, ref) => {\n    const cfg = SEVERITY[severity];\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          BASE,\n          score !== undefined ? \"justify-between\" : \"\",\n          cfg.bg,\n          cfg.accent,\n          className,\n        )}\n        {...props}\n      >\n        <span className={cn(\"text-snt-14 font-medium\", cfg.text)}>{cfg.label}</span>\n        {score !== undefined && (\n          <span className={cn(\"text-snt-14 font-normal opacity-80\", cfg.text)}>{score}</span>\n        )}\n      </div>\n    );\n  },\n);\nSeverityBadge.displayName = \"SeverityBadge\";\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "stable"
+  },
+  "docs": "Severity Badge (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/severity-badge.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

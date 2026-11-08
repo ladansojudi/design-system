@@ -4,20 +4,18 @@
 
 :root {
   /* Colors */
-  --s4e-brand-primary-500: #1383d4;
-  --s4e-neutral-grey-100: #f7f8f8;
-  --s4e-neutral-grey-200: #f4f5f5;
-  --s4e-neutral-grey-300: #dfe2e2;
-  --s4e-surface-app: #ffffff;
-  --s4e-surface-row: #ffffff;
-  --s4e-text-primary: #121f28;
-  --s4e-text-secondary: #657078;
-  --s4e-text-disabled: #a7adb2;
+  --snt-brand-primary-500: #5b5bd6;
+  --snt-neutral-grey-100: #f4f4f5;
+  --snt-neutral-grey-200: #e4e4e7;
+  --snt-neutral-grey-300: #d4d4d8;
+  --snt-surface-app: #ffffff;
+  --snt-text-primary: #09090b;
+  --snt-text-secondary: #52525b;
+  --snt-text-disabled: #a1a1aa;
 
   /* Spacing */
-  --space-4: 16px;
   --space-2: 8px;
-  --space-1: 4px;
+  --space-4: 16px;
   --space-6: 24px;
   --space-5: 20px;
   --space-8: 32px;
@@ -25,10 +23,7 @@
   --space-10: 40px;
 
   /* Radius */
-  --radius-md: 6px;
-  --radius-lg: 8px;
   --radius-xl: 12px;
-  --radius-full: 9999px;
   --radius-base: 4px;
 
   /* Border width */

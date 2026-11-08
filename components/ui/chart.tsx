@@ -4,14 +4,14 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Chart
+ * sentinel/ui — Chart
  *
  * Drop this file into your project at components/ui/chart.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 // ── Card wrapper ───────────────────────────────────────────────────────────
@@ -29,20 +29,20 @@ export const ChartCard = React.forwardRef<HTMLDivElement, ChartCardProps>(
     return (
       <div
         ref={ref}
-        className={cn("border border-s4e-border-default rounded-xl bg-s4e-surface-app", className)}
+        className={cn("border border-snt-border-default rounded-xl bg-snt-surface-app", className)}
         {...props}
       >
-        <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-s4e-bg-subtle border-b border-s4e-border-default rounded-t-xl">
-          <span className="text-[14px] font-semibold text-s4e-text-primary shrink-0">{title}</span>
+        <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl">
+          <span className="text-snt-14 font-semibold text-snt-text-primary shrink-0">{title}</span>
           {description && (
-            <span className="hidden sm:inline text-[12px] text-s4e-text-secondary truncate flex-1 min-w-0">{description}</span>
+            <span className="hidden sm:inline text-snt-12 text-snt-text-secondary truncate flex-1 min-w-0">{description}</span>
           )}
           {trailing}
           {viewAll && (
             <button
               type="button"
               onClick={onViewAll}
-              className="ml-auto text-[12px] font-medium text-s4e-brand-primary-500 hover:text-s4e-brand-primary-600 transition-colors shrink-0 underline underline-offset-2"
+              className="ml-auto text-snt-12 font-medium text-snt-brand-primary-500 hover:text-snt-brand-primary-600 transition-colors shrink-0 underline underline-offset-2"
             >
               View all
             </button>
@@ -68,11 +68,11 @@ export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
     return (
       <div
         ref={ref}
-        className={cn("flex-1 min-w-0 rounded-lg bg-s4e-bg-subtle px-4 py-3", className)}
+        className={cn("flex-1 min-w-0 rounded-lg bg-snt-bg-subtle px-4 py-3", className)}
         {...props}
       >
-        <div className="text-[12px] text-s4e-text-secondary mb-1 truncate">{label}</div>
-        <div className={cn("text-[16px] font-bold tabular-nums truncate", accent ?? "text-s4e-text-primary")}>
+        <div className="text-snt-12 text-snt-text-secondary mb-1 truncate">{label}</div>
+        <div className={cn("text-snt-16 font-bold tabular-nums truncate", accent ?? "text-snt-text-primary")}>
           {value}
         </div>
       </div>
@@ -117,7 +117,7 @@ export const DonutChart = React.forwardRef<SVGSVGElement, DonutChartProps>(
         className={cn("shrink-0", className)}
         {...props}
       >
-        <circle r={RADIUS} fill="none" stroke="var(--s4e-neutral-grey-100)" strokeWidth={STROKE} />
+        <circle r={RADIUS} fill="none" stroke="var(--snt-neutral-grey-100)" strokeWidth={STROKE} />
         {segments.map((s) => (
           <circle
             key={s.label}
@@ -132,7 +132,7 @@ export const DonutChart = React.forwardRef<SVGSVGElement, DonutChartProps>(
           />
         ))}
         {showTotal && (
-          <text x="0" y="6" textAnchor="middle" className="fill-s4e-text-primary" fontSize="22" fontWeight="600">
+          <text x="0" y="6" textAnchor="middle" className="fill-snt-text-primary" fontSize="22" fontWeight="600">
             {total.toLocaleString()}
           </text>
         )}
@@ -153,7 +153,7 @@ export const DonutLegend = React.forwardRef<HTMLDivElement, DonutLegendProps>(
       <div
         ref={ref}
         className={cn(
-          "divide-y divide-s4e-border-default",
+          "divide-y divide-snt-border-default",
           fullWidth ? "w-full" : "flex-1 min-w-0 sm:min-w-[200px]",
           className,
         )}
@@ -162,8 +162,8 @@ export const DonutLegend = React.forwardRef<HTMLDivElement, DonutLegendProps>(
         {data.map((d) => (
           <div key={d.label} className="flex items-center gap-3 py-2.5">
             <span className="w-[10px] h-[10px] rounded-full shrink-0" style={{ backgroundColor: d.color }} />
-            <span className="text-[14px] text-s4e-text-primary flex-1">{d.label}</span>
-            <span className="text-[14px] font-semibold text-s4e-text-primary tabular-nums">
+            <span className="text-snt-14 text-snt-text-primary flex-1">{d.label}</span>
+            <span className="text-snt-14 font-semibold text-snt-text-primary tabular-nums">
               {d.value.toLocaleString()}
             </span>
           </div>
@@ -224,7 +224,7 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             style={{ height }}
           >
             {finalTicks.map((t) => (
-              <span key={t} className="text-[10px] text-s4e-text-secondary tabular-nums">{t}</span>
+              <span key={t} className="text-snt-10 text-snt-text-secondary tabular-nums">{t}</span>
             ))}
           </div>
 
@@ -232,19 +232,19 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
           <div className="flex-1 relative">
             <div className="absolute inset-0 flex flex-col-reverse justify-between pointer-events-none">
               {finalTicks.map((t) => (
-                <div key={t} className="border-t border-s4e-border-default/70" />
+                <div key={t} className="border-t border-snt-border-default/70" />
               ))}
             </div>
             <div className="relative flex items-end gap-2 sm:gap-6" style={{ height }}>
               {data.map((b, i) => (
                 <div key={b.label} className="flex-1 flex flex-col items-center justify-end gap-1.5 h-full">
-                  <span className="text-[11px] font-semibold text-s4e-text-primary tabular-nums">{b.value}</span>
+                  <span className="text-snt-11 font-semibold text-snt-text-primary tabular-nums">{b.value}</span>
                   <div
                     className={cn(
                       "w-full max-w-[54px] rounded-t-md transition-all",
                       highlightLeader && i === 0
-                        ? "bg-s4e-brand-primary-600"
-                        : "bg-s4e-brand-primary-500",
+                        ? "bg-snt-brand-primary-600"
+                        : "bg-snt-brand-primary-500",
                     )}
                     style={{ height: `${(b.value / computedMax) * 100}%` }}
                   />
@@ -257,7 +257,7 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
         {/* X axis labels */}
         <div className="flex gap-2 sm:gap-6 pl-11">
           {data.map((b) => (
-            <div key={b.label} className="flex-1 text-center text-[11px] text-s4e-text-secondary">
+            <div key={b.label} className="flex-1 text-center text-snt-11 text-snt-text-secondary">
               {b.label}
             </div>
           ))}
@@ -308,7 +308,7 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
         {...props}
       >
         {/* Y axis labels */}
-        <div className="absolute left-0 top-0 bottom-5 flex flex-col justify-between text-[10px] text-s4e-text-secondary">
+        <div className="absolute left-0 top-0 bottom-5 flex flex-col justify-between text-snt-10 text-snt-text-secondary">
           {yLabels.map((label) => (
             <span key={label}>{label}</span>
           ))}
@@ -319,8 +319,8 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-40">
             <defs>
               <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"   stopColor="var(--s4e-brand-primary-500)" stopOpacity="0.28" />
-                <stop offset="100%" stopColor="var(--s4e-brand-primary-500)" stopOpacity="0"    />
+                <stop offset="0%"   stopColor="var(--snt-brand-primary-500)" stopOpacity="0.28" />
+                <stop offset="100%" stopColor="var(--snt-brand-primary-500)" stopOpacity="0"    />
               </linearGradient>
             </defs>
             {[0, 33, 66, 100].map((y) => (
@@ -330,7 +330,7 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
                 x2="100"
                 y1={y}
                 y2={y}
-                stroke="var(--s4e-neutral-grey-200)"
+                stroke="var(--snt-neutral-grey-200)"
                 strokeWidth="0.3"
                 strokeDasharray="1 1"
               />
@@ -339,7 +339,7 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
             <path
               d={linePath}
               fill="none"
-              stroke="var(--s4e-brand-primary-500)"
+              stroke="var(--snt-brand-primary-500)"
               strokeWidth="0.9"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -349,7 +349,7 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
 
         {/* X axis labels */}
         {xLabels.length > 0 && (
-          <div className="ml-10 mt-2 flex justify-between text-[10px] text-s4e-text-secondary">
+          <div className="ml-10 mt-2 flex justify-between text-snt-10 text-snt-text-secondary">
             {xLabels.map((d) => (
               <span key={d} className="whitespace-nowrap">{d}</span>
             ))}
@@ -382,8 +382,8 @@ export const TreemapChart = React.forwardRef<HTMLDivElement, TreemapChartProps>(
       <div
         key={b.label}
         className={cn(
-          "flex-1 rounded-md flex items-center justify-center text-[14px] font-semibold",
-          b.textOn === "primary" ? "text-s4e-text-primary" : "text-s4e-text-on-accent",
+          "flex-1 rounded-md flex items-center justify-center text-snt-14 font-semibold",
+          b.textOn === "primary" ? "text-snt-text-primary" : "text-snt-text-on-accent",
         )}
         style={{ backgroundColor: b.color }}
       >

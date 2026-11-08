@@ -19,7 +19,7 @@ function PillStateSwatch({ state }: { state: "default" | "active" | "overflow" }
   if (state === "overflow") {
     return (
       <span
-        className="inline-block w-4 h-3 rounded-[3px] border border-dashed border-s4e-neutral-divider-10"
+        className="inline-block w-4 h-3 rounded-[3px] border border-dashed border-snt-neutral-divider-10"
         aria-hidden
       />
     );
@@ -29,8 +29,8 @@ function PillStateSwatch({ state }: { state: "default" | "active" | "overflow" }
       className={cn(
         "inline-block w-4 h-3 rounded-[3px] border",
         state === "active"
-          ? "border-s4e-brand-primary-500 bg-s4e-brand-primary-50"
-          : "border-s4e-neutral-divider-10 bg-s4e-surface-app",
+          ? "border-snt-brand-primary-500 bg-snt-brand-primary-50"
+          : "border-snt-neutral-divider-10 bg-snt-surface-app",
       )}
       aria-hidden
     />
@@ -66,21 +66,21 @@ export function FilterBarSpecs() {
             {
               name:    "label",
               type:    "string",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">e.g. &quot;Tags&quot;</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. &quot;Tags&quot;</span>,
               default: "—",
               description: "Filter category name. Keep short — pills wrap horizontally only on overflow.",
             },
             {
               name:    "icon",
               type:    "Icon",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">Lucide</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">Lucide</span>,
               default: "—",
               description: "Optional 12px glyph that reinforces the category at a glance.",
             },
             {
               name:    "count",
               type:    "number",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">e.g. 2</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. 2</span>,
               default: "—",
               description: "Active value count rendered as a small circular badge inside the pill.",
             },
@@ -120,10 +120,10 @@ export function FilterBarSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={120} height={32} padX={12} padY={4} radius={8}>
-          <div className="w-full h-full inline-flex items-center gap-1.5 px-3 rounded-lg border border-s4e-brand-primary-500 bg-s4e-brand-primary-50 text-s4e-brand-primary-500 text-[12px] font-medium">
+          <div className="w-full h-full inline-flex items-center gap-1.5 px-3 rounded-lg border border-snt-brand-primary-500 bg-snt-brand-primary-50 text-snt-brand-primary-500 text-[12px] font-medium">
             <Tag size={12} className="opacity-70 shrink-0" />
             <span>Tags</span>
-            <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-white text-[10px] font-bold">2</span>
+            <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-snt-brand-primary-500 text-white text-[10px] font-bold">2</span>
             <ChevronDown size={11} className="opacity-50" />
           </div>
         </SpacingDiagram>
@@ -139,7 +139,7 @@ export function FilterBarSpecs() {
               { label: "Border width",          values: ["1px",  "1px",  "1px"], note: "Overflow pill is dashed." },
               { label: "Icon · label gap",      values: ["8px",  "8px",  "—"] },
               { label: "Icon size",             values: ["12px", "12px", "12px"] },
-              { label: "Label font size",       values: ["12px", "12px", "12px"], note: "Inter Medium." },
+              { label: "Label font size",       values: ["12px", "12px", "12px"], note: "Geist Medium." },
               { label: "Count badge size",      values: ["16px", "—",    "—"],   note: "Circular, 10px bold text." },
               { label: "Width",                 values: ["auto", "auto", "192px"], note: "Search has fixed width." },
               { label: "Inter-pill gap",        values: ["8px",  "8px",  "—"],   note: "Bar-level flex gap." },

@@ -1,4 +1,4 @@
-# S4E Component Docs
+# Sentinel Component Docs
 
 One Markdown file per component, written for **both designers and developers**.
 The styleguide site (`/styleguide/<slug>`) is the visual playground; these files are
@@ -36,34 +36,38 @@ Shared principles we follow, regardless of source:
 | `/llms-full.txt` | Everything in one file: rules, setup, theme CSS, each doc + source (~68k tokens) |
 | `/theme.css` | Install-ready tokens (light + dark) and the Tailwind v4 `@theme` mapping |
 | `/docs/components/<slug>.md` | These docs, as served files |
+| `/sentinel-manifest.json` | Machine-readable manifest: props (types + defaults, from the TS source), status, when to use, tokens, install command |
+| `/r/<name>.json` | shadcn registry items — `npx shadcn add @sentinel/<name>` (`npm run registry`) |
+| `/AGENTS.template.md` | Rules file for consumer repos (source: `docs/consumer/AGENTS.md`) |
 
 Give an agent the deployed `/llms.txt` URL (or attach `llms-full.txt`) and tell it to follow the rules at the top.
 
 ## Lint guardrails
 
-`eslint/eslint-plugin-s4e.mjs` turns the most common mistakes — by humans or AI — into lint errors. It runs on `components/ui` via `npm run lint:ds` and ships to consumers at `/eslint-plugin-s4e.mjs`.
+`eslint/eslint-plugin-sentinel.mjs` turns the most common mistakes — by humans or AI — into lint errors. It runs on `components/ui` via `npm run lint:ds` and ships to consumers at `/eslint-plugin-sentinel.mjs`.
 
 | Rule | Level | Catches |
 |---|---|---|
-| `s4e/no-hardcoded-colors` | error | `#1383d4`, `rgb(…)`, `bg-red-500`, `bg-[#fff]` instead of `s4e-*` tokens |
-| `s4e/icon-only-needs-label` | error | `<Button iconOnly>` without `aria-label` |
-| `s4e/prefer-semantic-tokens` | warn, autofix | `border-s4e-neutral-divider-10` → `border-s4e-border-default` (and other unambiguous aliases) |
-| `s4e/no-deprecated-components` | warn | importing `Banner` |
-| `s4e/no-arbitrary-values` | warn | `text-[13px]`, `p-[7px]` (off for `components/ui` until the type scale lands) |
+| `sentinel/no-hardcoded-colors` | error | `#1383d4`, `rgb(…)`, `bg-red-500`, `bg-[#fff]` instead of `snt-*` tokens |
+| `sentinel/icon-only-needs-label` | error | `<Button iconOnly>` without `aria-label` |
+| `sentinel/prefer-semantic-tokens` | warn, autofix | `border-snt-neutral-divider-10` → `border-snt-border-default` (and other unambiguous aliases) |
+| `sentinel/no-deprecated-components` | warn | importing `Banner` |
+| `sentinel/no-arbitrary-values` | warn | `text-[13px]`, `p-[7px]`, `gap-[5px]` — typography and spacing only |
 
 ## Semantic tokens
 
-Prefer role-based aliases over scale primitives. They resolve per theme, including nested `[data-s4e-theme]` subtrees.
+Prefer role-based aliases over scale primitives. They resolve per theme, including nested `[data-snt-theme]` subtrees.
 
 | Role | Token |
 |---|---|
-| Borders | `s4e-border-default` · `s4e-border-strong` · `s4e-border-focus` · `s4e-border-error` |
-| Tints | `s4e-bg-subtle` · `s4e-bg-{brand,info,success,warning,error}-subtle` |
-| Focus | `s4e-focus-ring` · `s4e-focus-ring-error` |
-| Text | `s4e-text-{primary,secondary,disabled,link,brand,success,warning,error,info,on-accent,inverse}` |
-| Surfaces | `s4e-surface-{app,page,row,row-hover,table-header}` |
+| Borders | `snt-border-default` · `snt-border-strong` · `snt-border-focus` · `snt-border-error` |
+| Tints | `snt-bg-subtle` · `snt-bg-{brand,info,success,warning,error}-subtle` |
+| Focus | `snt-focus-ring` · `snt-focus-ring-error` |
+| Text | `snt-text-{primary,secondary,disabled,link,brand,success,warning,error,info,on-accent,inverse}` |
+| Surfaces | `snt-surface-{app,page,row,row-hover,table-header}` |
+| Font size | `text-snt-{10,11,12,14,16,18,20,24,32,48}` (px; same numbers as the Figma text styles) |
 
-Use `s4e-scale-*` / `s4e-neutral-*` primitives only where the hue is the meaning (severity, data series).
+Use `snt-scale-*` / `snt-neutral-*` primitives only where the hue is the meaning (severity, data series).
 
 ## Template
 
@@ -122,18 +126,17 @@ consistency issues, not accessibility blockers. The most impactful next ones:
 
 | Component | Gap |
 |---|---|
-| [Select](./select.md) | Listbox can be clipped by `overflow: hidden` parents; no viewport collision handling |
-| [Modal](./modal.md) | Background isn't `inert` |
-| [Button](./button.md) | `loading` drops the label (layout jump, nothing read out) |
 | [Data Table](./data-table.md) | Fixed threat schema; no sorting / selection / generic columns |
-| [Cards](./cards.md) | Two competing card primitives (`card.tsx` vs `cards.tsx`) |
-| All | Font sizes are hard-coded `text-[Npx]`; a type-scale utility set is needed before `s4e/no-arbitrary-values` can be enabled |
-| [Toast](./toast-tooltip.md) | No toast manager / viewport; intent colours look swapped (needs design confirmation) |
+| [Select](./select.md) | No native form participation (`name` / hidden input); no option groups |
+| [Tooltip](./toast-tooltip.md) | Doesn't flip at the viewport edge |
+| [Text Space](./text-space.md) | Built on `execCommand`; move to an editor engine before adding mentions or collaboration |
+
+Fixed since the last pass: Select clipping/flip, Modal `inert`, Button `loading` label, the two Card primitives, the Toast manager and its intent colours.
 
 ## Keeping docs in sync
 
 - A PR that changes a component's props, states, tokens or behaviour **must** update its doc in the same PR.
 - The **API** table mirrors the TypeScript interface in `components/ui/<slug>.tsx`.
-- The **Design tokens** table lists only `s4e-*` tokens the component actually uses; run
-  `grep -oE '(bg|text|border|ring)-s4e-[a-z0-9-]+' components/ui/<slug>.tsx | sort -u` to check.
+- The **Design tokens** table lists only `snt-*` tokens the component actually uses; run
+  `grep -oE '(bg|text|border|ring)-snt-[a-z0-9-]+' components/ui/<slug>.tsx | sort -u` to check.
 - Close an item in *Known gaps* by deleting it and noting the fix in `CHANGELOG.md`.

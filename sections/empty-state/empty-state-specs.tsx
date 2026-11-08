@@ -16,9 +16,9 @@ import {
 
 function ToneSwatch({ tone }: { tone: "neutral" | "warning" | "alert" }) {
   const cls = {
-    neutral: "bg-s4e-neutral-grey-100  text-s4e-text-secondary",
-    warning: "bg-s4e-scale-yellow-50    text-s4e-scale-yellow-600",
-    alert:   "bg-s4e-scale-red-50       text-s4e-scale-red-600",
+    neutral: "bg-snt-neutral-grey-100  text-snt-text-secondary",
+    warning: "bg-snt-scale-yellow-50    text-snt-scale-yellow-600",
+    alert:   "bg-snt-scale-red-50       text-snt-scale-red-600",
   }[tone];
   return <span className={cn("inline-block w-3 h-3 rounded-full", cls)} aria-hidden />;
 }
@@ -27,7 +27,7 @@ function SizeSwatch({ size }: { size: "sm" | "md" }) {
   const px = { sm: 10, md: 14 }[size];
   return (
     <span className="inline-flex items-center justify-center w-5" aria-hidden>
-      <span className="rounded-full bg-s4e-neutral-grey-300" style={{ width: px, height: px }} />
+      <span className="rounded-full bg-snt-neutral-grey-300" style={{ width: px, height: px }} />
     </span>
   );
 }
@@ -73,35 +73,35 @@ export function EmptyStateSpecs() {
             {
               name:    "icon",
               type:    "Icon",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">Lucide</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">Lucide</span>,
               default: "—",
               description: "Required glyph rendered inside the circular badge.",
             },
             {
               name:    "title",
               type:    "string",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">e.g. &quot;No scans yet&quot;</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. &quot;No scans yet&quot;</span>,
               default: "—",
               description: "Short headline that names what is missing — be specific.",
             },
             {
               name:    "description",
               type:    "string",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">single line</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">single line</span>,
               default: "—",
               description: "One-sentence explanation of why the view is empty and what to do next.",
             },
             {
               name:    "primaryAction",
               type:    "{ label, icon? }",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">brand button</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">brand button</span>,
               default: "—",
               description: "Filled brand button — main forward path (start scan, retry).",
             },
             {
               name:    "secondaryAction",
               type:    "{ label, icon? }",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">outline button</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">outline button</span>,
               default: "—",
               description: "Outline button for an alternate path — clear filters, read docs.",
             },
@@ -117,12 +117,12 @@ export function EmptyStateSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={320} height={220} padX={24} padY={32} radius={12}>
-          <div className="w-full h-full flex flex-col items-center justify-center text-center px-6 py-8 rounded-xl border border-s4e-neutral-divider-10 bg-s4e-surface-app">
-            <div className="w-14 h-14 rounded-full bg-s4e-neutral-grey-100 text-s4e-text-secondary flex items-center justify-center mb-4">
+          <div className="w-full h-full flex flex-col items-center justify-center text-center px-6 py-8 rounded-xl border border-snt-neutral-divider-10 bg-snt-surface-app">
+            <div className="w-14 h-14 rounded-full bg-snt-neutral-grey-100 text-snt-text-secondary flex items-center justify-center mb-4">
               <Inbox size={24} />
             </div>
-            <div className="text-[15px] font-semibold text-s4e-text-primary">No scans yet</div>
-            <p className="mt-1.5 text-[12px] text-s4e-text-secondary">Run your first crawler.</p>
+            <div className="text-[15px] font-semibold text-snt-text-primary">No scans yet</div>
+            <p className="mt-1.5 text-[12px] text-snt-text-secondary">Run your first crawler.</p>
           </div>
         </SpacingDiagram>
 
@@ -140,7 +140,7 @@ export function EmptyStateSpecs() {
               { label: "Desc → actions gap",  values: ["20px",  "20px"] },
               { label: "Action button height",values: ["32px",  "32px"] },
               { label: "Action gap (primary/secondary)", values: ["8px", "8px"] },
-              { label: "Title font size",     values: ["14px",  "16px"], note: "Inter Semibold." },
+              { label: "Title font size",     values: ["14px",  "16px"], note: "Geist Semibold." },
               { label: "Description font size", values: ["12px",  "14px"], note: "Max-width ≈ 384px." },
               { label: "Border radius (container)", values: ["8px", "12px"], note: "When wrapping a card surface." },
             ]}

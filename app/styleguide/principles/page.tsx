@@ -4,7 +4,7 @@ import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 
 export const metadata: Metadata = {
-  title: "Design Principles — Design System",
+  title: "Design Principles — Sentinel Design System",
 };
 
 const principles = [
@@ -14,15 +14,15 @@ const principles = [
   },
   {
     title: "Severity is never decorative",
-    body:  "Red means Critical. Purple means Critical severity. These colors are not available for charts, backgrounds, or UI states. A misread severity level in a security product has real consequences.",
+    body:  "Purple means Critical, red means High. Severity colours are reserved — never used for charts, backgrounds or UI states. A misread severity level in a security tool has real consequences.",
   },
   {
     title: "Density with breathing room",
-    body:  "s4e.io is a data-heavy product. Components are designed to show a lot of information without feeling overwhelming.",
+    body:  "Security products are data-heavy. Components are designed to show a lot of information without feeling overwhelming.",
   },
   {
     title: "Dark first, light always",
-    body:  "The product is designed dark-first. Every component must work in both modes. Light mode is tested equally.",
+    body:  "Security teams live in these tools for hours, often in dark rooms. Every component works in dark and light, and both are tested equally.",
   },
   {
     title: "One source, no exceptions",
@@ -48,12 +48,12 @@ export default function PrinciplesPage() {
           {principles.map((p) => (
             <div
               key={p.title}
-              className="border-[0.5px] border-s4e-neutral-divider-10 rounded-lg p-5"
+              className="border-[0.5px] border-snt-neutral-divider-10 rounded-lg p-5"
             >
-              <h2 className="text-[14px] font-medium text-s4e-text-primary">
+              <h2 className="text-[14px] font-medium text-snt-text-primary">
                 {p.title}
               </h2>
-              <p className="mt-2 text-[12px] text-s4e-text-secondary leading-[1.7]">
+              <p className="mt-2 text-[12px] text-snt-text-secondary leading-[1.7]">
                 {p.body}
               </p>
             </div>

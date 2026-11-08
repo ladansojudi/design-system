@@ -5,7 +5,7 @@ category: Atom
 status: stable
 source: components/ui/toast-tooltip.tsx
 styleguide: /styleguide/toast-tooltip
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=7-50
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/ · https://www.w3.org/WAI/ARIA/apg/patterns/alert/
 ---
 
@@ -54,7 +54,7 @@ Tooltip: ① content (max width 224px) · ② arrow toward the trigger.
 
 | Component | State | Behaviour |
 |---|---|---|
-| Toast | Visible | Should auto-dismiss after 5–8s, pause on hover / focus, and always be dismissible |
+| Toast | Visible | With `ToastProvider`: auto-dismisses after `duration` (4s; failures 8s), pauses on hover / focus, always dismissible, max 3 stacked bottom-right |
 | Tooltip | Hidden → visible | Shows on hover (after `delay`, 300ms) and immediately on keyboard focus. Hides on `Escape`, blur or mouse leave. `open` forces it visible for docs. |
 
 ## Content guidelines
@@ -85,10 +85,10 @@ Tooltip: ① content (max width 224px) · ② arrow toward the trigger.
 
 | Role | Token |
 |---|---|
-| Toast surface / border | `s4e-surface-app` / `s4e-border-default` |
-| Toast intent bar + icon | `s4e-feedback-success` · `-info` · `-warning` · `-alert` |
-| Toast title / description | `s4e-text-primary` / `s4e-text-secondary` |
-| Tooltip bg / text | `s4e-neutral-grey-900` / `s4e-text-inverse` |
+| Toast surface / border | `snt-surface-app` / `snt-border-default` |
+| Toast intent bar + icon | `snt-feedback-success` · `-info` · `-warning` · `-alert` |
+| Toast title / description | `snt-text-primary` / `snt-text-secondary` |
+| Tooltip bg / text | `snt-neutral-grey-900` / `snt-text-inverse` |
 
 ## Design ↔ Code
 
@@ -107,6 +107,21 @@ Tooltip: ① content (max width 224px) · ② arrow toward the trigger.
 | `title` | `string` | — | Heading |
 | `description` | `string` | — | Body |
 | `onDismiss` | `() => void` | — | Shows the ✕ button when set |
+
+**ToastProvider / useToast**
+
+```tsx
+<ToastProvider>{app}</ToastProvider>
+
+const toast = useToast();
+toast({ intent: "success", title: "Scan scheduled", description: "Runs daily at 02:00" });
+```
+
+| Option | Type | Default |
+|---|---|---|
+| `intent` | `"success" \| "alert" \| "info" \| "warning"` | `"info"` |
+| `title` / `description` | `string` | — |
+| `duration` | `number` (ms) | 4000 (8000 for `alert`) |
 
 **Tooltip**
 
@@ -129,8 +144,6 @@ Tooltip: ① content (max width 224px) · ② arrow toward the trigger.
 ```
 
 ## Known gaps
-- [ ] No toast manager (queue, auto-dismiss timer, pause on hover, portal / viewport placement).
-- [ ] Intent colours look swapped: `alert` uses `feedback-warning` and `warning` uses `feedback-alert`. Confirm with design and fix.
 - [ ] The tooltip doesn't flip or collide with the viewport.
 
 ## Related

@@ -1,17 +1,18 @@
-"use client";
-
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Button
+ * sentinel/ui — Button
  *
  * Drop this file into your project at components/ui/button.tsx.
+ *
+ * No "use client": Button has no hooks, so it renders in Server Components and
+ * buttonVariants() can style links on the server.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 type Intent  = "default" | "primary" | "destructive";
@@ -29,13 +30,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 const BASE =
   "inline-flex items-center justify-center font-medium rounded-md select-none whitespace-nowrap " +
   "transition-colors cursor-pointer " +
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-s4e-surface-app " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-snt-surface-app " +
   "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none";
 
 const SIZE_CLASS: Record<Size, string> = {
-  sm: "h-8 px-3 text-[14px] gap-1",
-  md: "h-9 px-4 text-[14px] gap-2",
-  lg: "h-11 px-5 text-[14px] gap-2",
+  sm: "h-8 px-3 text-snt-14 gap-1",
+  md: "h-9 px-4 text-snt-14 gap-2",
+  lg: "h-11 px-5 text-snt-14 gap-2",
 };
 
 const ICON_ONLY_SIZE: Record<Size, string> = {
@@ -47,49 +48,53 @@ const ICON_ONLY_SIZE: Record<Size, string> = {
 const VARIANT_CLASS: Record<Intent, Record<Variant, string>> = {
   default: {
     solid:
-      "bg-s4e-text-primary text-s4e-text-inverse " +
-      "hover:bg-s4e-neutral-grey-800 " +
-      "focus-visible:ring-s4e-neutral-grey-500",
+      "bg-snt-text-primary text-snt-text-inverse " +
+      "hover:bg-snt-neutral-grey-800 " +
+      "focus-visible:ring-snt-neutral-grey-500",
     outline:
-      "border border-s4e-border-strong text-s4e-text-primary bg-transparent " +
-      "hover:bg-s4e-bg-subtle " +
-      "focus-visible:ring-s4e-neutral-grey-400",
+      "border border-snt-border-strong text-snt-text-primary bg-transparent " +
+      "hover:bg-snt-bg-subtle " +
+      "focus-visible:ring-snt-neutral-grey-400",
     ghost:
-      "text-s4e-text-primary bg-transparent " +
-      "hover:bg-s4e-bg-subtle " +
-      "focus-visible:ring-s4e-neutral-grey-300",
+      "text-snt-text-primary bg-transparent " +
+      "hover:bg-snt-bg-subtle " +
+      "focus-visible:ring-snt-neutral-grey-300",
   },
   primary: {
     solid:
-      "bg-s4e-btn-primary-600 text-s4e-text-on-accent " +
-      "hover:bg-s4e-btn-primary-700 " +
-      "focus-visible:ring-s4e-focus-ring",
+      "bg-snt-btn-primary-600 text-snt-text-on-accent " +
+      "hover:bg-snt-btn-primary-700 " +
+      "focus-visible:ring-snt-focus-ring",
     outline:
-      "border border-s4e-text-link text-s4e-text-link bg-transparent " +
-      "hover:bg-s4e-bg-brand-subtle " +
-      "focus-visible:ring-s4e-focus-ring",
+      "border border-snt-text-link text-snt-text-link bg-transparent " +
+      "hover:bg-snt-bg-brand-subtle " +
+      "focus-visible:ring-snt-focus-ring",
     ghost:
-      "text-s4e-text-link bg-transparent " +
-      "hover:bg-s4e-bg-brand-subtle " +
-      "focus-visible:ring-s4e-focus-ring",
+      "text-snt-text-link bg-transparent " +
+      "hover:bg-snt-bg-brand-subtle " +
+      "focus-visible:ring-snt-focus-ring",
   },
   destructive: {
     solid:
-      "bg-s4e-btn-error-600 text-s4e-text-on-accent " +
-      "hover:bg-s4e-btn-error-700 " +
-      "focus-visible:ring-s4e-focus-ring-error",
+      "bg-snt-btn-error-600 text-snt-text-on-accent " +
+      "hover:bg-snt-btn-error-700 " +
+      "focus-visible:ring-snt-focus-ring-error",
     outline:
-      "border border-s4e-text-error text-s4e-text-error bg-transparent " +
-      "hover:bg-s4e-bg-error-subtle " +
-      "focus-visible:ring-s4e-focus-ring-error",
+      "border border-snt-text-error text-snt-text-error bg-transparent " +
+      "hover:bg-snt-bg-error-subtle " +
+      "focus-visible:ring-snt-focus-ring-error",
     ghost:
-      "text-s4e-text-error bg-transparent " +
-      "hover:bg-s4e-bg-error-subtle " +
-      "focus-visible:ring-s4e-focus-ring-error",
+      "text-snt-text-error bg-transparent " +
+      "hover:bg-snt-bg-error-subtle " +
+      "focus-visible:ring-snt-focus-ring-error",
   },
 };
 
 const SPINNER_PX: Record<Size, number> = { sm: 13, md: 14, lg: 16 };
+
+// While loading, the label stays in the layout (no width jump) and in the
+// accessibility tree (opacity, not visibility); the spinner sits on top.
+const LABEL_GAP: Record<Size, string> = { sm: "gap-1", md: "gap-2", lg: "gap-2" };
 
 function Spinner({ size }: { size: number }) {
   return (
@@ -99,6 +104,20 @@ function Spinner({ size }: { size: number }) {
       style={{ width: size, height: size }}
     />
   );
+}
+
+/**
+ * Button classes for elements that must not be a <button> — e.g. a Next
+ * <Link> or <a> that navigates but should look like a button:
+ *   <Link href="/scans" className={buttonVariants({ variant: "outline" })}>View scans</Link>
+ */
+export function buttonVariants({
+  intent   = "primary",
+  variant  = "solid",
+  size     = "md",
+  iconOnly = false,
+}: Pick<ButtonProps, "intent" | "variant" | "size" | "iconOnly"> = {}) {
+  return cn(BASE, iconOnly ? ICON_ONLY_SIZE[size] : SIZE_CLASS[size], VARIANT_CLASS[intent][variant]);
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -122,15 +141,18 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type ?? "button"}
         disabled={disabled || loading}
-        className={cn(
-          BASE,
-          iconOnly ? ICON_ONLY_SIZE[size] : SIZE_CLASS[size],
-          VARIANT_CLASS[intent][variant],
-          className,
-        )}
+        aria-busy={loading || undefined}
+        className={cn(buttonVariants({ intent, variant, size, iconOnly }), loading && "relative", className)}
         {...props}
       >
-        {loading ? <Spinner size={SPINNER_PX[size]} /> : children}
+        {loading ? (
+          <>
+            <span className={cn("inline-flex items-center opacity-0", LABEL_GAP[size])}>{children}</span>
+            <span className="absolute inset-0 flex items-center justify-center">
+              <Spinner size={SPINNER_PX[size]} />
+            </span>
+          </>
+        ) : children}
       </button>
     );
   },

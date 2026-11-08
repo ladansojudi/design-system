@@ -5,7 +5,7 @@ category: Organism
 status: stable
 source: components/ui/chart.tsx
 styleguide: /styleguide/chart
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=14-50
 apg: N/A (see data-viz accessibility notes)
 ---
 
@@ -52,7 +52,7 @@ A dependency-free set of SVG chart primitives in a shared card shell: donut, bar
 ## Content guidelines
 - Title says *what* is measured; description says the period / scope ("Last 30 days").
 - Axis labels: rounded, with units (`1.5k`, `40%`). Don't repeat the unit on every tick.
-- Colour by **meaning**: severity charts must use the `s4e-severity-*` palette, the same as [Severity Badge](./severity-badge.md).
+- Colour by **meaning**: severity charts must use the `snt-severity-*` palette, the same as [Severity Badge](./severity-badge.md).
 
 ## Do / Don't
 
@@ -72,11 +72,11 @@ A dependency-free set of SVG chart primitives in a shared card shell: donut, bar
 
 | Role | Token |
 |---|---|
-| Card | `s4e-surface-app`, `s4e-border-default` |
-| Text | `s4e-text-primary`, `s4e-text-secondary` |
-| Series / accent | `s4e-brand-primary-500/600`, `--s4e-data-*` palette |
-| Gridlines / track | `s4e-neutral-grey-100` |
-| Severity series | `--s4e-severity-{critical,high,medium,low,info}` |
+| Card | `snt-surface-app`, `snt-border-default` |
+| Text | `snt-text-primary`, `snt-text-secondary` |
+| Series / accent | `snt-brand-primary-500/600`, `--snt-data-*` palette |
+| Gridlines / track | `snt-neutral-grey-100` |
+| Severity series | `--snt-severity-{critical,high,medium,low,info}` |
 
 ## Design ↔ Code
 

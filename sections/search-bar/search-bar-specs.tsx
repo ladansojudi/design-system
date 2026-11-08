@@ -21,8 +21,8 @@ function VariantSwatch({ variant }: { variant: "default" | "ghost" }) {
       className={cn(
         "inline-block w-4 h-3 rounded-[3px]",
         variant === "default"
-          ? "border border-s4e-text-primary bg-s4e-surface-app"
-          : "bg-s4e-neutral-grey-200 border border-transparent",
+          ? "border border-snt-text-primary bg-snt-surface-app"
+          : "bg-snt-neutral-grey-200 border border-transparent",
       )}
       aria-hidden
     />
@@ -31,9 +31,9 @@ function VariantSwatch({ variant }: { variant: "default" | "ghost" }) {
 
 function StateSwatch({ state }: { state: "default" | "focused" | "disabled" }) {
   const cls = {
-    default:  "border border-s4e-neutral-divider-10 bg-s4e-surface-app",
-    focused:  "border border-s4e-brand-primary-500 bg-s4e-surface-app",
-    disabled: "border border-s4e-neutral-divider-10 bg-s4e-surface-app opacity-40",
+    default:  "border border-snt-neutral-divider-10 bg-snt-surface-app",
+    focused:  "border border-snt-brand-primary-500 bg-snt-surface-app",
+    disabled: "border border-snt-neutral-divider-10 bg-snt-surface-app opacity-40",
   }[state];
   return <span className={cn("inline-block w-4 h-3 rounded-[3px]", cls)} aria-hidden />;
 }
@@ -79,14 +79,14 @@ export function SearchBarSpecs() {
             {
               name:    "placeholder",
               type:    "string",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">e.g. &quot;Search assets…&quot;</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. &quot;Search assets…&quot;</span>,
               default: "Search…",
               description: "Hint shown when the input is empty — name what can be searched.",
             },
             {
               name:    "value",
               type:    "string",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">controlled</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">controlled</span>,
               default: "—",
               description: "Current text value. Presence of a value reveals the clear (×) affordance.",
             },
@@ -114,9 +114,9 @@ export function SearchBarSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={240} height={36} padX={12} padY={8} radius={8}>
-          <div className="w-full h-full flex items-center gap-2 rounded-lg px-3 border border-s4e-neutral-divider-10 bg-s4e-surface-app">
-            <Search size={14} className="text-s4e-text-disabled shrink-0" />
-            <span className="text-[14px] text-s4e-text-disabled">Search…</span>
+          <div className="w-full h-full flex items-center gap-2 rounded-lg px-3 border border-snt-neutral-divider-10 bg-snt-surface-app">
+            <Search size={14} className="text-snt-text-disabled shrink-0" />
+            <span className="text-[14px] text-snt-text-disabled">Search…</span>
           </div>
         </SpacingDiagram>
 
@@ -135,7 +135,7 @@ export function SearchBarSpecs() {
               { label: "Focus ring · width",    values: ["2px"],  note: "Inset 2px brand glow." },
               { label: "Search icon size",      values: ["14px"], note: "Lucide stroke 2px." },
               { label: "Clear icon size",       values: ["12px"] },
-              { label: "Font size",             values: ["14px"], note: "Inter Regular." },
+              { label: "Font size",             values: ["14px"], note: "Geist Regular." },
             ]}
           />
         </div>

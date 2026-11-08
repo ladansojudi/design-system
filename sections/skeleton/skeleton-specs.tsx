@@ -14,12 +14,12 @@ import {
 
 function ShapeSwatch({ shape }: { shape: "line" | "block" | "circle" }) {
   if (shape === "circle") {
-    return <span className="inline-block w-3 h-3 rounded-full bg-s4e-neutral-grey-200" aria-hidden />;
+    return <span className="inline-block w-3 h-3 rounded-full bg-snt-neutral-grey-200" aria-hidden />;
   }
   if (shape === "block") {
-    return <span className="inline-block w-3 h-3 rounded-[3px] bg-s4e-neutral-grey-200" aria-hidden />;
+    return <span className="inline-block w-3 h-3 rounded-[3px] bg-snt-neutral-grey-200" aria-hidden />;
   }
-  return <span className="inline-block w-4 h-1.5 rounded-[2px] bg-s4e-neutral-grey-200" aria-hidden />;
+  return <span className="inline-block w-4 h-1.5 rounded-[2px] bg-snt-neutral-grey-200" aria-hidden />;
 }
 
 // ── Spec section ──────────────────────────────────────────────────────────

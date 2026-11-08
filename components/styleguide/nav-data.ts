@@ -11,6 +11,13 @@ export type NavGroup = { label: string; items: NavItem[]; status?: ComponentStat
 
 export const navGroups: NavGroup[] = [
   {
+    label: "GET STARTED",
+    items: [
+      { slug: "overview", label: "Overview" },
+      { slug: "ai",       label: "Built for AI" },
+    ],
+  },
+  {
     label: "FOUNDATIONS",
     items: [
       { slug: "principles",       label: "Design Principles" },

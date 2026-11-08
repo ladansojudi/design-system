@@ -10,7 +10,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Empty State — Design System",
+  title: "Empty State — Sentinel Design System",
 };
 
 export default function Page() {
@@ -38,15 +38,15 @@ export default function Page() {
                 { label: "Secondary action", description: "Outlined button for an alternate path — clear filters, read docs, request access." },
               ]}
             >
-              <div className="w-80 flex flex-col items-center text-center px-6 py-10 border border-s4e-neutral-divider-10 rounded-xl">
-                <div className="w-14 h-14 rounded-full bg-s4e-neutral-grey-100 text-s4e-text-secondary flex items-center justify-center mb-4">
+              <div className="w-80 flex flex-col items-center text-center px-6 py-10 border border-snt-neutral-divider-10 rounded-xl">
+                <div className="w-14 h-14 rounded-full bg-snt-neutral-grey-100 text-snt-text-secondary flex items-center justify-center mb-4">
                   <Inbox size={24} />
                 </div>
-                <div className="text-[15px] font-semibold text-s4e-text-primary">No scans yet</div>
-                <p className="mt-1.5 text-[14px] text-s4e-text-secondary">Run your first crawler to start collecting assets.</p>
+                <div className="text-[15px] font-semibold text-snt-text-primary">No scans yet</div>
+                <p className="mt-1.5 text-[14px] text-snt-text-secondary">Run your first crawler to start collecting assets.</p>
                 <button
                   type="button"
-                  className="mt-5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-s4e-brand-primary-500 text-s4e-text-white text-[12px] font-medium"
+                  className="mt-5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-snt-brand-primary-500 text-snt-text-white text-[12px] font-medium"
                 >
                   <Plus size={13} />
                   Start a scan

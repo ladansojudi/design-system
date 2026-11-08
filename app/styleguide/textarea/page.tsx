@@ -9,7 +9,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Textarea — Design System",
+  title: "Textarea — Sentinel Design System",
 };
 
 export default function TextareaPage() {
@@ -41,15 +41,15 @@ export default function TextareaPage() {
               ]}
               preview={
                 <div className="w-[300px]">
-                  <label className="block text-[11px] font-medium mb-1.5 text-s4e-text-secondary">
+                  <label className="block text-[11px] font-medium mb-1.5 text-snt-text-secondary">
                     Finding description
                   </label>
-                  <div className="block w-full rounded-md px-3 py-2 text-[14px] text-s4e-text-primary bg-s4e-surface-row border border-s4e-neutral-grey-300 min-h-[88px] leading-relaxed">
+                  <div className="block w-full rounded-md px-3 py-2 text-[14px] text-snt-text-primary bg-snt-surface-row border border-snt-neutral-grey-300 min-h-[88px] leading-relaxed">
                     Found exposed credentials in the staging .env file.
                   </div>
                   <div className="mt-1 flex items-start justify-between gap-2">
-                    <div className="text-[10.5px] text-s4e-text-disabled flex-1">Markdown is supported.</div>
-                    <div className="text-[10.5px] text-s4e-text-disabled tabular-nums">52/200</div>
+                    <div className="text-[10.5px] text-snt-text-disabled flex-1">Markdown is supported.</div>
+                    <div className="text-[10.5px] text-snt-text-disabled tabular-nums">52/200</div>
                   </div>
                 </div>
               }

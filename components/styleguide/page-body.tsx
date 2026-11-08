@@ -29,7 +29,7 @@ export function PageBody({ children }: { children: React.ReactNode }) {
           )}
         </div>
         <aside className="hidden xl:block w-[208px] shrink-0">
-          <div className="sticky top-[68px] max-h-[calc(100vh-92px)] overflow-y-auto s4e-scrollbar-hide">
+          <div className="sticky top-[68px] max-h-[calc(100vh-92px)] overflow-y-auto snt-scrollbar-hide">
             <PageTOC />
           </div>
         </aside>

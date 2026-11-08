@@ -4,7 +4,7 @@ import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 
 export const metadata: Metadata = {
-  title: "Contribution Guide — Design System",
+  title: "Contribution Guide — Sentinel Design System",
 };
 
 const steps = [
@@ -51,14 +51,14 @@ export default function ContributionPage() {
         <ol className="space-y-5">
           {steps.map((step, i) => (
             <li key={step.title} className="flex items-start gap-4">
-              <span className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-s4e-neutral-grey-200 text-s4e-text-primary text-[12px] font-medium">
+              <span className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-snt-neutral-grey-200 text-snt-text-primary text-[12px] font-medium">
                 {i + 1}
               </span>
               <div className="flex-1 min-w-0 pt-0.5">
-                <h2 className="text-[14px] font-medium text-s4e-text-primary">
+                <h2 className="text-[14px] font-medium text-snt-text-primary">
                   {step.title}
                 </h2>
-                <p className="mt-1 text-[12px] text-s4e-text-secondary leading-[1.7]">
+                <p className="mt-1 text-[12px] text-snt-text-secondary leading-[1.7]">
                   {step.body}
                 </p>
               </div>

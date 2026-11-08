@@ -15,24 +15,24 @@ import {
 // ── Visual swatches ───────────────────────────────────────────────────────
 
 function ToneSwatch({ tone }: { tone: "primary" | "neutral" }) {
-  const cls = tone === "primary" ? "bg-s4e-btn-primary-600" : "bg-s4e-btn-neutral-800";
+  const cls = tone === "primary" ? "bg-snt-btn-primary-600" : "bg-snt-btn-neutral-800";
   return <span className={`inline-block w-3 h-3 rounded-[3px] ${cls}`} aria-hidden />;
 }
 
 function StateSwatch({ state }: { state: "off" | "on" | "mixed" }) {
   if (state === "off") {
-    return <span className="inline-block w-3 h-3 rounded-[2px] border-2 border-s4e-neutral-grey-400" aria-hidden />;
+    return <span className="inline-block w-3 h-3 rounded-[2px] border-2 border-snt-neutral-grey-400" aria-hidden />;
   }
   if (state === "on") {
     return (
-      <span className="inline-flex items-center justify-center w-3 h-3 rounded-[2px] bg-s4e-btn-primary-600" aria-hidden>
+      <span className="inline-flex items-center justify-center w-3 h-3 rounded-[2px] bg-snt-btn-primary-600" aria-hidden>
         <span className="inline-block w-1.5 h-[1.5px] bg-white rotate-45 translate-x-[-1px] translate-y-[1px]" />
         <span className="inline-block w-[7px] h-[1.5px] bg-white -rotate-45 translate-x-[-3px] translate-y-[-1px]" />
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center justify-center w-3 h-3 rounded-[2px] bg-s4e-btn-primary-600" aria-hidden>
+    <span className="inline-flex items-center justify-center w-3 h-3 rounded-[2px] bg-snt-btn-primary-600" aria-hidden>
       <span className="inline-block w-1.5 h-[1.5px] bg-white" />
     </span>
   );
@@ -123,7 +123,7 @@ export function CheckboxSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={16} height={16} padX={4} padY={4} radius={4} scale={5}>
-          <div className="w-full h-full inline-flex items-center justify-center rounded-[3px] bg-s4e-btn-primary-600">
+          <div className="w-full h-full inline-flex items-center justify-center rounded-[3px] bg-snt-btn-primary-600">
             <Check size={10} className="text-white" strokeWidth={3} />
           </div>
         </SpacingDiagram>

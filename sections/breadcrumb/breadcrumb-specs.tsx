@@ -17,7 +17,7 @@ function TypeSwatch({ type }: { type: "link" | "current" }) {
     <span
       className={cn(
         "inline-block w-4 h-2 rounded-[2px]",
-        type === "link" ? "bg-s4e-text-primary" : "bg-s4e-text-disabled",
+        type === "link" ? "bg-snt-text-primary" : "bg-snt-text-disabled",
       )}
       aria-hidden
     />
@@ -26,9 +26,9 @@ function TypeSwatch({ type }: { type: "link" | "current" }) {
 
 function StateSwatch({ state }: { state: "default" | "hover" | "visited" }) {
   const cls = {
-    default: "bg-s4e-text-primary",
-    hover:   "bg-s4e-brand-primary-500",
-    visited: "bg-s4e-text-disabled",
+    default: "bg-snt-text-primary",
+    hover:   "bg-snt-brand-primary-500",
+    visited: "bg-snt-text-disabled",
   }[state];
   return <span className={cn("inline-block w-4 h-2 rounded-[2px]", cls)} aria-hidden />;
 }
@@ -61,7 +61,7 @@ export function BreadcrumbSpecs() {
             {
               name:    "label",
               type:    "string",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">e.g. &quot;Asset Manager&quot;</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. &quot;Asset Manager&quot;</span>,
               default: "—",
               description: "Segment text. Truncate with ellipsis if longer than the container allows.",
             },
@@ -81,7 +81,7 @@ export function BreadcrumbSpecs() {
             {
               name:    "separator",
               type:    "string",
-              values:  <span className="font-mono text-[11px] text-s4e-text-secondary">•</span>,
+              values:  <span className="font-mono text-[11px] text-snt-text-secondary">•</span>,
               default: "•",
               description: "Divider between items. Inherits muted text color and is non-selectable.",
             },
@@ -100,8 +100,8 @@ export function BreadcrumbSpecs() {
           columns={["value"]}
           rows={[
             { label: "Line height",          values: ["20px"], note: "Sets effective row height." },
-            { label: "Font size · link",     values: ["14px"], note: "Inter Medium (500)." },
-            { label: "Font size · current",  values: ["14px"], note: "Inter Regular (400)." },
+            { label: "Font size · link",     values: ["14px"], note: "Geist Medium (500)." },
+            { label: "Font size · current",  values: ["14px"], note: "Geist Regular (400)." },
             { label: "Font size · separator",values: ["12px"], note: "Slightly smaller for visual balance." },
             { label: "Item · separator gap", values: ["8px"],  note: "Horizontal flex gap on both sides of the separator." },
             { label: "Hover underline offset", values: ["2px"] },

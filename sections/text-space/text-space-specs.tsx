@@ -51,7 +51,7 @@ export function TextSpaceSpecs() {
             {
               name:        "placeholder",
               type:        "string",
-              values:      <span className="font-mono text-[11px] text-s4e-text-disabled">&ldquo;Write something awesome…&rdquo;</span>,
+              values:      <span className="font-mono text-[11px] text-snt-text-disabled">&ldquo;Write something awesome…&rdquo;</span>,
               default:     "—",
               description: "Muted prompt shown when the editor is empty.",
             },
@@ -73,16 +73,16 @@ export function TextSpaceSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={320} height={160} padX={16} padY={12} radius={8}>
-          <div className="w-full h-full rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app overflow-hidden flex flex-col">
-            <div className="flex items-center gap-1.5 px-3 h-10 border-b border-s4e-neutral-divider-10 shrink-0">
-              <span className="w-3 h-3 rounded-[2px] bg-s4e-neutral-grey-300" />
-              <span className="w-3 h-3 rounded-[2px] bg-s4e-neutral-grey-300" />
-              <span className="w-3 h-3 rounded-[2px] bg-s4e-neutral-grey-300" />
-              <span className="w-px h-3 bg-s4e-neutral-divider-10 mx-1" />
-              <span className="w-3 h-3 rounded-[2px] bg-s4e-neutral-grey-300" />
-              <span className="w-3 h-3 rounded-[2px] bg-s4e-neutral-grey-300" />
+          <div className="w-full h-full rounded-lg border border-snt-neutral-divider-10 bg-snt-surface-app overflow-hidden flex flex-col">
+            <div className="flex items-center gap-1.5 px-3 h-10 border-b border-snt-neutral-divider-10 shrink-0">
+              <span className="w-3 h-3 rounded-[2px] bg-snt-neutral-grey-300" />
+              <span className="w-3 h-3 rounded-[2px] bg-snt-neutral-grey-300" />
+              <span className="w-3 h-3 rounded-[2px] bg-snt-neutral-grey-300" />
+              <span className="w-px h-3 bg-snt-neutral-divider-10 mx-1" />
+              <span className="w-3 h-3 rounded-[2px] bg-snt-neutral-grey-300" />
+              <span className="w-3 h-3 rounded-[2px] bg-snt-neutral-grey-300" />
             </div>
-            <div className="flex-1 px-4 py-3 text-[12px] text-s4e-text-disabled">
+            <div className="flex-1 px-4 py-3 text-[12px] text-snt-text-disabled">
               Write something awesome…
             </div>
           </div>

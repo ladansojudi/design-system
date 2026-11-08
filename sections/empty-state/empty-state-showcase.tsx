@@ -5,114 +5,20 @@ import {
   Inbox, SearchX, AlertTriangle, Lock,
   Plus, RefreshCw, Filter,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { ExampleCard } from "@/components/styleguide/example-card";
+import { EmptyState } from "@/components/ui/empty-state";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-type EmptyStateTone = "neutral" | "warning" | "alert";
-type EmptyStateSize = "sm" | "md";
-
-type EmptyStateAction = {
-  label:    string;
-  icon?:    React.ComponentType<{ size?: number; className?: string }>;
-  onClick?: () => void;
-};
-
-type EmptyStateProps = {
-  icon:              React.ComponentType<{ size?: number; className?: string }>;
-  title:             string;
-  description?:      string;
-  tone?:             EmptyStateTone;
-  size?:             EmptyStateSize;
-  primaryAction?:    EmptyStateAction;
-  secondaryAction?:  EmptyStateAction;
-};
-
 // ── Empty State ────────────────────────────────────────────────────────────
-
-function EmptyState({
-  icon: Icon,
-  title,
-  description,
-  tone = "neutral",
-  size = "md",
-  primaryAction,
-  secondaryAction,
-}: EmptyStateProps) {
-  const toneIconWrap = {
-    neutral: "bg-s4e-neutral-grey-100 text-s4e-text-secondary",
-    warning: "bg-s4e-scale-yellow-50 text-s4e-scale-yellow-600",
-    alert:   "bg-s4e-scale-red-50 text-s4e-scale-red-600",
-  }[tone];
-
-  const iconBox   = size === "sm" ? "w-10 h-10"   : "w-14 h-14";
-  const iconSize  = size === "sm" ? 18            : 24;
-  const titleSize = size === "sm" ? "text-[14px]" : "text-[15px]";
-  const descSize  = size === "sm" ? "text-[12px]" : "text-[14px]";
-  const pad       = size === "sm" ? "px-6 py-8"   : "px-6 py-12";
-
-  return (
-    <div className={cn(
-      "flex flex-col items-center justify-center text-center",
-      pad,
-    )}>
-      <div className={cn(
-        "rounded-full flex items-center justify-center mb-4 shrink-0",
-        iconBox,
-        toneIconWrap,
-      )}>
-        <Icon size={iconSize} />
-      </div>
-
-      <div className={cn("font-semibold text-s4e-text-primary", titleSize)}>
-        {title}
-      </div>
-
-      {description && (
-        <p className={cn(
-          "mt-1.5 max-w-sm text-s4e-text-secondary leading-relaxed",
-          descSize,
-        )}>
-          {description}
-        </p>
-      )}
-
-      {(primaryAction || secondaryAction) && (
-        <div className="mt-5 flex items-center gap-2">
-          {primaryAction && (
-            <button
-              type="button"
-              onClick={primaryAction.onClick}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-s4e-brand-primary-500 text-s4e-text-white text-[12px] font-medium hover:bg-s4e-brand-primary-600 transition-colors"
-            >
-              {primaryAction.icon && <primaryAction.icon size={13} />}
-              {primaryAction.label}
-            </button>
-          )}
-          {secondaryAction && (
-            <button
-              type="button"
-              onClick={secondaryAction.onClick}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md border border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-primary text-[12px] font-medium hover:bg-s4e-neutral-grey-100 transition-colors"
-            >
-              {secondaryAction.icon && <secondaryAction.icon size={13} />}
-              {secondaryAction.label}
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
 
 // ── Section title ──────────────────────────────────────────────────────────
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
     </div>
   );
 }
@@ -126,7 +32,7 @@ export function EmptyStateShowcase() {
       {/* Zero data — first run */}
       <div>
         <SectionTitle>No Data Yet</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl">
+        <div className="border border-snt-neutral-divider-10 rounded-xl">
           <EmptyState
             icon={Inbox}
             title="No scans yet"
@@ -140,7 +46,7 @@ export function EmptyStateShowcase() {
       {/* No results — filter */}
       <div>
         <SectionTitle>No Results</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl">
+        <div className="border border-snt-neutral-divider-10 rounded-xl">
           <EmptyState
             icon={SearchX}
             title="No findings match your filters"
@@ -153,7 +59,7 @@ export function EmptyStateShowcase() {
       {/* Error */}
       <div>
         <SectionTitle>Error</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl">
+        <div className="border border-snt-neutral-divider-10 rounded-xl">
           <EmptyState
             icon={AlertTriangle}
             tone="alert"
@@ -167,7 +73,7 @@ export function EmptyStateShowcase() {
       {/* Restricted */}
       <div>
         <SectionTitle>Restricted Access</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl">
+        <div className="border border-snt-neutral-divider-10 rounded-xl">
           <EmptyState
             icon={Lock}
             tone="warning"
@@ -181,8 +87,8 @@ export function EmptyStateShowcase() {
       {/* Small / inline variant */}
       <div>
         <SectionTitle>Inline (Small)</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
-          <div className="border border-dashed border-s4e-neutral-divider-10 rounded-lg">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
+          <div className="border border-dashed border-snt-neutral-divider-10 rounded-lg">
             <EmptyState
               size="sm"
               icon={Inbox}
@@ -276,7 +182,7 @@ export function EmptyStateExamples() {
   description="This asset hasn't produced enrichment data yet."
 />`}
         preview={
-          <div className="w-full max-w-md border border-dashed border-s4e-neutral-divider-10 rounded-lg">
+          <div className="w-full max-w-md border border-dashed border-snt-neutral-divider-10 rounded-lg">
             <EmptyState
               size="sm"
               icon={Inbox}

@@ -15,21 +15,21 @@ import {
 
 function StateSwatch({ state }: { state: "default" | "focused" | "error" | "disabled" }) {
   const cls = {
-    default:  "border-s4e-neutral-grey-400",
-    focused:  "border-s4e-brand-primary-600",
-    error:    "border-s4e-scale-red-600",
-    disabled: "border-s4e-neutral-grey-200 opacity-50",
+    default:  "border-snt-neutral-grey-400",
+    focused:  "border-snt-brand-primary-600",
+    error:    "border-snt-scale-red-600",
+    disabled: "border-snt-neutral-grey-200 opacity-50",
   }[state];
   return <span className={`inline-block w-4 h-3 rounded-[2px] border-2 ${cls}`} aria-hidden />;
 }
 
 function ResizeSwatch({ axis }: { axis: "none" | "y" | "both" }) {
   if (axis === "none") {
-    return <span className="inline-block w-3 h-3 rounded-[2px] border border-s4e-neutral-grey-400" aria-hidden />;
+    return <span className="inline-block w-3 h-3 rounded-[2px] border border-snt-neutral-grey-400" aria-hidden />;
   }
   return (
-    <span className="relative inline-block w-3 h-3 rounded-[2px] border border-s4e-neutral-grey-400" aria-hidden>
-      <span className="absolute bottom-0 right-0 w-1 h-1 border-r-2 border-b-2 border-s4e-text-primary" />
+    <span className="relative inline-block w-3 h-3 rounded-[2px] border border-snt-neutral-grey-400" aria-hidden>
+      <span className="absolute bottom-0 right-0 w-1 h-1 border-r-2 border-b-2 border-snt-text-primary" />
     </span>
   );
 }
@@ -150,11 +150,11 @@ export function TextareaSpecs() {
 
         <SpacingDiagram width={240} height={96} padX={12} padY={8} radius={8}>
           <div
-            className="absolute inset-0 bg-s4e-surface-app border border-s4e-neutral-grey-300 px-3 py-2 text-[15px] text-s4e-text-primary leading-relaxed"
+            className="absolute inset-0 bg-snt-surface-app border border-snt-neutral-grey-300 px-3 py-2 text-[15px] text-snt-text-primary leading-relaxed"
             style={{ borderRadius: 8 * 1.8 }}
           >
             Multi-line value
-            <span className="absolute bottom-1 right-1 w-2 h-2 border-r-2 border-b-2 border-s4e-text-disabled rounded-br-[2px]" aria-hidden />
+            <span className="absolute bottom-1 right-1 w-2 h-2 border-r-2 border-b-2 border-snt-text-disabled rounded-br-[2px]" aria-hidden />
           </div>
         </SpacingDiagram>
 

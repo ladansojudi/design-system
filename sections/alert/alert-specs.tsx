@@ -16,10 +16,10 @@ import {
 
 function VariantSwatch({ variant }: { variant: "info" | "success" | "warning" | "error" }) {
   const cls = {
-    info:    "bg-s4e-scale-blue-500",
-    success: "bg-s4e-scale-green-500",
-    warning: "bg-s4e-scale-yellow-500",
-    error:   "bg-s4e-scale-red-500",
+    info:    "bg-snt-scale-blue-500",
+    success: "bg-snt-scale-green-500",
+    warning: "bg-snt-scale-yellow-500",
+    error:   "bg-snt-scale-red-500",
   }[variant];
   return <span className={`inline-block w-3 h-3 rounded-[3px] ${cls}`} aria-hidden />;
 }
@@ -94,11 +94,11 @@ export function AlertSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={400} height={72} padX={16} padY={12}>
-          <div className="w-full h-full flex items-start gap-3 rounded-md border border-s4e-scale-blue-200 bg-s4e-scale-blue-50 px-4 py-3">
-            <Info size={16} className="text-s4e-text-info shrink-0 mt-px" />
+          <div className="w-full h-full flex items-start gap-3 rounded-md border border-snt-scale-blue-200 bg-snt-scale-blue-50 px-4 py-3">
+            <Info size={16} className="text-snt-text-info shrink-0 mt-px" />
             <div className="flex-1 min-w-0">
-              <div className="text-[14px] font-semibold leading-tight text-s4e-text-info">Info alert</div>
-              <div className="text-[12px] leading-relaxed mt-1 text-s4e-text-info">Title + description sample.</div>
+              <div className="text-[14px] font-semibold leading-tight text-snt-text-info">Info alert</div>
+              <div className="text-[12px] leading-relaxed mt-1 text-snt-text-info">Title + description sample.</div>
             </div>
           </div>
         </SpacingDiagram>

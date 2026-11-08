@@ -5,7 +5,7 @@ category: Molecule
 status: stable
 source: components/ui/tabs.tsx
 styleguide: /styleguide/tabs
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=8-50
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
 ---
 
@@ -80,9 +80,9 @@ Switches between related views of the same object without leaving the page.
 
 | Role | Token |
 |---|---|
-| Inactive / active text | `s4e-text-secondary` / `s4e-text-primary` |
-| Indicator / focus ring | `s4e-brand-primary-500` |
-| Divider | `s4e-border-default` |
+| Inactive / active text | `snt-text-secondary` / `snt-text-primary` |
+| Indicator / focus ring | `snt-brand-primary-500` |
+| Divider | `snt-border-default` |
 
 ## Design ↔ Code
 
@@ -98,8 +98,9 @@ Switches between related views of the same object without leaving the page.
 | `Tabs` | `value` | `string` | — | Controlled active tab |
 | | `defaultValue` | `string` | `""` | Uncontrolled initial tab |
 | | `onValueChange` | `(v: string) => void` | — | Change handler |
-| `TabsList` | …`HTMLAttributes` | | | Renders `role="tablist"` |
+| `TabsList` | `variant` | `"underline" \| "pill"` | `"underline"` | `pill` = compact segmented control; renders `role="tablist"` |
 | `TabsTrigger` | `value` | `string` | — | **Required** |
+| | `count` | `number` | — | Count chip after the label |
 | `TabsContent` | `value` | `string` | — | **Required**; rendered only when active |
 
 ## Examples
@@ -116,7 +117,6 @@ Switches between related views of the same object without leaving the page.
 ```
 
 ## Known gaps
-- [ ] The 1.1 CHANGELOG says Tabs uses `@base-ui/react`, but it's a hand-rolled implementation. Correct the CHANGELOG note, or migrate.
 - [ ] No manual-activation mode (`activationMode="manual"`) for tabs whose panels are expensive to render.
 - [ ] No overflow handling (scroll buttons) for many tabs on narrow screens.
 

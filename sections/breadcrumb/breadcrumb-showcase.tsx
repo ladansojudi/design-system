@@ -2,8 +2,8 @@
 
 import type React from "react";
 import { Fragment } from "react";
-import { cn } from "@/lib/utils";
 import { ExampleCard } from "@/components/styleguide/example-card";
+import { Breadcrumb as UIBreadcrumb, BreadcrumbItem, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 // ── Breadcrumb ─────────────────────────────────────────────────────────────
 
@@ -12,34 +12,26 @@ type CrumbItem =
   | { type: "current"; label: string };
 
 function Breadcrumb({ items }: { items: CrumbItem[] }) {
+  // Renders the shipped components; "hover" is a forced visual state for docs.
   return (
-    <nav className="flex items-center gap-2">
+    <UIBreadcrumb>
       {items.map((item, i) => (
         <Fragment key={i}>
-          {i > 0 && (
-            <span className="text-s4e-text-disabled text-[12px] select-none">•</span>
-          )}
+          {i > 0 && <BreadcrumbSeparator />}
           {item.type === "link" ? (
-            <span
-              className={cn(
-                "text-[14px] font-medium cursor-pointer transition-colors",
-                item.state === "hover"
-                  ? "text-s4e-brand-primary-500 underline underline-offset-2"
-                  : item.state === "visited"
-                  ? "text-s4e-text-disabled"
-                  : "text-s4e-text-primary hover:text-s4e-brand-primary-500",
-              )}
+            <BreadcrumbItem
+              href="#"
+              visited={item.state === "visited"}
+              className={item.state === "hover" ? "text-snt-brand-primary-500 underline underline-offset-2" : undefined}
             >
               {item.label}
-            </span>
+            </BreadcrumbItem>
           ) : (
-            <span className="text-[14px] text-s4e-text-disabled">
-              {item.label}
-            </span>
+            <BreadcrumbItem isCurrent>{item.label}</BreadcrumbItem>
           )}
         </Fragment>
       ))}
-    </nav>
+    </UIBreadcrumb>
   );
 }
 
@@ -48,8 +40,8 @@ function Breadcrumb({ items }: { items: CrumbItem[] }) {
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
     </div>
   );
 }
@@ -63,7 +55,7 @@ export function BreadcrumbShowcase() {
       {/* Depth */}
       <div>
         <SectionTitle>Depth</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-5">
           <Breadcrumb items={[
             { type: "link",    label: "Root"    },
             { type: "current", label: "Current" },
@@ -85,10 +77,10 @@ export function BreadcrumbShowcase() {
       {/* States */}
       <div>
         <SectionTitle>States</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-5">
 
           <div className="space-y-1.5">
-            <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled">Default</p>
+            <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled">Default</p>
             <Breadcrumb items={[
               { type: "link",    label: "Root"    },
               { type: "link",    label: "Link"    },
@@ -97,7 +89,7 @@ export function BreadcrumbShowcase() {
           </div>
 
           <div className="space-y-1.5">
-            <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled">Hover</p>
+            <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled">Hover</p>
             <Breadcrumb items={[
               { type: "link",    label: "Root", state: "hover" },
               { type: "link",    label: "Link"                  },
@@ -106,7 +98,7 @@ export function BreadcrumbShowcase() {
           </div>
 
           <div className="space-y-1.5">
-            <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled">Visited</p>
+            <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled">Visited</p>
             <Breadcrumb items={[
               { type: "link",    label: "Root", state: "visited" },
               { type: "link",    label: "Link"                    },

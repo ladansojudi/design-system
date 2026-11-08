@@ -10,7 +10,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Banner — Design System",
+  title: "Banner — Sentinel Design System",
 };
 
 export default function BannerPage() {
@@ -42,7 +42,7 @@ export default function BannerPage() {
                 { label: "Dismiss", shortLabel: "Dismiss", description: "Optional close button. Omit when the user must act before continuing.",  pinX: 97, pinY: 50, x: 95, y: 140, anchor: "tl" },
               ]}
               preview={
-                <div className="flex items-center gap-3 px-4 py-2.5 w-[460px] bg-s4e-brand-primary-600 text-s4e-text-white">
+                <div className="flex items-center gap-3 px-4 py-2.5 w-[460px] bg-snt-brand-primary-600 text-snt-text-white">
                   <Sparkles size={14} className="shrink-0" />
                   <div className="flex-1 min-w-0 text-[12px] leading-tight">
                     New: AI-assisted vulnerability triage is live for all teams.

@@ -6,15 +6,15 @@ import { ColorTokenTabs } from "@/components/styleguide/specs";
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
     </div>
   );
 }
 
 function Lede({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[12.5px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+    <p className="text-[12.5px] text-snt-text-secondary leading-relaxed mb-4 max-w-2xl">
       {children}
     </p>
   );
@@ -24,22 +24,22 @@ function Lede({ children }: { children: React.ReactNode }) {
 
 function IntentSwatch({ intent }: { intent: "default" | "primary" | "destructive" }) {
   const cls = {
-    default:     "bg-s4e-text-primary",
-    primary:     "bg-s4e-btn-primary-600",
-    destructive: "bg-s4e-btn-error-600",
+    default:     "bg-snt-text-primary",
+    primary:     "bg-snt-btn-primary-600",
+    destructive: "bg-snt-btn-error-600",
   }[intent];
   return <span className={cn("inline-block w-3 h-3 rounded-[3px]", cls)} aria-hidden />;
 }
 
 function VariantSwatch({ variant }: { variant: "solid" | "outline" | "ghost" }) {
-  if (variant === "solid")   return <span className="inline-block w-4 h-3 rounded-[3px] bg-s4e-text-primary" aria-hidden />;
-  if (variant === "outline") return <span className="inline-block w-4 h-3 rounded-[3px] border border-s4e-text-primary" aria-hidden />;
-  return <span className="inline-block w-4 h-3 rounded-[3px] border border-dashed border-s4e-text-disabled" aria-hidden />;
+  if (variant === "solid")   return <span className="inline-block w-4 h-3 rounded-[3px] bg-snt-text-primary" aria-hidden />;
+  if (variant === "outline") return <span className="inline-block w-4 h-3 rounded-[3px] border border-snt-text-primary" aria-hidden />;
+  return <span className="inline-block w-4 h-3 rounded-[3px] border border-dashed border-snt-text-disabled" aria-hidden />;
 }
 
 function SizeSwatch({ size }: { size: "sm" | "md" | "lg" }) {
   const h = { sm: 16, md: 20, lg: 28 }[size];
-  return <span className="inline-block bg-s4e-neutral-grey-300 rounded-[3px] w-5" style={{ height: h }} aria-hidden />;
+  return <span className="inline-block bg-snt-neutral-grey-300 rounded-[3px] w-5" style={{ height: h }} aria-hidden />;
 }
 
 function BoolSwatch({ on }: { on: boolean }) {
@@ -47,7 +47,7 @@ function BoolSwatch({ on }: { on: boolean }) {
     <span
       className={cn(
         "inline-flex items-center justify-center w-8 h-4 rounded-full transition-colors",
-        on ? "bg-s4e-brand-primary-500" : "bg-s4e-neutral-grey-300",
+        on ? "bg-snt-brand-primary-500" : "bg-snt-neutral-grey-300",
       )}
       aria-hidden
     >
@@ -73,13 +73,13 @@ type PropertyRow = {
 
 function PropertiesTable({ rows }: { rows: PropertyRow[] }) {
   return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
+    <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[640px] text-sm">
-          <thead className="bg-s4e-surface-table-header">
+          <thead className="bg-snt-surface-table-header">
             <tr className="text-left">
               {["Property", "Type", "Options", "Default", "Description"].map((h) => (
-                <th key={h} className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled">
+                <th key={h} className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">
                   {h}
                 </th>
               ))}
@@ -87,12 +87,12 @@ function PropertiesTable({ rows }: { rows: PropertyRow[] }) {
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.name} className="border-t border-s4e-neutral-divider-10 align-top">
-                <td className="py-3 px-4 font-mono text-[12px] text-s4e-brand-primary-500 whitespace-nowrap">{r.name}</td>
-                <td className="py-3 px-4 font-mono text-[12px] text-s4e-text-secondary whitespace-nowrap">{r.type}</td>
+              <tr key={r.name} className="border-t border-snt-neutral-divider-10 align-top">
+                <td className="py-3 px-4 font-mono text-[12px] text-snt-brand-primary-500 whitespace-nowrap">{r.name}</td>
+                <td className="py-3 px-4 font-mono text-[12px] text-snt-text-secondary whitespace-nowrap">{r.type}</td>
                 <td className="py-3 px-4">{r.values}</td>
-                <td className="py-3 px-4 font-mono text-[12px] text-s4e-text-disabled whitespace-nowrap">{r.default}</td>
-                <td className="py-3 px-4 text-[12.5px] text-s4e-text-secondary">{r.description}</td>
+                <td className="py-3 px-4 font-mono text-[12px] text-snt-text-disabled whitespace-nowrap">{r.default}</td>
+                <td className="py-3 px-4 text-[12.5px] text-snt-text-secondary">{r.description}</td>
               </tr>
             ))}
           </tbody>
@@ -104,7 +104,7 @@ function PropertiesTable({ rows }: { rows: PropertyRow[] }) {
 
 function OptionPill({ swatch, label }: { swatch: React.ReactNode; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[5px] border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[11px] font-mono text-s4e-text-primary">
+    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[5px] border border-snt-neutral-divider-10 bg-snt-surface-app text-[11px] font-mono text-snt-text-primary">
       {swatch}
       {label}
     </span>
@@ -117,28 +117,28 @@ type DimRow = { label: string; values: string[]; note?: string };
 
 function DimensionsTable({ columns, rows }: { columns: string[]; rows: DimRow[] }) {
   return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
+    <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[480px] text-sm">
-          <thead className="bg-s4e-surface-table-header">
+          <thead className="bg-snt-surface-table-header">
             <tr className="text-left">
-              <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled">Property</th>
+              <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">Property</th>
               {columns.map((c) => (
-                <th key={c} className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled font-mono">
+                <th key={c} className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled font-mono">
                   {c}
                 </th>
               ))}
-              <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled">Notes</th>
+              <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">Notes</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.label} className="border-t border-s4e-neutral-divider-10">
-                <td className="py-2.5 px-4 text-[12.5px] text-s4e-text-primary">{r.label}</td>
+              <tr key={r.label} className="border-t border-snt-neutral-divider-10">
+                <td className="py-2.5 px-4 text-[12.5px] text-snt-text-primary">{r.label}</td>
                 {r.values.map((v, i) => (
-                  <td key={i} className="py-2.5 px-4 font-mono text-[12px] text-s4e-text-secondary">{v}</td>
+                  <td key={i} className="py-2.5 px-4 font-mono text-[12px] text-snt-text-secondary">{v}</td>
                 ))}
-                <td className="py-2.5 px-4 text-[11.5px] text-s4e-text-disabled">{r.note ?? ""}</td>
+                <td className="py-2.5 px-4 text-[11.5px] text-snt-text-disabled">{r.note ?? ""}</td>
               </tr>
             ))}
           </tbody>
@@ -149,63 +149,6 @@ function DimensionsTable({ columns, rows }: { columns: string[]; rows: DimRow[] 
 }
 
 // ── Color token table ─────────────────────────────────────────────────────
-
-type TokenRow = {
-  variant: string;
-  bg?:     { token: string; hex: string };
-  text:    { token: string; hex: string };
-  border?: { token: string; hex: string };
-  hover?:  { token: string; hex: string };
-};
-
-function ColorTokenTable({ title, rows }: { title: string; rows: TokenRow[] }) {
-  return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
-      <div className="px-4 py-2 bg-s4e-surface-table-header text-[11px] font-semibold text-s4e-text-primary uppercase tracking-wider">
-        {title}
-      </div>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[540px] text-sm">
-          <thead className="bg-s4e-surface-app">
-            <tr className="text-left">
-              {["Variant", "Background", "Text", "Border", "Hover"].map((h) => (
-                <th key={h} className="py-2 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled border-b border-s4e-neutral-divider-10">
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.variant} className="border-b border-s4e-neutral-divider-10 last:border-b-0">
-                <td className="py-2.5 px-4 text-[12.5px] text-s4e-text-primary font-medium">{r.variant}</td>
-                <TokenCell t={r.bg} />
-                <TokenCell t={r.text} />
-                <TokenCell t={r.border} />
-                <TokenCell t={r.hover} />
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-function TokenCell({ t }: { t?: { token: string; hex: string } }) {
-  if (!t) return <td className="py-2.5 px-4 text-[12px] text-s4e-text-disabled">—</td>;
-  return (
-    <td className="py-2.5 px-4">
-      <div className="flex items-center gap-2">
-        <span className="inline-block w-4 h-4 rounded-[3px] border border-s4e-neutral-divider-10 shrink-0" style={{ backgroundColor: t.hex }} aria-hidden />
-        <div className="min-w-0">
-          <div className="font-mono text-[11px] text-s4e-text-primary truncate">{t.token}</div>
-          <div className="font-mono text-[10.5px] text-s4e-text-disabled truncate">{t.hex}</div>
-        </div>
-      </div>
-    </td>
-  );
-}
 
 // ── ButtonSpecs ───────────────────────────────────────────────────────────
 
@@ -319,7 +262,7 @@ export function ButtonSpecs() {
               { label: "Border radius",         values: ["6px",  "6px",  "6px"] },
               { label: "Border width",          values: ["1px",  "1px",  "1px"], note: "Outline variant only." },
               { label: "Font size",             values: ["14px", "14px", "14px"] },
-              { label: "Font weight",           values: ["500",  "500",  "500"], note: "Inter Medium." },
+              { label: "Font weight",           values: ["500",  "500",  "500"], note: "Geist Medium." },
               { label: "Letter spacing",        values: ["0",    "0",    "0"] },
               { label: "Icon size",             values: ["14px", "14px", "16px"], note: "Lucide stroke 2px." },
               { label: "Icon · label gap",      values: ["4px",  "8px",  "8px"] },
@@ -382,11 +325,11 @@ function SpacingDiagram() {
   const RED = "#ee5630";
 
   return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl bg-s4e-neutral-grey-100/30 px-12 py-16 flex items-center justify-center">
+    <div className="border border-snt-neutral-divider-10 rounded-xl bg-snt-neutral-grey-100/30 px-12 py-16 flex items-center justify-center">
       <div className="relative" style={{ width: W * SCALE, height: H * SCALE }}>
         {/* The button itself */}
         <div
-          className="absolute inset-0 inline-flex items-center justify-center bg-s4e-text-primary text-s4e-text-inverse font-medium shadow-md"
+          className="absolute inset-0 inline-flex items-center justify-center bg-snt-text-primary text-snt-text-inverse font-medium shadow-md"
           style={{
             paddingLeft: PADX * SCALE,
             paddingRight: PADX * SCALE,

@@ -115,10 +115,10 @@ export function PageTOC() {
 
   return (
     <nav aria-label="On this page" className="text-[12px]">
-      <div className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-s4e-text-disabled">
+      <div className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-snt-text-disabled">
         On this page
       </div>
-      <ul className="border-l border-s4e-neutral-divider-10">
+      <ul className="border-l border-snt-neutral-divider-10">
         {items.map((it) => {
           const isActive = it.id === active;
           return (
@@ -129,8 +129,8 @@ export function PageTOC() {
                 className={cn(
                   "block -ml-px border-l-2 pl-3 py-1 leading-snug transition-colors",
                   isActive
-                    ? "border-s4e-brand-primary-500 text-s4e-brand-primary-500 font-medium"
-                    : "border-transparent text-s4e-text-secondary hover:text-s4e-text-primary hover:border-s4e-neutral-grey-300",
+                    ? "border-snt-brand-primary-500 text-snt-brand-primary-500 font-medium"
+                    : "border-transparent text-snt-text-secondary hover:text-snt-text-primary hover:border-snt-neutral-grey-300",
                 )}
               >
                 {it.label}

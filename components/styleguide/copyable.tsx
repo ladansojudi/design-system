@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Code, Copy, Palette } from "lucide-react";
+import { Check, Code, Palette } from "lucide-react";
 import { usePlatform, type Platform } from "@/components/styleguide/platform-provider";
 import { useViewMode } from "@/components/styleguide/view-mode-provider";
 import { cn } from "@/lib/utils";
@@ -71,10 +71,10 @@ export function Copyable({
         aria-label={copied ? "Copied" : isDesign ? "Copy SVG" : "Copy code"}
         title={title}
         className={cn(
-          "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-s4e-surface-app border border-s4e-neutral-divider-10 shadow-s4e-xs z-10",
-          "flex items-center justify-center text-s4e-text-disabled hover:text-s4e-text-primary hover:bg-s4e-neutral-grey-100",
+          "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-snt-surface-app border border-snt-neutral-divider-10 shadow-snt-xs z-10",
+          "flex items-center justify-center text-snt-text-disabled hover:text-snt-text-primary hover:bg-snt-neutral-grey-100",
           "transition-opacity cursor-pointer focus-visible:opacity-100",
-          copied ? "opacity-100 text-s4e-scale-green-600" : "opacity-0 group-hover:opacity-100 focus:opacity-100",
+          copied ? "opacity-100 text-snt-scale-green-600" : "opacity-0 group-hover:opacity-100 focus:opacity-100",
         )}
       >
         {copied ? <Check size={11} /> : <Icon size={11} />}

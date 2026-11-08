@@ -90,12 +90,12 @@ export function DataTableSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={480} height={48} padX={20} padY={12} radius={8}>
-          <div className="w-full h-full border border-s4e-neutral-divider-10 bg-s4e-surface-app rounded-md grid grid-cols-[1fr_1fr_80px_72px] items-center gap-3 px-5">
-            <span className="text-[12px] text-s4e-text-primary truncate">SQL Injection</span>
-            <span className="text-[12px] text-s4e-text-primary truncate">api.s4e.io</span>
-            <span className="text-[11px] text-s4e-text-secondary text-right tabular-nums">19.09.2024</span>
+          <div className="w-full h-full border border-snt-neutral-divider-10 bg-snt-surface-app rounded-md grid grid-cols-[1fr_1fr_80px_72px] items-center gap-3 px-5">
+            <span className="text-[12px] text-snt-text-primary truncate">SQL Injection</span>
+            <span className="text-[12px] text-snt-text-primary truncate">api.example.com</span>
+            <span className="text-[11px] text-snt-text-secondary text-right tabular-nums">19.09.2024</span>
             <div className="flex justify-end">
-              <span className="inline-flex items-center justify-center rounded-[3px] px-2 py-0.5 w-14 bg-s4e-scale-red-50 border-l-[3px] border-s4e-scale-red-500 text-[10px] font-medium text-s4e-scale-red-600">
+              <span className="inline-flex items-center justify-center rounded-[3px] px-2 py-0.5 w-14 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500 text-[10px] font-medium text-snt-scale-red-600">
                 High
               </span>
             </div>

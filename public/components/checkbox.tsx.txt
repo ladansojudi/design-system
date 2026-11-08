@@ -5,14 +5,14 @@ import { Check, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Checkbox
+ * sentinel/ui — Checkbox
  *
  * Drop this file into your project at components/ui/checkbox.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  *   • lucide-react for the Check / Minus icons.
  */
 
@@ -29,11 +29,11 @@ export interface CheckboxProps
 }
 
 const FILL_CLASS: Record<Tone, string> = {
-  primary: "bg-s4e-btn-primary-600 border-s4e-btn-primary-600",
-  neutral: "bg-s4e-btn-neutral-800 border-s4e-btn-neutral-800",
+  primary: "bg-snt-btn-primary-600 border-snt-btn-primary-600",
+  neutral: "bg-snt-btn-neutral-800 border-snt-btn-neutral-800",
 };
 
-const EMPTY_CLASS = "border-s4e-neutral-grey-400 bg-s4e-surface-row";
+const EMPTY_CLASS = "border-snt-neutral-grey-400 bg-snt-surface-row";
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
@@ -75,7 +75,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           className,
         )}
       >
-        <span className="relative inline-flex items-center justify-center mt-[1px]">
+        <span className="relative inline-flex items-center justify-center mt-px">
           <input
             ref={inputRef}
             id={inputId}
@@ -91,14 +91,14 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             aria-hidden
             className={cn(
               "w-[18px] h-[18px] rounded-[3px] border-2 flex items-center justify-center transition-colors",
-              "peer-focus-visible:ring-2 peer-focus-visible:ring-offset-1 peer-focus-visible:ring-s4e-focus-ring",
+              "peer-focus-visible:ring-2 peer-focus-visible:ring-offset-1 peer-focus-visible:ring-snt-focus-ring",
               fillClass,
-              !disabled && !filled && "group-hover:border-s4e-neutral-grey-600",
+              !disabled && !filled && "group-hover:border-snt-neutral-grey-600",
             )}
           >
             {indeterminate
-              ? <Minus size={12} aria-hidden className="text-s4e-text-on-accent" />
-              : checked && <Check size={12} aria-hidden className="text-s4e-text-on-accent" />
+              ? <Minus size={12} aria-hidden className="text-snt-text-on-accent" />
+              : checked && <Check size={12} aria-hidden className="text-snt-text-on-accent" />
             }
           </span>
         </span>
@@ -106,14 +106,14 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           <span className="flex-1 min-w-0">
             {label && (
               <span className={cn(
-                "block text-[14px] leading-tight",
-                disabled ? "text-s4e-text-disabled" : "text-s4e-text-primary",
+                "block text-snt-14 leading-tight",
+                disabled ? "text-snt-text-disabled" : "text-snt-text-primary",
               )}>
                 {label}
               </span>
             )}
             {description && (
-              <span id={descId} className="block text-[11px] text-s4e-text-secondary mt-0.5 leading-snug">
+              <span id={descId} className="block text-snt-11 text-snt-text-secondary mt-0.5 leading-snug">
                 {description}
               </span>
             )}

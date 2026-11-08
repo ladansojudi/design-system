@@ -10,7 +10,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Alert — Design System",
+  title: "Alert — Sentinel Design System",
 };
 
 export default function AlertPage() {
@@ -43,18 +43,18 @@ export default function AlertPage() {
                 { label: "Dismiss (optional)", description: "Close button — only for alerts the user can safely ignore." },
               ]}
               preview={
-                <div className="flex items-start gap-3 rounded-md border border-s4e-scale-yellow-200 bg-s4e-scale-yellow-50 px-4 py-3 w-[320px]">
-                  <AlertTriangle size={16} className="text-s4e-scale-yellow-700 shrink-0 mt-px" />
+                <div className="flex items-start gap-3 rounded-md border border-snt-scale-yellow-200 bg-snt-scale-yellow-50 px-4 py-3 w-[320px]">
+                  <AlertTriangle size={16} className="text-snt-scale-yellow-700 shrink-0 mt-px" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-[14px] font-semibold text-s4e-scale-yellow-700 leading-tight">
+                    <div className="text-[14px] font-semibold text-snt-scale-yellow-700 leading-tight">
                       Quota almost exceeded
                     </div>
-                    <div className="text-[12px] text-s4e-scale-yellow-700 mt-1 leading-relaxed">
+                    <div className="text-[12px] text-snt-scale-yellow-700 mt-1 leading-relaxed">
                       You have used 9.2 GB of your 10 GB allowance.
                     </div>
                     <button
                       type="button"
-                      className="mt-2.5 text-[11px] font-medium underline text-s4e-scale-yellow-700"
+                      className="mt-2.5 text-[11px] font-medium underline text-snt-scale-yellow-700"
                     >
                       Upgrade plan
                     </button>
@@ -62,7 +62,7 @@ export default function AlertPage() {
                   <button
                     type="button"
                     aria-label="Dismiss"
-                    className="shrink-0 p-1 -m-1 rounded text-s4e-scale-yellow-700"
+                    className="shrink-0 p-1 -m-1 rounded text-snt-scale-yellow-700"
                   >
                     <X size={14} />
                   </button>

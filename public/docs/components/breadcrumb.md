@@ -5,7 +5,7 @@ category: Molecule
 status: stable
 source: components/ui/breadcrumb.tsx
 styleguide: /styleguide/breadcrumb
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=8-71
 apg: https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/
 ---
 
@@ -67,8 +67,8 @@ Shows where the current page sits in the hierarchy and lets users jump back up.
 
 | Role | Token |
 |---|---|
-| Link / hover | `s4e-text-primary` / `s4e-brand-primary-500` |
-| Current / visited / separator | `s4e-text-secondary` |
+| Link / hover | `snt-text-primary` / `snt-brand-primary-500` |
+| Current / visited / separator | `snt-text-secondary` |
 
 ## Design ↔ Code
 

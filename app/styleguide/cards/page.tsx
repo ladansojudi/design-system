@@ -12,7 +12,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Cards — Design System",
+  title: "Cards — Sentinel Design System",
 };
 
 export default function Page() {
@@ -50,20 +50,20 @@ export default function Page() {
                     { label: "Action link", description: "Text-style link with arrow that directs the user to the fix or detail view." },
                   ]}
                 >
-                  <div className="w-80 rounded-xl overflow-hidden border border-s4e-neutral-divider-10 bg-s4e-surface-app">
-                    <div className="flex items-center justify-between px-4 py-2 bg-s4e-neutral-grey-100 border-b border-s4e-neutral-divider-10">
-                      <span className="text-[12px] font-semibold text-s4e-text-primary">Attention Needed</span>
-                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-s4e-scale-red-50 text-[11px] font-semibold text-s4e-scale-red-600">
-                        <span className="s4e-pulse-dot w-[6px] h-[6px] rounded-full bg-s4e-scale-red-500 shrink-0" />
+                  <div className="w-80 rounded-xl overflow-hidden border border-snt-neutral-divider-10 bg-snt-surface-app">
+                    <div className="flex items-center justify-between px-4 py-2 bg-snt-neutral-grey-100 border-b border-snt-neutral-divider-10">
+                      <span className="text-[12px] font-semibold text-snt-text-primary">Attention Needed</span>
+                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-snt-scale-red-50 text-[11px] font-semibold text-snt-scale-red-600">
+                        <span className="snt-pulse-dot w-[6px] h-[6px] rounded-full bg-snt-scale-red-500 shrink-0" />
                         2 Active
                       </span>
                     </div>
                     <div className="px-4 py-4 space-y-4">
                       <div>
-                        <div className="text-[14px] font-semibold text-s4e-text-primary">Security Blind Spots</div>
-                        <p className="text-[12px] text-s4e-text-disabled leading-relaxed">Assets excluded from scheduled scans.</p>
+                        <div className="text-[14px] font-semibold text-snt-text-primary">Security Blind Spots</div>
+                        <p className="text-[12px] text-snt-text-disabled leading-relaxed">Assets excluded from scheduled scans.</p>
                       </div>
-                      <button type="button" className="flex items-center gap-1 text-[12px] font-medium text-s4e-brand-primary-500">
+                      <button type="button" className="flex items-center gap-1 text-[12px] font-medium text-snt-brand-primary-500">
                         Review Assets
                         <ArrowRight size={12} />
                       </button>
@@ -101,16 +101,16 @@ export default function Page() {
                     { label: "Trend / description",  description: "Optional comparison vs previous period, or short helper sentence." },
                   ]}
                 >
-                  <div className="w-60 border border-s4e-neutral-divider-10 rounded-xl px-5 py-4 bg-s4e-surface-app flex flex-col gap-3">
+                  <div className="w-60 border border-snt-neutral-divider-10 rounded-xl px-5 py-4 bg-snt-surface-app flex flex-col gap-3">
                     <div className="flex items-center gap-2">
-                      <Link2 size={14} className="text-s4e-text-disabled" />
-                      <span className="text-[12px] font-medium text-s4e-text-secondary">Total URL</span>
+                      <Link2 size={14} className="text-snt-text-disabled" />
+                      <span className="text-[12px] font-medium text-snt-text-secondary">Total URL</span>
                     </div>
-                    <div className="text-[32px] font-bold leading-none text-s4e-text-primary tracking-tight">816</div>
-                    <div className="flex items-center gap-1 text-[12px] font-medium text-s4e-scale-red-600">
+                    <div className="text-[32px] font-bold leading-none text-snt-text-primary tracking-tight">816</div>
+                    <div className="flex items-center gap-1 text-[12px] font-medium text-snt-scale-red-600">
                       <TrendingDown size={13} />
                       <span>-23%</span>
-                      <span className="font-normal text-s4e-text-disabled">from last month</span>
+                      <span className="font-normal text-snt-text-disabled">from last month</span>
                     </div>
                   </div>
                 </Anatomy>

@@ -7,7 +7,6 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
     static let scaleBlue50 = UIColor(hex: "#F7FAFD")
     static let scaleBlue500 = UIColor(hex: "#7DAFD6")
     static let scaleBlue600 = UIColor(hex: "#2F6893")
@@ -23,26 +22,26 @@ extension UIColor {
     static let scalePurple50 = UIColor(hex: "#F7F2FC")
     static let scalePurple500 = UIColor(hex: "#772ED1")
     static let scalePurple600 = UIColor(hex: "#5D24A3")
-    static let textPrimary = UIColor(hex: "#121F28")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
+    static let textPrimary = UIColor(hex: "#09090B")
+    static let textDisabled = UIColor(hex: "#A1A1AA")
 }
 
 // MARK: - Sizing (CGFloat)
 
 extension CGFloat {
     // Spacing
-    static let space3: CGFloat = 12
     static let space2: CGFloat = 8
     static let space4: CGFloat = 16
     static let space10: CGFloat = 40
     static let space6: CGFloat = 24
     static let space5: CGFloat = 20
     static let space8: CGFloat = 32
+    static let space3: CGFloat = 12
     static let space1: CGFloat = 4
 
     // Radius
-    static let radiusMd: CGFloat = 6
     static let radiusXl: CGFloat = 12
+    static let radiusMd: CGFloat = 6
 
     // Border width
     static let borderWidth1: CGFloat = 1
@@ -55,6 +54,5 @@ extension CGFloat {
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)
-// font-weight-normal → .regular   (CSS 400)
 // font-weight-medium → .medium   (CSS 500)
 // font-weight-semibold → .semibold   (CSS 600)

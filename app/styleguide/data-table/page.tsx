@@ -10,7 +10,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Data Table — Design System",
+  title: "Data Table — Sentinel Design System",
 };
 
 export default function Page() {
@@ -42,50 +42,50 @@ export default function Page() {
               ]}
             >
               {/* Mini full table */}
-              <div className="w-full max-w-2xl border border-s4e-neutral-divider-10 rounded-xl bg-s4e-surface-app">
+              <div className="w-full max-w-2xl border border-snt-neutral-divider-10 rounded-xl bg-snt-surface-app">
                 {/* Header */}
-                <div className="flex items-center gap-3 px-5 py-3 bg-s4e-neutral-grey-100 border-b border-s4e-neutral-divider-10 rounded-t-xl">
+                <div className="flex items-center gap-3 px-5 py-3 bg-snt-neutral-grey-100 border-b border-snt-neutral-divider-10 rounded-t-xl">
                   <div className="flex items-center gap-2">
-                    <span className="text-[14px] font-semibold text-s4e-text-primary">Priority Actions</span>
-                    <Info size={13} className="text-s4e-text-disabled" />
+                    <span className="text-[14px] font-semibold text-snt-text-primary">Priority Actions</span>
+                    <Info size={13} className="text-snt-text-disabled" />
                   </div>
-                  <span className="text-[12px] text-s4e-text-disabled flex-1 truncate">Security issues prioritized by risk growth.</span>
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-s4e-scale-yellow-50 text-s4e-scale-yellow-700 text-[11px] font-medium">
-                    <span className="w-[6px] h-[6px] rounded-full bg-s4e-scale-yellow-500" />
+                  <span className="text-[12px] text-snt-text-disabled flex-1 truncate">Security issues prioritized by risk growth.</span>
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-snt-scale-yellow-50 text-snt-scale-yellow-700 text-[11px] font-medium">
+                    <span className="w-[6px] h-[6px] rounded-full bg-snt-scale-yellow-500" />
                     Live
                   </span>
-                  <button type="button" className="text-[12px] font-medium text-s4e-brand-primary-500 underline underline-offset-2">View all</button>
+                  <button type="button" className="text-[12px] font-medium text-snt-brand-primary-500 underline underline-offset-2">View all</button>
                 </div>
 
                 {/* Column headers */}
-                <div className="grid grid-cols-[1fr_1fr_90px_80px] gap-3 px-5 py-2 border-b border-s4e-neutral-divider-10">
+                <div className="grid grid-cols-[1fr_1fr_90px_80px] gap-3 px-5 py-2 border-b border-snt-neutral-divider-10">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] font-medium text-s4e-text-disabled uppercase">Threats</span>
-                    <Info size={11} className="text-s4e-text-disabled" />
+                    <span className="text-[11px] font-medium text-snt-text-disabled uppercase">Threats</span>
+                    <Info size={11} className="text-snt-text-disabled" />
                   </div>
-                  <span className="text-[11px] font-medium text-s4e-text-disabled uppercase">Asset</span>
-                  <span className="text-[11px] font-medium text-s4e-text-disabled uppercase text-right">Date</span>
-                  <span className="text-[11px] font-medium text-s4e-text-disabled uppercase text-right">Severity</span>
+                  <span className="text-[11px] font-medium text-snt-text-disabled uppercase">Asset</span>
+                  <span className="text-[11px] font-medium text-snt-text-disabled uppercase text-right">Date</span>
+                  <span className="text-[11px] font-medium text-snt-text-disabled uppercase text-right">Severity</span>
                 </div>
 
                 {/* Sample rows */}
                 {[
-                  { t: "SQL Injection",  a: "api.s4e.io",     d: "19.09.2024" },
+                  { t: "SQL Injection",  a: "api.example.com",     d: "19.09.2024" },
                   { t: "SSL Expiring",   a: "zero.webapp.com", d: "19.09.2024" },
                 ].map((r) => (
-                  <div key={r.t} className="grid grid-cols-[1fr_1fr_90px_80px] gap-3 items-center px-5 py-2.5 border-b border-s4e-neutral-divider-10">
+                  <div key={r.t} className="grid grid-cols-[1fr_1fr_90px_80px] gap-3 items-center px-5 py-2.5 border-b border-snt-neutral-divider-10">
                     <div className="flex items-center gap-1.5 min-w-0">
-                      <span className="text-[12px] text-s4e-text-primary truncate">{r.t}</span>
-                      <Info size={11} className="text-s4e-text-disabled shrink-0" />
+                      <span className="text-[12px] text-snt-text-primary truncate">{r.t}</span>
+                      <Info size={11} className="text-snt-text-disabled shrink-0" />
                     </div>
                     <div className="flex items-center gap-1.5 min-w-0">
-                      <span className="text-[12px] text-s4e-text-primary truncate">{r.a}</span>
-                      <Info size={11} className="text-s4e-text-disabled shrink-0" />
+                      <span className="text-[12px] text-snt-text-primary truncate">{r.a}</span>
+                      <Info size={11} className="text-snt-text-disabled shrink-0" />
                     </div>
-                    <span className="text-[11px] text-s4e-text-secondary text-right tabular-nums">{r.d}</span>
+                    <span className="text-[11px] text-snt-text-secondary text-right tabular-nums">{r.d}</span>
                     <div className="flex justify-end">
-                      <div className="flex items-center justify-center rounded-md px-2 py-0.5 w-16 bg-s4e-scale-red-50 border-l-[3px] border-s4e-scale-red-500">
-                        <span className="text-[11px] font-medium text-s4e-scale-red-600">High</span>
+                      <div className="flex items-center justify-center rounded-md px-2 py-0.5 w-16 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500">
+                        <span className="text-[11px] font-medium text-snt-scale-red-600">High</span>
                       </div>
                     </div>
                   </div>
@@ -94,15 +94,15 @@ export default function Page() {
                 {/* Footer */}
                 <div className="flex items-center justify-end gap-3 px-5 py-2">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] text-s4e-text-disabled">Row per page:</span>
-                    <span className="inline-flex items-center gap-0.5 text-[11px] text-s4e-text-primary">
-                      3 <ChevronDown size={10} className="text-s4e-text-disabled" />
+                    <span className="text-[11px] text-snt-text-disabled">Row per page:</span>
+                    <span className="inline-flex items-center gap-0.5 text-[11px] text-snt-text-primary">
+                      3 <ChevronDown size={10} className="text-snt-text-disabled" />
                     </span>
                   </div>
-                  <span className="text-[11px] text-s4e-text-disabled tabular-nums">1–3 of 492</span>
+                  <span className="text-[11px] text-snt-text-disabled tabular-nums">1–3 of 492</span>
                   <div className="flex items-center gap-0.5">
-                    <ChevronLeft size={12} className="text-s4e-text-disabled" />
-                    <ChevronRight size={12} className="text-s4e-text-disabled" />
+                    <ChevronLeft size={12} className="text-snt-text-disabled" />
+                    <ChevronRight size={12} className="text-snt-text-disabled" />
                   </div>
                 </div>
               </div>

@@ -7,36 +7,32 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
-    static let brandPrimary600 = UIColor(hex: "#0F69A9")
-    static let scaleRed50 = UIColor(hex: "#FCF3F2")
+    static let brandPrimary600 = UIColor(hex: "#4F46E5")
     static let scaleRed600 = UIColor(hex: "#8E2A1F")
-    static let neutralGrey100 = UIColor(hex: "#F7F8F8")
-    static let neutralGrey200 = UIColor(hex: "#F4F5F5")
-    static let neutralGrey300 = UIColor(hex: "#DFE2E2")
-    static let neutralGrey400 = UIColor(hex: "#C9CFCF")
-    static let neutralGrey500 = UIColor(hex: "#949E9E")
+    static let neutralGrey100 = UIColor(hex: "#F4F4F5")
+    static let neutralGrey200 = UIColor(hex: "#E4E4E7")
+    static let neutralGrey300 = UIColor(hex: "#D4D4D8")
+    static let neutralGrey400 = UIColor(hex: "#8F8F98")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
-    static let textPrimary = UIColor(hex: "#121F28")
-    static let textSecondary = UIColor(hex: "#657078")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
+    static let textPrimary = UIColor(hex: "#09090B")
+    static let textSecondary = UIColor(hex: "#52525B")
+    static let textDisabled = UIColor(hex: "#A1A1AA")
 }
 
 // MARK: - Sizing (CGFloat)
 
 extension CGFloat {
     // Spacing
-    static let space3: CGFloat = 12
-    static let space1: CGFloat = 4
     static let space2: CGFloat = 8
     static let space4: CGFloat = 16
     static let space6: CGFloat = 24
     static let space5: CGFloat = 20
     static let space10: CGFloat = 40
+    static let space3: CGFloat = 12
+    static let space1: CGFloat = 4
     static let space8: CGFloat = 32
 
     // Radius
-    static let radiusMd: CGFloat = 6
     static let radiusXl: CGFloat = 12
     static let radiusLg: CGFloat = 8
 
@@ -46,7 +42,6 @@ extension CGFloat {
 
     // Font size
     static let fontSize9: CGFloat = 9
-    static let fontSize10: CGFloat = 10
     static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
     static let fontSize14: CGFloat = 14

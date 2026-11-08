@@ -9,7 +9,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Severity Badge — Design System",
+  title: "Severity Badge — Sentinel Design System",
 };
 
 export default function SeverityBadgePage() {
@@ -40,9 +40,9 @@ export default function SeverityBadgePage() {
                 { label: "Score (optional)", description: "Numeric CVSS score or risk value aligned to the right." },
               ]}
               preview={
-                <div className="flex items-center justify-between rounded-md px-3 py-1.5 w-40 bg-s4e-scale-red-50 border-l-[3px] border-s4e-scale-red-500">
-                  <span className="text-sm font-medium text-s4e-scale-red-600">High</span>
-                  <span className="text-sm text-s4e-scale-red-600 opacity-80">8.4</span>
+                <div className="flex items-center justify-between rounded-md px-3 py-1.5 w-40 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500">
+                  <span className="text-sm font-medium text-snt-scale-red-600">High</span>
+                  <span className="text-sm text-snt-scale-red-600 opacity-80">8.4</span>
                 </div>
               }
             />

@@ -7,7 +7,7 @@ import { SidebarShowcase } from "@/sections/sidebar/sidebar-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Sidebar — Design System",
+  title: "Sidebar — Sentinel Design System",
 };
 
 export default function Page() {
@@ -32,10 +32,10 @@ export default function Page() {
           { label: "Collapse toggle", description: "Small circular button on the outer edge that switches between variants." },
         ]}
       >
-        <div className="flex items-center gap-2.5 h-9 w-56 px-4 bg-s4e-neutral-grey-100 rounded-lg relative">
-          <span className="absolute left-0 top-1 bottom-1 w-[2px] bg-s4e-brand-primary-500 rounded-r" />
-          <LayoutDashboard size={16} className="text-s4e-text-primary" />
-          <span className="text-[14px] font-medium text-s4e-text-primary">Dashboard</span>
+        <div className="flex items-center gap-2.5 h-9 w-56 px-4 bg-snt-neutral-grey-100 rounded-lg relative">
+          <span className="absolute left-0 top-1 bottom-1 w-[2px] bg-snt-brand-primary-500 rounded-r" />
+          <LayoutDashboard size={16} className="text-snt-text-primary" />
+          <span className="text-[14px] font-medium text-snt-text-primary">Dashboard</span>
         </div>
       </Anatomy>
 

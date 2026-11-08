@@ -1,24 +1,23 @@
 /**
- * eslint-plugin-s4e — guardrails that keep human- and AI-written code on the
- * S4E design system.
+ * eslint-plugin-sentinel — guardrails that keep human- and AI-written code on the
+ * Sentinel design system.
  *
  * Rules
- *   s4e/no-hardcoded-colors        error  hex/rgb/hsl colours, Tailwind palette
+ *   sentinel/no-hardcoded-colors        error  hex/rgb/hsl colours, Tailwind palette
  *                                         classes (bg-red-500) and arbitrary
  *                                         colour classes (bg-[#fff]) instead of
- *                                         s4e-* tokens
- *   s4e/prefer-semantic-tokens     warn   primitives that have a semantic alias
- *                                         (autofix: border-s4e-neutral-divider-10
- *                                         → border-s4e-border-default)
- *   s4e/icon-only-needs-label      error  <Button iconOnly> without aria-label
- *   s4e/no-deprecated-components   warn   importing Banner
- *   s4e/no-arbitrary-values        warn   text-[13px], p-[7px] … (off in this
- *                                         repo's components until the type
- *                                         scale lands; on for consumers)
+ *                                         snt-* tokens
+ *   sentinel/prefer-semantic-tokens     warn   primitives that have a semantic alias
+ *                                         (autofix: border-snt-neutral-divider-10
+ *                                         → border-snt-border-default)
+ *   sentinel/icon-only-needs-label      error  <Button iconOnly> without aria-label
+ *   sentinel/no-deprecated-components   warn   importing Banner
+ *   sentinel/no-arbitrary-values        warn   text-[13px], p-[7px], gap-[5px] … —
+ *                                         use text-snt-<px> and the spacing scale
  *
  * Usage (flat config):
- *   import s4e from "./eslint/eslint-plugin-s4e.mjs";
- *   export default [s4e.configs.recommended];
+ *   import sentinel from "./eslint/eslint-plugin-sentinel.mjs";
+ *   export default [sentinel.configs.recommended];
  */
 
 // ── Shared helpers ─────────────────────────────────────────────────────────
@@ -34,7 +33,8 @@ const UTIL = "bg|text|border|border-[trblxy]|ring|ring-offset|outline|divide|fil
 // Class tokens are unambiguous anywhere in a string, so these two are checked everywhere.
 const PALETTE_CLASS = new RegExp(`(?<![\\w-])(?:[a-z-]+:)*(?:${UTIL})-(?:${PALETTE})-\\d{2,3}(?:\\/\\d+)?(?![\\w-])`);
 const ARBITRARY_COLOR_CLASS = new RegExp(`(?<![\\w-])(?:[a-z-]+:)*(?:${UTIL})-\\[(?:#|rgb|hsl|oklch|color:)`);
-const ARBITRARY_VALUE_CLASS = /(?<![\w-])(?:[a-z-]+:)*[a-z]+(?:-[a-z]+)*-\[-?\d+(?:\.\d+)?(?:px|rem|em)\]/;
+// Typography and spacing only — geometry (w-[7px] dots, h-[22px] tracks) is legitimately off-scale.
+const ARBITRARY_VALUE_CLASS = /(?<![\w-])(?:[a-z-]+:)*-?(?:text|leading|tracking|p[trblxy]?|m[trblxy]?|gap(?:-[xy])?|space-[xy])-\[-?\d+(?:\.\d+)?(?:px|rem|em)\]/;
 
 /** Text of a string-ish node (Literal string or TemplateElement), else null. */
 function stringValue(node) {
@@ -76,11 +76,11 @@ function forEachString(context, visit) {
 const noHardcodedColors = {
   meta: {
     type: "problem",
-    docs: { description: "Disallow hard-coded colours; use s4e-* design tokens." },
+    docs: { description: "Disallow hard-coded colours; use snt-* design tokens." },
     messages: {
-      raw: "Hard-coded colour \"{{match}}\". Use an s4e-* token utility (e.g. text-s4e-text-secondary) or var(--s4e-…).",
-      palette: "Tailwind palette class \"{{match}}\" bypasses the design tokens. Use the s4e-* equivalent (e.g. bg-s4e-bg-error-subtle).",
-      arbitrary: "Arbitrary colour class \"{{match}}\". Use an s4e-* token utility instead.",
+      raw: "Hard-coded colour \"{{match}}\". Use an snt-* token utility (e.g. text-snt-text-secondary) or var(--snt-…).",
+      palette: "Tailwind palette class \"{{match}}\" bypasses the design tokens. Use the snt-* equivalent (e.g. bg-snt-bg-error-subtle).",
+      arbitrary: "Arbitrary colour class \"{{match}}\". Use an snt-* token utility instead.",
     },
     schema: [],
   },
@@ -104,7 +104,7 @@ const SEMANTIC = [
   ["ring", "brand-primary-500", "focus-ring"],
 ];
 const SEMANTIC_RE = SEMANTIC.map(([pre, prim, sem]) => ({
-  re: new RegExp(`(?<![\\w-])((?:[a-z-]+:)*${pre})-s4e-${prim}(?![\\w-])`, "g"),
+  re: new RegExp(`(?<![\\w-])((?:[a-z-]+:)*${pre})-snt-${prim}(?![\\w-])`, "g"),
   prim, sem,
 }));
 
@@ -112,8 +112,8 @@ const preferSemanticTokens = {
   meta: {
     type: "suggestion",
     fixable: "code",
-    docs: { description: "Prefer semantic s4e aliases over scale primitives when one exists." },
-    messages: { prefer: "Use \"s4e-{{sem}}\" instead of the primitive \"s4e-{{prim}}\"." },
+    docs: { description: "Prefer semantic Sentinel aliases over scale primitives when one exists." },
+    messages: { prefer: "Use \"snt-{{sem}}\" instead of the primitive \"snt-{{prim}}\"." },
     schema: [],
   },
   create(context) {
@@ -129,7 +129,7 @@ const preferSemanticTokens = {
           fix(fixer) {
             const text = source.getText(node);
             re.lastIndex = 0;
-            return fixer.replaceText(node, text.replace(re, `$1-s4e-${sem}`));
+            return fixer.replaceText(node, text.replace(re, `$1-snt-${sem}`));
           },
         });
       }
@@ -165,7 +165,7 @@ const DEPRECATED = { Banner: "Use a full-width <Alert> at the top of the page co
 const noDeprecatedComponents = {
   meta: {
     type: "suggestion",
-    docs: { description: "Flag deprecated S4E components." },
+    docs: { description: "Flag deprecated Sentinel components." },
     messages: { deprecated: "{{name}} is deprecated. {{hint}}" },
     schema: [],
   },
@@ -186,7 +186,7 @@ const noArbitraryValues = {
   meta: {
     type: "suggestion",
     docs: { description: "Prefer the spacing / type scale over arbitrary pixel values." },
-    messages: { arbitrary: "Arbitrary value \"{{match}}\" is off the S4E scale. Use a scale step (p-3, text-sm …) or a token." },
+    messages: { arbitrary: "Arbitrary value \"{{match}}\" is off the Sentinel scale. Use the type scale (text-snt-10/11/12/14/16/18/20/24/32/48) or a spacing step (p-3, gap-2 …)." },
     schema: [],
   },
   create(context) {
@@ -200,7 +200,7 @@ const noArbitraryValues = {
 // ── Plugin ─────────────────────────────────────────────────────────────────
 
 const plugin = {
-  meta: { name: "eslint-plugin-s4e", version: "1.0.0" },
+  meta: { name: "eslint-plugin-sentinel", version: "1.0.0" },
   rules: {
     "no-hardcoded-colors": noHardcodedColors,
     "prefer-semantic-tokens": preferSemanticTokens,
@@ -212,15 +212,15 @@ const plugin = {
 
 plugin.configs = {
   recommended: {
-    name: "s4e/recommended",
+    name: "sentinel/recommended",
     files: ["**/*.{jsx,tsx}"],
-    plugins: { s4e: plugin },
+    plugins: { sentinel: plugin },
     rules: {
-      "s4e/no-hardcoded-colors": "error",
-      "s4e/prefer-semantic-tokens": "warn",
-      "s4e/icon-only-needs-label": "error",
-      "s4e/no-deprecated-components": "warn",
-      "s4e/no-arbitrary-values": "warn",
+      "sentinel/no-hardcoded-colors": "error",
+      "sentinel/prefer-semantic-tokens": "warn",
+      "sentinel/icon-only-needs-label": "error",
+      "sentinel/no-deprecated-components": "warn",
+      "sentinel/no-arbitrary-values": "warn",
     },
   },
 };

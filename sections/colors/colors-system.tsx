@@ -28,7 +28,7 @@ export function ColorsSystem() {
     <CopyToastProvider>
       <div className="mt-2">
         {/* Tabs */}
-        <div role="tablist" aria-label="Color view" className="flex items-end border-b border-s4e-neutral-divider-10 mb-8 overflow-x-auto s4e-scrollbar-hide">
+        <div role="tablist" aria-label="Color view" className="flex items-end border-b border-snt-neutral-divider-10 mb-8 overflow-x-auto snt-scrollbar-hide">
           {TABS.map((t) => {
             const isActive = active === t.key;
             return (
@@ -41,10 +41,10 @@ export function ColorsSystem() {
                 className={cn(
                   "inline-flex items-center px-4 pt-2 pb-2.5 -mb-px text-[14px] font-medium whitespace-nowrap tracking-tight shrink-0",
                   "border-b-[2px] transition-colors cursor-pointer",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-s4e-brand-primary-500/40",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-snt-brand-primary-500/40",
                   isActive
-                    ? "text-s4e-text-primary border-s4e-brand-primary-500"
-                    : "text-s4e-text-secondary border-transparent hover:text-s4e-text-primary",
+                    ? "text-snt-text-primary border-snt-brand-primary-500"
+                    : "text-snt-text-secondary border-transparent hover:text-snt-text-primary",
                 )}
               >
                 {t.label}

@@ -5,7 +5,7 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { ThemingShowcase } from "@/sections/theming/theming-showcase";
 
 export const metadata: Metadata = {
-  title: "Theming — Design System",
+  title: "Theming — Sentinel Design System",
 };
 
 export default function ThemingPage() {

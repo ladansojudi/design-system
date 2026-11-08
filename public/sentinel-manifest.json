@@ -1,0 +1,2546 @@
+{
+  "$schema": "sentinel-manifest/1",
+  "name": "sentinel",
+  "version": "1.3.1",
+  "homepage": "http://localhost:3000",
+  "install": {
+    "theme": "npx shadcn add http://localhost:3000/r/theme.json",
+    "component": "npx shadcn add http://localhost:3000/r/<name>.json"
+  },
+  "rules": "http://localhost:3000/llms.txt",
+  "lint": "http://localhost:3000/eslint-plugin-sentinel.mjs",
+  "components": [
+    {
+      "name": "alert",
+      "title": "Alert",
+      "category": "Atom",
+      "status": "stable",
+      "summary": "An inline message tied to a page or section. It communicates a status that persists until the condition changes or the user dismisses it.",
+      "whenToUse": [
+        "A form or section-level error (\"3 fields need attention\").",
+        "A persistent warning about the current context (\"This asset hasn't been scanned in 30 days\").",
+        "A success message that should stay visible after a page change."
+      ],
+      "whenNotToUse": [
+        "Transient feedback on an action → [Toast](./toast-tooltip.md).",
+        "Product-wide announcements at the top of the app → [Banner](./banner.md) (deprecated). Use a full-width Alert at the top of the layout instead.",
+        "Field-level errors → the field's `errorText`."
+      ],
+      "exports": [
+        "Alert"
+      ],
+      "props": {
+        "AlertProps": {
+          "extends": "Omit<React.HTMLAttributes<HTMLDivElement>, \"title\">",
+          "members": [
+            {
+              "name": "variant",
+              "type": "\"info\" | \"success\" | \"warning\" | \"error\"",
+              "optional": true,
+              "default": "\"info\""
+            },
+            {
+              "name": "title",
+              "type": "React.ReactNode",
+              "optional": true
+            },
+            {
+              "name": "dismissible",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            },
+            {
+              "name": "action",
+              "type": "React.ReactNode",
+              "optional": true
+            },
+            {
+              "name": "onDismiss",
+              "type": "() => void",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-12",
+        "snt-14",
+        "snt-bg-error-subtle",
+        "snt-bg-info-subtle",
+        "snt-bg-success-subtle",
+        "snt-bg-warning-subtle",
+        "snt-neutral-divider-10",
+        "snt-scale-blue-200",
+        "snt-scale-green-200",
+        "snt-scale-red-200",
+        "snt-scale-yellow-200",
+        "snt-text-error",
+        "snt-text-info",
+        "snt-text-success",
+        "snt-text-warning"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/alert.md",
+        "source": "http://localhost:3000/components/alert.tsx.txt",
+        "registry": "http://localhost:3000/r/alert.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/alert.json"
+    },
+    {
+      "name": "badge-tag",
+      "title": "Badge · Tag",
+      "category": "Atom",
+      "status": "stable",
+      "summary": "A small pill that labels an object with a status (**Badge**) or a category (**Tag**). It's the same primitive; Badge shows a status dot by default.",
+      "whenToUse": [
+        "**Badge:** the status of an item (\"Active\", \"Failed\", \"Pending\").",
+        "**Tag:** a classification or metadata (\"Production\", \"API\", \"EU\")."
+      ],
+      "whenNotToUse": [
+        "Vulnerability severity → [Severity Badge](./severity-badge.md), which has the canonical severity colours.",
+        "Counts on navigation or icons → a count bubble (see Filter Bar's `count`).",
+        "Anything clickable → a button or a filter pill ([Filter Bar](./filter-bar.md))."
+      ],
+      "exports": [
+        "Badge",
+        "Tag"
+      ],
+      "props": {
+        "BadgeProps": {
+          "extends": "Omit<React.HTMLAttributes<HTMLSpanElement>, \"color\">",
+          "members": [
+            {
+              "name": "tone",
+              "type": "\"warning\" | \"error\" | \"success\" | \"neutral\" | \"info\" | \"primary\"",
+              "optional": true
+            },
+            {
+              "name": "color",
+              "type": "\"warning\" | \"error\" | \"success\" | \"neutral\" | \"info\" | \"primary\"",
+              "optional": true,
+              "deprecated": true
+            },
+            {
+              "name": "showDot",
+              "type": "boolean",
+              "optional": true
+            },
+            {
+              "name": "dotPosition",
+              "type": "\"left\" | \"right\"",
+              "optional": true,
+              "default": "\"left\""
+            },
+            {
+              "name": "outlined",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            }
+          ]
+        },
+        "TagProps": {
+          "extends": "BadgeProps",
+          "members": []
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-12",
+        "snt-bg-brand-subtle",
+        "snt-bg-error-subtle",
+        "snt-bg-info-subtle",
+        "snt-bg-subtle",
+        "snt-bg-success-subtle",
+        "snt-bg-warning-subtle",
+        "snt-border-default",
+        "snt-brand-primary-200",
+        "snt-brand-primary-500",
+        "snt-brand-primary-600",
+        "snt-neutral-grey-400",
+        "snt-scale-blue-200",
+        "snt-scale-blue-500",
+        "snt-scale-blue-600",
+        "snt-scale-green-200",
+        "snt-scale-green-500",
+        "snt-scale-green-600",
+        "snt-scale-red-200",
+        "snt-scale-red-500",
+        "snt-scale-yellow-200",
+        "snt-scale-yellow-500",
+        "snt-scale-yellow-700",
+        "snt-text-error",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/badge-tag.md",
+        "source": "http://localhost:3000/components/badge-tag.tsx.txt",
+        "registry": "http://localhost:3000/r/badge-tag.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/badge-tag.json"
+    },
+    {
+      "name": "banner",
+      "title": "Banner",
+      "category": "Atom",
+      "status": "deprecated",
+      "summary": "A full-width strip at the top of the app for product-wide announcements, promotions or warnings.",
+      "whenToUse": [],
+      "whenNotToUse": [],
+      "exports": [
+        "Banner"
+      ],
+      "props": {
+        "BannerCta": {
+          "members": [
+            {
+              "name": "label",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "href",
+              "type": "string",
+              "optional": true
+            }
+          ]
+        },
+        "BannerProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "tone",
+              "type": "\"neutral\" | \"promo\" | \"warning\"",
+              "optional": true,
+              "default": "\"neutral\""
+            },
+            {
+              "name": "message",
+              "type": "React.ReactNode",
+              "optional": false
+            },
+            {
+              "name": "cta",
+              "type": "BannerCta",
+              "optional": true
+            },
+            {
+              "name": "dismissible",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            },
+            {
+              "name": "onDismiss",
+              "type": "() => void",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-11",
+        "snt-12",
+        "snt-btn-neutral-800",
+        "snt-btn-primary-600",
+        "snt-scale-yellow-500",
+        "snt-text-white"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/banner.md",
+        "source": "http://localhost:3000/components/banner.tsx.txt",
+        "registry": "http://localhost:3000/r/banner.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/banner.json"
+    },
+    {
+      "name": "breadcrumb",
+      "title": "Breadcrumb",
+      "category": "Molecule",
+      "status": "stable",
+      "summary": "Shows where the current page sits in the hierarchy and lets users jump back up.",
+      "whenToUse": [
+        "Pages two or more levels deep (Assets / example.com / Finding #123)."
+      ],
+      "whenNotToUse": [
+        "Flat, top-level pages.",
+        "Showing step progress in a flow → a stepper.",
+        "Showing browsing history. Breadcrumbs reflect hierarchy, not history."
+      ],
+      "exports": [
+        "Breadcrumb",
+        "BreadcrumbItem",
+        "BreadcrumbSeparator"
+      ],
+      "props": {
+        "BreadcrumbProps": {
+          "extends": "React.HTMLAttributes<HTMLElement>",
+          "members": []
+        },
+        "BreadcrumbItemProps": {
+          "extends": "React.AnchorHTMLAttributes<HTMLAnchorElement>",
+          "members": [
+            {
+              "name": "isCurrent",
+              "type": "boolean",
+              "optional": true
+            },
+            {
+              "name": "visited",
+              "type": "boolean",
+              "optional": true
+            }
+          ]
+        },
+        "BreadcrumbSeparatorProps": {
+          "extends": "React.HTMLAttributes<HTMLSpanElement>",
+          "members": []
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-12",
+        "snt-14",
+        "snt-brand-primary-500",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/breadcrumb.md",
+        "source": "http://localhost:3000/components/breadcrumb.tsx.txt",
+        "registry": "http://localhost:3000/r/breadcrumb.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/breadcrumb.json"
+    },
+    {
+      "name": "button",
+      "title": "Button",
+      "category": "Atom",
+      "status": "stable",
+      "summary": "Buttons trigger an action on the current page: submitting a form, opening a modal, starting a scan.",
+      "whenToUse": [
+        "To commit, start or confirm an action (\"Start scan\", \"Save changes\").",
+        "To open an overlay that belongs to the current page (modal, drawer)."
+      ],
+      "whenNotToUse": [
+        "To move to another page or URL. Use a link (`<a>` / Next `<Link>`) instead, even if it looks like a button. Assistive tech announces buttons and links differently.",
+        "For a toggle between two states. Use [Switch](./switch-radio.md).",
+        "For a choice between options. Use [Radio](./switch-radio.md), [Select](./select.md) or [Tabs](./tabs.md)."
+      ],
+      "exports": [
+        "buttonVariants",
+        "Button"
+      ],
+      "props": {
+        "ButtonProps": {
+          "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
+          "members": [
+            {
+              "name": "intent",
+              "type": "\"default\" | \"primary\" | \"destructive\"",
+              "optional": true,
+              "default": "\"primary\""
+            },
+            {
+              "name": "variant",
+              "type": "\"solid\" | \"outline\" | \"ghost\"",
+              "optional": true,
+              "default": "\"solid\""
+            },
+            {
+              "name": "size",
+              "type": "\"sm\" | \"md\" | \"lg\"",
+              "optional": true,
+              "default": "\"md\""
+            },
+            {
+              "name": "loading",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            },
+            {
+              "name": "iconOnly",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-14",
+        "snt-bg-brand-subtle",
+        "snt-bg-error-subtle",
+        "snt-bg-subtle",
+        "snt-border-strong",
+        "snt-btn-error-600",
+        "snt-btn-error-700",
+        "snt-btn-primary-600",
+        "snt-btn-primary-700",
+        "snt-focus-ring",
+        "snt-focus-ring-error",
+        "snt-neutral-grey-300",
+        "snt-neutral-grey-400",
+        "snt-neutral-grey-500",
+        "snt-neutral-grey-800",
+        "snt-text-error",
+        "snt-text-inverse",
+        "snt-text-link",
+        "snt-text-on-accent",
+        "snt-text-primary"
+      ],
+      "clientComponent": false,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/button.md",
+        "source": "http://localhost:3000/components/button.tsx.txt",
+        "registry": "http://localhost:3000/r/button.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/button.json"
+    },
+    {
+      "name": "cards",
+      "title": "Cards",
+      "category": "Organism",
+      "status": "stable",
+      "summary": "Dashboard cards that summarise a topic and lead to a next step. There are two presets: **InsightCard** (a key/value list) and **AlertCard** (an active-issue callout).",
+      "whenToUse": [
+        "**InsightCard:** a compact summary of 3–6 metrics with an optional \"view more\" action.",
+        "**AlertCard:** highlighting active issues that need attention, with a count and a CTA."
+      ],
+      "whenNotToUse": [
+        "Charts → [Chart](./chart.md) `ChartCard`.",
+        "Tabular records → [Data Table](./data-table.md).",
+        "A generic container. There's also `components/ui/card.tsx` (shadcn); see Known gaps."
+      ],
+      "exports": [
+        "Card",
+        "CardHeader",
+        "CardTitle",
+        "CardDescription",
+        "CardContent",
+        "CardFooter",
+        "InsightCard",
+        "AlertCard"
+      ],
+      "props": {
+        "CardTitleProps": {
+          "extends": "React.HTMLAttributes<HTMLHeadingElement>",
+          "members": [
+            {
+              "name": "as",
+              "type": "\"h2\" | \"h3\" | \"h4\"",
+              "optional": true,
+              "description": "Heading level for the document outline. Defaults to h3.",
+              "default": "\"h3\""
+            }
+          ]
+        },
+        "InsightCardProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "title",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "rows",
+              "type": "InsightRow[]",
+              "optional": false
+            },
+            {
+              "name": "actionLabel",
+              "type": "string",
+              "optional": true,
+              "default": "\"View Details\""
+            },
+            {
+              "name": "onActionClick",
+              "type": "() => void",
+              "optional": true
+            },
+            {
+              "name": "headingLevel",
+              "type": "\"h2\" | \"h3\" | \"h4\"",
+              "optional": true
+            }
+          ]
+        },
+        "AlertCardProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "title",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "activeCount",
+              "type": "number",
+              "optional": false
+            },
+            {
+              "name": "alertTitle",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "alertBadge",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "action",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "onActionClick",
+              "type": "() => void",
+              "optional": true
+            },
+            {
+              "name": "headingLevel",
+              "type": "\"h2\" | \"h3\" | \"h4\"",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {
+        "InsightRow": {
+          "type": "{ label: string; value: string | number }"
+        }
+      },
+      "tokens": [
+        "snt-10",
+        "snt-11",
+        "snt-12",
+        "snt-14",
+        "snt-bg-error-subtle",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-brand-primary-500",
+        "snt-brand-primary-600",
+        "snt-scale-red-500",
+        "snt-surface-app",
+        "snt-text-error",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/cards.md",
+        "source": "http://localhost:3000/components/cards.tsx.txt",
+        "registry": "http://localhost:3000/r/cards.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/cards.json"
+    },
+    {
+      "name": "chart",
+      "title": "Chart",
+      "category": "Organism",
+      "status": "stable",
+      "summary": "A dependency-free set of SVG chart primitives in a shared card shell: donut, bar, line and treemap, plus stat blocks.",
+      "whenToUse": [],
+      "whenNotToUse": [
+        "A single bounded value → [Gauge](./gauge.md).",
+        "More than ~6 donut segments → use a bar chart.",
+        "Exact values users need to read or copy → [Data Table](./data-table.md)."
+      ],
+      "exports": [
+        "ChartCard",
+        "StatBlock",
+        "DonutChart",
+        "DonutLegend",
+        "BarChart",
+        "LineChart",
+        "TreemapChart"
+      ],
+      "props": {
+        "ChartCardProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "title",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "viewAll",
+              "type": "boolean",
+              "optional": true
+            },
+            {
+              "name": "trailing",
+              "type": "React.ReactNode",
+              "optional": true
+            },
+            {
+              "name": "onViewAll",
+              "type": "() => void",
+              "optional": true
+            }
+          ]
+        },
+        "StatBlockProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "label",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "accent",
+              "type": "string",
+              "optional": true
+            }
+          ]
+        },
+        "DonutChartProps": {
+          "extends": "React.SVGAttributes<SVGSVGElement>",
+          "members": [
+            {
+              "name": "data",
+              "type": "DonutSegment[]",
+              "optional": false
+            },
+            {
+              "name": "size",
+              "type": "number",
+              "optional": true,
+              "default": "180"
+            },
+            {
+              "name": "showTotal",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            }
+          ]
+        },
+        "DonutLegendProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "data",
+              "type": "DonutSegment[]",
+              "optional": false
+            },
+            {
+              "name": "fullWidth",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            }
+          ]
+        },
+        "BarChartProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "data",
+              "type": "BarDatum[]",
+              "optional": false
+            },
+            {
+              "name": "max",
+              "type": "number",
+              "optional": true
+            },
+            {
+              "name": "ticks",
+              "type": "number[]",
+              "optional": true
+            },
+            {
+              "name": "height",
+              "type": "number",
+              "optional": true,
+              "default": "256"
+            },
+            {
+              "name": "highlightLeader",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            }
+          ]
+        },
+        "LineChartProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "linePath",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "yLabels",
+              "type": "string[]",
+              "optional": true,
+              "default": "[\"1500\", \"1000\", \"500\", \"0\"]"
+            },
+            {
+              "name": "xLabels",
+              "type": "string[]",
+              "optional": true,
+              "default": "[]"
+            },
+            {
+              "name": "showArea",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            },
+            {
+              "name": "gradientId",
+              "type": "string",
+              "optional": true
+            }
+          ]
+        },
+        "TreemapChartProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "primary",
+              "type": "TreemapBlock[]",
+              "optional": false
+            },
+            {
+              "name": "secondary",
+              "type": "TreemapBlock[]",
+              "optional": true
+            },
+            {
+              "name": "height",
+              "type": "number",
+              "optional": true,
+              "default": "256"
+            }
+          ]
+        }
+      },
+      "types": {
+        "DonutSegment": {
+          "type": "{ label: string; value: number; color: string }"
+        },
+        "BarDatum": {
+          "type": "{ label: string; value: number }"
+        },
+        "TreemapBlock": {
+          "type": "{ label: string; value: number; color: string; textOn?: \"accent\" | \"primary\"; }"
+        }
+      },
+      "tokens": [
+        "snt-10",
+        "snt-11",
+        "snt-12",
+        "snt-14",
+        "snt-16",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-brand-primary-500",
+        "snt-brand-primary-600",
+        "snt-surface-app",
+        "snt-text-on-accent",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/chart.md",
+        "source": "http://localhost:3000/components/chart.tsx.txt",
+        "registry": "http://localhost:3000/r/chart.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/chart.json"
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "Lets the user turn an independent option on or off, or pick several items from a list.",
+      "whenToUse": [
+        "Several independent choices (\"Notify by email\", \"Notify by Slack\").",
+        "Selecting rows in a table, including a \"select all\" header with an indeterminate state.",
+        "A single opt-in that takes effect on submit (\"I accept the terms\")."
+      ],
+      "whenNotToUse": [
+        "Mutually exclusive choices → [Radio](./switch-radio.md).",
+        "A setting that applies **immediately** → [Switch](./switch-radio.md)."
+      ],
+      "exports": [
+        "Checkbox"
+      ],
+      "props": {
+        "CheckboxProps": {
+          "extends": "Omit<React.InputHTMLAttributes<HTMLInputElement>, \"onChange\" | \"type\">",
+          "members": [
+            {
+              "name": "checked",
+              "type": "boolean",
+              "optional": false
+            },
+            {
+              "name": "indeterminate",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            },
+            {
+              "name": "onChange",
+              "type": "(v: boolean) => void",
+              "optional": true
+            },
+            {
+              "name": "tone",
+              "type": "\"primary\" | \"neutral\"",
+              "optional": true,
+              "default": "\"primary\""
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-11",
+        "snt-14",
+        "snt-btn-neutral-800",
+        "snt-btn-primary-600",
+        "snt-focus-ring",
+        "snt-neutral-grey-400",
+        "snt-neutral-grey-600",
+        "snt-surface-row",
+        "snt-text-disabled",
+        "snt-text-on-accent",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/checkbox.md",
+        "source": "http://localhost:3000/components/checkbox.tsx.txt",
+        "registry": "http://localhost:3000/r/checkbox.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/checkbox.json"
+    },
+    {
+      "name": "data-table",
+      "title": "Data Table",
+      "category": "Organism",
+      "status": "stable",
+      "summary": "A composable card that lists findings (threat, asset, date, severity) with a header, column headers, rows and a pagination footer.",
+      "whenToUse": [
+        "Lists of findings or threats where users scan, compare and page through records."
+      ],
+      "whenNotToUse": [
+        "Fewer than ~5 items with rich content → a list of [Cards](./cards.md).",
+        "Key/value details of one record → a description list.",
+        "Arbitrary columns. This table currently has a **fixed threat-row schema** (see Known gaps)."
+      ],
+      "exports": [
+        "DataTable",
+        "DataTableHeader",
+        "DataTableBody",
+        "DataTableColumnHeaders",
+        "DataTableRow",
+        "DataTableFooter"
+      ],
+      "props": {
+        "DataTableProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": []
+        },
+        "DataTableHeaderProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "title",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "badge",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "viewAllLabel",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "onViewAll",
+              "type": "() => void",
+              "optional": true
+            },
+            {
+              "name": "tooltip",
+              "type": "string",
+              "optional": true,
+              "default": "\"Shortcut info about the widget — typically explains what powers this data.\""
+            }
+          ]
+        },
+        "DataTableBodyProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "scroll",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            },
+            {
+              "name": "minWidth",
+              "type": "number",
+              "optional": true,
+              "default": "560"
+            }
+          ]
+        },
+        "DataTableColumnHeadersProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "threatsLabel",
+              "type": "string",
+              "optional": true,
+              "default": "\"Threats\""
+            },
+            {
+              "name": "threatsTooltip",
+              "type": "string",
+              "optional": true,
+              "default": "\"Name of the detected threat, finding or CVE.\""
+            },
+            {
+              "name": "assetLabel",
+              "type": "string",
+              "optional": true,
+              "default": "\"Asset\""
+            },
+            {
+              "name": "assetTooltip",
+              "type": "string",
+              "optional": true,
+              "default": "\"The domain, IP or service the threat was found on.\""
+            },
+            {
+              "name": "dateLabel",
+              "type": "string",
+              "optional": true,
+              "default": "\"Date\""
+            },
+            {
+              "name": "severityLabel",
+              "type": "string",
+              "optional": true,
+              "default": "\"Severity\""
+            }
+          ]
+        },
+        "DataTableRowProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "threat",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "asset",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "date",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "severity",
+              "type": "\"high\" | \"critical\"",
+              "optional": false
+            }
+          ]
+        },
+        "DataTableFooterProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "perPage",
+              "type": "number",
+              "optional": true,
+              "default": "3"
+            },
+            {
+              "name": "rangeLabel",
+              "type": "string",
+              "optional": true,
+              "default": "\"1–3 of 492\""
+            },
+            {
+              "name": "onPrev",
+              "type": "() => void",
+              "optional": true
+            },
+            {
+              "name": "onNext",
+              "type": "() => void",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-11",
+        "snt-12",
+        "snt-14",
+        "snt-bg-subtle",
+        "snt-bg-warning-subtle",
+        "snt-border-default",
+        "snt-brand-primary-500",
+        "snt-brand-primary-600",
+        "snt-focus-ring",
+        "snt-lg",
+        "snt-neutral-grey-900",
+        "snt-scale-purple-50",
+        "snt-scale-purple-500",
+        "snt-scale-purple-600",
+        "snt-scale-red-50",
+        "snt-scale-red-500",
+        "snt-scale-red-600",
+        "snt-scale-yellow-500",
+        "snt-scale-yellow-700",
+        "snt-surface-app",
+        "snt-text-inverse",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/data-table.md",
+        "source": "http://localhost:3000/components/data-table.tsx.txt",
+        "registry": "http://localhost:3000/r/data-table.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/data-table.json"
+    },
+    {
+      "name": "empty-state",
+      "title": "Empty State",
+      "category": "Organism",
+      "status": "stable",
+      "summary": "Fills a region that has no content yet. It explains why it's empty and what to do next.",
+      "whenToUse": [
+        "First use (\"No assets yet\"), no results (\"No findings match these filters\"), cleared state (\"All caught up\"), or a recoverable error (\"Couldn't load findings\")."
+      ],
+      "whenNotToUse": [
+        "Content is loading → [Skeleton](./skeleton.md).",
+        "A page-level failure with no recovery → an error page."
+      ],
+      "exports": [
+        "EmptyState"
+      ],
+      "props": {
+        "EmptyStateProps": {
+          "extends": "Omit<React.HTMLAttributes<HTMLDivElement>, \"title\">",
+          "members": [
+            {
+              "name": "icon",
+              "type": "React.ComponentType<{ size?: number; className?: string }>",
+              "optional": false
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "tone",
+              "type": "EmptyStateTone",
+              "optional": true,
+              "default": "\"neutral\""
+            },
+            {
+              "name": "size",
+              "type": "EmptyStateSize",
+              "optional": true,
+              "default": "\"md\""
+            },
+            {
+              "name": "primaryAction",
+              "type": "EmptyStateAction",
+              "optional": true
+            },
+            {
+              "name": "secondaryAction",
+              "type": "EmptyStateAction",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {
+        "EmptyStateTone": {
+          "type": "\"neutral\" | \"warning\" | \"alert\""
+        },
+        "EmptyStateSize": {
+          "type": "\"sm\" | \"md\""
+        },
+        "EmptyStateAction": {
+          "type": "{ label: string; icon?: React.ComponentType<{ size?: number; className?: string }>; onClick?: () => void; }"
+        }
+      },
+      "tokens": [
+        "snt-12",
+        "snt-14",
+        "snt-16",
+        "snt-bg-error-subtle",
+        "snt-bg-subtle",
+        "snt-bg-warning-subtle",
+        "snt-border-default",
+        "snt-brand-primary-500",
+        "snt-brand-primary-600",
+        "snt-scale-yellow-600",
+        "snt-surface-app",
+        "snt-text-error",
+        "snt-text-primary",
+        "snt-text-secondary",
+        "snt-text-white"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/empty-state.md",
+        "source": "http://localhost:3000/components/empty-state.tsx.txt",
+        "registry": "http://localhost:3000/r/empty-state.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/empty-state.json"
+    },
+    {
+      "name": "filter-bar",
+      "title": "Filter Bar",
+      "category": "Molecule",
+      "status": "stable",
+      "summary": "A horizontal toolbar that combines search, filter pills and view actions above a table or list.",
+      "whenToUse": [
+        "Above a [Data Table](./data-table.md) or list where users narrow the results by several dimensions."
+      ],
+      "whenNotToUse": [
+        "One filter → just a [Select](./select.md) or [Search Bar](./search-bar.md).",
+        "Switching between unrelated views → [Tabs](./tabs.md)."
+      ],
+      "exports": [
+        "FilterBar",
+        "FilterBarGroup",
+        "FilterPill",
+        "FilterSearch",
+        "FilterAction",
+        "FilterClear",
+        "FilterOverflow",
+        "FilterBarDivider"
+      ],
+      "props": {
+        "FilterBarProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": []
+        },
+        "FilterBarGroupProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "grow",
+              "type": "boolean",
+              "optional": true
+            }
+          ]
+        },
+        "FilterPillProps": {
+          "extends": "Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, \"onClear\">",
+          "members": [
+            {
+              "name": "label",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "icon",
+              "type": "IconComponent",
+              "optional": true
+            },
+            {
+              "name": "count",
+              "type": "number",
+              "optional": true
+            },
+            {
+              "name": "active",
+              "type": "boolean",
+              "optional": true
+            },
+            {
+              "name": "onClear",
+              "type": "() => void",
+              "optional": true
+            }
+          ]
+        },
+        "FilterSearchProps": {
+          "extends": "Omit<React.InputHTMLAttributes<HTMLInputElement>, \"onChange\" | \"value\">",
+          "members": [
+            {
+              "name": "value",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "onChange",
+              "type": "(value: string) => void",
+              "optional": true
+            }
+          ]
+        },
+        "FilterActionProps": {
+          "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
+          "members": [
+            {
+              "name": "icon",
+              "type": "IconComponent",
+              "optional": false
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "iconOnly",
+              "type": "boolean",
+              "optional": true
+            },
+            {
+              "name": "muted",
+              "type": "boolean",
+              "optional": true
+            }
+          ]
+        },
+        "FilterClearProps": {
+          "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
+          "members": []
+        },
+        "FilterOverflowProps": {
+          "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
+          "members": [
+            {
+              "name": "count",
+              "type": "number",
+              "optional": false
+            }
+          ]
+        },
+        "FilterBarDividerProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": []
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-10",
+        "snt-12",
+        "snt-bg-brand-subtle",
+        "snt-border-default",
+        "snt-border-strong",
+        "snt-brand-primary-500",
+        "snt-focus-ring",
+        "snt-scale-red-700",
+        "snt-surface-app",
+        "snt-text-disabled",
+        "snt-text-error",
+        "snt-text-on-accent",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/filter-bar.md",
+        "source": "http://localhost:3000/components/filter-bar.tsx.txt",
+        "registry": "http://localhost:3000/r/filter-bar.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/filter-bar.json"
+    },
+    {
+      "name": "gauge",
+      "title": "Gauge",
+      "category": "Organism",
+      "status": "stable",
+      "summary": "A semicircular meter that shows a single value against a known maximum, such as a security score.",
+      "whenToUse": [
+        "One headline value on a bounded scale (Security score 72 / 100, coverage %)."
+      ],
+      "whenNotToUse": [
+        "Comparing several values → a bar chart ([Chart](./chart.md)).",
+        "Values without a meaningful maximum → a big-number `StatBlock` ([Chart](./chart.md)).",
+        "Task progress over time → a progress bar."
+      ],
+      "exports": [
+        "Gauge"
+      ],
+      "props": {
+        "GaugeProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "value",
+              "type": "number",
+              "optional": false
+            },
+            {
+              "name": "max",
+              "type": "number",
+              "optional": true,
+              "default": "100"
+            },
+            {
+              "name": "color",
+              "type": "\"blue\" | \"green\" | \"yellow\" | \"red\" | \"purple\"",
+              "optional": true,
+              "default": "\"blue\""
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-12",
+        "snt-14",
+        "snt-neutral-grey-500",
+        "snt-neutral-grey-600",
+        "snt-scale-blue-100",
+        "snt-scale-blue-200",
+        "snt-scale-blue-500",
+        "snt-scale-blue-600",
+        "snt-scale-green-100",
+        "snt-scale-green-200",
+        "snt-scale-green-500",
+        "snt-scale-green-600",
+        "snt-scale-purple-100",
+        "snt-scale-purple-200",
+        "snt-scale-purple-500",
+        "snt-scale-purple-600",
+        "snt-scale-red-100",
+        "snt-scale-red-200",
+        "snt-scale-red-500",
+        "snt-scale-red-600",
+        "snt-scale-yellow-100",
+        "snt-scale-yellow-200",
+        "snt-scale-yellow-500",
+        "snt-scale-yellow-600",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/gauge.md",
+        "source": "http://localhost:3000/components/gauge.tsx.txt",
+        "registry": "http://localhost:3000/r/gauge.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/gauge.json"
+    },
+    {
+      "name": "modal",
+      "title": "Modal",
+      "category": "Organism",
+      "status": "stable",
+      "summary": "A dialog that interrupts the current task to request a decision or focused input. It traps focus and blocks interaction with the rest of the page until it closes.",
+      "whenToUse": [
+        "Confirming a destructive or irreversible action (\"Delete 3 assets?\").",
+        "A short, self-contained task that must finish before continuing (rename, quick create)."
+      ],
+      "whenNotToUse": [
+        "Long forms or multi-step flows → a dedicated page.",
+        "Non-blocking information → [Alert](./alert.md) or [Toast](./toast-tooltip.md).",
+        "Content users need to reference while working on the page → a drawer / side panel (not built yet)."
+      ],
+      "exports": [
+        "Modal",
+        "ModalHeader",
+        "ModalTitle",
+        "ModalDescription",
+        "ModalBody",
+        "ModalFooter"
+      ],
+      "props": {
+        "ModalProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "open",
+              "type": "boolean",
+              "optional": false
+            },
+            {
+              "name": "onOpenChange",
+              "type": "(open: boolean) => void",
+              "optional": false
+            },
+            {
+              "name": "size",
+              "type": "\"sm\" | \"md\" | \"lg\"",
+              "optional": true,
+              "default": "\"sm\""
+            },
+            {
+              "name": "closeOnBackdrop",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            },
+            {
+              "name": "closeOnEscape",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            }
+          ]
+        },
+        "ModalHeaderProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "onClose",
+              "type": "() => void",
+              "optional": true
+            },
+            {
+              "name": "showClose",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            }
+          ]
+        },
+        "ModalTitleProps": {
+          "extends": "React.HTMLAttributes<HTMLSpanElement>",
+          "members": []
+        },
+        "ModalDescriptionProps": {
+          "extends": "React.HTMLAttributes<HTMLParagraphElement>",
+          "members": []
+        },
+        "ModalBodyProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "scrollable",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            }
+          ]
+        },
+        "ModalFooterProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "bordered",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-14",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-focus-ring",
+        "snt-surface-app",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/modal.md",
+        "source": "http://localhost:3000/components/modal.tsx.txt",
+        "registry": "http://localhost:3000/r/modal.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/modal.json"
+    },
+    {
+      "name": "search-bar",
+      "title": "Search Bar",
+      "category": "Molecule",
+      "status": "stable",
+      "summary": "A text input dedicated to searching or filtering content, with a search icon and a clear button.",
+      "whenToUse": [
+        "Free-text search across a page, table or the whole product."
+      ],
+      "whenNotToUse": [
+        "Form data entry → [Text Field](./text-field.md).",
+        "Combined with filter pills → use `FilterSearch` inside [Filter Bar](./filter-bar.md).",
+        "Global navigation search → the ⌘K command palette."
+      ],
+      "exports": [
+        "SearchBar"
+      ],
+      "props": {
+        "SearchBarProps": {
+          "extends": "Omit<React.InputHTMLAttributes<HTMLInputElement>, \"onChange\" | \"value\">",
+          "members": [
+            {
+              "name": "variant",
+              "type": "\"default\" | \"ghost\"",
+              "optional": true,
+              "default": "\"default\""
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "onChange",
+              "type": "(value: string) => void",
+              "optional": true
+            },
+            {
+              "name": "onClear",
+              "type": "() => void",
+              "optional": true
+            },
+            {
+              "name": "clearable",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            },
+            {
+              "name": "className",
+              "type": "string",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-14",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-brand-primary-500",
+        "snt-focus-ring",
+        "snt-surface-app",
+        "snt-text-disabled",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/search-bar.md",
+        "source": "http://localhost:3000/components/search-bar.tsx.txt",
+        "registry": "http://localhost:3000/r/search-bar.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/search-bar.json"
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "A single-choice dropdown that picks one value from a list of options.",
+      "whenToUse": [
+        "One choice from 5–15 known options (severity, region, scan profile)."
+      ],
+      "whenNotToUse": [
+        "2–4 options that should all be visible → [Radio](./switch-radio.md).",
+        "More than ~15 options, or the user needs to type to search → a searchable combobox (not built yet).",
+        "Several selections → a checkbox list or multi-select (not built yet).",
+        "Triggering actions (Edit, Delete) → a menu (not built yet), not a select."
+      ],
+      "exports": [
+        "Select"
+      ],
+      "props": {
+        "SelectProps": {
+          "extends": "Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\">",
+          "members": [
+            {
+              "name": "label",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "options",
+              "type": "SelectOption[]",
+              "optional": false
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "onChange",
+              "type": "(v: string) => void",
+              "optional": true
+            },
+            {
+              "name": "placeholder",
+              "type": "string",
+              "optional": true,
+              "default": "\"Select…\""
+            },
+            {
+              "name": "state",
+              "type": "SelectState | LegacySelectState",
+              "optional": true,
+              "default": "\"default\""
+            },
+            {
+              "name": "helperText",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "errorText",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            }
+          ]
+        }
+      },
+      "types": {
+        "SelectOption": {
+          "type": "{ value: string; label: string; disabled?: boolean; }"
+        },
+        "SelectState": {
+          "type": "\"default\" | \"hover\" | \"focused\" | \"error\" | \"disabled\""
+        },
+        "LegacySelectState": {
+          "type": "\"Default\" | \"Hover\" | \"Focused\" | \"Error\" | \"Disabled\"",
+          "deprecated": true
+        }
+      },
+      "tokens": [
+        "snt-11",
+        "snt-14",
+        "snt-border-default",
+        "snt-border-error",
+        "snt-border-focus",
+        "snt-border-strong",
+        "snt-brand-primary-500",
+        "snt-focus-ring",
+        "snt-lg",
+        "snt-neutral-grey-500",
+        "snt-surface-row",
+        "snt-surface-row-hover",
+        "snt-text-disabled",
+        "snt-text-error",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/select.md",
+        "source": "http://localhost:3000/components/select.tsx.txt",
+        "registry": "http://localhost:3000/r/select.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/select.json"
+    },
+    {
+      "name": "severity-badge",
+      "title": "Severity Badge",
+      "category": "Atom",
+      "status": "stable",
+      "summary": "The canonical way to show a finding's severity (Critical → Info), optionally with its numeric score (e.g. CVSS).",
+      "whenToUse": [
+        "Any time a vulnerability, threat or finding's severity is shown: tables, cards, detail headers."
+      ],
+      "whenNotToUse": [
+        "Generic statuses (Active, Failed) → [Badge](./badge-tag.md).",
+        "Aggregate severity charts → [Chart](./chart.md), which uses the same `snt-severity-*` palette."
+      ],
+      "exports": [
+        "SeverityBadge"
+      ],
+      "props": {
+        "SeverityBadgeProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "severity",
+              "type": "\"low\" | \"critical\" | \"high\" | \"medium\" | \"info\"",
+              "optional": false
+            },
+            {
+              "name": "score",
+              "type": "number",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-14",
+        "snt-scale-blue-50",
+        "snt-scale-blue-500",
+        "snt-scale-blue-600",
+        "snt-scale-green-50",
+        "snt-scale-green-500",
+        "snt-scale-green-600",
+        "snt-scale-purple-50",
+        "snt-scale-purple-500",
+        "snt-scale-purple-600",
+        "snt-scale-red-50",
+        "snt-scale-red-500",
+        "snt-scale-red-600",
+        "snt-scale-yellow-50",
+        "snt-scale-yellow-500",
+        "snt-scale-yellow-700"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/severity-badge.md",
+        "source": "http://localhost:3000/components/severity-badge.tsx.txt",
+        "registry": "http://localhost:3000/r/severity-badge.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/severity-badge.json"
+    },
+    {
+      "name": "skeleton",
+      "title": "Skeleton",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "A pulsing placeholder that mirrors the shape of content while it loads.",
+      "whenToUse": [
+        "Loading cards, tables, lists or charts whose layout is known.",
+        "First load of a page section, to avoid layout shift (CLS)."
+      ],
+      "whenNotToUse": [
+        "Short inline waits or unknown layouts → [Spinner](./spinner.md).",
+        "Background refreshes of content that's already shown. Keep the stale content and show a subtle indicator instead."
+      ],
+      "exports": [
+        "Skeleton"
+      ],
+      "props": {},
+      "types": {},
+      "tokens": [
+        "snt-neutral-grey-200"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/skeleton.md",
+        "source": "http://localhost:3000/components/skeleton.tsx.txt",
+        "registry": "http://localhost:3000/r/skeleton.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/skeleton.json"
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "category": "Atom",
+      "status": "alpha",
+      "summary": "An indeterminate loading indicator for short waits when the shape of the result is unknown.",
+      "whenToUse": [
+        "Short waits (< ~3s) inside a button, a small panel, or an inline region.",
+        "When the content's layout isn't known in advance."
+      ],
+      "whenNotToUse": [
+        "Loading a page or card whose layout is known → [Skeleton](./skeleton.md). It reduces perceived wait time and layout shift.",
+        "Long operations with measurable progress → a progress bar (not built yet).",
+        "Inside a Button → use `<Button loading>`, which renders its own spinner."
+      ],
+      "exports": [
+        "Spinner"
+      ],
+      "props": {
+        "SpinnerProps": {
+          "extends": "React.HTMLAttributes<HTMLSpanElement>",
+          "members": [
+            {
+              "name": "size",
+              "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+              "optional": true,
+              "default": "\"md\""
+            },
+            {
+              "name": "tone",
+              "type": "\"primary\" | \"neutral\" | \"white\"",
+              "optional": true,
+              "default": "\"primary\""
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "optional": true,
+              "default": "\"Loading\""
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-brand-primary-500",
+        "snt-text-disabled",
+        "snt-text-white"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/spinner.md",
+        "source": "http://localhost:3000/components/spinner.tsx.txt",
+        "registry": "http://localhost:3000/r/spinner.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/spinner.json"
+    },
+    {
+      "name": "switch-radio",
+      "title": "Switch · Radio",
+      "category": "Atom",
+      "status": "stable",
+      "summary": "**Switch** turns a single setting on or off, effective immediately. **Radio** picks exactly one option from a small, visible set.",
+      "whenToUse": [
+        "**Switch:** a setting that applies the moment it changes (\"Continuous scanning\").",
+        "**Radio:** 2–5 mutually exclusive options that should all be visible for comparison."
+      ],
+      "whenNotToUse": [
+        "A choice that only takes effect after \"Save\" → [Checkbox](./checkbox.md), not a Switch.",
+        "More than ~5 options → [Select](./select.md).",
+        "Multiple selections → [Checkbox](./checkbox.md)."
+      ],
+      "exports": [
+        "Switch",
+        "RadioGroup",
+        "Radio"
+      ],
+      "props": {
+        "SwitchProps": {
+          "extends": "Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, \"onChange\">",
+          "members": [
+            {
+              "name": "checked",
+              "type": "boolean",
+              "optional": false
+            },
+            {
+              "name": "onChange",
+              "type": "(v: boolean) => void",
+              "optional": true
+            },
+            {
+              "name": "variant",
+              "type": "\"dark\" | \"primary\"",
+              "optional": true,
+              "default": "\"dark\""
+            }
+          ]
+        },
+        "RadioGroupProps": {
+          "extends": "Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\">",
+          "members": [
+            {
+              "name": "value",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "onChange",
+              "type": "(v: string) => void",
+              "optional": true
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            }
+          ]
+        },
+        "RadioProps": {
+          "extends": "Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, \"onChange\" | \"value\">",
+          "members": [
+            {
+              "name": "value",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "checked",
+              "type": "boolean",
+              "optional": true
+            },
+            {
+              "name": "onChange",
+              "type": "() => void",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-14",
+        "snt-btn-primary-600",
+        "snt-btn-primary-700",
+        "snt-focus-ring",
+        "snt-neutral-grey-300",
+        "snt-neutral-grey-400",
+        "snt-neutral-grey-600",
+        "snt-neutral-grey-800",
+        "snt-neutral-grey-900",
+        "snt-text-disabled",
+        "snt-text-primary"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/switch-radio.md",
+        "source": "http://localhost:3000/components/switch-radio.tsx.txt",
+        "registry": "http://localhost:3000/r/switch-radio.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/switch-radio.json"
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "category": "Molecule",
+      "status": "stable",
+      "summary": "Switches between related views of the same object without leaving the page.",
+      "whenToUse": [
+        "2–7 peer views of one entity (Overview · Findings · Assets · Settings).",
+        "The content of each tab makes sense on its own."
+      ],
+      "whenNotToUse": [
+        "Sequential steps → a stepper (not built yet).",
+        "Navigating to different pages → navigation links (sidebar, breadcrumb).",
+        "Toggling a filter on one dataset → a segmented control or [Filter Bar](./filter-bar.md).",
+        "Comparing content side by side → users can't see two tabs at once."
+      ],
+      "exports": [
+        "Tabs",
+        "TabsList",
+        "TabsTrigger",
+        "TabsContent"
+      ],
+      "props": {
+        "TabsProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "value",
+              "type": "string",
+              "optional": true,
+              "description": "Controlled active value."
+            },
+            {
+              "name": "defaultValue",
+              "type": "string",
+              "optional": true,
+              "description": "Uncontrolled initial value."
+            },
+            {
+              "name": "onValueChange",
+              "type": "(v: string) => void",
+              "optional": true
+            }
+          ]
+        },
+        "TabsListProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "variant",
+              "type": "TabsVariant",
+              "optional": true,
+              "description": "underline (default): page-level sections. pill: compact segmented control.",
+              "default": "\"underline\""
+            }
+          ]
+        },
+        "TabsTriggerProps": {
+          "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
+          "members": [
+            {
+              "name": "value",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "count",
+              "type": "number",
+              "optional": true,
+              "description": "Optional count chip after the label (e.g. open findings)."
+            }
+          ]
+        },
+        "TabsContentProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "value",
+              "type": "string",
+              "optional": false
+            }
+          ]
+        }
+      },
+      "types": {
+        "TabsVariant": {
+          "type": "\"underline\" | \"pill\""
+        }
+      },
+      "tokens": [
+        "snt-10",
+        "snt-14",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-brand-primary-500",
+        "snt-btn-primary-600",
+        "snt-focus-ring",
+        "snt-neutral-grey-200",
+        "snt-sm",
+        "snt-surface-row",
+        "snt-text-on-accent",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/tabs.md",
+        "source": "http://localhost:3000/components/tabs.tsx.txt",
+        "registry": "http://localhost:3000/r/tabs.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/tabs.json"
+    },
+    {
+      "name": "text-field",
+      "title": "Text Field",
+      "category": "Atom",
+      "status": "stable",
+      "summary": "A single-line input for short free text: names, domains, IPs, emails.",
+      "whenToUse": [
+        "The answer is one line and can't be picked from a known list."
+      ],
+      "whenNotToUse": [
+        "Multi-line text → [Textarea](./textarea.md).",
+        "A choice from a known list → [Select](./select.md) (5+ options) or [Radio](./switch-radio.md) (2–5 options).",
+        "Searching or filtering a list → [Search Bar](./search-bar.md)."
+      ],
+      "exports": [
+        "TextField"
+      ],
+      "props": {
+        "TextFieldProps": {
+          "extends": "Omit<React.InputHTMLAttributes<HTMLInputElement>, \"size\">",
+          "members": [
+            {
+              "name": "label",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "variant",
+              "type": "\"filled\" | \"outlined\"",
+              "optional": true,
+              "default": "\"filled\""
+            },
+            {
+              "name": "state",
+              "type": "\"default\" | \"focused\" | \"error\" | \"disabled\"",
+              "optional": true,
+              "default": "\"default\""
+            },
+            {
+              "name": "helperText",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "errorText",
+              "type": "string",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-11",
+        "snt-14",
+        "snt-bg-error-subtle",
+        "snt-bg-subtle",
+        "snt-border-error",
+        "snt-border-focus",
+        "snt-border-strong",
+        "snt-brand-primary-600",
+        "snt-neutral-grey-200",
+        "snt-surface-app",
+        "snt-text-disabled",
+        "snt-text-error",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/text-field.md",
+        "source": "http://localhost:3000/components/text-field.tsx.txt",
+        "registry": "http://localhost:3000/r/text-field.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/text-field.json"
+    },
+    {
+      "name": "text-space",
+      "title": "Text Space",
+      "category": "Organism",
+      "status": "stable",
+      "summary": "A rich-text composer (toolbar + writing area) for formatted notes, reports and comments.",
+      "whenToUse": [
+        "Long-form content that needs formatting: remediation notes, report summaries, comments with lists or links."
+      ],
+      "whenNotToUse": [
+        "Plain multi-line text → [Textarea](./textarea.md).",
+        "Single-line input → [Text Field](./text-field.md)."
+      ],
+      "exports": [
+        "TextSpaceToolbar",
+        "TextSpace"
+      ],
+      "props": {
+        "TextSpaceToolbarProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "size",
+              "type": "ToolbarSize",
+              "optional": true,
+              "default": "\"simple\""
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "optional": true
+            },
+            {
+              "name": "active",
+              "type": "Record<string, boolean>",
+              "optional": true,
+              "description": "Pressed state of toggle commands, keyed by execCommand name.",
+              "default": "{}"
+            },
+            {
+              "name": "onCommand",
+              "type": "() => void",
+              "optional": true,
+              "description": "Called after a command runs (TextSpace uses it to sync value + state)."
+            }
+          ]
+        },
+        "TextSpaceProps": {
+          "extends": "Omit<React.HTMLAttributes<HTMLDivElement>, \"defaultValue\" | \"onChange\">",
+          "members": [
+            {
+              "name": "toolbarSize",
+              "type": "ToolbarSize",
+              "optional": true,
+              "default": "\"simple\""
+            },
+            {
+              "name": "state",
+              "type": "TextSpaceState | LegacyTextSpaceState",
+              "optional": true,
+              "default": "\"default\""
+            },
+            {
+              "name": "placeholder",
+              "type": "string",
+              "optional": true,
+              "default": "\"Write something awesome…\""
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "optional": true,
+              "description": "Accessible name for the editing area. Use `aria-labelledby` for a visible label."
+            },
+            {
+              "name": "defaultValue",
+              "type": "string",
+              "optional": true,
+              "description": "Initial HTML. The editor is uncontrolled — read changes via onChange.",
+              "default": "\"\""
+            },
+            {
+              "name": "onChange",
+              "type": "(html: string) => void",
+              "optional": true
+            }
+          ]
+        }
+      },
+      "types": {
+        "TextSpaceState": {
+          "type": "\"default\" | \"disabled\" | \"error\""
+        },
+        "LegacyTextSpaceState": {
+          "type": "\"enabled\"",
+          "deprecated": true
+        },
+        "ToolbarSize": {
+          "type": "\"simple\" | \"full\""
+        }
+      },
+      "tokens": [
+        "snt-11",
+        "snt-12",
+        "snt-14",
+        "snt-bg-error-subtle",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-brand-primary-500",
+        "snt-focus-ring",
+        "snt-surface-app",
+        "snt-text-error",
+        "snt-text-link",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/text-space.md",
+        "source": "http://localhost:3000/components/text-space.tsx.txt",
+        "registry": "http://localhost:3000/r/text-space.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/text-space.json"
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "category": "Atom",
+      "status": "stable",
+      "summary": "A multi-line plain-text input for notes, descriptions and justifications.",
+      "whenToUse": [
+        "The answer may need more than one sentence (scan notes, exception justification)."
+      ],
+      "whenNotToUse": [
+        "One-line answers → [Text Field](./text-field.md).",
+        "Formatted text (bold, lists) → [Text Space](./text-space.md)."
+      ],
+      "exports": [
+        "Textarea"
+      ],
+      "props": {
+        "TextareaProps": {
+          "extends": "Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, \"state\">",
+          "members": [
+            {
+              "name": "label",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "state",
+              "type": "\"default\" | \"focused\" | \"error\" | \"disabled\"",
+              "optional": true,
+              "default": "\"default\""
+            },
+            {
+              "name": "helperText",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "errorText",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "showCounter",
+              "type": "boolean",
+              "optional": true,
+              "default": "false"
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-11",
+        "snt-14",
+        "snt-border-error",
+        "snt-border-focus",
+        "snt-border-strong",
+        "snt-focus-ring",
+        "snt-neutral-grey-200",
+        "snt-scale-yellow-700",
+        "snt-surface-row",
+        "snt-text-error",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/textarea.md",
+        "source": "http://localhost:3000/components/textarea.tsx.txt",
+        "registry": "http://localhost:3000/r/textarea.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/textarea.json"
+    },
+    {
+      "name": "toast-tooltip",
+      "title": "Toast · Tooltip",
+      "category": "Atom",
+      "status": "stable",
+      "summary": "**Toast** is a brief, non-blocking confirmation of something that just happened. **Tooltip** is a short label or hint that appears on hover or focus of a control.",
+      "whenToUse": [
+        "**Toast:** confirming the result of a user action (\"Scan started\", \"Report exported\").",
+        "**Tooltip:** naming an icon-only button, or giving a one-line definition of a term."
+      ],
+      "whenNotToUse": [
+        "Errors that block progress, or anything the user must act on → [Alert](./alert.md) or [Modal](./modal.md). Toasts disappear.",
+        "System-wide announcements → [Banner](./banner.md) / [Alert](./alert.md).",
+        "Essential information, or interactive content (links, buttons) → not a tooltip. Use inline text or a popover.",
+        "Disabled controls → tooltips can't be reached on disabled elements (Atlassian guidance)."
+      ],
+      "exports": [
+        "Toast",
+        "useToast",
+        "ToastProvider",
+        "Tooltip"
+      ],
+      "props": {
+        "ToastProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "intent",
+              "type": "ToastIntent",
+              "optional": true,
+              "default": "\"info\""
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "onDismiss",
+              "type": "() => void",
+              "optional": true
+            },
+            {
+              "name": "duration",
+              "type": "number",
+              "optional": true,
+              "description": "Length of the countdown bar in ms (matches auto-dismiss in ToastProvider).",
+              "default": "4000"
+            },
+            {
+              "name": "paused",
+              "type": "boolean",
+              "optional": true,
+              "description": "Freezes the countdown bar (hover / focus in ToastProvider).",
+              "default": "false"
+            }
+          ]
+        },
+        "ToastOptions": {
+          "members": [
+            {
+              "name": "intent",
+              "type": "ToastIntent",
+              "optional": true,
+              "default": "\"info\""
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "duration",
+              "type": "number",
+              "optional": true,
+              "description": "Auto-dismiss delay in ms. Default 4000; failures default to 8000.",
+              "default": "4000"
+            }
+          ]
+        },
+        "TooltipProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "content",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "position",
+              "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+              "optional": true,
+              "default": "\"top\""
+            },
+            {
+              "name": "open",
+              "type": "boolean",
+              "optional": true,
+              "description": "Force the bubble open (docs / screenshots). Omit for hover + focus behaviour."
+            },
+            {
+              "name": "delay",
+              "type": "number",
+              "optional": true,
+              "description": "Hover delay in ms before showing.",
+              "default": "300"
+            }
+          ]
+        }
+      },
+      "types": {
+        "ToastIntent": {
+          "type": "\"success\" | \"alert\" | \"info\" | \"warning\""
+        }
+      },
+      "tokens": [
+        "snt-12",
+        "snt-14",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-feedback-alert",
+        "snt-feedback-info",
+        "snt-feedback-success",
+        "snt-feedback-warning",
+        "snt-focus-ring",
+        "snt-neutral-grey-900",
+        "snt-surface-app",
+        "snt-text-inverse",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/toast-tooltip.md",
+        "source": "http://localhost:3000/components/toast-tooltip.tsx.txt",
+        "registry": "http://localhost:3000/r/toast-tooltip.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/toast-tooltip.json"
+    }
+  ]
+}

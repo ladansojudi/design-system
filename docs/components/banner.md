@@ -5,7 +5,7 @@ category: Atom
 status: deprecated
 source: components/ui/banner.tsx
 styleguide: /styleguide/banner
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-267
 apg: N/A
 ---
 
@@ -55,9 +55,9 @@ _Draft rationale, inferred from the code. Confirm with design before publishing.
 
 | `tone` | Background |
 |---|---|
-| `neutral` *(default)* | `s4e-btn-neutral-800` |
-| `promo` | `s4e-btn-primary-600` |
-| `warning` | `s4e-scale-yellow-500` |
+| `neutral` *(default)* | `snt-btn-neutral-800` |
+| `promo` | `snt-btn-primary-600` |
+| `warning` | `snt-scale-yellow-500` |
 
 ## Accessibility
 - No landmark or live-region role. If it's kept temporarily, wrap it in `<section aria-label="Announcement">`.

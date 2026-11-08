@@ -6,14 +6,14 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Modal
+ * sentinel/ui — Modal
  *
  * Drop this file into your project at components/ui/modal.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  *   • lucide-react (for the close icon)
  */
 
@@ -38,6 +38,8 @@ type ModalContextValue = {
 
 const ModalContext = React.createContext<ModalContextValue | null>(null);
 
+const noopSubscribe = () => () => {};
+
 export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   open:          boolean;
   onOpenChange:  (open: boolean) => void;
@@ -60,17 +62,17 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     },
     ref,
   ) => {
-    const [mounted, setMounted]         = React.useState(false);
+    // true on the client only — portals can't render during SSR.
+    const mounted = React.useSyncExternalStore(noopSubscribe, () => true, () => false);
     const [hasTitle, setHasTitle]       = React.useState(false);
     const [hasDescription, setHasDesc]  = React.useState(false);
     const panelRef                      = React.useRef<HTMLDivElement>(null);
+    const backdropRef                   = React.useRef<HTMLDivElement>(null);
     React.useImperativeHandle(ref, () => panelRef.current as HTMLDivElement);
 
     const autoId        = React.useId();
     const titleId       = `${autoId}-title`;
     const descriptionId = `${autoId}-description`;
-
-    React.useEffect(() => { setMounted(true); }, []);
 
     // Escape to close + Tab focus trap.
     React.useEffect(() => {
@@ -119,7 +121,15 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
       const { overflow } = document.body.style;
       document.body.style.overflow = "hidden";
 
+      // Make everything outside the dialog inert, so screen-reader virtual
+      // cursors and pointer clicks can't reach the page behind it.
+      const inerted = Array.from(document.body.children).filter(
+        (el): el is HTMLElement => el instanceof HTMLElement && el !== backdropRef.current && !el.inert,
+      );
+      inerted.forEach((el) => { el.inert = true; });
+
       return () => {
+        inerted.forEach((el) => { el.inert = false; });
         document.body.style.overflow = overflow;
         previouslyFocused?.focus?.();
       };
@@ -134,6 +144,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
 
     return createPortal(
       <div
+        ref={backdropRef}
         className="fixed inset-0 z-modal flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
         onClick={closeOnBackdrop ? () => onOpenChange(false) : undefined}
       >
@@ -146,7 +157,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             aria-describedby={hasDescription ? descriptionId : undefined}
             tabIndex={-1}
             className={cn(
-              "relative w-full bg-s4e-surface-app border border-s4e-border-default rounded-xl shadow-xl focus:outline-none",
+              "relative w-full bg-snt-surface-app border border-snt-border-default rounded-xl shadow-xl focus:outline-none",
               SIZE_CLASS[size],
               className,
             )}
@@ -174,7 +185,7 @@ export const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
       <div
         ref={ref}
         className={cn(
-          "flex items-center justify-between px-5 py-3.5 border-b border-s4e-border-default",
+          "flex items-center justify-between px-5 py-3.5 border-b border-snt-border-default",
           className,
         )}
         {...props}
@@ -185,7 +196,7 @@ export const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="w-7 h-7 rounded-md hover:bg-s4e-bg-subtle flex items-center justify-center text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-focus-ring"
+            className="w-7 h-7 rounded-md hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
             <X size={15} aria-hidden />
           </button>
@@ -210,7 +221,7 @@ export const ModalTitle = React.forwardRef<HTMLSpanElement, ModalTitleProps>(
       <span
         ref={ref}
         id={id ?? ctx?.titleId}
-        className={cn("text-[14px] font-semibold text-s4e-text-primary", className)}
+        className={cn("text-snt-14 font-semibold text-snt-text-primary", className)}
         {...props}
       >
         {children}
@@ -234,7 +245,7 @@ export const ModalDescription = React.forwardRef<HTMLParagraphElement, ModalDesc
       <p
         ref={ref}
         id={id ?? ctx?.descriptionId}
-        className={cn("text-[14px] text-s4e-text-secondary leading-relaxed", className)}
+        className={cn("text-snt-14 text-snt-text-secondary leading-relaxed", className)}
         {...props}
       >
         {children}
@@ -279,7 +290,7 @@ export const ModalFooter = React.forwardRef<HTMLDivElement, ModalFooterProps>(
         className={cn(
           "flex justify-end gap-2",
           bordered
-            ? "px-5 py-3.5 border-t border-s4e-border-default"
+            ? "px-5 py-3.5 border-t border-snt-border-default"
             : "px-5 pb-4",
           className,
         )}

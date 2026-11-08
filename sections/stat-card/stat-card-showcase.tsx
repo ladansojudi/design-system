@@ -23,15 +23,15 @@ type StatCardProps = {
 
 function StatCard({ icon: Icon, title, metric, description, trend }: StatCardProps) {
   return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl px-5 py-4 bg-s4e-surface-app flex flex-col gap-3">
+    <div className="border border-snt-neutral-divider-10 rounded-xl px-5 py-4 bg-snt-surface-app flex flex-col gap-3">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <Icon size={14} className="text-s4e-text-disabled shrink-0" />
-        <span className="text-[12px] font-medium text-s4e-text-secondary">{title}</span>
+        <Icon size={14} className="text-snt-text-disabled shrink-0" />
+        <span className="text-[12px] font-medium text-snt-text-secondary">{title}</span>
       </div>
 
       {/* Metric */}
-      <div className="text-[32px] font-bold leading-none text-s4e-text-primary tracking-tight">
+      <div className="text-[32px] font-bold leading-none text-snt-text-primary tracking-tight">
         {metric}
       </div>
 
@@ -39,18 +39,18 @@ function StatCard({ icon: Icon, title, metric, description, trend }: StatCardPro
       {trend && (
         <div className={cn(
           "flex items-center gap-1 text-[12px] font-medium",
-          trend.direction === "up" ? "text-s4e-scale-green-600" : "text-s4e-scale-red-600",
+          trend.direction === "up" ? "text-snt-scale-green-600" : "text-snt-scale-red-600",
         )}>
           {trend.direction === "up"
             ? <TrendingUp size={13} />
             : <TrendingDown size={13} />
           }
           <span>{trend.value}</span>
-          <span className="font-normal text-s4e-text-disabled">{trend.label}</span>
+          <span className="font-normal text-snt-text-disabled">{trend.label}</span>
         </div>
       )}
       {description && !trend && (
-        <p className="text-[12px] text-s4e-text-disabled leading-relaxed">{description}</p>
+        <p className="text-[12px] text-snt-text-disabled leading-relaxed">{description}</p>
       )}
     </div>
   );
@@ -61,8 +61,8 @@ function StatCard({ icon: Icon, title, metric, description, trend }: StatCardPro
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
     </div>
   );
 }
@@ -76,7 +76,7 @@ export function StatCardShowcase() {
       {/* With trend */}
       <div>
         <SectionTitle>With Trend</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <StatCard
               icon={Link2}
@@ -97,7 +97,7 @@ export function StatCardShowcase() {
       {/* With description */}
       <div>
         <SectionTitle>With Description</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <StatCard
               icon={RefreshCw}
@@ -118,7 +118,7 @@ export function StatCardShowcase() {
       {/* Combined — 2x2 grid like dashboard */}
       <div>
         <SectionTitle>Dashboard Grid</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <StatCard
               icon={RefreshCw}

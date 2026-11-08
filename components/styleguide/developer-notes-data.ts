@@ -19,7 +19,7 @@ export type DevNote = {
 export const DEV_NOTES: Record<string, DevNote> = {
   // ── Atoms ────────────────────────────────────────────────────────────────
   button: {
-    importLine: 'import { Button } from "@s4e/ui";',
+    importLine: 'import { Button } from "@sentinel/ui";',
     usage: `<Button intent="primary" variant="contained" size="md" loading={false}>\n  Start scan\n</Button>`,
     props: [
       { name: "intent",   type: '"default" | "primary" | "success" | "warning" | "error"', def: '"primary"', desc: "Color intent." },
@@ -40,7 +40,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   "text-field": {
-    importLine: 'import { TextField } from "@s4e/ui";',
+    importLine: 'import { TextField } from "@sentinel/ui";',
     usage: `<TextField\n  label="Asset name"\n  variant="outlined"\n  state="error"\n  errorText="Required"\n/>`,
     props: [
       { name: "label",     type: "string", desc: "Always-visible field label." },
@@ -61,7 +61,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   textarea: {
-    importLine: 'import { Textarea } from "@s4e/ui";',
+    importLine: 'import { Textarea } from "@sentinel/ui";',
     usage: `<Textarea\n  label="Finding description"\n  value={value}\n  onChange={setValue}\n  maxLength={200}\n/>`,
     props: [
       { name: "value",    type: "string", desc: "Controlled value." },
@@ -82,7 +82,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   checkbox: {
-    importLine: 'import { Checkbox } from "@s4e/ui";',
+    importLine: 'import { Checkbox } from "@sentinel/ui";',
     usage: `<Checkbox\n  checked={all}\n  indeterminate={some}\n  onChange={toggleAll}\n  label="All asset types"\n/>`,
     props: [
       { name: "checked",       type: "boolean", desc: "Checked state." },
@@ -103,7 +103,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   select: {
-    importLine: 'import { Select } from "@s4e/ui";',
+    importLine: 'import { Select } from "@sentinel/ui";',
     usage: `const [region, setRegion] = useState("eu-west-1");\n\n<Select\n  label="Region"\n  value={region}\n  onChange={setRegion}\n  options={REGIONS}\n/>`,
     props: [
       { name: "options",  type: "{ value: string; label: string; disabled?: boolean }[]", desc: "Selectable entries." },
@@ -124,7 +124,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   "severity-badge": {
-    importLine: 'import { SeverityBadge } from "@s4e/ui";',
+    importLine: 'import { SeverityBadge } from "@sentinel/ui";',
     usage: `<SeverityBadge severity="critical" score={9.8} />`,
     props: [
       { name: "severity", type: '"info" | "low" | "medium" | "high" | "critical"', desc: "Risk level — drives all colors." },
@@ -142,7 +142,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   "switch-radio": {
-    importLine: 'import { Switch, Radio } from "@s4e/ui";',
+    importLine: 'import { Switch, Radio } from "@sentinel/ui";',
     usage: `<Switch checked={on} onChange={setOn} variant="primary" />\n\n<Radio name="plan" value="pro" checked={plan === "pro"} onChange={setPlan} />`,
     props: [
       { name: "checked",  type: "boolean", desc: "On/selected state." },
@@ -162,7 +162,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   "toast-tooltip": {
-    importLine: 'import { Toast, Tooltip } from "@s4e/ui";',
+    importLine: 'import { Toast, Tooltip } from "@sentinel/ui";',
     usage: `<Tooltip content="Powers this widget" position="top">\n  <InfoIcon />\n</Tooltip>\n\ntoast.success("Scan completed");`,
     props: [
       { name: "content",  type: "ReactNode", desc: "Tooltip body / toast message." },
@@ -182,7 +182,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   "badge-tag": {
-    importLine: 'import { Badge } from "@s4e/ui";',
+    importLine: 'import { Badge } from "@sentinel/ui";',
     usage: `<Badge color="primary" showDot dotPosition="left">\n  Active\n</Badge>`,
     props: [
       { name: "color",       type: '"warning" | "error" | "success" | "neutral" | "info" | "primary"', def: '"neutral"', desc: "Semantic color." },
@@ -202,7 +202,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   alert: {
-    importLine: 'import { Alert } from "@s4e/ui";',
+    importLine: 'import { Alert } from "@sentinel/ui";',
     usage: `<Alert variant="warning" title="Quota almost exceeded" dismissible>\n  You have used 9.2 GB of your 10 GB allowance.\n</Alert>`,
     props: [
       { name: "variant",     type: '"info" | "success" | "warning" | "error"', def: '"info"', desc: "Severity + icon + colors." },
@@ -222,7 +222,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   banner: {
-    importLine: 'import { Banner } from "@s4e/ui";',
+    importLine: 'import { Banner } from "@sentinel/ui";',
     usage: `<Banner tone="promo" cta={{ label: "Try it", href: "/ai" }}>\n  AI-assisted vulnerability triage is live for all teams.\n</Banner>`,
     props: [
       { name: "tone",        type: '"neutral" | "promo" | "warning"', def: '"neutral"', desc: "Background color." },
@@ -241,7 +241,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   spinner: {
-    importLine: 'import { Spinner } from "@s4e/ui";',
+    importLine: 'import { Spinner } from "@sentinel/ui";',
     usage: `<Spinner size="sm" tone="white" label="Saving" />`,
     props: [
       { name: "size",  type: '"xs" | "sm" | "md" | "lg"', def: '"md"', desc: "12 / 16 / 24 / 36px." },
@@ -260,7 +260,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   skeleton: {
-    importLine: 'import { Skeleton } from "@s4e/ui";',
+    importLine: 'import { Skeleton } from "@sentinel/ui";',
     usage: `<Skeleton className="h-3 w-1/2" />\n<Skeleton className="h-10 w-10 rounded-full" />`,
     props: [
       { name: "className", type: "string", desc: "Shape + size via Tailwind utilities." },
@@ -278,9 +278,9 @@ export const DEV_NOTES: Record<string, DevNote> = {
   },
   shadow: {
     importLine: '// Utility classes — no import needed',
-    usage: `<div className="shadow-s4e-md rounded-lg">…</div>`,
+    usage: `<div className="shadow-snt-md rounded-lg">…</div>`,
     props: [
-      { name: "shadow-s4e-xs…2xl", type: "utility", desc: "Six elevation levels mapped to interaction layers." },
+      { name: "shadow-snt-xs…2xl", type: "utility", desc: "Six elevation levels mapped to interaction layers." },
     ],
     notes: [
       "One elevation per surface — never stack xs + md to fake depth.",
@@ -294,7 +294,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
   },
   icons: {
     importLine: 'import { Shield, Info, ArrowRight } from "lucide-react";',
-    usage: `<Shield size={16} className="text-s4e-text-secondary" />`,
+    usage: `<Shield size={16} className="text-snt-text-secondary" />`,
     props: [
       { name: "size",      type: "number", def: "16", desc: "12 / 14 / 16 / 20 / 24 — stay on the scale." },
       { name: "className", type: "string", desc: "Color via text-* tokens; stroke via Tailwind." },
@@ -313,7 +313,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
 
   // ── Molecules ──────────────────────────────────────────────────────────
   "search-bar": {
-    importLine: 'import { SearchBar } from "@s4e/ui";',
+    importLine: 'import { SearchBar } from "@sentinel/ui";',
     usage: `<SearchBar value={query} onChange={setQuery} placeholder="Search…" />`,
     props: [
       { name: "value",       type: "string", desc: "Controlled query." },
@@ -332,7 +332,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   tabs: {
-    importLine: 'import { Tabs } from "@s4e/ui";',
+    importLine: 'import { Tabs } from "@sentinel/ui";',
     usage: `<Tabs\n  tabs={[{ id: "all", label: "All" }, { id: "open", label: "Open", badge: 24 }]}\n  active={active}\n  onSelect={setActive}\n/>`,
     props: [
       { name: "tabs",     type: "{ id; label; badge?; disabled? }[]", desc: "Tab definitions." },
@@ -351,7 +351,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   breadcrumb: {
-    importLine: 'import { Breadcrumb } from "@s4e/ui";',
+    importLine: 'import { Breadcrumb } from "@sentinel/ui";',
     usage: `<Breadcrumb items={[\n  { label: "Assets", href: "/assets" },\n  { label: "zero.webappsecurity.com" },\n]} />`,
     props: [
       { name: "items",    type: "{ label: string; href?: string }[]", desc: "Path, root → current." },
@@ -369,7 +369,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   "filter-bar": {
-    importLine: 'import { FilterBar, FilterPill } from "@s4e/ui";',
+    importLine: 'import { FilterBar, FilterPill } from "@sentinel/ui";',
     usage: `<FilterBar onClear={clearAll}>\n  <FilterPill label="Advanced Security" count={1} active />\n  <FilterPill label="Tags" />\n</FilterBar>`,
     props: [
       { name: "active",  type: "boolean", desc: "Pill is applied (brand-tinted)." },
@@ -390,7 +390,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
 
   // ── Organisms ──────────────────────────────────────────────────────────
   sidebar: {
-    importLine: 'import { Sidebar } from "@s4e/ui";',
+    importLine: 'import { Sidebar } from "@sentinel/ui";',
     usage: `<Sidebar groups={NAV} collapsed={collapsed} onToggle={setCollapsed} />`,
     props: [
       { name: "groups",    type: "{ label; items: NavItem[] }[]", desc: "Grouped navigation." },
@@ -409,7 +409,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   "top-bar": {
-    importLine: 'import { TopBar } from "@s4e/ui";',
+    importLine: 'import { TopBar } from "@sentinel/ui";',
     usage: `<TopBar testMode actions={<><ScanGenerator /><AskAI /></>} user={user} />`,
     props: [
       { name: "testMode", type: "boolean", def: "false", desc: "Shows the red Test Mode pill." },
@@ -428,7 +428,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   "text-space": {
-    importLine: 'import { TextSpace } from "@s4e/ui";',
+    importLine: 'import { TextSpace } from "@sentinel/ui";',
     usage: `<TextSpace toolbar="full" state="default" value={doc} onChange={setDoc} />`,
     props: [
       { name: "toolbar",  type: '"simple" | "full"', def: '"simple"', desc: "Formatting controls shown." },
@@ -447,7 +447,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   "data-table": {
-    importLine: 'import { DataTable } from "@s4e/ui";',
+    importLine: 'import { DataTable } from "@sentinel/ui";',
     usage: `<DataTable\n  columns={columns}\n  rows={rows}\n  header={{ title: "Threats", badge: "24 new", viewAll: true }}\n/>`,
     props: [
       { name: "columns", type: "Column[]", desc: "Column defs (key, label, render, width)." },
@@ -455,7 +455,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
       { name: "header",  type: "{ title; description?; badge?; viewAll? }", desc: "Card header config." },
     ],
     notes: [
-      "Column headers use the bg-s4e-surface-table-header token (theme-aware).",
+      "Column headers use the bg-snt-surface-table-header token (theme-aware).",
       "Wrap in overflow-x-auto for wide tables on small viewports.",
       "Row tooltips render via fixed positioning to escape overflow clipping.",
     ],
@@ -466,7 +466,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   cards: {
-    importLine: 'import { StatCard, InsightCard } from "@s4e/ui";',
+    importLine: 'import { StatCard, InsightCard } from "@sentinel/ui";',
     usage: `<StatCard label="Total Issues" value={266} trend={+3} />`,
     props: [
       { name: "label", type: "string", desc: "Card heading." },
@@ -486,15 +486,15 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   chart: {
-    importLine: 'import { Donut, BarChart, AreaChart, Treemap } from "@s4e/ui";',
+    importLine: 'import { Donut, BarChart, AreaChart, Treemap } from "@sentinel/ui";',
     usage: `<Donut data={slices} centerValue={total} centerLabel="Total" />`,
     props: [
-      { name: "data",        type: "{ label; value; color }[]", desc: "Series — color from --s4e-data-* tokens." },
+      { name: "data",        type: "{ label; value; color }[]", desc: "Series — color from --snt-data-* tokens." },
       { name: "centerValue", type: "ReactNode", desc: "Donut hole metric." },
       { name: "height",      type: "number", desc: "Chart height (area/bar)." },
     ],
     notes: [
-      "Use the --s4e-data-* palette so charts recolor with the theme.",
+      "Use the --snt-data-* palette so charts recolor with the theme.",
       "Never encode severity in a chart with severity colors — use data colors.",
       "Pair every chart with a legend or center label — the 'so what'.",
     ],
@@ -505,7 +505,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   modal: {
-    importLine: 'import { Modal } from "@s4e/ui";',
+    importLine: 'import { Modal } from "@sentinel/ui";',
     usage: `<Modal open={open} onClose={close} size="md" title="Confirm scan">\n  …\n</Modal>`,
     props: [
       { name: "open",    type: "boolean", desc: "Visibility." },
@@ -525,7 +525,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   "empty-state": {
-    importLine: 'import { EmptyState } from "@s4e/ui";',
+    importLine: 'import { EmptyState } from "@sentinel/ui";',
     usage: `<EmptyState\n  icon={<InboxIcon />}\n  title="No findings yet"\n  action={<Button>Start a scan</Button>}\n/>`,
     props: [
       { name: "icon",   type: "ReactNode", desc: "Single 20–24px icon." },
@@ -545,7 +545,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     ],
   },
   gauge: {
-    importLine: 'import { Gauge } from "@s4e/ui";',
+    importLine: 'import { Gauge } from "@sentinel/ui";',
     usage: `<Gauge value={75} max={100} color="purple" />`,
     props: [
       { name: "value", type: "number", desc: "Current value." },
@@ -555,7 +555,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     notes: [
       "Clamp value to 0…max before rendering.",
       "Pair the dial with the numeric value — the arc alone is imprecise.",
-      "Animate the draw with the s4e-gauge-draw keyframes.",
+      "Animate the draw with the snt-gauge-draw keyframes.",
     ],
     edgeCases: [
       "Value above max: clamp to max, don't overshoot the arc.",
@@ -572,7 +572,7 @@ export const DEV_NOTES: Record<string, DevNote> = {
     notes: [
       "This screen is composed entirely from design-system components and tokens — zero hardcoded color values.",
       "Every region is labelled with its source component; click a chip to open that component's page.",
-      "Charts use the --s4e-data-* tokens so they recolor with the theme.",
+      "Charts use the --snt-data-* tokens so they recolor with the theme.",
     ],
     edgeCases: [
       "Narrow viewport: the app sidebar hides (lg:flex) and the grid collapses to one column.",

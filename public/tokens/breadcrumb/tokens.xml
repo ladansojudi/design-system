@@ -4,10 +4,10 @@
 <resources>
 
     <!-- Colors -->
-    <color name="brand_primary_500">#1383D4</color>
-    <color name="text_primary">#121F28</color>
-    <color name="text_secondary">#657078</color>
-    <color name="text_disabled">#A7ADB2</color>
+    <color name="brand_primary_500">#5B5BD6</color>
+    <color name="text_primary">#09090B</color>
+    <color name="text_secondary">#52525B</color>
+    <color name="text_disabled">#A1A1AA</color>
 
     <!-- Spacing -->
     <dimen name="space_2">8dp</dimen>

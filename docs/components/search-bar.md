@@ -5,7 +5,7 @@ category: Molecule
 status: stable
 source: components/ui/search-bar.tsx
 styleguide: /styleguide/search-bar
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-164
 apg: N/A (native input, role="searchbox")
 ---
 
@@ -77,11 +77,11 @@ A text input dedicated to searching or filtering content, with a search icon and
 
 | Role | Token |
 |---|---|
-| Border | `s4e-border-default` |
-| Ghost fill | `s4e-bg-subtle` |
-| Surface | `s4e-surface-app` |
-| Icon / clear | `s4e-text-secondary` → focus `s4e-brand-primary-500` |
-| Text / placeholder | `s4e-text-primary` / `s4e-text-secondary` |
+| Border | `snt-border-default` |
+| Ghost fill | `snt-bg-subtle` |
+| Surface | `snt-surface-app` |
+| Icon / clear | `snt-text-secondary` → focus `snt-brand-primary-500` |
+| Text / placeholder | `snt-text-primary` / `snt-text-secondary` |
 
 ## Design ↔ Code
 

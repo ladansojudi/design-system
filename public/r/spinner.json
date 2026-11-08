@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spinner",
+  "title": "Spinner",
+  "description": "An indeterminate loading indicator for short waits when the shape of the result is unknown.",
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/spinner.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — Spinner\n *\n * Drop this file into your project at components/ui/spinner.tsx.\n *\n * Requires:\n *   • Tailwind CSS v4\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n */\n\ntype Size = \"xs\" | \"sm\" | \"md\" | \"lg\";\ntype Tone = \"primary\" | \"neutral\" | \"white\";\n\nexport interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {\n  size?:  Size;\n  tone?:  Tone;\n  label?: string;\n}\n\nconst SIZE_CLASS: Record<Size, string> = {\n  xs: \"w-3 h-3 border-2\",\n  sm: \"w-4 h-4 border-2\",\n  md: \"w-6 h-6 border-[2.5px]\",\n  lg: \"w-9 h-9 border-[3px]\",\n};\n\nconst TONE_CLASS: Record<Tone, string> = {\n  primary: \"border-snt-brand-primary-500/25 border-t-snt-brand-primary-500\",\n  neutral: \"border-snt-text-disabled/25 border-t-snt-text-secondary\",\n  white:   \"border-snt-text-white/30 border-t-snt-text-white\",\n};\n\nexport const Spinner = React.forwardRef<HTMLSpanElement, SpinnerProps>(\n  (\n    {\n      size  = \"md\",\n      tone  = \"primary\",\n      label = \"Loading\",\n      className,\n      ...props\n    },\n    ref,\n  ) => {\n    return (\n      <span\n        ref={ref}\n        role=\"status\"\n        aria-label={label}\n        className={cn(\"inline-block align-middle\", className)}\n        {...props}\n      >\n        <span\n          className={cn(\n            \"block rounded-full animate-spin\",\n            SIZE_CLASS[size],\n            TONE_CLASS[tone],\n          )}\n        />\n        <span className=\"sr-only\">{label}</span>\n      </span>\n    );\n  },\n);\nSpinner.displayName = \"Spinner\";\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "alpha"
+  },
+  "docs": "Spinner (alpha). Usage, accessibility and known gaps: http://localhost:3000/docs/components/spinner.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

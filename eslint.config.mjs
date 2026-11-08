@@ -2,7 +2,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import globals from "globals";
-import s4e from "./eslint/eslint-plugin-s4e.mjs";
+import sentinel from "./eslint/eslint-plugin-sentinel.mjs";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -15,13 +15,8 @@ const eslintConfig = defineConfig([
   },
   // Design-system guardrails on the distributable components.
   {
-    ...s4e.configs.recommended,
+    ...sentinel.configs.recommended,
     files: ["components/ui/**/*.tsx"],
-    rules: {
-      ...s4e.configs.recommended.rules,
-      // Known debt: components still use text-[Npx] until the type scale lands.
-      "s4e/no-arbitrary-values": "off",
-    },
   },
   // Override default ignores of eslint-config-next.
   globalIgnores([

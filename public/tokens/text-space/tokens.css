@@ -4,30 +4,25 @@
 
 :root {
   /* Colors */
-  --s4e-brand-primary-500: #1383d4;
-  --s4e-scale-red-50: #fcf3f2;
-  --s4e-neutral-grey-100: #f7f8f8;
-  --s4e-neutral-grey-300: #dfe2e2;
-  --s4e-surface-app: #ffffff;
-  --s4e-text-primary: #121f28;
-  --s4e-text-secondary: #657078;
-  --s4e-text-disabled: #a7adb2;
-  --s4e-text-error: #b0291e;
+  --snt-neutral-grey-300: #d4d4d8;
+  --snt-surface-app: #ffffff;
+  --snt-text-primary: #09090b;
+  --snt-text-secondary: #52525b;
+  --snt-text-disabled: #a1a1aa;
 
   /* Spacing */
-  --space-1: 4px;
-  --space-3: 12px;
-  --space-4: 16px;
   --space-2: 8px;
+  --space-4: 16px;
   --space-6: 24px;
   --space-5: 20px;
   --space-10: 40px;
+  --space-3: 12px;
+  --space-1: 4px;
   --space-8: 32px;
 
   /* Radius */
-  --radius-base: 4px;
-  --radius-lg: 8px;
   --radius-xl: 12px;
+  --radius-lg: 8px;
 
   /* Border width */
   --border-width-1: 1px;

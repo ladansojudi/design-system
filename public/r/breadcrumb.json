@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb",
+  "title": "Breadcrumb",
+  "description": "Shows where the current page sits in the hierarchy and lets users jump back up.",
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/breadcrumb.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — Breadcrumb\n *\n * Drop this file into your project at components/ui/breadcrumb.tsx.\n *\n * Requires:\n *   • Tailwind CSS v4\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n */\n\nexport type BreadcrumbProps = React.HTMLAttributes<HTMLElement>;\n\nexport const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(\n  ({ className, children, ...props }, ref) => {\n    return (\n      <nav\n        ref={ref}\n        aria-label=\"Breadcrumb\"\n        className={cn(\"flex items-center gap-2\", className)}\n        {...props}\n      >\n        {children}\n      </nav>\n    );\n  },\n);\nBreadcrumb.displayName = \"Breadcrumb\";\n\nexport interface BreadcrumbItemProps\n  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {\n  isCurrent?: boolean;\n  visited?:   boolean;\n}\n\nexport const BreadcrumbItem = React.forwardRef<HTMLAnchorElement, BreadcrumbItemProps>(\n  ({ className, isCurrent, visited, children, href, ...props }, ref) => {\n    if (isCurrent) {\n      return (\n        <span\n          aria-current=\"page\"\n          className={cn(\"text-snt-14 text-snt-text-secondary\", className)}\n        >\n          {children}\n        </span>\n      );\n    }\n\n    return (\n      <a\n        ref={ref}\n        href={href}\n        className={cn(\n          \"text-snt-14 font-medium cursor-pointer transition-colors\",\n          visited\n            ? \"text-snt-text-secondary\"\n            : \"text-snt-text-primary hover:text-snt-brand-primary-500 hover:underline hover:underline-offset-2\",\n          className,\n        )}\n        {...props}\n      >\n        {children}\n      </a>\n    );\n  },\n);\nBreadcrumbItem.displayName = \"BreadcrumbItem\";\n\nexport type BreadcrumbSeparatorProps = React.HTMLAttributes<HTMLSpanElement>;\n\nexport const BreadcrumbSeparator = React.forwardRef<HTMLSpanElement, BreadcrumbSeparatorProps>(\n  ({ className, children, ...props }, ref) => {\n    return (\n      <span\n        ref={ref}\n        aria-hidden\n        className={cn(\"text-snt-text-secondary text-snt-12 select-none\", className)}\n        {...props}\n      >\n        {children ?? \"•\"}\n      </span>\n    );\n  },\n);\nBreadcrumbSeparator.displayName = \"BreadcrumbSeparator\";\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "stable"
+  },
+  "docs": "Breadcrumb (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/breadcrumb.md",
+  "categories": [
+    "molecule"
+  ],
+  "type": "registry:ui"
+}

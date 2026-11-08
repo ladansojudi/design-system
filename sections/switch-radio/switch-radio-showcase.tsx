@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
 import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
+import { Switch, Radio } from "@/components/ui/switch-radio";
 
 // ── Toggle ─────────────────────────────────────────────────────────────────
 
@@ -22,33 +23,7 @@ function Toggle({
   variant?: ToggleVariant;
   disabled?: boolean;
 }) {
-  const track = checked
-    ? variant === "primary"
-      ? cn("bg-s4e-btn-primary-600", !disabled && "hover:bg-s4e-btn-primary-700")
-      : cn("bg-s4e-neutral-grey-800", !disabled && "hover:bg-s4e-neutral-grey-900")
-    : cn("bg-s4e-neutral-grey-300", !disabled && "hover:bg-s4e-neutral-grey-400");
-
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      disabled={disabled}
-      onClick={() => onChange?.(!checked)}
-      className={cn(
-        "relative w-9 h-[22px] rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-s4e-brand-primary-500",
-        track,
-        disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer",
-      )}
-    >
-      <div
-        className={cn(
-          "absolute top-[3px] w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200 ease-in-out",
-          checked ? "translate-x-[18px]" : "translate-x-[3px]",
-        )}
-      />
-    </button>
-  );
+  return <Switch checked={checked} onChange={onChange} variant={variant} disabled={disabled} aria-label="Example switch" />;
 }
 
 // ── Radio ──────────────────────────────────────────────────────────────────
@@ -62,26 +37,7 @@ function RadioButton({
   onChange?: () => void;
   disabled?: boolean;
 }) {
-  return (
-    <button
-      type="button"
-      role="radio"
-      aria-checked={checked}
-      disabled={disabled}
-      onClick={() => !disabled && onChange?.()}
-      className={cn(
-        "w-[18px] h-[18px] rounded-full border-2 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-s4e-brand-primary-500",
-        checked
-          ? "border-s4e-neutral-grey-800"
-          : "border-s4e-neutral-grey-400 hover:border-s4e-neutral-grey-600",
-        disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer",
-      )}
-    >
-      {checked && (
-        <div className="w-2 h-2 rounded-full bg-s4e-neutral-grey-800 transition-transform scale-100" />
-      )}
-    </button>
-  );
+  return <Radio checked={checked} onChange={onChange} disabled={disabled} aria-label="Example option" />;
 }
 
 // ── Shared layout ──────────────────────────────────────────────────────────
@@ -89,16 +45,16 @@ function RadioButton({
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
     </div>
   );
 }
 
 function PropertyRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-8 py-4 border-b border-s4e-neutral-divider-10 last:border-b-0">
-      <span className="w-16 shrink-0 text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled">
+    <div className="flex items-center gap-8 py-4 border-b border-snt-neutral-divider-10 last:border-b-0">
+      <span className="w-16 shrink-0 text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled">
         {label}
       </span>
       <div className="flex flex-wrap items-center gap-6">{children}</div>
@@ -108,7 +64,7 @@ function PropertyRow({ label, children }: { label: string; children: React.React
 
 function ItemLabel({ label, disabled }: { label: string; disabled?: boolean }) {
   return (
-    <span className={cn("text-[14px]", disabled ? "text-s4e-text-disabled" : "text-s4e-text-primary")}>
+    <span className={cn("text-[14px]", disabled ? "text-snt-text-disabled" : "text-snt-text-primary")}>
       {label}
     </span>
   );
@@ -120,7 +76,7 @@ function switchSnippets(variant: ToggleVariant, checked: boolean, label: string)
   return {
     react: `<Switch checked={${checked}} variant="${variant}" onChange={setOn} />`,
     swift: `Toggle("${label}", isOn: $isOn)
-    .toggleStyle(.s4e(.${variant}))`,
+    .toggleStyle(.sentinel(.${variant}))`,
     xml:   `<com.google.android.material.materialswitch.MaterialSwitch
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -133,7 +89,7 @@ function switchDisabledSnippets(variant: ToggleVariant, checked: boolean): Recor
   return {
     react: `<Switch checked={${checked}} variant="${variant}" disabled />`,
     swift: `Toggle("Disabled", isOn: .constant(${checked}))
-    .toggleStyle(.s4e(.${variant}))
+    .toggleStyle(.sentinel(.${variant}))
     .disabled(true)`,
     xml:   `<com.google.android.material.materialswitch.MaterialSwitch
     android:layout_width="wrap_content"
@@ -195,7 +151,7 @@ function SwitchCard() {
   return (
     <div>
       <SectionTitle>Switch</SectionTitle>
-      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
+      <div className="border border-snt-neutral-divider-10 rounded-xl px-6">
         <PropertyRow label="Variant">
           <Copyable
             snippets={switchSnippets("dark", darkOn, darkOn ? "Checked" : "UnChecked")}
@@ -252,7 +208,7 @@ function RadioCard() {
   return (
     <div>
       <SectionTitle>Radio</SectionTitle>
-      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6">
+      <div className="border border-snt-neutral-divider-10 rounded-xl px-6">
         <PropertyRow label="Options">
           <Copyable snippets={RADIO_GROUP_SNIPPETS}>
             <div className="flex flex-wrap gap-x-6 gap-y-3">
@@ -262,7 +218,7 @@ function RadioCard() {
                   className="flex items-center gap-2.5 cursor-pointer group"
                 >
                   <RadioButton checked={selected === opt} onChange={() => setSelected(opt)} />
-                  <span className="text-[14px] text-s4e-text-primary">
+                  <span className="text-[14px] text-snt-text-primary">
                     {opt}
                   </span>
                 </label>
@@ -344,7 +300,7 @@ export function SwitchRadioExamples() {
     <div className="space-y-10">
       <div>
         <SectionTitle>Switch</SectionTitle>
-        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+        <p className="text-[12px] text-snt-text-secondary leading-relaxed mb-4 max-w-2xl">
           Toggle variants across dark and primary, plus disabled states.
         </p>
         <div className="space-y-4">
@@ -377,7 +333,7 @@ export function SwitchRadioExamples() {
 
       <div>
         <SectionTitle>Radio</SectionTitle>
-        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+        <p className="text-[12px] text-snt-text-secondary leading-relaxed mb-4 max-w-2xl">
           Single options and grouped radio buttons.
         </p>
         <div className="space-y-4">
@@ -389,7 +345,7 @@ export function SwitchRadioExamples() {
                 {RADIO_OPTIONS.map((opt, i) => (
                   <label key={opt} className="flex items-center gap-2.5">
                     <RadioButton checked={i === 0} />
-                    <span className="text-[14px] text-s4e-text-primary">{opt}</span>
+                    <span className="text-[14px] text-snt-text-primary">{opt}</span>
                   </label>
                 ))}
               </div>

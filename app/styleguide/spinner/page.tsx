@@ -9,7 +9,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Spinner — Design System",
+  title: "Spinner — Sentinel Design System",
 };
 
 export default function SpinnerPage() {

@@ -9,7 +9,7 @@ import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 
 export const metadata: Metadata = {
-  title: "Skeleton — Design System",
+  title: "Skeleton — Sentinel Design System",
 };
 
 export default function SkeletonPage() {
@@ -35,7 +35,7 @@ export default function SkeletonPage() {
             <Anatomy
               parts={[
                 { label: "Shape",     description: "Rounded rectangle or circle that mirrors the bounding box of the real element." },
-                { label: "Fill",      description: "Neutral grey (s4e-neutral-grey-200) — never a brand or semantic color." },
+                { label: "Fill",      description: "Neutral grey (snt-neutral-grey-200) — never a brand or semantic color." },
                 { label: "Pulse",     description: "2-second opacity pulse signals the content is loading, not broken." },
               ]}
             />

@@ -5,7 +5,7 @@ category: Atom
 status: stable
 source: components/ui/text-field.tsx
 styleguide: /styleguide/text-field
-figma: TBD
+figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=4-2
 apg: N/A (native <input>)
 ---
 
@@ -88,12 +88,12 @@ Don't mix variants within a single form.
 
 | Role | Token |
 |---|---|
-| Filled background | `s4e-bg-subtle` · error `s4e-bg-error-subtle` |
-| Border default / focus / error / disabled | `s4e-border-strong` / `s4e-border-focus` / `s4e-border-error` / `s4e-neutral-grey-200` |
-| Label | `s4e-text-secondary` · focus `s4e-brand-primary-600` · error `s4e-text-error` |
-| Value | `s4e-text-primary` |
-| Placeholder / helper | `s4e-text-secondary` |
-| Floating label backdrop | `s4e-surface-app` |
+| Filled background | `snt-bg-subtle` · error `snt-bg-error-subtle` |
+| Border default / focus / error / disabled | `snt-border-strong` / `snt-border-focus` / `snt-border-error` / `snt-neutral-grey-200` |
+| Label | `snt-text-secondary` · focus `snt-brand-primary-600` · error `snt-text-error` |
+| Value | `snt-text-primary` |
+| Placeholder / helper | `snt-text-secondary` |
+| Floating label backdrop | `snt-surface-app` |
 
 ## Design ↔ Code
 

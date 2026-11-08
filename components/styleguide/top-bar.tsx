@@ -10,13 +10,13 @@ export function TopBar() {
   const { open, setOpen } = useMobileSidebar();
 
   return (
-    <div className="sticky top-0 z-sticky bg-s4e-surface-app/85 backdrop-blur-md border-b border-s4e-neutral-divider-10 shadow-s4e-xs h-[52px] px-4 md:px-8 flex items-center gap-3">
+    <div className="sticky top-0 z-sticky bg-snt-surface-app/85 backdrop-blur-md border-b border-snt-neutral-divider-10 shadow-snt-xs h-[52px] px-4 md:px-8 flex items-center gap-3">
       <button
         type="button"
         onClick={() => setOpen(!open)}
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
-        className="md:hidden inline-flex items-center justify-center size-9 rounded-md border border-s4e-neutral-divider-10 text-s4e-text-secondary hover:text-s4e-text-primary hover:bg-s4e-neutral-grey-100 transition-colors shrink-0"
+        className="md:hidden inline-flex items-center justify-center size-9 rounded-md border border-snt-neutral-divider-10 text-snt-text-secondary hover:text-snt-text-primary hover:bg-snt-neutral-grey-100 transition-colors shrink-0"
       >
         {open ? <X className="size-4" /> : <Menu className="size-4" />}
       </button>
