@@ -22,7 +22,9 @@ export type SelectOption = {
   disabled?: boolean;
 };
 
-export type SelectState = "Default" | "Hover" | "Focused" | "Error" | "Disabled";
+export type SelectState = "default" | "hover" | "focused" | "error" | "disabled";
+/** @deprecated Use the lowercase values — every other component uses lowercase states. */
+export type LegacySelectState = "Default" | "Hover" | "Focused" | "Error" | "Disabled";
 
 export interface SelectProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
@@ -31,18 +33,18 @@ export interface SelectProps
   value?:       string;
   onChange?:    (v: string) => void;
   placeholder?: string;
-  state?:       SelectState;
+  state?:       SelectState | LegacySelectState;
   helperText?:  string;
   errorText?:   string;
   disabled?:    boolean;
 }
 
 const BORDER_CLASS: Record<SelectState, string> = {
-  Default:  "border-s4e-neutral-grey-300",
-  Hover:    "border-s4e-neutral-grey-500",
-  Focused:  "border-s4e-brand-primary-600",
-  Error:    "border-s4e-scale-red-600",
-  Disabled: "border-s4e-neutral-grey-300",
+  default:  "border-s4e-border-strong",
+  hover:    "border-s4e-neutral-grey-500",
+  focused:  "border-s4e-border-focus",
+  error:    "border-s4e-border-error",
+  disabled: "border-s4e-border-strong",
 };
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
@@ -53,7 +55,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
       value,
       onChange,
       placeholder = "Select…",
-      state = "Default",
+      state: stateProp = "default",
       helperText,
       errorText,
       disabled = false,
@@ -97,9 +99,10 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, activeIndex]);
 
-    const isError    = state === "Error";
-    const isDisabled = disabled || state === "Disabled";
-    const isFocused  = state === "Focused" || open;
+    const state      = stateProp.toLowerCase() as SelectState;
+    const isError    = state === "error";
+    const isDisabled = disabled || state === "disabled";
+    const isFocused  = state === "focused" || open;
     const selected   = options.find((o) => o.value === value);
     const message    = isError && errorText ? errorText : helperText;
 
@@ -185,9 +188,9 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     };
 
     const borderClass = isError
-      ? BORDER_CLASS.Error
+      ? BORDER_CLASS.error
       : isFocused
-        ? BORDER_CLASS.Focused
+        ? BORDER_CLASS.focused
         : BORDER_CLASS[state];
 
     return (
@@ -198,7 +201,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             htmlFor={triggerId}
             className={cn(
               "block text-[11px] font-medium mb-1.5",
-              isError ? "text-s4e-scale-red-600" : "text-s4e-text-secondary",
+              isError ? "text-s4e-text-error" : "text-s4e-text-secondary",
             )}
           >
             {label}
@@ -224,8 +227,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               "border", borderClass, "bg-s4e-surface-row",
               isDisabled
                 ? "opacity-40 cursor-not-allowed"
-                : "cursor-pointer hover:border-s4e-neutral-grey-500 focus:outline-none focus:border-s4e-brand-primary-600 focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500/40",
-              isFocused && !isError && "ring-2 ring-s4e-brand-primary-500/20",
+                : "cursor-pointer hover:border-s4e-neutral-grey-500 focus:outline-none focus:border-s4e-border-focus focus-visible:ring-2 focus-visible:ring-s4e-focus-ring/40",
+              isFocused && !isError && "ring-2 ring-s4e-focus-ring/20",
             )}
           >
             <span
@@ -252,7 +255,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
               id={listId}
               role="listbox"
               aria-labelledby={label ? labelId : undefined}
-              className="absolute z-20 left-0 right-0 mt-1.5 max-h-60 overflow-auto rounded-md border border-s4e-neutral-divider-10 bg-s4e-surface-row shadow-s4e-lg"
+              className="absolute z-20 left-0 right-0 mt-1.5 max-h-60 overflow-auto rounded-md border border-s4e-border-default bg-s4e-surface-row shadow-s4e-lg"
             >
               {options.map((opt, i) => {
                 const isSel    = opt.value === value;
@@ -292,7 +295,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             id={helperId}
             className={cn(
               "mt-1 text-[11px] leading-tight",
-              isError ? "text-s4e-scale-red-600" : "text-s4e-text-secondary",
+              isError ? "text-s4e-text-error" : "text-s4e-text-secondary",
             )}
           >
             {message}

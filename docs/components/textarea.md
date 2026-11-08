@@ -75,8 +75,8 @@ A multi-line plain-text input for notes, descriptions and justifications.
 | Role | Token |
 |---|---|
 | Background | `s4e-surface-row` |
-| Border default / focus / error / disabled | `s4e-neutral-grey-300` / `s4e-brand-primary-600` / `s4e-scale-red-600` / `s4e-neutral-grey-200` |
-| Focus ring | `s4e-brand-primary-500` @ 20% |
+| Border default / focus / error / disabled | `s4e-border-strong` / `s4e-border-focus` / `s4e-border-error` / `s4e-neutral-grey-200` |
+| Focus ring | `s4e-focus-ring` @ 20% |
 | Text / placeholder / helper | `s4e-text-primary` / `s4e-text-secondary` / `s4e-text-secondary` |
 | Counter warning | `s4e-scale-yellow-700` |
 

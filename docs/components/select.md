@@ -93,8 +93,8 @@ A single-choice dropdown that picks one value from a list of options.
 | Trigger / listbox bg | `s4e-surface-row` |
 | Option hover / active | `s4e-surface-row-hover` |
 | Selected option tint / check | `s4e-brand-primary-500` @ 8% / `s4e-brand-primary-500` |
-| Border default / hover / focus / error | `s4e-neutral-grey-300` / `-500` / `s4e-brand-primary-600` / `s4e-scale-red-600` |
-| Listbox border / shadow | `s4e-neutral-divider-10` / `shadow-s4e-lg` |
+| Border default / hover / focus / error | `s4e-border-strong` / `-500` / `s4e-border-focus` / `s4e-border-error` |
+| Listbox border / shadow | `s4e-border-default` / `shadow-s4e-lg` |
 | Value / placeholder / helper | `s4e-text-primary` / `s4e-text-secondary` / `s4e-text-secondary` |
 
 ## Design ↔ Code
@@ -114,7 +114,7 @@ A single-choice dropdown that picks one value from a list of options.
 | `onChange` | `(value: string) => void` | — | Called on selection |
 | `label` | `string` | — | Visible label |
 | `placeholder` | `string` | `"Select…"` | Shown when there's no value |
-| `state` | `"Default" \| "Hover" \| "Focused" \| "Error" \| "Disabled"` | `"Default"` | Visual state |
+| `state` | `"default" \| "hover" \| "focused" \| "error" \| "disabled"` | `"default"` | Visual state. PascalCase values (`"Error"`) still work but are deprecated. |
 | `helperText` / `errorText` | `string` | — | Messages |
 | `disabled` | `boolean` | `false` | Disables the trigger |
 | …rest | `HTMLAttributes<HTMLDivElement>` | — | Applied to the wrapper; `ref` → wrapper |
@@ -137,7 +137,6 @@ A single-choice dropdown that picks one value from a list of options.
 ```
 
 ## Known gaps
-- [ ] `state` values are PascalCase (`"Error"`), unlike every other component (`"error"`). Normalise in the next major.
 - [ ] The listbox is absolutely positioned. It can be clipped by `overflow: hidden` parents and doesn't flip near the viewport edge. Portal + collision handling (or `@base-ui/react` Select) needed.
 - [ ] No `name` / hidden input, so it doesn't participate in native `<form>` submit.
 - [ ] No option groups, icons or descriptions.

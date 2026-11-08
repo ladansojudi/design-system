@@ -85,7 +85,7 @@ Tooltip: ① content (max width 224px) · ② arrow toward the trigger.
 
 | Role | Token |
 |---|---|
-| Toast surface / border | `s4e-surface-app` / `s4e-neutral-divider-10` |
+| Toast surface / border | `s4e-surface-app` / `s4e-border-default` |
 | Toast intent bar + icon | `s4e-feedback-success` · `-info` · `-warning` · `-alert` |
 | Toast title / description | `s4e-text-primary` / `s4e-text-secondary` |
 | Tooltip bg / text | `s4e-neutral-grey-900` / `s4e-text-inverse` |

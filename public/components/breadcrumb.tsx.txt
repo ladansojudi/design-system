@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
  *   • s4e-* design tokens — grab tokens.css from the Theming page.
  */
 
-export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {}
+export type BreadcrumbProps = React.HTMLAttributes<HTMLElement>;
 
 export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
   ({ className, children, ...props }, ref) => {
@@ -71,7 +71,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLAnchorElement, BreadcrumbItem
 );
 BreadcrumbItem.displayName = "BreadcrumbItem";
 
-export interface BreadcrumbSeparatorProps extends React.HTMLAttributes<HTMLSpanElement> {}
+export type BreadcrumbSeparatorProps = React.HTMLAttributes<HTMLSpanElement>;
 
 export const BreadcrumbSeparator = React.forwardRef<HTMLSpanElement, BreadcrumbSeparatorProps>(
   ({ className, children, ...props }, ref) => {

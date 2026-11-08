@@ -17,11 +17,13 @@ import { cn } from "@/lib/utils";
  * Tag   — label pill (same primitive, no dot by default).
  */
 
-type Color       = "warning" | "error" | "success" | "neutral" | "info" | "primary";
+type Tone        = "warning" | "error" | "success" | "neutral" | "info" | "primary";
 type DotPosition = "left" | "right";
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  color?:       Color;
+export interface BadgeProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, "color"> {
+  tone?:        Tone;
+  /** @deprecated Use `tone` (consistent with Banner, Checkbox, Spinner). */
+  color?:       Tone;
   showDot?:     boolean;
   dotPosition?: DotPosition;
   outlined?:    boolean;
@@ -36,39 +38,39 @@ type ColorConfig = {
   border: string;
 };
 
-const COLOR_CLASS: Record<Color, ColorConfig> = {
+const TONE_CLASS: Record<Tone, ColorConfig> = {
   warning: {
-    bg:     "bg-s4e-scale-yellow-50",
+    bg:     "bg-s4e-bg-warning-subtle",
     text:   "text-s4e-scale-yellow-700",
     dot:    "bg-s4e-scale-yellow-500",
-    border: "border-s4e-scale-yellow-300",
+    border: "border-s4e-scale-yellow-200",
   },
   error: {
-    bg:     "bg-s4e-scale-red-50",
-    text:   "text-s4e-scale-red-600",
+    bg:     "bg-s4e-bg-error-subtle",
+    text:   "text-s4e-text-error",
     dot:    "bg-s4e-scale-red-500",
-    border: "border-s4e-scale-red-300",
+    border: "border-s4e-scale-red-200",
   },
   success: {
-    bg:     "bg-s4e-scale-green-50",
+    bg:     "bg-s4e-bg-success-subtle",
     text:   "text-s4e-scale-green-600",
     dot:    "bg-s4e-scale-green-500",
-    border: "border-s4e-scale-green-300",
+    border: "border-s4e-scale-green-200",
   },
   neutral: {
-    bg:     "bg-s4e-neutral-grey-100",
+    bg:     "bg-s4e-bg-subtle",
     text:   "text-s4e-text-secondary",
     dot:    "bg-s4e-neutral-grey-400",
-    border: "border-s4e-neutral-divider-10",
+    border: "border-s4e-border-default",
   },
   info: {
-    bg:     "bg-s4e-scale-blue-50",
+    bg:     "bg-s4e-bg-info-subtle",
     text:   "text-s4e-scale-blue-600",
     dot:    "bg-s4e-scale-blue-500",
-    border: "border-s4e-scale-blue-300",
+    border: "border-s4e-scale-blue-200",
   },
   primary: {
-    bg:     "bg-s4e-brand-primary-50",
+    bg:     "bg-s4e-bg-brand-subtle",
     text:   "text-s4e-brand-primary-600",
     dot:    "bg-s4e-brand-primary-500",
     border: "border-s4e-brand-primary-200",
@@ -80,7 +82,8 @@ const BASE =
 
 function renderPill(
   {
-    color       = "neutral",
+    tone,
+    color,
     showDot,
     dotPosition = "left",
     outlined    = false,
@@ -91,7 +94,7 @@ function renderPill(
   ref: React.Ref<HTMLSpanElement>,
   defaultShowDot: boolean,
 ) {
-  const cfg = COLOR_CLASS[color];
+  const cfg = TONE_CLASS[tone ?? color ?? "neutral"];
   const dotVisible = showDot ?? defaultShowDot;
   const dot = (
     <span

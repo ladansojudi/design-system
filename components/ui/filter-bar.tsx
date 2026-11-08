@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
 
-export interface FilterBarProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type FilterBarProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(
   ({ className, children, ...props }, ref) => {
@@ -25,7 +25,7 @@ export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(
       <div
         ref={ref}
         className={cn(
-          "border border-s4e-neutral-divider-10 rounded-xl p-3 overflow-x-auto s4e-scrollbar-hide",
+          "border border-s4e-border-default rounded-xl p-3 overflow-x-auto s4e-scrollbar-hide",
           className,
         )}
         {...props}
@@ -78,8 +78,8 @@ export const FilterPill = React.forwardRef<HTMLButtonElement, FilterPillProps>(
         className={cn(
           "inline-flex items-center h-8 rounded-lg border text-[12px] font-medium select-none transition-colors shrink-0",
           active
-            ? "border-s4e-brand-primary-500 bg-s4e-brand-primary-50 text-s4e-brand-primary-500"
-            : "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-secondary hover:border-s4e-neutral-grey-300 hover:text-s4e-text-primary",
+            ? "border-s4e-brand-primary-500 bg-s4e-bg-brand-subtle text-s4e-brand-primary-500"
+            : "border-s4e-border-default bg-s4e-surface-app text-s4e-text-secondary hover:border-s4e-border-strong hover:text-s4e-text-primary",
           className,
         )}
       >
@@ -88,7 +88,7 @@ export const FilterPill = React.forwardRef<HTMLButtonElement, FilterPillProps>(
           type="button"
           className={cn(
             "inline-flex items-center gap-1.5 h-full pl-2.5 rounded-lg cursor-pointer",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-focus-ring",
             clearable ? "pr-1" : "pr-2.5",
           )}
           {...props}
@@ -107,7 +107,7 @@ export const FilterPill = React.forwardRef<HTMLButtonElement, FilterPillProps>(
             type="button"
             onClick={onClear}
             aria-label={`Clear ${label}`}
-            className="inline-flex items-center h-full pl-0.5 pr-2.5 rounded-lg cursor-pointer hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500"
+            className="inline-flex items-center h-full pl-0.5 pr-2.5 rounded-lg cursor-pointer hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-focus-ring"
           >
             <X size={11} aria-hidden />
           </button>
@@ -136,7 +136,7 @@ export const FilterSearch = React.forwardRef<HTMLInputElement, FilterSearchProps
           value={value ?? ""}
           onChange={(e) => onChange?.(e.target.value)}
           className={cn(
-            "h-8 w-48 pl-8 pr-3 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[12px] text-s4e-text-primary placeholder:text-s4e-text-secondary outline-none focus:border-s4e-brand-primary-500 focus:ring-2 focus:ring-s4e-brand-primary-500/20 transition-colors",
+            "h-8 w-48 pl-8 pr-3 rounded-lg border border-s4e-border-default bg-s4e-surface-app text-[12px] text-s4e-text-primary placeholder:text-s4e-text-secondary outline-none focus:border-s4e-brand-primary-500 focus:ring-2 focus:ring-s4e-focus-ring/20 transition-colors",
             className,
           )}
           {...props}
@@ -167,8 +167,8 @@ export const FilterAction = React.forwardRef<HTMLButtonElement, FilterActionProp
           "inline-flex items-center gap-1.5 h-8 rounded-lg border text-[12px] font-medium transition-colors shrink-0",
           iconOnly ? "w-8 justify-center" : "px-3",
           muted
-            ? "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-disabled cursor-not-allowed"
-            : "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-secondary hover:text-s4e-text-primary hover:border-s4e-neutral-grey-300",
+            ? "border-s4e-border-default bg-s4e-surface-app text-s4e-text-disabled cursor-not-allowed"
+            : "border-s4e-border-default bg-s4e-surface-app text-s4e-text-secondary hover:text-s4e-text-primary hover:border-s4e-border-strong",
           className,
         )}
         {...props}
@@ -181,7 +181,7 @@ export const FilterAction = React.forwardRef<HTMLButtonElement, FilterActionProp
 );
 FilterAction.displayName = "FilterAction";
 
-export interface FilterClearProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export type FilterClearProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const FilterClear = React.forwardRef<HTMLButtonElement, FilterClearProps>(
   ({ className, children = "Clear", ...props }, ref) => {
@@ -190,7 +190,7 @@ export const FilterClear = React.forwardRef<HTMLButtonElement, FilterClearProps>
         ref={ref}
         type="button"
         className={cn(
-          "inline-flex items-center gap-1 h-8 px-2.5 text-[12px] font-medium text-s4e-scale-red-600 hover:text-s4e-scale-red-700 transition-colors shrink-0",
+          "inline-flex items-center gap-1 h-8 px-2.5 text-[12px] font-medium text-s4e-text-error hover:text-s4e-scale-red-700 transition-colors shrink-0",
           className,
         )}
         {...props}
@@ -214,7 +214,7 @@ export const FilterOverflow = React.forwardRef<HTMLButtonElement, FilterOverflow
         ref={ref}
         type="button"
         className={cn(
-          "inline-flex items-center gap-1 h-8 px-3 rounded-lg border border-dashed border-s4e-neutral-divider-10 text-[12px] font-medium text-s4e-text-secondary hover:border-s4e-brand-primary-500 hover:text-s4e-brand-primary-500 transition-colors shrink-0",
+          "inline-flex items-center gap-1 h-8 px-3 rounded-lg border border-dashed border-s4e-border-default text-[12px] font-medium text-s4e-text-secondary hover:border-s4e-brand-primary-500 hover:text-s4e-brand-primary-500 transition-colors shrink-0",
           className,
         )}
         {...props}
@@ -227,7 +227,7 @@ export const FilterOverflow = React.forwardRef<HTMLButtonElement, FilterOverflow
 );
 FilterOverflow.displayName = "FilterOverflow";
 
-export interface FilterBarDividerProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type FilterBarDividerProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const FilterBarDivider = React.forwardRef<HTMLDivElement, FilterBarDividerProps>(
   ({ className, ...props }, ref) => {
@@ -235,7 +235,7 @@ export const FilterBarDivider = React.forwardRef<HTMLDivElement, FilterBarDivide
       <div
         ref={ref}
         aria-hidden
-        className={cn("w-px h-5 bg-s4e-neutral-divider-10 shrink-0", className)}
+        className={cn("w-px h-5 bg-s4e-border-default shrink-0", className)}
         {...props}
       />
     );

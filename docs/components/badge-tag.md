@@ -37,7 +37,7 @@ A small pill that labels an object with a status (**Badge**) or a category (**Ta
 
 ## Variants
 
-| `color` | Meaning |
+| `tone` | Meaning |
 |---|---|
 | `success` | Healthy, completed, passed |
 | `warning` | Needs attention, degraded |
@@ -71,16 +71,16 @@ Static. No hover, focus or disabled states.
 
 | Role | Token |
 |---|---|
-| Filled bg | `s4e-scale-{green,yellow,red,blue}-50`, `s4e-brand-primary-50`, `s4e-neutral-grey-100` |
+| Filled bg | `s4e-scale-{green,yellow,red,blue}-50`, `s4e-brand-primary-50`, `s4e-bg-subtle` |
 | Label | `s4e-scale-*-600` (yellow `-700`), `s4e-brand-primary-600`, `s4e-text-secondary` |
 | Dot | `s4e-scale-*-500`, `s4e-brand-primary-500`, `s4e-neutral-grey-400` |
-| Outlined border | `s4e-scale-*-300`, `s4e-brand-primary-200`, `s4e-neutral-divider-10` |
+| Outlined border | `s4e-scale-*-200`, `s4e-brand-primary-200`, `s4e-border-default` |
 
 ## Design ↔ Code
 
 | Figma property | Prop | Values |
 |---|---|---|
-| Color | `color` | Success · Warning · Error · Info · Primary · Neutral |
+| Tone | `tone` | Success · Warning · Error · Info · Primary · Neutral |
 | Dot | `showDot` | true / false (Badge default true, Tag default false) |
 | Dot position | `dotPosition` | Left · Right |
 | Outlined | `outlined` | true / false |
@@ -89,7 +89,8 @@ Static. No hover, focus or disabled states.
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `color` | `"warning" \| "error" \| "success" \| "neutral" \| "info" \| "primary"` | `"neutral"` | Colour family |
+| `tone` | `"warning" \| "error" \| "success" \| "neutral" \| "info" \| "primary"` | `"neutral"` | Colour family |
+| `color` | same as `tone` | — | **Deprecated** alias of `tone` |
 | `showDot` | `boolean` | Badge `true` / Tag `false` | Status dot |
 | `dotPosition` | `"left" \| "right"` | `"left"` | Dot side |
 | `outlined` | `boolean` | `false` | Border instead of fill |
@@ -100,14 +101,14 @@ Exports: `Badge`, `Tag` (`TagProps = BadgeProps`).
 ## Examples
 
 ```tsx
-<Badge color="success">Active</Badge>
-<Badge color="error">Failed</Badge>
-<Tag color="info">Production</Tag>
+<Badge tone="success">Active</Badge>
+<Badge tone="error">Failed</Badge>
+<Tag tone="info">Production</Tag>
 <Tag outlined>EU</Tag>
 ```
 
 ## Known gaps
-- [ ] The `color` prop name shadows the HTML `color` attribute. Consider `tone` for consistency with Banner, Checkbox and Spinner.
+- [ ] The styleguide showcase (`sections/badge-tag/`) still uses `s4e-scale-*-300` border tokens, which don't exist (the scale has no 300 step), so its outlined badges have no coloured border. `components/ui` was fixed to `-200`; decide whether the scale needs a 300 step.
 - [ ] No size scale (`sm` for tables).
 - [ ] No removable-tag variant (✕ button with an accessible name).
 

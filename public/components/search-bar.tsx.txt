@@ -32,11 +32,11 @@ const CONTAINER_BASE =
 
 const VARIANT_CONTAINER: Record<Variant, string> = {
   default:
-    "border border-s4e-neutral-divider-10 bg-s4e-surface-app " +
-    "focus-within:border-s4e-brand-primary-500 focus-within:ring-2 focus-within:ring-s4e-brand-primary-500/20",
+    "border border-s4e-border-default bg-s4e-surface-app " +
+    "focus-within:border-s4e-brand-primary-500 focus-within:ring-2 focus-within:ring-s4e-focus-ring/20",
   ghost:
-    "bg-s4e-neutral-grey-100 border border-transparent " +
-    "focus-within:border-s4e-brand-primary-500 focus-within:ring-2 focus-within:ring-s4e-brand-primary-500/20",
+    "bg-s4e-bg-subtle border border-transparent " +
+    "focus-within:border-s4e-brand-primary-500 focus-within:ring-2 focus-within:ring-s4e-focus-ring/20",
 };
 
 const INPUT_BASE =

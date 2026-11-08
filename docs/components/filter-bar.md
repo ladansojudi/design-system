@@ -70,11 +70,11 @@ A horizontal toolbar that combines search, filter pills and view actions above a
 
 | Role | Token |
 |---|---|
-| Bar / pill border | `s4e-neutral-divider-10` (hover `s4e-neutral-grey-300`) |
+| Bar / pill border | `s4e-border-default` (hover `s4e-border-strong`) |
 | Surface | `s4e-surface-app` |
 | Active pill | `s4e-brand-primary-500`, `s4e-brand-primary-50` |
 | Count bubble | `s4e-brand-primary-500` / `s4e-text-on-accent` |
-| Clear | `s4e-scale-red-600` (hover `-700`) |
+| Clear | `s4e-text-error` (hover `-700`) |
 | Text | `s4e-text-primary`, `s4e-text-secondary`, `s4e-text-disabled` |
 
 ## Design ↔ Code

@@ -146,7 +146,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             aria-describedby={hasDescription ? descriptionId : undefined}
             tabIndex={-1}
             className={cn(
-              "relative w-full bg-s4e-surface-app border border-s4e-neutral-divider-10 rounded-xl shadow-xl focus:outline-none",
+              "relative w-full bg-s4e-surface-app border border-s4e-border-default rounded-xl shadow-xl focus:outline-none",
               SIZE_CLASS[size],
               className,
             )}
@@ -174,7 +174,7 @@ export const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
       <div
         ref={ref}
         className={cn(
-          "flex items-center justify-between px-5 py-3.5 border-b border-s4e-neutral-divider-10",
+          "flex items-center justify-between px-5 py-3.5 border-b border-s4e-border-default",
           className,
         )}
         {...props}
@@ -185,7 +185,7 @@ export const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="w-7 h-7 rounded-md hover:bg-s4e-neutral-grey-100 flex items-center justify-center text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500"
+            className="w-7 h-7 rounded-md hover:bg-s4e-bg-subtle flex items-center justify-center text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-focus-ring"
           >
             <X size={15} aria-hidden />
           </button>
@@ -196,7 +196,7 @@ export const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
 );
 ModalHeader.displayName = "ModalHeader";
 
-export interface ModalTitleProps extends React.HTMLAttributes<HTMLSpanElement> {}
+export type ModalTitleProps = React.HTMLAttributes<HTMLSpanElement>;
 
 export const ModalTitle = React.forwardRef<HTMLSpanElement, ModalTitleProps>(
   ({ className, children, id, ...props }, ref) => {
@@ -220,7 +220,7 @@ export const ModalTitle = React.forwardRef<HTMLSpanElement, ModalTitleProps>(
 );
 ModalTitle.displayName = "ModalTitle";
 
-export interface ModalDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
+export type ModalDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
 
 export const ModalDescription = React.forwardRef<HTMLParagraphElement, ModalDescriptionProps>(
   ({ className, children, id, ...props }, ref) => {
@@ -279,7 +279,7 @@ export const ModalFooter = React.forwardRef<HTMLDivElement, ModalFooterProps>(
         className={cn(
           "flex justify-end gap-2",
           bordered
-            ? "px-5 py-3.5 border-t border-s4e-neutral-divider-10"
+            ? "px-5 py-3.5 border-t border-s4e-border-default"
             : "px-5 pb-4",
           className,
         )}

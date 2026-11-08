@@ -77,8 +77,8 @@ A text input dedicated to searching or filtering content, with a search icon and
 
 | Role | Token |
 |---|---|
-| Border | `s4e-neutral-divider-10` |
-| Ghost fill | `s4e-neutral-grey-100` |
+| Border | `s4e-border-default` |
+| Ghost fill | `s4e-bg-subtle` |
 | Surface | `s4e-surface-app` |
 | Icon / clear | `s4e-text-secondary` → focus `s4e-brand-primary-500` |
 | Text / placeholder | `s4e-text-primary` / `s4e-text-secondary` |

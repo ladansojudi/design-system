@@ -26,9 +26,9 @@ export interface TextareaProps
 }
 
 const STATE_BORDER: Record<State, string> = {
-  default:  "border-s4e-neutral-grey-300",
-  focused:  "border-s4e-brand-primary-600 ring-2 ring-s4e-brand-primary-500/20",
-  error:    "border-s4e-scale-red-600",
+  default:  "border-s4e-border-strong",
+  focused:  "border-s4e-border-focus ring-2 ring-s4e-focus-ring/20",
+  error:    "border-s4e-border-error",
   disabled: "border-s4e-neutral-grey-200 opacity-40",
 };
 
@@ -66,7 +66,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             htmlFor={fieldId}
             className={cn(
               "block text-[11px] font-medium mb-1.5",
-              isError ? "text-s4e-scale-red-600" : "text-s4e-text-secondary",
+              isError ? "text-s4e-text-error" : "text-s4e-text-secondary",
             )}
           >
             {label}
@@ -84,7 +84,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           className={cn(
             "block w-full rounded-md px-3 py-2 text-[14px] text-s4e-text-primary placeholder:text-s4e-text-secondary bg-s4e-surface-row",
             "border resize-y transition-colors",
-            "focus:outline-none focus:border-s4e-brand-primary-600 focus:ring-2 focus:ring-s4e-brand-primary-500/20",
+            "focus:outline-none focus:border-s4e-border-focus focus:ring-2 focus:ring-s4e-focus-ring/20",
             STATE_BORDER[resolvedState],
             isDisabled && "cursor-not-allowed",
           )}
@@ -95,7 +95,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             id={message ? helperId : undefined}
             className={cn(
               "text-[11px] leading-tight flex-1",
-              isError ? "text-s4e-scale-red-600" : "text-s4e-text-secondary",
+              isError ? "text-s4e-text-error" : "text-s4e-text-secondary",
             )}
           >
             {message}

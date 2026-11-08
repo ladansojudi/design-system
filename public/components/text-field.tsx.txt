@@ -29,21 +29,21 @@ export interface TextFieldProps
 const LABEL_COLOR: Record<State, string> = {
   default:  "text-s4e-text-secondary",
   focused:  "text-s4e-brand-primary-600",
-  error:    "text-s4e-scale-red-600",
+  error:    "text-s4e-text-error",
   disabled: "text-s4e-text-disabled",
 };
 
 const FILLED_STYLE: Record<State, string> = {
-  default:  "bg-s4e-neutral-grey-100 border-b-2 border-s4e-neutral-grey-300",
-  focused:  "bg-s4e-neutral-grey-100 border-b-2 border-s4e-brand-primary-600",
-  error:    "bg-s4e-scale-red-50 border-b-2 border-s4e-scale-red-600",
-  disabled: "bg-s4e-neutral-grey-100 border-b-2 border-s4e-neutral-grey-200 opacity-40",
+  default:  "bg-s4e-bg-subtle border-b-2 border-s4e-border-strong",
+  focused:  "bg-s4e-bg-subtle border-b-2 border-s4e-border-focus",
+  error:    "bg-s4e-bg-error-subtle border-b-2 border-s4e-border-error",
+  disabled: "bg-s4e-bg-subtle border-b-2 border-s4e-neutral-grey-200 opacity-40",
 };
 
 const OUTLINED_STYLE: Record<State, string> = {
-  default:  "border border-s4e-neutral-grey-300",
-  focused:  "border-2 border-s4e-brand-primary-600",
-  error:    "border border-s4e-scale-red-600",
+  default:  "border border-s4e-border-strong",
+  focused:  "border-2 border-s4e-border-focus",
+  error:    "border border-s4e-border-error",
   disabled: "border border-s4e-neutral-grey-200 opacity-40",
 };
 
@@ -113,7 +113,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
             className={cn(
               "text-[11px]",
               variant === "filled" && "px-3",
-              isError && errorText ? "text-s4e-scale-red-600" : "text-s4e-text-secondary",
+              isError && errorText ? "text-s4e-text-error" : "text-s4e-text-secondary",
             )}
           >
             {message}

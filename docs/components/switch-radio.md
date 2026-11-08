@@ -87,7 +87,7 @@ Switch                      Radio group
 | Switch track on (dark / primary) | `s4e-neutral-grey-900` / `s4e-btn-primary-600` (hover `-700`) |
 | Radio border / dot | `s4e-neutral-grey-400` → `s4e-neutral-grey-800` |
 | Label / disabled | `s4e-text-primary` / `s4e-text-disabled` |
-| Focus ring | `s4e-brand-primary-500` |
+| Focus ring | `s4e-focus-ring` |
 
 ## Design ↔ Code
 

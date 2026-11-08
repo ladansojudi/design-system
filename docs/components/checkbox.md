@@ -88,7 +88,7 @@ Lets the user turn an independent option on or off, or pick several items from a
 | Empty border / bg | `s4e-neutral-grey-400` / `s4e-surface-row` |
 | Check icon | `s4e-text-on-accent` |
 | Label / description / disabled | `s4e-text-primary` / `s4e-text-secondary` / `s4e-text-disabled` |
-| Focus ring | `s4e-brand-primary-500` |
+| Focus ring | `s4e-focus-ring` |
 
 ## Design ↔ Code
 

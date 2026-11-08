@@ -26,6 +26,45 @@ Shared principles we follow, regardless of source:
 4. **Interlink** — tokens, related components, APG pattern, source file, Figma.
 5. **Honesty about gaps** — each page has a *Known gaps* list so nobody assumes behaviour that isn't built.
 
+## For AI agents
+
+`npm run llms` (also part of `npm run build`) turns these docs into an AI package served from the site root:
+
+| File | What it is |
+|---|---|
+| `/llms.txt` | Entry point: rules for agents, setup, links to every doc and source file |
+| `/llms-full.txt` | Everything in one file: rules, setup, theme CSS, each doc + source (~68k tokens) |
+| `/theme.css` | Install-ready tokens (light + dark) and the Tailwind v4 `@theme` mapping |
+| `/docs/components/<slug>.md` | These docs, as served files |
+
+Give an agent the deployed `/llms.txt` URL (or attach `llms-full.txt`) and tell it to follow the rules at the top.
+
+## Lint guardrails
+
+`eslint/eslint-plugin-s4e.mjs` turns the most common mistakes — by humans or AI — into lint errors. It runs on `components/ui` via `npm run lint:ds` and ships to consumers at `/eslint-plugin-s4e.mjs`.
+
+| Rule | Level | Catches |
+|---|---|---|
+| `s4e/no-hardcoded-colors` | error | `#1383d4`, `rgb(…)`, `bg-red-500`, `bg-[#fff]` instead of `s4e-*` tokens |
+| `s4e/icon-only-needs-label` | error | `<Button iconOnly>` without `aria-label` |
+| `s4e/prefer-semantic-tokens` | warn, autofix | `border-s4e-neutral-divider-10` → `border-s4e-border-default` (and other unambiguous aliases) |
+| `s4e/no-deprecated-components` | warn | importing `Banner` |
+| `s4e/no-arbitrary-values` | warn | `text-[13px]`, `p-[7px]` (off for `components/ui` until the type scale lands) |
+
+## Semantic tokens
+
+Prefer role-based aliases over scale primitives. They resolve per theme, including nested `[data-s4e-theme]` subtrees.
+
+| Role | Token |
+|---|---|
+| Borders | `s4e-border-default` · `s4e-border-strong` · `s4e-border-focus` · `s4e-border-error` |
+| Tints | `s4e-bg-subtle` · `s4e-bg-{brand,info,success,warning,error}-subtle` |
+| Focus | `s4e-focus-ring` · `s4e-focus-ring-error` |
+| Text | `s4e-text-{primary,secondary,disabled,link,brand,success,warning,error,info,on-accent,inverse}` |
+| Surfaces | `s4e-surface-{app,page,row,row-hover,table-header}` |
+
+Use `s4e-scale-*` / `s4e-neutral-*` primitives only where the hue is the meaning (severity, data series).
+
 ## Template
 
 New component? Copy [`_template.md`](./_template.md). Every section is required;
@@ -88,6 +127,7 @@ consistency issues, not accessibility blockers. The most impactful next ones:
 | [Button](./button.md) | `loading` drops the label (layout jump, nothing read out) |
 | [Data Table](./data-table.md) | Fixed threat schema; no sorting / selection / generic columns |
 | [Cards](./cards.md) | Two competing card primitives (`card.tsx` vs `cards.tsx`) |
+| All | Font sizes are hard-coded `text-[Npx]`; a type-scale utility set is needed before `s4e/no-arbitrary-values` can be enabled |
 | [Toast](./toast-tooltip.md) | No toast manager / viewport; intent colours look swapped (needs design confirmation) |
 
 ## Keeping docs in sync

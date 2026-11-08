@@ -75,8 +75,8 @@ Grid: `1fr 1fr 90px 80px`, gap 12px. Column headers are 11px uppercase.
 
 | Role | Token |
 |---|---|
-| Card border / surface | `s4e-neutral-divider-10` / `s4e-surface-app` |
-| Row hover / button hover | `s4e-neutral-grey-100` |
+| Card border / surface | `s4e-border-default` / `s4e-surface-app` |
+| Row hover / button hover | `s4e-bg-subtle` |
 | Header text / body text | `s4e-text-secondary` / `s4e-text-primary` |
 | Badge / link | `s4e-brand-primary-500/600` |
 | Severity tints | `s4e-scale-{purple,red,yellow}-50/500/600` |

@@ -34,9 +34,9 @@ export interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElemen
 }
 
 const TONE_ICON_WRAP: Record<EmptyStateTone, string> = {
-  neutral: "bg-s4e-neutral-grey-100 text-s4e-text-secondary",
-  warning: "bg-s4e-scale-yellow-50 text-s4e-scale-yellow-600",
-  alert:   "bg-s4e-scale-red-50 text-s4e-scale-red-600",
+  neutral: "bg-s4e-bg-subtle text-s4e-text-secondary",
+  warning: "bg-s4e-bg-warning-subtle text-s4e-scale-yellow-600",
+  alert:   "bg-s4e-bg-error-subtle text-s4e-text-error",
 };
 
 export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
@@ -111,7 +111,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
               <button
                 type="button"
                 onClick={secondaryAction.onClick}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md border border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-primary text-[12px] font-medium hover:bg-s4e-neutral-grey-100 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md border border-s4e-border-default bg-s4e-surface-app text-s4e-text-primary text-[12px] font-medium hover:bg-s4e-bg-subtle transition-colors"
               >
                 {secondaryAction.icon && <secondaryAction.icon size={13} />}
                 {secondaryAction.label}

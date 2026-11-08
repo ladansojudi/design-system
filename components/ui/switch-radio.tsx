@@ -58,7 +58,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
         disabled={disabled}
         onClick={() => onChange?.(!checked)}
         className={cn(
-          "relative w-9 h-[22px] rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-s4e-brand-primary-500",
+          "relative w-9 h-[22px] rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-s4e-focus-ring",
           track,
           disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer",
           className,
@@ -187,7 +187,7 @@ export const Radio = React.forwardRef<HTMLButtonElement, RadioProps>(
         disabled={disabled}
         onClick={handleClick}
         className={cn(
-          "w-[18px] h-[18px] rounded-full border-2 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-s4e-brand-primary-500",
+          "w-[18px] h-[18px] rounded-full border-2 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-s4e-focus-ring",
           checked
             ? "border-s4e-neutral-grey-800"
             : "border-s4e-neutral-grey-400 hover:border-s4e-neutral-grey-600",

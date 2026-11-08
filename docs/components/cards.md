@@ -68,11 +68,11 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 
 | Role | Token |
 |---|---|
-| Shell | `s4e-surface-app`, `s4e-neutral-divider-10` |
+| Shell | `s4e-surface-app`, `s4e-border-default` |
 | Title / value / label | `s4e-text-primary` / `s4e-text-primary` / `s4e-text-secondary` |
 | Action | `s4e-brand-primary-500` (hover `-600`) |
-| Active pill | `s4e-scale-red-50` / `s4e-scale-red-500` / `s4e-scale-red-600` |
-| Badge | `s4e-neutral-grey-100` / `s4e-text-secondary` |
+| Active pill | `s4e-bg-error-subtle` / `s4e-scale-red-500` / `s4e-text-error` |
+| Badge | `s4e-bg-subtle` / `s4e-text-secondary` |
 
 ## Design ↔ Code
 

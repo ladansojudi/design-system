@@ -29,10 +29,10 @@ export const ChartCard = React.forwardRef<HTMLDivElement, ChartCardProps>(
     return (
       <div
         ref={ref}
-        className={cn("border border-s4e-neutral-divider-10 rounded-xl bg-s4e-surface-app", className)}
+        className={cn("border border-s4e-border-default rounded-xl bg-s4e-surface-app", className)}
         {...props}
       >
-        <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-s4e-neutral-grey-100 border-b border-s4e-neutral-divider-10 rounded-t-xl">
+        <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-s4e-bg-subtle border-b border-s4e-border-default rounded-t-xl">
           <span className="text-[14px] font-semibold text-s4e-text-primary shrink-0">{title}</span>
           {description && (
             <span className="hidden sm:inline text-[12px] text-s4e-text-secondary truncate flex-1 min-w-0">{description}</span>
@@ -68,7 +68,7 @@ export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
     return (
       <div
         ref={ref}
-        className={cn("flex-1 min-w-0 rounded-lg bg-s4e-neutral-grey-100 px-4 py-3", className)}
+        className={cn("flex-1 min-w-0 rounded-lg bg-s4e-bg-subtle px-4 py-3", className)}
         {...props}
       >
         <div className="text-[12px] text-s4e-text-secondary mb-1 truncate">{label}</div>
@@ -153,7 +153,7 @@ export const DonutLegend = React.forwardRef<HTMLDivElement, DonutLegendProps>(
       <div
         ref={ref}
         className={cn(
-          "divide-y divide-s4e-neutral-divider-10",
+          "divide-y divide-s4e-border-default",
           fullWidth ? "w-full" : "flex-1 min-w-0 sm:min-w-[200px]",
           className,
         )}
@@ -232,7 +232,7 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
           <div className="flex-1 relative">
             <div className="absolute inset-0 flex flex-col-reverse justify-between pointer-events-none">
               {finalTicks.map((t) => (
-                <div key={t} className="border-t border-s4e-neutral-divider-10/70" />
+                <div key={t} className="border-t border-s4e-border-default/70" />
               ))}
             </div>
             <div className="relative flex items-end gap-2 sm:gap-6" style={{ height }}>

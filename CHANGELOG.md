@@ -9,9 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Semantic token aliases** in `app/globals.css`: `border-default/strong/focus/error`, `bg-subtle`, `bg-{brand,info,success,warning,error}-subtle`, `focus-ring`, `focus-ring-error` (+ Tailwind utilities). Declared on `:root`, `.dark` and every `[data-s4e-theme]` root so nested theme subtrees resolve correctly (this also fixes `--s4e-text-brand` inside nested dark previews). 122 primitive usages in `components/ui` migrated to them.
+- **`eslint-plugin-s4e`** (`eslint/`): `no-hardcoded-colors`, `icon-only-needs-label`, `prefer-semantic-tokens` (autofix), `no-deprecated-components`, `no-arbitrary-values`, with RuleTester tests. New `npm run lint:ds` (design-system scope, must pass). Shipped to consumers as `/eslint-plugin-s4e.mjs` and referenced from `llms.txt`.
+- **Root `AGENTS.md` design-system section** — which folder is the source of truth (`components/ui`, not `sections/`), what to update together, and the styling rules.
+
+- **AI package** (`npm run llms`, part of `prebuild`) — makes the system usable by LLMs and coding agents, following the [llms.txt](https://llmstxt.org) convention:
+  - `public/llms.txt` — entry point: rules for agents, setup, and a link to every component doc and source file.
+  - `public/llms-full.txt` — everything in one file (~68k tokens): rules, setup, theme CSS, and every component doc followed by its source.
+  - `public/theme.css` — install-ready tokens for **light and dark** plus the Tailwind v4 `@theme` mapping, extracted from `app/globals.css` without the styleguide-only rules. Verified by compiling it in a clean Tailwind v4 setup against all 24 components (every `s4e-*` utility resolves).
+  - `public/docs/components/<slug>.md` — the component docs, served alongside the source. Set `SITE_URL` at build time for absolute links.
+
 - **Component docs in the repo** — `docs/components/<slug>.md` for all 24 distributable components, plus a shared `_template.md` and an index. One template for designers and developers, modelled on Carbon, Primer, Atlassian and the WAI-ARIA APG: when to use / not, anatomy, variants, sizes, states, content guidelines, do / don't, accessibility (keyboard + ARIA), design tokens, a Figma property ↔ prop mapping, API, examples, and an honest *Known gaps* list with a high-priority roll-up.
 
+### Changed
+
+- **Consistent prop naming** (old names still work, marked `@deprecated`): `Select` states are lowercase (`"error"`, was `"Error"`); `Badge`/`Tag` use `tone` (was `color`); `TextSpace` default state is `"default"` (was `"enabled"`).
+- **Error text and borders** in form controls now use `text-s4e-text-error` / `border-s4e-border-error` instead of `scale-red-600` — slightly brighter red, same AA contrast.
+
 ### Fixed
+
+- Empty `interface X extends Y {}` props in Breadcrumb, Data Table, Filter Bar and Modal replaced with type aliases (8 lint errors).
+- `scripts/*.js` are linted as Node CommonJS (no more `no-require-imports` errors).
 
 - **Accessibility (WCAG 2.2 AA) pass on the distributable components** in `components/ui/`:
   - **TextField / Textarea** — labels are real `<label htmlFor>` elements tied to the field via `useId`; helper / error text is wired with `aria-describedby`, errors set `aria-invalid`. TextField now reacts to real keyboard focus (label colour, border, floating label) — the `state` prop only forces a visual state.
@@ -28,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Data Table** — ARIA table roles (`table`, `row`, `columnheader`, `cell`), with the table named by the header title. Info icons in headers are focusable buttons with keyboard tooltips. Pagination is a labelled `navigation` with "Previous page" / "Next page". The copy is now "Rows per page".
   - **Chart** — Donut, Bar, Line and Treemap render as `role="img"` with an auto-generated data summary; pass `aria-label` to override it with the takeaway.
   - **Text Space** — now editable (`contentEditable`, `role="textbox"`, `aria-multiline`), with `label`, `defaultValue` and `onChange(html)`. The toolbar is an APG toolbar (roving tabindex, `aria-label` on every tool, `aria-pressed` on toggles) and its tools actually format text.
+- **Badge / Tag outlined border** used `s4e-scale-*-300` tokens that don't exist (the scale has no 300 step), so outlined badges had no coloured border. `components/ui/badge-tag.tsx` now uses `-200`. The styleguide showcase copy still has the old classes.
 - **Reduced motion** — global `prefers-reduced-motion: reduce` rule disables animations and transitions.
 
 ## [1.3.1] — 2026-06-05

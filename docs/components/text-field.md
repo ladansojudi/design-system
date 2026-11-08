@@ -88,9 +88,9 @@ Don't mix variants within a single form.
 
 | Role | Token |
 |---|---|
-| Filled background | `s4e-neutral-grey-100` · error `s4e-scale-red-50` |
-| Border default / focus / error / disabled | `s4e-neutral-grey-300` / `s4e-brand-primary-600` / `s4e-scale-red-600` / `s4e-neutral-grey-200` |
-| Label | `s4e-text-secondary` · focus `s4e-brand-primary-600` · error `s4e-scale-red-600` |
+| Filled background | `s4e-bg-subtle` · error `s4e-bg-error-subtle` |
+| Border default / focus / error / disabled | `s4e-border-strong` / `s4e-border-focus` / `s4e-border-error` / `s4e-neutral-grey-200` |
+| Label | `s4e-text-secondary` · focus `s4e-brand-primary-600` · error `s4e-text-error` |
 | Value | `s4e-text-primary` |
 | Placeholder / helper | `s4e-text-secondary` |
 | Floating label backdrop | `s4e-surface-app` |

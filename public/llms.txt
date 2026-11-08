@@ -1,0 +1,69 @@
+# S4E Design System
+
+> React + Tailwind v4 component library and design tokens for the S4E security product (scans, assets, findings, severity). Version 1.3.1. 24 copy-paste components (shadcn-style: you own the code), themed with `s4e-*` CSS variables in light and dark mode, targeting WCAG 2.2 AA and the WAI-ARIA Authoring Practices (remaining gaps are listed per component).
+
+## Rules for AI agents
+
+1. **Use the existing components.** Copy the source from `/components/<slug>.tsx.txt` into `components/ui/<slug>.tsx`. Don't recreate a component that already exists, and don't restyle it from scratch.
+2. **Never hard-code colours, shadows or z-indexes.** Use the `s4e-*` tokens through Tailwind utilities (`bg-s4e-surface-app`, `text-s4e-text-secondary`, `border-s4e-border-default`, `shadow-s4e-lg`, `z-modal`). Every token is defined in `theme.css`.
+3. **Prefer semantic tokens over scale primitives.** Borders: `border-s4e-border-default` / `-strong` / `-focus` / `-error`. Tints: `bg-s4e-bg-subtle`, `bg-s4e-bg-{brand,info,success,warning,error}-subtle`. Focus: `ring-s4e-focus-ring` (`-error` for destructive). Text: `text-s4e-text-*`. Surfaces: `bg-s4e-surface-*`. Use `s4e-scale-<hue>-<step>` / `s4e-neutral-*` primitives only when the hue itself is the meaning (severity, data series). Use `text-s4e-text-disabled` only for disabled controls; it fails contrast for normal text.
+4. **Follow each component's "When to use / When not to use".** For example, a destructive confirm is a `Modal` with `Button intent="destructive"`, a vulnerability level is always `SeverityBadge`, and navigation is a link, not a `Button`.
+5. **Accessibility is part of the API.** Pass `label` to form fields, `aria-label` to icon-only buttons and to `RadioGroup` / `TabsList`, and an `aria-label` with the takeaway to charts. Don't remove the focus styles.
+6. **Respect the status.** `deprecated` components (Banner) must not be used in new code; follow the migration note. `alpha` components may change.
+7. **Check "Known gaps"** in each doc before assuming a behaviour exists.
+8. **Naming:** states are lowercase (`state="error"`), colour families are `tone` (not `color`).
+9. **Lint your output.** Add [eslint-plugin-s4e](/eslint-plugin-s4e.mjs) (`s4e.configs.recommended`): it rejects hard-coded colours and unlabeled icon-only buttons, and autofixes primitives to semantic tokens. Fix every error before finishing.
+
+## Setup
+
+- **Requirements:** React 19, Tailwind CSS v4, `clsx`, `tailwind-merge` and `lucide-react`. `Tabs` has no extra deps; `Modal` uses `react-dom`'s `createPortal`.
+- **Lint guardrails:** save [eslint-plugin-s4e.mjs](/eslint-plugin-s4e.mjs) in your repo and add `import s4e from "./eslint-plugin-s4e.mjs"` + `s4e.configs.recommended` to `eslint.config.mjs` (flat config).
+- **Tokens and theme:** add [theme.css](/theme.css) after `@import "tailwindcss";`. Dark mode is enabled with `.dark` or `[data-s4e-theme="dark"]` on an ancestor.
+- **`cn()` helper** at `@/lib/utils`:
+
+```ts
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+## Atoms
+
+- [Alert](/docs/components/alert.md): An inline message tied to a page or section. It communicates a status that persists until the condition changes or the user dismisses it. Source: [alert.tsx](/components/alert.tsx.txt)
+- [Badge · Tag](/docs/components/badge-tag.md): A small pill that labels an object with a status (**Badge**) or a category (**Tag**). It's the same primitive; Badge shows a status dot by default. Source: [badge-tag.tsx](/components/badge-tag.tsx.txt)
+- [Banner](/docs/components/banner.md) **[deprecated]**: Do not use in new code; see the migration note. A full-width strip at the top of the app for product-wide announcements, promotions or warnings. Source: [banner.tsx](/components/banner.tsx.txt)
+- [Button](/docs/components/button.md): Buttons trigger an action on the current page: submitting a form, opening a modal, starting a scan. Source: [button.tsx](/components/button.tsx.txt)
+- [Checkbox](/docs/components/checkbox.md) **[beta]**: Lets the user turn an independent option on or off, or pick several items from a list. Source: [checkbox.tsx](/components/checkbox.tsx.txt)
+- [Select](/docs/components/select.md) **[beta]**: A single-choice dropdown that picks one value from a list of options. Source: [select.tsx](/components/select.tsx.txt)
+- [Severity Badge](/docs/components/severity-badge.md): The canonical way to show a finding's severity (Critical → Info), optionally with its numeric score (e.g. CVSS). Source: [severity-badge.tsx](/components/severity-badge.tsx.txt)
+- [Skeleton](/docs/components/skeleton.md) **[beta]**: A pulsing placeholder that mirrors the shape of content while it loads. Source: [skeleton.tsx](/components/skeleton.tsx.txt)
+- [Spinner](/docs/components/spinner.md) **[alpha]**: An indeterminate loading indicator for short waits when the shape of the result is unknown. Source: [spinner.tsx](/components/spinner.tsx.txt)
+- [Switch · Radio](/docs/components/switch-radio.md): **Switch** turns a single setting on or off, effective immediately. **Radio** picks exactly one option from a small, visible set. Source: [switch-radio.tsx](/components/switch-radio.tsx.txt)
+- [Text Field](/docs/components/text-field.md): A single-line input for short free text: names, domains, IPs, emails. Source: [text-field.tsx](/components/text-field.tsx.txt)
+- [Textarea](/docs/components/textarea.md): A multi-line plain-text input for notes, descriptions and justifications. Source: [textarea.tsx](/components/textarea.tsx.txt)
+- [Toast · Tooltip](/docs/components/toast-tooltip.md): **Toast** is a brief, non-blocking confirmation of something that just happened. **Tooltip** is a short label or hint that appears on hover or focus of a control. Source: [toast-tooltip.tsx](/components/toast-tooltip.tsx.txt)
+
+## Molecules
+
+- [Breadcrumb](/docs/components/breadcrumb.md): Shows where the current page sits in the hierarchy and lets users jump back up. Source: [breadcrumb.tsx](/components/breadcrumb.tsx.txt)
+- [Filter Bar](/docs/components/filter-bar.md): A horizontal toolbar that combines search, filter pills and view actions above a table or list. Source: [filter-bar.tsx](/components/filter-bar.tsx.txt)
+- [Search Bar](/docs/components/search-bar.md): A text input dedicated to searching or filtering content, with a search icon and a clear button. Source: [search-bar.tsx](/components/search-bar.tsx.txt)
+- [Tabs](/docs/components/tabs.md): Switches between related views of the same object without leaving the page. Source: [tabs.tsx](/components/tabs.tsx.txt)
+
+## Organisms
+
+- [Cards](/docs/components/cards.md): Dashboard cards that summarise a topic and lead to a next step. There are two presets: **InsightCard** (a key/value list) and **AlertCard** (an active-issue callout). Source: [cards.tsx](/components/cards.tsx.txt)
+- [Chart](/docs/components/chart.md): A dependency-free set of SVG chart primitives in a shared card shell: donut, bar, line and treemap, plus stat blocks. Source: [chart.tsx](/components/chart.tsx.txt)
+- [Data Table](/docs/components/data-table.md): A composable card that lists findings (threat, asset, date, severity) with a header, column headers, rows and a pagination footer. Source: [data-table.tsx](/components/data-table.tsx.txt)
+- [Empty State](/docs/components/empty-state.md): Fills a region that has no content yet. It explains why it's empty and what to do next. Source: [empty-state.tsx](/components/empty-state.tsx.txt)
+- [Gauge](/docs/components/gauge.md): A semicircular meter that shows a single value against a known maximum, such as a security score. Source: [gauge.tsx](/components/gauge.tsx.txt)
+- [Modal](/docs/components/modal.md): A dialog that interrupts the current task to request a decision or focused input. It traps focus and blocks interaction with the rest of the page until it closes. Source: [modal.tsx](/components/modal.tsx.txt)
+- [Text Space](/docs/components/text-space.md): A rich-text composer (toolbar + writing area) for formatted notes, reports and comments. Source: [text-space.tsx](/components/text-space.tsx.txt)
+
+## Optional
+
+- [llms-full.txt](/llms-full.txt): every doc, the full theme CSS and every component's source in one file (~69k tokens)
+- [Per-platform token exports](/tokens/_all/tokens.css): CSS (light only), also [Swift](/tokens/_all/tokens.swift) and [Android XML](/tokens/_all/tokens.xml)

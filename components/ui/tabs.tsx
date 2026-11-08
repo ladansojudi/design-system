@@ -114,7 +114,7 @@ export const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
         data-slot="tabs-list"
         onKeyDown={handleKeyDown}
         className={cn(
-          "flex items-end border-b border-s4e-neutral-divider-10 overflow-x-auto s4e-scrollbar-hide",
+          "flex items-end border-b border-s4e-border-default overflow-x-auto s4e-scrollbar-hide",
           className,
         )}
         {...props}
@@ -146,7 +146,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
         className={cn(
           "inline-flex items-center px-4 pt-2 pb-2.5 -mb-px text-[14px] font-medium whitespace-nowrap tracking-tight shrink-0",
           "border-b-[2px] transition-colors cursor-pointer",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-s4e-brand-primary-500/40",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-s4e-focus-ring/40",
           "disabled:opacity-50 disabled:pointer-events-none",
           isActive
             ? "text-s4e-text-primary border-s4e-brand-primary-500"

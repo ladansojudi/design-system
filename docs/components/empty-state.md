@@ -75,8 +75,8 @@ Fills a region that has no content yet. It explains why it's empty and what to d
 
 | Role | Token |
 |---|---|
-| Container border / surface | `s4e-neutral-divider-10` / `s4e-surface-app` |
-| Icon circle (neutral / warning / alert) | `s4e-neutral-grey-100` / `s4e-scale-yellow-50` + `-600` / `s4e-scale-red-50` + `-600` |
+| Container border / surface | `s4e-border-default` / `s4e-surface-app` |
+| Icon circle (neutral / warning / alert) | `s4e-bg-subtle` / `s4e-bg-warning-subtle` + `-600` / `s4e-bg-error-subtle` + `-600` |
 | Title / description | `s4e-text-primary` / `s4e-text-secondary` |
 | Primary action | `s4e-brand-primary-500` (hover `-600`) / `s4e-text-white` |
 

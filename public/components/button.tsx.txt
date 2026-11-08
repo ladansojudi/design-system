@@ -51,41 +51,41 @@ const VARIANT_CLASS: Record<Intent, Record<Variant, string>> = {
       "hover:bg-s4e-neutral-grey-800 " +
       "focus-visible:ring-s4e-neutral-grey-500",
     outline:
-      "border border-s4e-neutral-grey-300 text-s4e-text-primary bg-transparent " +
-      "hover:bg-s4e-neutral-grey-100 " +
+      "border border-s4e-border-strong text-s4e-text-primary bg-transparent " +
+      "hover:bg-s4e-bg-subtle " +
       "focus-visible:ring-s4e-neutral-grey-400",
     ghost:
       "text-s4e-text-primary bg-transparent " +
-      "hover:bg-s4e-neutral-grey-100 " +
+      "hover:bg-s4e-bg-subtle " +
       "focus-visible:ring-s4e-neutral-grey-300",
   },
   primary: {
     solid:
       "bg-s4e-btn-primary-600 text-s4e-text-on-accent " +
       "hover:bg-s4e-btn-primary-700 " +
-      "focus-visible:ring-s4e-brand-primary-500",
+      "focus-visible:ring-s4e-focus-ring",
     outline:
       "border border-s4e-text-link text-s4e-text-link bg-transparent " +
-      "hover:bg-s4e-brand-primary-50 " +
-      "focus-visible:ring-s4e-brand-primary-500",
+      "hover:bg-s4e-bg-brand-subtle " +
+      "focus-visible:ring-s4e-focus-ring",
     ghost:
       "text-s4e-text-link bg-transparent " +
-      "hover:bg-s4e-brand-primary-50 " +
-      "focus-visible:ring-s4e-brand-primary-500",
+      "hover:bg-s4e-bg-brand-subtle " +
+      "focus-visible:ring-s4e-focus-ring",
   },
   destructive: {
     solid:
       "bg-s4e-btn-error-600 text-s4e-text-on-accent " +
       "hover:bg-s4e-btn-error-700 " +
-      "focus-visible:ring-s4e-scale-red-500",
+      "focus-visible:ring-s4e-focus-ring-error",
     outline:
       "border border-s4e-text-error text-s4e-text-error bg-transparent " +
-      "hover:bg-s4e-scale-red-50 " +
-      "focus-visible:ring-s4e-scale-red-500",
+      "hover:bg-s4e-bg-error-subtle " +
+      "focus-visible:ring-s4e-focus-ring-error",
     ghost:
       "text-s4e-text-error bg-transparent " +
-      "hover:bg-s4e-scale-red-50 " +
-      "focus-visible:ring-s4e-scale-red-500",
+      "hover:bg-s4e-bg-error-subtle " +
+      "focus-visible:ring-s4e-focus-ring-error",
   },
 };
 

@@ -72,7 +72,7 @@ A dependency-free set of SVG chart primitives in a shared card shell: donut, bar
 
 | Role | Token |
 |---|---|
-| Card | `s4e-surface-app`, `s4e-neutral-divider-10` |
+| Card | `s4e-surface-app`, `s4e-border-default` |
 | Text | `s4e-text-primary`, `s4e-text-secondary` |
 | Series / accent | `s4e-brand-primary-500/600`, `--s4e-data-*` palette |
 | Gridlines / track | `s4e-neutral-grey-100` |

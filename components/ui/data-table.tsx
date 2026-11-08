@@ -32,7 +32,7 @@ const SEVERITY_STYLES: Record<Severity, { label: string; bg: string; accent: str
   },
 };
 
-export interface DataTableProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type DataTableProps = React.HTMLAttributes<HTMLDivElement>;
 
 // Lets DataTableBody (role="table") take its accessible name from the
 // DataTableHeader title.
@@ -47,7 +47,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
       <div
         ref={ref}
         className={cn(
-          "border border-s4e-neutral-divider-10 rounded-xl bg-s4e-surface-app overflow-hidden",
+          "border border-s4e-border-default rounded-xl bg-s4e-surface-app overflow-hidden",
           className,
         )}
         {...props}
@@ -88,7 +88,7 @@ export const DataTableHeader = React.forwardRef<HTMLDivElement, DataTableHeaderP
       <div
         ref={ref}
         className={cn(
-          "flex items-center gap-3 px-5 py-3 bg-s4e-neutral-grey-100 border-b border-s4e-neutral-divider-10 rounded-t-xl",
+          "flex items-center gap-3 px-5 py-3 bg-s4e-bg-subtle border-b border-s4e-border-default rounded-t-xl",
           className,
         )}
         {...props}
@@ -99,7 +99,7 @@ export const DataTableHeader = React.forwardRef<HTMLDivElement, DataTableHeaderP
         </div>
         <span className="text-[12px] text-s4e-text-secondary truncate flex-1 min-w-0">{description}</span>
         {badge && (
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-s4e-scale-yellow-50 text-s4e-scale-yellow-700 text-[11px] font-medium shrink-0">
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-s4e-bg-warning-subtle text-s4e-scale-yellow-700 text-[11px] font-medium shrink-0">
             <span aria-hidden className="w-[6px] h-[6px] rounded-full bg-s4e-scale-yellow-500" />
             {badge}
           </span>
@@ -177,7 +177,7 @@ export const DataTableColumnHeaders = React.forwardRef<HTMLDivElement, DataTable
       <div
         ref={ref}
         role="row"
-        className={cn(GRID_COLS, "px-5 py-2.5 border-b border-s4e-neutral-divider-10", className)}
+        className={cn(GRID_COLS, "px-5 py-2.5 border-b border-s4e-border-default", className)}
         {...props}
       >
         <div role="columnheader" className="flex items-center gap-1.5">
@@ -211,7 +211,7 @@ export const DataTableRow = React.forwardRef<HTMLDivElement, DataTableRowProps>(
         role="row"
         className={cn(
           GRID_COLS,
-          "items-center px-5 py-3 border-b border-s4e-neutral-divider-10 last:border-b-0 hover:bg-s4e-neutral-grey-100/50 transition-colors",
+          "items-center px-5 py-3 border-b border-s4e-border-default last:border-b-0 hover:bg-s4e-bg-subtle/50 transition-colors",
           className,
         )}
         {...props}
@@ -250,7 +250,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
         role="navigation"
         aria-label="Pagination"
         className={cn(
-          "flex items-center justify-end gap-4 px-5 py-3 border-t border-s4e-neutral-divider-10",
+          "flex items-center justify-end gap-4 px-5 py-3 border-t border-s4e-border-default",
           className,
         )}
         {...props}
@@ -272,7 +272,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
             type="button"
             onClick={onPrev}
             aria-label="Previous page"
-            className="w-6 h-6 rounded hover:bg-s4e-neutral-grey-100 flex items-center justify-center text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500"
+            className="w-6 h-6 rounded hover:bg-s4e-bg-subtle flex items-center justify-center text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-focus-ring"
           >
             <ChevronLeft size={13} aria-hidden />
           </button>
@@ -280,7 +280,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
             type="button"
             onClick={onNext}
             aria-label="Next page"
-            className="w-6 h-6 rounded hover:bg-s4e-neutral-grey-100 flex items-center justify-center text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500"
+            className="w-6 h-6 rounded hover:bg-s4e-bg-subtle flex items-center justify-center text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-focus-ring"
           >
             <ChevronRight size={13} aria-hidden />
           </button>
@@ -353,7 +353,7 @@ function InfoTooltip({ text, label }: { text: string; label?: string }) {
       type="button"
       aria-label={label}
       aria-describedby={show ? tooltipId : undefined}
-      className="inline-flex items-center shrink-0 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500"
+      className="inline-flex items-center shrink-0 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-focus-ring"
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
       onFocus={() => setShow(true)}

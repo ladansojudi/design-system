@@ -82,7 +82,7 @@ Switches between related views of the same object without leaving the page.
 |---|---|
 | Inactive / active text | `s4e-text-secondary` / `s4e-text-primary` |
 | Indicator / focus ring | `s4e-brand-primary-500` |
-| Divider | `s4e-neutral-divider-10` |
+| Divider | `s4e-border-default` |
 
 ## Design ↔ Code
 

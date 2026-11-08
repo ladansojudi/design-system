@@ -109,9 +109,9 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 | Default solid bg / hover | `s4e-text-primary` / `s4e-neutral-grey-800` |
 | Label on solid | `s4e-text-on-accent`, `s4e-text-inverse` |
 | Outline / ghost label | `s4e-text-link`, `s4e-text-error`, `s4e-text-primary` |
-| Outline border | `s4e-neutral-grey-300` |
-| Tinted hover | `s4e-brand-primary-50`, `s4e-scale-red-50`, `s4e-neutral-grey-100` |
-| Focus ring | `s4e-brand-primary-500`, `s4e-scale-red-500`, `s4e-neutral-grey-300…500` |
+| Outline border | `s4e-border-strong` |
+| Tinted hover | `s4e-bg-brand-subtle`, `s4e-bg-error-subtle`, `s4e-bg-subtle` |
+| Focus ring | `s4e-focus-ring`, `s4e-focus-ring-error`, `s4e-neutral-grey-300…500` |
 | Ring offset | `s4e-surface-app` |
 
 ## Design ↔ Code

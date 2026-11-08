@@ -71,7 +71,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         aria-live={intent === "alert" ? "assertive" : "polite"}
         aria-atomic="true"
         className={cn(
-          "overflow-hidden bg-s4e-surface-app border border-s4e-neutral-divider-10 rounded-xl shadow-sm",
+          "overflow-hidden bg-s4e-surface-app border border-s4e-border-default rounded-xl shadow-sm",
           className,
         )}
         {...props}
@@ -91,14 +91,14 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
             <button
               type="button"
               onClick={onDismiss}
-              className="shrink-0 rounded text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500"
+              className="shrink-0 rounded text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-focus-ring"
               aria-label="Dismiss"
             >
               <X size={15} aria-hidden />
             </button>
           )}
         </div>
-        <div className="h-[3px] w-full bg-s4e-neutral-grey-100">
+        <div className="h-[3px] w-full bg-s4e-bg-subtle">
           <div className={cn("h-full toast-timer-bar", TOAST_BAR[intent])} />
         </div>
       </div>

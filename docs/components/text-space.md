@@ -48,7 +48,7 @@ A rich-text composer (toolbar + writing area) for formatted notes, reports and c
 
 | `state` | Visual | Behaviour |
 |---|---|---|
-| `enabled` | Divider border on `surface-app`; brand border while focused | Editable |
+| `default` | Divider border on `surface-app`; brand border while focused | Editable |
 | `error` | `text-error` border, `scale-red-50` bg | `aria-invalid="true"` |
 | `disabled` | 40% opacity, toolbar disabled | Not editable, `aria-disabled` |
 | Tool pressed | Grey tint + primary icon colour | `aria-pressed="true"`, follows the caret |
@@ -84,25 +84,25 @@ A rich-text composer (toolbar + writing area) for formatted notes, reports and c
 
 | Role | Token |
 |---|---|
-| Border / surface / focus | `s4e-neutral-divider-10` / `s4e-surface-app` / `s4e-brand-primary-500` |
-| Toolbar hover / pressed | `s4e-neutral-grey-100` |
+| Border / surface / focus | `s4e-border-default` / `s4e-surface-app` / `s4e-brand-primary-500` |
+| Toolbar hover / pressed | `s4e-bg-subtle` |
 | Icons / placeholder | `s4e-text-secondary` (pressed `s4e-text-primary`) |
 | Text / links | `s4e-text-primary` / `s4e-text-link` |
-| Error | `s4e-text-error`, `s4e-scale-red-50` |
+| Error | `s4e-text-error`, `s4e-bg-error-subtle` |
 
 ## Design ↔ Code
 
 | Figma property | Prop | Values |
 |---|---|---|
 | Toolbar | `toolbarSize` | Simple · Full |
-| State | `state` | Enabled · Error · Disabled |
+| State | `state` | Default · Error · Disabled |
 
 ## API
 
 | Component | Prop | Type | Default |
 |---|---|---|---|
 | `TextSpace` | `toolbarSize` | `"simple" \| "full"` | `"simple"` |
-| | `state` | `"enabled" \| "disabled" \| "error"` | `"enabled"` |
+| | `state` | `"default" \| "disabled" \| "error"` | `"default"` (`"enabled"` is a deprecated alias) |
 | | `placeholder` | `string` | `"Write something awesome…"` |
 | | `label` | `string` | — (falls back to `placeholder`) |
 | | `defaultValue` | `string` (HTML) | `""` |
@@ -130,7 +130,6 @@ The output is raw HTML. **Sanitize it** (e.g. DOMPurify) before storing or rende
 - [ ] Link and image tools use `window.prompt`. Replace them with a small popover form.
 - [ ] Font family / size / style pickers in the `full` toolbar don't work yet.
 - [ ] No helper / error-text API (unlike Textarea).
-- [ ] `state` naming (`enabled`) differs from other inputs (`default`).
 
 ## Related
 - [Textarea](./textarea.md) · [Text Field](./text-field.md)

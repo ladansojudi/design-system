@@ -37,7 +37,7 @@ type VariantConfig = {
 
 const VARIANT_CLASS: Record<Variant, VariantConfig> = {
   info: {
-    bg:        "bg-s4e-scale-blue-50",
+    bg:        "bg-s4e-bg-info-subtle",
     border:    "border-s4e-scale-blue-200",
     text:      "text-s4e-text-info",
     title:     "text-s4e-text-info",
@@ -45,7 +45,7 @@ const VARIANT_CLASS: Record<Variant, VariantConfig> = {
     icon:      Info,
   },
   success: {
-    bg:        "bg-s4e-scale-green-50",
+    bg:        "bg-s4e-bg-success-subtle",
     border:    "border-s4e-scale-green-200",
     text:      "text-s4e-text-success",
     title:     "text-s4e-text-success",
@@ -53,7 +53,7 @@ const VARIANT_CLASS: Record<Variant, VariantConfig> = {
     icon:      CheckCircle2,
   },
   warning: {
-    bg:        "bg-s4e-scale-yellow-50",
+    bg:        "bg-s4e-bg-warning-subtle",
     border:    "border-s4e-scale-yellow-200",
     text:      "text-s4e-text-warning",
     title:     "text-s4e-text-warning",
@@ -61,7 +61,7 @@ const VARIANT_CLASS: Record<Variant, VariantConfig> = {
     icon:      AlertTriangle,
   },
   error: {
-    bg:        "bg-s4e-scale-red-50",
+    bg:        "bg-s4e-bg-error-subtle",
     border:    "border-s4e-scale-red-200",
     text:      "text-s4e-text-error",
     title:     "text-s4e-text-error",

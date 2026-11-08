@@ -11,7 +11,7 @@ apg: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
 
 # Modal
 
-A dialog that interrupts the current task to request a decision or focused input. The rest of the page is inert until it closes.
+A dialog that interrupts the current task to request a decision or focused input. It traps focus and blocks interaction with the rest of the page until it closes.
 
 ## Overview
 
@@ -90,9 +90,9 @@ A dialog that interrupts the current task to request a decision or focused input
 
 | Role | Token |
 |---|---|
-| Panel / border | `s4e-surface-app` / `s4e-neutral-divider-10` |
+| Panel / border | `s4e-surface-app` / `s4e-border-default` |
 | Title / description | `s4e-text-primary` / `s4e-text-secondary` |
-| Close hover / focus ring | `s4e-neutral-grey-100` / `s4e-brand-primary-500` |
+| Close hover / focus ring | `s4e-bg-subtle` / `s4e-focus-ring` |
 | Layer | `z-modal` |
 
 ## Design ↔ Code
