@@ -97,12 +97,45 @@ export interface RadioGroupProps
 }
 
 export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
-  ({ value, onChange, name, disabled, className, children, ...props }, ref) => {
+  ({ value, onChange, name, disabled, className, children, onKeyDown, ...props }, ref) => {
+    const groupRef = React.useRef<HTMLDivElement>(null);
+    React.useImperativeHandle(ref, () => groupRef.current as HTMLDivElement);
+
+    const radios = () =>
+      Array.from(
+        groupRef.current?.querySelectorAll<HTMLButtonElement>('[role="radio"]:not([disabled])') ?? [],
+      );
+
+    // Roving tabindex: the checked radio (or the first one when nothing is
+    // checked) is the group's single Tab stop.
+    React.useLayoutEffect(() => {
+      const all = radios();
+      if (all.length && !all.some((r) => r.tabIndex === 0)) all[0].tabIndex = 0;
+    }, [value]);
+
+    // Arrow keys move focus and selection together (APG Radio Group).
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      onKeyDown?.(e);
+      if (e.defaultPrevented) return;
+      const all = radios();
+      const index = all.indexOf(document.activeElement as HTMLButtonElement);
+      if (index < 0) return;
+      let next: number | null = null;
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") next = (index + 1) % all.length;
+      if (e.key === "ArrowUp"   || e.key === "ArrowLeft")  next = (index - 1 + all.length) % all.length;
+      if (next === null) return;
+      e.preventDefault();
+      all[next].focus();
+      all[next].click();
+    };
+
     return (
       <RadioGroupContext.Provider value={{ value, onChange, name, disabled }}>
         <div
-          ref={ref}
+          ref={groupRef}
           role="radiogroup"
+          aria-disabled={disabled || undefined}
+          onKeyDown={handleKeyDown}
           className={cn("flex flex-wrap gap-x-6 gap-y-3", className)}
           {...props}
         >
@@ -150,6 +183,7 @@ export const Radio = React.forwardRef<HTMLButtonElement, RadioProps>(
         type="button"
         role="radio"
         aria-checked={checked}
+        tabIndex={inGroup ? (checked ? 0 : -1) : undefined}
         disabled={disabled}
         onClick={handleClick}
         className={cn(

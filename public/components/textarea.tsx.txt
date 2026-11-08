@@ -45,19 +45,25 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       disabled,
       value,
       className,
+      id,
       ...props
     },
     ref,
   ) => {
+    const autoId     = React.useId();
+    const fieldId    = id ?? autoId;
+    const helperId   = `${fieldId}-helper`;
     const resolvedState: State = disabled ? "disabled" : state;
     const isError    = resolvedState === "error";
     const isDisabled = resolvedState === "disabled";
     const len        = typeof value === "string" ? value.length : 0;
+    const message    = isError && errorText ? errorText : helperText;
 
     return (
       <div className={cn("w-full", className)}>
         {label && (
           <label
+            htmlFor={fieldId}
             className={cn(
               "block text-[11px] font-medium mb-1.5",
               isError ? "text-s4e-scale-red-600" : "text-s4e-text-secondary",
@@ -68,12 +74,15 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         )}
         <textarea
           ref={ref}
+          id={fieldId}
           rows={rows}
           value={value}
           disabled={isDisabled}
           maxLength={maxLength}
+          aria-invalid={isError || undefined}
+          aria-describedby={message ? helperId : undefined}
           className={cn(
-            "block w-full rounded-md px-3 py-2 text-[14px] text-s4e-text-primary placeholder:text-s4e-text-disabled bg-s4e-surface-row",
+            "block w-full rounded-md px-3 py-2 text-[14px] text-s4e-text-primary placeholder:text-s4e-text-secondary bg-s4e-surface-row",
             "border resize-y transition-colors",
             "focus:outline-none focus:border-s4e-brand-primary-600 focus:ring-2 focus:ring-s4e-brand-primary-500/20",
             STATE_BORDER[resolvedState],
@@ -83,20 +92,21 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         />
         <div className="mt-1 flex items-start justify-between gap-2">
           <div
+            id={message ? helperId : undefined}
             className={cn(
-              "text-[10.5px] leading-tight flex-1",
-              isError ? "text-s4e-scale-red-600" : "text-s4e-text-disabled",
+              "text-[11px] leading-tight flex-1",
+              isError ? "text-s4e-scale-red-600" : "text-s4e-text-secondary",
             )}
           >
-            {isError ? errorText : helperText}
+            {message}
           </div>
           {(showCounter || maxLength) && (
             <div
               className={cn(
-                "text-[10.5px] tabular-nums shrink-0",
+                "text-[11px] tabular-nums shrink-0",
                 maxLength && len > maxLength * 0.9
                   ? "text-s4e-scale-yellow-700"
-                  : "text-s4e-text-disabled",
+                  : "text-s4e-text-secondary",
               )}
             >
               {len}{maxLength ? `/${maxLength}` : ""}

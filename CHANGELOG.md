@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Component docs in the repo** — `docs/components/<slug>.md` for all 24 distributable components, plus a shared `_template.md` and an index. One template for designers and developers, modelled on Carbon, Primer, Atlassian and the WAI-ARIA APG: when to use / not, anatomy, variants, sizes, states, content guidelines, do / don't, accessibility (keyboard + ARIA), design tokens, a Figma property ↔ prop mapping, API, examples, and an honest *Known gaps* list with a high-priority roll-up.
+
+### Fixed
+
+- **Accessibility (WCAG 2.2 AA) pass on the distributable components** in `components/ui/`:
+  - **TextField / Textarea** — labels are real `<label htmlFor>` elements tied to the field via `useId`; helper / error text is wired with `aria-describedby`, errors set `aria-invalid`. TextField now reacts to real keyboard focus (label colour, border, floating label) — the `state` prop only forces a visual state.
+  - **Select** — select-only combobox pattern: label association, `aria-activedescendant`, Arrow / Home / End / Enter / Space / Escape / Tab and type-ahead; disabled options are skipped; visible `focus-visible` ring.
+  - **Modal** — `role="dialog"` moved onto the panel and labelled / described by `ModalTitle` / `ModalDescription` automatically; Tab focus trap, initial focus (honours `data-autofocus`), focus restore on close, body scroll lock; close button gets `aria-label`.
+  - **Contrast** — secondary copy (helper text, descriptions, table headers, chart axes, icon buttons) moved from `text-disabled` (2.27:1 on white) to `text-secondary` (5.07:1). `text-disabled` is now reserved for genuinely disabled controls. 10.5px helper text bumped to 11px.
+- **WCAG / APG fixes from the component docs pass**:
+  - **Tabs** — APG keyboard model: roving tabindex, ← → Home End with automatic activation; triggers and panels linked with `aria-controls` / `aria-labelledby`.
+  - **RadioGroup** — roving tabindex (the checked radio is the single Tab stop) and arrow-key selection.
+  - **Tooltip** — now a real tooltip: shows on hover (300ms `delay`) and on keyboard focus, hides on Escape / blur / mouse leave, `role="tooltip"`, and `aria-describedby` is merged onto the trigger. New `open` prop forces visibility for docs.
+  - **Toast** — live region: `role="status"` (polite), or `role="alert"` (assertive) for `intent="alert"`.
+  - **Checkbox** — `indeterminate` is set on the native input, so it's announced as "mixed"; `description` is wired with `aria-describedby`; an id is generated when none is passed.
+  - **FilterPill** — the clear ✕ is now a sibling button, not nested inside the pill button. `className` now styles the pill container. `FilterAction iconOnly` gets an `aria-label`.
+  - **Data Table** — ARIA table roles (`table`, `row`, `columnheader`, `cell`), with the table named by the header title. Info icons in headers are focusable buttons with keyboard tooltips. Pagination is a labelled `navigation` with "Previous page" / "Next page". The copy is now "Rows per page".
+  - **Chart** — Donut, Bar, Line and Treemap render as `role="img"` with an auto-generated data summary; pass `aria-label` to override it with the takeaway.
+  - **Text Space** — now editable (`contentEditable`, `role="textbox"`, `aria-multiline`), with `label`, `defaultValue` and `onChange(html)`. The toolbar is an APG toolbar (roving tabindex, `aria-label` on every tool, `aria-pressed` on toggles) and its tools actually format text.
+- **Reduced motion** — global `prefers-reduced-motion: reduce` rule disables animations and transitions.
+
 ## [1.3.1] — 2026-06-05
 
 ### Changed

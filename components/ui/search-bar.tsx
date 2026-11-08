@@ -40,7 +40,7 @@ const VARIANT_CONTAINER: Record<Variant, string> = {
 };
 
 const INPUT_BASE =
-  "flex-1 bg-transparent text-[14px] outline-none placeholder:text-s4e-text-disabled " +
+  "flex-1 bg-transparent text-[14px] outline-none placeholder:text-s4e-text-secondary " +
   "text-s4e-text-primary disabled:cursor-not-allowed disabled:text-s4e-text-disabled";
 
 export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
@@ -76,7 +76,7 @@ export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
       >
         <Search
           size={14}
-          className="shrink-0 text-s4e-text-disabled group-focus-within:text-s4e-brand-primary-500"
+          className="shrink-0 text-s4e-text-secondary group-focus-within:text-s4e-brand-primary-500"
         />
         <input
           ref={ref}
@@ -92,7 +92,7 @@ export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
           <button
             type="button"
             onClick={handleClear}
-            className="shrink-0 text-s4e-text-disabled hover:text-s4e-text-primary transition-colors"
+            className="shrink-0 text-s4e-text-secondary hover:text-s4e-text-primary transition-colors"
             aria-label="Clear search"
           >
             <X size={13} />

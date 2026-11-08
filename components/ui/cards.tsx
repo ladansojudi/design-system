@@ -112,7 +112,7 @@ export const AlertCard = React.forwardRef<HTMLDivElement, AlertCardProps>(
                 </span>
               )}
             </div>
-            <p className="text-[12px] text-s4e-text-disabled leading-relaxed">{description}</p>
+            <p className="text-[12px] text-s4e-text-secondary leading-relaxed">{description}</p>
           </div>
 
           <button

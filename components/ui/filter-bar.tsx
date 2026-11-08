@@ -70,50 +70,49 @@ export interface FilterPillProps extends Omit<React.ButtonHTMLAttributes<HTMLBut
 
 export const FilterPill = React.forwardRef<HTMLButtonElement, FilterPillProps>(
   ({ label, icon: Icon, count, active, onClear, className, ...props }, ref) => {
+    const clearable = active && onClear;
+    // The pill and its clear action are sibling buttons inside one visual
+    // container — nesting a button inside a button is invalid and confuses AT.
     return (
-      <button
-        ref={ref}
-        type="button"
+      <span
         className={cn(
-          "inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border text-[12px] font-medium cursor-pointer select-none transition-colors shrink-0",
+          "inline-flex items-center h-8 rounded-lg border text-[12px] font-medium select-none transition-colors shrink-0",
           active
             ? "border-s4e-brand-primary-500 bg-s4e-brand-primary-50 text-s4e-brand-primary-500"
             : "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-secondary hover:border-s4e-neutral-grey-300 hover:text-s4e-text-primary",
           className,
         )}
-        {...props}
       >
-        {Icon && <Icon size={12} className="opacity-70 shrink-0" />}
-        <span>{label}</span>
-        {count !== undefined && (
-          <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-s4e-text-on-accent text-[10px] font-bold">
-            {count}
-          </span>
-        )}
-        {active && onClear ? (
-          <span
-            role="button"
-            tabIndex={0}
-            onClick={(e) => {
-              e.stopPropagation();
-              onClear();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                e.stopPropagation();
-                onClear();
-              }
-            }}
-            className="ml-0.5 hover:opacity-70"
+        <button
+          ref={ref}
+          type="button"
+          className={cn(
+            "inline-flex items-center gap-1.5 h-full pl-2.5 rounded-lg cursor-pointer",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500",
+            clearable ? "pr-1" : "pr-2.5",
+          )}
+          {...props}
+        >
+          {Icon && <Icon size={12} aria-hidden className="opacity-70 shrink-0" />}
+          <span>{label}</span>
+          {count !== undefined && (
+            <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-s4e-text-on-accent text-[10px] font-bold">
+              {count}
+            </span>
+          )}
+          {!clearable && <ChevronDown size={11} aria-hidden className="opacity-50" />}
+        </button>
+        {clearable && (
+          <button
+            type="button"
+            onClick={onClear}
             aria-label={`Clear ${label}`}
+            className="inline-flex items-center h-full pl-0.5 pr-2.5 rounded-lg cursor-pointer hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500"
           >
-            <X size={11} />
-          </span>
-        ) : (
-          <ChevronDown size={11} className="opacity-50" />
+            <X size={11} aria-hidden />
+          </button>
         )}
-      </button>
+      </span>
     );
   },
 );
@@ -129,7 +128,7 @@ export const FilterSearch = React.forwardRef<HTMLInputElement, FilterSearchProps
   ({ value, onChange, placeholder = "Search…", className, ...props }, ref) => {
     return (
       <div className="relative flex items-center shrink-0">
-        <Search size={13} className="absolute left-3 text-s4e-text-disabled pointer-events-none" />
+        <Search size={13} className="absolute left-3 text-s4e-text-secondary pointer-events-none" />
         <input
           ref={ref}
           type="text"
@@ -137,7 +136,7 @@ export const FilterSearch = React.forwardRef<HTMLInputElement, FilterSearchProps
           value={value ?? ""}
           onChange={(e) => onChange?.(e.target.value)}
           className={cn(
-            "h-8 w-48 pl-8 pr-3 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[12px] text-s4e-text-primary placeholder:text-s4e-text-disabled outline-none focus:border-s4e-brand-primary-500 focus:ring-2 focus:ring-s4e-brand-primary-500/20 transition-colors",
+            "h-8 w-48 pl-8 pr-3 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[12px] text-s4e-text-primary placeholder:text-s4e-text-secondary outline-none focus:border-s4e-brand-primary-500 focus:ring-2 focus:ring-s4e-brand-primary-500/20 transition-colors",
             className,
           )}
           {...props}
@@ -162,6 +161,7 @@ export const FilterAction = React.forwardRef<HTMLButtonElement, FilterActionProp
         ref={ref}
         type="button"
         title={label}
+        aria-label={iconOnly ? label : undefined}
         disabled={disabled || muted}
         className={cn(
           "inline-flex items-center gap-1.5 h-8 rounded-lg border text-[12px] font-medium transition-colors shrink-0",

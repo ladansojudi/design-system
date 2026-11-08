@@ -24,7 +24,14 @@ import { cn } from "@/lib/utils";
  *   </Tabs>
  */
 
-type TabsContextValue = { value: string; setValue: (v: string) => void };
+type TabsContextValue = {
+  value:    string;
+  setValue: (v: string) => void;
+  baseId:   string;
+};
+
+const idFor = (baseId: string, part: "trigger" | "panel", value: string) =>
+  `${baseId}-${part}-${value.replace(/[^A-Za-z0-9_-]/g, "_")}`;
 
 const TabsContext = React.createContext<TabsContextValue | null>(null);
 
@@ -44,6 +51,7 @@ export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
   ({ className, value, defaultValue, onValueChange, children, ...props }, ref) => {
+    const baseId       = React.useId();
     const isControlled = value !== undefined;
     const [internal, setInternal] = React.useState(defaultValue ?? "");
     const current = isControlled ? (value as string) : internal;
@@ -52,7 +60,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       onValueChange?.(v);
     };
     return (
-      <TabsContext.Provider value={{ value: current, setValue }}>
+      <TabsContext.Provider value={{ value: current, setValue, baseId }}>
         <div ref={ref} data-slot="tabs" className={cn("flex flex-col gap-6", className)} {...props}>
           {children}
         </div>
@@ -62,19 +70,57 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 );
 Tabs.displayName = "Tabs";
 
+// Arrow / Home / End move focus between tabs and activate them (APG
+// "automatic activation"). Only the active tab is in the Tab order.
 export const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      role="tablist"
-      data-slot="tabs-list"
-      className={cn(
-        "flex items-end border-b border-s4e-neutral-divider-10 overflow-x-auto s4e-scrollbar-hide",
-        className,
-      )}
-      {...props}
-    />
-  ),
+  ({ className, onKeyDown, ...props }, ref) => {
+    const listRef = React.useRef<HTMLDivElement>(null);
+    React.useImperativeHandle(ref, () => listRef.current as HTMLDivElement);
+    const { value } = useTabs();
+
+    const tabs = () =>
+      Array.from(
+        listRef.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])') ?? [],
+      );
+
+    // With no matching active tab, keep the first tab reachable by Tab.
+    React.useLayoutEffect(() => {
+      const all = tabs();
+      if (all.length && !all.some((t) => t.tabIndex === 0)) all[0].tabIndex = 0;
+    }, [value]);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      onKeyDown?.(e);
+      if (e.defaultPrevented) return;
+      const all = tabs();
+      const index = all.indexOf(document.activeElement as HTMLButtonElement);
+      if (index < 0) return;
+      let next: number | null = null;
+      if (e.key === "ArrowRight") next = (index + 1) % all.length;
+      if (e.key === "ArrowLeft")  next = (index - 1 + all.length) % all.length;
+      if (e.key === "Home")       next = 0;
+      if (e.key === "End")        next = all.length - 1;
+      if (next === null) return;
+      e.preventDefault();
+      all[next].focus();
+      all[next].click();
+    };
+
+    return (
+      <div
+        ref={listRef}
+        role="tablist"
+        aria-orientation="horizontal"
+        data-slot="tabs-list"
+        onKeyDown={handleKeyDown}
+        className={cn(
+          "flex items-end border-b border-s4e-neutral-divider-10 overflow-x-auto s4e-scrollbar-hide",
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
 );
 TabsList.displayName = "TabsList";
 
@@ -84,14 +130,17 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
   ({ className, value, ...props }, ref) => {
-    const { value: current, setValue } = useTabs();
+    const { value: current, setValue, baseId } = useTabs();
     const isActive = current === value;
     return (
       <button
         ref={ref}
         type="button"
         role="tab"
+        id={idFor(baseId, "trigger", value)}
         aria-selected={isActive}
+        aria-controls={isActive ? idFor(baseId, "panel", value) : undefined}
+        tabIndex={isActive ? 0 : -1}
         data-slot="tabs-trigger"
         onClick={() => setValue(value)}
         className={cn(
@@ -117,12 +166,15 @@ export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
   ({ className, value, ...props }, ref) => {
-    const { value: current } = useTabs();
+    const { value: current, baseId } = useTabs();
     if (current !== value) return null;
     return (
       <div
         ref={ref}
         role="tabpanel"
+        id={idFor(baseId, "panel", value)}
+        aria-labelledby={idFor(baseId, "trigger", value)}
+        tabIndex={0}
         data-slot="tabs-content"
         className={cn("outline-none", className)}
         {...props}

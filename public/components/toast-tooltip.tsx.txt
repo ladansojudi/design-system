@@ -66,6 +66,10 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     return (
       <div
         ref={ref}
+        // Failures interrupt; everything else is announced politely.
+        role={intent === "alert" ? "alert" : "status"}
+        aria-live={intent === "alert" ? "assertive" : "polite"}
+        aria-atomic="true"
         className={cn(
           "overflow-hidden bg-s4e-surface-app border border-s4e-neutral-divider-10 rounded-xl shadow-sm",
           className,
@@ -73,7 +77,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         {...props}
       >
         <div className="flex items-center gap-3 px-4 py-3">
-          <Icon size={20} className={cn("shrink-0", TOAST_COLOR[intent])} />
+          <Icon size={20} aria-hidden className={cn("shrink-0", TOAST_COLOR[intent])} />
           <div className="flex-1 min-w-0">
             {title && (
               <div className="text-[14px] font-semibold text-s4e-text-primary">{title}</div>
@@ -87,10 +91,10 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
             <button
               type="button"
               onClick={onDismiss}
-              className="shrink-0 text-s4e-text-disabled hover:text-s4e-text-primary transition-colors"
+              className="shrink-0 rounded text-s4e-text-secondary hover:text-s4e-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-s4e-brand-primary-500"
               aria-label="Dismiss"
             >
-              <X size={15} />
+              <X size={15} aria-hidden />
             </button>
           )}
         </div>
@@ -110,6 +114,10 @@ type TooltipPosition = "top" | "bottom" | "left" | "right";
 export interface TooltipProps extends React.HTMLAttributes<HTMLDivElement> {
   content:    string;
   position?:  TooltipPosition;
+  /** Force the bubble open (docs / screenshots). Omit for hover + focus behaviour. */
+  open?:      boolean;
+  /** Hover delay in ms before showing. */
+  delay?:     number;
 }
 
 const BUBBLE_POS: Record<TooltipPosition, string> = {
@@ -134,11 +142,67 @@ const ARROW_BORDER: Record<TooltipPosition, string> = {
 };
 
 export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
-  ({ content, position = "top", className, children, ...props }, ref) => {
+  (
+    {
+      content,
+      position = "top",
+      open: forcedOpen,
+      delay = 300,
+      className,
+      children,
+      onMouseEnter,
+      onMouseLeave,
+      onFocus,
+      onBlur,
+      onKeyDown,
+      ...props
+    },
+    ref,
+  ) => {
+    const tooltipId          = React.useId();
+    const [shown, setShown]  = React.useState(false);
+    const timer              = React.useRef<number>(0);
+    const open               = forcedOpen ?? shown;
+
+    const show = (immediate = false) => {
+      window.clearTimeout(timer.current);
+      if (immediate) setShown(true);
+      else timer.current = window.setTimeout(() => setShown(true), delay);
+    };
+    const hide = () => {
+      window.clearTimeout(timer.current);
+      setShown(false);
+    };
+    React.useEffect(() => () => window.clearTimeout(timer.current), []);
+
+    // Describe the trigger by the tooltip. A single element child gets
+    // aria-describedby merged in; anything else relies on the wrapper.
+    const trigger = React.isValidElement<{ "aria-describedby"?: string }>(children)
+      ? React.cloneElement(children, {
+          "aria-describedby": cn(children.props["aria-describedby"], tooltipId) || undefined,
+        })
+      : children;
+
     return (
-      <div ref={ref} className={cn("relative inline-flex", className)} {...props}>
-        {children}
+      <div
+        ref={ref}
+        className={cn("relative inline-flex", className)}
+        onMouseEnter={(e) => { show(); onMouseEnter?.(e); }}
+        onMouseLeave={(e) => { hide(); onMouseLeave?.(e); }}
+        onFocus={(e) => { show(true); onFocus?.(e); }}
+        onBlur={(e) => { hide(); onBlur?.(e); }}
+        onKeyDown={(e) => {
+          // WCAG 1.4.13 — dismissible without moving pointer or focus.
+          if (e.key === "Escape" && open) hide();
+          onKeyDown?.(e);
+        }}
+        {...props}
+      >
+        {trigger}
         <div
+          id={tooltipId}
+          role="tooltip"
+          hidden={!open}
           className={cn(
             "absolute z-50 w-56 px-3 py-2 rounded-xl text-[12px] text-s4e-text-inverse leading-relaxed pointer-events-none",
             "bg-s4e-neutral-grey-900",
@@ -147,6 +211,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
         >
           {content}
           <div
+            aria-hidden
             className={cn(
               "absolute border-4",
               ARROW_POS[position],

@@ -35,7 +35,7 @@ export const ChartCard = React.forwardRef<HTMLDivElement, ChartCardProps>(
         <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-s4e-neutral-grey-100 border-b border-s4e-neutral-divider-10 rounded-t-xl">
           <span className="text-[14px] font-semibold text-s4e-text-primary shrink-0">{title}</span>
           {description && (
-            <span className="hidden sm:inline text-[12px] text-s4e-text-disabled truncate flex-1 min-w-0">{description}</span>
+            <span className="hidden sm:inline text-[12px] text-s4e-text-secondary truncate flex-1 min-w-0">{description}</span>
           )}
           {trailing}
           {viewAll && (
@@ -71,7 +71,7 @@ export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
         className={cn("flex-1 min-w-0 rounded-lg bg-s4e-neutral-grey-100 px-4 py-3", className)}
         {...props}
       >
-        <div className="text-[12px] text-s4e-text-disabled mb-1 truncate">{label}</div>
+        <div className="text-[12px] text-s4e-text-secondary mb-1 truncate">{label}</div>
         <div className={cn("text-[16px] font-bold tabular-nums truncate", accent ?? "text-s4e-text-primary")}>
           {value}
         </div>
@@ -112,6 +112,8 @@ export const DonutChart = React.forwardRef<SVGSVGElement, DonutChartProps>(
         width={size}
         height={size}
         viewBox="-90 -90 180 180"
+        role="img"
+        aria-label={`Total ${total.toLocaleString()}: ${summarize(data)}`}
         className={cn("shrink-0", className)}
         {...props}
       >
@@ -172,6 +174,12 @@ export const DonutLegend = React.forwardRef<HTMLDivElement, DonutLegendProps>(
 );
 DonutLegend.displayName = "DonutLegend";
 
+// Charts are exposed to assistive tech as a single image whose name is a
+// text summary of the data. Pass `aria-label` to replace it with the
+// takeaway ("Critical findings doubled this month").
+const summarize = (data: { label: string; value: number }[]) =>
+  data.map((d) => `${d.label} ${d.value.toLocaleString()}`).join(", ");
+
 // ── Bar ────────────────────────────────────────────────────────────────────
 
 export type BarDatum = { label: string; value: number };
@@ -202,7 +210,13 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     const finalTicks   = computedTicks.length > 1 ? computedTicks : [0, computedMax];
 
     return (
-      <div ref={ref} className={cn("space-y-4", className)} {...props}>
+      <div
+        ref={ref}
+        role="img"
+        aria-label={summarize(data)}
+        className={cn("space-y-4", className)}
+        {...props}
+      >
         <div className="flex gap-3">
           {/* Y axis labels */}
           <div
@@ -210,7 +224,7 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             style={{ height }}
           >
             {finalTicks.map((t) => (
-              <span key={t} className="text-[10px] text-s4e-text-disabled tabular-nums">{t}</span>
+              <span key={t} className="text-[10px] text-s4e-text-secondary tabular-nums">{t}</span>
             ))}
           </div>
 
@@ -282,9 +296,19 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
     const areaPath = `${linePath} L 100 100 L 0 100 Z`;
 
     return (
-      <div ref={ref} className={cn("relative", className)} {...props}>
+      <div
+        ref={ref}
+        role="img"
+        aria-label={
+          xLabels.length > 1
+            ? `Line chart from ${xLabels[0]} to ${xLabels[xLabels.length - 1]}, range ${yLabels[yLabels.length - 1]} to ${yLabels[0]}`
+            : "Line chart"
+        }
+        className={cn("relative", className)}
+        {...props}
+      >
         {/* Y axis labels */}
-        <div className="absolute left-0 top-0 bottom-5 flex flex-col justify-between text-[10px] text-s4e-text-disabled">
+        <div className="absolute left-0 top-0 bottom-5 flex flex-col justify-between text-[10px] text-s4e-text-secondary">
           {yLabels.map((label) => (
             <span key={label}>{label}</span>
           ))}
@@ -325,7 +349,7 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
 
         {/* X axis labels */}
         {xLabels.length > 0 && (
-          <div className="ml-10 mt-2 flex justify-between text-[10px] text-s4e-text-disabled">
+          <div className="ml-10 mt-2 flex justify-between text-[10px] text-s4e-text-secondary">
             {xLabels.map((d) => (
               <span key={d} className="whitespace-nowrap">{d}</span>
             ))}
@@ -370,6 +394,8 @@ export const TreemapChart = React.forwardRef<HTMLDivElement, TreemapChartProps>(
     return (
       <div
         ref={ref}
+        role="img"
+        aria-label={summarize([...primary, ...(secondary ?? [])])}
         className={cn("flex gap-1", className)}
         style={{ height }}
         {...props}

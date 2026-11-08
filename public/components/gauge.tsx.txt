@@ -174,7 +174,7 @@ export const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
 
         <div className="text-center -mt-2">
           <span className="font-bold text-s4e-text-primary text-[14px]">{value}</span>
-          <span className="text-s4e-text-disabled text-[12px]"> / {max}</span>
+          <span className="text-s4e-text-secondary text-[12px]"> / {max}</span>
         </div>
       </div>
     );

@@ -51,12 +51,24 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     },
     ref,
   ) => {
+    const inputRef  = React.useRef<HTMLInputElement>(null);
+    React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
+
+    // `indeterminate` only exists as a DOM property — without this, screen
+    // readers announce "not checked" instead of "mixed".
+    React.useEffect(() => {
+      if (inputRef.current) inputRef.current.indeterminate = indeterminate;
+    }, [indeterminate]);
+
+    const autoId    = React.useId();
+    const inputId   = id ?? autoId;
+    const descId    = `${inputId}-description`;
     const filled    = checked || indeterminate;
     const fillClass = filled ? FILL_CLASS[tone] : EMPTY_CLASS;
 
     return (
       <label
-        htmlFor={id}
+        htmlFor={inputId}
         className={cn(
           "flex items-start gap-2.5 group",
           disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer",
@@ -65,9 +77,10 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       >
         <span className="relative inline-flex items-center justify-center mt-[1px]">
           <input
-            ref={ref}
-            id={id}
+            ref={inputRef}
+            id={inputId}
             type="checkbox"
+            aria-describedby={description ? descId : undefined}
             checked={checked}
             disabled={disabled}
             onChange={(e) => onChange?.(e.target.checked)}
@@ -84,8 +97,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             )}
           >
             {indeterminate
-              ? <Minus size={12} className="text-s4e-text-on-accent" />
-              : checked && <Check size={12} className="text-s4e-text-on-accent" />
+              ? <Minus size={12} aria-hidden className="text-s4e-text-on-accent" />
+              : checked && <Check size={12} aria-hidden className="text-s4e-text-on-accent" />
             }
           </span>
         </span>
@@ -100,7 +113,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               </span>
             )}
             {description && (
-              <span className="block text-[11px] text-s4e-text-disabled mt-0.5 leading-snug">
+              <span id={descId} className="block text-[11px] text-s4e-text-secondary mt-0.5 leading-snug">
                 {description}
               </span>
             )}

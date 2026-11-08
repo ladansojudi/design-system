@@ -44,7 +44,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLAnchorElement, BreadcrumbItem
       return (
         <span
           aria-current="page"
-          className={cn("text-[14px] text-s4e-text-disabled", className)}
+          className={cn("text-[14px] text-s4e-text-secondary", className)}
         >
           {children}
         </span>
@@ -58,7 +58,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLAnchorElement, BreadcrumbItem
         className={cn(
           "text-[14px] font-medium cursor-pointer transition-colors",
           visited
-            ? "text-s4e-text-disabled"
+            ? "text-s4e-text-secondary"
             : "text-s4e-text-primary hover:text-s4e-brand-primary-500 hover:underline hover:underline-offset-2",
           className,
         )}
@@ -79,7 +79,7 @@ export const BreadcrumbSeparator = React.forwardRef<HTMLSpanElement, BreadcrumbS
       <span
         ref={ref}
         aria-hidden
-        className={cn("text-s4e-text-disabled text-[12px] select-none", className)}
+        className={cn("text-s4e-text-secondary text-[12px] select-none", className)}
         {...props}
       >
         {children ?? "•"}
