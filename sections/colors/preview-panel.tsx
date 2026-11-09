@@ -83,7 +83,7 @@ export function PreviewPanel({ palettes }: { palettes: Palette[] }) {
   return (
     <div>
       <div className="flex items-center gap-3 mb-5">
-        <h2 className="text-[15px] font-semibold text-snt-text-primary">Kullanım Önizlemesi</h2>
+        <h2 className="text-[15px] font-semibold text-snt-text-primary">Usage preview</h2>
         <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-snt-brand-primary-500/10 text-snt-brand-primary-500">
           Aktif tema
         </span>

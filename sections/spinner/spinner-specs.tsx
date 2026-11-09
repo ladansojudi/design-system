@@ -41,9 +41,9 @@ function ToneSwatch({ tone }: { tone: "primary" | "neutral" | "white" }) {
 export function SpinnerSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Spinner is a pure indicator — no content slot, no padding. Only two designer-facing props
           and an optional accessible label.

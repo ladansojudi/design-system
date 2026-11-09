@@ -21,6 +21,7 @@
   --space-6: 24px;
   --space-5: 20px;
   --space-3: 12px;
+  --space-16: 64px;
   --space-8: 32px;
   --space-9: 36px;
   --space-1: 4px;
@@ -35,7 +36,6 @@
   /* Font size */
   --font-size-11: 11px;
   --font-size-14: 14px;
-  --font-size-15: 15px;
 
   /* Font weight */
   --font-weight-semibold: 600;

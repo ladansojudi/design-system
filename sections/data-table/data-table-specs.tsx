@@ -14,9 +14,9 @@ import {
 export function DataTableSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Every prop a designer can configure when placing this component. Use these names in Figma component properties for a 1:1 map with code.
         </SpecLede>

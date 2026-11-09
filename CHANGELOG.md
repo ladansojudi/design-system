@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed — styleguide reading order
+
+- Component pages read as a two-level outline: Examples, Usage (When to use, Do's and don'ts) and Specs (Anatomy, Properties, Sizing, Color tokens), with real h2/h3 headings and a nested "On this page" list.
+- Dev view runs Installation (shadcn CLI or manual source) → Examples → API reference.
+- Calmer Do/Don't cards; leftover Turkish label on the Colors page translated.
+
 ### Changed — one source for site and package
 
 - **Styleguide demos render the shipped components.** Every atom and organism showcase in `sections/` now uses `components/ui` (thin wrappers map demo props onto the real API) instead of hand-copied look-alikes. The site can no longer show something the package doesn't ship — this surfaced and removed stale copies (e.g. a Badge copy chip that emitted `<BadgeTag color>`, now `<Badge tone>`).

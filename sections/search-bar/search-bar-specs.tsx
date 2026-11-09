@@ -43,9 +43,9 @@ function StateSwatch({ state }: { state: "default" | "focused" | "disabled" }) {
 export function SearchBarSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Designer-facing props for placing the Search Bar in Figma. Names map 1:1 with the React component.
         </SpecLede>

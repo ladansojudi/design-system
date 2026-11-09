@@ -99,7 +99,7 @@ export function TokenExportTabs({ slugOverride, title, badge, intro }: TokenExpo
     <section className="mt-12">
       <div className="flex items-center gap-2 mb-4">
         <span aria-hidden className="hidden">▶▶</span>
-        <span className="text-[15px] font-semibold text-snt-text-primary">{title ?? "Token Export"}</span>
+        <h3 className="text-snt-16 font-semibold text-snt-text-primary">{title ?? "Token Export"}</h3>
         <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-snt-brand-primary-500/10 text-snt-brand-primary-500">
           {badge ?? "Used by this component"}
         </span>

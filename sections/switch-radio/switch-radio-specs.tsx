@@ -27,9 +27,9 @@ function VariantSwatch({ variant }: { variant: "dark" | "primary" }) {
 export function SwitchRadioSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Properties exposed on the Switch and Radio components. Mirror these names as Figma
           component properties so a Figma instance maps 1:1 to its code counterpart.

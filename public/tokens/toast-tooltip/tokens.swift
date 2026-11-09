@@ -33,6 +33,7 @@ extension CGFloat {
     static let space5: CGFloat = 20
     static let space3: CGFloat = 12
     static let space1: CGFloat = 4
+    static let space16: CGFloat = 64
 
     // Radius
     static let radiusLg: CGFloat = 8
@@ -46,7 +47,6 @@ extension CGFloat {
     static let fontSize10: CGFloat = 10
     static let fontSize12: CGFloat = 12
     static let fontSize14: CGFloat = 14
-    static let fontSize15: CGFloat = 15
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)

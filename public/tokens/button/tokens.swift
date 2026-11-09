@@ -53,7 +53,6 @@ extension CGFloat {
     static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
     static let fontSize14: CGFloat = 14
-    static let fontSize15: CGFloat = 15
 
     // Focus ring width
     static let ringWidth2: CGFloat = 2

@@ -27,9 +27,9 @@ function ShapeSwatch({ shape }: { shape: "line" | "block" | "circle" }) {
 export function SkeletonSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Skeleton is a single primitive — pick a shape, set the dimensions, and compose them to
           match the real layout. The pulse animation is built in.

@@ -39,9 +39,9 @@ function ResizeSwatch({ axis }: { axis: "none" | "y" | "both" }) {
 export function TextareaSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Textarea extends TextField with multi-line behavior — rows count, optional counter, and a
           resize handle. Use it when responses span more than one short phrase.

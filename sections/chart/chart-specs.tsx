@@ -13,9 +13,9 @@ import {
 export function ChartSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Shared instance properties across all chart kinds. Per-chart props (segments, series, ticks) are passed via the `data` prop.
         </SpecLede>

@@ -23,6 +23,7 @@
   --space-5: 20px;
   --space-1: 4px;
   --space-8: 32px;
+  --space-16: 64px;
   --space-3: 12px;
 
   /* Radius */
@@ -36,7 +37,6 @@
   --font-size-11: 11px;
   --font-size-12: 12px;
   --font-size-14: 14px;
-  --font-size-15: 15px;
   --font-size-32: 32px;
 
   /* Font weight */

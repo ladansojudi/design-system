@@ -21,6 +21,7 @@
   --space-8: 32px;
   --space-3: 12px;
   --space-10: 40px;
+  --space-16: 64px;
 
   /* Radius */
   --radius-xl: 12px;
@@ -33,7 +34,6 @@
   --font-size-10: 10px;
   --font-size-11: 11px;
   --font-size-14: 14px;
-  --font-size-15: 15px;
 
   /* Font weight */
   --font-weight-medium: 500;

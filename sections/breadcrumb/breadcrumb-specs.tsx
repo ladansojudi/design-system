@@ -38,9 +38,9 @@ function StateSwatch({ state }: { state: "default" | "hover" | "visited" }) {
 export function BreadcrumbSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Per-item properties. A Breadcrumb is an ordered list of items — typically links plus one final &quot;current&quot; item.
         </SpecLede>

@@ -7,7 +7,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-3">
       <span aria-hidden className="hidden">▶▶</span>
-      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
+      <h3 className="text-snt-16 font-semibold text-snt-text-primary">{children}</h3>
     </div>
   );
 }
@@ -61,7 +61,7 @@ function BoolSwatch({ on }: { on: boolean }) {
   );
 }
 
-// ── Instance properties table ─────────────────────────────────────────────
+// ── Properties table ─────────────────────────────────────────────
 
 type PropertyRow = {
   name:        string;
@@ -155,9 +155,9 @@ function DimensionsTable({ columns, rows }: { columns: string[]; rows: DimRow[] 
 export function ButtonSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SectionTitle>Instance properties</SectionTitle>
+        <SectionTitle>Properties</SectionTitle>
         <Lede>
           Every prop a designer can configure when placing this component. Use these names in Figma component properties for a 1:1 map with code.
         </Lede>

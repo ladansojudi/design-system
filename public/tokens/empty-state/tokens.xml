@@ -24,6 +24,7 @@
     <dimen name="space_5">20dp</dimen>
     <dimen name="space_3">12dp</dimen>
     <dimen name="space_8">32dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_lg">8dp</dimen>

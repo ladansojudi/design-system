@@ -44,9 +44,9 @@ function SizeSwatch({ size }: { size: "sm" | "md" | "lg" }) {
 export function TextFieldSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Properties exposed on the TextField component. State is driven by interaction in code, but
           designers select it explicitly in Figma to show all variants in one mock.

@@ -30,6 +30,7 @@ extension CGFloat {
     static let space10: CGFloat = 40
     static let space3: CGFloat = 12
     static let space1: CGFloat = 4
+    static let space16: CGFloat = 64
     static let space8: CGFloat = 32
 
     // Radius
@@ -45,7 +46,6 @@ extension CGFloat {
     static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
     static let fontSize14: CGFloat = 14
-    static let fontSize15: CGFloat = 15
     static let fontSize16: CGFloat = 16
 }
 

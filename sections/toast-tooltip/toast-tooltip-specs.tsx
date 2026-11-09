@@ -44,9 +44,9 @@ function PositionSwatch({ pos }: { pos: "top" | "bottom" | "left" | "right" }) {
 export function ToastTooltipSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Designer-facing props for Toast and Tooltip. Toast carries semantic meaning through its
           type; Tooltip is a neutral overlay anchored to one of four sides.

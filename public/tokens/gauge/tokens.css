@@ -12,6 +12,7 @@
   --space-10: 40px;
   --space-6: 24px;
   --space-3: 12px;
+  --space-16: 64px;
   --space-8: 32px;
 
   /* Radius */
@@ -20,9 +21,6 @@
 
   /* Border width */
   --border-width-1: 1px;
-
-  /* Font size */
-  --font-size-15: 15px;
 
   /* Font weight */
   --font-weight-semibold: 600;

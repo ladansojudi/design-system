@@ -37,9 +37,9 @@ function SizeSwatch({ size }: { size: "sm" | "md" }) {
 export function EmptyStateSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Configurable parts of an Empty State. Icon and title are required; everything else opts in.
         </SpecLede>

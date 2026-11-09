@@ -12,9 +12,9 @@ import {
 export function DashboardSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Dashboard is a layout pattern — these props describe the slots it composes (sidebar, top bar, page header, tab navigation, grid). Use them in Figma as component slots.
         </SpecLede>

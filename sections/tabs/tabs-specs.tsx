@@ -45,9 +45,9 @@ function StateSwatch({ state }: { state: "active" | "inactive" | "disabled" }) {
 export function TabsSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Every prop a designer configures per Tab Bar and per Tab Item. Map these to Figma component properties.
         </SpecLede>

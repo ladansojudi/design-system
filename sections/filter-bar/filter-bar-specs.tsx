@@ -42,9 +42,9 @@ function PillStateSwatch({ state }: { state: "default" | "active" | "overflow" }
 export function FilterBarSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Per-pill props plus bar-level toggles. Place pills left-to-right in the bar; pin actions (Export, Bulk) to the right.
         </SpecLede>

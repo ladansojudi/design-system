@@ -45,7 +45,6 @@ extension CGFloat {
     static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
     static let fontSize14: CGFloat = 14
-    static let fontSize15: CGFloat = 15
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)

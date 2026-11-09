@@ -45,9 +45,9 @@ function ToneSwatch({ tone }: { tone: "neutral" | "alert" }) {
 export function CardsSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Designer-facing props for Insight Card and Alert Card. Stat Card has its own page and is documented separately.
         </SpecLede>

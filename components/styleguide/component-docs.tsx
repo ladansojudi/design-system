@@ -11,7 +11,7 @@ function DocSectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
       <span aria-hidden className="hidden">▶▶</span>
-      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
+      <h3 className="text-snt-16 font-semibold text-snt-text-primary">{children}</h3>
     </div>
   );
 }
@@ -247,11 +247,11 @@ export function Anatomy({
 export function UseCases({ items }: { items: string[] }) {
   return (
     <div>
-      <DocSectionTitle>Use Cases</DocSectionTitle>
-      <div className="border border-snt-neutral-divider-10 rounded-xl px-6 py-5">
+      <DocSectionTitle>When to use</DocSectionTitle>
+      <div className="border border-snt-border-default rounded-xl px-6 py-5">
         <ul className="space-y-2.5">
           {items.map((item) => (
-            <li key={item} className="flex items-start gap-2.5 text-[14px] text-snt-text-secondary leading-relaxed">
+            <li key={item} className="flex items-start gap-2.5 text-snt-14 text-snt-text-primary leading-relaxed">
               <span className="shrink-0 mt-[7px] w-1 h-1 rounded-full bg-snt-brand-primary-500" />
               {item}
             </li>
@@ -269,7 +269,7 @@ export type Guideline = { type: "do" | "dont"; text: string };
 export function Guidelines({ items }: { items: Guideline[] }) {
   return (
     <div>
-      <DocSectionTitle>Guidelines</DocSectionTitle>
+      <DocSectionTitle>Do&apos;s and don&apos;ts</DocSectionTitle>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.map((g, i) => {
           const isDo = g.type === "do";
@@ -277,25 +277,20 @@ export function Guidelines({ items }: { items: Guideline[] }) {
             <div
               key={i}
               className={cn(
-                "border rounded-xl px-4 py-3 flex items-start gap-3",
-                isDo ? "border-snt-scale-green-200 bg-snt-scale-green-50" : "border-snt-scale-red-200 bg-snt-scale-red-50",
+                "rounded-xl border border-snt-border-default border-t-2 bg-snt-surface-app px-4 pb-4 pt-3",
+                isDo ? "border-t-snt-scale-green-500" : "border-t-snt-scale-red-500",
               )}
             >
-              <div className={cn(
-                "shrink-0 w-5 h-5 rounded-full flex items-center justify-center",
-                isDo ? "bg-snt-scale-green-500 text-white" : "bg-snt-scale-red-500 text-white",
-              )}>
-                {isDo ? <Check size={12} /> : <X size={12} />}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className={cn(
-                  "text-[11px] font-semibold uppercase tracking-widest mb-0.5",
+              <div
+                className={cn(
+                  "mb-1.5 flex items-center gap-1.5 text-snt-12 font-semibold",
                   isDo ? "text-snt-scale-green-600" : "text-snt-scale-red-600",
-                )}>
-                  {isDo ? "Do" : "Don't"}
-                </div>
-                <p className="text-[12px] text-snt-text-primary leading-relaxed">{g.text}</p>
+                )}
+              >
+                {isDo ? <Check size={14} aria-hidden /> : <X size={14} aria-hidden />}
+                {isDo ? "Do" : "Don\u2019t"}
               </div>
+              <p className="text-snt-14 leading-relaxed text-snt-text-primary">{g.text}</p>
             </div>
           );
         })}

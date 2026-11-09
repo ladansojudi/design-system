@@ -65,7 +65,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
       <span aria-hidden className="hidden">▶▶</span>
-      <span className="text-[15px] font-semibold text-snt-text-primary">{children}</span>
+      <h3 className="text-snt-16 font-semibold text-snt-text-primary">{children}</h3>
     </div>
   );
 }

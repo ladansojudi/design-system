@@ -11,10 +11,10 @@ export function DeveloperNotes() {
   if (!note) return null;
 
   return (
-    <section className="mt-12">
+    <section className="border-t border-snt-border-default pt-10 mt-12 first:mt-0 first:border-t-0 first:pt-0">
       <div className="flex items-center gap-2 mb-4">
         <span aria-hidden className="hidden">▶▶</span>
-        <span className="text-[15px] font-semibold text-snt-text-primary">Developer Notes</span>
+        <h2 className="text-snt-20 font-semibold tracking-tight text-snt-text-primary">API reference</h2>
         <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-[2px] bg-snt-brand-primary-500/10 text-snt-brand-primary-500">
           Engineering
         </span>
