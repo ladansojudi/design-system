@@ -28,11 +28,11 @@ export interface SearchBarProps
 }
 
 const CONTAINER_BASE =
-  "flex items-center gap-2 rounded-lg px-3 h-9 w-full transition-colors";
+  "flex items-center gap-2 rounded-lg px-3 h-9 compact:h-8 w-full transition-colors";
 
 const VARIANT_CONTAINER: Record<Variant, string> = {
   default:
-    "border border-snt-border-default bg-snt-surface-app " +
+    "border border-snt-border-default bg-snt-surface-app shadow-snt-control " +
     "focus-within:border-snt-brand-primary-500 focus-within:ring-2 focus-within:ring-snt-focus-ring/20",
   ghost:
     "bg-snt-bg-subtle border border-transparent " +

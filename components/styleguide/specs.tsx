@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
 
 // ── Shared layout helpers ──────────────────────────────────────────────────
@@ -130,7 +130,48 @@ export function DimensionsTable({ columns, rows }: { columns: string[]; rows: Di
 
 // ── Color tokens table ────────────────────────────────────────────────────
 
-export type TokenSwatch = { token: string; hex: string };
+/**
+ * `token` is the name without the `--snt-` prefix. The swatch and the hex are
+ * read live from the CSS variable, so the table follows the theme and can't
+ * drift from globals.css. `hex` is only a fallback for names that aren't tokens.
+ */
+export type TokenSwatch = { token: string; hex?: string };
+
+// The styleguide sets its theme with a .dark class on the app shell, not on
+// <html>, so watch class changes anywhere and resolve values inside the shell.
+function subscribeTheme(onChange: () => void) {
+  const mo = new MutationObserver(onChange);
+  mo.observe(document.body, { attributes: true, subtree: true, attributeFilter: ["class", "data-snt-theme"] });
+  return () => mo.disconnect();
+}
+
+function toHex(color: string): string {
+  const m = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/);
+  if (!m) return color;
+  const hex = "#" + [m[1], m[2], m[3]].map((n) => Number(n).toString(16).padStart(2, "0")).join("");
+  return m[4] !== undefined && Number(m[4]) < 1 ? `${hex} · ${Math.round(Number(m[4]) * 100)}%` : hex;
+}
+
+export function useTokenValue(token: string): string {
+  return useSyncExternalStore(
+    subscribeTheme,
+    () => {
+      const root = document.querySelector<HTMLElement>(".dark") ?? document.body;
+      const raw = getComputedStyle(root).getPropertyValue(`--snt-${token}`).trim();
+      if (!raw) return "";
+      if (/^#[0-9a-f]{3}$/i.test(raw)) return ("#" + [...raw.slice(1)].map((c) => c + c).join("")).toLowerCase();
+      if (raw.startsWith("#")) return raw.toLowerCase();
+      // Resolve var() chains and rgb()/color-mix() through a real style.
+      const probe = document.createElement("span");
+      probe.style.color = `var(--snt-${token})`;
+      root.appendChild(probe);
+      const rgb = getComputedStyle(probe).color;
+      probe.remove();
+      return toHex(rgb);
+    },
+    () => "",
+  );
+}
 
 export type TokenRow = {
   variant: string;
@@ -227,14 +268,24 @@ export function ColorTokenTabs({ groups }: { groups: ColorTokenGroup[] }) {
 }
 
 function TokenCell({ t }: { t?: TokenSwatch }) {
-  if (!t) return <td className="py-2.5 px-4 text-[12px] text-snt-text-disabled">—</td>;
+  if (!t) return <td className="py-2.5 px-4 text-snt-12 text-snt-text-disabled">—</td>;
+  return <TokenCellValue t={t} />;
+}
+
+function TokenCellValue({ t }: { t: TokenSwatch }) {
+  const live = useTokenValue(t.token);
+  const value = live || t.hex || "";
   return (
     <td className="py-2.5 px-4">
       <div className="flex items-center gap-2">
-        <span className="inline-block w-4 h-4 rounded-[3px] border border-snt-neutral-divider-10 shrink-0" style={{ backgroundColor: t.hex }} aria-hidden />
+        <span
+          className="inline-block w-4 h-4 rounded-[3px] border border-snt-border-default shrink-0"
+          style={{ backgroundColor: live ? `var(--snt-${t.token})` : t.hex }}
+          aria-hidden
+        />
         <div className="min-w-0">
-          <div className="font-mono text-[11px] text-snt-text-primary truncate">{t.token}</div>
-          <div className="font-mono text-[10.5px] text-snt-text-disabled truncate">{t.hex}</div>
+          <div className="font-mono text-snt-12 text-snt-text-primary truncate">{t.token}</div>
+          <div className="font-mono text-snt-11 text-snt-text-secondary truncate">{value}</div>
         </div>
       </div>
     </td>

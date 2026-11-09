@@ -1,236 +1,148 @@
 import type { Metadata } from "next";
-import fs from "node:fs";
-import path from "node:path";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Bot, Accessibility, SunMoon, Blocks, ShieldCheck } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
+import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { SectionTitle } from "@/components/styleguide/section-title";
-import { FigmaMark } from "@/components/styleguide/open-in-figma";
-import { SentinelMark } from "@/components/styleguide/logo";
+import { OriginCode } from "@/components/styleguide/origin-code";
 import { FIGMA_FILE_URL } from "@/components/styleguide/figma-data";
-import { navGroups } from "@/components/styleguide/nav-data";
-import { version } from "@/package.json";
-
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Alert } from "@/components/ui/alert";
-import { Badge, Tag } from "@/components/ui/badge-tag";
-import { SeverityBadge } from "@/components/ui/severity-badge";
-import { TextField } from "@/components/ui/text-field";
-import { Switch } from "@/components/ui/switch-radio";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Gauge } from "@/components/ui/gauge";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const metadata: Metadata = {
-  title: "Overview — Sentinel Design System",
-  description: "Sentinel — an open design system for cybersecurity products: tokens, components and docs. Designed in Figma, built in React, ready for AI agents.",
+  title: "Introduction — Sentinel Design System",
+  description: "How to start with Sentinel: the Figma library for designers, a one-command install for developers, and llms.txt for AI agents.",
 };
 
-// Counted from the source at build time so the numbers never drift.
-function systemStats() {
-  const root = process.cwd();
-  const manifest = JSON.parse(fs.readFileSync(path.join(root, "public", "sentinel-manifest.json"), "utf8"));
-  const css = fs.readFileSync(path.join(root, "app", "globals.css"), "utf8");
-  const tokens = new Set([...css.matchAll(/--(snt-[a-z0-9-]+)\s*:/g)].map((m) => m[1]));
-  return { components: manifest.components.length as number, tokens: tokens.size };
+function Step({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
+  return (
+    <li className="relative pl-12">
+      <span
+        aria-hidden
+        className="absolute left-0 top-0 flex size-8 items-center justify-center rounded-full bg-snt-bg-subtle text-snt-14 font-semibold text-snt-text-primary"
+      >
+        {n}
+      </span>
+      <h3 className="pt-1 text-snt-16 font-semibold text-snt-text-primary">{title}</h3>
+      <div className="mt-2 space-y-3 text-snt-14 leading-relaxed text-snt-text-secondary">{children}</div>
+    </li>
+  );
 }
 
-const PILLARS = [
-  {
-    icon: <FigmaMark size={18} />,
-    title: "Designed in Figma",
-    body: "A Figma library generated from the code: Light/Dark variables with the same names as the CSS tokens, text styles, 40 icons and one page per component.",
-    href: FIGMA_FILE_URL,
-    cta: "Open the library",
-    external: true,
-  },
-  {
-    icon: <Blocks size={18} aria-hidden />,
-    title: "Built in React",
-    body: "Copy-paste components on Tailwind v4 — you own the code. Install any of them with one shadcn command; every visual property is a token.",
-    href: "/styleguide/button",
-    cta: "Browse components",
-  },
-  {
-    icon: <Bot size={18} aria-hidden />,
-    title: "Ready for AI",
-    body: "llms.txt, a typed component manifest, a shadcn registry and lint rules that reject hard-coded colours — so agents build with the system, not around it.",
-    href: "/styleguide/ai",
-    cta: "How it works",
-  },
+function Steps({ children }: { children: React.ReactNode }) {
+  return <ol className="space-y-10">{children}</ol>;
+}
+
+function Code({ children }: { children: string }) {
+  return <code className="rounded bg-snt-bg-subtle px-1.5 py-0.5 font-mono text-snt-12 text-snt-text-primary">{children}</code>;
+}
+
+const NEXT = [
+  { title: "Components", body: "Browse every component with usage, specs and code.", href: "/styleguide/components" },
+  { title: "Foundations", body: "Colour, type, spacing and the tokens behind them.", href: "/styleguide/colors" },
+  { title: "Accessibility", body: "How Sentinel meets WCAG 2.2 AA, and what you still own.", href: "/styleguide/accessibility" },
 ];
 
-const QUALITIES = [
-  { icon: SunMoon,       title: "Light & dark",        body: "Every token resolves per theme, including nested previews." },
-  { icon: Accessibility, title: "WCAG 2.2 AA target",  body: "Labels, focus, keyboard models from the WAI-ARIA patterns." },
-  { icon: ShieldCheck,   title: "Severity is sacred",  body: "Critical → Info colours are reserved and never decorative." },
-];
-
-export default function OverviewPage() {
-  const stats = systemStats();
-  const groups = navGroups.filter((g) => g.label !== "GET STARTED");
-
+export default function IntroductionPage() {
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-snt-border-default bg-snt-surface-page">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-60 [background-image:linear-gradient(to_right,var(--snt-border-default)_1px,transparent_1px),linear-gradient(to_bottom,var(--snt-border-default)_1px,transparent_1px)] [background-size:32px_32px] [mask-image:radial-gradient(ellipse_at_top_right,black_20%,transparent_70%)]"
-        />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 grid gap-10 lg:grid-cols-[1.05fr_1fr] items-center">
-          <div>
-            <div className="flex items-center gap-2.5 mb-6">
-              <SentinelMark size={28} />
-              <Tag tone="primary" outlined>Open design system</Tag>
-              <span className="font-mono text-snt-11 text-snt-text-secondary">v{version}</span>
-            </div>
-            <h1 className="text-snt-32 sm:text-snt-48 font-semibold tracking-tight leading-[1.05] text-snt-text-primary">
-              Sentinel Design System
-            </h1>
-            <p className="mt-5 text-snt-16 leading-relaxed text-snt-text-secondary max-w-[540px]">
-              An open design system for cybersecurity products — threat dashboards, scans, assets, findings and severity.
-              Designed in Figma, built in React, and ready for AI agents.
-            </p>
-            <p className="mt-3 text-snt-12 text-snt-text-secondary">
-              Designed &amp; built by <span className="font-medium text-snt-text-primary">Laden Sojudi</span>
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/styleguide/button" className={buttonVariants({ size: "lg" })}>
-                Browse components <ArrowRight size={16} aria-hidden />
-              </Link>
-              <a href={FIGMA_FILE_URL} target="_blank" rel="noreferrer" className={buttonVariants({ intent: "default", variant: "outline", size: "lg" })}>
-                <FigmaMark size={15} /> Figma library <span className="sr-only">(opens in a new tab)</span>
-              </a>
-              <Link href="/styleguide/ai" className={buttonVariants({ intent: "default", variant: "ghost", size: "lg" })}>
-                <Bot size={16} aria-hidden /> Built for AI
-              </Link>
-            </div>
-          </div>
-
-          {/* Product shot — real components, not a screenshot */}
-          <div aria-label="Live preview of Sentinel components" role="group" className="rounded-2xl border border-snt-border-default bg-snt-surface-app shadow-snt-xl p-5 sm:p-6">
-            <Tabs defaultValue="findings" className="gap-5">
-              <TabsList aria-label="Preview sections">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="findings">Findings</TabsTrigger>
-                <TabsTrigger value="assets">Assets</TabsTrigger>
-              </TabsList>
-            </Tabs>
-            <div className="mt-5 grid gap-5 sm:grid-cols-[auto_1fr] items-center">
-              <Gauge value={72} color="green" />
-              <div className="space-y-2">
-                <SeverityBadge severity="critical" score={9.8} />
-                <SeverityBadge severity="high" score={8.1} />
-                <SeverityBadge severity="medium" score={5.4} />
-              </div>
-            </div>
-            <div className="mt-5">
-              <Alert variant="warning" title="2 assets not scanned in 30 days">
-                Schedule a scan to keep the exposure score current.
-              </Alert>
-            </div>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 items-end">
-              <TextField variant="outlined" label="Target domain" defaultValue="api.example.com" />
-              <div className="flex items-center gap-3 pb-5">
-                <Switch checked variant="primary" aria-label="Continuous scanning" />
-                <span className="text-snt-12 text-snt-text-secondary">Continuous scanning</span>
-              </div>
-            </div>
-            <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
-              <div className="flex flex-wrap gap-2">
-                <Badge tone="success">Active</Badge>
-                <Tag tone="info">Production</Tag>
-                <Checkbox checked label="Notify team" />
-              </div>
-              <Button size="sm">Start scan</Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        category="Get started"
+        title="Introduction"
+        description="Sentinel is an open design system for cybersecurity products. Pick your path: design in Figma, build in React, or let an AI agent build with it."
+      />
 
       <PageBody>
-        {/* ── Numbers ─────────────────────────────────────────────────────── */}
-        <section aria-label="System at a glance" className="grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden rounded-xl border border-snt-border-default bg-snt-border-default">
-          {[
-            [String(stats.components), "Components", "Atoms, molecules, organisms"],
-            [String(stats.tokens), "Design tokens", "Colour, type, shadow, motion"],
-            ["2", "Themes", "Light and dark, one source"],
-            ["5", "Lint rules", "Guardrails for humans & AI"],
-          ].map(([value, label, hint]) => (
-            <div key={label} className="bg-snt-surface-app p-5">
-              <div className="text-snt-32 font-semibold tracking-tight text-snt-text-primary tabular-nums">{value}</div>
-              <div className="mt-1 text-snt-14 font-medium text-snt-text-primary">{label}</div>
-              <div className="text-snt-12 text-snt-text-secondary">{hint}</div>
-            </div>
-          ))}
-        </section>
+        <div className="max-w-3xl space-y-16">
+          <section>
+            <SectionTitle>For designers</SectionTitle>
+            <Steps>
+              <Step n={1} title="Open the Figma library">
+                <p>
+                  The library has a component for every element on this site, colour variables for light and dark, and
+                  text styles — named exactly like the code tokens.
+                </p>
+                <a
+                  href={FIGMA_FILE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 font-medium text-snt-text-brand hover:underline"
+                >
+                  Open in Figma <ArrowUpRight size={14} aria-hidden />
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+              </Step>
+              <Step n={2} title="Add it to your files">
+                <p>
+                  Duplicate the file into your team and publish it as a library (Assets → Libraries → Publish). Then turn it
+                  on in any file to use the components.
+                </p>
+              </Step>
+              <Step n={3} title="Design with components, not copies">
+                <p>
+                  Drag components from the Assets panel and change them through their properties (intent, variant, size)
+                  instead of detaching. Read each component&apos;s Usage tab before designing a new flow.
+                </p>
+              </Step>
+            </Steps>
+          </section>
 
-        {/* ── Pillars ─────────────────────────────────────────────────────── */}
-        <section className="mt-14">
-          <SectionTitle kicker="One source of truth">Design, code and AI stay in sync</SectionTitle>
-          <div className="grid gap-4 md:grid-cols-3">
-            {PILLARS.map((p) => {
-              const inner = (
-                <>
-                  <div className="w-9 h-9 rounded-lg bg-snt-bg-brand-subtle text-snt-text-brand flex items-center justify-center">{p.icon}</div>
-                  <h3 className="mt-4 text-snt-14 font-semibold text-snt-text-primary">{p.title}</h3>
-                  <p className="mt-2 text-snt-12 leading-relaxed text-snt-text-secondary flex-1">{p.body}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-snt-12 font-medium text-snt-text-brand">
-                    {p.cta} {p.external ? <ArrowUpRight size={13} aria-hidden /> : <ArrowRight size={13} aria-hidden />}
-                  </span>
-                </>
-              );
-              const cls = "group flex flex-col rounded-xl border border-snt-border-default bg-snt-surface-app p-5 transition-colors hover:border-snt-border-strong hover:bg-snt-surface-row-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring";
-              return p.external ? (
-                <a key={p.title} href={p.href} target="_blank" rel="noreferrer" className={cls}>{inner}</a>
-              ) : (
-                <Link key={p.title} href={p.href} className={cls}>{inner}</Link>
-              );
-            })}
-          </div>
-        </section>
+          <section>
+            <SectionTitle>For developers</SectionTitle>
+            <p className="mb-8 text-snt-14 leading-relaxed text-snt-text-secondary">
+              Requires React 19, Tailwind CSS v4 and a project set up for the shadcn CLI (<Code>npx shadcn@latest init</Code>).
+              Components are copied into your project — you own the code.
+            </p>
+            <Steps>
+              <Step n={1} title="Add the Sentinel registry">
+                <p>In <Code>components.json</Code>:</p>
+                <OriginCode lang="json" code={`"registries": {\n  "@sentinel": "{origin}/r/{name}.json"\n}`} className="rounded-lg" />
+              </Step>
+              <Step n={2} title="Install the theme once">
+                <p>Adds every <Code>--snt-*</Code> token for light and dark. Import the CSS file it creates after <Code>@import &quot;tailwindcss&quot;;</Code>.</p>
+                <OriginCode lang="bash" code="npx shadcn@latest add @sentinel/theme" className="rounded-lg" />
+              </Step>
+              <Step n={3} title="Add components as you need them">
+                <p>Each component brings what it depends on, including the <Code>cn()</Code> helper.</p>
+                <OriginCode lang="bash" code="npx shadcn@latest add @sentinel/button @sentinel/severity-badge" className="rounded-lg" />
+              </Step>
+              <Step n={4} title="Use them">
+                <OriginCode
+                  lang="tsx"
+                  code={`import { Button } from "@/components/ui/button";\n\nexport function ScanActions() {\n  return <Button>Start scan</Button>;\n}`}
+                  className="rounded-lg"
+                />
+              </Step>
+            </Steps>
+          </section>
 
-        {/* ── Qualities ───────────────────────────────────────────────────── */}
-        <section className="mt-14">
-          <SectionTitle kicker="Principles in practice">Built for security teams</SectionTitle>
-          <div className="grid gap-6 sm:grid-cols-3">
-            {QUALITIES.map(({ icon: Icon, title, body }) => (
-              <div key={title} className="flex gap-3">
-                <Icon size={18} aria-hidden className="mt-0.5 shrink-0 text-snt-text-brand" />
-                <div>
-                  <div className="text-snt-14 font-medium text-snt-text-primary">{title}</div>
-                  <p className="mt-1 text-snt-12 leading-relaxed text-snt-text-secondary">{body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+          <section>
+            <SectionTitle>With an AI agent</SectionTitle>
+            <p className="mb-5 text-snt-14 leading-relaxed text-snt-text-secondary">
+              Give your coding agent the system&apos;s rules and it uses the real components and tokens instead of inventing
+              its own. Start your prompt with:
+            </p>
+            <OriginCode lang="bash" code="Use the Sentinel design system: {origin}/llms.txt" className="rounded-lg" />
+            <p className="mt-5 text-snt-14 leading-relaxed text-snt-text-secondary">
+              For a project that keeps using Sentinel, add the rules file and lint guardrails too.{" "}
+              <Link href="/styleguide/ai" className="font-medium text-snt-text-brand hover:underline">How it works</Link>
+            </p>
+          </section>
 
-        {/* ── Explore ─────────────────────────────────────────────────────── */}
-        <section className="mt-14">
-          <SectionTitle kicker="Explore">Browse the system</SectionTitle>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {groups.map((g) => (
-              <div key={g.label} className="rounded-xl border border-snt-border-default p-5">
-                <div className="flex items-baseline justify-between">
-                  <h3 className="text-snt-11 font-semibold uppercase tracking-[0.08em] text-snt-text-secondary">{g.label}</h3>
-                  <span className="text-snt-11 text-snt-text-secondary tabular-nums">{g.items.length}</span>
-                </div>
-                <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1.5">
-                  {g.items.map((item) => (
-                    <li key={item.slug}>
-                      <Link href={`/styleguide/${item.slug}`} className="text-snt-12 text-snt-text-primary hover:text-snt-text-brand hover:underline underline-offset-2">
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
+          <section>
+            <SectionTitle>Next steps</SectionTitle>
+            <ul className="grid gap-4 sm:grid-cols-3">
+              {NEXT.map((n) => (
+                <li key={n.title} className="group relative rounded-xl border border-snt-border-default p-5 transition-colors hover:border-snt-border-strong has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-snt-focus-ring">
+                  <h3 className="text-snt-14 font-semibold text-snt-text-primary">
+                    <Link href={n.href} className="after:absolute after:inset-0 focus-visible:outline-none">{n.title}</Link>
+                  </h3>
+                  <p className="mt-1.5 text-snt-14 leading-relaxed text-snt-text-secondary">{n.body}</p>
+                  <ArrowRight size={14} aria-hidden className="mt-3 text-snt-text-brand transition-transform group-hover:translate-x-0.5" />
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
       </PageBody>
     </>
   );

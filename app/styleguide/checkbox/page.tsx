@@ -6,7 +6,9 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { CheckboxShowcase, CheckboxExamples } from "@/sections/checkbox/checkbox-showcase";
 import { CheckboxSpecs } from "@/sections/checkbox/checkbox-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
@@ -18,42 +20,24 @@ export default function CheckboxPage() {
   return (
     <>
       <PageHero
-        category="Atoms"
+        category="Components"
+        categoryHref="/styleguide/components"
         title="Checkbox"
         status="beta"
         description="Independent on/off control used for multi-select lists and single-option toggles. Indeterminate state communicates a partial parent selection."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
-        design={
-          <div className="space-y-16 mt-8 sm:mt-10">
-            <DocSection title="Examples">
-              <CheckboxShowcase />
-            </DocSection>
-            <DocSection title="Usage">
-              <UseCases
-                items={[
-                  "Selecting multiple rows in a table or list.",
-                  "Granular notification or feature opt-ins on a settings page.",
-                  "Filter sidebar where each filter is independently togglable.",
-                  "Parent / child trees with an indeterminate \"select all\" toggle.",
-                ]}
-              />
-              <Guidelines
-                items={[
-                  { type: "do",   text: "Use Checkbox for independent multi-select. Use Radio when the options are mutually exclusive." },
-                  { type: "dont", text: "Don't use a single Checkbox for a setting that takes effect immediately — that's a Switch." },
-                  { type: "do",   text: "Make the label clickable — extending the hit target is more accessible than a 18px box alone." },
-                  { type: "dont", text: "Don't show only icons or values without labels — checkbox groups need text to be scannable." },
-                ]}
-              />
-            </DocSection>
-            <DocSection title="Specs">
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Checkbox" />
+            <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
                   { label: "Box",           description: "18px square with 3px radius. Empty when off, filled with check or minus when on." },
@@ -83,6 +67,37 @@ export default function CheckboxPage() {
             </DocSection>
           </div>
         }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="checkbox" />
+          </div>
+        }
+        design={
+          <div className="space-y-16 mt-8 sm:mt-10">
+            <DocSection title="Examples">
+              <CheckboxShowcase />
+            </DocSection>
+            <DocSection title="Usage">
+              <UseCases
+                items={[
+                  "Selecting multiple rows in a table or list.",
+                  "Granular notification or feature opt-ins on a settings page.",
+                  "Filter sidebar where each filter is independently togglable.",
+                  "Parent / child trees with an indeterminate \"select all\" toggle.",
+                ]}
+              />
+              <Guidelines
+                items={[
+                  { type: "do",   text: "Use Checkbox for independent multi-select. Use Radio when the options are mutually exclusive." },
+                  { type: "dont", text: "Don't use a single Checkbox for a setting that takes effect immediately — that's a Switch." },
+                  { type: "do",   text: "Make the label clickable — extending the hit target is more accessible than a 18px box alone." },
+                  { type: "dont", text: "Don't show only icons or values without labels — checkbox groups need text to be scannable." },
+                ]}
+              />
+            </DocSection>
+            
+          </div>
+        }
         dev={
           <div className="mt-8 sm:mt-10">
             <DocSection title="Examples"><CheckboxExamples /></DocSection>
@@ -90,6 +105,7 @@ export default function CheckboxPage() {
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

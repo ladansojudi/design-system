@@ -3,20 +3,22 @@
 import { useViewMode, type ViewMode } from "@/components/styleguide/view-mode-provider";
 import { cn } from "@/lib/utils";
 
-const LABEL: Record<ViewMode, string> = {
+const LABEL: Record<"design" | "dev", string> = {
   design: "Design",
   dev:    "Dev",
 };
 
 export function ViewModeTabs() {
-  const { mode, setMode } = useViewMode();
+  const { mode: raw, setMode } = useViewMode();
+  // Two-tab pages show Specs / Accessibility selections as Design.
+  const mode: ViewMode = raw === "dev" ? "dev" : "design";
   return (
     <div
       role="tablist"
       aria-label="View mode"
       className="flex items-center gap-2 border-b border-snt-neutral-divider-10"
     >
-      {(["design", "dev"] as ViewMode[]).map((m) => {
+      {(["design", "dev"] as const).map((m) => {
         const active = mode === m;
         return (
           <button

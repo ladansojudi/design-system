@@ -90,7 +90,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           <span
             aria-hidden
             className={cn(
-              "w-[18px] h-[18px] rounded-[3px] border-2 flex items-center justify-center transition-colors",
+              "w-[18px] h-[18px] rounded border-2 shadow-snt-control flex items-center justify-center transition-colors",
               "peer-focus-visible:ring-2 peer-focus-visible:ring-offset-1 peer-focus-visible:ring-snt-focus-ring",
               fillClass,
               !disabled && !filled && "group-hover:border-snt-neutral-grey-600",

@@ -258,8 +258,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             aria-invalid={isError || undefined}
             aria-describedby={message ? helperId : undefined}
             className={cn(
-              "w-full flex items-center justify-between gap-2 h-9 px-3 rounded-md text-snt-14 text-left transition-colors",
-              "border", borderClass, "bg-snt-surface-row",
+              "w-full flex items-center justify-between gap-2 h-9 compact:h-8 px-3 rounded-md text-snt-14 text-left transition-colors",
+              "border shadow-snt-control", borderClass, "bg-snt-surface-row",
               isDisabled
                 ? "opacity-40 cursor-not-allowed"
                 : "cursor-pointer hover:border-snt-neutral-grey-500 focus:outline-none focus:border-snt-border-focus focus-visible:ring-2 focus-visible:ring-snt-focus-ring/40",
@@ -309,7 +309,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                     onMouseEnter={() => !opt.disabled && setActive(i)}
                     onClick={() => commit(i)}
                     className={cn(
-                      "w-full flex items-center justify-between gap-2 px-3 py-2 text-snt-14 text-left",
+                      "w-full flex items-center justify-between gap-2 px-3 py-2 compact:py-1.5 text-snt-14 text-left",
                       opt.disabled
                         ? "text-snt-text-disabled cursor-not-allowed"
                         : "text-snt-text-primary cursor-pointer",

@@ -6,7 +6,9 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { BannerShowcase, BannerExamples } from "@/sections/banner/banner-showcase";
 import { BannerSpecs } from "@/sections/banner/banner-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
@@ -18,42 +20,24 @@ export default function BannerPage() {
   return (
     <>
       <PageHero
-        category="Atoms"
+        category="Components"
+        categoryHref="/styleguide/components"
         title="Banner"
         status="beta"
         description="Full-width page-level notification that sits above the app shell. Used for system-wide state — outages, trials, billing — not per-feature messages."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
-        design={
-          <div className="space-y-16 mt-8 sm:mt-10">
-            <DocSection title="Examples">
-              <BannerShowcase />
-            </DocSection>
-            <DocSection title="Usage">
-              <UseCases
-                items={[
-                  "Trial / billing reminders (\"Trial expires in 3 days\").",
-                  "Scheduled maintenance announcements.",
-                  "Read-only mode warnings while a degraded service recovers.",
-                  "Product-wide announcements (new feature launches, deprecation notice).",
-                ]}
-              />
-              <Guidelines
-                items={[
-                  { type: "do",   text: "Place Banner above the top bar so it is the first thing visible." },
-                  { type: "dont", text: "Don't stack multiple banners — pick the highest priority one." },
-                  { type: "do",   text: "Make the message readable on a glance — one sentence, active voice." },
-                  { type: "dont", text: "Don't make critical banners dismissible; the user can hide a billing issue and miss it." },
-                ]}
-              />
-            </DocSection>
-            <DocSection title="Specs">
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Banner" />
+            <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
                   { label: "Surface", shortLabel: "Surface", description: "Solid full-bleed background; tone defines color.",                       pinX: 50, pinY: 0,  x: 50, y: -50, anchor: "center" },
@@ -81,6 +65,37 @@ export default function BannerPage() {
             </DocSection>
           </div>
         }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="banner" />
+          </div>
+        }
+        design={
+          <div className="space-y-16 mt-8 sm:mt-10">
+            <DocSection title="Examples">
+              <BannerShowcase />
+            </DocSection>
+            <DocSection title="Usage">
+              <UseCases
+                items={[
+                  "Trial / billing reminders (\"Trial expires in 3 days\").",
+                  "Scheduled maintenance announcements.",
+                  "Read-only mode warnings while a degraded service recovers.",
+                  "Product-wide announcements (new feature launches, deprecation notice).",
+                ]}
+              />
+              <Guidelines
+                items={[
+                  { type: "do",   text: "Place Banner above the top bar so it is the first thing visible." },
+                  { type: "dont", text: "Don't stack multiple banners — pick the highest priority one." },
+                  { type: "do",   text: "Make the message readable on a glance — one sentence, active voice." },
+                  { type: "dont", text: "Don't make critical banners dismissible; the user can hide a billing issue and miss it." },
+                ]}
+              />
+            </DocSection>
+            
+          </div>
+        }
         dev={
           <div className="mt-8 sm:mt-10">
             <DocSection title="Examples"><BannerExamples /></DocSection>
@@ -88,6 +103,7 @@ export default function BannerPage() {
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

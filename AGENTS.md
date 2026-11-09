@@ -16,7 +16,7 @@ This repo is both the **design system** (tokens + components) and the **stylegui
 | Tokens | `app/globals.css` | `--snt-*` CSS variables (light + dark) and the Tailwind `@theme` mapping. |
 | Component docs | `docs/components/<slug>.md` | Usage, accessibility, API, known gaps. Update in the same change as the component. |
 | Styleguide demos | `sections/<slug>/` | Page layouts that render `components/ui` (thin wrappers map demo props onto the real API). Fix component bugs in `components/ui`, not here. |
-| Generated files | `public/components/`, `public/tokens/`, `public/svg/`, `public/llms*.txt`, `public/theme.css`, `public/docs/`, `public/r/`, `public/sentinel-manifest.json`, `public/AGENTS.template.md`, `registry.json` | Produced by `npm run export`. Never edit by hand. |
+| Generated files | `public/components/`, `public/tokens/`, `public/llms*.txt`, `public/theme.css`, `public/docs/`, `public/r/`, `public/sentinel-manifest.json`, `public/AGENTS.template.md`, `registry.json` | Produced by `npm run export`. Never edit by hand. |
 
 ## When you change a component
 

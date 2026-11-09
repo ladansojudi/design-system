@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
-import { ButtonShowcase, ButtonExamples } from "@/sections/button/button-showcase";
-import { ButtonSpecs } from "@/sections/button/button-specs";
-import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { Guidelines } from "@/components/styleguide/component-docs";
+import { ButtonShowcase, ButtonExamples } from "@/sections/button/button-showcase";
+import { ButtonSpecs } from "@/sections/button/button-specs";
+import { ButtonUsage } from "@/sections/button/button-usage";
+import { ButtonAccessibility } from "@/sections/button/button-accessibility";
 
 export const metadata: Metadata = {
   title: "Button — Sentinel Design System",
@@ -18,77 +20,63 @@ export default function ButtonPage() {
   return (
     <>
       <PageHero
-        category="Atoms"
+        category="Components"
+        categoryHref="/styleguide/components"
         title="Button"
         status="stable"
-        description="Three intents (Default, Primary, Destructive) × three styles (Solid, Outline, Ghost) × three sizes (Sm, Md, Lg). Plus loading, icon-only, button group and full-width patterns."
+        description="Starts an action on the current page: save, run a scan, delete. Three intents, three variants and three sizes."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
-      <PageBody>
-      <ModeAware
-        design={
-          <div className="space-y-16 mt-8 sm:mt-10">
-            <DocSection title="Examples">
-              <ButtonShowcase />
-            </DocSection>
-            <DocSection title="Usage">
-              <UseCases
-                items={[
-                  "Use Primary Solid for the main call-to-action on a surface — only one per screen region.",
-                  "Use Default (dark) Solid as a neutral primary action when there's no brand-driven CTA.",
-                  "Use Destructive Solid for delete / revoke / sign-out — any irreversible action.",
-                  "Use Outline for supporting actions placed next to a Solid primary.",
-                  "Use Ghost for the lightest, lowest-emphasis actions (table row actions, toolbar items).",
-                  "Use Loading any time an action takes more than ~300ms — keeps the button in place and disables it.",
-                  "Use Icon-only inside dense toolbars where the meaning is obvious; always include an aria-label.",
-                  "Use Button Group for connected mutually-exclusive actions (segmented controls, split buttons).",
-                  "Use Full-width on narrow forms and mobile drawers; almost never on desktop dashboards.",
-                ]}
-              />
-              <Guidelines
-                items={[
-                  { type: "do",   text: "Use a clear action verb as the label (\"Save changes\", \"Start scan\")." },
-                  { type: "dont", text: "Don't use generic labels like \"OK\" or \"Submit\" when a specific verb is clearer." },
-                  { type: "do",   text: "Keep button hierarchy clear — one Solid per region, the rest Outline or Ghost." },
-                  { type: "dont", text: "Don't stack two Solid Primary buttons side by side; it breaks visual priority." },
-                  { type: "do",   text: "Reserve Destructive for actions the user cannot undo — never for cancel/back." },
-                  { type: "dont", text: "Don't change a button's width when it enters loading state — swap content, keep the box stable." },
-                  { type: "do",   text: "Always provide an aria-label on icon-only buttons — the icon is invisible to screen readers." },
-                  { type: "dont", text: "Don't disable the focus ring; restyle it with focus-visible:ring-* if it clashes." },
-                ]}
-              />
-            </DocSection>
-            <DocSection title="Specs">
-              <Anatomy
-                parts={[
-                  { label: "Container",       description: "Surface that defines the clickable area, padding, radius and color intent." },
-                  { label: "Label",           description: "Action verb that describes what happens when pressed (\"Continue\", \"Start scan\")." },
-                  { label: "Icon (optional)", description: "Leading or trailing 14px icon that reinforces the action." },
-                  { label: "Focus ring",      description: "Outline that appears on keyboard focus — never removed, only restyled." },
-                ]}
-                preview={
-                  <button
-                    type="button"
-                    className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-snt-btn-primary-600 text-white text-[14px] font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-brand-primary-500/40"
-                  >
-                    Continue
-                    <ArrowRight size={14} />
-                  </button>
-                }
-              />
-              <ButtonSpecs />
-            </DocSection>
-          </div>
-        }
-        dev={
-          <div className="mt-8 sm:mt-10">
-            <DocSection title="Examples"><ButtonExamples /></DocSection>
-          </div>
-        }
-      />
-      </PageBody>
+      <ComponentTabPanel>
+        <PageBody>
+          <ModeAware
+            design={
+              <div className="mt-8 space-y-16 sm:mt-10">
+                <DocSection title="Examples">
+                  <ButtonShowcase />
+                </DocSection>
+                <DocSection title="Usage">
+                  <ButtonUsage />
+                  <Guidelines
+                    items={[
+                      { type: "do",   text: "Use one solid button per area. Make the other actions outline or ghost." },
+                      { type: "dont", text: "Put two solid primary buttons side by side. Users can't tell which one matters." },
+                      { type: "do",   text: "Write a verb + noun in sentence case, one to three words: “Start scan”, “Export report”." },
+                      { type: "dont", text: "Use vague labels like “OK”, “Submit” or “Yes”, or end a label with punctuation." },
+                      { type: "do",   text: "Keep the button enabled and explain what's missing when it's pressed." },
+                      { type: "dont", text: "Disable a button without saying why. Disabled buttons can't be focused, so the reason is never read out." },
+                      { type: "do",   text: "Give every icon-only button an aria-label, and a tooltip with the same text." },
+                      { type: "dont", text: "Rely on the icon alone, or on a title attribute, to explain what the button does." },
+                      { type: "do",   text: "Keep the destructive intent for actions that can't be undone, and name what is lost: “Delete 3 assets”." },
+                      { type: "dont", text: "Use red to make an action look important." },
+                    ]}
+                  />
+                </DocSection>
+              </div>
+            }
+            specs={
+              <div className="mt-8 space-y-14 sm:mt-10">
+                <FigmaNote component="Button" />
+                <ButtonSpecs />
+              </div>
+            }
+            dev={
+              <div className="mt-8 sm:mt-10">
+                <DocSection title="Examples">
+                  <ButtonExamples />
+                </DocSection>
+              </div>
+            }
+            a11y={
+              <div className="mt-8 sm:mt-10">
+                <ButtonAccessibility />
+              </div>
+            }
+          />
+        </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

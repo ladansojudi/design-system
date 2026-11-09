@@ -6,12 +6,24 @@
 export function DocSection({
   title,
   description,
+  hideTitle = false,
   children,
 }: {
   title: string;
   description?: string;
+  /** Keep the <h2> for the outline and TOC but hide it (e.g. when a tab already names the section). */
+  hideTitle?: boolean;
   children: React.ReactNode;
 }) {
+  if (hideTitle) {
+    return (
+      <section>
+        <span aria-hidden className="hidden">▶▶</span>
+        <h2 className="sr-only">{title}</h2>
+        <div className="space-y-10">{children}</div>
+      </section>
+    );
+  }
   return (
     <section className="border-t border-snt-border-default pt-10 first:border-t-0 first:pt-0">
       <header className="mb-8">

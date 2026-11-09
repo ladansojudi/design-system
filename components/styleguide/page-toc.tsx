@@ -18,7 +18,7 @@ import { useViewMode } from "@/components/styleguide/view-mode-provider";
 // async panels like Installation / Developer Notes finish loading in Dev mode.
 
 const MARKER = "▶▶";
-const HEADER_OFFSET = 76; // sticky TopBar height + breathing room
+const HEADER_OFFSET = 24; // breathing room above a heading (the site header sits outside the scroller)
 
 type TocItem = { id: string; label: string; level: 1 | 2 };
 

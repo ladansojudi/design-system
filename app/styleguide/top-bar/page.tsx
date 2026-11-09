@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHero category="Organisms" title="Top Bar" status="stable" description="Persistent header with a Test Mode toggle on the left and Ask AI, notifications and account on the right."
+      <PageHero category="Components" categoryHref="/styleguide/components" title="Top Bar" status="stable" description="Persistent header with a Test Mode toggle on the left and Ask AI, notifications and account on the right."
         actions={<OpenInFigma />}
       />
 

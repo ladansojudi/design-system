@@ -1,6 +1,6 @@
 # Sentinel Design System
 
-> React + Tailwind v4 component library and design tokens for cybersecurity products (threat dashboards, scans, assets, findings, severity). Version 1.3.1. 24 copy-paste components (shadcn-style: you own the code), themed with `snt-*` CSS variables in light and dark mode, targeting WCAG 2.2 AA and the WAI-ARIA Authoring Practices (remaining gaps are listed per component).
+> React + Tailwind v4 component library and design tokens for cybersecurity products (threat dashboards, scans, assets, findings, severity). Version 1.3.1. 32 copy-paste components (shadcn-style: you own the code), themed with `snt-*` CSS variables in light and dark mode, targeting WCAG 2.2 AA and the WAI-ARIA Authoring Practices (remaining gaps are listed per component).
 
 ## Rules for AI agents
 
@@ -45,13 +45,21 @@ export function cn(...inputs: ClassValue[]) {
 
 ## Index
 
+- Activity Timeline (`activity-timeline`, Atom, beta)
 - Alert (`alert`, Atom, stable)
 - Badge · Tag (`badge-tag`, Atom, stable)
 - Banner (`banner`, Atom, deprecated)
 - Button (`button`, Atom, stable)
 - Checkbox (`checkbox`, Atom, beta)
+- CVE Tag (`cve-tag`, Atom, beta)
+- CVSS Score (`cvss-score`, Atom, beta)
+- Finding Status (`finding-status`, Atom, beta)
+- Indicator (`indicator`, Atom, beta)
+- Masked Value (`masked-value`, Atom, beta)
+- Scan Progress (`scan-progress`, Atom, beta)
 - Select (`select`, Atom, beta)
 - Severity Badge (`severity-badge`, Atom, stable)
+- Severity Bar (`severity-bar`, Atom, beta)
 - Skeleton (`skeleton`, Atom, beta)
 - Spinner (`spinner`, Atom, alpha)
 - Switch · Radio (`switch-radio`, Atom, stable)
@@ -83,6 +91,10 @@ export function cn(...inputs: ClassValue[]) {
  */
 
 @custom-variant dark (&:is(.dark *));
+
+/* Density: put data-snt-density="compact" on any container (a table page, a
+   whole app) to tighten tables, fields and buttons inside it. */
+@custom-variant compact (&:where([data-snt-density="compact"], [data-snt-density="compact"] *));
 
 /* ===================================================================
    Sentinel DESIGN SYSTEM — COLOR TOKENS
@@ -241,6 +253,9 @@ export function cn(...inputs: ClassValue[]) {
   --snt-shadow-lg:  0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
   --snt-shadow-xl:  0 20px 25px -5px rgba(0, 0, 0, 0.10), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --snt-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.18);
+  /* Crisp depth: inputs / outline buttons, and solid buttons (top highlight). */
+  --snt-shadow-control: 0 1px 2px 0 rgba(9, 9, 11, 0.05);
+  --snt-shadow-raised:  inset 0 1px 0 0 rgba(255, 255, 255, 0.14), 0 1px 2px 0 rgba(9, 9, 11, 0.18), 0 0 0 1px rgba(9, 9, 11, 0.04);
 
   /* shadcn compatibility layer */
   --background: #ffffff;
@@ -261,7 +276,7 @@ export function cn(...inputs: ClassValue[]) {
   --border: rgba(9, 9, 11, 0.08);
   --input: rgba(9, 9, 11, 0.14);
   --ring: #5b5bd6;
-  --radius: 0.375rem;
+  --radius: 0.5rem;
   --chart-1: #9acbe5;
   --chart-2: #ffaf97;
   --chart-3: #c4def3;
@@ -459,6 +474,8 @@ export function cn(...inputs: ClassValue[]) {
   --snt-shadow-lg:  0 10px 15px -3px rgba(0, 0, 0, 0.40), 0 4px 6px -2px rgba(0, 0, 0, 0.28);
   --snt-shadow-xl:  0 20px 25px -5px rgba(0, 0, 0, 0.48), 0 10px 10px -5px rgba(0, 0, 0, 0.32);
   --snt-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.60);
+  --snt-shadow-control: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+  --snt-shadow-raised:  inset 0 1px 0 0 rgba(255, 255, 255, 0.10), 0 1px 2px 0 rgba(0, 0, 0, 0.45);
 
   /* shadcn compatibility layer — dark */
   --background: #09090b;
@@ -561,10 +578,11 @@ export function cn(...inputs: ClassValue[]) {
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* Border radius */
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
+  /* Crisp radius scale: 6 / 8 / 10 / 14px. */
+  --radius-sm: calc(var(--radius) * 0.75);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 1.25);
+  --radius-xl: calc(var(--radius) * 1.75);
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
@@ -761,6 +779,8 @@ export function cn(...inputs: ClassValue[]) {
   --shadow-snt-lg:  var(--snt-shadow-lg);
   --shadow-snt-xl:  var(--snt-shadow-xl);
   --shadow-snt-2xl: var(--snt-shadow-2xl);
+  --shadow-snt-control: var(--snt-shadow-control);
+  --shadow-snt-raised:  var(--snt-shadow-raised);
 }
 
 @layer utilities {
@@ -833,6 +853,120 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 ## Components
+
+<!-- ===== Activity Timeline (activity-timeline) ===== -->
+
+---
+title: Activity Timeline
+slug: activity-timeline
+category: Atom
+status: beta
+source: components/ui/activity-timeline.tsx
+styleguide: /styleguide/activity-timeline
+figma: TBD
+apg: N/A
+---
+
+# Activity Timeline
+
+A time-ordered list of events: an attack timeline, an audit log, or the history of a finding.
+
+## Accessibility
+
+Ordered list; times use <time dateTime>; markers are decorative and tone never carries meaning that is not in the title.
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `items` | `TimelineItem[]` | — | `{ id, title, time, dateTime?, actor?, description?, tone?, icon? }` |
+
+## Examples
+
+```tsx
+import { ActivityTimeline } from "@/components/ui/activity-timeline";
+
+<ActivityTimeline items={events} />
+```
+
+## Known gaps
+- [ ] Not in the Figma library yet.
+
+Full usage guidance, do / don't and specs: the styleguide page `/styleguide/activity-timeline`.
+
+### Source — `components/ui/activity-timeline.tsx`
+
+```tsx
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+/**
+ * sentinel/ui — ActivityTimeline
+ *
+ * Drop this file into your project at components/ui/activity-timeline.tsx.
+ *
+ * A vertical, time-ordered list of events: an attack timeline, an audit log,
+ * the history of a finding. No "use client".
+ *
+ * Requires:
+ *   • Tailwind CSS v4
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
+ */
+
+export type TimelineTone = "neutral" | "info" | "success" | "warning" | "error";
+
+export type TimelineItem = {
+  id: string;
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  /** Visible time, e.g. "14:02" or "2 min ago". */
+  time: string;
+  /** Machine-readable time (ISO 8601) for <time dateTime>. */
+  dateTime?: string;
+  actor?: string;
+  tone?: TimelineTone;
+  /** Optional icon inside the marker; replaces the dot. */
+  icon?: React.ReactNode;
+};
+
+const DOT: Record<TimelineTone, string> = {
+  neutral: "bg-snt-neutral-grey-400",
+  info:    "bg-snt-scale-blue-500",
+  success: "bg-snt-scale-green-500",
+  warning: "bg-snt-scale-yellow-500",
+  error:   "bg-snt-scale-red-500",
+};
+
+export interface ActivityTimelineProps extends React.HTMLAttributes<HTMLOListElement> {
+  items: TimelineItem[];
+}
+
+export function ActivityTimeline({ items, className, ...props }: ActivityTimelineProps) {
+  return (
+    <ol className={cn("relative", className)} {...props}>
+      {items.map((item, i) => (
+        <li key={item.id} className="relative flex gap-3 pb-6 last:pb-0">
+          {i < items.length - 1 && (
+            <span aria-hidden className="absolute bottom-0 left-[11px] top-6 w-px bg-snt-border-default" />
+          )}
+          <span aria-hidden className="relative flex size-6 shrink-0 items-center justify-center rounded-full bg-snt-surface-app text-snt-text-secondary [&_svg]:size-3.5">
+            {item.icon ?? <span className={cn("size-2.5 rounded-full ring-4 ring-snt-surface-app", DOT[item.tone ?? "neutral"])} />}
+          </span>
+          <div className="min-w-0 flex-1 pt-0.5">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+              <p className="text-snt-14 font-medium text-snt-text-primary">{item.title}</p>
+              <time dateTime={item.dateTime} className="shrink-0 text-snt-12 tabular-nums text-snt-text-secondary">{item.time}</time>
+            </div>
+            {item.actor && <p className="text-snt-12 text-snt-text-secondary">{item.actor}</p>}
+            {item.description && <div className="mt-1 text-snt-14 leading-relaxed text-snt-text-secondary">{item.description}</div>}
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+```
 
 <!-- ===== Alert (alert) ===== -->
 
@@ -1063,7 +1197,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         ref={ref}
         role="alert"
         className={cn(
-          "flex items-start gap-3 rounded-md border px-4 py-3",
+          "flex items-start gap-3 rounded-lg border px-4 py-3",
           cfg.bg,
           cfg.border,
           className,
@@ -1338,7 +1472,7 @@ function renderPill(
         BASE,
         outlined
           ? cn("border bg-transparent", cfg.border, cfg.text)
-          : cn(cfg.bg, cfg.text),
+          : cn(cfg.bg, cfg.text, "ring-1 ring-inset ring-current/15"),
         className,
       )}
       {...props}
@@ -1601,10 +1735,10 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 └──────────────────────────────┘
 ```
 
-1. **Leading icon** (optional): a lucide icon, 14–16px, passed as a child.
+1. **Leading icon** (optional): a lucide icon passed as a child. The button sizes it (14px; 16px at `lg`).
 2. **Label** (required unless `iconOnly`): verb + noun, sentence case.
 3. **Trailing icon** (optional): e.g. `ChevronDown` for a menu trigger.
-4. **Container**: carries `intent` × `variant` colours, radius `md` (6px).
+4. **Container**: carries `intent` × `variant` colours; solid has `shadow-snt-raised`, outline `shadow-snt-control`, radius `md` (8px).
 
 ## Variants
 
@@ -1613,7 +1747,7 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 | intent ＼ variant | `solid` (high) | `outline` (medium) | `ghost` (low) |
 |---|---|---|---|
 | `primary` | The **one** main action in an area | Secondary action next to a primary | Tertiary or inline actions |
-| `default` | Neutral strong action (dark UI) | "Cancel", "Back" | Toolbar actions, icon buttons |
+| `neutral` | Neutral strong action (dark UI) | "Cancel", "Back" | Toolbar actions, icon buttons |
 | `destructive` | Irreversible delete / revoke, usually inside a confirm modal | Destructive action that isn't the main one | Low-emphasis remove, e.g. in lists |
 
 **Emphasis rule:** at most one `primary solid` per view or modal (Atlassian: "use one primary call to action").
@@ -1626,7 +1760,7 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 | `md` *(default)* | 36px | 16px | 8px | 14px / 500 | Forms, modals, page actions |
 | `lg` | 44px | 20px | 8px | 14px / 500 | Hero / empty-state CTA, touch-first screens |
 
-`iconOnly` makes the button square (32 / 36 / 44px). 44px meets the WCAG 2.5.5 target-size recommendation. 32px meets the 2.5.8 AA minimum of 24px.
+`iconOnly` makes the button square (32 / 36 / 44px) with a 14 / 16 / 20px icon. 44px meets the WCAG 2.5.5 target-size recommendation. 32px meets the 2.5.8 AA minimum of 24px.
 
 ## States
 
@@ -1634,16 +1768,16 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 |---|---|---|
 | Default | Per intent × variant | — |
 | Hover | One step darker bg (`*-700`) or tinted bg for outline / ghost | Pointer cursor |
-| Focus (keyboard) | 2px ring + 2px offset in the intent colour | Only on `:focus-visible`, never on mouse click |
-| Active / pressed | Inherits hover | — |
-| Loading | Spinner over the (transparent) label | Width stays put, the label stays readable to screen readers, `aria-busy` is set and the button is disabled — no double submit. |
+| Focus (keyboard) | 2px ring + 2px offset: `focus-ring` (brand) or `focus-ring-error` on destructive | Only on `:focus-visible`, never on mouse click |
+| Active / pressed | Moves down 1px | Not with reduced motion |
+| Loading | Spinner over the (transparent) label | Width stays put and the label stays readable to screen readers. The button keeps focus (`aria-disabled` + `aria-busy`, not `disabled`); `onClick` is dropped and `type="submit"` becomes `"button"`, so it can't fire twice. |
 | Disabled | 40% opacity, `not-allowed` cursor | Not focusable. Avoid it when you can (see Do / Don't). |
 
 ## Content guidelines
 - **Verb + noun**, sentence case: "Start scan", "Delete asset". Not "OK" or "Submit".
 - Keep it to 1–3 words. No ending punctuation.
 - A destructive label names what is destroyed: "Delete 3 assets", not "Yes".
-- Pair labels in modals: primary on the right ("Delete"), `default outline` "Cancel" on the left.
+- Pair labels in modals: primary on the right ("Delete"), `neutral outline` "Cancel" on the left.
 
 ## Do / Don't
 
@@ -1680,14 +1814,14 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 | Outline / ghost label | `snt-text-link`, `snt-text-error`, `snt-text-primary` |
 | Outline border | `snt-border-strong` |
 | Tinted hover | `snt-bg-brand-subtle`, `snt-bg-error-subtle`, `snt-bg-subtle` |
-| Focus ring | `snt-focus-ring`, `snt-focus-ring-error`, `snt-neutral-grey-300…500` |
+| Focus ring | `snt-focus-ring`, `snt-focus-ring-error` |
 | Ring offset | `snt-surface-app` |
 
 ## Design ↔ Code
 
 | Figma property | Prop | Values |
 |---|---|---|
-| Intent | `intent` | Default · Primary · Destructive |
+| Intent | `intent` | Primary · Neutral · Destructive |
 | Variant | `variant` | Solid · Outline · Ghost |
 | Size | `size` | SM · MD · LG |
 | State = Loading | `loading` | true / false |
@@ -1698,10 +1832,10 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `intent` | `"default" \| "primary" \| "destructive"` | `"primary"` | Meaning / colour family |
+| `intent` | `"primary" \| "neutral" \| "destructive"` | `"primary"` | Meaning / colour family. `"default"` is a deprecated alias of `"neutral"`. |
 | `variant` | `"solid" \| "outline" \| "ghost"` | `"solid"` | Emphasis |
 | `size` | `"sm" \| "md" \| "lg"` | `"md"` | Height and padding |
-| `loading` | `boolean` | `false` | Shows a spinner and disables the button |
+| `loading` | `boolean` | `false` | Shows a spinner; stays focusable but can't be pressed or submit |
 | `iconOnly` | `boolean` | `false` | Square button. Requires `aria-label`. |
 | `type` | `"button" \| "submit" \| "reset"` | `"button"` | Native type |
 | …rest | `ButtonHTMLAttributes` | — | Forwarded to `<button>`; `ref` forwarded |
@@ -1711,21 +1845,23 @@ Also exported: `buttonVariants({ intent, variant, size, iconOnly })` — the cla
 ## Examples
 
 ```tsx
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Trash2, Play } from "lucide-react";
 
 <Button>Start scan</Button>
-<Button intent="default" variant="outline">Cancel</Button>
-<Button intent="destructive"><Trash2 size={14} aria-hidden /> Delete asset</Button>
-<Button iconOnly variant="ghost" intent="default" aria-label="Run again"><Play size={16} aria-hidden /></Button>
+<Button intent="neutral" variant="outline">Cancel</Button>
+<Button intent="destructive"><Trash2 /> Delete asset</Button>
+<Button iconOnly variant="ghost" intent="neutral" aria-label="Run again"><Play /></Button>
 <Button type="submit" loading={isSaving}>Save changes</Button>
 
 // Navigation that looks like a button — a real link, not a <button>
-<Link href="/scans" className={buttonVariants({ intent: "default", variant: "outline" })}>View scans</Link>
+<Link href="/scans" className={buttonVariants({ intent: "neutral", variant: "outline" })}>View scans</Link>
 ```
 
 ## Known gaps
-- [ ] Hover uses primitive scale tokens (`neutral-grey-800`, `scale-red-50`). Move to semantic `bg-hover-*` tokens.
+- [ ] Neutral solid hover uses the primitive `neutral-grey-800`. Move to a semantic hover token.
+- [ ] No `ButtonGroup` / split button yet. Lay buttons out with `flex gap-2`.
 
 ## Related
 - [Spinner](./spinner.md) · [Modal](./modal.md) · [Filter Bar](./filter-bar.md) · [Tooltip](./toast-tooltip.md)
@@ -1750,12 +1886,13 @@ import { cn } from "@/lib/utils";
  *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
-type Intent  = "default" | "primary" | "destructive";
+type Intent  = "neutral" | "primary" | "destructive";
 type Variant = "solid"   | "outline" | "ghost";
 type Size    = "sm"      | "md"      | "lg";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  intent?:   Intent;
+  /** Meaning of the action. `"default"` is a deprecated alias of `"neutral"`. */
+  intent?:   Intent | "default";
   variant?:  Variant;
   size?:     Size;
   loading?:  boolean;
@@ -1764,44 +1901,48 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 const BASE =
   "inline-flex items-center justify-center font-medium rounded-md select-none whitespace-nowrap " +
-  "transition-colors cursor-pointer " +
+  "transition-[color,background-color,box-shadow,transform] cursor-pointer active:translate-y-px motion-reduce:active:translate-y-0 " +
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-snt-surface-app " +
-  "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none";
+  "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none " +
+  "[&_svg]:shrink-0 [&_svg]:pointer-events-none";
 
 const SIZE_CLASS: Record<Size, string> = {
-  sm: "h-8 px-3 text-snt-14 gap-1",
-  md: "h-9 px-4 text-snt-14 gap-2",
-  lg: "h-11 px-5 text-snt-14 gap-2",
+  sm: "h-8 px-3 text-snt-14 gap-1 [&_svg]:size-3.5 compact:h-7 compact:px-2.5 compact:text-snt-12",
+  md: "h-9 px-4 text-snt-14 gap-2 [&_svg]:size-3.5 compact:h-8 compact:px-3",
+  lg: "h-11 px-5 text-snt-14 gap-2 [&_svg]:size-4 compact:h-10",
 };
 
+// Icons are sized by the button (14 / 14 / 16px), whatever size the icon asks for.
 const ICON_ONLY_SIZE: Record<Size, string> = {
-  sm: "w-8 h-8 p-0",
-  md: "w-9 h-9 p-0",
-  lg: "w-11 h-11 p-0",
+  sm: "w-8 h-8 p-0 [&_svg]:size-3.5 compact:size-7",
+  md: "w-9 h-9 p-0 [&_svg]:size-4 compact:size-8",
+  lg: "w-11 h-11 p-0 [&_svg]:size-5",
 };
 
 const VARIANT_CLASS: Record<Intent, Record<Variant, string>> = {
-  default: {
+  // Neutral and primary share the brand focus ring: the old grey rings fell
+  // below the 3:1 contrast a focus indicator needs.
+  neutral: {
     solid:
-      "bg-snt-text-primary text-snt-text-inverse " +
+      "bg-snt-text-primary text-snt-text-inverse shadow-snt-raised " +
       "hover:bg-snt-neutral-grey-800 " +
-      "focus-visible:ring-snt-neutral-grey-500",
+      "focus-visible:ring-snt-focus-ring",
     outline:
-      "border border-snt-border-strong text-snt-text-primary bg-transparent " +
+      "border border-snt-border-strong text-snt-text-primary bg-snt-surface-app shadow-snt-control " +
       "hover:bg-snt-bg-subtle " +
-      "focus-visible:ring-snt-neutral-grey-400",
+      "focus-visible:ring-snt-focus-ring",
     ghost:
       "text-snt-text-primary bg-transparent " +
       "hover:bg-snt-bg-subtle " +
-      "focus-visible:ring-snt-neutral-grey-300",
+      "focus-visible:ring-snt-focus-ring",
   },
   primary: {
     solid:
-      "bg-snt-btn-primary-600 text-snt-text-on-accent " +
+      "bg-snt-btn-primary-600 text-snt-text-on-accent shadow-snt-raised " +
       "hover:bg-snt-btn-primary-700 " +
       "focus-visible:ring-snt-focus-ring",
     outline:
-      "border border-snt-text-link text-snt-text-link bg-transparent " +
+      "border border-snt-text-link text-snt-text-link bg-snt-surface-app shadow-snt-control " +
       "hover:bg-snt-bg-brand-subtle " +
       "focus-visible:ring-snt-focus-ring",
     ghost:
@@ -1811,11 +1952,11 @@ const VARIANT_CLASS: Record<Intent, Record<Variant, string>> = {
   },
   destructive: {
     solid:
-      "bg-snt-btn-error-600 text-snt-text-on-accent " +
+      "bg-snt-btn-error-600 text-snt-text-on-accent shadow-snt-raised " +
       "hover:bg-snt-btn-error-700 " +
       "focus-visible:ring-snt-focus-ring-error",
     outline:
-      "border border-snt-text-error text-snt-text-error bg-transparent " +
+      "border border-snt-text-error text-snt-text-error bg-snt-surface-app shadow-snt-control " +
       "hover:bg-snt-bg-error-subtle " +
       "focus-visible:ring-snt-focus-ring-error",
     ghost:
@@ -1825,7 +1966,7 @@ const VARIANT_CLASS: Record<Intent, Record<Variant, string>> = {
   },
 };
 
-const SPINNER_PX: Record<Size, number> = { sm: 13, md: 14, lg: 16 };
+const SPINNER_PX: Record<Size, number> = { sm: 14, md: 14, lg: 16 };
 
 // While loading, the label stays in the layout (no width jump) and in the
 // accessibility tree (opacity, not visibility); the spinner sits on top.
@@ -1844,7 +1985,7 @@ function Spinner({ size }: { size: number }) {
 /**
  * Button classes for elements that must not be a <button> — e.g. a Next
  * <Link> or <a> that navigates but should look like a button:
- *   <Link href="/scans" className={buttonVariants({ variant: "outline" })}>View scans</Link>
+ *   <Link href="/scans" className={buttonVariants({ intent: "neutral", variant: "outline" })}>View scans</Link>
  */
 export function buttonVariants({
   intent   = "primary",
@@ -1852,7 +1993,8 @@ export function buttonVariants({
   size     = "md",
   iconOnly = false,
 }: Pick<ButtonProps, "intent" | "variant" | "size" | "iconOnly"> = {}) {
-  return cn(BASE, iconOnly ? ICON_ONLY_SIZE[size] : SIZE_CLASS[size], VARIANT_CLASS[intent][variant]);
+  const tone: Intent = intent === "default" ? "neutral" : intent;
+  return cn(BASE, iconOnly ? ICON_ONLY_SIZE[size] : SIZE_CLASS[size], VARIANT_CLASS[tone][variant]);
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -1867,18 +2009,24 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       children,
       type,
+      onClick,
       ...props
     },
     ref,
   ) => {
+    // Loading keeps the button focusable (aria-disabled, not disabled) so
+    // keyboard users don't lose their place. Presses do nothing: the click
+    // handler is dropped and a submit button stops submitting until it's done.
     return (
       <button
         ref={ref}
-        type={type ?? "button"}
-        disabled={disabled || loading}
-        aria-busy={loading || undefined}
-        className={cn(buttonVariants({ intent, variant, size, iconOnly }), loading && "relative", className)}
         {...props}
+        type={loading ? "button" : (type ?? "button")}
+        disabled={disabled}
+        aria-disabled={loading || undefined}
+        aria-busy={loading || undefined}
+        onClick={loading ? undefined : onClick}
+        className={cn(buttonVariants({ intent, variant, size, iconOnly }), loading && "relative cursor-progress", className)}
       >
         {loading ? (
           <>
@@ -2127,7 +2275,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           <span
             aria-hidden
             className={cn(
-              "w-[18px] h-[18px] rounded-[3px] border-2 flex items-center justify-center transition-colors",
+              "w-[18px] h-[18px] rounded border-2 shadow-snt-control flex items-center justify-center transition-colors",
               "peer-focus-visible:ring-2 peer-focus-visible:ring-offset-1 peer-focus-visible:ring-snt-focus-ring",
               fillClass,
               !disabled && !filled && "group-hover:border-snt-neutral-grey-600",
@@ -2161,6 +2309,930 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   },
 );
 Checkbox.displayName = "Checkbox";
+```
+
+<!-- ===== CVE Tag (cve-tag) ===== -->
+
+---
+title: CVE Tag
+slug: cve-tag
+category: Atom
+status: beta
+source: components/ui/cve-tag.tsx
+styleguide: /styleguide/cve-tag
+figma: TBD
+apg: N/A
+---
+
+# CVE Tag
+
+A CVE identifier that links to its advisory, with optional exploit signals: KEV (in CISA's Known Exploited Vulnerabilities catalog) and EPSS (probability of exploitation in the next 30 days).
+
+## Overview
+
+### When to use
+- Referencing a known vulnerability in findings, advisories and dependency reports.
+- Prioritising: an Exploited tag means fix first.
+
+### When not to use
+- Internal findings without a CVE — use the finding title.
+- Severity — pair with [Severity Badge](./severity-badge.md) or [CVSS Score](./cvss-score.md).
+
+## Variants
+
+| Props | Shows |
+|---|---|
+| `id` | Mono ID linking to NVD (new tab) |
+| `href={false}` | Plain text ID |
+| `kev` | Red "Exploited" tag with a flame icon |
+| `epss={0.031}` | "EPSS 3.1%" (one decimal under 10%, rounded above) |
+
+## Do / Don't
+
+| ✅ Do | ❌ Don't |
+|---|---|
+| Show KEV whenever the CVE is in the catalog | Show EPSS in reports without a date |
+| Link your own advisory page with `href` | Truncate the ID |
+
+## Accessibility
+
+- Real link with a visible focus ring and "(opens in a new tab)" for screen readers.
+- "Exploited" is written out with an icon, not colour alone.
+- KEV / EPSS have `title` tooltips; spell the terms out elsewhere on the page too (tooltips don't reach touch or keyboard users).
+
+## Design tokens
+
+| Part | Background | Text / border |
+|---|---|---|
+| ID | `snt-surface-app` | `snt-text-primary`, `snt-border-default` |
+| Exploited | `snt-bg-error-subtle` | `snt-text-error` |
+| EPSS | `snt-bg-subtle` | `snt-text-secondary` |
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `id` | `string` | — | CVE ID |
+| `href` | `string \| false` | `nvdUrl(id)` | Advisory link; `false` for text |
+| `kev` | `boolean` | `false` | Exploited tag |
+| `epss` | `number` | — | Probability 0–1 |
+
+Also exported: `nvdUrl(id)`. No `"use client"`.
+
+## Examples
+
+```tsx
+import { CveTag } from "@/components/ui/cve-tag";
+
+<CveTag id="CVE-2021-44228" kev epss={0.944} />
+<CveTag id={cve.id} href={`/advisories/${cve.id}`} />
+```
+
+## Known gaps
+- [ ] ID format isn't validated.
+- [ ] Not in the Figma library yet.
+
+## Related
+- [CVSS Score](./cvss-score.md) · [Severity Badge](./severity-badge.md)
+
+### Source — `components/ui/cve-tag.tsx`
+
+```tsx
+import * as React from "react";
+import { Flame } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+/**
+ * sentinel/ui — CveTag
+ *
+ * Drop this file into your project at components/ui/cve-tag.tsx.
+ *
+ * A CVE identifier that links to its advisory, with optional exploit signals:
+ * KEV (listed in CISA's Known Exploited Vulnerabilities catalog) and EPSS (the
+ * probability it is exploited in the next 30 days). No "use client".
+ *
+ * Requires:
+ *   • Tailwind CSS v4, lucide-react
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
+ */
+
+export interface CveTagProps extends React.HTMLAttributes<HTMLSpanElement> {
+  /** e.g. "CVE-2024-3094" */
+  id: string;
+  /** Advisory link. Defaults to the NVD page; pass `false` for plain text. */
+  href?: string | false;
+  /** Listed in CISA KEV: actively exploited. */
+  kev?: boolean;
+  /** EPSS probability, 0 – 1. */
+  epss?: number;
+}
+
+export const nvdUrl = (id: string) => `https://nvd.nist.gov/vuln/detail/${encodeURIComponent(id)}`;
+
+export function CveTag({ id, href, kev, epss, className, ...props }: CveTagProps) {
+  const link = href === false ? null : (href ?? nvdUrl(id));
+  const idClass =
+    "whitespace-nowrap rounded font-mono text-snt-12 font-medium text-snt-text-primary";
+
+  return (
+    <span className={cn("inline-flex items-center gap-1.5", className)} {...props}>
+      <span className="inline-flex h-6 items-center rounded-md border border-snt-border-default bg-snt-surface-app px-2">
+        {link ? (
+          <a
+            href={link}
+            target="_blank"
+            rel="noreferrer"
+            className={cn(
+              idClass,
+              "relative underline decoration-snt-border-strong underline-offset-2 hover:decoration-current",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring focus-visible:ring-offset-2",
+            )}
+          >
+            {id}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        ) : (
+          <span className={idClass}>{id}</span>
+        )}
+      </span>
+
+      {kev && (
+        <span
+          title="Listed in CISA's Known Exploited Vulnerabilities catalog"
+          className="inline-flex h-6 items-center gap-1 rounded-md bg-snt-bg-error-subtle px-2 text-snt-12 font-medium ring-1 ring-inset ring-current/15 text-snt-text-error [&_svg]:size-3.5"
+        >
+          <Flame aria-hidden />
+          Exploited
+        </span>
+      )}
+
+      {epss !== undefined && (
+        <span
+          title="EPSS: probability of exploitation in the next 30 days"
+          className="inline-flex h-6 items-center gap-1 rounded-md bg-snt-bg-subtle px-2 text-snt-12 text-snt-text-secondary"
+        >
+          EPSS <span className="font-medium tabular-nums text-snt-text-primary">{formatEpss(epss)}</span>
+        </span>
+      )}
+    </span>
+  );
+}
+
+function formatEpss(p: number) {
+  const pct = Math.min(1, Math.max(0, p)) * 100;
+  return pct >= 10 ? `${Math.round(pct)}%` : `${pct.toFixed(1)}%`;
+}
+```
+
+<!-- ===== CVSS Score (cvss-score) ===== -->
+
+---
+title: CVSS Score
+slug: cvss-score
+category: Atom
+status: beta
+source: components/ui/cvss-score.tsx
+styleguide: /styleguide/cvss-score
+figma: TBD
+apg: N/A
+---
+
+# CVSS Score
+
+A CVSS base score with its qualitative rating and, when given the vector string, each metric in plain words.
+
+## Overview
+
+### When to use
+- The standardised score of a known vulnerability on its detail page.
+- Explaining a score to people who don't read vector strings.
+
+### When not to use
+- Your own contextual risk rating — use [Severity Badge](./severity-badge.md).
+- Dense table cells — show the score only, keep the breakdown for detail views.
+
+## Variants
+
+Ratings follow CVSS v3 bands: None 0.0 · Low 0.1–3.9 · Medium 4.0–6.9 · High 7.0–8.9 · Critical 9.0–10.0.
+With `vector`, v3.0 / v3.1 metrics (AV, AC, PR, UI, S, C, I, A) are translated; others are shown as written.
+
+## Do / Don't
+
+| ✅ Do | ❌ Don't |
+|---|---|
+| Show the vector on detail pages | Round scores (always one decimal) |
+| Name the CVSS version | Present CVSS alone as priority — check KEV / EPSS |
+
+## Accessibility
+
+- Rating is written next to the score (not colour alone).
+- Metrics are a `dl` of name–value pairs. The raw vector stays visible and selectable.
+
+## Design tokens
+
+Ratings reuse the severity scale: `snt-scale-{purple,red,yellow,green}-50` background, `-600` / `yellow-700` text, `-500` 3px left border; None uses `snt-bg-subtle`.
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `score` | `number` | — | Base score 0.0–10.0 |
+| `vector` | `string` | — | CVSS vector string |
+| `showMetrics` | `boolean` | `true` | Metric list when a vector is given |
+
+Also exported: `cvssRating(score)`, `parseCvssVector(vector)`, `CvssRating`, `CvssMetric`. No `"use client"`.
+
+## Examples
+
+```tsx
+import { CvssScore } from "@/components/ui/cvss-score";
+
+<CvssScore score={9.8} vector="CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H" />
+<CvssScore score={6.1} />
+```
+
+## Known gaps
+- [ ] CVSS v4.0-only metrics are shown with raw codes.
+- [ ] Not in the Figma library yet.
+
+## Related
+- [CVE Tag](./cve-tag.md) · [Severity Badge](./severity-badge.md)
+
+### Source — `components/ui/cvss-score.tsx`
+
+```tsx
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+/**
+ * sentinel/ui — CvssScore
+ *
+ * Drop this file into your project at components/ui/cvss-score.tsx.
+ *
+ * A CVSS base score with its qualitative rating, and — when you pass the
+ * vector string — each metric spelled out in plain words. Understands CVSS
+ * v3.0 / v3.1 vectors; metrics it doesn't know are shown as written.
+ * No "use client".
+ *
+ * Requires:
+ *   • Tailwind CSS v4
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
+ */
+
+export type CvssRating = "none" | "low" | "medium" | "high" | "critical";
+
+/** CVSS v3.x qualitative rating for a base score (0.0 – 10.0). */
+export function cvssRating(score: number): CvssRating {
+  if (score === 0) return "none";
+  if (score < 4) return "low";
+  if (score < 7) return "medium";
+  if (score < 9) return "high";
+  return "critical";
+}
+
+const RATING: Record<CvssRating, { label: string; box: string }> = {
+  none:     { label: "None",     box: "bg-snt-bg-subtle text-snt-text-primary" },
+  low:      { label: "Low",      box: "bg-snt-scale-green-50 text-snt-scale-green-600 border-snt-scale-green-500" },
+  medium:   { label: "Medium",   box: "bg-snt-scale-yellow-50 text-snt-scale-yellow-700 border-snt-scale-yellow-500" },
+  high:     { label: "High",     box: "bg-snt-scale-red-50 text-snt-scale-red-600 border-snt-scale-red-500" },
+  critical: { label: "Critical", box: "bg-snt-scale-purple-50 text-snt-scale-purple-600 border-snt-scale-purple-500" },
+};
+
+// CVSS v3.x base metrics → plain-language name and values.
+const METRICS: Record<string, { name: string; values: Record<string, string> }> = {
+  AV: { name: "Attack vector",       values: { N: "Network", A: "Adjacent", L: "Local", P: "Physical" } },
+  AC: { name: "Attack complexity",   values: { L: "Low", H: "High" } },
+  PR: { name: "Privileges required", values: { N: "None", L: "Low", H: "High" } },
+  UI: { name: "User interaction",    values: { N: "None", R: "Required" } },
+  S:  { name: "Scope",               values: { U: "Unchanged", C: "Changed" } },
+  C:  { name: "Confidentiality",     values: { N: "None", L: "Low", H: "High" } },
+  I:  { name: "Integrity",           values: { N: "None", L: "Low", H: "High" } },
+  A:  { name: "Availability",        values: { N: "None", L: "Low", H: "High" } },
+};
+
+export type CvssMetric = { key: string; name: string; value: string };
+
+/** Splits "CVSS:3.1/AV:N/AC:L/…" into readable metrics. */
+export function parseCvssVector(vector: string): { version?: string; metrics: CvssMetric[] } {
+  const parts = vector.trim().split("/");
+  let version: string | undefined;
+  const metrics: CvssMetric[] = [];
+  for (const part of parts) {
+    const [key, raw] = part.split(":");
+    if (!key || raw === undefined) continue;
+    if (key === "CVSS") { version = raw; continue; }
+    const known = METRICS[key];
+    metrics.push({ key, name: known?.name ?? key, value: known?.values[raw] ?? raw });
+  }
+  return { version, metrics };
+}
+
+export interface CvssScoreProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Base score, 0.0 – 10.0. */
+  score: number;
+  /** Optional vector string, e.g. "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H". */
+  vector?: string;
+  /** Show the metric breakdown when a vector is given. */
+  showMetrics?: boolean;
+}
+
+export function CvssScore({ score, vector, showMetrics = true, className, ...props }: CvssScoreProps) {
+  const rating = cvssRating(score);
+  const cfg = RATING[rating];
+  const parsed = vector ? parseCvssVector(vector) : undefined;
+  const version = parsed?.version ? `CVSS ${parsed.version}` : "CVSS";
+
+  return (
+    <div className={cn("inline-flex flex-col gap-3", className)} {...props}>
+      <div className="flex items-center gap-3">
+        <span
+          className={cn(
+            "flex h-10 min-w-12 items-center justify-center rounded-md border-l-[3px] px-2.5 font-mono text-snt-18 font-semibold tabular-nums",
+            cfg.box,
+          )}
+        >
+          {score.toFixed(1)}
+        </span>
+        <span className="flex flex-col">
+          <span className="text-snt-14 font-semibold text-snt-text-primary">{cfg.label}</span>
+          <span className="text-snt-12 text-snt-text-secondary">{version} base score</span>
+        </span>
+      </div>
+
+      {parsed && showMetrics && parsed.metrics.length > 0 && (
+        <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-snt-12">
+          {parsed.metrics.map((m) => (
+            <React.Fragment key={m.key}>
+              <dt className="text-snt-text-secondary">{m.name}</dt>
+              <dd className="font-medium text-snt-text-primary">{m.value}</dd>
+            </React.Fragment>
+          ))}
+        </dl>
+      )}
+      {vector && (
+        <code className="max-w-full break-all font-mono text-snt-11 text-snt-text-secondary">{vector}</code>
+      )}
+    </div>
+  );
+}
+```
+
+<!-- ===== Finding Status (finding-status) ===== -->
+
+---
+title: Finding Status
+slug: finding-status
+category: Atom
+status: beta
+source: components/ui/finding-status.tsx
+styleguide: /styleguide/finding-status
+figma: TBD
+apg: N/A
+---
+
+# Finding Status
+
+Shows where a finding is in its lifecycle, from Open to Resolved, with an icon and a label for each status.
+
+## Overview
+
+### When to use
+- Triage state of a finding, alert or vulnerability: tables, detail headers, activity logs.
+- As filter options — the same five statuses.
+
+### When not to use
+- How bad a finding is — use [Severity Badge](./severity-badge.md).
+- The state of a scan or agent — use [Badge](./badge-tag.md).
+
+## Variants
+
+| `status` | Meaning | Icon | Tone |
+|---|---|---|---|
+| `open` | Found, not handled | CircleDot | error |
+| `in-progress` | Being fixed | CircleDashed | info |
+| `resolved` | Fixed and verified | CircleCheck | success |
+| `accepted-risk` | Not fixed on purpose, with reason + expiry | ShieldMinus | warning |
+| `false-positive` | Not a real issue, kept for audit | CircleSlash | neutral |
+
+Sizes: `md` 24px, `sm` 20px.
+
+## Do / Don't
+
+| ✅ Do | ❌ Don't |
+|---|---|
+| Show status next to severity | Invent extra statuses per screen |
+| Require a reason and expiry for Accepted risk | Count False positives in risk totals |
+
+## Accessibility
+
+- Plain text label; icon is `aria-hidden`. Every status has a distinct icon shape, not just colour (WCAG 1.4.1).
+- Not interactive. To edit status, wrap it in a real control (Select or menu button).
+
+## Design tokens
+
+| Status | Background | Text |
+|---|---|---|
+| Open | `snt-bg-error-subtle` | `snt-text-error` |
+| In progress | `snt-bg-info-subtle` | `snt-text-info` |
+| Resolved | `snt-bg-success-subtle` | `snt-text-success` |
+| Accepted risk | `snt-bg-warning-subtle` | `snt-text-warning` |
+| False positive | `snt-bg-subtle` | `snt-text-secondary` |
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `status` | `"open" \| "in-progress" \| "resolved" \| "accepted-risk" \| "false-positive"` | — | Lifecycle state |
+| `size` | `"sm" \| "md"` | `"md"` | Height |
+| `label` | `string` | — | Overrides the visible label |
+
+Also exported: `FINDING_STATUSES`, `FindingStatusValue`. No `"use client"`.
+
+## Examples
+
+```tsx
+import { FindingStatus } from "@/components/ui/finding-status";
+
+<FindingStatus status="in-progress" />
+<FindingStatus status="resolved" size="sm" />
+```
+
+## Known gaps
+- [ ] Not in the Figma library yet.
+
+## Related
+- [Severity Badge](./severity-badge.md) · [Badge · Tag](./badge-tag.md) · [Data Table](./data-table.md)
+
+### Source — `components/ui/finding-status.tsx`
+
+```tsx
+import * as React from "react";
+import { CircleCheck, CircleDashed, CircleDot, CircleSlash, ShieldMinus } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+/**
+ * sentinel/ui — FindingStatus
+ *
+ * Drop this file into your project at components/ui/finding-status.tsx.
+ *
+ * Where a finding is in its lifecycle. Every status has its own icon as well
+ * as a colour, so it never relies on colour alone. No "use client".
+ *
+ * Requires:
+ *   • Tailwind CSS v4, lucide-react
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
+ */
+
+export type FindingStatusValue = "open" | "in-progress" | "resolved" | "accepted-risk" | "false-positive";
+
+type Config = { label: string; icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>; tone: string };
+
+const STATUS: Record<FindingStatusValue, Config> = {
+  open:             { label: "Open",           icon: CircleDot,    tone: "bg-snt-bg-error-subtle text-snt-text-error" },
+  "in-progress":    { label: "In progress",    icon: CircleDashed, tone: "bg-snt-bg-info-subtle text-snt-text-info" },
+  resolved:         { label: "Resolved",       icon: CircleCheck,  tone: "bg-snt-bg-success-subtle text-snt-text-success" },
+  "accepted-risk":  { label: "Accepted risk",  icon: ShieldMinus,  tone: "bg-snt-bg-warning-subtle text-snt-text-warning" },
+  "false-positive": { label: "False positive", icon: CircleSlash,  tone: "bg-snt-bg-subtle text-snt-text-secondary" },
+};
+
+export const FINDING_STATUSES = Object.keys(STATUS) as FindingStatusValue[];
+
+export interface FindingStatusProps extends React.HTMLAttributes<HTMLSpanElement> {
+  status: FindingStatusValue;
+  /** Override the visible label (e.g. for translation). */
+  label?: string;
+  size?: "sm" | "md";
+}
+
+export function FindingStatus({ status, label, size = "md", className, ...props }: FindingStatusProps) {
+  const cfg = STATUS[status];
+  const Icon = cfg.icon;
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full font-medium ring-1 ring-inset ring-current/15",
+        size === "sm" ? "h-5 px-2 text-snt-11 [&_svg]:size-3" : "h-6 px-2.5 text-snt-12 [&_svg]:size-3.5",
+        cfg.tone,
+        className,
+      )}
+      {...props}
+    >
+      <Icon aria-hidden />
+      {label ?? cfg.label}
+    </span>
+  );
+}
+```
+
+<!-- ===== Indicator (indicator) ===== -->
+
+---
+title: Indicator
+slug: indicator
+category: Atom
+status: beta
+source: components/ui/indicator.tsx
+styleguide: /styleguide/indicator
+figma: TBD
+apg: N/A
+---
+
+# Indicator
+
+An indicator of compromise (IP, domain, URL, hash, email) with type, reputation verdict and copy. Optional defanging (example[.]com).
+
+## Accessibility
+
+client: clipboard. Type is written out; copy button names the value; hashes are shortened with the full value in title and copy.
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | `string` | — | The IOC |
+| `type` | `"ip" \| "domain" \| "url" \| "hash" \| "email"` | — | Label and icon |
+| `verdict` | `"malicious" \| "suspicious" \| "clean" \| "unknown"` | — | Reputation |
+| `defang` | `boolean` | `false` | Display defanged |
+| `copyable` | `boolean` | `true` | Copy |
+
+## Examples
+
+```tsx
+import { Indicator } from "@/components/ui/indicator";
+
+<Indicator type="ip" value="185.220.101.47" verdict="malicious" />
+```
+
+## Known gaps
+- [ ] Not in the Figma library yet.
+
+Full usage guidance, do / don't and specs: the styleguide page `/styleguide/indicator`.
+
+### Source — `components/ui/indicator.tsx`
+
+```tsx
+"use client";
+
+import * as React from "react";
+import { AtSign, Check, Copy, Globe, Hash, Link2, Network } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+/**
+ * sentinel/ui — Indicator
+ *
+ * Drop this file into your project at components/ui/indicator.tsx.
+ *
+ * An indicator of compromise (IOC): an IP, domain, URL, file hash or email,
+ * with its type, a reputation verdict and copy. Long hashes are shortened in
+ * the middle; `defang` shows example[.]com so it can't be clicked by mistake.
+ * Copy always copies the real value.
+ *
+ * Requires:
+ *   • Tailwind CSS v4, lucide-react
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
+ */
+
+export type IndicatorType = "ip" | "domain" | "url" | "hash" | "email";
+export type IndicatorVerdict = "malicious" | "suspicious" | "clean" | "unknown";
+
+const TYPE: Record<IndicatorType, { label: string; icon: React.ComponentType<{ "aria-hidden"?: boolean }> }> = {
+  ip:     { label: "IP",     icon: Network },
+  domain: { label: "Domain", icon: Globe },
+  url:    { label: "URL",    icon: Link2 },
+  hash:   { label: "Hash",   icon: Hash },
+  email:  { label: "Email",  icon: AtSign },
+};
+
+const VERDICT: Record<IndicatorVerdict, { label: string; tone: string }> = {
+  malicious:  { label: "Malicious",  tone: "bg-snt-bg-error-subtle text-snt-text-error" },
+  suspicious: { label: "Suspicious", tone: "bg-snt-bg-warning-subtle text-snt-text-warning" },
+  clean:      { label: "Clean",      tone: "bg-snt-bg-success-subtle text-snt-text-success" },
+  unknown:    { label: "Unknown",    tone: "bg-snt-bg-subtle text-snt-text-secondary" },
+};
+
+/** example.com → example[.]com, http → hxxp. */
+export function defang(value: string) {
+  return value.replace(/^http/i, "hxxp").replace(/\./g, "[.]").replace(/@/g, "[@]");
+}
+
+function shorten(value: string, max = 24) {
+  return value.length <= max ? value : `${value.slice(0, 10)}…${value.slice(-10)}`;
+}
+
+export interface IndicatorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
+  value: string;
+  type: IndicatorType;
+  verdict?: IndicatorVerdict;
+  /** Show the value defanged (example[.]com). Copy still copies the original. */
+  defang?: boolean;
+  copyable?: boolean;
+}
+
+export function Indicator({ value, type, verdict, defang: doDefang = false, copyable = true, className, ...props }: IndicatorProps) {
+  const [copied, setCopied] = React.useState(false);
+  const t = TYPE[type];
+  const Icon = t.icon;
+  const display = doDefang && type !== "hash" ? defang(value) : value;
+  const short = type === "hash" ? shorten(display) : display;
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch { /* clipboard blocked */ }
+  };
+
+  return (
+    <div className={cn("inline-flex max-w-full items-center gap-2", className)} {...props}>
+      <span className="inline-flex h-7 min-w-0 items-center gap-1.5 rounded-md border border-snt-border-default bg-snt-surface-app pl-2 pr-1">
+        <span className="flex shrink-0 items-center gap-1 text-snt-11 font-medium uppercase tracking-wide text-snt-text-secondary [&_svg]:size-3">
+          <Icon aria-hidden />
+          {t.label}
+        </span>
+        <code title={short !== value ? value : undefined} className="min-w-0 truncate font-mono text-snt-12 text-snt-text-primary">
+          {short}
+        </code>
+        {copyable && (
+          <button
+            type="button"
+            aria-label={`Copy ${t.label.toLowerCase()} ${value}`}
+            onClick={copy}
+            className="inline-flex size-6 shrink-0 cursor-pointer items-center justify-center rounded text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring [&_svg]:size-3"
+          >
+            {copied ? <Check aria-hidden className="text-snt-text-success" /> : <Copy aria-hidden />}
+          </button>
+        )}
+      </span>
+      {verdict && (
+        <span className={cn("inline-flex h-6 shrink-0 items-center rounded-md px-2 text-snt-12 font-medium ring-1 ring-inset ring-current/15", VERDICT[verdict].tone)}>
+          {VERDICT[verdict].label}
+        </span>
+      )}
+      <span role="status" className="sr-only">{copied ? "Copied" : ""}</span>
+    </div>
+  );
+}
+```
+
+<!-- ===== Masked Value (masked-value) ===== -->
+
+---
+title: Masked Value
+slug: masked-value
+category: Atom
+status: beta
+source: components/ui/masked-value.tsx
+styleguide: /styleguide/masked-value
+figma: TBD
+apg: N/A
+---
+
+# Masked Value
+
+A secret — API key, token, password — shown masked, with reveal and copy.
+
+## Accessibility
+
+client: state + clipboard. While masked, screen readers hear "<label>, hidden, ends in <tail>". Reveal is a toggle with aria-pressed; buttons are named from label; "copied" is announced in a polite live region.
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | `string` | — | The secret |
+| `label` | `string` | — | Names buttons and masked text |
+| `visibleChars` | `number` | `4` | Visible tail |
+| `revealable` | `boolean` | `true` | Show / hide |
+| `copyable` | `boolean` | `true` | Copy |
+
+## Examples
+
+```tsx
+import { MaskedValue } from "@/components/ui/masked-value";
+
+<MaskedValue label="API key" value={apiKey} />
+```
+
+## Known gaps
+- [ ] Not in the Figma library yet.
+
+Full usage guidance, do / don't and specs: the styleguide page `/styleguide/masked-value`.
+
+### Source — `components/ui/masked-value.tsx`
+
+```tsx
+"use client";
+
+import * as React from "react";
+import { Check, Copy, Eye, EyeOff } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+/**
+ * sentinel/ui — MaskedValue
+ *
+ * Drop this file into your project at components/ui/masked-value.tsx.
+ *
+ * A secret (API key, token, password) shown masked, with optional reveal and
+ * copy. Copy always copies the real value; revealing is a separate choice.
+ *
+ * Requires:
+ *   • Tailwind CSS v4, lucide-react
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
+ */
+
+export interface MaskedValueProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
+  value: string;
+  /** What the secret is, e.g. "API key". Names the buttons for screen readers. */
+  label: string;
+  /** Characters left visible at the end while masked. */
+  visibleChars?: number;
+  revealable?: boolean;
+  copyable?: boolean;
+}
+
+const btn =
+  "inline-flex size-7 shrink-0 items-center justify-center rounded-md text-snt-text-secondary transition-colors cursor-pointer " +
+  "hover:bg-snt-bg-subtle hover:text-snt-text-primary " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring [&_svg]:size-3.5";
+
+export function MaskedValue({
+  value,
+  label,
+  visibleChars = 4,
+  revealable = true,
+  copyable = true,
+  className,
+  ...props
+}: MaskedValueProps) {
+  const [shown, setShown] = React.useState(false);
+  const [copied, setCopied] = React.useState(false);
+
+  const tail = visibleChars > 0 ? value.slice(-visibleChars) : "";
+  const masked = "•".repeat(Math.min(12, Math.max(4, value.length - tail.length))) + tail;
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard blocked: nothing to announce */
+    }
+  };
+
+  return (
+    <div
+      className={cn(
+        "inline-flex h-9 max-w-full items-center gap-1 rounded-md border border-snt-border-default bg-snt-bg-subtle pl-3 pr-1",
+        className,
+      )}
+      {...props}
+    >
+      <code className="min-w-0 flex-1 truncate font-mono text-snt-12 text-snt-text-primary">
+        {shown ? value : <><span aria-hidden>{masked}</span><span className="sr-only">{label}, hidden{tail ? `, ends in ${tail}` : ""}</span></>}
+      </code>
+      {revealable && (
+        <button type="button" className={btn} aria-label={shown ? `Hide ${label}` : `Show ${label}`} aria-pressed={shown} onClick={() => setShown((v) => !v)}>
+          {shown ? <EyeOff aria-hidden /> : <Eye aria-hidden />}
+        </button>
+      )}
+      {copyable && (
+        <button type="button" className={btn} aria-label={`Copy ${label}`} onClick={copy}>
+          {copied ? <Check aria-hidden className="text-snt-text-success" /> : <Copy aria-hidden />}
+        </button>
+      )}
+      <span role="status" className="sr-only">{copied ? `${label} copied` : ""}</span>
+    </div>
+  );
+}
+```
+
+<!-- ===== Scan Progress (scan-progress) ===== -->
+
+---
+title: Scan Progress
+slug: scan-progress
+category: Atom
+status: beta
+source: components/ui/scan-progress.tsx
+styleguide: /styleguide/scan-progress
+figma: TBD
+apg: N/A
+---
+
+# Scan Progress
+
+The stages of a scan or long job and where it is now: done, running, failed or pending.
+
+## Accessibility
+
+Ordered list with an accessible name; the active stage has aria-current="step"; each status is read out; spinner respects reduced motion. Announce completion separately (e.g. Toast).
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `steps` | `ScanStep[]` | — | `{ label, status, detail? }` |
+| `label` | `string` | `"Scan progress"` | Accessible name |
+
+## Examples
+
+```tsx
+import { ScanProgress } from "@/components/ui/scan-progress";
+
+<ScanProgress label="Scan of api.example.com" steps={steps} />
+```
+
+## Known gaps
+- [ ] Not in the Figma library yet.
+
+Full usage guidance, do / don't and specs: the styleguide page `/styleguide/scan-progress`.
+
+### Source — `components/ui/scan-progress.tsx`
+
+```tsx
+import * as React from "react";
+import { Check, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+/**
+ * sentinel/ui — ScanProgress
+ *
+ * Drop this file into your project at components/ui/scan-progress.tsx.
+ *
+ * The stages of a scan or job, e.g. Queued → Discovery → Scanning → Analysis
+ * → Report, with where it is now. No "use client".
+ *
+ * Requires:
+ *   • Tailwind CSS v4, lucide-react
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
+ */
+
+export type ScanStepStatus = "pending" | "active" | "done" | "failed";
+export type ScanStep = { label: string; status: ScanStepStatus; detail?: string };
+
+const SR: Record<ScanStepStatus, string> = { pending: "not started", active: "in progress", done: "done", failed: "failed" };
+
+export interface ScanProgressProps extends React.HTMLAttributes<HTMLOListElement> {
+  steps: ScanStep[];
+  /** Accessible name, e.g. "Scan of api.example.com". */
+  label?: string;
+}
+
+function Marker({ status }: { status: ScanStepStatus }) {
+  const base = "relative z-10 flex size-6 shrink-0 items-center justify-center rounded-full [&_svg]:size-3.5";
+  if (status === "done") return <span className={cn(base, "bg-snt-btn-primary-600 text-snt-text-on-accent")}><Check aria-hidden /></span>;
+  if (status === "failed") return <span className={cn(base, "bg-snt-btn-error-600 text-snt-text-on-accent")}><X aria-hidden /></span>;
+  if (status === "active")
+    return (
+      <span className={cn(base, "bg-snt-surface-app ring-2 ring-snt-focus-ring")}>
+        <span className="size-3 animate-spin rounded-full border-2 border-snt-focus-ring/30 border-t-snt-focus-ring motion-reduce:animate-none" />
+      </span>
+    );
+  return <span className={cn(base, "border-2 border-snt-border-strong bg-snt-surface-app")} />;
+}
+
+export function ScanProgress({ steps, label = "Scan progress", className, ...props }: ScanProgressProps) {
+  return (
+    <ol aria-label={label} className={cn("flex w-full items-start", className)} {...props}>
+      {steps.map((s, i) => (
+        <li
+          key={s.label}
+          aria-current={s.status === "active" ? "step" : undefined}
+          className="relative flex min-w-0 flex-1 flex-col items-center text-center"
+        >
+          {i > 0 && (
+            <span
+              aria-hidden
+              className={cn(
+                "absolute right-1/2 top-3 h-0.5 w-full -translate-y-1/2",
+                s.status === "pending" ? "bg-snt-border-default" : "bg-snt-btn-primary-600",
+              )}
+            />
+          )}
+          <Marker status={s.status} />
+          <span
+            className={cn(
+              "mt-2 px-1 text-snt-12 font-medium",
+              s.status === "pending" ? "text-snt-text-secondary" : s.status === "failed" ? "text-snt-text-error" : "text-snt-text-primary",
+            )}
+          >
+            {s.label}
+            <span className="sr-only">, {SR[s.status]}</span>
+          </span>
+          {s.detail && <span className="mt-0.5 px-1 text-snt-11 text-snt-text-secondary">{s.detail}</span>}
+        </li>
+      ))}
+    </ol>
+  );
+}
 ```
 
 <!-- ===== Select (select) ===== -->
@@ -2573,8 +3645,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             aria-invalid={isError || undefined}
             aria-describedby={message ? helperId : undefined}
             className={cn(
-              "w-full flex items-center justify-between gap-2 h-9 px-3 rounded-md text-snt-14 text-left transition-colors",
-              "border", borderClass, "bg-snt-surface-row",
+              "w-full flex items-center justify-between gap-2 h-9 compact:h-8 px-3 rounded-md text-snt-14 text-left transition-colors",
+              "border shadow-snt-control", borderClass, "bg-snt-surface-row",
               isDisabled
                 ? "opacity-40 cursor-not-allowed"
                 : "cursor-pointer hover:border-snt-neutral-grey-500 focus:outline-none focus:border-snt-border-focus focus-visible:ring-2 focus-visible:ring-snt-focus-ring/40",
@@ -2624,7 +3696,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                     onMouseEnter={() => !opt.disabled && setActive(i)}
                     onClick={() => commit(i)}
                     className={cn(
-                      "w-full flex items-center justify-between gap-2 px-3 py-2 text-snt-14 text-left",
+                      "w-full flex items-center justify-between gap-2 px-3 py-2 compact:py-1.5 text-snt-14 text-left",
                       opt.disabled
                         ? "text-snt-text-disabled cursor-not-allowed"
                         : "text-snt-text-primary cursor-pointer",
@@ -2862,6 +3934,194 @@ export const SeverityBadge = React.forwardRef<HTMLDivElement, SeverityBadgeProps
   },
 );
 SeverityBadge.displayName = "SeverityBadge";
+```
+
+<!-- ===== Severity Bar (severity-bar) ===== -->
+
+---
+title: Severity Bar
+slug: severity-bar
+category: Atom
+status: beta
+source: components/ui/severity-bar.tsx
+styleguide: /styleguide/severity-bar
+figma: TBD
+apg: N/A
+---
+
+# Severity Bar
+
+One horizontal bar that splits a set of findings by severity, with an optional legend of counts.
+
+## Overview
+
+### When to use
+- Summarise how findings break down by severity for an asset, a scan or a repository.
+- Compare risk across table rows (Small size, no legend).
+
+### When not to use
+- The severity of a single finding — use [Severity Badge](./severity-badge.md).
+- Change over time — use [Chart](./chart.md).
+
+## Variants
+
+| Prop | Values | Notes |
+|---|---|---|
+| `size` | `sm` (6px) · `md` (10px) | Small for table rows |
+| `showLegend` | `true` · `false` | Keep the legend when the bar stands alone |
+
+Segments run Critical → High → Medium → Low → Info. Severities with 0 findings are left out. With no findings the bar is an empty `bg-subtle` track.
+
+## Do / Don't
+
+| ✅ Do | ❌ Don't |
+|---|---|
+| Keep the legend when the bar stands alone | Recolour segments |
+| Set `noun` to what is counted ("vulnerabilities") | Use it for non-severity categories |
+
+## Accessibility
+
+- The bar is one `role="img"` with a text summary: "52 findings: 3 critical, 8 high, …".
+- The legend repeats every number visibly (WCAG 1.4.1, 1.4.11: Medium and Info hues are under 3:1 on white, but no meaning depends on them alone).
+- Not interactive; nothing to focus.
+
+## Design tokens
+
+| Role | Token |
+|---|---|
+| Segments | `snt-severity-critical` · `-high` · `-medium` · `-low` · `-info` |
+| Empty track | `snt-bg-subtle` |
+| Legend text | `snt-text-secondary`, counts `snt-text-primary` |
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `counts` | `Partial<Record<Severity, number>>` | — | Findings per severity |
+| `showLegend` | `boolean` | `true` | Legend under the bar |
+| `size` | `"sm" \| "md"` | `"md"` | Bar thickness |
+| `noun` | `string` | `"findings"` | Used in the accessible summary |
+
+Also exported: `SEVERITY_ORDER`, `Severity`. No `"use client"`.
+
+## Examples
+
+```tsx
+import { SeverityBar } from "@/components/ui/severity-bar";
+
+<SeverityBar counts={{ critical: 3, high: 8, medium: 14, low: 21, info: 6 }} />
+<SeverityBar size="sm" showLegend={false} noun="vulnerabilities" counts={asset.bySeverity} />
+```
+
+## Known gaps
+- [ ] No tooltip per segment.
+- [ ] Not in the Figma library yet.
+
+## Related
+- [Severity Badge](./severity-badge.md) · [Chart](./chart.md) · [Finding Status](./finding-status.md)
+
+### Source — `components/ui/severity-bar.tsx`
+
+```tsx
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+/**
+ * sentinel/ui — SeverityBar
+ *
+ * Drop this file into your project at components/ui/severity-bar.tsx.
+ *
+ * One horizontal bar that splits a set of findings by severity, with an
+ * optional legend. No "use client": it renders in Server Components.
+ *
+ * Requires:
+ *   • Tailwind CSS v4
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
+ */
+
+export type Severity = "critical" | "high" | "medium" | "low" | "info";
+
+export const SEVERITY_ORDER: Severity[] = ["critical", "high", "medium", "low", "info"];
+
+const LABEL: Record<Severity, string> = {
+  critical: "Critical",
+  high:     "High",
+  medium:   "Medium",
+  low:      "Low",
+  info:     "Info",
+};
+
+// Severity fills are the hue-as-meaning tokens, never decorative.
+const FILL: Record<Severity, string> = {
+  critical: "bg-snt-severity-critical",
+  high:     "bg-snt-severity-high",
+  medium:   "bg-snt-severity-medium",
+  low:      "bg-snt-severity-low",
+  info:     "bg-snt-severity-info",
+};
+
+export interface SeverityBarProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Number of findings per severity. Missing or 0 severities are left out. */
+  counts: Partial<Record<Severity, number>>;
+  /** Show the legend with counts under the bar. */
+  showLegend?: boolean;
+  /** Bar thickness: sm 6px, md 10px. */
+  size?: "sm" | "md";
+  /** What is being counted, for the accessible summary. */
+  noun?: string;
+}
+
+export function SeverityBar({
+  counts,
+  showLegend = true,
+  size = "md",
+  noun = "findings",
+  className,
+  ...props
+}: SeverityBarProps) {
+  const parts = SEVERITY_ORDER.filter((s) => (counts[s] ?? 0) > 0).map((s) => ({ s, n: counts[s]! }));
+  const total = parts.reduce((sum, p) => sum + p.n, 0);
+  const summary =
+    total === 0
+      ? `No ${noun}`
+      : `${total} ${noun}: ` + parts.map((p) => `${p.n} ${LABEL[p.s].toLowerCase()}`).join(", ");
+
+  return (
+    <div className={cn("w-full", className)} {...props}>
+      {/* The bar is one image with a text summary; the legend repeats the numbers visibly. */}
+      <div
+        role="img"
+        aria-label={summary}
+        className={cn("flex w-full gap-0.5 overflow-hidden rounded-full", size === "sm" ? "h-1.5" : "h-2.5")}
+      >
+        {total === 0 ? (
+          <span className="h-full w-full bg-snt-bg-subtle" />
+        ) : (
+          parts.map((p) => (
+            <span key={p.s} className={cn("h-full min-w-1", FILL[p.s])} style={{ flexGrow: p.n, flexBasis: 0 }} />
+          ))
+        )}
+      </div>
+
+      {showLegend && (
+        <ul aria-hidden className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1">
+          {total === 0 ? (
+            <li className="text-snt-12 text-snt-text-secondary">No {noun}</li>
+          ) : (
+            parts.map((p) => (
+              <li key={p.s} className="flex items-center gap-1.5 text-snt-12 text-snt-text-secondary">
+                <span className={cn("size-2 rounded-full", FILL[p.s])} />
+                {LABEL[p.s]}
+                <span className="font-medium tabular-nums text-snt-text-primary">{p.n}</span>
+              </li>
+            ))
+          )}
+        </ul>
+      )}
+    </div>
+  );
+}
 ```
 
 <!-- ===== Skeleton (skeleton) ===== -->
@@ -3391,7 +4651,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
       >
         <span
           className={cn(
-            "absolute top-[3px] left-0 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200 ease-in-out",
+            "absolute top-[3px] left-0 w-4 h-4 rounded-full bg-white shadow-snt-sm transition-transform duration-200 ease-in-out",
             checked ? "translate-x-[18px]" : "translate-x-[3px]",
           )}
         />
@@ -3828,7 +5088,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
     if (variant === "filled") {
       return (
         <div className={cn("w-full", className)}>
-          <div className={cn("rounded-t-md px-3 py-1.5", FILLED_STYLE[resolvedState])}>
+          <div className={cn("rounded-t-md px-3 py-1.5 compact:py-1", FILLED_STYLE[resolvedState])}>
             {label && (
               <label
                 htmlFor={inputId}
@@ -3846,7 +5106,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
 
     return (
       <div className={cn("w-full", className)}>
-        <div className={cn("relative rounded-md px-3 pt-3 pb-1.5", OUTLINED_STYLE[resolvedState])}>
+        <div className={cn("relative rounded-md px-3 pt-3 pb-1.5 shadow-snt-control", OUTLINED_STYLE[resolvedState])}>
           {label && (
             <label
               htmlFor={inputId}
@@ -4081,7 +5341,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           aria-invalid={isError || undefined}
           aria-describedby={message ? helperId : undefined}
           className={cn(
-            "block w-full rounded-md px-3 py-2 text-snt-14 text-snt-text-primary placeholder:text-snt-text-secondary bg-snt-surface-row",
+            "block w-full rounded-md shadow-snt-control px-3 py-2 text-snt-14 text-snt-text-primary placeholder:text-snt-text-secondary bg-snt-surface-row",
             "border resize-y transition-colors",
             "focus:outline-none focus:border-snt-border-focus focus:ring-2 focus:ring-snt-focus-ring/20",
             STATE_BORDER[resolvedState],
@@ -4262,7 +5522,7 @@ toast({ intent: "success", title: "Scan scheduled", description: "Runs daily at 
 <Toast intent="success" title="Scan scheduled" description="Runs daily at 02:00" onDismiss={close} />
 
 <Tooltip content="Re-run scan">
-  <Button iconOnly variant="ghost" intent="default" aria-label="Re-run scan"><RotateCw size={16} aria-hidden /></Button>
+  <Button iconOnly variant="ghost" intent="neutral" aria-label="Re-run scan"><RotateCw size={16} aria-hidden /></Button>
 </Tooltip>
 ```
 
@@ -4355,7 +5615,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         aria-live={intent === "alert" ? "assertive" : "polite"}
         aria-atomic="true"
         className={cn(
-          "overflow-hidden bg-snt-surface-app border border-snt-border-default rounded-xl shadow-sm",
+          "overflow-hidden bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-lg",
           className,
         )}
         {...props}
@@ -4969,7 +6229,7 @@ export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(
       <div
         ref={ref}
         className={cn(
-          "border border-snt-border-default rounded-xl p-3 overflow-x-auto snt-scrollbar-hide",
+          "border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs p-3 overflow-x-auto snt-scrollbar-hide",
           className,
         )}
         {...props}
@@ -5020,10 +6280,10 @@ export const FilterPill = React.forwardRef<HTMLButtonElement, FilterPillProps>(
     return (
       <span
         className={cn(
-          "inline-flex items-center h-8 rounded-lg border text-snt-12 font-medium select-none transition-colors shrink-0",
+          "inline-flex items-center h-8 compact:h-7 rounded-lg border text-snt-12 font-medium select-none transition-colors shrink-0",
           active
             ? "border-snt-brand-primary-500 bg-snt-bg-brand-subtle text-snt-brand-primary-500"
-            : "border-snt-border-default bg-snt-surface-app text-snt-text-secondary hover:border-snt-border-strong hover:text-snt-text-primary",
+            : "border-snt-border-default bg-snt-surface-app shadow-snt-control text-snt-text-secondary hover:border-snt-border-strong hover:text-snt-text-primary",
           className,
         )}
       >
@@ -5080,7 +6340,7 @@ export const FilterSearch = React.forwardRef<HTMLInputElement, FilterSearchProps
           value={value ?? ""}
           onChange={(e) => onChange?.(e.target.value)}
           className={cn(
-            "h-8 w-48 pl-8 pr-3 rounded-lg border border-snt-border-default bg-snt-surface-app text-snt-12 text-snt-text-primary placeholder:text-snt-text-secondary outline-none focus:border-snt-brand-primary-500 focus:ring-2 focus:ring-snt-focus-ring/20 transition-colors",
+            "h-8 w-48 pl-8 pr-3 rounded-lg border border-snt-border-default bg-snt-surface-app shadow-snt-control text-snt-12 text-snt-text-primary placeholder:text-snt-text-secondary outline-none focus:border-snt-brand-primary-500 focus:ring-2 focus:ring-snt-focus-ring/20 transition-colors",
             className,
           )}
           {...props}
@@ -5108,7 +6368,7 @@ export const FilterAction = React.forwardRef<HTMLButtonElement, FilterActionProp
         aria-label={iconOnly ? label : undefined}
         disabled={disabled || muted}
         className={cn(
-          "inline-flex items-center gap-1.5 h-8 rounded-lg border text-snt-12 font-medium transition-colors shrink-0",
+          "inline-flex items-center gap-1.5 h-8 compact:h-7 rounded-lg border text-snt-12 font-medium transition-colors shrink-0",
           iconOnly ? "w-8 justify-center" : "px-3",
           muted
             ? "border-snt-border-default bg-snt-surface-app text-snt-text-disabled cursor-not-allowed"
@@ -5134,7 +6394,7 @@ export const FilterClear = React.forwardRef<HTMLButtonElement, FilterClearProps>
         ref={ref}
         type="button"
         className={cn(
-          "inline-flex items-center gap-1 h-8 px-2.5 text-snt-12 font-medium text-snt-text-error hover:text-snt-scale-red-700 transition-colors shrink-0",
+          "inline-flex items-center gap-1 h-8 compact:h-7 px-2.5 text-snt-12 font-medium text-snt-text-error hover:text-snt-scale-red-700 transition-colors shrink-0",
           className,
         )}
         {...props}
@@ -5158,7 +6418,7 @@ export const FilterOverflow = React.forwardRef<HTMLButtonElement, FilterOverflow
         ref={ref}
         type="button"
         className={cn(
-          "inline-flex items-center gap-1 h-8 px-3 rounded-lg border border-dashed border-snt-border-default text-snt-12 font-medium text-snt-text-secondary hover:border-snt-brand-primary-500 hover:text-snt-brand-primary-500 transition-colors shrink-0",
+          "inline-flex items-center gap-1 h-8 compact:h-7 px-3 rounded-lg border border-dashed border-snt-border-default text-snt-12 font-medium text-snt-text-secondary hover:border-snt-brand-primary-500 hover:text-snt-brand-primary-500 transition-colors shrink-0",
           className,
         )}
         {...props}
@@ -5342,11 +6602,11 @@ export interface SearchBarProps
 }
 
 const CONTAINER_BASE =
-  "flex items-center gap-2 rounded-lg px-3 h-9 w-full transition-colors";
+  "flex items-center gap-2 rounded-lg px-3 h-9 compact:h-8 w-full transition-colors";
 
 const VARIANT_CONTAINER: Record<Variant, string> = {
   default:
-    "border border-snt-border-default bg-snt-surface-app " +
+    "border border-snt-border-default bg-snt-surface-app shadow-snt-control " +
     "focus-within:border-snt-brand-primary-500 focus-within:ring-2 focus-within:ring-snt-focus-ring/20",
   ghost:
     "bg-snt-bg-subtle border border-transparent " +
@@ -5717,7 +6977,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
           variant === "pill"
             ? cn(
                 "px-3.5 py-1.5 rounded-md",
-                isActive ? "bg-snt-surface-row text-snt-text-primary shadow-snt-sm" : "text-snt-text-secondary hover:text-snt-text-primary",
+                isActive ? "bg-snt-surface-row text-snt-text-primary shadow-snt-control ring-1 ring-snt-border-default" : "text-snt-text-secondary hover:text-snt-text-primary",
               )
             : cn(
                 "px-4 pt-2 pb-2.5 -mb-px border-b-[2px]",
@@ -5927,7 +7187,7 @@ export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("rounded-xl border border-snt-border-default bg-snt-surface-app text-snt-text-primary", className)}
+      className={cn("rounded-xl border border-snt-border-default bg-snt-surface-app text-snt-text-primary shadow-snt-xs", className)}
       {...props}
     />
   ),
@@ -6232,7 +7492,7 @@ export const ChartCard = React.forwardRef<HTMLDivElement, ChartCardProps>(
     return (
       <div
         ref={ref}
-        className={cn("border border-snt-border-default rounded-xl bg-snt-surface-app", className)}
+        className={cn("border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs", className)}
         {...props}
       >
         <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl">
@@ -6796,7 +8056,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
       <div
         ref={ref}
         className={cn(
-          "border border-snt-border-default rounded-xl bg-snt-surface-app overflow-hidden",
+          "border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs overflow-hidden",
           className,
         )}
         {...props}
@@ -6837,7 +8097,7 @@ export const DataTableHeader = React.forwardRef<HTMLDivElement, DataTableHeaderP
       <div
         ref={ref}
         className={cn(
-          "flex items-center gap-3 px-5 py-3 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl",
+          "flex items-center gap-3 px-5 py-3 compact:px-4 compact:py-2 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl",
           className,
         )}
         {...props}
@@ -6926,7 +8186,7 @@ export const DataTableColumnHeaders = React.forwardRef<HTMLDivElement, DataTable
       <div
         ref={ref}
         role="row"
-        className={cn(GRID_COLS, "px-5 py-2.5 border-b border-snt-border-default", className)}
+        className={cn(GRID_COLS, "px-5 py-2.5 compact:px-4 compact:py-1.5 border-b border-snt-border-default", className)}
         {...props}
       >
         <div role="columnheader" className="flex items-center gap-1.5">
@@ -6960,7 +8220,7 @@ export const DataTableRow = React.forwardRef<HTMLDivElement, DataTableRowProps>(
         role="row"
         className={cn(
           GRID_COLS,
-          "items-center px-5 py-3 border-b border-snt-border-default last:border-b-0 hover:bg-snt-bg-subtle/50 transition-colors",
+          "items-center px-5 py-3 compact:px-4 compact:py-1.5 border-b border-snt-border-default last:border-b-0 hover:bg-snt-bg-subtle/50 transition-colors",
           className,
         )}
         {...props}
@@ -6999,7 +8259,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
         role="navigation"
         aria-label="Pagination"
         className={cn(
-          "flex items-center justify-end gap-4 px-5 py-3 border-t border-snt-border-default",
+          "flex items-center justify-end gap-4 px-5 py-3 compact:px-4 compact:py-2 border-t border-snt-border-default",
           className,
         )}
         {...props}
@@ -7344,7 +8604,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
               <button
                 type="button"
                 onClick={primaryAction.onClick}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-snt-brand-primary-500 text-snt-text-white text-snt-12 font-medium hover:bg-snt-brand-primary-600 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-snt-brand-primary-500 shadow-snt-raised text-snt-text-white text-snt-12 font-medium hover:bg-snt-brand-primary-600 transition-colors"
               >
                 {primaryAction.icon && <primaryAction.icon size={13} />}
                 {primaryAction.label}
@@ -7354,7 +8614,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
               <button
                 type="button"
                 onClick={secondaryAction.onClick}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md border border-snt-border-default bg-snt-surface-app text-snt-text-primary text-snt-12 font-medium hover:bg-snt-bg-subtle transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md border border-snt-border-default bg-snt-surface-app shadow-snt-control text-snt-text-primary text-snt-12 font-medium hover:bg-snt-bg-subtle transition-colors"
               >
                 {secondaryAction.icon && <secondaryAction.icon size={13} />}
                 {secondaryAction.label}
@@ -7805,7 +9065,7 @@ A dialog that interrupts the current task to request a decision or focused input
     <ModalDescription>This removes all scan history and can't be undone.</ModalDescription>
   </ModalBody>
   <ModalFooter>
-    <Button intent="default" variant="outline" data-autofocus onClick={() => setOpen(false)}>Cancel</Button>
+    <Button intent="neutral" variant="outline" data-autofocus onClick={() => setOpen(false)}>Cancel</Button>
     <Button intent="destructive" onClick={confirmDelete}>Delete</Button>
   </ModalFooter>
 </Modal>
@@ -7980,7 +9240,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             aria-describedby={hasDescription ? descriptionId : undefined}
             tabIndex={-1}
             className={cn(
-              "relative w-full bg-snt-surface-app border border-snt-border-default rounded-xl shadow-xl focus:outline-none",
+              "relative w-full bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-2xl focus:outline-none",
               SIZE_CLASS[size],
               className,
             )}
@@ -8528,7 +9788,7 @@ export const TextSpace = React.forwardRef<HTMLDivElement, TextSpaceProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-lg border overflow-hidden",
+          "rounded-lg border shadow-snt-control overflow-hidden",
           isError
             ? "border-snt-text-error bg-snt-bg-error-subtle"
             : "border-snt-border-default bg-snt-surface-app focus-within:border-snt-brand-primary-500",

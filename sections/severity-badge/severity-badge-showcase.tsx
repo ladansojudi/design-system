@@ -100,7 +100,7 @@ export function SeverityBadgeShowcase() {
               </p>
               <div className="space-y-2">
                 {SEVERITIES.map((s) => (
-                  <Copyable key={s} snippets={severitySnippets(s)} svgPath={`/svg/severity-badge/${s}.svg`}>
+                  <Copyable key={s} snippets={severitySnippets(s)}>
                     <SeverityBadge severity={s} />
                   </Copyable>
                 ))}
@@ -114,7 +114,7 @@ export function SeverityBadgeShowcase() {
               </p>
               <div className="space-y-2">
                 {SEVERITIES.map((s) => (
-                  <Copyable key={s} snippets={severitySnippets(s, 8.4)} svgPath={`/svg/severity-badge/${s}.svg`}>
+                  <Copyable key={s} snippets={severitySnippets(s, 8.4)}>
                     <SeverityBadge severity={s} score={8.4} />
                   </Copyable>
                 ))}

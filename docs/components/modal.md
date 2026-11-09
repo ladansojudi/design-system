@@ -130,7 +130,7 @@ A dialog that interrupts the current task to request a decision or focused input
     <ModalDescription>This removes all scan history and can't be undone.</ModalDescription>
   </ModalBody>
   <ModalFooter>
-    <Button intent="default" variant="outline" data-autofocus onClick={() => setOpen(false)}>Cancel</Button>
+    <Button intent="neutral" variant="outline" data-autofocus onClick={() => setOpen(false)}>Cancel</Button>
     <Button intent="destructive" onClick={confirmDelete}>Delete</Button>
   </ModalFooter>
 </Modal>

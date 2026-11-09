@@ -11,6 +11,8 @@ const STATUS_STYLES: Record<ComponentStatus, { label: string; cls: string }> = {
 
 interface PageHeaderProps {
   category:     string;
+  /** Makes the category crumb a link (e.g. the Components index). */
+  categoryHref?: string;
   title:        string;
   description?: string;
   status?:      ComponentStatus;
@@ -19,7 +21,7 @@ interface PageHeaderProps {
   actions?:     React.ReactNode;
 }
 
-export function PageHeader({ category, title, description, status, version, actions }: PageHeaderProps) {
+export function PageHeader({ category, categoryHref, title, description, status, version, actions }: PageHeaderProps) {
   return (
     <header className="mb-2 sm:mb-4">
       {/* Breadcrumb path + page actions */}
@@ -28,14 +30,18 @@ export function PageHeader({ category, title, description, status, version, acti
           <ol className="flex items-center gap-1.5 text-[12px] text-snt-text-disabled">
             <li>
               <Link
-                href="/styleguide/overview"
+                href="/"
                 className="hover:text-snt-text-primary transition-colors"
               >
-                Sentinel Design System
+                Sentinel
               </Link>
             </li>
             <li aria-hidden className="text-snt-neutral-grey-300">/</li>
-            <li className="text-snt-text-secondary">{category}</li>
+            <li className="text-snt-text-secondary">
+              {categoryHref ? (
+                <Link href={categoryHref} className="hover:text-snt-text-primary transition-colors">{category}</Link>
+              ) : category}
+            </li>
             <li aria-hidden className="text-snt-neutral-grey-300">/</li>
             <li className="text-snt-text-primary font-medium">{title}</li>
           </ol>

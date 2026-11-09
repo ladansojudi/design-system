@@ -120,7 +120,6 @@ export function BadgeTagShowcase() {
                   <div key={c}>
                     <Copyable
                       snippets={badgeSnippets(c, BADGE_COLORS[c].label, { showDot: true, dotPosition: "left" })}
-                      svgPath={`/svg/badge-tag/${c}-filled-dot.svg`}
                     >
                       <Badge color={c} showDot dotPosition="left" />
                     </Copyable>
@@ -161,7 +160,6 @@ export function BadgeTagShowcase() {
                   <div key={c}>
                     <Copyable
                       snippets={badgeSnippets(c, BADGE_COLORS[c].label, { showDot: false })}
-                      svgPath={`/svg/badge-tag/${c}-filled.svg`}
                     >
                       <Badge color={c} showDot={false} />
                     </Copyable>

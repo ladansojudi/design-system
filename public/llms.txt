@@ -1,6 +1,6 @@
 # Sentinel Design System
 
-> React + Tailwind v4 component library and design tokens for cybersecurity products (threat dashboards, scans, assets, findings, severity). Version 1.3.1. 24 copy-paste components (shadcn-style: you own the code), themed with `snt-*` CSS variables in light and dark mode, targeting WCAG 2.2 AA and the WAI-ARIA Authoring Practices (remaining gaps are listed per component).
+> React + Tailwind v4 component library and design tokens for cybersecurity products (threat dashboards, scans, assets, findings, severity). Version 1.3.1. 32 copy-paste components (shadcn-style: you own the code), themed with `snt-*` CSS variables in light and dark mode, targeting WCAG 2.2 AA and the WAI-ARIA Authoring Practices (remaining gaps are listed per component).
 
 ## Rules for AI agents
 
@@ -45,13 +45,21 @@ export function cn(...inputs: ClassValue[]) {
 
 ## Atoms
 
+- [Activity Timeline](/docs/components/activity-timeline.md) **[beta]**: A time-ordered list of events: an attack timeline, an audit log, or the history of a finding. Source: [activity-timeline.tsx](/components/activity-timeline.tsx.txt)
 - [Alert](/docs/components/alert.md): An inline message tied to a page or section. It communicates a status that persists until the condition changes or the user dismisses it. Source: [alert.tsx](/components/alert.tsx.txt)
 - [Badge · Tag](/docs/components/badge-tag.md): A small pill that labels an object with a status (**Badge**) or a category (**Tag**). It's the same primitive; Badge shows a status dot by default. Source: [badge-tag.tsx](/components/badge-tag.tsx.txt)
 - [Banner](/docs/components/banner.md) **[deprecated]**: Do not use in new code; see the migration note. A full-width strip at the top of the app for product-wide announcements, promotions or warnings. Source: [banner.tsx](/components/banner.tsx.txt)
 - [Button](/docs/components/button.md): Buttons trigger an action on the current page: submitting a form, opening a modal, starting a scan. Source: [button.tsx](/components/button.tsx.txt)
 - [Checkbox](/docs/components/checkbox.md) **[beta]**: Lets the user turn an independent option on or off, or pick several items from a list. Source: [checkbox.tsx](/components/checkbox.tsx.txt)
+- [CVE Tag](/docs/components/cve-tag.md) **[beta]**: A CVE identifier that links to its advisory, with optional exploit signals: KEV (in CISA's Known Exploited Vulnerabilities catalog) and EPSS (probability of exploitation in the next 30 days). Source: [cve-tag.tsx](/components/cve-tag.tsx.txt)
+- [CVSS Score](/docs/components/cvss-score.md) **[beta]**: A CVSS base score with its qualitative rating and, when given the vector string, each metric in plain words. Source: [cvss-score.tsx](/components/cvss-score.tsx.txt)
+- [Finding Status](/docs/components/finding-status.md) **[beta]**: Shows where a finding is in its lifecycle, from Open to Resolved, with an icon and a label for each status. Source: [finding-status.tsx](/components/finding-status.tsx.txt)
+- [Indicator](/docs/components/indicator.md) **[beta]**: An indicator of compromise (IP, domain, URL, hash, email) with type, reputation verdict and copy. Optional defanging (example[.]com). Source: [indicator.tsx](/components/indicator.tsx.txt)
+- [Masked Value](/docs/components/masked-value.md) **[beta]**: A secret — API key, token, password — shown masked, with reveal and copy. Source: [masked-value.tsx](/components/masked-value.tsx.txt)
+- [Scan Progress](/docs/components/scan-progress.md) **[beta]**: The stages of a scan or long job and where it is now: done, running, failed or pending. Source: [scan-progress.tsx](/components/scan-progress.tsx.txt)
 - [Select](/docs/components/select.md) **[beta]**: A single-choice dropdown that picks one value from a list of options. Source: [select.tsx](/components/select.tsx.txt)
 - [Severity Badge](/docs/components/severity-badge.md): The canonical way to show a finding's severity (Critical → Info), optionally with its numeric score (e.g. CVSS). Source: [severity-badge.tsx](/components/severity-badge.tsx.txt)
+- [Severity Bar](/docs/components/severity-bar.md) **[beta]**: One horizontal bar that splits a set of findings by severity, with an optional legend of counts. Source: [severity-bar.tsx](/components/severity-bar.tsx.txt)
 - [Skeleton](/docs/components/skeleton.md) **[beta]**: A pulsing placeholder that mirrors the shape of content while it loads. Source: [skeleton.tsx](/components/skeleton.tsx.txt)
 - [Spinner](/docs/components/spinner.md) **[alpha]**: An indeterminate loading indicator for short waits when the shape of the result is unknown. Source: [spinner.tsx](/components/spinner.tsx.txt)
 - [Switch · Radio](/docs/components/switch-radio.md): **Switch** turns a single setting on or off, effective immediately. **Radio** picks exactly one option from a small, visible set. Source: [switch-radio.tsx](/components/switch-radio.tsx.txt)
@@ -79,5 +87,5 @@ export function cn(...inputs: ClassValue[]) {
 ## Optional
 
 - [sentinel-manifest.json](/sentinel-manifest.json): machine-readable component manifest — props with types and defaults, status, when to use, tokens, install command
-- [llms-full.txt](/llms-full.txt): every doc, the full theme CSS and every component's source in one file (~72k tokens)
+- [llms-full.txt](/llms-full.txt): every doc, the full theme CSS and every component's source in one file (~84k tokens)
 - [Per-platform token exports](/tokens/_all/tokens.css): CSS (light only), also [Swift](/tokens/_all/tokens.swift) and [Android XML](/tokens/_all/tokens.xml)

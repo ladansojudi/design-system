@@ -47,7 +47,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
       <div
         ref={ref}
         className={cn(
-          "border border-snt-border-default rounded-xl bg-snt-surface-app overflow-hidden",
+          "border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs overflow-hidden",
           className,
         )}
         {...props}
@@ -88,7 +88,7 @@ export const DataTableHeader = React.forwardRef<HTMLDivElement, DataTableHeaderP
       <div
         ref={ref}
         className={cn(
-          "flex items-center gap-3 px-5 py-3 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl",
+          "flex items-center gap-3 px-5 py-3 compact:px-4 compact:py-2 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl",
           className,
         )}
         {...props}
@@ -177,7 +177,7 @@ export const DataTableColumnHeaders = React.forwardRef<HTMLDivElement, DataTable
       <div
         ref={ref}
         role="row"
-        className={cn(GRID_COLS, "px-5 py-2.5 border-b border-snt-border-default", className)}
+        className={cn(GRID_COLS, "px-5 py-2.5 compact:px-4 compact:py-1.5 border-b border-snt-border-default", className)}
         {...props}
       >
         <div role="columnheader" className="flex items-center gap-1.5">
@@ -211,7 +211,7 @@ export const DataTableRow = React.forwardRef<HTMLDivElement, DataTableRowProps>(
         role="row"
         className={cn(
           GRID_COLS,
-          "items-center px-5 py-3 border-b border-snt-border-default last:border-b-0 hover:bg-snt-bg-subtle/50 transition-colors",
+          "items-center px-5 py-3 compact:px-4 compact:py-1.5 border-b border-snt-border-default last:border-b-0 hover:bg-snt-bg-subtle/50 transition-colors",
           className,
         )}
         {...props}
@@ -250,7 +250,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
         role="navigation"
         aria-label="Pagination"
         className={cn(
-          "flex items-center justify-end gap-4 px-5 py-3 border-t border-snt-border-default",
+          "flex items-center justify-end gap-4 px-5 py-3 compact:px-4 compact:py-2 border-t border-snt-border-default",
           className,
         )}
         {...props}

@@ -5,7 +5,9 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { SeverityBadgeShowcase, SeverityBadgeExamples } from "@/sections/severity-badge/severity-badge-showcase";
 import { SeverityBadgeSpecs } from "@/sections/severity-badge/severity-badge-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
@@ -17,18 +19,47 @@ export default function SeverityBadgePage() {
   return (
     <>
       <PageHero
-        category="Atoms"
+        category="Components"
+        categoryHref="/styleguide/components"
         title="Severity Badge"
         status="stable"
         description="Five severity levels — Low, Info, Medium, High, Critical — each with a distinct color accent. Available with label only or label plus score."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Severity Badge" />
+            <DocSection title="Specs" hideTitle>
+              <Anatomy
+                parts={[
+                  { label: "Accent bar",       description: "3px left bar that carries the severity color, giving instant recognition." },
+                  { label: "Background",       description: "Tinted surface in the lightest scale of the severity color." },
+                  { label: "Label",            description: "Severity name, colored to match the scale (600 weight)." },
+                  { label: "Score (optional)", description: "Numeric CVSS score or risk value aligned to the right." },
+                ]}
+                preview={
+                  <div className="flex items-center justify-between rounded-md px-3 py-1.5 w-40 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500">
+                    <span className="text-sm font-medium text-snt-scale-red-600">High</span>
+                    <span className="text-sm text-snt-scale-red-600 opacity-80">8.4</span>
+                  </div>
+                }
+              />
+              <SeverityBadgeSpecs />
+            </DocSection>
+          </div>
+        }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="severity-badge" />
+          </div>
+        }
         design={
           <div className="space-y-16 mt-8 sm:mt-10">
             <DocSection title="Examples">
@@ -51,23 +82,7 @@ export default function SeverityBadgePage() {
                 ]}
               />
             </DocSection>
-            <DocSection title="Specs">
-              <Anatomy
-                parts={[
-                  { label: "Accent bar",       description: "3px left bar that carries the severity color, giving instant recognition." },
-                  { label: "Background",       description: "Tinted surface in the lightest scale of the severity color." },
-                  { label: "Label",            description: "Severity name, colored to match the scale (600 weight)." },
-                  { label: "Score (optional)", description: "Numeric CVSS score or risk value aligned to the right." },
-                ]}
-                preview={
-                  <div className="flex items-center justify-between rounded-md px-3 py-1.5 w-40 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500">
-                    <span className="text-sm font-medium text-snt-scale-red-600">High</span>
-                    <span className="text-sm text-snt-scale-red-600 opacity-80">8.4</span>
-                  </div>
-                }
-              />
-              <SeverityBadgeSpecs />
-            </DocSection>
+            
           </div>
         }
         dev={
@@ -77,6 +92,7 @@ export default function SeverityBadgePage() {
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

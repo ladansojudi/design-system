@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 
 interface PageHeroProps {
   category:     string;
+  categoryHref?: string;
   title:        string;
   description?: string;
   status?:      ComponentStatus;

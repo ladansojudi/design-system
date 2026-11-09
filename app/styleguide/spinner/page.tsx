@@ -5,7 +5,9 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { SpinnerShowcase, SpinnerExamples } from "@/sections/spinner/spinner-showcase";
 import { SpinnerSpecs } from "@/sections/spinner/spinner-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
@@ -17,18 +19,40 @@ export default function SpinnerPage() {
   return (
     <>
       <PageHero
-        category="Atoms"
+        category="Components"
+        categoryHref="/styleguide/components"
         title="Spinner"
         status="beta"
         description="Indeterminate loading indicator. Used when the operation duration is unknown — for known progress, use a progress bar."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Spinner" />
+            <DocSection title="Specs" hideTitle>
+              <Anatomy
+                parts={[
+                  { label: "Ring",  description: "3/4 circle with a transparent quarter that rotates 360° per second." },
+                  { label: "Color", description: "Brand for primary actions, neutral for ambient loading, white on dark surfaces." },
+                  { label: "Size",  description: "xs (12px), sm (16px), md (24px), lg (36px). Match the surrounding text size." },
+                ]}
+              />
+              <SpinnerSpecs />
+            </DocSection>
+          </div>
+        }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="spinner" />
+          </div>
+        }
         design={
           <div className="space-y-16 mt-8 sm:mt-10">
             <DocSection title="Examples">
@@ -52,16 +76,7 @@ export default function SpinnerPage() {
                 ]}
               />
             </DocSection>
-            <DocSection title="Specs">
-              <Anatomy
-                parts={[
-                  { label: "Ring",  description: "3/4 circle with a transparent quarter that rotates 360° per second." },
-                  { label: "Color", description: "Brand for primary actions, neutral for ambient loading, white on dark surfaces." },
-                  { label: "Size",  description: "xs (12px), sm (16px), md (24px), lg (36px). Match the surrounding text size." },
-                ]}
-              />
-              <SpinnerSpecs />
-            </DocSection>
+            
           </div>
         }
         dev={
@@ -71,6 +86,7 @@ export default function SpinnerPage() {
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

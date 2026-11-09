@@ -5,7 +5,9 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { GaugeShowcase, GaugeExamples } from "@/sections/gauge/gauge-showcase";
 import { GaugeSpecs } from "@/sections/gauge/gauge-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
@@ -16,15 +18,39 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHero category="Organisms" title="Gauge" status="stable" description="Animated half-arc visualization for displaying a value within a defined range."
+      <PageHero category="Components"
+        categoryHref="/styleguide/components" title="Gauge" status="stable" description="Animated half-arc visualization for displaying a value within a defined range."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Gauge" />
+            <DocSection title="Specs" hideTitle>
+              <Anatomy
+                parts={[
+                  { label: "Track arc",         description: "Light half-arc that represents the full range. Omitted in the minimal variant." },
+                  { label: "Progress arc",      description: "Thick colored arc that animates from 0 to the current value on mount." },
+                  { label: "Severity markers", description: "Three small arc segments (light · dark · light) clustered at the end of the progress, above the main arc — they reinforce where the value lands on the severity scale. Default variant only." },
+                  { label: "Needle",            description: "Grey pointer that rotates from the left edge to the value angle. Default variant only." },
+                  { label: "Label",             description: "Bold numeric value followed by a muted \"/ max\" reference." },
+                ]}
+              />
+              <GaugeSpecs />
+            </DocSection>
+          </div>
+        }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="gauge" />
+          </div>
+        }
         design={
           <div className="space-y-16 mt-8 sm:mt-10">
             <DocSection title="Examples">
@@ -50,18 +76,7 @@ export default function Page() {
                 ]}
               />
             </DocSection>
-            <DocSection title="Specs">
-              <Anatomy
-                parts={[
-                  { label: "Track arc",         description: "Light half-arc that represents the full range. Omitted in the minimal variant." },
-                  { label: "Progress arc",      description: "Thick colored arc that animates from 0 to the current value on mount." },
-                  { label: "Severity markers", description: "Three small arc segments (light · dark · light) clustered at the end of the progress, above the main arc — they reinforce where the value lands on the severity scale. Default variant only." },
-                  { label: "Needle",            description: "Grey pointer that rotates from the left edge to the value angle. Default variant only." },
-                  { label: "Label",             description: "Bold numeric value followed by a muted \"/ max\" reference." },
-                ]}
-              />
-              <GaugeSpecs />
-            </DocSection>
+            
           </div>
         }
         dev={
@@ -71,6 +86,7 @@ export default function Page() {
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

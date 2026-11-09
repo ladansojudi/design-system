@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Code, Palette } from "lucide-react";
+import { Check, Code } from "lucide-react";
 import { usePlatform, type Platform } from "@/components/styleguide/platform-provider";
 import { useViewMode } from "@/components/styleguide/view-mode-provider";
 import { cn } from "@/lib/utils";
@@ -13,23 +13,17 @@ const PLATFORM_LABEL: Record<Platform, string> = {
 };
 
 /**
- * Wraps any showcase cell with a hover-revealed copy chip. The chip's payload
- * depends on the active View mode (top-bar tabs):
- *   • Design mode → fetches the pre-rendered SVG (svgPath) and copies SVG markup.
- *     Designer pastes into Figma → component arrives as editable vector layers.
- *   • Dev mode    → copies the React JSX snippet (snippets.react).
- *
- * Falls back to JSX if no svgPath is provided (e.g., for compound demos like
- * Button Group where SVG export hasn't been wired yet).
+ * Wraps a showcase cell with a hover-revealed "copy code" chip — Dev view only.
+ * In Design view it renders just the children: designers take components from
+ * the Figma library ("Open in Figma"), not from the page.
  */
 export function Copyable({
   snippets,
-  svgPath,
   children,
   className,
 }: {
-  snippets: Record<Platform, string>;
-  svgPath?: string;
+  /** React is required; native snippets are optional and fall back to React. */
+  snippets: { react: string } & Partial<Record<Platform, string>>;
   children: React.ReactNode;
   className?: string;
 }) {
@@ -37,30 +31,17 @@ export function Copyable({
   const { mode }     = useViewMode();
   const [copied, setCopied] = useState(false);
 
-  const isDesign = mode === "design" && !!svgPath;
+  if (mode !== "dev") {
+    return <div className={cn("inline-block", className)}>{children}</div>;
+  }
 
-  const onCopy = async () => {
-    let text = snippets[platform];
-    if (isDesign && svgPath) {
-      try {
-        const res = await fetch(svgPath);
-        if (res.ok) text = await res.text();
-      } catch {
-        // Fall back to JSX if fetch fails.
-      }
-    }
-    void navigator.clipboard?.writeText(text);
+  const target = snippets[platform] ? platform : "react";
+
+  const onCopy = () => {
+    void navigator.clipboard?.writeText(snippets[target] ?? snippets.react);
     setCopied(true);
     setTimeout(() => setCopied(false), 1200);
   };
-
-  const title = copied
-    ? "Copied"
-    : isDesign
-      ? "Copy as SVG (paste into Figma)"
-      : `Copy ${PLATFORM_LABEL[platform]}`;
-
-  const Icon = isDesign ? Palette : Code;
 
   return (
     <div className={cn("relative group inline-block", className)}>
@@ -68,16 +49,16 @@ export function Copyable({
       <button
         type="button"
         onClick={onCopy}
-        aria-label={copied ? "Copied" : isDesign ? "Copy SVG" : "Copy code"}
-        title={title}
+        aria-label={copied ? "Copied" : "Copy code"}
+        title={copied ? "Copied" : `Copy ${PLATFORM_LABEL[target]}`}
         className={cn(
-          "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-snt-surface-app border border-snt-neutral-divider-10 shadow-snt-xs z-10",
-          "flex items-center justify-center text-snt-text-disabled hover:text-snt-text-primary hover:bg-snt-neutral-grey-100",
+          "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-snt-surface-app border border-snt-border-default shadow-snt-xs z-10",
+          "flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary hover:bg-snt-bg-subtle",
           "transition-opacity cursor-pointer focus-visible:opacity-100",
           copied ? "opacity-100 text-snt-scale-green-600" : "opacity-0 group-hover:opacity-100 focus:opacity-100",
         )}
       >
-        {copied ? <Check size={11} /> : <Icon size={11} />}
+        {copied ? <Check size={11} aria-hidden /> : <Code size={11} aria-hidden />}
       </button>
     </div>
   );

@@ -8,7 +8,9 @@ import { CardsSpecs } from "@/sections/cards/cards-specs";
 import { StatCardShowcase } from "@/sections/stat-card/stat-card-showcase";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
@@ -20,48 +22,24 @@ export default function Page() {
   return (
     <>
       <PageHero
-        category="Organisms"
+        category="Components"
+        categoryHref="/styleguide/components"
         title="Cards"
         status="stable"
         description="Content surfaces for dashboards — Stat Card for single metrics, Insight and Alert Cards for structured content."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
-        design={
-          <div className="mt-8 sm:mt-10">
-            <Tabs defaultValue="insight-alert" className="gap-8">
-              <TabsList>
-                <TabsTrigger value="insight-alert">Insight & Alert</TabsTrigger>
-                <TabsTrigger value="stat-card">Stat Card</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="insight-alert" className="space-y-16">
-                <DocSection title="Examples">
-                  <CardsShowcase />
-                </DocSection>
-                <DocSection title="Usage">
-                  <UseCases
-                    items={[
-                      "Use Insight Card to summarise a metric cluster (risk score + dimensions) with a View Details action.",
-                      "Use Alert Card for items requiring user attention — blind spots, expiring certificates, failed scans.",
-                      "Combine both types side-by-side on dashboards to balance status and action.",
-                    ]}
-                  />
-                  <Guidelines
-                    items={[
-                      { type: "do",   text: "Use the pulse dot only for live, unresolved alerts — not for static info." },
-                      { type: "dont", text: "Don't stack more than 3 alert cards; collapse older ones into a list." },
-                      { type: "do",   text: "Keep Insight rows to a maximum of five so the card stays scannable." },
-                      { type: "dont", text: "Don't put call-to-action buttons inside Insight Cards; they're informational." },
-                    ]}
-                  />
-                </DocSection>
-                <DocSection title="Specs">
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Cards" />
+            <DocSection title="Insight & Alert card">
                   <Anatomy
                     parts={[
                       { label: "Header bar",  description: "Grey-100 strip with card title on the left and an active-count pill on the right." },
@@ -92,6 +70,65 @@ export default function Page() {
                   </Anatomy>
                   <CardsSpecs />
                 </DocSection>
+            <DocSection title="Stat card">
+                  <Anatomy
+                    parts={[
+                      { label: "Icon + title",         description: "12px glyph and a short metric name that together label the card." },
+                      { label: "Metric",               description: "Large numeric value (32px, bold) — the primary information on the card." },
+                      { label: "Trend / description",  description: "Optional comparison vs previous period, or short helper sentence." },
+                    ]}
+                  >
+                    <div className="w-60 border border-snt-neutral-divider-10 rounded-xl px-5 py-4 bg-snt-surface-app flex flex-col gap-3">
+                      <div className="flex items-center gap-2">
+                        <Link2 size={14} className="text-snt-text-disabled" />
+                        <span className="text-[12px] font-medium text-snt-text-secondary">Total URL</span>
+                      </div>
+                      <div className="text-[32px] font-bold leading-none text-snt-text-primary tracking-tight">816</div>
+                      <div className="flex items-center gap-1 text-[12px] font-medium text-snt-scale-red-600">
+                        <TrendingDown size={13} />
+                        <span>-23%</span>
+                        <span className="font-normal text-snt-text-disabled">from last month</span>
+                      </div>
+                    </div>
+                  </Anatomy>
+                </DocSection>
+          </div>
+        }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="cards" />
+          </div>
+        }
+        design={
+          <div className="mt-8 sm:mt-10">
+            <Tabs defaultValue="insight-alert" className="gap-8">
+              <TabsList>
+                <TabsTrigger value="insight-alert">Insight & Alert</TabsTrigger>
+                <TabsTrigger value="stat-card">Stat Card</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="insight-alert" className="space-y-16">
+                <DocSection title="Examples">
+                  <CardsShowcase />
+                </DocSection>
+                <DocSection title="Usage">
+                  <UseCases
+                    items={[
+                      "Use Insight Card to summarise a metric cluster (risk score + dimensions) with a View Details action.",
+                      "Use Alert Card for items requiring user attention — blind spots, expiring certificates, failed scans.",
+                      "Combine both types side-by-side on dashboards to balance status and action.",
+                    ]}
+                  />
+                  <Guidelines
+                    items={[
+                      { type: "do",   text: "Use the pulse dot only for live, unresolved alerts — not for static info." },
+                      { type: "dont", text: "Don't stack more than 3 alert cards; collapse older ones into a list." },
+                      { type: "do",   text: "Keep Insight rows to a maximum of five so the card stays scannable." },
+                      { type: "dont", text: "Don't put call-to-action buttons inside Insight Cards; they're informational." },
+                    ]}
+                  />
+                </DocSection>
+                
               </TabsContent>
 
               <TabsContent value="stat-card" className="space-y-16">
@@ -116,28 +153,7 @@ export default function Page() {
                     ]}
                   />
                 </DocSection>
-                <DocSection title="Specs">
-                  <Anatomy
-                    parts={[
-                      { label: "Icon + title",         description: "12px glyph and a short metric name that together label the card." },
-                      { label: "Metric",               description: "Large numeric value (32px, bold) — the primary information on the card." },
-                      { label: "Trend / description",  description: "Optional comparison vs previous period, or short helper sentence." },
-                    ]}
-                  >
-                    <div className="w-60 border border-snt-neutral-divider-10 rounded-xl px-5 py-4 bg-snt-surface-app flex flex-col gap-3">
-                      <div className="flex items-center gap-2">
-                        <Link2 size={14} className="text-snt-text-disabled" />
-                        <span className="text-[12px] font-medium text-snt-text-secondary">Total URL</span>
-                      </div>
-                      <div className="text-[32px] font-bold leading-none text-snt-text-primary tracking-tight">816</div>
-                      <div className="flex items-center gap-1 text-[12px] font-medium text-snt-scale-red-600">
-                        <TrendingDown size={13} />
-                        <span>-23%</span>
-                        <span className="font-normal text-snt-text-disabled">from last month</span>
-                      </div>
-                    </div>
-                  </Anatomy>
-                </DocSection>
+                
               </TabsContent>
             </Tabs>
           </div>
@@ -149,6 +165,7 @@ export default function Page() {
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

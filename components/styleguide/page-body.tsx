@@ -26,7 +26,7 @@ export function PageBody({ children }: { children: React.ReactNode }) {
           {mode === "dev" && <DeveloperNotes key={`devnote:${pathname}`} />}
         </div>
         <aside className="hidden xl:block w-[208px] shrink-0">
-          <div className="sticky top-[68px] max-h-[calc(100vh-92px)] overflow-y-auto snt-scrollbar-hide">
+          <div className="sticky top-8 max-h-[calc(100vh-120px)] overflow-y-auto snt-scrollbar-hide">
             <PageTOC />
           </div>
         </aside>

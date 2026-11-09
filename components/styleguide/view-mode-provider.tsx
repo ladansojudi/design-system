@@ -3,7 +3,21 @@
 import { createContext, useContext, useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 
-export type ViewMode = "design" | "dev";
+// design = Usage tab, dev = Code tab. Component pages built on the four-tab
+// template also use specs and a11y; older pages only know design / dev.
+export type ViewMode = "design" | "specs" | "dev" | "a11y";
+
+// URL value per mode (design is the default and has none).
+const URL_VALUE: Record<Exclude<ViewMode, "design">, string> = {
+  specs: "specs",
+  dev:   "dev",
+  a11y:  "accessibility",
+};
+function modeFromUrl(): ViewMode {
+  const v = new URLSearchParams(window.location.search).get(PARAM);
+  const hit = (Object.keys(URL_VALUE) as (keyof typeof URL_VALUE)[]).find((m) => URL_VALUE[m] === v);
+  return hit ?? "design";
+}
 
 // View mode lives in the URL (?view=dev) so it's shareable, bookmarkable and
 // survives a reload. We read/write it through the native History API + usePathname
@@ -12,7 +26,6 @@ export type ViewMode = "design" | "dev";
 // and Next syncs replaceState with the router.
 
 const PARAM = "view";
-const DEV: ViewMode = "dev";
 
 const noopSubscribe = () => () => {};
 
@@ -27,27 +40,32 @@ export function ViewModeProvider({ children }: { children: React.ReactNode }) {
   // the prerendered HTML matches, then the real value on the client.
   const urlMode = useSyncExternalStore(
     noopSubscribe,
-    () => (new URLSearchParams(window.location.search).get(PARAM) === DEV ? DEV : "design"),
+    modeFromUrl,
     () => "design" as ViewMode,
   );
+  // false for the hydration render, when urlMode is still the server's "design".
+  const hydrated = useSyncExternalStore(noopSubscribe, () => true, () => false);
   const [chosen, setMode] = useState<ViewMode | null>(null);
-  // Adopt a ?view=dev link once, so it survives navigations that drop the query.
-  if (chosen === null && urlMode === DEV) setMode(DEV);
+  // Adopt a ?view= link once, so it survives navigations that drop the query.
+  if (chosen === null && urlMode !== "design") setMode(urlMode);
   const mode = chosen ?? urlMode;
 
   // Keep the URL in sync with the mode. Also re-asserts the param after client
   // navigations, since the sidebar <Link>s don't carry the query string.
   useEffect(() => {
+    // Writing during hydration would delete a shared ?view=dev before it's read.
+    if (!hydrated) return;
     const url = new URL(window.location.href);
     const current = url.searchParams.get(PARAM);
-    if (mode === DEV && current !== DEV) {
-      url.searchParams.set(PARAM, DEV);
+    const wanted = mode === "design" ? null : URL_VALUE[mode];
+    if (wanted && current !== wanted) {
+      url.searchParams.set(PARAM, wanted);
       window.history.replaceState(null, "", url);
-    } else if (mode === "design" && current !== null) {
+    } else if (!wanted && current !== null) {
       url.searchParams.delete(PARAM);
       window.history.replaceState(null, "", url);
     }
-  }, [mode, pathname]);
+  }, [hydrated, mode, pathname]);
 
   return (
     <ViewModeContext.Provider value={{ mode, setMode }}>

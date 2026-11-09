@@ -253,19 +253,19 @@ export function SkeletonShowcase() {
         <div className="border border-snt-neutral-divider-10 rounded-xl px-6 py-5 space-y-3">
           <div className="flex items-center gap-3">
             <span className="w-16 text-[10px] uppercase tracking-widest text-snt-text-disabled">Line</span>
-            <Copyable snippets={LINE_SNIPPETS} svgPath="/svg/skeleton/line.svg">
+            <Copyable snippets={LINE_SNIPPETS}>
               <Skeleton className="h-3 w-48" />
             </Copyable>
           </div>
           <div className="flex items-center gap-3">
             <span className="w-16 text-[10px] uppercase tracking-widest text-snt-text-disabled">Block</span>
-            <Copyable snippets={BLOCK_SNIPPETS} svgPath="/svg/skeleton/block.svg">
+            <Copyable snippets={BLOCK_SNIPPETS}>
               <Skeleton className="h-16 w-48" />
             </Copyable>
           </div>
           <div className="flex items-center gap-3">
             <span className="w-16 text-[10px] uppercase tracking-widest text-snt-text-disabled">Avatar</span>
-            <Copyable snippets={AVATAR_SNIPPETS} svgPath="/svg/skeleton/avatar.svg">
+            <Copyable snippets={AVATAR_SNIPPETS}>
               <Skeleton className="h-10 w-10 rounded-full" />
             </Copyable>
           </div>

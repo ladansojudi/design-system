@@ -4,29 +4,25 @@
 
 :root {
   /* Colors */
-  --snt-surface-app: #ffffff;
-  --snt-surface-page: #fafafa;
-  --snt-surface-row-hover: #f4f4f5;
   --snt-text-primary: #09090b;
   --snt-text-secondary: #52525b;
 
   /* Spacing */
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
   --space-12: 48px;
-  --space-16: 64px;
-  --space-10: 40px;
-  --space-5: 20px;
-  --space-3: 12px;
-  --space-2: 8px;
   --space-1: 4px;
-  --space-9: 36px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-10: 40px;
+  --space-16: 64px;
+  --space-8: 32px;
+  --space-5: 20px;
+  --space-4: 16px;
 
   /* Radius */
+  --radius-base: 4px;
   --radius-lg: 8px;
   --radius-xl: 12px;
-  --radius-2xl: 16px;
+  --radius-full: 9999px;
 
   /* Border width */
   --border-width-1: 1px;

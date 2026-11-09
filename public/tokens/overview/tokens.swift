@@ -7,9 +7,6 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let surfaceApp = UIColor(hex: "#FFFFFF")
-    static let surfacePage = UIColor(hex: "#FAFAFA")
-    static let surfaceRowHover = UIColor(hex: "#F4F4F5")
     static let textPrimary = UIColor(hex: "#09090B")
     static let textSecondary = UIColor(hex: "#52525B")
 }
@@ -18,22 +15,21 @@ extension UIColor {
 
 extension CGFloat {
     // Spacing
-    static let space4: CGFloat = 16
-    static let space6: CGFloat = 24
-    static let space8: CGFloat = 32
     static let space12: CGFloat = 48
-    static let space16: CGFloat = 64
-    static let space10: CGFloat = 40
-    static let space5: CGFloat = 20
-    static let space3: CGFloat = 12
-    static let space2: CGFloat = 8
     static let space1: CGFloat = 4
-    static let space9: CGFloat = 36
+    static let space2: CGFloat = 8
+    static let space3: CGFloat = 12
+    static let space10: CGFloat = 40
+    static let space16: CGFloat = 64
+    static let space8: CGFloat = 32
+    static let space5: CGFloat = 20
+    static let space4: CGFloat = 16
 
     // Radius
+    static let radiusBase: CGFloat = 4
     static let radiusLg: CGFloat = 8
     static let radiusXl: CGFloat = 12
-    static let radius2xl: CGFloat = 16
+    static let radiusFull: CGFloat = 9999
 
     // Border width
     static let borderWidth1: CGFloat = 1

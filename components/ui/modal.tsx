@@ -157,7 +157,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             aria-describedby={hasDescription ? descriptionId : undefined}
             tabIndex={-1}
             className={cn(
-              "relative w-full bg-snt-surface-app border border-snt-border-default rounded-xl shadow-xl focus:outline-none",
+              "relative w-full bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-2xl focus:outline-none",
               SIZE_CLASS[size],
               className,
             )}

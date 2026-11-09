@@ -75,13 +75,13 @@ export function SpinnerShowcase() {
             ))}
           </PropertyRow>
           <PropertyRow label="Tone">
-            <Copyable snippets={spinnerSnippets({ tone: "primary" })} svgPath="/svg/spinner/primary.svg">
+            <Copyable snippets={spinnerSnippets({ tone: "primary" })}>
               <Spinner tone="primary" />
             </Copyable>
-            <Copyable snippets={spinnerSnippets({ tone: "neutral" })} svgPath="/svg/spinner/neutral.svg">
+            <Copyable snippets={spinnerSnippets({ tone: "neutral" })}>
               <Spinner tone="neutral" />
             </Copyable>
-            <Copyable snippets={spinnerSnippets({ tone: "white", size: "sm" })} svgPath="/svg/spinner/white.svg">
+            <Copyable snippets={spinnerSnippets({ tone: "white", size: "sm" })}>
               <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-snt-btn-primary-600">
                 <Spinner tone="white" size="sm" />
               </div>

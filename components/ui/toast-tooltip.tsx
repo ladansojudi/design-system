@@ -78,7 +78,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         aria-live={intent === "alert" ? "assertive" : "polite"}
         aria-atomic="true"
         className={cn(
-          "overflow-hidden bg-snt-surface-app border border-snt-border-default rounded-xl shadow-sm",
+          "overflow-hidden bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-lg",
           className,
         )}
         {...props}

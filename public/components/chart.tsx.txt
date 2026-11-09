@@ -29,7 +29,7 @@ export const ChartCard = React.forwardRef<HTMLDivElement, ChartCardProps>(
     return (
       <div
         ref={ref}
-        className={cn("border border-snt-border-default rounded-xl bg-snt-surface-app", className)}
+        className={cn("border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs", className)}
         {...props}
       >
         <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl">

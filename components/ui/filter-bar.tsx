@@ -25,7 +25,7 @@ export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(
       <div
         ref={ref}
         className={cn(
-          "border border-snt-border-default rounded-xl p-3 overflow-x-auto snt-scrollbar-hide",
+          "border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs p-3 overflow-x-auto snt-scrollbar-hide",
           className,
         )}
         {...props}
@@ -76,10 +76,10 @@ export const FilterPill = React.forwardRef<HTMLButtonElement, FilterPillProps>(
     return (
       <span
         className={cn(
-          "inline-flex items-center h-8 rounded-lg border text-snt-12 font-medium select-none transition-colors shrink-0",
+          "inline-flex items-center h-8 compact:h-7 rounded-lg border text-snt-12 font-medium select-none transition-colors shrink-0",
           active
             ? "border-snt-brand-primary-500 bg-snt-bg-brand-subtle text-snt-brand-primary-500"
-            : "border-snt-border-default bg-snt-surface-app text-snt-text-secondary hover:border-snt-border-strong hover:text-snt-text-primary",
+            : "border-snt-border-default bg-snt-surface-app shadow-snt-control text-snt-text-secondary hover:border-snt-border-strong hover:text-snt-text-primary",
           className,
         )}
       >
@@ -136,7 +136,7 @@ export const FilterSearch = React.forwardRef<HTMLInputElement, FilterSearchProps
           value={value ?? ""}
           onChange={(e) => onChange?.(e.target.value)}
           className={cn(
-            "h-8 w-48 pl-8 pr-3 rounded-lg border border-snt-border-default bg-snt-surface-app text-snt-12 text-snt-text-primary placeholder:text-snt-text-secondary outline-none focus:border-snt-brand-primary-500 focus:ring-2 focus:ring-snt-focus-ring/20 transition-colors",
+            "h-8 w-48 pl-8 pr-3 rounded-lg border border-snt-border-default bg-snt-surface-app shadow-snt-control text-snt-12 text-snt-text-primary placeholder:text-snt-text-secondary outline-none focus:border-snt-brand-primary-500 focus:ring-2 focus:ring-snt-focus-ring/20 transition-colors",
             className,
           )}
           {...props}
@@ -164,7 +164,7 @@ export const FilterAction = React.forwardRef<HTMLButtonElement, FilterActionProp
         aria-label={iconOnly ? label : undefined}
         disabled={disabled || muted}
         className={cn(
-          "inline-flex items-center gap-1.5 h-8 rounded-lg border text-snt-12 font-medium transition-colors shrink-0",
+          "inline-flex items-center gap-1.5 h-8 compact:h-7 rounded-lg border text-snt-12 font-medium transition-colors shrink-0",
           iconOnly ? "w-8 justify-center" : "px-3",
           muted
             ? "border-snt-border-default bg-snt-surface-app text-snt-text-disabled cursor-not-allowed"
@@ -190,7 +190,7 @@ export const FilterClear = React.forwardRef<HTMLButtonElement, FilterClearProps>
         ref={ref}
         type="button"
         className={cn(
-          "inline-flex items-center gap-1 h-8 px-2.5 text-snt-12 font-medium text-snt-text-error hover:text-snt-scale-red-700 transition-colors shrink-0",
+          "inline-flex items-center gap-1 h-8 compact:h-7 px-2.5 text-snt-12 font-medium text-snt-text-error hover:text-snt-scale-red-700 transition-colors shrink-0",
           className,
         )}
         {...props}
@@ -214,7 +214,7 @@ export const FilterOverflow = React.forwardRef<HTMLButtonElement, FilterOverflow
         ref={ref}
         type="button"
         className={cn(
-          "inline-flex items-center gap-1 h-8 px-3 rounded-lg border border-dashed border-snt-border-default text-snt-12 font-medium text-snt-text-secondary hover:border-snt-brand-primary-500 hover:text-snt-brand-primary-500 transition-colors shrink-0",
+          "inline-flex items-center gap-1 h-8 compact:h-7 px-3 rounded-lg border border-dashed border-snt-border-default text-snt-12 font-medium text-snt-text-secondary hover:border-snt-brand-primary-500 hover:text-snt-brand-primary-500 transition-colors shrink-0",
           className,
         )}
         {...props}

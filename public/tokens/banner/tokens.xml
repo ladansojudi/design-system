@@ -18,8 +18,8 @@
     <dimen name="space_3">12dp</dimen>
     <dimen name="space_1">4dp</dimen>
     <dimen name="space_6">24dp</dimen>
-    <dimen name="space_16">64dp</dimen>
     <dimen name="space_8">32dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_xl">12dp</dimen>

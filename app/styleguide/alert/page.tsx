@@ -6,7 +6,9 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { AlertShowcase, AlertExamples } from "@/sections/alert/alert-showcase";
 import { AlertSpecs } from "@/sections/alert/alert-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
@@ -18,42 +20,24 @@ export default function AlertPage() {
   return (
     <>
       <PageHero
-        category="Atoms"
+        category="Components"
+        categoryHref="/styleguide/components"
         title="Alert"
         status="beta"
         description="Persistent in-page message that announces state the user must read or act on. Distinct from Toast (temporal) and Banner (page-level)."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
-        design={
-          <div className="space-y-16 mt-8 sm:mt-10">
-            <DocSection title="Examples">
-              <AlertShowcase />
-            </DocSection>
-            <DocSection title="Usage">
-              <UseCases
-                items={[
-                  "Form-level validation summary at the top of a section.",
-                  "Configuration warnings on settings pages (\"2FA recommended\", \"quota almost exceeded\").",
-                  "Inline result of a long-running action (\"Scan completed\", \"Export failed\").",
-                  "Empty-state nudges inside cards or tables.",
-                ]}
-              />
-              <Guidelines
-                items={[
-                  { type: "do",   text: "Match the variant to the actual severity — green for success, red for failure." },
-                  { type: "dont", text: "Don't use Alert for transient confirmations — use Toast instead, alerts stick around." },
-                  { type: "do",   text: "Keep the message to one sentence. If you need more, link to the relevant doc or modal." },
-                  { type: "dont", text: "Don't show more than one Alert in the same region at once — collapse multiple errors into a list." },
-                ]}
-              />
-            </DocSection>
-            <DocSection title="Specs">
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Alert" />
+            <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
                   { label: "Surface",            description: "Tinted background + matching border in the variant's scale-50/200 colors." },
@@ -94,6 +78,37 @@ export default function AlertPage() {
             </DocSection>
           </div>
         }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="alert" />
+          </div>
+        }
+        design={
+          <div className="space-y-16 mt-8 sm:mt-10">
+            <DocSection title="Examples">
+              <AlertShowcase />
+            </DocSection>
+            <DocSection title="Usage">
+              <UseCases
+                items={[
+                  "Form-level validation summary at the top of a section.",
+                  "Configuration warnings on settings pages (\"2FA recommended\", \"quota almost exceeded\").",
+                  "Inline result of a long-running action (\"Scan completed\", \"Export failed\").",
+                  "Empty-state nudges inside cards or tables.",
+                ]}
+              />
+              <Guidelines
+                items={[
+                  { type: "do",   text: "Match the variant to the actual severity — green for success, red for failure." },
+                  { type: "dont", text: "Don't use Alert for transient confirmations — use Toast instead, alerts stick around." },
+                  { type: "do",   text: "Keep the message to one sentence. If you need more, link to the relevant doc or modal." },
+                  { type: "dont", text: "Don't show more than one Alert in the same region at once — collapse multiple errors into a list." },
+                ]}
+              />
+            </DocSection>
+            
+          </div>
+        }
         dev={
           <div className="mt-8 sm:mt-10">
             <DocSection title="Examples"><AlertExamples /></DocSection>
@@ -101,6 +116,7 @@ export default function AlertPage() {
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

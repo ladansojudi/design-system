@@ -166,7 +166,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
           variant === "pill"
             ? cn(
                 "px-3.5 py-1.5 rounded-md",
-                isActive ? "bg-snt-surface-row text-snt-text-primary shadow-snt-sm" : "text-snt-text-secondary hover:text-snt-text-primary",
+                isActive ? "bg-snt-surface-row text-snt-text-primary shadow-snt-control ring-1 ring-snt-border-default" : "text-snt-text-secondary hover:text-snt-text-primary",
               )
             : cn(
                 "px-4 pt-2 pb-2.5 -mb-px border-b-[2px]",

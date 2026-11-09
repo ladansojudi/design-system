@@ -161,13 +161,13 @@ export function CheckboxShowcase() {
         <SectionTitle>States</SectionTitle>
         <div className="border border-snt-neutral-divider-10 rounded-xl px-6">
           <PropertyRow label="Variants">
-            <Copyable snippets={checkboxSnippets({ checked: false })} svgPath="/svg/checkbox/unchecked.svg">
+            <Copyable snippets={checkboxSnippets({ checked: false })}>
               <Checkbox checked={false}                 onChange={() => {}} />
             </Copyable>
-            <Copyable snippets={checkboxSnippets({ checked: true })} svgPath="/svg/checkbox/checked.svg">
+            <Copyable snippets={checkboxSnippets({ checked: true })}>
               <Checkbox checked={single} onChange={setSingle} />
             </Copyable>
-            <Copyable snippets={checkboxSnippets({ indeterminate: true })} svgPath="/svg/checkbox/indeterminate.svg">
+            <Copyable snippets={checkboxSnippets({ indeterminate: true })}>
               <Checkbox checked={false} indeterminate onChange={() => {}} />
             </Copyable>
             <Copyable snippets={checkboxSnippets({ checked: true, tone: "neutral" })}>

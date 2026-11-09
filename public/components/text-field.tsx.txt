@@ -125,7 +125,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
     if (variant === "filled") {
       return (
         <div className={cn("w-full", className)}>
-          <div className={cn("rounded-t-md px-3 py-1.5", FILLED_STYLE[resolvedState])}>
+          <div className={cn("rounded-t-md px-3 py-1.5 compact:py-1", FILLED_STYLE[resolvedState])}>
             {label && (
               <label
                 htmlFor={inputId}
@@ -143,7 +143,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
 
     return (
       <div className={cn("w-full", className)}>
-        <div className={cn("relative rounded-md px-3 pt-3 pb-1.5", OUTLINED_STYLE[resolvedState])}>
+        <div className={cn("relative rounded-md px-3 pt-3 pb-1.5 shadow-snt-control", OUTLINED_STYLE[resolvedState])}>
           {label && (
             <label
               htmlFor={inputId}

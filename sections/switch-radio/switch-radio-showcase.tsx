@@ -155,7 +155,6 @@ function SwitchCard() {
         <PropertyRow label="Variant">
           <Copyable
             snippets={switchSnippets("dark", darkOn, darkOn ? "Checked" : "UnChecked")}
-            svgPath={`/svg/switch/${darkOn ? "on" : "off"}.svg`}
           >
             <div className="flex items-center gap-2.5">
               <Toggle checked={darkOn} onChange={setDarkOn} variant="dark" />
@@ -164,7 +163,6 @@ function SwitchCard() {
           </Copyable>
           <Copyable
             snippets={switchSnippets("primary", primaryOn, primaryOn ? "Checked" : "UnChecked")}
-            svgPath={`/svg/switch/${primaryOn ? "on" : "off"}.svg`}
           >
             <div className="flex items-center gap-2.5">
               <Toggle checked={primaryOn} onChange={setPrimaryOn} variant="primary" />

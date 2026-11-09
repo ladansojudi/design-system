@@ -4,54 +4,28 @@
 <resources>
 
     <!-- Colors -->
-    <color name="brand_primary_500">#5B5BD6</color>
-    <color name="scale_red_50">#FCF3F2</color>
-    <color name="neutral_grey_100">#F4F4F5</color>
-    <color name="neutral_grey_300">#D4D4D8</color>
-    <color name="surface_app">#FFFFFF</color>
-    <color name="surface_table_header">#F4F4F5</color>
     <color name="text_primary">#09090B</color>
     <color name="text_secondary">#52525B</color>
-    <color name="text_disabled">#A1A1AA</color>
-    <color name="text_inverse">#FFFFFF</color>
-    <color name="text_on_accent">#FFFFFF</color>
-    <color name="text_error">#B0291E</color>
-    <color name="btn_primary_600">#4F46E5</color>
-    <color name="btn_primary_700">#4338CA</color>
-    <color name="btn_error_600">#AE2700</color>
 
     <!-- Spacing -->
-    <dimen name="space_2">8dp</dimen>
+    <dimen name="space_1">4dp</dimen>
     <dimen name="space_4">16dp</dimen>
+    <dimen name="space_2">8dp</dimen>
     <dimen name="space_6">24dp</dimen>
     <dimen name="space_3">12dp</dimen>
-    <dimen name="space_9">36dp</dimen>
-    <dimen name="space_5">20dp</dimen>
     <dimen name="space_10">40dp</dimen>
     <dimen name="space_8">32dp</dimen>
-    <dimen name="space_12">48dp</dimen>
     <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
-    <dimen name="radius_md">6dp</dimen>
+    <dimen name="radius_base">4dp</dimen>
     <dimen name="radius_xl">12dp</dimen>
-    <dimen name="radius_full">9999dp</dimen>
-    <dimen name="radius_lg">8dp</dimen>
 
     <!-- Border width -->
     <dimen name="border_width_1">1dp</dimen>
 
-    <!-- Font size -->
-    <dimen name="font_size_10">10sp</dimen>
-    <dimen name="font_size_11">11sp</dimen>
-    <dimen name="font_size_12">12sp</dimen>
-    <dimen name="font_size_14">14sp</dimen>
-
     <!-- Font weight -->
     <integer name="font_weight_medium">500</integer>
     <integer name="font_weight_semibold">600</integer>
-
-    <!-- Focus ring -->
-    <dimen name="ring_width_2">2dp</dimen>
 
 </resources>

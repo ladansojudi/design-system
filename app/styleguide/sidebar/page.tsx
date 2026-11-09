@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHero category="Organisms" title="Sidebar" status="stable" description="Primary navigation panel with expanded and collapsed variants, grouped links, and a plan-upgrade footer."
+      <PageHero category="Components" categoryHref="/styleguide/components" title="Sidebar" status="stable" description="Primary navigation panel with expanded and collapsed variants, grouped links, and a plan-upgrade footer."
         actions={<OpenInFigma />}
       />
 

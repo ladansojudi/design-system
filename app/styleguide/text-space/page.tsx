@@ -6,7 +6,9 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { TextSpaceShowcase, TextSpaceExamples } from "@/sections/text-space/text-space-showcase";
 import { TextSpaceSpecs } from "@/sections/text-space/text-space-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
@@ -18,18 +20,49 @@ export default function TextSpacePage() {
   return (
     <>
       <PageHero
-        category="Organisms"
+        category="Components"
+        categoryHref="/styleguide/components"
         title="Text Space"
         status="stable"
         description="Rich-text editing surface with simple and full toolbar configurations, shown across enabled, disabled, and error states."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Text Space" />
+            <DocSection title="Specs" hideTitle>
+              <Anatomy
+                parts={[
+                  { label: "Toolbar",    description: "Grouped formatting controls — Simple (one row) or Full (with type settings)." },
+                  { label: "Editor",     description: "Multi-line editable surface that accepts rich text and keyboard shortcuts." },
+                  { label: "Container",  description: "Rounded surface with border that shifts to Error or Disabled when needed." },
+                ]}
+              >
+                <div className="w-80 rounded-lg border border-snt-neutral-divider-10 bg-snt-surface-app overflow-hidden">
+                  <div className="flex items-center gap-1 px-3 py-1.5 border-b border-snt-neutral-divider-10">
+                    <Bold size={13} className="text-snt-text-secondary" />
+                    <Italic size={13} className="text-snt-text-secondary" />
+                    <Underline size={13} className="text-snt-text-secondary" />
+                  </div>
+                  <div className="px-4 py-3 h-20 text-[12px] text-snt-text-disabled">Write something awesome…</div>
+                </div>
+              </Anatomy>
+              <TextSpaceSpecs />
+            </DocSection>
+          </div>
+        }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="text-space" />
+          </div>
+        }
         design={
           <div className="space-y-16 mt-8 sm:mt-10">
             <DocSection title="Examples">
@@ -52,25 +85,7 @@ export default function TextSpacePage() {
                 ]}
               />
             </DocSection>
-            <DocSection title="Specs">
-              <Anatomy
-                parts={[
-                  { label: "Toolbar",    description: "Grouped formatting controls — Simple (one row) or Full (with type settings)." },
-                  { label: "Editor",     description: "Multi-line editable surface that accepts rich text and keyboard shortcuts." },
-                  { label: "Container",  description: "Rounded surface with border that shifts to Error or Disabled when needed." },
-                ]}
-              >
-                <div className="w-80 rounded-lg border border-snt-neutral-divider-10 bg-snt-surface-app overflow-hidden">
-                  <div className="flex items-center gap-1 px-3 py-1.5 border-b border-snt-neutral-divider-10">
-                    <Bold size={13} className="text-snt-text-secondary" />
-                    <Italic size={13} className="text-snt-text-secondary" />
-                    <Underline size={13} className="text-snt-text-secondary" />
-                  </div>
-                  <div className="px-4 py-3 h-20 text-[12px] text-snt-text-disabled">Write something awesome…</div>
-                </div>
-              </Anatomy>
-              <TextSpaceSpecs />
-            </DocSection>
+            
           </div>
         }
         dev={
@@ -80,6 +95,7 @@ export default function TextSpacePage() {
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

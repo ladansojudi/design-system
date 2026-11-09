@@ -30,15 +30,20 @@ export function SearchTrigger() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Search"
+        aria-label="Search the design system"
+        aria-keyshortcuts="Meta+K Control+K"
         className={cn(
-          "group inline-flex items-center gap-2 h-9 px-3 rounded-md cursor-pointer transition-colors",
-          "text-snt-text-secondary hover:text-snt-text-primary hover:bg-snt-neutral-grey-100",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-brand-primary-500/30",
+          "group inline-flex items-center gap-2 h-9 rounded-md cursor-pointer transition-colors",
+          "w-9 justify-center text-snt-text-secondary hover:text-snt-text-primary hover:bg-snt-bg-subtle",
+          "lg:w-56 lg:justify-start lg:px-3 lg:border lg:border-snt-border-default lg:bg-snt-surface-app lg:hover:bg-snt-surface-app lg:hover:border-snt-border-strong",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring",
         )}
       >
-        <Search size={15} />
-        <span className="text-[14px] font-medium">Search</span>
+        <Search size={15} aria-hidden />
+        <span className="hidden lg:inline text-snt-14 text-snt-text-secondary">Search…</span>
+        <kbd aria-hidden className="ml-auto hidden lg:inline rounded border border-snt-border-default px-1.5 font-mono text-snt-11 text-snt-text-secondary">
+          ⌘K
+        </kbd>
       </button>
 
       {open && <CommandPaletteModal onClose={() => setOpen(false)} />}

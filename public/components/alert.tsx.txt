@@ -99,7 +99,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         ref={ref}
         role="alert"
         className={cn(
-          "flex items-start gap-3 rounded-md border px-4 py-3",
+          "flex items-start gap-3 rounded-lg border px-4 py-3",
           cfg.bg,
           cfg.border,
           className,

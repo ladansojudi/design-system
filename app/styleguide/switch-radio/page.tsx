@@ -5,7 +5,9 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { SwitchRadioShowcase, SwitchRadioExamples } from "@/sections/switch-radio/switch-radio-showcase";
 import { SwitchRadioSpecs } from "@/sections/switch-radio/switch-radio-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
@@ -17,18 +19,47 @@ export default function SwitchRadioPage() {
   return (
     <>
       <PageHero
-        category="Atoms"
+        category="Components"
+        categoryHref="/styleguide/components"
         title="Switch · Radio"
         status="stable"
         description="Toggle switches in unchecked, dark, and primary variants. Radio buttons across unchecked, hovered, disabled, and checked states."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Switch · Radio" />
+            <DocSection title="Specs" hideTitle>
+              <Anatomy
+                parts={[
+                  { label: "Track", description: "Container that shifts color between checked and unchecked states." },
+                  { label: "Thumb", description: "Circular indicator that slides left or right to reflect state." },
+                  { label: "Label (external)", description: "Text placed next to the control describing what the toggle controls." },
+                ]}
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="relative w-9 h-[22px] rounded-full bg-snt-btn-primary-600">
+                    <div className="absolute top-[3px] w-4 h-4 rounded-full bg-white shadow-sm translate-x-[18px]" />
+                  </div>
+                  <span className="text-[14px] text-snt-text-primary">Continuous monitoring</span>
+                </div>
+              </Anatomy>
+              <SwitchRadioSpecs />
+            </DocSection>
+          </div>
+        }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="switch-radio" />
+          </div>
+        }
         design={
           <div className="space-y-16 mt-8 sm:mt-10">
             <DocSection title="Examples">
@@ -51,23 +82,7 @@ export default function SwitchRadioPage() {
                 ]}
               />
             </DocSection>
-            <DocSection title="Specs">
-              <Anatomy
-                parts={[
-                  { label: "Track", description: "Container that shifts color between checked and unchecked states." },
-                  { label: "Thumb", description: "Circular indicator that slides left or right to reflect state." },
-                  { label: "Label (external)", description: "Text placed next to the control describing what the toggle controls." },
-                ]}
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="relative w-9 h-[22px] rounded-full bg-snt-btn-primary-600">
-                    <div className="absolute top-[3px] w-4 h-4 rounded-full bg-white shadow-sm translate-x-[18px]" />
-                  </div>
-                  <span className="text-[14px] text-snt-text-primary">Continuous monitoring</span>
-                </div>
-              </Anatomy>
-              <SwitchRadioSpecs />
-            </DocSection>
+            
           </div>
         }
         dev={
@@ -77,6 +92,7 @@ export default function SwitchRadioPage() {
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

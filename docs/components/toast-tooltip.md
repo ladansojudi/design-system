@@ -139,7 +139,7 @@ toast({ intent: "success", title: "Scan scheduled", description: "Runs daily at 
 <Toast intent="success" title="Scan scheduled" description="Runs daily at 02:00" onDismiss={close} />
 
 <Tooltip content="Re-run scan">
-  <Button iconOnly variant="ghost" intent="default" aria-label="Re-run scan"><RotateCw size={16} aria-hidden /></Button>
+  <Button iconOnly variant="ghost" intent="neutral" aria-label="Re-run scan"><RotateCw size={16} aria-hidden /></Button>
 </Tooltip>
 ```
 

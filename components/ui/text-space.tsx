@@ -258,7 +258,7 @@ export const TextSpace = React.forwardRef<HTMLDivElement, TextSpaceProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-lg border overflow-hidden",
+          "rounded-lg border shadow-snt-control overflow-hidden",
           isError
             ? "border-snt-text-error bg-snt-bg-error-subtle"
             : "border-snt-border-default bg-snt-surface-app focus-within:border-snt-brand-primary-500",

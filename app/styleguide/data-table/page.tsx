@@ -6,7 +6,9 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { DataTableShowcase, DataTableExamples } from "@/sections/data-table/data-table-showcase";
 import { DataTableSpecs } from "@/sections/data-table/data-table-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
@@ -17,41 +19,21 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHero category="Organisms" title="Data Table" status="stable" description="Dashboard table surface for listing threats, assets and findings — configurable header with badge, description and View all link."
+      <PageHero category="Components"
+        categoryHref="/styleguide/components" title="Data Table" status="stable" description="Dashboard table surface for listing threats, assets and findings — configurable header with badge, description and View all link."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
-        design={
-          <div className="space-y-16 mt-8 sm:mt-10">
-            <DocSection title="Examples">
-              <DataTableShowcase />
-            </DocSection>
-            <DocSection title="Usage">
-              <UseCases
-                items={[
-                  "Use on dashboards to surface the first N rows of a larger list with a View all link.",
-                  "Use a badge when the widget benefits from a state cue (Live, New detections, Beta data).",
-                  "Always include the description — it's the only line that tells the user what the list is filtered by.",
-                  "Add an info tooltip next to any column whose value is ambiguous or product-specific.",
-                ]}
-              />
-              <Guidelines
-                items={[
-                  { type: "do",   text: "Keep titles short (2–3 words). Use the description for context, not the title." },
-                  { type: "dont", text: "Don't stack more than one badge in the header — it dilutes meaning." },
-                  { type: "do",   text: "Show View all when the backing dataset exceeds the rendered page size." },
-                  { type: "dont", text: "Don't hide the description — it's a required part of the top header, not a decoration." },
-                  { type: "do",   text: "Truncate long cells with ellipsis and expose full text on hover via tooltip." },
-                  { type: "dont", text: "Don't remove the paginator even when there's a single page — show the total range." },
-                ]}
-              />
-            </DocSection>
-            <DocSection title="Specs">
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Data Table" />
+            <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
                   { label: "Top header",        description: "Grey strip with title, info tooltip, description, optional badge and optional View all link." },
@@ -134,6 +116,39 @@ export default function Page() {
             </DocSection>
           </div>
         }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="data-table" />
+          </div>
+        }
+        design={
+          <div className="space-y-16 mt-8 sm:mt-10">
+            <DocSection title="Examples">
+              <DataTableShowcase />
+            </DocSection>
+            <DocSection title="Usage">
+              <UseCases
+                items={[
+                  "Use on dashboards to surface the first N rows of a larger list with a View all link.",
+                  "Use a badge when the widget benefits from a state cue (Live, New detections, Beta data).",
+                  "Always include the description — it's the only line that tells the user what the list is filtered by.",
+                  "Add an info tooltip next to any column whose value is ambiguous or product-specific.",
+                ]}
+              />
+              <Guidelines
+                items={[
+                  { type: "do",   text: "Keep titles short (2–3 words). Use the description for context, not the title." },
+                  { type: "dont", text: "Don't stack more than one badge in the header — it dilutes meaning." },
+                  { type: "do",   text: "Show View all when the backing dataset exceeds the rendered page size." },
+                  { type: "dont", text: "Don't hide the description — it's a required part of the top header, not a decoration." },
+                  { type: "do",   text: "Truncate long cells with ellipsis and expose full text on hover via tooltip." },
+                  { type: "dont", text: "Don't remove the paginator even when there's a single page — show the total range." },
+                ]}
+              />
+            </DocSection>
+            
+          </div>
+        }
         dev={
           <div className="mt-8 sm:mt-10">
             <DocSection title="Examples"><DataTableExamples /></DocSection>
@@ -141,6 +156,7 @@ export default function Page() {
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

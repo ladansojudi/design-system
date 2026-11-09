@@ -18,9 +18,9 @@
     <dimen name="space_5">20dp</dimen>
     <dimen name="space_3">12dp</dimen>
     <dimen name="space_10">40dp</dimen>
-    <dimen name="space_16">64dp</dimen>
     <dimen name="space_8">32dp</dimen>
     <dimen name="space_9">36dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_xl">12dp</dimen>

@@ -11,6 +11,59 @@
   "lint": "http://localhost:3000/eslint-plugin-sentinel.mjs",
   "components": [
     {
+      "name": "activity-timeline",
+      "title": "Activity Timeline",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "A time-ordered list of events: an attack timeline, an audit log, or the history of a finding.",
+      "whenToUse": [],
+      "whenNotToUse": [],
+      "exports": [
+        "ActivityTimeline"
+      ],
+      "props": {
+        "ActivityTimelineProps": {
+          "extends": "React.HTMLAttributes<HTMLOListElement>",
+          "members": [
+            {
+              "name": "items",
+              "type": "TimelineItem[]",
+              "optional": false
+            }
+          ]
+        }
+      },
+      "types": {
+        "TimelineTone": {
+          "type": "\"neutral\" | \"info\" | \"success\" | \"warning\" | \"error\""
+        },
+        "TimelineItem": {
+          "type": "{ id: string; title: React.ReactNode; description?: React.ReactNode; /** Visible time, e.g. \"14:02\" or \"2 min ago\". */ time: string; /** Machine-readable time (ISO 8601) for <time dateTime>. */ dateTime?: string; actor?: string; tone?: TimelineTone; /** Optional icon inside the marker; replaces the dot. */ icon?: React.ReactNode; }"
+        }
+      },
+      "tokens": [
+        "snt-12",
+        "snt-14",
+        "snt-border-default",
+        "snt-neutral-grey-400",
+        "snt-scale-blue-500",
+        "snt-scale-green-500",
+        "snt-scale-red-500",
+        "snt-scale-yellow-500",
+        "snt-surface-app",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": false,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/activity-timeline.md",
+        "source": "http://localhost:3000/components/activity-timeline.tsx.txt",
+        "registry": "http://localhost:3000/r/activity-timeline.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/activity-timeline.json"
+    },
+    {
       "name": "alert",
       "title": "Alert",
       "category": "Atom",
@@ -352,8 +405,9 @@
           "members": [
             {
               "name": "intent",
-              "type": "\"default\" | \"primary\" | \"destructive\"",
+              "type": "\"neutral\" | \"primary\" | \"destructive\" | \"default\"",
               "optional": true,
+              "description": "Meaning of the action. `\"default\"` is a deprecated alias of `\"neutral\"`.",
               "default": "\"primary\""
             },
             {
@@ -385,6 +439,7 @@
       },
       "types": {},
       "tokens": [
+        "snt-12",
         "snt-14",
         "snt-bg-brand-subtle",
         "snt-bg-error-subtle",
@@ -394,12 +449,12 @@
         "snt-btn-error-700",
         "snt-btn-primary-600",
         "snt-btn-primary-700",
+        "snt-control",
         "snt-focus-ring",
         "snt-focus-ring-error",
-        "snt-neutral-grey-300",
-        "snt-neutral-grey-400",
-        "snt-neutral-grey-500",
         "snt-neutral-grey-800",
+        "snt-raised",
+        "snt-surface-app",
         "snt-text-error",
         "snt-text-inverse",
         "snt-text-link",
@@ -549,7 +604,8 @@
         "snt-surface-app",
         "snt-text-error",
         "snt-text-primary",
-        "snt-text-secondary"
+        "snt-text-secondary",
+        "snt-xs"
       ],
       "clientComponent": true,
       "dependencies": [
@@ -783,7 +839,8 @@
         "snt-surface-app",
         "snt-text-on-accent",
         "snt-text-primary",
-        "snt-text-secondary"
+        "snt-text-secondary",
+        "snt-xs"
       ],
       "clientComponent": true,
       "dependencies": [],
@@ -857,6 +914,7 @@
         "snt-14",
         "snt-btn-neutral-800",
         "snt-btn-primary-600",
+        "snt-control",
         "snt-focus-ring",
         "snt-neutral-grey-400",
         "snt-neutral-grey-600",
@@ -876,6 +934,161 @@
         "registry": "http://localhost:3000/r/checkbox.json"
       },
       "install": "npx shadcn add http://localhost:3000/r/checkbox.json"
+    },
+    {
+      "name": "cve-tag",
+      "title": "CVE Tag",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "A CVE identifier that links to its advisory, with optional exploit signals: KEV (in CISA's Known Exploited Vulnerabilities catalog) and EPSS (probability of exploitation in the next 30 days).",
+      "whenToUse": [
+        "Referencing a known vulnerability in findings, advisories and dependency reports.",
+        "Prioritising: an Exploited tag means fix first."
+      ],
+      "whenNotToUse": [
+        "Internal findings without a CVE — use the finding title.",
+        "Severity — pair with [Severity Badge](./severity-badge.md) or [CVSS Score](./cvss-score.md)."
+      ],
+      "exports": [
+        "nvdUrl",
+        "CveTag"
+      ],
+      "props": {
+        "CveTagProps": {
+          "extends": "React.HTMLAttributes<HTMLSpanElement>",
+          "members": [
+            {
+              "name": "id",
+              "type": "string",
+              "optional": false,
+              "description": "e.g. \"CVE-2024-3094\""
+            },
+            {
+              "name": "href",
+              "type": "string | false",
+              "optional": true,
+              "description": "Advisory link. Defaults to the NVD page; pass `false` for plain text."
+            },
+            {
+              "name": "kev",
+              "type": "boolean",
+              "optional": true,
+              "description": "Listed in CISA KEV: actively exploited."
+            },
+            {
+              "name": "epss",
+              "type": "number",
+              "optional": true,
+              "description": "EPSS probability, 0 – 1."
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-12",
+        "snt-bg-error-subtle",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-focus-ring",
+        "snt-surface-app",
+        "snt-text-error",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": false,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/cve-tag.md",
+        "source": "http://localhost:3000/components/cve-tag.tsx.txt",
+        "registry": "http://localhost:3000/r/cve-tag.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/cve-tag.json"
+    },
+    {
+      "name": "cvss-score",
+      "title": "CVSS Score",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "A CVSS base score with its qualitative rating and, when given the vector string, each metric in plain words.",
+      "whenToUse": [
+        "The standardised score of a known vulnerability on its detail page.",
+        "Explaining a score to people who don't read vector strings."
+      ],
+      "whenNotToUse": [
+        "Your own contextual risk rating — use [Severity Badge](./severity-badge.md).",
+        "Dense table cells — show the score only, keep the breakdown for detail views."
+      ],
+      "exports": [
+        "cvssRating",
+        "parseCvssVector",
+        "CvssScore"
+      ],
+      "props": {
+        "CvssScoreProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "score",
+              "type": "number",
+              "optional": false,
+              "description": "Base score, 0.0 – 10.0."
+            },
+            {
+              "name": "vector",
+              "type": "string",
+              "optional": true,
+              "description": "Optional vector string, e.g. \"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H\"."
+            },
+            {
+              "name": "showMetrics",
+              "type": "boolean",
+              "optional": true,
+              "description": "Show the metric breakdown when a vector is given.",
+              "default": "true"
+            }
+          ]
+        }
+      },
+      "types": {
+        "CvssRating": {
+          "type": "\"none\" | \"low\" | \"medium\" | \"high\" | \"critical\""
+        },
+        "CvssMetric": {
+          "type": "{ key: string; name: string; value: string }"
+        }
+      },
+      "tokens": [
+        "snt-11",
+        "snt-12",
+        "snt-14",
+        "snt-18",
+        "snt-bg-subtle",
+        "snt-scale-green-50",
+        "snt-scale-green-500",
+        "snt-scale-green-600",
+        "snt-scale-purple-50",
+        "snt-scale-purple-500",
+        "snt-scale-purple-600",
+        "snt-scale-red-50",
+        "snt-scale-red-500",
+        "snt-scale-red-600",
+        "snt-scale-yellow-50",
+        "snt-scale-yellow-500",
+        "snt-scale-yellow-700",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": false,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/cvss-score.md",
+        "source": "http://localhost:3000/components/cvss-score.tsx.txt",
+        "registry": "http://localhost:3000/r/cvss-score.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/cvss-score.json"
     },
     {
       "name": "data-table",
@@ -1075,7 +1288,8 @@
         "snt-surface-app",
         "snt-text-inverse",
         "snt-text-primary",
-        "snt-text-secondary"
+        "snt-text-secondary",
+        "snt-xs"
       ],
       "clientComponent": true,
       "dependencies": [
@@ -1169,6 +1383,8 @@
         "snt-border-default",
         "snt-brand-primary-500",
         "snt-brand-primary-600",
+        "snt-control",
+        "snt-raised",
         "snt-scale-yellow-600",
         "snt-surface-app",
         "snt-text-error",
@@ -1320,6 +1536,7 @@
         "snt-border-default",
         "snt-border-strong",
         "snt-brand-primary-500",
+        "snt-control",
         "snt-focus-ring",
         "snt-scale-red-700",
         "snt-surface-app",
@@ -1327,7 +1544,8 @@
         "snt-text-error",
         "snt-text-on-accent",
         "snt-text-primary",
-        "snt-text-secondary"
+        "snt-text-secondary",
+        "snt-xs"
       ],
       "clientComponent": true,
       "dependencies": [
@@ -1339,6 +1557,78 @@
         "registry": "http://localhost:3000/r/filter-bar.json"
       },
       "install": "npx shadcn add http://localhost:3000/r/filter-bar.json"
+    },
+    {
+      "name": "finding-status",
+      "title": "Finding Status",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "Shows where a finding is in its lifecycle, from Open to Resolved, with an icon and a label for each status.",
+      "whenToUse": [
+        "Triage state of a finding, alert or vulnerability: tables, detail headers, activity logs.",
+        "As filter options — the same five statuses."
+      ],
+      "whenNotToUse": [
+        "How bad a finding is — use [Severity Badge](./severity-badge.md).",
+        "The state of a scan or agent — use [Badge](./badge-tag.md)."
+      ],
+      "exports": [
+        "FINDING_STATUSES",
+        "FindingStatus"
+      ],
+      "props": {
+        "FindingStatusProps": {
+          "extends": "React.HTMLAttributes<HTMLSpanElement>",
+          "members": [
+            {
+              "name": "status",
+              "type": "FindingStatusValue",
+              "optional": false
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "optional": true,
+              "description": "Override the visible label (e.g. for translation)."
+            },
+            {
+              "name": "size",
+              "type": "\"sm\" | \"md\"",
+              "optional": true,
+              "default": "\"md\""
+            }
+          ]
+        }
+      },
+      "types": {
+        "FindingStatusValue": {
+          "type": "\"open\" | \"in-progress\" | \"resolved\" | \"accepted-risk\" | \"false-positive\""
+        }
+      },
+      "tokens": [
+        "snt-11",
+        "snt-12",
+        "snt-bg-error-subtle",
+        "snt-bg-info-subtle",
+        "snt-bg-subtle",
+        "snt-bg-success-subtle",
+        "snt-bg-warning-subtle",
+        "snt-text-error",
+        "snt-text-info",
+        "snt-text-secondary",
+        "snt-text-success",
+        "snt-text-warning"
+      ],
+      "clientComponent": false,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/finding-status.md",
+        "source": "http://localhost:3000/components/finding-status.tsx.txt",
+        "registry": "http://localhost:3000/r/finding-status.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/finding-status.json"
     },
     {
       "name": "gauge",
@@ -1418,6 +1708,157 @@
         "registry": "http://localhost:3000/r/gauge.json"
       },
       "install": "npx shadcn add http://localhost:3000/r/gauge.json"
+    },
+    {
+      "name": "indicator",
+      "title": "Indicator",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "An indicator of compromise (IP, domain, URL, hash, email) with type, reputation verdict and copy. Optional defanging (example[.]com).",
+      "whenToUse": [],
+      "whenNotToUse": [],
+      "exports": [
+        "defang",
+        "Indicator"
+      ],
+      "props": {
+        "IndicatorProps": {
+          "extends": "Omit<React.HTMLAttributes<HTMLDivElement>, \"children\">",
+          "members": [
+            {
+              "name": "value",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "type",
+              "type": "IndicatorType",
+              "optional": false
+            },
+            {
+              "name": "verdict",
+              "type": "IndicatorVerdict",
+              "optional": true
+            },
+            {
+              "name": "defang",
+              "type": "boolean",
+              "optional": true,
+              "description": "Show the value defanged (example[.]com). Copy still copies the original.",
+              "default": "false"
+            },
+            {
+              "name": "copyable",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            }
+          ]
+        }
+      },
+      "types": {
+        "IndicatorType": {
+          "type": "\"ip\" | \"domain\" | \"url\" | \"hash\" | \"email\""
+        },
+        "IndicatorVerdict": {
+          "type": "\"malicious\" | \"suspicious\" | \"clean\" | \"unknown\""
+        }
+      },
+      "tokens": [
+        "snt-11",
+        "snt-12",
+        "snt-bg-error-subtle",
+        "snt-bg-subtle",
+        "snt-bg-success-subtle",
+        "snt-bg-warning-subtle",
+        "snt-border-default",
+        "snt-focus-ring",
+        "snt-surface-app",
+        "snt-text-error",
+        "snt-text-primary",
+        "snt-text-secondary",
+        "snt-text-success",
+        "snt-text-warning"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/indicator.md",
+        "source": "http://localhost:3000/components/indicator.tsx.txt",
+        "registry": "http://localhost:3000/r/indicator.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/indicator.json"
+    },
+    {
+      "name": "masked-value",
+      "title": "Masked Value",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "A secret — API key, token, password — shown masked, with reveal and copy.",
+      "whenToUse": [],
+      "whenNotToUse": [],
+      "exports": [
+        "MaskedValue"
+      ],
+      "props": {
+        "MaskedValueProps": {
+          "extends": "Omit<React.HTMLAttributes<HTMLDivElement>, \"children\">",
+          "members": [
+            {
+              "name": "value",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "optional": false,
+              "description": "What the secret is, e.g. \"API key\". Names the buttons for screen readers."
+            },
+            {
+              "name": "visibleChars",
+              "type": "number",
+              "optional": true,
+              "description": "Characters left visible at the end while masked.",
+              "default": "4"
+            },
+            {
+              "name": "revealable",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            },
+            {
+              "name": "copyable",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-12",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-focus-ring",
+        "snt-text-primary",
+        "snt-text-secondary",
+        "snt-text-success"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/masked-value.md",
+        "source": "http://localhost:3000/components/masked-value.tsx.txt",
+        "registry": "http://localhost:3000/r/masked-value.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/masked-value.json"
     },
     {
       "name": "modal",
@@ -1526,6 +1967,7 @@
       "types": {},
       "tokens": [
         "snt-14",
+        "snt-2xl",
         "snt-bg-subtle",
         "snt-border-default",
         "snt-focus-ring",
@@ -1543,6 +1985,69 @@
         "registry": "http://localhost:3000/r/modal.json"
       },
       "install": "npx shadcn add http://localhost:3000/r/modal.json"
+    },
+    {
+      "name": "scan-progress",
+      "title": "Scan Progress",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "The stages of a scan or long job and where it is now: done, running, failed or pending.",
+      "whenToUse": [],
+      "whenNotToUse": [],
+      "exports": [
+        "ScanProgress"
+      ],
+      "props": {
+        "ScanProgressProps": {
+          "extends": "React.HTMLAttributes<HTMLOListElement>",
+          "members": [
+            {
+              "name": "steps",
+              "type": "ScanStep[]",
+              "optional": false
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "optional": true,
+              "description": "Accessible name, e.g. \"Scan of api.example.com\".",
+              "default": "\"Scan progress\""
+            }
+          ]
+        }
+      },
+      "types": {
+        "ScanStepStatus": {
+          "type": "\"pending\" | \"active\" | \"done\" | \"failed\""
+        },
+        "ScanStep": {
+          "type": "{ label: string; status: ScanStepStatus; detail?: string }"
+        }
+      },
+      "tokens": [
+        "snt-11",
+        "snt-12",
+        "snt-border-default",
+        "snt-border-strong",
+        "snt-btn-error-600",
+        "snt-btn-primary-600",
+        "snt-focus-ring",
+        "snt-surface-app",
+        "snt-text-error",
+        "snt-text-on-accent",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": false,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/scan-progress.md",
+        "source": "http://localhost:3000/components/scan-progress.tsx.txt",
+        "registry": "http://localhost:3000/r/scan-progress.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/scan-progress.json"
     },
     {
       "name": "search-bar",
@@ -1606,6 +2111,7 @@
         "snt-bg-subtle",
         "snt-border-default",
         "snt-brand-primary-500",
+        "snt-control",
         "snt-focus-ring",
         "snt-surface-app",
         "snt-text-disabled",
@@ -1716,6 +2222,7 @@
         "snt-border-focus",
         "snt-border-strong",
         "snt-brand-primary-500",
+        "snt-control",
         "snt-focus-ring",
         "snt-lg",
         "snt-neutral-grey-500",
@@ -1797,6 +2304,83 @@
         "registry": "http://localhost:3000/r/severity-badge.json"
       },
       "install": "npx shadcn add http://localhost:3000/r/severity-badge.json"
+    },
+    {
+      "name": "severity-bar",
+      "title": "Severity Bar",
+      "category": "Atom",
+      "status": "beta",
+      "summary": "One horizontal bar that splits a set of findings by severity, with an optional legend of counts.",
+      "whenToUse": [
+        "Summarise how findings break down by severity for an asset, a scan or a repository.",
+        "Compare risk across table rows (Small size, no legend)."
+      ],
+      "whenNotToUse": [
+        "The severity of a single finding — use [Severity Badge](./severity-badge.md).",
+        "Change over time — use [Chart](./chart.md)."
+      ],
+      "exports": [
+        "SEVERITY_ORDER",
+        "SeverityBar"
+      ],
+      "props": {
+        "SeverityBarProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "counts",
+              "type": "Partial<Record<Severity, number>>",
+              "optional": false,
+              "description": "Number of findings per severity. Missing or 0 severities are left out."
+            },
+            {
+              "name": "showLegend",
+              "type": "boolean",
+              "optional": true,
+              "description": "Show the legend with counts under the bar.",
+              "default": "true"
+            },
+            {
+              "name": "size",
+              "type": "\"sm\" | \"md\"",
+              "optional": true,
+              "description": "Bar thickness: sm 6px, md 10px.",
+              "default": "\"md\""
+            },
+            {
+              "name": "noun",
+              "type": "string",
+              "optional": true,
+              "description": "What is being counted, for the accessible summary.",
+              "default": "\"findings\""
+            }
+          ]
+        }
+      },
+      "types": {
+        "Severity": {
+          "type": "\"critical\" | \"high\" | \"medium\" | \"low\" | \"info\""
+        }
+      },
+      "tokens": [
+        "snt-12",
+        "snt-bg-subtle",
+        "snt-severity-critical",
+        "snt-severity-high",
+        "snt-severity-info",
+        "snt-severity-low",
+        "snt-severity-medium",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": false,
+      "dependencies": [],
+      "links": {
+        "docs": "http://localhost:3000/docs/components/severity-bar.md",
+        "source": "http://localhost:3000/components/severity-bar.tsx.txt",
+        "registry": "http://localhost:3000/r/severity-bar.json"
+      },
+      "install": "npx shadcn add http://localhost:3000/r/severity-bar.json"
     },
     {
       "name": "skeleton",
@@ -1987,6 +2571,7 @@
         "snt-neutral-grey-600",
         "snt-neutral-grey-800",
         "snt-neutral-grey-900",
+        "snt-sm",
         "snt-text-disabled",
         "snt-text-primary"
       ],
@@ -2095,9 +2680,9 @@
         "snt-border-default",
         "snt-brand-primary-500",
         "snt-btn-primary-600",
+        "snt-control",
         "snt-focus-ring",
         "snt-neutral-grey-200",
-        "snt-sm",
         "snt-surface-row",
         "snt-text-on-accent",
         "snt-text-primary",
@@ -2173,6 +2758,7 @@
         "snt-border-focus",
         "snt-border-strong",
         "snt-brand-primary-600",
+        "snt-control",
         "snt-neutral-grey-200",
         "snt-surface-app",
         "snt-text-disabled",
@@ -2298,6 +2884,7 @@
         "snt-bg-subtle",
         "snt-border-default",
         "snt-brand-primary-500",
+        "snt-control",
         "snt-focus-ring",
         "snt-surface-app",
         "snt-text-error",
@@ -2373,6 +2960,7 @@
         "snt-border-error",
         "snt-border-focus",
         "snt-border-strong",
+        "snt-control",
         "snt-focus-ring",
         "snt-neutral-grey-200",
         "snt-scale-yellow-700",
@@ -2525,6 +3113,7 @@
         "snt-feedback-success",
         "snt-feedback-warning",
         "snt-focus-ring",
+        "snt-lg",
         "snt-neutral-grey-900",
         "snt-surface-app",
         "snt-text-inverse",

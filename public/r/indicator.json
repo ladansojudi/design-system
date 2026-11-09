@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "indicator",
+  "title": "Indicator",
+  "description": "An indicator of compromise (IP, domain, URL, hash, email) with type, reputation verdict and copy. Optional defanging (example[.]com).",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/indicator.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { AtSign, Check, Copy, Globe, Hash, Link2, Network } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — Indicator\n *\n * Drop this file into your project at components/ui/indicator.tsx.\n *\n * An indicator of compromise (IOC): an IP, domain, URL, file hash or email,\n * with its type, a reputation verdict and copy. Long hashes are shortened in\n * the middle; `defang` shows example[.]com so it can't be clicked by mistake.\n * Copy always copies the real value.\n *\n * Requires:\n *   • Tailwind CSS v4, lucide-react\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n */\n\nexport type IndicatorType = \"ip\" | \"domain\" | \"url\" | \"hash\" | \"email\";\nexport type IndicatorVerdict = \"malicious\" | \"suspicious\" | \"clean\" | \"unknown\";\n\nconst TYPE: Record<IndicatorType, { label: string; icon: React.ComponentType<{ \"aria-hidden\"?: boolean }> }> = {\n  ip:     { label: \"IP\",     icon: Network },\n  domain: { label: \"Domain\", icon: Globe },\n  url:    { label: \"URL\",    icon: Link2 },\n  hash:   { label: \"Hash\",   icon: Hash },\n  email:  { label: \"Email\",  icon: AtSign },\n};\n\nconst VERDICT: Record<IndicatorVerdict, { label: string; tone: string }> = {\n  malicious:  { label: \"Malicious\",  tone: \"bg-snt-bg-error-subtle text-snt-text-error\" },\n  suspicious: { label: \"Suspicious\", tone: \"bg-snt-bg-warning-subtle text-snt-text-warning\" },\n  clean:      { label: \"Clean\",      tone: \"bg-snt-bg-success-subtle text-snt-text-success\" },\n  unknown:    { label: \"Unknown\",    tone: \"bg-snt-bg-subtle text-snt-text-secondary\" },\n};\n\n/** example.com → example[.]com, http → hxxp. */\nexport function defang(value: string) {\n  return value.replace(/^http/i, \"hxxp\").replace(/\\./g, \"[.]\").replace(/@/g, \"[@]\");\n}\n\nfunction shorten(value: string, max = 24) {\n  return value.length <= max ? value : `${value.slice(0, 10)}…${value.slice(-10)}`;\n}\n\nexport interface IndicatorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"children\"> {\n  value: string;\n  type: IndicatorType;\n  verdict?: IndicatorVerdict;\n  /** Show the value defanged (example[.]com). Copy still copies the original. */\n  defang?: boolean;\n  copyable?: boolean;\n}\n\nexport function Indicator({ value, type, verdict, defang: doDefang = false, copyable = true, className, ...props }: IndicatorProps) {\n  const [copied, setCopied] = React.useState(false);\n  const t = TYPE[type];\n  const Icon = t.icon;\n  const display = doDefang && type !== \"hash\" ? defang(value) : value;\n  const short = type === \"hash\" ? shorten(display) : display;\n\n  const copy = async () => {\n    try {\n      await navigator.clipboard.writeText(value);\n      setCopied(true);\n      setTimeout(() => setCopied(false), 1500);\n    } catch { /* clipboard blocked */ }\n  };\n\n  return (\n    <div className={cn(\"inline-flex max-w-full items-center gap-2\", className)} {...props}>\n      <span className=\"inline-flex h-7 min-w-0 items-center gap-1.5 rounded-md border border-snt-border-default bg-snt-surface-app pl-2 pr-1\">\n        <span className=\"flex shrink-0 items-center gap-1 text-snt-11 font-medium uppercase tracking-wide text-snt-text-secondary [&_svg]:size-3\">\n          <Icon aria-hidden />\n          {t.label}\n        </span>\n        <code title={short !== value ? value : undefined} className=\"min-w-0 truncate font-mono text-snt-12 text-snt-text-primary\">\n          {short}\n        </code>\n        {copyable && (\n          <button\n            type=\"button\"\n            aria-label={`Copy ${t.label.toLowerCase()} ${value}`}\n            onClick={copy}\n            className=\"inline-flex size-6 shrink-0 cursor-pointer items-center justify-center rounded text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring [&_svg]:size-3\"\n          >\n            {copied ? <Check aria-hidden className=\"text-snt-text-success\" /> : <Copy aria-hidden />}\n          </button>\n        )}\n      </span>\n      {verdict && (\n        <span className={cn(\"inline-flex h-6 shrink-0 items-center rounded-md px-2 text-snt-12 font-medium ring-1 ring-inset ring-current/15\", VERDICT[verdict].tone)}>\n          {VERDICT[verdict].label}\n        </span>\n      )}\n      <span role=\"status\" className=\"sr-only\">{copied ? \"Copied\" : \"\"}</span>\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "beta"
+  },
+  "docs": "Indicator (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/indicator.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

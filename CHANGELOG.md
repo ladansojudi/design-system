@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed — crisp visual refresh
+
+- Radius scale is now 6 / 8 / 10 / 14px (sm / md / lg / xl), from 4.8 / 6 / 8.4.
+- New shadow tokens `--snt-shadow-control` (inputs, outline buttons) and `--snt-shadow-raised` (solid buttons, with a top highlight), light and dark.
+- Buttons press down 1px (not with reduced motion); outline buttons sit on `surface-app`. Cards, charts and data tables get `shadow-snt-xs`. Tinted badges and security chips get a 1px inner ring in their text colour.
+- Applied across the rest: Textarea, Text space, Checkbox, Filter bar (bar, pills, search) and Empty state actions use the control / raised shadows; Toast `shadow-snt-lg`, Modal `shadow-snt-2xl`, Switch thumb `shadow-snt-sm`; Alert radius lg; the active pill tab gets a hairline ring.
+
+### Added — security components and density
+
+- New **Security** group: Severity bar, CVSS score (with vector breakdown, `cvssRating`, `parseCvssVector`), CVE tag (KEV + EPSS), Finding status, Indicator (IOC with verdict, copy and `defang`), Masked value, Scan progress. New Activity timeline in Data display. All beta, with docs and registry items.
+- Component pages use a four-tab template — Usage · Specs · Code · Accessibility — with live contrast tables computed from the tokens. Button is migrated; older pages keep Design / Dev until they are reviewed.
+- Every component page now uses the four-tab template. Older pages get their Accessibility tab from the docs (`docs/components/<slug>.md` → Accessibility, rendered by `DocA11y`), and the breadcrumb reads Components. Sidebar and Top bar (no code component yet) keep a single view.
+- Compact density: `data-snt-density="compact"` on any container tightens Button, Select, SearchBar, TextField, FilterBar and DataTable.
+- Patterns is hidden from the nav until there are enough security patterns; the home page shows Accessibility in its place.
+
+### Changed — site structure, modelled on Carbon, Atlassian and Primer
+
+- New home page (`/`): hero with Start designing / Start developing, live product shot, building-block cards, designer and developer paths, Built for AI, footer.
+- Global header with Get started · Foundations · Components · Patterns, search (⌘K), Figma, GitHub and a theme toggle. The sidebar now lists only the current section; on mobile it is a drawer that also carries the sections.
+- Components are grouped by what they do (Actions, Forms, Feedback, Data display, Navigation, Overlays) instead of atoms / molecules / organisms, and get an index page with live thumbnails.
+- Get started → Introduction is now a setup guide for designers (Figma), developers (shadcn registry install) and AI agents (llms.txt), with commands that use the site's real address.
+
+### Changed — Button, fully reviewed
+
+- `intent="default"` is now `intent="neutral"` (the old name still works as a deprecated alias), so the default intent (`primary`) no longer reads like a different value.
+- Neutral buttons use the brand focus ring; the grey rings fell below the 3:1 contrast a focus indicator needs.
+- Loading keeps the button focusable (`aria-disabled` + `aria-busy`), drops `onClick` and stops a submit button from submitting, instead of `disabled` (which threw keyboard focus away).
+- Icons passed as children are sized by the button (14 / 16 / 20px).
+- Button page rewritten: examples render the real component, Usage has a "which button" table and Do's and don'ts (Anatomy dropped — nothing a button's parts need explaining), Specs values match the code, colour tables read hex from the live tokens, Dev examples compile as pasted, API reference matches the props. Removed the Button group demo (no such component) and the Swift / Android snippets (no such libraries).
+- Removed the "copy as SVG" feature and `public/svg/` (its colours were a stale copy of the old palette). Designers use the Figma library; the copy-code chip now shows in Dev view only.
+- Button Specs (Properties, Sizing, Color tokens) is closed by default behind "Show specs", next to an Open in Figma link — designers build from the Figma library.
+- Styleguide: `?view=dev` links open in Dev view again; the app shell is now the positioning context, so screen-reader-only text can no longer make the window scroll.
+
 ### Changed — styleguide reading order
 
 - Component pages read as a two-level outline: Examples, Usage (When to use, Do's and don'ts) and Specs (Anatomy, Properties, Sizing, Color tokens), with real h2/h3 headings and a nested "On this page" list.

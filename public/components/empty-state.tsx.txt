@@ -101,7 +101,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
               <button
                 type="button"
                 onClick={primaryAction.onClick}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-snt-brand-primary-500 text-snt-text-white text-snt-12 font-medium hover:bg-snt-brand-primary-600 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-snt-brand-primary-500 shadow-snt-raised text-snt-text-white text-snt-12 font-medium hover:bg-snt-brand-primary-600 transition-colors"
               >
                 {primaryAction.icon && <primaryAction.icon size={13} />}
                 {primaryAction.label}
@@ -111,7 +111,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
               <button
                 type="button"
                 onClick={secondaryAction.onClick}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md border border-snt-border-default bg-snt-surface-app text-snt-text-primary text-snt-12 font-medium hover:bg-snt-bg-subtle transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md border border-snt-border-default bg-snt-surface-app shadow-snt-control text-snt-text-primary text-snt-12 font-medium hover:bg-snt-bg-subtle transition-colors"
               >
                 {secondaryAction.icon && <secondaryAction.icon size={13} />}
                 {secondaryAction.label}

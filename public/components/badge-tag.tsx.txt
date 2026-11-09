@@ -110,7 +110,7 @@ function renderPill(
         BASE,
         outlined
           ? cn("border bg-transparent", cfg.border, cfg.text)
-          : cn(cfg.bg, cfg.text),
+          : cn(cfg.bg, cfg.text, "ring-1 ring-inset ring-current/15"),
         className,
       )}
       {...props}

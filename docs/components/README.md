@@ -140,3 +140,7 @@ Fixed since the last pass: Select clipping/flip, Modal `inert`, Button `loading`
 - The **Design tokens** table lists only `snt-*` tokens the component actually uses; run
   `grep -oE '(bg|text|border|ring)-snt-[a-z0-9-]+' components/ui/<slug>.tsx | sort -u` to check.
 - Close an item in *Known gaps* by deleting it and noting the fix in `CHANGELOG.md`.
+
+## Density
+
+Put `data-snt-density="compact"` on any container to tighten everything inside it (Tailwind `compact:` variant, defined in `globals.css`). Affected: Button (sm 28 / md 32 / lg 40px), Select, SearchBar, TextField, FilterBar and DataTable rows. Default density needs nothing.
