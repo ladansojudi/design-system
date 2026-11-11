@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The site opens on Get started → Introduction: `/` redirects there and the logo and breadcrumb root link straight to it. The separate landing page was removed.
 
-- Favicon is now the Juststack icon (from juststack.co).
+- Favicon, SVG icon and Apple touch icon are the Ladan Sojudi portfolio mark (from ladan-sojudi.vercel.app).
 
 ### Changed — Severity badge redesign
 
