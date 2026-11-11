@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The site opens on Get started → Introduction: `/` redirects there and the logo and breadcrumb root link straight to it. The separate landing page was removed.
 
+- Favicon is now the Juststack icon (from juststack.co).
+
 ### Changed — Severity badge redesign
 
 - Severity badge is now a signal-bar badge: four bars filled to the level (Critical 4 … Low 1, Info a ring) on a neutral surface with a hairline ring, label always written out, optional mono score. Uses the `snt-severity-*` tokens shared with charts. New `size` prop (sm 24px / md 28px); width follows the label instead of a fixed 160px. No "use client". API otherwise unchanged.
