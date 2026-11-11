@@ -19,8 +19,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ladan-design-system.vercel.app"),
   title: "Sentinel Design System",
-  description: "Sentinel — an open design system for cybersecurity products. Tokens, components and docs, designed in Figma, built in React, ready for AI agents. By Laden Sojudi.",
+  description: "Sentinel — an open design system for cybersecurity products. Tokens, components and docs, designed in Figma, built in React, ready for AI agents. By Ladan Sojudi.",
+  authors: [{ name: "Ladan Sojudi" }],
+  openGraph: {
+    type: "website",
+    siteName: "Ladan Sojudi",
+    title: "Sentinel Design System",
+    description: "A 560+ component design system built in code: token-based, WCAG-audited, synced to Figma and readable by AI agents.",
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sentinel Design System",
+    description: "A 560+ component design system built in code: token-based, WCAG-audited, synced to Figma and readable by AI agents.",
+  },
 };
 
 export default function RootLayout({

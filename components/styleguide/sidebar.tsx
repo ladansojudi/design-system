@@ -126,7 +126,7 @@ export function Sidebar({ mobileOnly = false }: { mobileOnly?: boolean }) {
             v{PKG_VERSION}
           </a>
           <span aria-hidden> · </span>
-          by Laden Sojudi
+          by Ladan Sojudi
         </div>
       </aside>
     </>
