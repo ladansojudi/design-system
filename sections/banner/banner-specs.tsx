@@ -1,27 +1,20 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import { Sparkles, X } from "lucide-react";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
   SpacingDiagram,
-  OptionPill,
-  BoolSwatch,
+  
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
 
 // ── Visual swatches ───────────────────────────────────────────────────────
 
-function ToneSwatch({ tone }: { tone: "neutral" | "promo" | "warning" }) {
-  const cls = {
-    neutral: "bg-snt-btn-neutral-800",
-    promo:   "bg-snt-btn-primary-600",
-    warning: "bg-snt-scale-yellow-500",
-  }[tone];
-  return <span className={`inline-block w-4 h-3 rounded-[2px] ${cls}`} aria-hidden />;
-}
 
 export function BannerSpecs() {
   return (
@@ -32,49 +25,7 @@ export function BannerSpecs() {
         <SpecLede>
           Every prop a designer can configure when placing a Banner. Use these names in Figma component properties for a 1:1 map with code.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:    "tone",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<ToneSwatch tone="neutral" />} label="neutral" />
-                  <OptionPill swatch={<ToneSwatch tone="promo"   />} label="promo" />
-                  <OptionPill swatch={<ToneSwatch tone="warning" />} label="warning" />
-                </div>
-              ),
-              default:     "neutral",
-              description: "Surface tone — drives background, text, and icon.",
-            },
-            {
-              name:    "message",
-              type:    "node",
-              values:  <OptionPill label="required" />,
-              default: "—",
-              description: "One sentence in active voice — readable on a glance.",
-            },
-            {
-              name:    "cta",
-              type:    "object",
-              values:  <OptionPill label="{ label, href }" />,
-              default: "—",
-              description: "Optional underlined link to resolve or learn more.",
-            },
-            {
-              name:    "dismissible",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "true",
-              description: "Shows a close button. Omit for billing or compliance issues.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="banner" />
       </section>
 
       {/* Sizing & spacing */}

@@ -1,11 +1,12 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
   SpacingDiagram,
-  OptionPill,
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
@@ -21,48 +22,7 @@ export function TextSpaceSpecs() {
         <SpecLede>
           Every prop a designer can configure when placing this component. Use these names in Figma component properties for a 1:1 map with code.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:   "toolbar",
-              type:   "enum",
-              values: (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill label="simple" />
-                  <OptionPill label="full" />
-                </div>
-              ),
-              default:     "simple",
-              description: "Toolbar density — Simple is one row of formatting; Full adds type, size and style selectors.",
-            },
-            {
-              name:   "state",
-              type:   "enum",
-              values: (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill label="enabled" />
-                  <OptionPill label="disabled" />
-                  <OptionPill label="error" />
-                </div>
-              ),
-              default:     "enabled",
-              description: "Interaction state — controls border color, text color and pointer events.",
-            },
-            {
-              name:        "placeholder",
-              type:        "string",
-              values:      <span className="font-mono text-[11px] text-snt-text-disabled">&ldquo;Write something awesome…&rdquo;</span>,
-              default:     "—",
-              description: "Muted prompt shown when the editor is empty.",
-            },
-            {
-              name:        "value",
-              type:        "string",
-              default:     "—",
-              description: "Rich-text HTML content of the editor.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="text-space" />
       </section>
 
       {/* Sizing & spacing */}
@@ -92,8 +52,8 @@ export function TextSpaceSpecs() {
           <DimensionsTable
             columns={["simple", "full"]}
             rows={[
-              { label: "Container · min height",  values: ["240px", "240px"], note: "Editor area grows with content." },
-              { label: "Container · border radius", values: ["8px", "8px"] },
+              { label: "Writing area · min height",  values: ["96px", "96px"], note: "Writing area; the toolbar adds its own height." },
+              { label: "Container · border radius", values: ["10px", "10px"] },
               { label: "Container · border width",  values: ["1px", "1px"] },
               { label: "Toolbar · height",         values: ["40px", "48px"], note: "Full adds type / size dropdowns." },
               { label: "Toolbar · padding X",      values: ["12px", "12px"] },
@@ -123,9 +83,9 @@ export function TextSpaceSpecs() {
               id: "container",
               label: "Container",
               rows: [
-                { variant: "Enabled",  bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-primary",  hex: "#121f28" }, border: { token: "neutral-divider-10", hex: "#e6e8e8" } },
-                { variant: "Disabled", bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-disabled", hex: "#8a9199" }, border: { token: "neutral-divider-10", hex: "#e6e8e8" }, hover: { token: "—",                hex: "#ffffff" } },
-                { variant: "Error",    bg: { token: "scale-red-50",       hex: "#fcf3f2" }, text: { token: "text-error",    hex: "#b0291e" }, border: { token: "text-error",         hex: "#b0291e" } },
+                { variant: "Enabled",  bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-primary",  hex: "#121f28" }, border: { token: "border-default", hex: "#e6e8e8" } },
+                { variant: "Disabled", bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-secondary", hex: "#8a9199" }, border: { token: "border-default", hex: "#e6e8e8" }, hover: { token: "—",                hex: "#ffffff" } },
+                { variant: "Error",    bg: { token: "bg-error-subtle",       hex: "#fcf3f2" }, text: { token: "text-error",    hex: "#b0291e" }, border: { token: "text-error",         hex: "#b0291e" } },
                 { variant: "Focus",    bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-primary",  hex: "#121f28" }, border: { token: "brand-primary-500",  hex: "#0066cc" } },
               ],
             },
@@ -133,9 +93,9 @@ export function TextSpaceSpecs() {
               id: "toolbar",
               label: "Toolbar",
               rows: [
-                { variant: "Icon · idle",  text: { token: "text-secondary",     hex: "#4f5b66" }, hover: { token: "neutral-grey-100",  hex: "#f7f8f8" } },
-                { variant: "Icon · active",bg:   { token: "neutral-grey-100",   hex: "#f7f8f8" }, text: { token: "text-primary",       hex: "#121f28" } },
-                { variant: "Separator",    text: { token: "neutral-divider-10", hex: "#e6e8e8" } },
+                { variant: "Icon · idle",  text: { token: "text-secondary",     hex: "#4f5b66" }, hover: { token: "bg-subtle",  hex: "#f7f8f8" } },
+                { variant: "Icon · active",bg:   { token: "bg-subtle",   hex: "#f7f8f8" }, text: { token: "text-primary",       hex: "#121f28" } },
+                { variant: "Separator",    text: { token: "border-default", hex: "#e6e8e8" } },
                 { variant: "Label",        text: { token: "text-secondary",     hex: "#4f5b66" } },
               ],
             },

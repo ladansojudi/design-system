@@ -9,9 +9,7 @@ import UIKit
 extension UIColor {
     static let brandPrimary500 = UIColor(hex: "#5B5BD6")
     static let brandPrimary600 = UIColor(hex: "#4F46E5")
-    static let scaleRed600 = UIColor(hex: "#8E2A1F")
     static let neutralGrey300 = UIColor(hex: "#D4D4D8")
-    static let neutralGrey500 = UIColor(hex: "#71717A")
     static let surfaceRow = UIColor(hex: "#FFFFFF")
     static let textPrimary = UIColor(hex: "#09090B")
     static let textSecondary = UIColor(hex: "#52525B")

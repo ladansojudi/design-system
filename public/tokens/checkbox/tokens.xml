@@ -4,10 +4,8 @@
 <resources>
 
     <!-- Colors -->
-    <color name="neutral_grey_400">#8F8F98</color>
     <color name="text_primary">#09090B</color>
     <color name="text_disabled">#A1A1AA</color>
-    <color name="btn_neutral_800">#18181B</color>
     <color name="btn_primary_600">#4F46E5</color>
 
     <!-- Spacing -->
@@ -26,7 +24,6 @@
 
     <!-- Border width -->
     <dimen name="border_width_1">1dp</dimen>
-    <dimen name="border_width_2">2dp</dimen>
 
     <!-- Font size -->
     <dimen name="font_size_10">10sp</dimen>

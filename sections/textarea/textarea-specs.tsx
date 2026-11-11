@@ -1,38 +1,20 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
   SpacingDiagram,
-  OptionPill,
-  BoolSwatch,
+  
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
 
 // ── Swatches ──────────────────────────────────────────────────────────────
 
-function StateSwatch({ state }: { state: "default" | "focused" | "error" | "disabled" }) {
-  const cls = {
-    default:  "border-snt-neutral-grey-400",
-    focused:  "border-snt-brand-primary-600",
-    error:    "border-snt-scale-red-600",
-    disabled: "border-snt-neutral-grey-200 opacity-50",
-  }[state];
-  return <span className={`inline-block w-4 h-3 rounded-[2px] border-2 ${cls}`} aria-hidden />;
-}
 
-function ResizeSwatch({ axis }: { axis: "none" | "y" | "both" }) {
-  if (axis === "none") {
-    return <span className="inline-block w-3 h-3 rounded-[2px] border border-snt-neutral-grey-400" aria-hidden />;
-  }
-  return (
-    <span className="relative inline-block w-3 h-3 rounded-[2px] border border-snt-neutral-grey-400" aria-hidden>
-      <span className="absolute bottom-0 right-0 w-1 h-1 border-r-2 border-b-2 border-snt-text-primary" />
-    </span>
-  );
-}
 
 // ── Spec section ──────────────────────────────────────────────────────────
 
@@ -46,98 +28,7 @@ export function TextareaSpecs() {
           Textarea extends TextField with multi-line behavior — rows count, optional counter, and a
           resize handle. Use it when responses span more than one short phrase.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:    "rows",
-              type:    "number",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill label="3" />
-                  <OptionPill label="4" />
-                  <OptionPill label="6" />
-                  <OptionPill label="8" />
-                </div>
-              ),
-              default:     "4",
-              description: "Initial visible row count. Drives min-height; users can resize taller.",
-            },
-            {
-              name:    "state",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<StateSwatch state="default"  />} label="default" />
-                  <OptionPill swatch={<StateSwatch state="focused"  />} label="focused" />
-                  <OptionPill swatch={<StateSwatch state="error"    />} label="error" />
-                  <OptionPill swatch={<StateSwatch state="disabled" />} label="disabled" />
-                </div>
-              ),
-              default:     "default",
-              description: "Visual state. Hover is derived from interaction; error and disabled are explicit.",
-            },
-            {
-              name:    "resize",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<ResizeSwatch axis="y"    />} label="y" />
-                  <OptionPill swatch={<ResizeSwatch axis="both" />} label="both" />
-                  <OptionPill swatch={<ResizeSwatch axis="none" />} label="none" />
-                </div>
-              ),
-              default:     "y",
-              description: "Direction the user can drag to resize. Vertical is the safest default.",
-            },
-            {
-              name:    "label",
-              type:    "string",
-              values:  <OptionPill label="always shown" />,
-              default:     "—",
-              description: "11px descriptor above the field. Required for accessibility.",
-            },
-            {
-              name:    "placeholder",
-              type:    "string",
-              values:  <OptionPill label="hint or template" />,
-              default:     "—",
-              description: "In-field hint shown when empty. Useful for hinting at structure.",
-            },
-            {
-              name:    "helperText",
-              type:    "string",
-              values:  <OptionPill label="caption" />,
-              default:     "—",
-              description: "Small caption below the field. Replaced by errorText when state is error.",
-            },
-            {
-              name:    "errorText",
-              type:    "string",
-              values:  <OptionPill label="rule + example" />,
-              default:     "—",
-              description: "Red message when state is error. Explain the rule, ideally with a valid example.",
-            },
-            {
-              name:    "maxLength",
-              type:    "number",
-              values:  <OptionPill label="optional limit" />,
-              default:     "—",
-              description: "Adds a character counter. Counter turns amber past 90% of the limit.",
-            },
-            {
-              name:    "showCounter",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "false",
-              description: "Force-show the counter even without a maxLength.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="textarea" />
       </section>
 
       {/* Sizing & spacing */}
@@ -195,11 +86,10 @@ export function TextareaSpecs() {
               id: "surface",
               label: "Surface",
               rows: [
-                { variant: "Default",  bg: { token: "surface-row",       hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "neutral-grey-300", hex: "#dfe2e2" } },
-                { variant: "Hover",    bg: { token: "surface-row",       hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "neutral-grey-500", hex: "#979d9f" } },
-                { variant: "Focused",  bg: { token: "surface-row",       hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "brand-primary-600",hex: "#0f69aa" } },
-                { variant: "Error",    bg: { token: "surface-row",       hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "scale-red-600",    hex: "#b0291e" } },
-                { variant: "Disabled", bg: { token: "surface-row",       hex: "#ffffff" }, text: { token: "text-disabled",  hex: "#9ca3a4" }, border: { token: "neutral-grey-200", hex: "#ebeded" } },
+                { variant: "Default",  bg: { token: "surface-row",       hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "border-strong", hex: "#dfe2e2" } },
+                { variant: "Focused",  bg: { token: "surface-row",       hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "border-focus",hex: "#0f69aa" } },
+                { variant: "Error",    bg: { token: "surface-row",       hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "text-error",    hex: "#b0291e" } },
+                { variant: "Disabled", bg: { token: "surface-row",       hex: "#ffffff" }, text: { token: "text-secondary",  hex: "#9ca3a4" }, border: { token: "neutral-grey-200", hex: "#ebeded" } },
               ],
             },
             {
@@ -207,12 +97,12 @@ export function TextareaSpecs() {
               label: "Label",
               rows: [
                 { variant: "Label · default",   text: { token: "text-secondary",     hex: "#697376" } },
-                { variant: "Label · error",     text: { token: "scale-red-600",      hex: "#b0291e" } },
-                { variant: "Helper text",       text: { token: "text-disabled",      hex: "#9ca3a4" } },
-                { variant: "Error text",        text: { token: "scale-red-600",      hex: "#b0291e" } },
-                { variant: "Counter · normal",  text: { token: "text-disabled",      hex: "#9ca3a4" } },
+                { variant: "Label · error",     text: { token: "text-error",      hex: "#b0291e" } },
+                { variant: "Helper text",       text: { token: "text-secondary",      hex: "#9ca3a4" } },
+                { variant: "Error text",        text: { token: "text-error",      hex: "#b0291e" } },
+                { variant: "Counter · normal",  text: { token: "text-secondary",      hex: "#9ca3a4" } },
                 { variant: "Counter · 90%",     text: { token: "scale-yellow-700",   hex: "#a96b00" } },
-                { variant: "Placeholder",       text: { token: "text-disabled",      hex: "#9ca3a4" } },
+                { variant: "Placeholder",       text: { token: "text-secondary",      hex: "#9ca3a4" } },
               ],
             },
           ]}

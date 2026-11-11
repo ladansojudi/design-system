@@ -6,7 +6,6 @@
     <!-- Colors -->
     <color name="brand_primary_50">#EEF0FF</color>
     <color name="brand_primary_500">#5B5BD6</color>
-    <color name="surface_app">#FFFFFF</color>
     <color name="text_primary">#09090B</color>
     <color name="text_secondary">#52525B</color>
     <color name="text_disabled">#A1A1AA</color>

@@ -70,7 +70,7 @@ export function TextSpaceExamples() {
       <ExampleCard
         title="Simple toolbar"
         density="tall"
-        code={`<TextSpace toolbar="simple" placeholder="Write something awesome…" />`}
+        code={`<TextSpace toolbarSize="simple" placeholder="Write something awesome…" />`}
         preview={
           <div className="w-full max-w-lg">
             <TextSpace toolbarSize="simple" />
@@ -80,7 +80,7 @@ export function TextSpaceExamples() {
       <ExampleCard
         title="Full toolbar"
         density="tall"
-        code={`<TextSpace toolbar="full" placeholder="Write something awesome…" />`}
+        code={`<TextSpace toolbarSize="full" placeholder="Write something awesome…" />`}
         preview={
           <div className="w-full max-w-lg">
             <TextSpace toolbarSize="full" />
@@ -90,7 +90,7 @@ export function TextSpaceExamples() {
       <ExampleCard
         title="Error state"
         density="tall"
-        code={`<TextSpace toolbar="full" state="error" placeholder="Write something awesome…" />`}
+        code={`<TextSpace toolbarSize="full" state="error" placeholder="Write something awesome…" />`}
         preview={
           <div className="w-full max-w-lg">
             <TextSpace toolbarSize="full" state="error" />

@@ -4,10 +4,7 @@
 
 :root {
   /* Colors */
-  --snt-brand-primary-500: #5b5bd6;
   --snt-neutral-grey-100: #f4f4f5;
-  --snt-neutral-grey-300: #d4d4d8;
-  --snt-neutral-grey-800: #27272a;
   --snt-text-primary: #09090b;
   --snt-text-secondary: #52525b;
   --snt-text-disabled: #a1a1aa;
@@ -28,11 +25,9 @@
   /* Radius */
   --radius-md: 6px;
   --radius-xl: 12px;
-  --radius-full: 9999px;
 
   /* Border width */
   --border-width-1: 1px;
-  --border-width-2: 2px;
 
   /* Font size */
   --font-size-10: 10px;

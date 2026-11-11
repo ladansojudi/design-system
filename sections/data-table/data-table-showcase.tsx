@@ -155,19 +155,20 @@ export function DataTableExamples() {
       <ExampleCard
         title="Full — Badge + View all"
         density="tall"
-        code={`<DataTable
-  title="Priority Actions"
-  description="Security issues prioritized by risk growth."
-  badge="Live"
-  viewAllLabel="View all"
-  columns={[
-    { key: "threat", label: "Threats" },
-    { key: "asset",  label: "Asset"   },
-    { key: "date",   label: "Date", align: "right" },
-    { key: "severity", label: "Severity", align: "right", render: (r) => <SeverityBadge level={r.severity} /> },
-  ]}
-  rows={rows}
-/>`}
+        code={`<DataTable>
+  <DataTableHeader
+    title="Priority actions"
+    description="Security issues prioritised by risk growth."
+    badge="Live"
+    viewAllLabel="View all"
+    onViewAll={openAll}
+  />
+  <DataTableBody>
+    <DataTableColumnHeaders />
+    {rows.map((r) => <DataTableRow key={r.id} {...r} />)}
+  </DataTableBody>
+  <DataTableFooter rangeLabel="1–3 of 492" onPrev={prev} onNext={next} />
+</DataTable>`}
         preview={
           <div className="w-full">
             <DataTable
@@ -185,12 +186,13 @@ export function DataTableExamples() {
       <ExampleCard
         title="Minimal — Title + Description only"
         density="tall"
-        code={`<DataTable
-  title="All Findings"
-  description="Every active finding across the monitored asset surface."
-  columns={columns}
-  rows={rows}
-/>`}
+        code={`<DataTable>
+  <DataTableHeader title="All findings" description="Every active finding across the monitored assets." />
+  <DataTableBody>
+    <DataTableColumnHeaders />
+    {rows.map((r) => <DataTableRow key={r.id} {...r} />)}
+  </DataTableBody>
+</DataTable>`}
         preview={
           <div className="w-full">
             <DataTable

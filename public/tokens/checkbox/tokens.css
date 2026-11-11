@@ -4,10 +4,8 @@
 
 :root {
   /* Colors */
-  --snt-neutral-grey-400: #8f8f98;
   --snt-text-primary: #09090b;
   --snt-text-disabled: #a1a1aa;
-  --snt-btn-neutral-800: #18181b;
   --snt-btn-primary-600: #4f46e5;
 
   /* Spacing */
@@ -26,7 +24,6 @@
 
   /* Border width */
   --border-width-1: 1px;
-  --border-width-2: 2px;
 
   /* Font size */
   --font-size-10: 10px;

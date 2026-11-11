@@ -82,7 +82,7 @@ export default function ToastTooltipPage() {
                 items={[
                   { type: "do",   text: "Auto-dismiss toasts after 4 seconds; let the user close earlier with the × button." },
                   { type: "dont", text: "Don't use toasts for errors that require user action — use an inline error or modal." },
-                  { type: "do",   text: "Anchor tooltips to the side with most available space and add 200ms delay before showing." },
+                  { type: "do",   text: "Anchor tooltips to the side with most available space and keep the default 300ms delay before showing." },
                   { type: "dont", text: "Don't put interactive controls inside a tooltip; they dismiss on mouseout." },
                 ]}
               />

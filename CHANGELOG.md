@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- The site opens on Get started → Introduction: `/` redirects there and the logo and breadcrumb root link straight to it. The separate landing page was removed.
+
+### Changed — Severity badge redesign
+
+- Severity badge is now a signal-bar badge: four bars filled to the level (Critical 4 … Low 1, Info a ring) on a neutral surface with a hairline ring, label always written out, optional mono score. Uses the `snt-severity-*` tokens shared with charts. New `size` prop (sm 24px / md 28px); width follows the label instead of a fixed 160px. No "use client". API otherwise unchanged.
+- The new look is used everywhere severity appears: Data table rows render `SeverityBadge` (and now accept all five levels, not just high / critical), CVSS score shows the signal bars next to the score, and the Modal, Data table, Severity badge and dashboard mocks use the real component. Registry items now list the components they import (Data table, CVSS score → Severity badge), so `shadcn add` installs them together.
+
+### Fixed — component pages checked against the code
+
+- Code tab → API reference is generated from the manifest (props, types and defaults extracted from components/ui), with the usage snippet and known gaps from each doc. The old hand-written reference (wrong package, props and sizes on most pages) is gone, except reviewed gotchas.
+- Specs → Properties is generated from the same source; 15 pages listed props that don't exist.
+- Code examples rewritten to the real APIs: Breadcrumb (`BreadcrumbItem isCurrent`), Filter bar (`FilterSearch`, `FilterAction`, `FilterClear`, `FilterOverflow`), Modal (`onOpenChange` + Modal parts), Data table (composable parts), Text space (`toolbarSize`).
+- All 92 code examples (page Code tabs and docs) compile against the real components; the Toast doc example became a proper component.
+- Colour tables now name the tokens each component's code actually uses (110 entries moved from old primitives to semantic tokens); rows for states or parts a component doesn't have were removed (Text field / Textarea hover, Modal icon and footer colours).
+- Sizing tables corrected against the code: Checkbox 18px, Switch track 36×22, Modal widths 384 / 448 / 672 and radius 14px, radii updated after the crisp refresh, Gauge 170px, Text space writing area 96px.
+- Usage text no longer describes variants that don't exist (Gauge, Modal); tooltip delay stated as the real 300ms.
+- Badge is exactly 24px and Severity badge 32px tall, matching their specs; Text field sizing table describes filled / outlined (it has no size prop); badge border and modal backdrop token names fixed.
+
 ### Changed — crisp visual refresh
 
 - Radius scale is now 6 / 8 / 10 / 14px (sm / md / lg / xl), from 4.8 / 6 / 8.4.

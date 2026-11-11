@@ -1,29 +1,20 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import { ChevronDown } from "lucide-react";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
   SpacingDiagram,
-  OptionPill,
-  BoolSwatch,
+  
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
 
 // ── Visual swatches ───────────────────────────────────────────────────────
 
-function StateSwatch({ state }: { state: "Default" | "Hover" | "Focused" | "Error" | "Disabled" }) {
-  const cls = {
-    Default:  "border-snt-neutral-grey-300",
-    Hover:    "border-snt-neutral-grey-500",
-    Focused:  "border-snt-brand-primary-600",
-    Error:    "border-snt-scale-red-600",
-    Disabled: "border-snt-neutral-grey-300 opacity-40",
-  }[state];
-  return <span className={`inline-block w-5 h-3 rounded-[2px] bg-white border ${cls}`} aria-hidden />;
-}
 
 export function SelectSpecs() {
   return (
@@ -34,79 +25,7 @@ export function SelectSpecs() {
         <SpecLede>
           Every prop a designer can configure when placing a Select. Use these names in Figma component properties for a 1:1 map with code.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:    "state",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<StateSwatch state="Default"  />} label="Default" />
-                  <OptionPill swatch={<StateSwatch state="Hover"    />} label="Hover" />
-                  <OptionPill swatch={<StateSwatch state="Focused"  />} label="Focused" />
-                  <OptionPill swatch={<StateSwatch state="Error"    />} label="Error" />
-                  <OptionPill swatch={<StateSwatch state="Disabled" />} label="Disabled" />
-                </div>
-              ),
-              default:     "Default",
-              description: "Visual state — drives border, ring, and text color.",
-            },
-            {
-              name:    "label",
-              type:    "string",
-              values:  <OptionPill label="optional" />,
-              default: "—",
-              description: "Sits above the trigger. Required unless context makes purpose obvious.",
-            },
-            {
-              name:    "options",
-              type:    "Option[]",
-              values:  <OptionPill label="required" />,
-              default: "—",
-              description: "List of { value, label, disabled? } rows shown in the popover.",
-            },
-            {
-              name:    "value",
-              type:    "string",
-              values:  <OptionPill label="controlled" />,
-              default: "—",
-              description: "Currently selected option value. Empty string renders the placeholder.",
-            },
-            {
-              name:    "placeholder",
-              type:    "string",
-              values:  <OptionPill label='"Select…"' />,
-              default: "Select…",
-              description: "Trigger label when no value is selected.",
-            },
-            {
-              name:    "helperText",
-              type:    "string",
-              values:  <OptionPill label="optional" />,
-              default: "—",
-              description: "Hint below the trigger. Replaced by errorText when state is Error.",
-            },
-            {
-              name:    "errorText",
-              type:    "string",
-              values:  <OptionPill label="optional" />,
-              default: "—",
-              description: "Validation message shown when state is Error.",
-            },
-            {
-              name:    "disabled",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "false",
-              description: "Non-interactive — 40% opacity, pointer-events disabled.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="select" />
       </section>
 
       {/* Sizing & spacing */}
@@ -162,7 +81,7 @@ export function SelectSpecs() {
                   variant: "Default",
                   bg:     { token: "surface-row",       hex: "#ffffff" },
                   text:   { token: "text-primary",      hex: "#121f28" },
-                  border: { token: "neutral-grey-300",  hex: "#dfe2e2" },
+                  border: { token: "border-strong",  hex: "#dfe2e2" },
                 },
                 {
                   variant: "Hover",
@@ -174,20 +93,20 @@ export function SelectSpecs() {
                   variant: "Focused",
                   bg:     { token: "surface-row",       hex: "#ffffff" },
                   text:   { token: "text-primary",      hex: "#121f28" },
-                  border: { token: "brand-primary-600", hex: "#0f69aa" },
+                  border: { token: "border-focus", hex: "#0f69aa" },
                   hover:  { token: "brand-primary-500/20", hex: "#1e88e533" },
                 },
                 {
                   variant: "Error",
                   bg:     { token: "surface-row",       hex: "#ffffff" },
                   text:   { token: "text-primary",      hex: "#121f28" },
-                  border: { token: "scale-red-600",     hex: "#dc2626" },
+                  border: { token: "text-error",     hex: "#dc2626" },
                 },
                 {
                   variant: "Disabled",
                   bg:     { token: "surface-row",       hex: "#ffffff" },
                   text:   { token: "text-disabled",     hex: "#8a9097" },
-                  border: { token: "neutral-grey-300",  hex: "#dfe2e2" },
+                  border: { token: "border-strong",  hex: "#dfe2e2" },
                 },
               ],
             },
@@ -199,7 +118,7 @@ export function SelectSpecs() {
                   variant: "Surface",
                   bg:     { token: "surface-row",         hex: "#ffffff" },
                   text:   { token: "text-primary",        hex: "#121f28" },
-                  border: { token: "neutral-divider-10",  hex: "#e3e6e6" },
+                  border: { token: "border-default",  hex: "#e3e6e6" },
                 },
                 {
                   variant: "Option · hover",
@@ -223,7 +142,7 @@ export function SelectSpecs() {
               rows: [
                 { variant: "Label",        text: { token: "text-secondary",  hex: "#3a4d59" } },
                 { variant: "Helper",       text: { token: "text-disabled",   hex: "#8a9097" } },
-                { variant: "Error · text", text: { token: "scale-red-600",   hex: "#dc2626" } },
+                { variant: "Error · text", text: { token: "text-error",   hex: "#dc2626" } },
               ],
             },
           ]}

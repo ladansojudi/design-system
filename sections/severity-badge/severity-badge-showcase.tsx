@@ -50,7 +50,8 @@ const SEVERITY: Record<Severity, SeverityConfig> = {
   },
 };
 
-const SEVERITIES: Severity[] = ["low", "critical", "high", "medium", "info"];
+const SEVERITIES: Severity[] = ["critical", "high", "medium", "low", "info"];
+const SCORES: Record<Severity, number> = { critical: 9.8, high: 8.1, medium: 5.4, low: 2.1, info: 0 };
 
 // ── Snippet builders ───────────────────────────────────────────────────────
 
@@ -98,7 +99,7 @@ export function SeverityBadgeShowcase() {
               <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
                 Label
               </p>
-              <div className="space-y-2">
+              <div className="flex flex-col items-start gap-2">
                 {SEVERITIES.map((s) => (
                   <Copyable key={s} snippets={severitySnippets(s)}>
                     <SeverityBadge severity={s} />
@@ -112,10 +113,10 @@ export function SeverityBadgeShowcase() {
               <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
                 Label + Score
               </p>
-              <div className="space-y-2">
+              <div className="flex flex-col items-start gap-2">
                 {SEVERITIES.map((s) => (
-                  <Copyable key={s} snippets={severitySnippets(s, 8.4)}>
-                    <SeverityBadge severity={s} score={8.4} />
+                  <Copyable key={s} snippets={severitySnippets(s, SCORES[s])}>
+                    <SeverityBadge severity={s} score={SCORES[s]} />
                   </Copyable>
                 ))}
               </div>

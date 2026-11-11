@@ -99,7 +99,7 @@ Grid: `1fr 1fr 90px 80px`, gap 12px. Column headers are 11px uppercase.
 | `DataTableHeader` | `title: string`, `description: string`, `badge?`, `viewAllLabel?`, `onViewAll?`, `tooltip?` |
 | `DataTableBody` | `scroll?: boolean`, `minWidth?: number` |
 | `DataTableColumnHeaders` | `threatsLabel?`, `threatsTooltip?`, `assetLabel?`, `assetTooltip?`, `dateLabel?`, `severityLabel?` |
-| `DataTableRow` | `threat: string`, `asset: string`, `date: string`, `severity: "high" \| "critical"` |
+| `DataTableRow` | `threat: string`, `asset: string`, `date: string`, `severity: "critical" \| "high" \| "medium" \| "low" \| "info"` (rendered with SeverityBadge) |
 | `DataTableFooter` | `perPage?: number`, `rangeLabel?: string`, `onPrev?`, `onNext?` |
 
 ## Examples
@@ -116,7 +116,7 @@ Grid: `1fr 1fr 90px 80px`, gap 12px. Column headers are 11px uppercase.
 ```
 
 ## Known gaps
-- [ ] Fixed 4-column threat schema. `severity` only accepts `high | critical`. A generic `columns` / `cells` API (or TanStack Table) is needed for reuse.
+- [ ] Fixed 4-column threat schema. A generic `columns` / `cells` API (or TanStack Table) is needed for reuse.
 - [ ] No sorting, selection (with [Checkbox](./checkbox.md)), loading or empty states built in.
 - [ ] The "Rows per page" button doesn't open anything yet.
 - [ ] The default header tooltip text is placeholder copy.

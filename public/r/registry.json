@@ -291,7 +291,8 @@
       "description": "A CVSS base score with its qualitative rating and, when given the vector string, each metric in plain words.",
       "registryDependencies": [
         "http://localhost:3000/r/utils.json",
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/severity-badge.json"
       ],
       "files": [
         {
@@ -317,7 +318,8 @@
       ],
       "registryDependencies": [
         "http://localhost:3000/r/utils.json",
-        "http://localhost:3000/r/theme.json"
+        "http://localhost:3000/r/theme.json",
+        "http://localhost:3000/r/severity-badge.json"
       ],
       "files": [
         {

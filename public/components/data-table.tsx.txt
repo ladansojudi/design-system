@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Info, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SeverityBadge, type Severity } from "@/components/ui/severity-badge";
 
 /**
  * sentinel/ui — DataTable
@@ -15,23 +16,7 @@ import { cn } from "@/lib/utils";
  *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
-type Severity = "high" | "critical";
-
-const SEVERITY_STYLES: Record<Severity, { label: string; bg: string; accent: string; text: string }> = {
-  high: {
-    label:  "High",
-    bg:     "bg-snt-scale-red-50",
-    accent: "border-l-[3px] border-snt-scale-red-500",
-    text:   "text-snt-scale-red-600",
-  },
-  critical: {
-    label:  "Critical",
-    bg:     "bg-snt-scale-purple-50",
-    accent: "border-l-[3px] border-snt-scale-purple-500",
-    text:   "text-snt-scale-purple-600",
-  },
-};
-
+// Rows use the system's SeverityBadge, so severity looks the same everywhere.
 export type DataTableProps = React.HTMLAttributes<HTMLDivElement>;
 
 // Lets DataTableBody (role="table") take its accessible name from the
@@ -292,12 +277,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
 DataTableFooter.displayName = "DataTableFooter";
 
 function SeverityCell({ severity }: { severity: Severity }) {
-  const cfg = SEVERITY_STYLES[severity];
-  return (
-    <div className={cn("flex items-center justify-center rounded-md px-3 py-1 w-20", cfg.bg, cfg.accent)}>
-      <span className={cn("text-snt-12 font-medium", cfg.text)}>{cfg.label}</span>
-    </div>
-  );
+  return <SeverityBadge severity={severity} size="sm" className="ml-auto" />;
 }
 
 // With a `label`, the icon is a focusable button that shows the tooltip on

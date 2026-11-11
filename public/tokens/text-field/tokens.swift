@@ -7,12 +7,7 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary600 = UIColor(hex: "#4F46E5")
-    static let scaleRed600 = UIColor(hex: "#8E2A1F")
-    static let neutralGrey100 = UIColor(hex: "#F4F4F5")
-    static let neutralGrey200 = UIColor(hex: "#E4E4E7")
     static let neutralGrey300 = UIColor(hex: "#D4D4D8")
-    static let neutralGrey400 = UIColor(hex: "#8F8F98")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
     static let textPrimary = UIColor(hex: "#09090B")
     static let textSecondary = UIColor(hex: "#52525B")
@@ -39,7 +34,6 @@ extension CGFloat {
 
     // Border width
     static let borderWidth1: CGFloat = 1
-    static let borderWidth2: CGFloat = 2
 
     // Font size
     static let fontSize9: CGFloat = 9

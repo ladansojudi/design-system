@@ -68,7 +68,7 @@ export function SiteHeader() {
         </button>
 
         <Link
-          href="/"
+          href="/styleguide/overview"
           className="mr-4 flex items-center gap-2 rounded-md text-snt-14 font-semibold tracking-tight text-snt-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
         >
           <SentinelMark size={20} />

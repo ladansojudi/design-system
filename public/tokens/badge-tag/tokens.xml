@@ -4,14 +4,9 @@
 <resources>
 
     <!-- Colors -->
-    <color name="brand_primary_500">#5B5BD6</color>
-    <color name="scale_blue_500">#7DAFD6</color>
     <color name="scale_green_50">#F1FFDB</color>
     <color name="scale_green_500">#63A100</color>
     <color name="scale_green_600">#3F6600</color>
-    <color name="scale_yellow_500">#F5BF40</color>
-    <color name="scale_red_500">#D13D2E</color>
-    <color name="neutral_grey_400">#8F8F98</color>
     <color name="text_primary">#09090B</color>
     <color name="text_disabled">#A1A1AA</color>
 

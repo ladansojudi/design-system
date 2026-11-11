@@ -9,13 +9,9 @@ import UIKit
 extension UIColor {
     static let scaleBlue50 = UIColor(hex: "#F7FAFD")
     static let scaleBlue200 = UIColor(hex: "#C9DEEE")
-    static let scaleBlue500 = UIColor(hex: "#7DAFD6")
-    static let scaleGreen500 = UIColor(hex: "#63A100")
     static let scaleYellow50 = UIColor(hex: "#FEFAF0")
     static let scaleYellow200 = UIColor(hex: "#F8D072")
-    static let scaleYellow500 = UIColor(hex: "#F5BF40")
     static let scaleYellow700 = UIColor(hex: "#795706")
-    static let scaleRed500 = UIColor(hex: "#D13D2E")
     static let textPrimary = UIColor(hex: "#09090B")
 }
 

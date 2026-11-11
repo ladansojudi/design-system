@@ -1,41 +1,20 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import { Tag, ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
 import {
   SpecSectionTitle,
   SpecLede,
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
   SpacingDiagram,
-  OptionPill,
-  BoolSwatch,
+  
+  
 } from "@/components/styleguide/specs";
 
 // ── Visual swatches ───────────────────────────────────────────────────────
 
-function PillStateSwatch({ state }: { state: "default" | "active" | "overflow" }) {
-  if (state === "overflow") {
-    return (
-      <span
-        className="inline-block w-4 h-3 rounded-[3px] border border-dashed border-snt-neutral-divider-10"
-        aria-hidden
-      />
-    );
-  }
-  return (
-    <span
-      className={cn(
-        "inline-block w-4 h-3 rounded-[3px] border",
-        state === "active"
-          ? "border-snt-brand-primary-500 bg-snt-brand-primary-50"
-          : "border-snt-neutral-divider-10 bg-snt-surface-app",
-      )}
-      aria-hidden
-    />
-  );
-}
 
 // ── FilterBarSpecs ────────────────────────────────────────────────────────
 
@@ -48,68 +27,7 @@ export function FilterBarSpecs() {
         <SpecLede>
           Per-pill props plus bar-level toggles. Place pills left-to-right in the bar; pin actions (Export, Bulk) to the right.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:    "state",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<PillStateSwatch state="default"  />} label="default" />
-                  <OptionPill swatch={<PillStateSwatch state="active"   />} label="active" />
-                  <OptionPill swatch={<PillStateSwatch state="overflow" />} label="overflow" />
-                </div>
-              ),
-              default:     "default",
-              description: "Default is empty filter; active has applied values; overflow is the dashed (+ N) chip.",
-            },
-            {
-              name:    "label",
-              type:    "string",
-              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. &quot;Tags&quot;</span>,
-              default: "—",
-              description: "Filter category name. Keep short — pills wrap horizontally only on overflow.",
-            },
-            {
-              name:    "icon",
-              type:    "Icon",
-              values:  <span className="font-mono text-[11px] text-snt-text-secondary">Lucide</span>,
-              default: "—",
-              description: "Optional 12px glyph that reinforces the category at a glance.",
-            },
-            {
-              name:    "count",
-              type:    "number",
-              values:  <span className="font-mono text-[11px] text-snt-text-secondary">e.g. 2</span>,
-              default: "—",
-              description: "Active value count rendered as a small circular badge inside the pill.",
-            },
-            {
-              name:    "showSearch",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "true",
-              description: "Bar-level — prepends a 192px search input followed by a vertical divider.",
-            },
-            {
-              name:    "showClear",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "auto",
-              description: "Trailing red Clear button. Auto-shown when at least one filter is active.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="filter-bar" />
       </section>
 
       {/* Sizing & spacing */}
@@ -135,7 +53,7 @@ export function FilterBarSpecs() {
               { label: "Height",                values: ["32px", "32px", "32px"], note: "Uniform across row." },
               { label: "Padding · horizontal",  values: ["12px", "12px", "12px"], note: "Action iconOnly uses 8px." },
               { label: "Padding · vertical",    values: ["4px",  "4px",  "4px"] },
-              { label: "Border radius",         values: ["8px",  "8px",  "8px"] },
+              { label: "Border radius",         values: ["10px", "10px", "10px"] },
               { label: "Border width",          values: ["1px",  "1px",  "1px"], note: "Overflow pill is dashed." },
               { label: "Icon · label gap",      values: ["8px",  "8px",  "—"] },
               { label: "Icon size",             values: ["12px", "12px", "12px"] },
@@ -163,26 +81,26 @@ export function FilterBarSpecs() {
               id: "pill",
               label: "Filter pill",
               rows: [
-                { variant: "Default",   bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-secondary",     hex: "#4d5862" }, border: { token: "neutral-divider-10", hex: "#e0e3e5" }, hover: { token: "neutral-grey-300", hex: "#dfe2e2" } },
-                { variant: "Active",    bg: { token: "brand-primary-50",   hex: "#e8f4fd" }, text: { token: "brand-primary-500",  hex: "#0066cc" }, border: { token: "brand-primary-500",  hex: "#0066cc" } },
-                { variant: "Overflow",  bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-secondary",     hex: "#4d5862" }, border: { token: "neutral-divider-10", hex: "#e0e3e5" }, hover: { token: "brand-primary-500", hex: "#0066cc" } },
+                { variant: "Default",   bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-secondary",     hex: "#4d5862" }, border: { token: "border-default", hex: "#e0e3e5" }, hover: { token: "border-strong", hex: "#dfe2e2" } },
+                { variant: "Active",    bg: { token: "bg-brand-subtle",   hex: "#e8f4fd" }, text: { token: "brand-primary-500",  hex: "#0066cc" }, border: { token: "brand-primary-500",  hex: "#0066cc" } },
+                { variant: "Overflow",  bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-secondary",     hex: "#4d5862" }, border: { token: "border-default", hex: "#e0e3e5" }, hover: { token: "brand-primary-500", hex: "#0066cc" } },
               ],
             },
             {
               id: "action",
               label: "Action",
               rows: [
-                { variant: "Action · default",  bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-secondary",     hex: "#4d5862" }, border: { token: "neutral-divider-10", hex: "#e0e3e5" }, hover: { token: "text-primary", hex: "#121f28" } },
-                { variant: "Action · muted",    bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-disabled",      hex: "#8a9199" }, border: { token: "neutral-divider-10", hex: "#e0e3e5" } },
-                { variant: "Search input",      bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-primary",       hex: "#121f28" }, border: { token: "neutral-divider-10", hex: "#e0e3e5" }, hover: { token: "brand-primary-500", hex: "#0066cc" } },
-                { variant: "Vertical divider",  bg: { token: "neutral-divider-10", hex: "#e0e3e5" }, text: { token: "text-disabled",      hex: "#8a9199" } },
+                { variant: "Action · default",  bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-secondary",     hex: "#4d5862" }, border: { token: "border-default", hex: "#e0e3e5" }, hover: { token: "text-primary", hex: "#121f28" } },
+                { variant: "Action · muted",    bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-disabled",      hex: "#8a9199" }, border: { token: "border-default", hex: "#e0e3e5" } },
+                { variant: "Search input",      bg: { token: "surface-app",        hex: "#ffffff" }, text: { token: "text-primary",       hex: "#121f28" }, border: { token: "border-default", hex: "#e0e3e5" }, hover: { token: "brand-primary-500", hex: "#0066cc" } },
+                { variant: "Vertical divider",  bg: { token: "border-default", hex: "#e0e3e5" }, text: { token: "text-disabled",      hex: "#8a9199" } },
               ],
             },
             {
               id: "clear",
               label: "Clear",
               rows: [
-                { variant: "Clear button",     text: { token: "scale-red-600",     hex: "#ae2700" }, hover: { token: "scale-red-700", hex: "#881f00" } },
+                { variant: "Clear button",     text: { token: "text-error",     hex: "#ae2700" }, hover: { token: "scale-red-700", hex: "#881f00" } },
                 { variant: "Count badge",      bg: { token: "brand-primary-500",   hex: "#0066cc" }, text: { token: "text-on-accent", hex: "#ffffff" } },
               ],
             },

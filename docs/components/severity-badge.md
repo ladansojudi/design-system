@@ -25,25 +25,26 @@ The canonical way to show a finding's severity (Critical → Info), optionally w
 ## Anatomy
 
 ```
-┌──────────────────────┐
-│ ① High        ② 8.1  │
-└──────────────────────┘
+┌─────────────────────────┐
+│ ① ▂▄▆█  ② High  ③ 8.1   │
+└─────────────────────────┘
 ```
 
-1. **Label**: fixed text per severity (always shown; colour is never the only signal).
-2. **Score** (optional): right-aligned at 80% opacity.
+1. **Signal bars**: four bars filled to the level (Critical 4, High 3, Medium 2, Low 1); Info is a ring. Bar count and colour carry the level together.
+2. **Label**: severity name, always written out (colour is never the only signal).
+3. **Score** (optional): mono, one decimal.
 
-Width is fixed at 160px (`w-40`) so columns align in tables.
+Width follows the label. Right-align the severity column in tables so the bars line up. Sizes: `md` 28px, `sm` 24px for dense tables.
 
 ## Variants
 
 | `severity` | Colour family | Typical CVSS |
 |---|---|---|
-| `critical` | Purple | 9.0–10.0 |
-| `high` | Red | 7.0–8.9 |
-| `medium` | Yellow | 4.0–6.9 |
-| `low` | Green | 0.1–3.9 |
-| `info` | Blue | 0.0 |
+| `critical` | Purple · 4 bars | 9.0–10.0 |
+| `high` | Red · 3 bars | 7.0–8.9 |
+| `medium` | Yellow · 2 bars | 4.0–6.9 |
+| `low` | Green · 1 bar | 0.1–3.9 |
+| `info` | Blue · ring | 0.0 |
 
 The order and colours are product-wide conventions. Don't recolour them per screen.
 
@@ -64,16 +65,16 @@ Static.
 ## Accessibility
 - The label text carries the meaning, so it passes WCAG 1.4.1 (use of colour).
 - When the score is shown, give screen readers context: `aria-label="Severity high, score 8.1"` on the root, or visually hidden text.
-- Contrast: `*-600` / `*-700` text on `*-50` passes 4.5:1.
+- Bars are `aria-hidden`; the label is plain text on a neutral surface (`text-primary` on `surface-app`). Light hues (Medium, Info) are under 3:1 as graphics, which is allowed because the label and the bar count carry the meaning.
 
 ## Design tokens
 
 | Role | Token |
 |---|---|
-| Background | `snt-scale-{purple,red,yellow,green,blue}-50` |
-| Accent | `snt-scale-*-500` |
-| Text | `snt-scale-*-600` (yellow `-700`) |
-| Data-viz equivalent | `--snt-severity-{critical,high,medium,low,info}` |
+| Filled bars / Info ring | `snt-severity-{critical,high,medium,low,info}` (the same tokens charts use) |
+| Empty bars | `snt-border-default` |
+| Container | `snt-surface-app`, ring `snt-border-default` |
+| Label / score | `snt-text-primary` / `snt-text-secondary` |
 
 ## Design ↔ Code
 
@@ -87,7 +88,8 @@ Static.
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `severity` | `"critical" \| "high" \| "medium" \| "low" \| "info"` | — | **Required** |
-| `score` | `number` | — | Optional numeric score |
+| `score` | `number` | — | Optional numeric score, shown with one decimal |
+| `size` | `"sm" \| "md"` | `"md"` | 24 / 28px tall |
 | …rest | `HTMLAttributes<HTMLDivElement>` | — | Forwarded |
 
 ## Examples
@@ -98,8 +100,7 @@ Static.
 ```
 
 ## Known gaps
-- [ ] The fixed `w-40` width doesn't adapt to narrow columns. Add a `size="sm"` / auto-width option.
-- [ ] Uses primitive `scale-*` tokens. It should use the semantic `snt-severity-*` tokens so chart and badge colours can't drift apart.
+- [ ] Not redrawn in the Figma library yet (still the old left-bar design).
 - [ ] No compact dot-only variant for dense lists (it would need hidden text).
 
 ## Related

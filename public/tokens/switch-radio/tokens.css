@@ -4,7 +4,6 @@
 
 :root {
   /* Colors */
-  --snt-neutral-grey-800: #27272a;
   --snt-text-primary: #09090b;
   --snt-text-secondary: #52525b;
   --snt-text-disabled: #a1a1aa;
@@ -17,8 +16,6 @@
   --space-16: 64px;
   --space-6: 24px;
   --space-10: 40px;
-  --space-5: 20px;
-  --space-3: 12px;
   --space-9: 36px;
 
   /* Radius */

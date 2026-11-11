@@ -7,10 +7,8 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let neutralGrey400 = UIColor(hex: "#8F8F98")
     static let textPrimary = UIColor(hex: "#09090B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
-    static let btnNeutral800 = UIColor(hex: "#18181B")
     static let btnPrimary600 = UIColor(hex: "#4F46E5")
 }
 
@@ -33,7 +31,6 @@ extension CGFloat {
 
     // Border width
     static let borderWidth1: CGFloat = 1
-    static let borderWidth2: CGFloat = 2
 
     // Font size
     static let fontSize10: CGFloat = 10

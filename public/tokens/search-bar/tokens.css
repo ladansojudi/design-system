@@ -5,10 +5,8 @@
 :root {
   /* Colors */
   --snt-brand-primary-500: #5b5bd6;
-  --snt-neutral-grey-200: #e4e4e7;
   --snt-surface-app: #ffffff;
   --snt-text-primary: #09090b;
-  --snt-text-secondary: #52525b;
   --snt-text-disabled: #a1a1aa;
 
   /* Spacing */
@@ -31,7 +29,6 @@
 
   /* Font size */
   --font-size-10: 10px;
-  --font-size-11: 11px;
   --font-size-14: 14px;
 
   /* Font weight */

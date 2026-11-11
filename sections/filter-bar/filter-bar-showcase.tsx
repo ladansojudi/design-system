@@ -5,6 +5,7 @@ import { useState } from "react";
 import {
   SlidersHorizontal, Upload, X, Plus,
   Tag, CheckCircle, Shield, Calendar, Radar, Network,
+  CircleCheck,
 } from "lucide-react";
 import { ExampleCard } from "@/components/styleguide/example-card";
 import { FilterPill, FilterSearch, FilterAction, FilterClear, FilterBarDivider } from "@/components/ui/filter-bar";
@@ -194,7 +195,7 @@ function SearchOnlyExample() {
         <SearchInput value={v} onChange={setV} />
         <VDivider />
         <FilterPill label="Tags" icon={Tag} />
-        <FilterPill label="Verify Status" icon={CheckCircle} />
+        <FilterPill label="Verify Status" icon={CircleCheck} />
       </div>
     </div>
   );
@@ -228,7 +229,7 @@ function ActivePillsExample() {
       <div className="flex items-center gap-2">
         <FilterPill label="Tags" icon={Tag} count={2} active onClear={() => {}} />
         <FilterPill label="Advanced Security" icon={Shield} count={1} active onClear={() => {}} />
-        <FilterPill label="Verify Status" icon={CheckCircle} />
+        <FilterPill label="Verify Status" icon={CircleCheck} />
         <ClearBtn onClick={() => {}} />
       </div>
     </div>
@@ -270,14 +271,15 @@ export function FilterBarExamples() {
         title="Full bar — search + filters + actions"
         density="default"
         code={`<FilterBar>
-  <SearchInput />
+  <FilterBarGroup grow>
+    <FilterSearch aria-label="Search findings" value={q} onChange={setQ} />
+  </FilterBarGroup>
   <FilterPill label="Tags" icon={Tag} />
-  <FilterPill label="Verify Status" icon={CheckCircle} />
+  <FilterPill label="Verify Status" icon={CircleCheck} />
   <FilterPill label="Advanced Security" icon={Shield} count={1} active />
-  <FilterBarActions>
-    <Button variant="outline" iconOnly><Upload /></Button>
-    <Button variant="outline">Bulk Actions</Button>
-  </FilterBarActions>
+  <FilterBarDivider />
+  <FilterAction icon={Upload} label="Export" iconOnly aria-label="Export" />
+  <FilterAction label="Bulk actions" />
 </FilterBar>`}
         preview={<FullBarExample />}
       />
@@ -285,9 +287,11 @@ export function FilterBarExamples() {
         title="Search only"
         density="default"
         code={`<FilterBar>
-  <SearchInput />
+  <FilterBarGroup grow>
+    <FilterSearch aria-label="Search findings" value={q} onChange={setQ} />
+  </FilterBarGroup>
   <FilterPill label="Tags" icon={Tag} />
-  <FilterPill label="Verify Status" icon={CheckCircle} />
+  <FilterPill label="Verify Status" icon={CircleCheck} />
 </FilterBar>`}
         preview={<SearchOnlyExample />}
       />
@@ -295,10 +299,10 @@ export function FilterBarExamples() {
         title="With active pills"
         density="default"
         code={`<FilterBar>
-  <FilterPill label="Tags" icon={Tag} count={2} active onClear={...} />
-  <FilterPill label="Advanced Security" icon={Shield} count={1} active onClear={...} />
-  <FilterPill label="Verify Status" icon={CheckCircle} />
-  <FilterBarClear onClick={...} />
+  <FilterPill label="Tags" icon={Tag} count={2} active onClear={clearFilter} />
+  <FilterPill label="Advanced Security" icon={Shield} count={1} active onClear={clearFilter} />
+  <FilterPill label="Verify Status" icon={CircleCheck} />
+  <FilterClear onClick={clearAll} />
 </FilterBar>`}
         preview={<ActivePillsExample />}
       />
@@ -306,11 +310,13 @@ export function FilterBarExamples() {
         title="With overflow"
         density="default"
         code={`<FilterBar>
-  <SearchInput />
+  <FilterBarGroup grow>
+    <FilterSearch aria-label="Search findings" value={q} onChange={setQ} />
+  </FilterBarGroup>
   <FilterPill label="Tags" icon={Tag} />
-  <FilterPill label="Verify Status" icon={CheckCircle} />
+  <FilterPill label="Verify Status" icon={CircleCheck} />
   <FilterPill label="Advanced Security" icon={Shield} count={1} active />
-  <FilterBarOverflow count={3} />
+  <FilterOverflow count={3} />
 </FilterBar>`}
         preview={<OverflowExample />}
       />

@@ -11,6 +11,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { SeverityBadge } from "@/components/ui/severity-badge";
 
 export const metadata: Metadata = {
   title: "Data Table — Sentinel Design System",
@@ -89,9 +90,7 @@ export default function Page() {
                       </div>
                       <span className="text-[11px] text-snt-text-secondary text-right tabular-nums">{r.d}</span>
                       <div className="flex justify-end">
-                        <div className="flex items-center justify-center rounded-md px-2 py-0.5 w-16 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500">
-                          <span className="text-[11px] font-medium text-snt-scale-red-600">High</span>
-                        </div>
+                        <SeverityBadge severity="high" size="sm" />
                       </div>
                     </div>
                   ))}

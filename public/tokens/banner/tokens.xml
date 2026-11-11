@@ -5,10 +5,8 @@
 
     <!-- Colors -->
     <color name="brand_primary_600">#4F46E5</color>
-    <color name="scale_yellow_500">#F5BF40</color>
     <color name="text_primary">#09090B</color>
     <color name="text_white">#FFFFFF</color>
-    <color name="btn_neutral_800">#18181B</color>
     <color name="btn_primary_600">#4F46E5</color>
 
     <!-- Spacing -->

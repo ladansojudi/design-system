@@ -78,7 +78,7 @@ const TONE_CLASS: Record<Tone, ColorConfig> = {
 };
 
 const BASE =
-  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-snt-12 font-medium";
+  "inline-flex h-6 items-center gap-1.5 rounded-full px-2.5 text-snt-12 font-medium";
 
 function renderPill(
   {

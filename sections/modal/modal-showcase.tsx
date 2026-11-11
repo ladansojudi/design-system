@@ -6,6 +6,7 @@ import { X, Info, AlertTriangle, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ExampleCard } from "@/components/styleguide/example-card";
 import { Modal, ModalHeader as UIModalHeader, ModalTitle } from "@/components/ui/modal";
+import { SeverityBadge } from "@/components/ui/severity-badge";
 
 // ── Shared: backdrop + container ───────────────────────────────────────────
 
@@ -267,9 +268,7 @@ function DetailModal({ open, onClose }: { open: boolean; onClose: () => void }) 
       <ModalHeader title="CVE-2014-0224 · Detail" onClose={onClose} />
       <div className="px-5 py-5 max-h-[60vh] overflow-y-auto space-y-5">
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center rounded-md px-2.5 py-1 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500 text-[12px] font-medium text-snt-scale-red-600">
-            High
-          </span>
+          <SeverityBadge severity="high" size="sm" />
           <span className="text-[12px] text-snt-text-disabled">Found on 18 Apr 2026</span>
         </div>
 
@@ -436,18 +435,18 @@ export function ModalExamples() {
       <ExampleCard
         title="Alert"
         density="tall"
-        code={`<Modal variant="alert" open={open} onClose={close}>
-  <Modal.Body
-    icon={<CheckCircle />}
-    iconTone="success"
-    title="Scan completed"
-  >
-    We finished scanning your asset. All detected findings are now
-    available in the dashboard.
-  </Modal.Body>
-  <Modal.Footer>
-    <Button intent="primary" onClick={close}>Got it</Button>
-  </Modal.Footer>
+        code={`const [open, setOpen] = useState(false);
+
+<Modal open={open} onOpenChange={setOpen}>
+  <ModalHeader onClose={() => setOpen(false)}>
+    <ModalTitle>Scan completed</ModalTitle>
+  </ModalHeader>
+  <ModalBody>
+    <ModalDescription>All detected findings are now available in the dashboard.</ModalDescription>
+  </ModalBody>
+  <ModalFooter>
+    <Button onClick={() => setOpen(false)}>Got it</Button>
+  </ModalFooter>
 </Modal>`}
         preview={
           <FakeModalCard size="sm">
@@ -471,19 +470,17 @@ export function ModalExamples() {
       <ExampleCard
         title="Confirm · Destructive"
         density="tall"
-        code={`<Modal variant="confirm" destructive open={open} onClose={close}>
-  <Modal.Body
-    icon={<AlertTriangle />}
-    iconTone="destructive"
-    title="Delete asset?"
-  >
-    This permanently removes the asset and all of its findings.
-    This action cannot be undone.
-  </Modal.Body>
-  <Modal.Footer>
-    <Button variant="outline" onClick={close}>Cancel</Button>
-    <Button intent="destructive" onClick={onDelete}>Delete</Button>
-  </Modal.Footer>
+        code={`<Modal open={open} onOpenChange={setOpen}>
+  <ModalHeader onClose={() => setOpen(false)}>
+    <ModalTitle>Delete asset?</ModalTitle>
+  </ModalHeader>
+  <ModalBody>
+    <ModalDescription>This permanently removes the asset and all of its findings. This can't be undone.</ModalDescription>
+  </ModalBody>
+  <ModalFooter>
+    <Button intent="neutral" variant="outline" data-autofocus onClick={() => setOpen(false)}>Cancel</Button>
+    <Button intent="destructive" onClick={deleteAsset}>Delete</Button>
+  </ModalFooter>
 </Modal>`}
         preview={
           <FakeModalCard size="sm">
@@ -510,17 +507,17 @@ export function ModalExamples() {
       <ExampleCard
         title="Detail"
         density="tall"
-        code={`<Modal variant="detail" size="lg" open={open} onClose={close}>
-  <Modal.Header title="CVE-2014-0224 · Detail" onClose={close} />
-  <Modal.Body>
-    <Tag tone="critical">High</Tag>
-    <Section title="Description">…</Section>
-    <Section title="Affected assets">…</Section>
-  </Modal.Body>
-  <Modal.Footer>
-    <Button variant="outline" onClick={close}>Close</Button>
-    <Button intent="primary">Open ticket</Button>
-  </Modal.Footer>
+        code={`<Modal open={open} onOpenChange={setOpen} size="lg">
+  <ModalHeader onClose={() => setOpen(false)}>
+    <ModalTitle>CVE-2021-44228</ModalTitle>
+  </ModalHeader>
+  <ModalBody scrollable>
+    {/* finding details */}
+  </ModalBody>
+  <ModalFooter bordered>
+    <Button intent="neutral" variant="outline" onClick={() => setOpen(false)}>Close</Button>
+    <Button>Create ticket</Button>
+  </ModalFooter>
 </Modal>`}
         preview={
           <FakeModalCard size="md">
@@ -532,9 +529,7 @@ export function ModalExamples() {
             </div>
             <div className="px-5 py-5 space-y-4">
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center rounded-md px-2.5 py-1 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500 text-[12px] font-medium text-snt-scale-red-600">
-                  High
-                </span>
+                <SeverityBadge severity="high" size="sm" />
                 <span className="text-[12px] text-snt-text-disabled">Found on 18 Apr 2026</span>
               </div>
               <div className="space-y-1.5">

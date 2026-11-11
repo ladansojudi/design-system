@@ -7,14 +7,9 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#5B5BD6")
-    static let scaleBlue500 = UIColor(hex: "#7DAFD6")
     static let scaleGreen50 = UIColor(hex: "#F1FFDB")
     static let scaleGreen500 = UIColor(hex: "#63A100")
     static let scaleGreen600 = UIColor(hex: "#3F6600")
-    static let scaleYellow500 = UIColor(hex: "#F5BF40")
-    static let scaleRed500 = UIColor(hex: "#D13D2E")
-    static let neutralGrey400 = UIColor(hex: "#8F8F98")
     static let textPrimary = UIColor(hex: "#09090B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
 }

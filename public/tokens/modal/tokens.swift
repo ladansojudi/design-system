@@ -13,7 +13,6 @@ extension UIColor {
     static let scaleYellow50 = UIColor(hex: "#FEFAF0")
     static let scaleYellow600 = UIColor(hex: "#DA9C0B")
     static let scaleRed50 = UIColor(hex: "#FCF3F2")
-    static let scaleRed500 = UIColor(hex: "#D13D2E")
     static let scaleRed600 = UIColor(hex: "#8E2A1F")
     static let scaleRed700 = UIColor(hex: "#712219")
     static let neutralGrey100 = UIColor(hex: "#F4F4F5")

@@ -165,7 +165,12 @@ for (const file of fs.readdirSync(UI_DIR).filter((f) => f.endsWith(".tsx") && !E
     title: doc?.meta.title ?? slug,
     description: doc?.summary,
     dependencies: deps.length ? deps : undefined,
-    registryDependencies: [UTILS_URL, THEME_URL],
+    // Components built on other components (Data table → Severity badge) pull them in too.
+    registryDependencies: [
+      UTILS_URL,
+      THEME_URL,
+      ...api.imports.filter((i) => i.startsWith("@/components/ui/")).map((i) => `${SITE_URL}/r/${i.split("/").pop()}.json`),
+    ],
     files: [{ path: `components/ui/${file}`, type: "registry:ui" }],
     docs: `${doc?.meta.title ?? slug} (${status}). Usage, accessibility and known gaps: ${SITE_URL}/docs/components/${slug}.md`,
     categories: [(doc?.meta.category ?? "component").toLowerCase()],

@@ -4,6 +4,7 @@ import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { SeverityBadgeShowcase, SeverityBadgeExamples } from "@/sections/severity-badge/severity-badge-showcase";
 import { SeverityBadgeSpecs } from "@/sections/severity-badge/severity-badge-specs";
+import { SeverityBadge } from "@/components/ui/severity-badge";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
 import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
 import { FigmaNote } from "@/components/styleguide/figma-note";
@@ -39,17 +40,12 @@ export default function SeverityBadgePage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Accent bar",       description: "3px left bar that carries the severity color, giving instant recognition." },
-                  { label: "Background",       description: "Tinted surface in the lightest scale of the severity color." },
-                  { label: "Label",            description: "Severity name, colored to match the scale (600 weight)." },
-                  { label: "Score (optional)", description: "Numeric CVSS score or risk value aligned to the right." },
+                  { label: "Signal bars",      description: "Four bars, filled to the level: Critical 4, High 3, Medium 2, Low 1. Info is a ring. Count and colour carry the level together." },
+                  { label: "Label",            description: "Severity name, always written out." },
+                  { label: "Score (optional)", description: "CVSS or internal score in mono, one decimal." },
+                  { label: "Container",        description: "Neutral surface with a hairline ring, so badges stay calm in dense tables." },
                 ]}
-                preview={
-                  <div className="flex items-center justify-between rounded-md px-3 py-1.5 w-40 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500">
-                    <span className="text-sm font-medium text-snt-scale-red-600">High</span>
-                    <span className="text-sm text-snt-scale-red-600 opacity-80">8.4</span>
-                  </div>
-                }
+                preview={<SeverityBadge severity="critical" score={9.8} />}
               />
               <SeverityBadgeSpecs />
             </DocSection>
@@ -77,7 +73,7 @@ export default function SeverityBadgePage() {
                 items={[
                   { type: "do",   text: "Use exactly one severity per item — never stack badges for the same finding." },
                   { type: "dont", text: "Don't invent new severities; stick to the five defined levels." },
-                  { type: "do",   text: "Align badges to a fixed width in tables so rows stay visually balanced." },
+                  { type: "do",   text: "Right-align the severity column in tables so bars line up." },
                   { type: "dont", text: "Don't reuse severity colors for unrelated tags — it dilutes their meaning." },
                 ]}
               />

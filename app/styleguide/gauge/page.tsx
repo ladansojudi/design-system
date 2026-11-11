@@ -59,8 +59,8 @@ export default function Page() {
             <DocSection title="Usage">
               <UseCases
                 items={[
-                  "Use the default variant on dashboards to surface a score against a known scale (risk score, coverage, SLA).",
-                  "Use the minimal variant inside dense lists or small cards where a full gauge would dominate the layout.",
+                  "Use it on dashboards to surface one score against a known scale (risk score, coverage, SLA).",
+                  "In dense lists or small cards, show the number alone — a full gauge would dominate the layout.",
                   "Match the color to the meaning of the score — green for healthy, yellow for warning, red for critical, blue / purple for neutral categories.",
                   "Pair with a stat card for context (label + delta) when a single number isn't enough to interpret the value.",
                 ]}
@@ -71,7 +71,7 @@ export default function Page() {
                   { type: "dont", text: "Don't change the arc sweep per gauge — every gauge in a group should share the same geometry." },
                   { type: "do",   text: "Let the animation run once on mount; don't loop it — that reads as a spinner." },
                   { type: "dont", text: "Don't put more than one gauge per row on mobile; the label becomes unreadable." },
-                  { type: "do",   text: "Use the minimal variant when the value is the message and decoration would steal attention." },
+                  { type: "do",   text: "Show the plain number when the value is the message and the arc would only decorate it." },
                   { type: "dont", text: "Don't use the gauge for binary states (on/off) — use a badge or switch instead." },
                 ]}
               />

@@ -60,16 +60,16 @@ export default function Page() {
             <DocSection title="Usage">
               <UseCases
                 items={[
-                  "Use Alert for passive confirmation of a background action (scan complete, settings saved).",
-                  "Use Confirm for reversible but important changes (restart monitoring, unassign user).",
-                  "Use Confirm · Destructive for irreversible actions (delete asset, revoke API token).",
-                  "Use Onboarding · Gated for short, focused data entry that requires legal acknowledgments or authority confirmation — the primary button stays disabled until every toggle is on.",
-                  "Use Detail for a deep-dive view where the user needs to inspect data before acting (CVE detail, finding timeline).",
+                  "Use a one-button modal (title, message, \u201cGot it\u201d) for passive confirmation of a background action (scan complete, settings saved).",
+                  "Use a confirm modal (Cancel + action) for reversible but important changes (restart monitoring, unassign user).",
+                  "Use a confirm modal with a destructive Button for irreversible actions (delete asset, revoke API token).",
+                  "Use a gated modal (Switches + a disabled primary Button) for short, focused data entry that requires legal acknowledgments or authority confirmation — the primary button stays disabled until every toggle is on.",
+                  "Use the lg size with a scrollable ModalBody for a deep-dive view where the user needs to inspect data before acting (CVE detail, finding timeline).",
                 ]}
               />
               <Guidelines
                 items={[
-                  { type: "do",   text: "Close the modal on Esc and on backdrop click — except for destructive confirms." },
+                  { type: "do",   text: "Close on Esc and on backdrop click (the defaults) — for destructive confirms, set closeOnBackdrop={false}." },
                   { type: "dont", text: "Don't stack modals; if one modal triggers another, redesign the flow." },
                   { type: "do",   text: "Use red primary button only when the action is genuinely irreversible." },
                   { type: "dont", text: "Don't put more than two primary actions in the footer; split into multiple steps instead." },

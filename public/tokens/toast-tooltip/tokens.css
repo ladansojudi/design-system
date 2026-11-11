@@ -7,7 +7,6 @@
   --snt-brand-primary-600: #4f46e5;
   --snt-brand-primary-700: #4338ca;
   --snt-neutral-grey-100: #f4f4f5;
-  --snt-neutral-grey-400: #8f8f98;
   --snt-surface-app: #ffffff;
   --snt-feedback-info: #7dafd6;
   --snt-feedback-success: #63a100;
@@ -31,7 +30,6 @@
   /* Radius */
   --radius-lg: 8px;
   --radius-xl: 12px;
-  --radius-full: 9999px;
 
   /* Border width */
   --border-width-1: 1px;

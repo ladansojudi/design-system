@@ -2,6 +2,7 @@
 
 import type React from "react";
 import { cn } from "@/lib/utils";
+import { SeverityBadge } from "@/components/ui/severity-badge";
 
 // ── Severity ───────────────────────────────────────────────────────────────
 
@@ -16,12 +17,7 @@ const SEV: Record<Severity, { label: string; bg: string; text: string; dot: stri
 };
 
 export function SeverityPill({ severity }: { severity: Severity }) {
-  const c = SEV[severity];
-  return (
-    <span className={cn("inline-flex items-center justify-center rounded-md px-3 py-1 w-20 text-[12px] font-medium", c.bg, c.text)}>
-      {c.label}
-    </span>
-  );
+  return <SeverityBadge severity={severity} size="sm" />;
 }
 
 export function SeverityDot({ severity }: { severity: Severity }) {

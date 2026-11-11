@@ -6,9 +6,7 @@
     <!-- Colors -->
     <color name="brand_primary_500">#5B5BD6</color>
     <color name="brand_primary_600">#4F46E5</color>
-    <color name="scale_red_600">#8E2A1F</color>
     <color name="neutral_grey_300">#D4D4D8</color>
-    <color name="neutral_grey_500">#71717A</color>
     <color name="surface_row">#FFFFFF</color>
     <color name="text_primary">#09090B</color>
     <color name="text_secondary">#52525B</color>

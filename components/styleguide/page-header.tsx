@@ -30,7 +30,7 @@ export function PageHeader({ category, categoryHref, title, description, status,
           <ol className="flex items-center gap-1.5 text-[12px] text-snt-text-disabled">
             <li>
               <Link
-                href="/"
+                href="/styleguide/overview"
                 className="hover:text-snt-text-primary transition-colors"
               >
                 Sentinel

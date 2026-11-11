@@ -1065,19 +1065,8 @@
         "snt-12",
         "snt-14",
         "snt-18",
-        "snt-bg-subtle",
-        "snt-scale-green-50",
-        "snt-scale-green-500",
-        "snt-scale-green-600",
-        "snt-scale-purple-50",
-        "snt-scale-purple-500",
-        "snt-scale-purple-600",
-        "snt-scale-red-50",
-        "snt-scale-red-500",
-        "snt-scale-red-600",
-        "snt-scale-yellow-50",
-        "snt-scale-yellow-500",
-        "snt-scale-yellow-700",
+        "snt-border-default",
+        "snt-surface-app",
         "snt-text-primary",
         "snt-text-secondary"
       ],
@@ -1231,7 +1220,7 @@
             },
             {
               "name": "severity",
-              "type": "\"high\" | \"critical\"",
+              "type": "Severity",
               "optional": false
             }
           ]
@@ -1277,12 +1266,6 @@
         "snt-focus-ring",
         "snt-lg",
         "snt-neutral-grey-900",
-        "snt-scale-purple-50",
-        "snt-scale-purple-500",
-        "snt-scale-purple-600",
-        "snt-scale-red-50",
-        "snt-scale-red-500",
-        "snt-scale-red-600",
         "snt-scale-yellow-500",
         "snt-scale-yellow-700",
         "snt-surface-app",
@@ -2266,37 +2249,44 @@
           "members": [
             {
               "name": "severity",
-              "type": "\"low\" | \"critical\" | \"high\" | \"medium\" | \"info\"",
+              "type": "Severity",
               "optional": false
             },
             {
               "name": "score",
               "type": "number",
-              "optional": true
+              "optional": true,
+              "description": "Optional numeric score (e.g. CVSS), shown after the label."
+            },
+            {
+              "name": "size",
+              "type": "\"sm\" | \"md\"",
+              "optional": true,
+              "description": "sm 24px for dense tables, md 28px.",
+              "default": "\"md\""
             }
           ]
         }
       },
-      "types": {},
+      "types": {
+        "Severity": {
+          "type": "\"critical\" | \"high\" | \"medium\" | \"low\" | \"info\""
+        }
+      },
       "tokens": [
+        "snt-12",
         "snt-14",
-        "snt-scale-blue-50",
-        "snt-scale-blue-500",
-        "snt-scale-blue-600",
-        "snt-scale-green-50",
-        "snt-scale-green-500",
-        "snt-scale-green-600",
-        "snt-scale-purple-50",
-        "snt-scale-purple-500",
-        "snt-scale-purple-600",
-        "snt-scale-red-50",
-        "snt-scale-red-500",
-        "snt-scale-red-600",
-        "snt-scale-yellow-50",
-        "snt-scale-yellow-500",
-        "snt-scale-yellow-700"
+        "snt-border-default",
+        "snt-severity-critical",
+        "snt-severity-high",
+        "snt-severity-info",
+        "snt-severity-low",
+        "snt-severity-medium",
+        "snt-surface-app",
+        "snt-text-primary",
+        "snt-text-secondary"
       ],
-      "clientComponent": true,
+      "clientComponent": false,
       "dependencies": [],
       "links": {
         "docs": "http://localhost:3000/docs/components/severity-badge.md",

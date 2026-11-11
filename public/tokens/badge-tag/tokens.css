@@ -4,14 +4,9 @@
 
 :root {
   /* Colors */
-  --snt-brand-primary-500: #5b5bd6;
-  --snt-scale-blue-500: #7dafd6;
   --snt-scale-green-50: #f1ffdb;
   --snt-scale-green-500: #63a100;
   --snt-scale-green-600: #3f6600;
-  --snt-scale-yellow-500: #f5bf40;
-  --snt-scale-red-500: #d13d2e;
-  --snt-neutral-grey-400: #8f8f98;
   --snt-text-primary: #09090b;
   --snt-text-disabled: #a1a1aa;
 

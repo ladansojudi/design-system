@@ -8,10 +8,8 @@ import UIKit
 
 extension UIColor {
     static let brandPrimary500 = UIColor(hex: "#5B5BD6")
-    static let neutralGrey200 = UIColor(hex: "#E4E4E7")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
     static let textPrimary = UIColor(hex: "#09090B")
-    static let textSecondary = UIColor(hex: "#52525B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
 }
 
@@ -38,7 +36,6 @@ extension CGFloat {
 
     // Font size
     static let fontSize10: CGFloat = 10
-    static let fontSize11: CGFloat = 11
     static let fontSize14: CGFloat = 14
 
     // Focus ring width

@@ -7,7 +7,6 @@
     <color name="brand_primary_600">#4F46E5</color>
     <color name="brand_primary_700">#4338CA</color>
     <color name="neutral_grey_100">#F4F4F5</color>
-    <color name="neutral_grey_400">#8F8F98</color>
     <color name="surface_app">#FFFFFF</color>
     <color name="feedback_info">#7DAFD6</color>
     <color name="feedback_success">#63A100</color>
@@ -31,7 +30,6 @@
     <!-- Radius -->
     <dimen name="radius_lg">8dp</dimen>
     <dimen name="radius_xl">12dp</dimen>
-    <dimen name="radius_full">9999dp</dimen>
 
     <!-- Border width -->
     <dimen name="border_width_1">1dp</dimen>

@@ -1,23 +1,15 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
-  OptionPill,
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
 
-function ColorSwatch({ hex }: { hex: string }) {
-  return (
-    <span
-      className="inline-block w-3 h-3 rounded-full border border-snt-neutral-divider-10"
-      style={{ backgroundColor: hex }}
-      aria-hidden
-    />
-  );
-}
 
 export function GaugeSpecs() {
   return (
@@ -28,43 +20,7 @@ export function GaugeSpecs() {
         <SpecLede>
           Every prop a designer can configure when placing this component. Use these names in Figma component properties for a 1:1 map with code.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:        "value",
-              type:        "number",
-              default:     "—",
-              description: "Current reading; clamped to [0, max] before drawing.",
-            },
-            {
-              name:        "max",
-              type:        "number",
-              default:     "100",
-              description: "Upper bound of the scale; appears after the “/” in the label.",
-            },
-            {
-              name:    "color",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<ColorSwatch hex="#3b82f6" />} label="blue" />
-                  <OptionPill swatch={<ColorSwatch hex="#22c55e" />} label="green" />
-                  <OptionPill swatch={<ColorSwatch hex="#e0a800" />} label="yellow" />
-                  <OptionPill swatch={<ColorSwatch hex="#d33324" />} label="red" />
-                  <OptionPill swatch={<ColorSwatch hex="#8a4dbf" />} label="purple" />
-                </div>
-              ),
-              default:     "blue",
-              description: "Severity tone — paints the track, fill arc and severity markers.",
-            },
-            {
-              name:        "label",
-              type:        "string",
-              default:     "{value} / {max}",
-              description: "Caption beneath the gauge; defaults to the numeric ratio.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="gauge" />
       </section>
 
       {/* Sizing & spacing */}
@@ -77,7 +33,7 @@ export function GaugeSpecs() {
         <DimensionsTable
           columns={["value"]}
           rows={[
-            { label: "Container · width",      values: ["168px"], note: "SVG canvas width." },
+            { label: "Container · width",      values: ["170px"], note: "SVG canvas width." },
             { label: "Container · height",     values: ["104px"], note: "Half-arc plus baseline." },
             { label: "Arc · radius",           values: ["68px"], note: "From baseline center." },
             { label: "Arc · stroke width",     values: ["12px"], note: "Track and progress share." },
@@ -163,7 +119,7 @@ export function GaugeSpecs() {
                 { variant: "Needle · body",  bg: { token: "neutral-grey-500",  hex: "#8a9199" }, text: { token: "—", hex: "#8a9199" } },
                 { variant: "Needle · pivot", bg: { token: "neutral-grey-600",  hex: "#5f6973" }, text: { token: "—", hex: "#5f6973" } },
                 { variant: "Label · value",  text: { token: "text-primary",    hex: "#121f28" } },
-                { variant: "Label · max",    text: { token: "text-disabled",   hex: "#8a9199" } },
+                { variant: "Label · max",    text: { token: "text-secondary",   hex: "#8a9199" } },
               ],
             },
           ]}

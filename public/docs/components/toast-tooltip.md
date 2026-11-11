@@ -111,10 +111,23 @@ Tooltip: ① content (max width 224px) · ② arrow toward the trigger.
 **ToastProvider / useToast**
 
 ```tsx
-<ToastProvider>{app}</ToastProvider>
+import { ToastProvider, useToast } from "@/components/ui/toast-tooltip";
+import { Button } from "@/components/ui/button";
 
-const toast = useToast();
-toast({ intent: "success", title: "Scan scheduled", description: "Runs daily at 02:00" });
+// Once, around the app (e.g. in app/layout.tsx)
+export function Providers({ children }: { children: React.ReactNode }) {
+  return <ToastProvider>{children}</ToastProvider>;
+}
+
+// Anywhere inside it
+export function ScheduleScan() {
+  const toast = useToast();
+  return (
+    <Button onClick={() => toast({ intent: "success", title: "Scan scheduled", description: "Runs daily at 02:00" })}>
+      Schedule scan
+    </Button>
+  );
+}
 ```
 
 | Option | Type | Default |

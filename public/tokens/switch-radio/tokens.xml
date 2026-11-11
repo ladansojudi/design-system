@@ -4,7 +4,6 @@
 <resources>
 
     <!-- Colors -->
-    <color name="neutral_grey_800">#27272A</color>
     <color name="text_primary">#09090B</color>
     <color name="text_secondary">#52525B</color>
     <color name="text_disabled">#A1A1AA</color>
@@ -17,8 +16,6 @@
     <dimen name="space_16">64dp</dimen>
     <dimen name="space_6">24dp</dimen>
     <dimen name="space_10">40dp</dimen>
-    <dimen name="space_5">20dp</dimen>
-    <dimen name="space_3">12dp</dimen>
     <dimen name="space_9">36dp</dimen>
 
     <!-- Radius -->

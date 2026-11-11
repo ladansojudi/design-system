@@ -7,7 +7,6 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let neutralGrey800 = UIColor(hex: "#27272A")
     static let textPrimary = UIColor(hex: "#09090B")
     static let textSecondary = UIColor(hex: "#52525B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
@@ -24,8 +23,6 @@ extension CGFloat {
     static let space16: CGFloat = 64
     static let space6: CGFloat = 24
     static let space10: CGFloat = 40
-    static let space5: CGFloat = 20
-    static let space3: CGFloat = 12
     static let space9: CGFloat = 36
 
     // Radius

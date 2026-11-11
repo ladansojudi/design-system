@@ -122,9 +122,11 @@ export function BreadcrumbExamples() {
         title="Three levels"
         density="tight"
         code={`<Breadcrumb>
-  <BreadcrumbLink href="/">Root</BreadcrumbLink>
-  <BreadcrumbLink href="/link">Link</BreadcrumbLink>
-  <BreadcrumbItem current>Current</BreadcrumbItem>
+  <BreadcrumbItem href="/">Root</BreadcrumbItem>
+  <BreadcrumbSeparator />
+  <BreadcrumbItem href="/link">Link</BreadcrumbItem>
+  <BreadcrumbSeparator />
+  <BreadcrumbItem isCurrent>Current</BreadcrumbItem>
 </Breadcrumb>`}
         preview={
           <Breadcrumb items={[
@@ -138,8 +140,9 @@ export function BreadcrumbExamples() {
         title="Two levels"
         density="tight"
         code={`<Breadcrumb>
-  <BreadcrumbLink href="/">Root</BreadcrumbLink>
-  <BreadcrumbItem current>Current</BreadcrumbItem>
+  <BreadcrumbItem href="/">Root</BreadcrumbItem>
+  <BreadcrumbSeparator />
+  <BreadcrumbItem isCurrent>Current</BreadcrumbItem>
 </Breadcrumb>`}
         preview={
           <Breadcrumb items={[
@@ -152,9 +155,11 @@ export function BreadcrumbExamples() {
         title="With visited link"
         density="tight"
         code={`<Breadcrumb>
-  <BreadcrumbLink href="/" state="visited">Root</BreadcrumbLink>
-  <BreadcrumbLink href="/link">Link</BreadcrumbLink>
-  <BreadcrumbItem current>Current</BreadcrumbItem>
+  <BreadcrumbItem href="/" visited>Root</BreadcrumbItem>
+  <BreadcrumbSeparator />
+  <BreadcrumbItem href="/link">Link</BreadcrumbItem>
+  <BreadcrumbSeparator />
+  <BreadcrumbItem isCurrent>Current</BreadcrumbItem>
 </Breadcrumb>`}
         preview={
           <Breadcrumb items={[

@@ -1,43 +1,21 @@
 "use client";
 
-import { CircleCheck, CircleAlert, Lightbulb, Ban } from "lucide-react";
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
+import { CircleCheck } from "lucide-react";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
   SpacingDiagram,
-  OptionPill,
-  BoolSwatch,
+  
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
 
 // ── Swatches ──────────────────────────────────────────────────────────────
 
-function ToastTypeSwatch({ tone }: { tone: "success" | "alert" | "info" | "warning" }) {
-  const map = {
-    success: { Icon: CircleCheck, cls: "text-snt-feedback-success" },
-    alert:   { Icon: CircleAlert, cls: "text-snt-feedback-warning" },
-    info:    { Icon: Lightbulb,   cls: "text-snt-feedback-info" },
-    warning: { Icon: Ban,         cls: "text-snt-feedback-alert" },
-  }[tone];
-  const Icon = map.Icon;
-  return <Icon size={12} className={map.cls} aria-hidden />;
-}
 
-function PositionSwatch({ pos }: { pos: "top" | "bottom" | "left" | "right" }) {
-  const dot = {
-    top:    "top-0 left-1/2 -translate-x-1/2",
-    bottom: "bottom-0 left-1/2 -translate-x-1/2",
-    left:   "left-0 top-1/2 -translate-y-1/2",
-    right:  "right-0 top-1/2 -translate-y-1/2",
-  }[pos];
-  return (
-    <span className="relative inline-block w-3 h-3 border border-snt-neutral-grey-400 rounded-[2px]" aria-hidden>
-      <span className={`absolute w-1 h-1 rounded-full bg-snt-text-primary ${dot}`} />
-    </span>
-  );
-}
 
 // ── Spec section ──────────────────────────────────────────────────────────
 
@@ -51,71 +29,7 @@ export function ToastTooltipSpecs() {
           Designer-facing props for Toast and Tooltip. Toast carries semantic meaning through its
           type; Tooltip is a neutral overlay anchored to one of four sides.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:    "type",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<ToastTypeSwatch tone="success" />} label="success" />
-                  <OptionPill swatch={<ToastTypeSwatch tone="alert"   />} label="alert" />
-                  <OptionPill swatch={<ToastTypeSwatch tone="info"    />} label="info" />
-                  <OptionPill swatch={<ToastTypeSwatch tone="warning" />} label="warning" />
-                </div>
-              ),
-              default:     "info",
-              description: "Toast only — feedback intent. Drives icon and timer-bar color.",
-            },
-            {
-              name:    "message",
-              type:    "string",
-              values:  <OptionPill label="single sentence" />,
-              default:     "—",
-              description: "Toast body. One past-tense sentence; route detail to the notification center.",
-            },
-            {
-              name:    "duration",
-              type:    "number (ms)",
-              values:  <OptionPill label="4000" />,
-              default:     "4000",
-              description: "Toast auto-dismiss timer. Set to 0 to keep until manually closed.",
-            },
-            {
-              name:    "dismissible",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "true",
-              description: "Toast only — show the × close button.",
-            },
-            {
-              name:    "position",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<PositionSwatch pos="top"    />} label="top" />
-                  <OptionPill swatch={<PositionSwatch pos="right"  />} label="right" />
-                  <OptionPill swatch={<PositionSwatch pos="bottom" />} label="bottom" />
-                  <OptionPill swatch={<PositionSwatch pos="left"   />} label="left" />
-                </div>
-              ),
-              default:     "top",
-              description: "Tooltip only — side the bubble anchors to relative to the trigger.",
-            },
-            {
-              name:    "content",
-              type:    "string",
-              values:  <OptionPill label="short hint" />,
-              default:     "—",
-              description: "Tooltip text. Keep under ~80 characters; this is a hint, not a dialog.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="toast-tooltip" />
       </section>
 
       {/* Sizing & spacing */}
@@ -146,7 +60,7 @@ export function ToastTooltipSpecs() {
             columns={["Toast", "Tooltip"]}
             rows={[
               { label: "Width",              values: ["320px",     "≤240px"], note: "Tooltip is content-sized up to max." },
-              { label: "Height",             values: ["56px",      "auto"],   note: "Tooltip grows with content." },
+              { label: "Height",             values: ["auto (50px with title + text)", "auto"],   note: "Both grow with content." },
               { label: "Padding · horizontal", values: ["16px",    "12px"] },
               { label: "Padding · vertical",   values: ["12px",    "8px"] },
               { label: "Border radius",      values: ["8px",       "8px"] },
@@ -178,9 +92,9 @@ export function ToastTooltipSpecs() {
               id: "toast-surface",
               label: "Toast · surface",
               rows: [
-                { variant: "Container", bg: { token: "surface-app",      hex: "#ffffff" }, text: { token: "text-primary",      hex: "#121f28" }, border: { token: "neutral-divider-10", hex: "#e3e5e5" } },
-                { variant: "Dismiss",   text:                                                  { token: "text-disabled",     hex: "#9ca3a4" },                                                            hover: { token: "text-primary",     hex: "#121f28" } },
-                { variant: "Timer rail", bg: { token: "neutral-grey-100", hex: "#f7f8f8" }, text: { token: "text-secondary",    hex: "#697376" } },
+                { variant: "Container", bg: { token: "surface-app",      hex: "#ffffff" }, text: { token: "text-primary",      hex: "#121f28" }, border: { token: "border-default", hex: "#e3e5e5" } },
+                { variant: "Dismiss",   text:                                                  { token: "text-secondary",     hex: "#9ca3a4" },                                                            hover: { token: "text-primary",     hex: "#121f28" } },
+                { variant: "Timer rail", bg: { token: "bg-subtle", hex: "#f7f8f8" }, text: { token: "text-secondary",    hex: "#697376" } },
               ],
             },
             {

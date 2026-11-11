@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
@@ -8,79 +6,69 @@ import { cn } from "@/lib/utils";
  *
  * Drop this file into your project at components/ui/severity-badge.tsx.
  *
+ * A finding's severity as signal bars: Critical fills four bars, High three,
+ * Medium two, Low one; Info shows an empty ring. The bar count carries the
+ * level as well as the colour, so it never relies on colour alone, and the
+ * label is always written out. No "use client".
+ *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
  *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
-type Severity = "low" | "critical" | "high" | "medium" | "info";
+export type Severity = "critical" | "high" | "medium" | "low" | "info";
 
 export interface SeverityBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   severity: Severity;
+  /** Optional numeric score (e.g. CVSS), shown after the label. */
   score?:   number;
+  /** sm 24px for dense tables, md 28px. */
+  size?:    "sm" | "md";
 }
 
-type SeverityConfig = {
-  label:  string;
-  bg:     string;
-  accent: string;
-  text:   string;
+const CONFIG: Record<Severity, { label: string; level: number; fill: string }> = {
+  critical: { label: "Critical", level: 4, fill: "bg-snt-severity-critical" },
+  high:     { label: "High",     level: 3, fill: "bg-snt-severity-high" },
+  medium:   { label: "Medium",   level: 2, fill: "bg-snt-severity-medium" },
+  low:      { label: "Low",      level: 1, fill: "bg-snt-severity-low" },
+  info:     { label: "Info",     level: 0, fill: "bg-snt-severity-info" },
 };
 
-const SEVERITY: Record<Severity, SeverityConfig> = {
-  low: {
-    label:  "Low",
-    bg:     "bg-snt-scale-green-50",
-    accent: "border-l-[3px] border-snt-scale-green-500",
-    text:   "text-snt-scale-green-600",
-  },
-  critical: {
-    label:  "Critical",
-    bg:     "bg-snt-scale-purple-50",
-    accent: "border-l-[3px] border-snt-scale-purple-500",
-    text:   "text-snt-scale-purple-600",
-  },
-  high: {
-    label:  "High",
-    bg:     "bg-snt-scale-red-50",
-    accent: "border-l-[3px] border-snt-scale-red-500",
-    text:   "text-snt-scale-red-600",
-  },
-  medium: {
-    label:  "Medium",
-    bg:     "bg-snt-scale-yellow-50",
-    accent: "border-l-[3px] border-snt-scale-yellow-500",
-    text:   "text-snt-scale-yellow-700",
-  },
-  info: {
-    label:  "Info",
-    bg:     "bg-snt-scale-blue-50",
-    accent: "border-l-[3px] border-snt-scale-blue-500",
-    text:   "text-snt-scale-blue-600",
-  },
-};
+// Bar heights grow left to right, like a signal meter.
+const BAR_HEIGHT = ["h-1.5", "h-2", "h-2.5", "h-3"];
 
-const BASE = "flex items-center rounded-md px-3 py-1.5 w-40";
+function Bars({ severity }: { severity: Severity }) {
+  const { level, fill } = CONFIG[severity];
+  if (level === 0) {
+    return <span aria-hidden className="size-3 shrink-0 rounded-full border-2 border-snt-severity-info" />;
+  }
+  return (
+    <span aria-hidden className="flex h-3 shrink-0 items-end gap-0.5">
+      {BAR_HEIGHT.map((h, i) => (
+        <span key={h} className={cn("w-[3px] rounded-[1px]", h, i < level ? fill : "bg-snt-border-default")} />
+      ))}
+    </span>
+  );
+}
 
 export const SeverityBadge = React.forwardRef<HTMLDivElement, SeverityBadgeProps>(
-  ({ severity, score, className, ...props }, ref) => {
-    const cfg = SEVERITY[severity];
+  ({ severity, score, size = "md", className, ...props }, ref) => {
+    const cfg = CONFIG[severity];
     return (
       <div
         ref={ref}
         className={cn(
-          BASE,
-          score !== undefined ? "justify-between" : "",
-          cfg.bg,
-          cfg.accent,
+          "inline-flex w-fit items-center gap-2 whitespace-nowrap rounded-md bg-snt-surface-app ring-1 ring-inset ring-snt-border-default",
+          size === "sm" ? "h-6 px-2 text-snt-12" : "h-7 px-2.5 text-snt-14",
           className,
         )}
         {...props}
       >
-        <span className={cn("text-snt-14 font-medium", cfg.text)}>{cfg.label}</span>
+        <Bars severity={severity} />
+        <span className="font-medium text-snt-text-primary">{cfg.label}</span>
         {score !== undefined && (
-          <span className={cn("text-snt-14 font-normal opacity-80", cfg.text)}>{score}</span>
+          <span className="font-mono tabular-nums text-snt-text-secondary">{score.toFixed(1)}</span>
         )}
       </div>
     );

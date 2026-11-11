@@ -1,15 +1,17 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
   SpacingDiagram,
-  OptionPill,
-  BoolSwatch,
+  
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
+import { SeverityBadge } from "@/components/ui/severity-badge";
 
 export function DataTableSpecs() {
   return (
@@ -20,66 +22,7 @@ export function DataTableSpecs() {
         <SpecLede>
           Every prop a designer can configure when placing this component. Use these names in Figma component properties for a 1:1 map with code.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:        "title",
-              type:        "string",
-              default:     "—",
-              description: "Short widget label (2–3 words) in the grey header strip.",
-            },
-            {
-              name:        "description",
-              type:        "string",
-              default:     "—",
-              description: "Single-line context for what the list is filtered by — required.",
-            },
-            {
-              name:        "badge",
-              type:        "string | null",
-              default:     "null",
-              description: "Optional state pill (Live, New, Beta…) shown in the top header.",
-            },
-            {
-              name:    "viewAll",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "false",
-              description: "Right-aligned link that navigates to the full list.",
-            },
-            {
-              name:    "rowsPerPage",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill label="3" />
-                  <OptionPill label="5" />
-                  <OptionPill label="10" />
-                  <OptionPill label="25" />
-                </div>
-              ),
-              default:     "5",
-              description: "Number of rows shown per page; controls footer paginator range.",
-            },
-            {
-              name:        "columns",
-              type:        "Column[]",
-              default:     "—",
-              description: "Column definitions — key, label, alignment and optional renderer.",
-            },
-            {
-              name:        "rows",
-              type:        "Row[]",
-              default:     "—",
-              description: "Data rows. Empty array shows the empty-state placeholder.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="data-table" />
       </section>
 
       {/* Sizing & spacing */}
@@ -95,9 +38,7 @@ export function DataTableSpecs() {
             <span className="text-[12px] text-snt-text-primary truncate">api.example.com</span>
             <span className="text-[11px] text-snt-text-secondary text-right tabular-nums">19.09.2024</span>
             <div className="flex justify-end">
-              <span className="inline-flex items-center justify-center rounded-[3px] px-2 py-0.5 w-14 bg-snt-scale-red-50 border-l-[3px] border-snt-scale-red-500 text-[10px] font-medium text-snt-scale-red-600">
-                High
-              </span>
+              <SeverityBadge severity="high" size="sm" />
             </div>
           </div>
         </SpacingDiagram>
@@ -106,7 +47,7 @@ export function DataTableSpecs() {
           <DimensionsTable
             columns={["value"]}
             rows={[
-              { label: "Container · border radius",     values: ["8px"] },
+              { label: "Container · border radius",     values: ["14px"] },
               { label: "Container · border width",      values: ["1px"] },
               { label: "Top header · padding X",        values: ["20px"] },
               { label: "Top header · padding Y",        values: ["12px"] },
@@ -119,10 +60,7 @@ export function DataTableSpecs() {
               { label: "Row · padding Y",               values: ["12px"] },
               { label: "Row · cell gap",                values: ["12px"] },
               { label: "Row · font size",               values: ["14px"] },
-              { label: "Severity badge · padding X",    values: ["12px"] },
-              { label: "Severity badge · padding Y",    values: ["4px"] },
-              { label: "Severity badge · border radius",values: ["4px"] },
-              { label: "Severity accent bar",           values: ["3px"], note: "Left border on the badge." },
+              { label: "Severity",                      values: ["SeverityBadge sm"], note: "24px tall, right-aligned; see Severity badge for its specs." },
               { label: "Footer · padding X",            values: ["20px"] },
               { label: "Footer · padding Y",            values: ["12px"] },
               { label: "Footer · control gap",          values: ["16px"] },
@@ -144,28 +82,21 @@ export function DataTableSpecs() {
               id: "container",
               label: "Container",
               rows: [
-                { variant: "Container",      bg: { token: "surface-app",          hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "neutral-divider-10", hex: "#e6e8e8" } },
-                { variant: "Top header",     bg: { token: "neutral-grey-100",     hex: "#f7f8f8" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "neutral-divider-10", hex: "#e6e8e8" } },
-                { variant: "Description",    text: { token: "text-disabled",      hex: "#8a9199" } },
-                { variant: "Column header",  text: { token: "text-disabled",      hex: "#8a9199" }, border: { token: "neutral-divider-10", hex: "#e6e8e8" } },
-                { variant: "Row · idle",     bg: { token: "surface-app",          hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, hover: { token: "neutral-grey-100",   hex: "#f7f8f8" } },
-                { variant: "Row · separator",border: { token: "neutral-divider-10", hex: "#e6e8e8" }, text: { token: "text-primary", hex: "#121f28" } },
+                { variant: "Container",      bg: { token: "surface-app",          hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "border-default", hex: "#e6e8e8" } },
+                { variant: "Top header",     bg: { token: "bg-subtle",     hex: "#f7f8f8" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "border-default", hex: "#e6e8e8" } },
+                { variant: "Description",    text: { token: "text-secondary",      hex: "#8a9199" } },
+                { variant: "Column header",  text: { token: "text-secondary",      hex: "#8a9199" }, border: { token: "border-default", hex: "#e6e8e8" } },
+                { variant: "Row · idle",     bg: { token: "surface-app",          hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, hover: { token: "bg-subtle",   hex: "#f7f8f8" } },
+                { variant: "Row · separator",border: { token: "border-default", hex: "#e6e8e8" }, text: { token: "text-primary", hex: "#121f28" } },
               ],
             },
-            {
-              id: "severity",
-              label: "Severity",
-              rows: [
-                { variant: "High",     bg: { token: "scale-red-50",     hex: "#fcf3f2" }, text: { token: "scale-red-600",    hex: "#a01e16" }, border: { token: "scale-red-500",    hex: "#d33324" } },
-                { variant: "Critical", bg: { token: "scale-purple-50",  hex: "#f6f0fa" }, text: { token: "scale-purple-600", hex: "#6a3995" }, border: { token: "scale-purple-500", hex: "#8a4dbf" } },
-              ],
-            },
+            
             {
               id: "status",
               label: "Status",
               rows: [
-                { variant: "Live",  bg: { token: "scale-yellow-50",  hex: "#fdf6e3" }, text: { token: "scale-yellow-700", hex: "#8a5a00" }, border: { token: "scale-yellow-500", hex: "#e0a800" } },
-                { variant: "Beta",  bg: { token: "brand-primary-50", hex: "#e8f4fd" }, text: { token: "brand-primary-600",hex: "#0a5689" }, border: { token: "brand-primary-500",hex: "#0066cc" } },
+                { variant: "Live",  bg: { token: "bg-warning-subtle",  hex: "#fdf6e3" }, text: { token: "scale-yellow-700", hex: "#8a5a00" }, border: { token: "scale-yellow-500", hex: "#e0a800" } },
+                { variant: "Badge", bg: { token: "bg-warning-subtle" }, text: { token: "scale-yellow-700" } },
               ],
             },
           ]}

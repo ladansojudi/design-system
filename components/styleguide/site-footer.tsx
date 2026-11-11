@@ -20,7 +20,7 @@ export function SiteFooter() {
     <footer className="border-t border-snt-border-default">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.5fr_1fr_1fr] lg:px-8">
         <div>
-          <Link href="/" className="inline-flex items-center gap-2 text-snt-14 font-semibold text-snt-text-primary">
+          <Link href="/styleguide/overview" className="inline-flex items-center gap-2 text-snt-14 font-semibold text-snt-text-primary">
             <SentinelMark size={18} /> Sentinel
           </Link>
           <p className="mt-3 max-w-xs text-snt-14 leading-relaxed text-snt-text-secondary">

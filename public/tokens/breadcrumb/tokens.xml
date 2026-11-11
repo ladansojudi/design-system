@@ -6,7 +6,6 @@
     <!-- Colors -->
     <color name="brand_primary_500">#5B5BD6</color>
     <color name="text_primary">#09090B</color>
-    <color name="text_secondary">#52525B</color>
     <color name="text_disabled">#A1A1AA</color>
 
     <!-- Spacing -->
@@ -26,7 +25,6 @@
 
     <!-- Font size -->
     <dimen name="font_size_10">10sp</dimen>
-    <dimen name="font_size_11">11sp</dimen>
     <dimen name="font_size_12">12sp</dimen>
     <dimen name="font_size_14">14sp</dimen>
 

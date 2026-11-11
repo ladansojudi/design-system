@@ -1,11 +1,12 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
-  OptionPill,
-  BoolSwatch,
+  
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
@@ -19,72 +20,7 @@ export function ChartSpecs() {
         <SpecLede>
           Shared instance properties across all chart kinds. Per-chart props (segments, series, ticks) are passed via the `data` prop.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:    "kind",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill label="donut" />
-                  <OptionPill label="bar" />
-                  <OptionPill label="line" />
-                  <OptionPill label="treemap" />
-                </div>
-              ),
-              default:     "donut",
-              description: "Which chart kind to render. Each kind has its own data shape.",
-            },
-            {
-              name:        "title",
-              type:        "string",
-              default:     "—",
-              description: "Card header title — short, 2–3 words.",
-            },
-            {
-              name:        "description",
-              type:        "string | null",
-              default:     "null",
-              description: "Single-line context shown next to the title.",
-            },
-            {
-              name:    "viewAll",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "false",
-              description: "Right-aligned link in the header that navigates to the full view.",
-            },
-            {
-              name:    "layout",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill label="horizontal" />
-                  <OptionPill label="vertical" />
-                </div>
-              ),
-              default:     "horizontal",
-              description: "Donut only — legend beside (horizontal) or below (vertical) the ring.",
-            },
-            {
-              name:        "stats",
-              type:        "StatBlock[]",
-              default:     "[]",
-              description: "Summary cards rendered above the chart (Bar, Line, Treemap).",
-            },
-            {
-              name:        "data",
-              type:        "ChartData",
-              default:     "—",
-              description: "Chart-specific data — segments, series or rows depending on kind.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="chart" />
       </section>
 
       {/* Sizing & spacing */}
@@ -108,7 +44,7 @@ export function ChartSpecs() {
               { label: "Stat block · padding X", values: ["16px"] },
               { label: "Stat block · padding Y", values: ["12px"] },
               { label: "Stat block · gap",       values: ["12px"], note: "Between stacked stat cards." },
-              { label: "Stat block · radius",    values: ["8px"] },
+              { label: "Stat block · radius",    values: ["10px"] },
               { label: "Stat block · value size",values: ["16px"], note: "Bold 700, tabular-nums." },
             ]}
           />
@@ -181,11 +117,11 @@ export function ChartSpecs() {
               id: "card",
               label: "Card shell",
               rows: [
-                { variant: "Card",          bg: { token: "surface-app",      hex: "#ffffff" }, text: { token: "text-primary",  hex: "#121f28" }, border: { token: "neutral-divider-10", hex: "#e6e8e8" } },
-                { variant: "Header",        bg: { token: "neutral-grey-100", hex: "#f7f8f8" }, text: { token: "text-primary",  hex: "#121f28" }, border: { token: "neutral-divider-10", hex: "#e6e8e8" } },
-                { variant: "Description",   text: { token: "text-disabled",  hex: "#8a9199" } },
+                { variant: "Card",          bg: { token: "surface-app",      hex: "#ffffff" }, text: { token: "text-primary",  hex: "#121f28" }, border: { token: "border-default", hex: "#e6e8e8" } },
+                { variant: "Header",        bg: { token: "bg-subtle", hex: "#f7f8f8" }, text: { token: "text-primary",  hex: "#121f28" }, border: { token: "border-default", hex: "#e6e8e8" } },
+                { variant: "Description",   text: { token: "text-secondary",  hex: "#8a9199" } },
                 { variant: "View all link", text: { token: "brand-primary-500", hex: "#0066cc" }, hover: { token: "brand-primary-600", hex: "#0a5689" } },
-                { variant: "Stat block",    bg: { token: "neutral-grey-100", hex: "#f7f8f8" }, text: { token: "text-primary",  hex: "#121f28" } },
+                { variant: "Stat block",    bg: { token: "bg-subtle", hex: "#f7f8f8" }, text: { token: "text-primary",  hex: "#121f28" } },
                 { variant: "Stat positive", text: { token: "scale-green-600",hex: "#16a34a" } },
               ],
             },
@@ -211,8 +147,8 @@ export function ChartSpecs() {
                 { variant: "Bar · default",   bg: { token: "brand-primary-500", hex: "#0066cc" }, text: { token: "text-on-accent", hex: "#ffffff" } },
                 { variant: "Line · stroke",   bg: { token: "brand-primary-500", hex: "#0066cc" }, text: { token: "—",              hex: "#0066cc" } },
                 { variant: "Line · area top", bg: { token: "brand-primary-500/28", hex: "#0066cc47" }, text: { token: "—",          hex: "#0066cc" } },
-                { variant: "Grid lines",      bg: { token: "neutral-grey-200",  hex: "#ebeded" }, text: { token: "—",              hex: "#ebeded" } },
-                { variant: "Axis labels",     text: { token: "text-disabled",   hex: "#8a9199" } },
+                { variant: "Grid lines",      bg: { token: "bg-subtle",  hex: "#ebeded" }, text: { token: "—",              hex: "#ebeded" } },
+                { variant: "Axis labels",     text: { token: "text-secondary",   hex: "#8a9199" } },
               ],
             },
           ]}

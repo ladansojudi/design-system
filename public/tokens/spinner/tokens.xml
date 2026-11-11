@@ -4,10 +4,7 @@
 <resources>
 
     <!-- Colors -->
-    <color name="brand_primary_500">#5B5BD6</color>
     <color name="neutral_grey_100">#F4F4F5</color>
-    <color name="neutral_grey_300">#D4D4D8</color>
-    <color name="neutral_grey_800">#27272A</color>
     <color name="text_primary">#09090B</color>
     <color name="text_secondary">#52525B</color>
     <color name="text_disabled">#A1A1AA</color>
@@ -28,11 +25,9 @@
     <!-- Radius -->
     <dimen name="radius_md">6dp</dimen>
     <dimen name="radius_xl">12dp</dimen>
-    <dimen name="radius_full">9999dp</dimen>
 
     <!-- Border width -->
     <dimen name="border_width_1">1dp</dimen>
-    <dimen name="border_width_2">2dp</dimen>
 
     <!-- Font size -->
     <dimen name="font_size_10">10sp</dimen>

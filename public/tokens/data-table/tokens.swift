@@ -11,9 +11,6 @@ extension UIColor {
     static let scaleYellow50 = UIColor(hex: "#FEFAF0")
     static let scaleYellow500 = UIColor(hex: "#F5BF40")
     static let scaleYellow700 = UIColor(hex: "#795706")
-    static let scaleRed50 = UIColor(hex: "#FCF3F2")
-    static let scaleRed500 = UIColor(hex: "#D13D2E")
-    static let scaleRed600 = UIColor(hex: "#8E2A1F")
     static let neutralGrey100 = UIColor(hex: "#F4F4F5")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
     static let textPrimary = UIColor(hex: "#09090B")
@@ -43,7 +40,6 @@ extension CGFloat {
     static let borderWidth1: CGFloat = 1
 
     // Font size
-    static let fontSize10: CGFloat = 10
     static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
     static let fontSize14: CGFloat = 14

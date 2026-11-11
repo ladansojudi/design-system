@@ -1,41 +1,21 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
   SpacingDiagram,
-  OptionPill,
-  BoolSwatch,
+  
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
 
 // ── Visual swatches ───────────────────────────────────────────────────────
 
-type Color = "warning" | "error" | "success" | "neutral" | "info" | "primary";
 
-function ColorSwatch({ color }: { color: Color }) {
-  const cls = {
-    warning: "bg-snt-scale-yellow-500",
-    error:   "bg-snt-scale-red-500",
-    success: "bg-snt-scale-green-500",
-    neutral: "bg-snt-neutral-grey-400",
-    info:    "bg-snt-scale-blue-500",
-    primary: "bg-snt-brand-primary-500",
-  }[color];
-  return <span className={`inline-block w-3 h-3 rounded-full ${cls}`} aria-hidden />;
-}
 
-function DotPositionSwatch({ side }: { side: "left" | "right" }) {
-  return (
-    <span className="inline-flex items-center gap-0.5 w-5 h-3 rounded-full border border-snt-neutral-divider-10 bg-white px-0.5">
-      {side === "left" && <span className="inline-block w-1.5 h-1.5 rounded-full bg-snt-brand-primary-500" />}
-      <span className="flex-1" />
-      {side === "right" && <span className="inline-block w-1.5 h-1.5 rounded-full bg-snt-brand-primary-500" />}
-    </span>
-  );
-}
 
 export function BadgeTagSpecs() {
   return (
@@ -46,69 +26,7 @@ export function BadgeTagSpecs() {
         <SpecLede>
           Every prop a designer can configure when placing a Badge. Use these names in Figma component properties for a 1:1 map with code.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:    "color",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<ColorSwatch color="warning" />} label="warning" />
-                  <OptionPill swatch={<ColorSwatch color="error"   />} label="error" />
-                  <OptionPill swatch={<ColorSwatch color="success" />} label="success" />
-                  <OptionPill swatch={<ColorSwatch color="neutral" />} label="neutral" />
-                  <OptionPill swatch={<ColorSwatch color="info"    />} label="info" />
-                  <OptionPill swatch={<ColorSwatch color="primary" />} label="primary" />
-                </div>
-              ),
-              default:     "neutral",
-              description: "Semantic tone — drives surface tint, text, and dot color.",
-            },
-            {
-              name:    "outlined",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "false",
-              description: "Swap filled surface for a transparent body + 1px border.",
-            },
-            {
-              name:    "showDot",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "true",
-              description: "Adds a 7px dot — doubles as an accessibility cue beyond color.",
-            },
-            {
-              name:    "dotPosition",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<DotPositionSwatch side="left"  />} label="left" />
-                  <OptionPill swatch={<DotPositionSwatch side="right" />} label="right" />
-                </div>
-              ),
-              default:     "left",
-              description: "Side the dot sits on. Ignored when showDot is false.",
-            },
-            {
-              name:    "children",
-              type:    "string",
-              values:  <OptionPill label="required" />,
-              default: "—",
-              description: "Label — one or two words, Title Case or lowercase consistently.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="badge-tag" />
       </section>
 
       {/* Sizing & spacing */}
@@ -157,47 +75,47 @@ export function BadgeTagSpecs() {
               id: "warning",
               label: "Warning",
               rows: [
-                { variant: "Filled",   bg: { token: "scale-yellow-50", hex: "#fffbeb" }, text: { token: "scale-yellow-700", hex: "#92400e" } },
-                { variant: "Outlined", text: { token: "scale-yellow-700", hex: "#92400e" }, border: { token: "scale-yellow-300", hex: "#fcd34d" } },
+                { variant: "Filled",   bg: { token: "bg-warning-subtle", hex: "#fffbeb" }, text: { token: "scale-yellow-700", hex: "#92400e" } },
+                { variant: "Outlined", text: { token: "scale-yellow-700", hex: "#92400e" }, border: { token: "scale-yellow-200", hex: "#fcd34d" } },
               ],
             },
             {
               id: "error",
               label: "Error",
               rows: [
-                { variant: "Filled",   bg: { token: "scale-red-50", hex: "#fef2f2" }, text: { token: "scale-red-600", hex: "#dc2626" } },
-                { variant: "Outlined", text: { token: "scale-red-600", hex: "#dc2626" }, border: { token: "scale-red-300", hex: "#fca5a5" } },
+                { variant: "Filled",   bg: { token: "bg-error-subtle", hex: "#fef2f2" }, text: { token: "text-error", hex: "#dc2626" } },
+                { variant: "Outlined", text: { token: "text-error", hex: "#dc2626" }, border: { token: "scale-red-200", hex: "#fca5a5" } },
               ],
             },
             {
               id: "success",
               label: "Success",
               rows: [
-                { variant: "Filled",   bg: { token: "scale-green-50", hex: "#ecfdf5" }, text: { token: "scale-green-600", hex: "#16a34a" } },
-                { variant: "Outlined", text: { token: "scale-green-600", hex: "#16a34a" }, border: { token: "scale-green-300", hex: "#86efac" } },
+                { variant: "Filled",   bg: { token: "bg-success-subtle", hex: "#ecfdf5" }, text: { token: "scale-green-600", hex: "#16a34a" } },
+                { variant: "Outlined", text: { token: "scale-green-600", hex: "#16a34a" }, border: { token: "scale-green-200", hex: "#86efac" } },
               ],
             },
             {
               id: "neutral",
               label: "Neutral",
               rows: [
-                { variant: "Filled",   bg: { token: "neutral-grey-100", hex: "#f7f8f8" }, text: { token: "text-secondary",     hex: "#3a4d59" } },
-                { variant: "Outlined", text: { token: "text-secondary",  hex: "#3a4d59" }, border: { token: "neutral-divider-10", hex: "#e3e6e6" } },
+                { variant: "Filled",   bg: { token: "bg-subtle", hex: "#f7f8f8" }, text: { token: "text-secondary",     hex: "#3a4d59" } },
+                { variant: "Outlined", text: { token: "text-secondary",  hex: "#3a4d59" }, border: { token: "border-default", hex: "#e3e6e6" } },
               ],
             },
             {
               id: "info",
               label: "Info",
               rows: [
-                { variant: "Filled",   bg: { token: "scale-blue-50", hex: "#eff6ff" }, text: { token: "scale-blue-600", hex: "#2563eb" } },
-                { variant: "Outlined", text: { token: "scale-blue-600", hex: "#2563eb" }, border: { token: "scale-blue-300", hex: "#93c5fd" } },
+                { variant: "Filled",   bg: { token: "bg-info-subtle", hex: "#eff6ff" }, text: { token: "scale-blue-600", hex: "#2563eb" } },
+                { variant: "Outlined", text: { token: "scale-blue-600", hex: "#2563eb" }, border: { token: "scale-blue-200", hex: "#93c5fd" } },
               ],
             },
             {
               id: "primary",
               label: "Primary",
               rows: [
-                { variant: "Filled",   bg: { token: "brand-primary-50", hex: "#e8f4fd" }, text: { token: "brand-primary-600", hex: "#0f69aa" } },
+                { variant: "Filled",   bg: { token: "bg-brand-subtle", hex: "#e8f4fd" }, text: { token: "brand-primary-600", hex: "#0f69aa" } },
                 { variant: "Outlined", text: { token: "brand-primary-600", hex: "#0f69aa" }, border: { token: "brand-primary-200", hex: "#a8d6f4" } },
               ],
             },

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { SeverityBadge } from "@/components/ui/severity-badge";
 
 /**
  * sentinel/ui — CvssScore
@@ -28,12 +29,8 @@ export function cvssRating(score: number): CvssRating {
   return "critical";
 }
 
-const RATING: Record<CvssRating, { label: string; box: string }> = {
-  none:     { label: "None",     box: "bg-snt-bg-subtle text-snt-text-primary" },
-  low:      { label: "Low",      box: "bg-snt-scale-green-50 text-snt-scale-green-600 border-snt-scale-green-500" },
-  medium:   { label: "Medium",   box: "bg-snt-scale-yellow-50 text-snt-scale-yellow-700 border-snt-scale-yellow-500" },
-  high:     { label: "High",     box: "bg-snt-scale-red-50 text-snt-scale-red-600 border-snt-scale-red-500" },
-  critical: { label: "Critical", box: "bg-snt-scale-purple-50 text-snt-scale-purple-600 border-snt-scale-purple-500" },
+const RATING_LABEL: Record<CvssRating, string> = {
+  none: "None", low: "Low", medium: "Medium", high: "High", critical: "Critical",
 };
 
 // CVSS v3.x base metrics → plain-language name and values.
@@ -76,23 +73,21 @@ export interface CvssScoreProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function CvssScore({ score, vector, showMetrics = true, className, ...props }: CvssScoreProps) {
   const rating = cvssRating(score);
-  const cfg = RATING[rating];
   const parsed = vector ? parseCvssVector(vector) : undefined;
   const version = parsed?.version ? `CVSS ${parsed.version}` : "CVSS";
 
   return (
     <div className={cn("inline-flex flex-col gap-3", className)} {...props}>
       <div className="flex items-center gap-3">
-        <span
-          className={cn(
-            "flex h-10 min-w-12 items-center justify-center rounded-md border-l-[3px] px-2.5 font-mono text-snt-18 font-semibold tabular-nums",
-            cfg.box,
-          )}
-        >
+        <span className="flex h-10 min-w-12 items-center justify-center rounded-md bg-snt-surface-app px-2.5 font-mono text-snt-18 font-semibold tabular-nums text-snt-text-primary ring-1 ring-inset ring-snt-border-default">
           {score.toFixed(1)}
         </span>
-        <span className="flex flex-col">
-          <span className="text-snt-14 font-semibold text-snt-text-primary">{cfg.label}</span>
+        <span className="flex flex-col items-start gap-1">
+          {rating === "none" ? (
+            <span className="text-snt-14 font-semibold text-snt-text-primary">{RATING_LABEL.none}</span>
+          ) : (
+            <SeverityBadge severity={rating} size="sm" />
+          )}
           <span className="text-snt-12 text-snt-text-secondary">{version} base score</span>
         </span>
       </div>
