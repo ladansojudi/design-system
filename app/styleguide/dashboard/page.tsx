@@ -9,7 +9,7 @@ import { InstallationTabs } from "@/components/styleguide/installation-tabs";
 import { DeveloperNotes } from "@/components/styleguide/developer-notes";
 
 export const metadata: Metadata = {
-  title: "Dashboard — Design System",
+  title: "Dashboard — Sentinel Design System",
 };
 
 export default function DashboardPage() {

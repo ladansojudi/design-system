@@ -4,19 +4,19 @@
 <resources>
 
     <!-- Colors -->
-    <color name="brand_primary_500">#1383D4</color>
-    <color name="brand_primary_600">#0F69A9</color>
+    <color name="brand_primary_500">#5B5BD6</color>
+    <color name="brand_primary_600">#4F46E5</color>
     <color name="scale_red_600">#8E2A1F</color>
-    <color name="neutral_grey_900">#131515</color>
+    <color name="neutral_grey_900">#18181B</color>
     <color name="surface_row">#FFFFFF</color>
-    <color name="surface_table_header">#F7F8F8</color>
-    <color name="text_primary">#121F28</color>
-    <color name="text_secondary">#657078</color>
-    <color name="text_disabled">#A7ADB2</color>
-    <color name="text_placeholder">#A7ADB2</color>
+    <color name="surface_table_header">#F4F4F5</color>
+    <color name="text_primary">#09090B</color>
+    <color name="text_secondary">#52525B</color>
+    <color name="text_disabled">#A1A1AA</color>
+    <color name="text_placeholder">#71717A</color>
     <color name="text_inverse">#FFFFFF</color>
     <color name="text_on_accent">#FFFFFF</color>
-    <color name="text_link">#0066CC</color>
+    <color name="text_link">#4F46E5</color>
     <color name="text_success">#2F7D2C</color>
     <color name="text_warning">#8E6800</color>
     <color name="text_error">#B0291E</color>

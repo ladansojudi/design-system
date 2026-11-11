@@ -1,10 +1,10 @@
 "use client";
 
 import type React from "react";
-import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
 import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
+import { SeverityBadge } from "@/components/ui/severity-badge";
 
 // ── Types & config ─────────────────────────────────────────────────────────
 
@@ -20,37 +20,38 @@ type SeverityConfig = {
 const SEVERITY: Record<Severity, SeverityConfig> = {
   low: {
     label:  "Low",
-    bg:     "bg-s4e-scale-green-50",
-    accent: "border-l-[3px] border-s4e-scale-green-500",
-    text:   "text-s4e-scale-green-600",
+    bg:     "bg-snt-scale-green-50",
+    accent: "border-l-[3px] border-snt-scale-green-500",
+    text:   "text-snt-scale-green-600",
   },
   critical: {
     label:  "Critical",
-    bg:     "bg-s4e-scale-purple-50",
-    accent: "border-l-[3px] border-s4e-scale-purple-500",
-    text:   "text-s4e-scale-purple-600",
+    bg:     "bg-snt-scale-purple-50",
+    accent: "border-l-[3px] border-snt-scale-purple-500",
+    text:   "text-snt-scale-purple-600",
   },
   high: {
     label:  "High",
-    bg:     "bg-s4e-scale-red-50",
-    accent: "border-l-[3px] border-s4e-scale-red-500",
-    text:   "text-s4e-scale-red-600",
+    bg:     "bg-snt-scale-red-50",
+    accent: "border-l-[3px] border-snt-scale-red-500",
+    text:   "text-snt-scale-red-600",
   },
   medium: {
     label:  "Medium",
-    bg:     "bg-s4e-scale-yellow-50",
-    accent: "border-l-[3px] border-s4e-scale-yellow-500",
-    text:   "text-s4e-scale-yellow-700",
+    bg:     "bg-snt-scale-yellow-50",
+    accent: "border-l-[3px] border-snt-scale-yellow-500",
+    text:   "text-snt-scale-yellow-700",
   },
   info: {
     label:  "Info",
-    bg:     "bg-s4e-scale-blue-50",
-    accent: "border-l-[3px] border-s4e-scale-blue-500",
-    text:   "text-s4e-scale-blue-600",
+    bg:     "bg-snt-scale-blue-50",
+    accent: "border-l-[3px] border-snt-scale-blue-500",
+    text:   "text-snt-scale-blue-600",
   },
 };
 
-const SEVERITIES: Severity[] = ["low", "critical", "high", "medium", "info"];
+const SEVERITIES: Severity[] = ["critical", "high", "medium", "low", "info"];
+const SCORES: Record<Severity, number> = { critical: 9.8, high: 8.1, medium: 5.4, low: 2.1, info: 0 };
 
 // ── Snippet builders ───────────────────────────────────────────────────────
 
@@ -68,44 +69,19 @@ function severitySnippets(severity: Severity, score?: number): Record<Platform, 
   return {
     react: `<SeverityBadge ${reactProps.join(" ")} />`,
     swift: `SeverityBadge(${swiftArgs.join(", ")})`,
-    xml:   `<com.s4e.ui.SeverityBadge\n    android:contentDescription="${label}"\n    ${xmlProps.join("\n    ")} />`,
+    xml:   `<com.sentinel.ui.SeverityBadge\n    android:contentDescription="${label}"\n    ${xmlProps.join("\n    ")} />`,
   };
 }
 
 // ── Badge component ────────────────────────────────────────────────────────
-
-function SeverityBadge({
-  severity,
-  score,
-}: {
-  severity: Severity;
-  score?: number;
-}) {
-  const cfg = SEVERITY[severity];
-  return (
-    <div
-      className={cn(
-        "flex items-center rounded-md px-3 py-1.5 w-40",
-        score !== undefined ? "justify-between" : "",
-        cfg.bg,
-        cfg.accent,
-      )}
-    >
-      <span className={cn("text-sm font-medium", cfg.text)}>{cfg.label}</span>
-      {score !== undefined && (
-        <span className={cn("text-sm font-normal opacity-80", cfg.text)}>{score}</span>
-      )}
-    </div>
-  );
-}
 
 // ── Showcase ───────────────────────────────────────────────────────────────
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <h3 className="text-snt-16 font-semibold text-snt-text-primary">{children}</h3>
     </div>
   );
 }
@@ -116,16 +92,16 @@ export function SeverityBadgeShowcase() {
       {/* Variants */}
       <div>
         <SectionTitle>Variants</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
             {/* Label only */}
             <div>
-              <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+              <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
                 Label
               </p>
-              <div className="space-y-2">
+              <div className="flex flex-col items-start gap-2">
                 {SEVERITIES.map((s) => (
-                  <Copyable key={s} snippets={severitySnippets(s)} svgPath={`/svg/severity-badge/${s}.svg`}>
+                  <Copyable key={s} snippets={severitySnippets(s)}>
                     <SeverityBadge severity={s} />
                   </Copyable>
                 ))}
@@ -134,13 +110,13 @@ export function SeverityBadgeShowcase() {
 
             {/* Label + score */}
             <div>
-              <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+              <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
                 Label + Score
               </p>
-              <div className="space-y-2">
+              <div className="flex flex-col items-start gap-2">
                 {SEVERITIES.map((s) => (
-                  <Copyable key={s} snippets={severitySnippets(s, 8.4)} svgPath={`/svg/severity-badge/${s}.svg`}>
-                    <SeverityBadge severity={s} score={8.4} />
+                  <Copyable key={s} snippets={severitySnippets(s, SCORES[s])}>
+                    <SeverityBadge severity={s} score={SCORES[s]} />
                   </Copyable>
                 ))}
               </div>

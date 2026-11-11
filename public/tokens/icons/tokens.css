@@ -4,14 +4,14 @@
 
 :root {
   /* Colors */
-  --s4e-brand-primary-500: #1383d4;
-  --s4e-scale-green-500: #63a100;
-  --s4e-neutral-grey-100: #f7f8f8;
-  --s4e-surface-row-hover: #ebf2f7;
-  --s4e-surface-table-header: #f7f8f8;
-  --s4e-text-primary: #121f28;
-  --s4e-text-secondary: #657078;
-  --s4e-text-disabled: #a7adb2;
+  --snt-brand-primary-500: #5b5bd6;
+  --snt-scale-green-500: #63a100;
+  --snt-neutral-grey-100: #f4f4f5;
+  --snt-surface-row-hover: #f4f4f5;
+  --snt-surface-table-header: #f4f4f5;
+  --snt-text-primary: #09090b;
+  --snt-text-secondary: #52525b;
+  --snt-text-disabled: #a1a1aa;
 
   /* Spacing */
   --space-3: 12px;

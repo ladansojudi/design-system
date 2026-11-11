@@ -1,86 +1,33 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
   SpacingDiagram,
-  OptionPill,
-  BoolSwatch,
+  
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
 
 // ── Visual swatches ───────────────────────────────────────────────────────
 
-function VariantSwatch({ variant }: { variant: "dark" | "primary" }) {
-  const cls = variant === "primary" ? "bg-s4e-btn-primary-600" : "bg-s4e-neutral-grey-800";
-  return (
-    <span className={`inline-flex items-center w-5 h-3 rounded-full ${cls}`} aria-hidden>
-      <span className="inline-block w-2 h-2 rounded-full bg-white translate-x-2.5 shadow-sm" />
-    </span>
-  );
-}
 
 // ── Spec section ──────────────────────────────────────────────────────────
 
 export function SwitchRadioSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Properties exposed on the Switch and Radio components. Mirror these names as Figma
           component properties so a Figma instance maps 1:1 to its code counterpart.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:    "variant",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<VariantSwatch variant="dark"    />} label="dark" />
-                  <OptionPill swatch={<VariantSwatch variant="primary" />} label="primary" />
-                </div>
-              ),
-              default:     "dark",
-              description: "Switch only — checked track color. Use primary for brand-aligned settings.",
-            },
-            {
-              name:    "checked",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "false",
-              description: "Current on/off state. Drives track color and thumb position.",
-            },
-            {
-              name:    "disabled",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "false",
-              description: "Non-interactive state — 40% opacity, pointer-events disabled.",
-            },
-            {
-              name:    "label",
-              type:    "string",
-              values:  <OptionPill label="external" />,
-              default:     "—",
-              description: "Descriptor placed next to the control. Always pair the control with a label for accessibility.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="switch-radio" />
       </section>
 
       {/* Sizing & spacing */}
@@ -92,7 +39,7 @@ export function SwitchRadioSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={40} height={20} padX={4} padY={4} radius={16}>
-          <div className="absolute inset-0 rounded-full bg-s4e-btn-primary-600 flex items-center">
+          <div className="absolute inset-0 rounded-full bg-snt-btn-primary-600 flex items-center">
             <span className="block w-[16px] h-[16px] rounded-full bg-white shadow-sm ml-auto mr-[2px]" />
           </div>
         </SpacingDiagram>
@@ -101,10 +48,10 @@ export function SwitchRadioSpecs() {
           <DimensionsTable
             columns={["Switch", "Radio"]}
             rows={[
-              { label: "Track / ring width",   values: ["40px", "16px"], note: "Switch pill or radio circle." },
-              { label: "Track / ring height",  values: ["20px", "16px"] },
+              { label: "Track / ring width",   values: ["36px", "16px"], note: "Switch pill or radio circle." },
+              { label: "Track / ring height",  values: ["22px", "16px"] },
               { label: "Thumb / dot size",     values: ["16px", "8px"],  note: "Inner indicator when checked." },
-              { label: "Thumb inset",          values: ["4px",  "—"],    note: "Switch: gap from track edge to thumb." },
+              { label: "Thumb inset",          values: ["3px", "—"],    note: "Switch: gap from track edge to thumb." },
               { label: "Ring stroke",          values: ["—",    "2px"],  note: "Radio: outer ring border thickness." },
               { label: "Border radius",        values: ["full", "full"], note: "Both are fully rounded." },
               { label: "Control · label gap",  values: ["8px",  "8px"] },

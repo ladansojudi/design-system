@@ -1,76 +1,38 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useMobileSidebar } from "@/components/styleguide/mobile-sidebar-provider";
-import { navGroups, findGroupForPath } from "@/components/styleguide/nav-data";
+import { sections, sectionForPath } from "@/components/styleguide/nav-data";
 import type { ComponentStatus } from "@/components/styleguide/page-header";
 import { version as PKG_VERSION } from "@/package.json";
 
 const RELEASE_URL = `https://github.com/ladansojudi/design-system/releases/tag/v${PKG_VERSION}`;
-const EXPANDED_KEY = "s4e:sidebar-expanded-groups";
 
-// Dot + label per status, for the nav markers. `stable` is intentionally absent:
-// stable items show no marker, so only the in-flux / notable ones stand out.
-const STATUS_DOT: Record<Exclude<ComponentStatus, "stable">, { dot: string; label: string }> = {
-  alpha:      { dot: "bg-s4e-scale-yellow-500",  label: "alpha" },
-  beta:       { dot: "bg-s4e-brand-primary-500", label: "beta" },
-  deprecated: { dot: "bg-s4e-scale-red-500",     label: "deprecated" },
+// Stable items show no marker, so only the in-flux ones stand out.
+const STATUS: Record<Exclude<ComponentStatus, "stable">, string> = {
+  alpha:      "bg-snt-scale-yellow-500",
+  beta:       "bg-snt-brand-primary-500",
+  deprecated: "bg-snt-scale-red-500",
 };
 
-export function Sidebar() {
+/**
+ * Section navigation. On desktop it lists the groups of the section you're in
+ * (the header switches sections). On mobile it is a drawer that also carries
+ * the section links, since the header nav is hidden there. `mobileOnly` is for
+ * pages without a sidebar (the home page), which still need the drawer.
+ */
+export function Sidebar({ mobileOnly = false }: { mobileOnly?: boolean }) {
   const pathname = usePathname();
   const { open, setOpen } = useMobileSidebar();
+  const section = sectionForPath(pathname);
 
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
-  const [hydrated, setHydrated] = useState(false);
-
-  // Hydrate from localStorage on first mount; auto-expand the active group.
-  useEffect(() => {
-    let next = new Set<string>();
-    try {
-      const raw = localStorage.getItem(EXPANDED_KEY);
-      if (raw) {
-        const arr = JSON.parse(raw);
-        if (Array.isArray(arr)) next = new Set<string>(arr.filter((v) => typeof v === "string"));
-      } else {
-        const activeGroup = findGroupForPath(pathname);
-        if (activeGroup) next.add(activeGroup);
-      }
-    } catch {}
-    setExpanded(next);
-    setHydrated(true);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // When the route changes, ensure the active group is open.
-  useEffect(() => {
-    const activeGroup = findGroupForPath(pathname);
-    if (!activeGroup) return;
-    setExpanded((prev) => (prev.has(activeGroup) ? prev : new Set([...prev, activeGroup])));
-  }, [pathname]);
-
-  // Close mobile sidebar on navigation.
+  // Close the mobile drawer on navigation.
   useEffect(() => { setOpen(false); }, [pathname, setOpen]);
-
-  // Persist expanded state.
-  useEffect(() => {
-    if (!hydrated) return;
-    try { localStorage.setItem(EXPANDED_KEY, JSON.stringify([...expanded])); } catch {}
-  }, [expanded, hydrated]);
-
-  const toggleGroup = (label: string) => {
-    setExpanded((prev) => {
-      const next = new Set(prev);
-      if (next.has(label)) next.delete(label);
-      else next.add(label);
-      return next;
-    });
-  };
 
   return (
     <>
@@ -79,112 +41,92 @@ export function Sidebar() {
           type="button"
           aria-label="Close menu"
           onClick={() => setOpen(false)}
-          className="fixed inset-0 z-30 bg-black/40 md:hidden"
+          className="fixed inset-0 top-14 z-30 bg-black/40 md:hidden"
         />
       )}
       <aside
+        aria-label="Section navigation"
         className={cn(
-          "flex flex-col h-full border-r border-s4e-neutral-divider-10 bg-s4e-neutral-grey-00",
-          "fixed inset-y-0 left-0 z-40 w-[260px] transition-transform duration-200 ease-out",
-          "md:static md:z-auto md:w-[230px] md:min-w-[230px] md:translate-x-0 md:transition-none",
-          open ? "translate-x-0 shadow-xl" : "-translate-x-full",
+          "flex flex-col border-r border-snt-border-default bg-snt-surface-app",
+          "fixed bottom-0 left-0 top-14 z-40 w-[272px] transition-transform duration-200 ease-out",
+          open ? "translate-x-0 shadow-snt-xl" : "-translate-x-full",
+          mobileOnly
+            ? "md:hidden"
+            : "md:static md:z-auto md:w-[248px] md:min-w-[248px] md:translate-x-0 md:transition-none md:shadow-none",
         )}
       >
-        {/* Header */}
-        <div className="h-[52px] px-4 flex flex-col justify-center border-b border-s4e-neutral-divider-10 shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="text-[12px] font-semibold tracking-tight text-s4e-text-primary">
-              Design System
-            </span>
-            <a
-              href={RELEASE_URL}
-              target="_blank"
-              rel="noreferrer"
-              title={`v${PKG_VERSION} — release notes on GitHub`}
-              className="inline-flex items-center font-mono text-[9.5px] tracking-tight px-1.5 py-0.5 rounded-[3px] bg-s4e-brand-primary-500/10 text-s4e-brand-primary-500 hover:bg-s4e-brand-primary-500/20 transition-colors"
-            >
-              v{PKG_VERSION}
-            </a>
-          </div>
-          <div className="mt-0.5 text-[10.5px] text-s4e-text-secondary">
-            by Laden Sojudi
-          </div>
-        </div>
-
-        {/* Nav */}
         <ScrollArea className="flex-1 min-h-0">
-          <nav className="py-1">
-            {navGroups.map((group) => {
-              const isOpen = expanded.has(group.label);
-              return (
-                <div key={group.label}>
-                  <button
-                    type="button"
-                    onClick={() => toggleGroup(group.label)}
-                    aria-expanded={isOpen}
-                    className="w-full flex items-center justify-between px-4 pt-2.5 pb-1 text-[10px] uppercase tracking-widest text-s4e-text-disabled hover:text-s4e-text-secondary cursor-pointer"
+          {/* Sections — mobile only; on desktop they live in the header. */}
+          <nav aria-label="Sections" className="border-b border-snt-border-default px-3 py-3 md:hidden">
+            <ul className="space-y-0.5">
+              {sections.map((s) => (
+                <li key={s.id}>
+                  <Link
+                    href={s.href}
+                    aria-current={s.id === section?.id ? "true" : undefined}
+                    className={cn(
+                      "block rounded-md px-3 py-2 text-snt-14 font-medium",
+                      s.id === section?.id ? "bg-snt-bg-subtle text-snt-text-primary" : "text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary",
+                    )}
                   >
-                    <span className="flex items-center gap-2">
-                      {group.label}
-                      {group.status && group.status !== "stable" && (
-                        <span className="inline-flex items-center gap-1 normal-case tracking-normal font-normal text-[9px] text-s4e-text-disabled">
-                          <span className={cn("size-[5px] rounded-full", STATUS_DOT[group.status].dot)} />
-                          {STATUS_DOT[group.status].label}
-                        </span>
-                      )}
-                    </span>
-                    <ChevronDown
-                      size={12}
-                      className={cn("transition-transform duration-150", isOpen ? "rotate-0" : "-rotate-90")}
-                    />
-                  </button>
-                  {isOpen && group.items.map((item) => {
-                    const href = `/styleguide/${item.slug}`;
-                    const isActive = pathname === href;
-                    return (
-                      <Link
-                        key={item.slug}
-                        href={href}
-                        className={cn(
-                          "flex items-center w-full text-[12px] px-4 py-[4px] border-l-2 transition-colors duration-100",
-                          isActive
-                            ? "text-s4e-brand-primary-500 border-l-s4e-brand-primary-500 bg-s4e-surface-row-hover"
-                            : "text-s4e-text-secondary border-l-transparent hover:text-s4e-text-primary hover:bg-s4e-neutral-grey-100",
-                        )}
-                      >
-                        <span className="flex-1 truncate">{item.label}</span>
-                        {item.status && item.status !== "stable" && (
-                          <span
-                            title={STATUS_DOT[item.status].label}
-                            className="ml-2 flex items-center gap-1 shrink-0"
-                          >
-                            <span className={cn("size-[6px] rounded-full", STATUS_DOT[item.status].dot)} />
-                            <span className="text-[9px] tracking-wide text-s4e-text-disabled">
-                              {STATUS_DOT[item.status].label}
-                            </span>
-                          </span>
-                        )}
-                      </Link>
-                    );
-                  })}
-                </div>
-              );
-            })}
+                    {s.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
+
+          {section && (
+            <nav aria-label={section.label} className="px-3 py-5">
+              {section.groups.map((group) => (
+                <div key={group.label} className="mb-6 last:mb-0">
+                  <h2 className="mb-1.5 flex items-center gap-2 px-3 text-snt-12 font-semibold text-snt-text-primary">
+                    {group.label}
+                    {group.status && group.status !== "stable" && (
+                      <span className="text-snt-11 font-normal text-snt-text-secondary">{group.status}</span>
+                    )}
+                  </h2>
+                  <ul className="space-y-px">
+                    {group.items.map((item) => {
+                      const href = `/styleguide/${item.slug}`;
+                      const isActive = pathname === href;
+                      return (
+                        <li key={item.slug}>
+                          <Link
+                            href={href}
+                            aria-current={isActive ? "page" : undefined}
+                            className={cn(
+                              "flex items-center rounded-md px-3 py-1.5 text-snt-14 transition-colors",
+                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring",
+                              isActive
+                                ? "bg-snt-bg-subtle font-medium text-snt-text-primary"
+                                : "text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary",
+                            )}
+                          >
+                            <span className="flex-1 truncate">{item.label}</span>
+                            {item.status && item.status !== "stable" && (
+                              <span className="ml-2 flex shrink-0 items-center gap-1.5 text-snt-11 text-snt-text-secondary">
+                                <span aria-hidden className={cn("size-1.5 rounded-full", STATUS[item.status])} />
+                                {item.status}
+                              </span>
+                            )}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </nav>
+          )}
         </ScrollArea>
 
-        {/* Footer */}
-        <div className="px-4 py-2.5 border-t border-s4e-neutral-divider-10 shrink-0 space-y-1">
-          <div className="flex items-center">
-            <span className="s4e-pulse-dot inline-block size-[6px] rounded-full bg-s4e-scale-green-500 shrink-0" />
-            <span className="ml-2 text-[11px] text-s4e-text-secondary">Work in progress</span>
-          </div>
-          <a
-            href="mailto:ladansojudi2@gmail.com"
-            className="block text-[10px] text-s4e-text-disabled hover:text-s4e-brand-primary-500 transition-colors truncate"
-          >
-            ladansojudi2@gmail.com
+        <div className="shrink-0 border-t border-snt-border-default px-6 py-3 text-snt-12 text-snt-text-secondary">
+          <a href={RELEASE_URL} target="_blank" rel="noreferrer" className="font-mono hover:text-snt-text-primary">
+            v{PKG_VERSION}
           </a>
+          <span aria-hidden> · </span>
+          by Laden Sojudi
         </div>
       </aside>
     </>

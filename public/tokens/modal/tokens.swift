@@ -7,39 +7,39 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
+    static let brandPrimary500 = UIColor(hex: "#5B5BD6")
     static let scaleGreen50 = UIColor(hex: "#F1FFDB")
     static let scaleGreen600 = UIColor(hex: "#3F6600")
     static let scaleYellow50 = UIColor(hex: "#FEFAF0")
     static let scaleYellow600 = UIColor(hex: "#DA9C0B")
     static let scaleRed50 = UIColor(hex: "#FCF3F2")
-    static let scaleRed500 = UIColor(hex: "#D13D2E")
     static let scaleRed600 = UIColor(hex: "#8E2A1F")
     static let scaleRed700 = UIColor(hex: "#712219")
-    static let neutralGrey100 = UIColor(hex: "#F7F8F8")
-    static let neutralGrey200 = UIColor(hex: "#F4F5F5")
-    static let neutralGrey300 = UIColor(hex: "#DFE2E2")
-    static let neutralGrey400 = UIColor(hex: "#C9CFCF")
+    static let neutralGrey100 = UIColor(hex: "#F4F4F5")
+    static let neutralGrey200 = UIColor(hex: "#E4E4E7")
+    static let neutralGrey300 = UIColor(hex: "#D4D4D8")
+    static let neutralGrey400 = UIColor(hex: "#8F8F98")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
-    static let textPrimary = UIColor(hex: "#121F28")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
-    static let btnPrimary600 = UIColor(hex: "#0F69AA")
-    static let btnPrimary700 = UIColor(hex: "#024A72")
+    static let textPrimary = UIColor(hex: "#09090B")
+    static let textDisabled = UIColor(hex: "#A1A1AA")
+    static let btnPrimary600 = UIColor(hex: "#4F46E5")
+    static let btnPrimary700 = UIColor(hex: "#4338CA")
 }
 
 // MARK: - Sizing (CGFloat)
 
 extension CGFloat {
     // Spacing
+    static let space9: CGFloat = 36
     static let space4: CGFloat = 16
     static let space5: CGFloat = 20
-    static let space9: CGFloat = 36
     static let space10: CGFloat = 40
     static let space3: CGFloat = 12
     static let space1: CGFloat = 4
     static let space2: CGFloat = 8
     static let space6: CGFloat = 24
     static let space8: CGFloat = 32
+    static let space16: CGFloat = 64
 
     // Radius
     static let radiusMd: CGFloat = 6
@@ -52,7 +52,6 @@ extension CGFloat {
     static let borderWidth1: CGFloat = 1
 
     // Font size
-    static let fontSize10: CGFloat = 10
     static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
     static let fontSize14: CGFloat = 14

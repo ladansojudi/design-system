@@ -34,22 +34,22 @@ function IconItem({
       onClick={handleCopy}
       className={cn(
         "group flex flex-col items-center gap-2.5 p-3 rounded-lg transition-colors duration-100",
-        "hover:bg-s4e-surface-row-hover"
+        "hover:bg-snt-surface-row-hover"
       )}
     >
       <div className="flex items-center justify-center size-8">
         {copied ? (
-          <Check size={20} className="text-s4e-scale-green-500" />
+          <Check size={20} className="text-snt-scale-green-500" />
         ) : (
-          <Icon size={20} className="text-s4e-text-primary" />
+          <Icon size={20} className="text-snt-text-primary" />
         )}
       </div>
       <span
         className={cn(
           "font-mono text-[10px] text-center leading-tight break-all",
           copied
-            ? "text-s4e-scale-green-500"
-            : "text-s4e-text-disabled group-hover:text-s4e-text-secondary"
+            ? "text-snt-scale-green-500"
+            : "text-snt-text-disabled group-hover:text-snt-text-secondary"
         )}
       >
         {copied ? "Copied" : name}
@@ -79,7 +79,7 @@ export function IconsGrid() {
       <div className="relative mb-10">
         <Search
           size={14}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-s4e-text-disabled pointer-events-none"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-snt-text-disabled pointer-events-none"
         />
         <input
           type="text"
@@ -88,16 +88,16 @@ export function IconsGrid() {
           placeholder="Search icons…"
           className={cn(
             "w-full h-9 pl-8 pr-8 rounded-lg text-sm",
-            "bg-s4e-neutral-grey-100 border border-s4e-neutral-divider-10",
-            "text-s4e-text-primary placeholder:text-s4e-text-disabled",
-            "outline-none focus:border-s4e-brand-primary-500 transition-colors duration-100"
+            "bg-snt-neutral-grey-100 border border-snt-neutral-divider-10",
+            "text-snt-text-primary placeholder:text-snt-text-disabled",
+            "outline-none focus:border-snt-brand-primary-500 transition-colors duration-100"
           )}
         />
         {query && (
           <button
             type="button"
             onClick={() => setQuery("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-s4e-text-disabled hover:text-s4e-text-primary transition-colors duration-100"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-snt-text-disabled hover:text-snt-text-primary transition-colors duration-100"
           >
             <X size={13} />
           </button>
@@ -106,7 +106,7 @@ export function IconsGrid() {
 
       {/* Results count when searching */}
       {q && (
-        <p className="text-xs text-s4e-text-disabled mb-6">
+        <p className="text-xs text-snt-text-disabled mb-6">
           {totalFiltered} icon{totalFiltered !== 1 ? "s" : ""} found for &ldquo;{query}&rdquo;
         </p>
       )}
@@ -116,8 +116,8 @@ export function IconsGrid() {
         <div className="space-y-12">
           {filtered.map((group) => (
             <section key={group.name}>
-              <div className="pb-3 mb-1 border-b border-s4e-neutral-divider-10">
-                <h2 className="text-[14px] font-semibold text-s4e-text-primary">
+              <div className="pb-3 mb-1 border-b border-snt-neutral-divider-10">
+                <h2 className="text-[14px] font-semibold text-snt-text-primary">
                   {group.name}
                 </h2>
               </div>
@@ -130,7 +130,7 @@ export function IconsGrid() {
           ))}
         </div>
       ) : (
-        <div className="py-20 text-center text-sm text-s4e-text-disabled">
+        <div className="py-20 text-center text-sm text-snt-text-disabled">
           No icons match &ldquo;{query}&rdquo;
         </div>
       )}

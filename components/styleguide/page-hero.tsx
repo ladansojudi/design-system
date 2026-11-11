@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 
 interface PageHeroProps {
   category:     string;
+  categoryHref?: string;
   title:        string;
   description?: string;
   status?:      ComponentStatus;
@@ -22,7 +23,7 @@ interface PageHeroProps {
 
 export function PageHero({ tabs, fluid, ...header }: PageHeroProps) {
   return (
-    <div className="bg-s4e-brand-primary-500/[0.05] border-b border-s4e-neutral-divider-10">
+    <div className="bg-snt-surface-page border-b border-snt-border-default">
       <div
         className={cn(
           "px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10",

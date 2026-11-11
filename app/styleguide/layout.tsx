@@ -1,29 +1,14 @@
 import type * as React from "react";
 import { Sidebar } from "@/components/styleguide/sidebar";
-import { PreviewThemeProvider } from "@/components/styleguide/preview-theme-provider";
-import { PlatformProvider } from "@/components/styleguide/platform-provider";
-import { ViewModeProvider } from "@/components/styleguide/view-mode-provider";
-import { MobileSidebarProvider } from "@/components/styleguide/mobile-sidebar-provider";
-import { ThemeShell } from "@/components/styleguide/theme-shell";
 import { ContentWrapper } from "@/components/styleguide/content-wrapper";
 
-export default function StyleGuideLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+// Docs pages: section sidebar + scrolling content. The header and the theme /
+// view-mode providers live in the root layout, shared with the home page.
+export default function StyleGuideLayout({ children }: { children: React.ReactNode }) {
   return (
-    <PreviewThemeProvider>
-      <PlatformProvider>
-        <ViewModeProvider>
-          <MobileSidebarProvider>
-            <ThemeShell>
-              <Sidebar />
-              <ContentWrapper>{children}</ContentWrapper>
-            </ThemeShell>
-          </MobileSidebarProvider>
-        </ViewModeProvider>
-      </PlatformProvider>
-    </PreviewThemeProvider>
+    <div className="flex min-h-0 flex-1">
+      <Sidebar />
+      <ContentWrapper>{children}</ContentWrapper>
+    </div>
   );
 }

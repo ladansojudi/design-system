@@ -8,7 +8,7 @@
  *   public/tokens/<slug>/tokens.xml
  *
  * Each <slug> matches a route under app/styleguide/<slug>. The script scans
- * the matching sections/<slug>/ source (and the page itself) for s4e-*
+ * the matching sections/<slug>/ source (and the page itself) for snt-*
  * token references and emits a per-component subset.
  *
  * Run manually: `npm run tokens`
@@ -106,7 +106,7 @@ const EXCLUDE = new Set([
 
 const css = fs.readFileSync(SRC_CSS, "utf8");
 
-const ROOT_BLOCK = /:root,\s*\[data-s4e-theme="light"\]\s*\{([\s\S]*?)\n\}/m;
+const ROOT_BLOCK = /:root,\s*\[data-snt-theme="light"\]\s*\{([\s\S]*?)\n\}/m;
 const match      = css.match(ROOT_BLOCK);
 if (!match) {
   console.error("export-tokens: could not find :root block in globals.css");
@@ -114,20 +114,20 @@ if (!match) {
 }
 const rootBody = match[1];
 
-// Parse all --s4e-* tokens
+// Parse all --snt-* tokens
 const ALL_TOKENS = [];
 const TOKEN_RE   = /--([a-z0-9-]+)\s*:\s*([^;]+);/g;
 let m;
 while ((m = TOKEN_RE.exec(rootBody)) !== null) {
   const name  = m[1].trim();
   const value = m[2].trim();
-  if (!name.startsWith("s4e-")) continue;
+  if (!name.startsWith("snt-")) continue;
   ALL_TOKENS.push({ name, value });
 }
 
 // Categorize one token: "color" | "z" | "duration" | "shadow" | null (skip)
 function categorize({ name, value }) {
-  const local = name.replace(/^s4e-/, "");
+  const local = name.replace(/^snt-/, "");
   if (local.startsWith("shadow-"))          return "shadow";
   if (local.startsWith("motion-ease-"))     return null;
   if (local.startsWith("z-"))               return "z";
@@ -177,7 +177,7 @@ function hasClass(text, cls) {
 }
 
 function extractTokensUsed(files) {
-  const used         = new Set();   // s4e-* token names
+  const used         = new Set();   // snt-* token names
   const spaces       = new Set();   // space-N names
   const radii        = new Set();   // rounded-* class names
   const borders      = new Set();   // border / border-N class names
@@ -189,13 +189,13 @@ function extractTokensUsed(files) {
   for (const file of files) {
     const text = fs.readFileSync(file, "utf8");
 
-    // ── Color tokens via Tailwind classes (text-s4e-X, bg-s4e-X, …)
-    const classMatches = text.matchAll(/(?:^|[^a-z])s4e-([a-z0-9-]+)/g);
-    for (const m of classMatches) used.add(`s4e-${m[1]}`);
+    // ── Color tokens via Tailwind classes (text-snt-X, bg-snt-X, …)
+    const classMatches = text.matchAll(/(?:^|[^a-z])snt-([a-z0-9-]+)/g);
+    for (const m of classMatches) used.add(`snt-${m[1]}`);
 
     // ── CSS var() references
-    const vars = text.matchAll(/var\(--s4e-([a-z0-9-]+)\)/g);
-    for (const m of vars) used.add(`s4e-${m[1]}`);
+    const vars = text.matchAll(/var\(--snt-([a-z0-9-]+)\)/g);
+    for (const m of vars) used.add(`snt-${m[1]}`);
 
     // ── Spacing (p-4, gap-2, h-9, w-11, …)
     const spaceMatches = text.matchAll(/(?:^|[^a-z])(?:p|px|py|pt|pr|pb|pl|m|mx|my|mt|mr|mb|ml|gap|space-y|space-x|w|h|min-w|min-h|max-w|max-h)-(\d+(?:\.\d+)?)\b/g);
@@ -314,7 +314,7 @@ function buildSwift(tokens, sets) {
   if (colors.length) {
     out += "\n// MARK: - Colors\n\nextension UIColor {\n";
     for (const { name, value } of colors) {
-      out += `    static let ${toCamel(name.replace(/^s4e-/, ""))} = UIColor(hex: "${value.toUpperCase()}")\n`;
+      out += `    static let ${toCamel(name.replace(/^snt-/, ""))} = UIColor(hex: "${value.toUpperCase()}")\n`;
     }
     out += "}\n";
   }
@@ -375,7 +375,7 @@ function buildSwift(tokens, sets) {
   if (zIndex.length) {
     out += "\n// MARK: - Z-Index Layers\n\nextension Int {\n";
     for (const { name, value } of zIndex) {
-      out += `    static let ${toCamel(name.replace(/^s4e-/, ""))}: Int = ${Number(value)}\n`;
+      out += `    static let ${toCamel(name.replace(/^snt-/, ""))}: Int = ${Number(value)}\n`;
     }
     out += "}\n";
   }
@@ -384,7 +384,7 @@ function buildSwift(tokens, sets) {
     for (const { name, value } of durations) {
       const ms = parseInt(value, 10);
       const s  = (ms / 1000).toFixed(3).replace(/0+$/, "").replace(/\.$/, "");
-      out += `    static let ${toCamel(name.replace(/^s4e-/, ""))}: TimeInterval = ${s}\n`;
+      out += `    static let ${toCamel(name.replace(/^snt-/, ""))}: TimeInterval = ${s}\n`;
     }
     out += "}\n";
   }
@@ -406,7 +406,7 @@ function buildAndroidXml(tokens, sets) {
   if (colors.length) {
     out += "\n    <!-- Colors -->\n";
     for (const { name, value } of colors) {
-      out += `    <color name="${toSnake(name.replace(/^s4e-/, ""))}">${escapeXml(value.toUpperCase())}</color>\n`;
+      out += `    <color name="${toSnake(name.replace(/^snt-/, ""))}">${escapeXml(value.toUpperCase())}</color>\n`;
     }
   }
   if (spaceNames.size) {
@@ -454,14 +454,14 @@ function buildAndroidXml(tokens, sets) {
   if (zIndex.length) {
     out += "\n    <!-- Z-Index Layers -->\n";
     for (const { name, value } of zIndex) {
-      out += `    <integer name="${toSnake(name.replace(/^s4e-/, ""))}">${Number(value)}</integer>\n`;
+      out += `    <integer name="${toSnake(name.replace(/^snt-/, ""))}">${Number(value)}</integer>\n`;
     }
   }
   if (durations.length) {
     out += "\n    <!-- Motion Durations (milliseconds) -->\n";
     for (const { name, value } of durations) {
       const ms = parseInt(value, 10);
-      out += `    <integer name="${toSnake(name.replace(/^s4e-/, ""))}">${ms}</integer>\n`;
+      out += `    <integer name="${toSnake(name.replace(/^snt-/, ""))}">${ms}</integer>\n`;
     }
   }
   out += "\n</resources>\n";

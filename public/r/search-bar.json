@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "search-bar",
+  "title": "Search Bar",
+  "description": "A text input dedicated to searching or filtering content, with a search icon and a clear button.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/search-bar.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Search, X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — SearchBar\n *\n * Drop this file into your project at components/ui/search-bar.tsx.\n *\n * Requires:\n *   • Tailwind CSS v4\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n */\n\ntype Variant = \"default\" | \"ghost\";\n\nexport interface SearchBarProps\n  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, \"onChange\" | \"value\"> {\n  variant?:    Variant;\n  value?:      string;\n  onChange?:   (value: string) => void;\n  onClear?:    () => void;\n  clearable?:  boolean;\n  className?:  string;\n}\n\nconst CONTAINER_BASE =\n  \"flex items-center gap-2 rounded-lg px-3 h-9 compact:h-8 w-full transition-colors\";\n\nconst VARIANT_CONTAINER: Record<Variant, string> = {\n  default:\n    \"border border-snt-border-default bg-snt-surface-app shadow-snt-control \" +\n    \"focus-within:border-snt-brand-primary-500 focus-within:ring-2 focus-within:ring-snt-focus-ring/20\",\n  ghost:\n    \"bg-snt-bg-subtle border border-transparent \" +\n    \"focus-within:border-snt-brand-primary-500 focus-within:ring-2 focus-within:ring-snt-focus-ring/20\",\n};\n\nconst INPUT_BASE =\n  \"flex-1 bg-transparent text-snt-14 outline-none placeholder:text-snt-text-secondary \" +\n  \"text-snt-text-primary disabled:cursor-not-allowed disabled:text-snt-text-disabled\";\n\nexport const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(\n  (\n    {\n      variant     = \"default\",\n      value,\n      onChange,\n      onClear,\n      clearable   = true,\n      placeholder = \"Search…\",\n      disabled,\n      className,\n      ...props\n    },\n    ref,\n  ) => {\n    const hasClear = clearable && !!value && !disabled;\n\n    const handleClear = () => {\n      onClear?.();\n      onChange?.(\"\");\n    };\n\n    return (\n      <div\n        className={cn(\n          CONTAINER_BASE,\n          VARIANT_CONTAINER[variant],\n          disabled && \"opacity-40 cursor-not-allowed\",\n          className,\n        )}\n      >\n        <Search\n          size={14}\n          className=\"shrink-0 text-snt-text-secondary group-focus-within:text-snt-brand-primary-500\"\n        />\n        <input\n          ref={ref}\n          type=\"text\"\n          disabled={disabled}\n          placeholder={placeholder}\n          value={value ?? \"\"}\n          onChange={(e) => onChange?.(e.target.value)}\n          className={INPUT_BASE}\n          {...props}\n        />\n        {hasClear && (\n          <button\n            type=\"button\"\n            onClick={handleClear}\n            className=\"shrink-0 text-snt-text-secondary hover:text-snt-text-primary transition-colors\"\n            aria-label=\"Clear search\"\n          >\n            <X size={13} />\n          </button>\n        )}\n      </div>\n    );\n  },\n);\nSearchBar.displayName = \"SearchBar\";\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "stable"
+  },
+  "docs": "Search Bar (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/search-bar.md",
+  "categories": [
+    "molecule"
+  ],
+  "type": "registry:ui"
+}

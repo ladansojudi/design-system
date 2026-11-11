@@ -4,11 +4,11 @@
 
 :root {
   /* Colors */
-  --s4e-brand-primary-100: #c7e5fa;
-  --s4e-brand-primary-200: #8ac8f5;
-  --s4e-brand-primary-500: #1383d4;
-  --s4e-text-secondary: #657078;
-  --s4e-text-disabled: #a7adb2;
+  --snt-brand-primary-100: #e0e3ff;
+  --snt-brand-primary-200: #c7ccfe;
+  --snt-brand-primary-500: #5b5bd6;
+  --snt-text-secondary: #52525b;
+  --snt-text-disabled: #a1a1aa;
 
   /* Spacing */
   --space-3: 12px;

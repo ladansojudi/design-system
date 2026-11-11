@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "severity-bar",
+  "title": "Severity Bar",
+  "description": "One horizontal bar that splits a set of findings by severity, with an optional legend of counts.",
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/severity-bar.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — SeverityBar\n *\n * Drop this file into your project at components/ui/severity-bar.tsx.\n *\n * One horizontal bar that splits a set of findings by severity, with an\n * optional legend. No \"use client\": it renders in Server Components.\n *\n * Requires:\n *   • Tailwind CSS v4\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n */\n\nexport type Severity = \"critical\" | \"high\" | \"medium\" | \"low\" | \"info\";\n\nexport const SEVERITY_ORDER: Severity[] = [\"critical\", \"high\", \"medium\", \"low\", \"info\"];\n\nconst LABEL: Record<Severity, string> = {\n  critical: \"Critical\",\n  high:     \"High\",\n  medium:   \"Medium\",\n  low:      \"Low\",\n  info:     \"Info\",\n};\n\n// Severity fills are the hue-as-meaning tokens, never decorative.\nconst FILL: Record<Severity, string> = {\n  critical: \"bg-snt-severity-critical\",\n  high:     \"bg-snt-severity-high\",\n  medium:   \"bg-snt-severity-medium\",\n  low:      \"bg-snt-severity-low\",\n  info:     \"bg-snt-severity-info\",\n};\n\nexport interface SeverityBarProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** Number of findings per severity. Missing or 0 severities are left out. */\n  counts: Partial<Record<Severity, number>>;\n  /** Show the legend with counts under the bar. */\n  showLegend?: boolean;\n  /** Bar thickness: sm 6px, md 10px. */\n  size?: \"sm\" | \"md\";\n  /** What is being counted, for the accessible summary. */\n  noun?: string;\n}\n\nexport function SeverityBar({\n  counts,\n  showLegend = true,\n  size = \"md\",\n  noun = \"findings\",\n  className,\n  ...props\n}: SeverityBarProps) {\n  const parts = SEVERITY_ORDER.filter((s) => (counts[s] ?? 0) > 0).map((s) => ({ s, n: counts[s]! }));\n  const total = parts.reduce((sum, p) => sum + p.n, 0);\n  const summary =\n    total === 0\n      ? `No ${noun}`\n      : `${total} ${noun}: ` + parts.map((p) => `${p.n} ${LABEL[p.s].toLowerCase()}`).join(\", \");\n\n  return (\n    <div className={cn(\"w-full\", className)} {...props}>\n      {/* The bar is one image with a text summary; the legend repeats the numbers visibly. */}\n      <div\n        role=\"img\"\n        aria-label={summary}\n        className={cn(\"flex w-full gap-0.5 overflow-hidden rounded-full\", size === \"sm\" ? \"h-1.5\" : \"h-2.5\")}\n      >\n        {total === 0 ? (\n          <span className=\"h-full w-full bg-snt-bg-subtle\" />\n        ) : (\n          parts.map((p) => (\n            <span key={p.s} className={cn(\"h-full min-w-1\", FILL[p.s])} style={{ flexGrow: p.n, flexBasis: 0 }} />\n          ))\n        )}\n      </div>\n\n      {showLegend && (\n        <ul aria-hidden className=\"mt-2.5 flex flex-wrap gap-x-4 gap-y-1\">\n          {total === 0 ? (\n            <li className=\"text-snt-12 text-snt-text-secondary\">No {noun}</li>\n          ) : (\n            parts.map((p) => (\n              <li key={p.s} className=\"flex items-center gap-1.5 text-snt-12 text-snt-text-secondary\">\n                <span className={cn(\"size-2 rounded-full\", FILL[p.s])} />\n                {LABEL[p.s]}\n                <span className=\"font-medium tabular-nums text-snt-text-primary\">{p.n}</span>\n              </li>\n            ))\n          )}\n        </ul>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "beta"
+  },
+  "docs": "Severity Bar (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/severity-bar.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

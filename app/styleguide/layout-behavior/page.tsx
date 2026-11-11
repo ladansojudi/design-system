@@ -5,7 +5,7 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { LayoutBehaviorShowcase } from "@/sections/layout-behavior/layout-behavior-showcase";
 
 export const metadata: Metadata = {
-  title: "Layout & Behavior — Design System",
+  title: "Layout & Behavior — Sentinel Design System",
 };
 
 export default function LayoutBehaviorPage() {

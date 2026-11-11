@@ -7,15 +7,15 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
-    static let neutralGrey100 = UIColor(hex: "#F7F8F8")
+    static let brandPrimary500 = UIColor(hex: "#5B5BD6")
+    static let neutralGrey100 = UIColor(hex: "#F4F4F5")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
-    static let textPrimary = UIColor(hex: "#121F28")
-    static let textSecondary = UIColor(hex: "#657078")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
+    static let textPrimary = UIColor(hex: "#09090B")
+    static let textSecondary = UIColor(hex: "#52525B")
+    static let textDisabled = UIColor(hex: "#A1A1AA")
     static let textWhite = UIColor(hex: "#FFFFFF")
-    static let btnPrimary600 = UIColor(hex: "#0F69AA")
-    static let btnPrimary700 = UIColor(hex: "#024A72")
+    static let btnPrimary600 = UIColor(hex: "#4F46E5")
+    static let btnPrimary700 = UIColor(hex: "#4338CA")
 }
 
 // MARK: - Sizing (CGFloat)
@@ -29,6 +29,7 @@ extension CGFloat {
     static let space9: CGFloat = 36
     static let space10: CGFloat = 40
     static let space6: CGFloat = 24
+    static let space16: CGFloat = 64
 
     // Radius
     static let radiusSm: CGFloat = 2

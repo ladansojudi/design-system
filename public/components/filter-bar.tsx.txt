@@ -5,19 +5,19 @@ import { Search, ChevronDown, X, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — FilterBar
+ * sentinel/ui — FilterBar
  *
  * Drop this file into your project at components/ui/filter-bar.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
 
-export interface FilterBarProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type FilterBarProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(
   ({ className, children, ...props }, ref) => {
@@ -25,7 +25,7 @@ export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(
       <div
         ref={ref}
         className={cn(
-          "border border-s4e-neutral-divider-10 rounded-xl p-3 overflow-x-auto s4e-scrollbar-hide",
+          "border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs p-3 overflow-x-auto snt-scrollbar-hide",
           className,
         )}
         {...props}
@@ -70,50 +70,49 @@ export interface FilterPillProps extends Omit<React.ButtonHTMLAttributes<HTMLBut
 
 export const FilterPill = React.forwardRef<HTMLButtonElement, FilterPillProps>(
   ({ label, icon: Icon, count, active, onClear, className, ...props }, ref) => {
+    const clearable = active && onClear;
+    // The pill and its clear action are sibling buttons inside one visual
+    // container — nesting a button inside a button is invalid and confuses AT.
     return (
-      <button
-        ref={ref}
-        type="button"
+      <span
         className={cn(
-          "inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border text-[12px] font-medium cursor-pointer select-none transition-colors shrink-0",
+          "inline-flex items-center h-8 compact:h-7 rounded-lg border text-snt-12 font-medium select-none transition-colors shrink-0",
           active
-            ? "border-s4e-brand-primary-500 bg-s4e-brand-primary-50 text-s4e-brand-primary-500"
-            : "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-secondary hover:border-s4e-neutral-grey-300 hover:text-s4e-text-primary",
+            ? "border-snt-brand-primary-500 bg-snt-bg-brand-subtle text-snt-brand-primary-500"
+            : "border-snt-border-default bg-snt-surface-app shadow-snt-control text-snt-text-secondary hover:border-snt-border-strong hover:text-snt-text-primary",
           className,
         )}
-        {...props}
       >
-        {Icon && <Icon size={12} className="opacity-70 shrink-0" />}
-        <span>{label}</span>
-        {count !== undefined && (
-          <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-s4e-text-on-accent text-[10px] font-bold">
-            {count}
-          </span>
-        )}
-        {active && onClear ? (
-          <span
-            role="button"
-            tabIndex={0}
-            onClick={(e) => {
-              e.stopPropagation();
-              onClear();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                e.stopPropagation();
-                onClear();
-              }
-            }}
-            className="ml-0.5 hover:opacity-70"
+        <button
+          ref={ref}
+          type="button"
+          className={cn(
+            "inline-flex items-center gap-1.5 h-full pl-2.5 rounded-lg cursor-pointer",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring",
+            clearable ? "pr-1" : "pr-2.5",
+          )}
+          {...props}
+        >
+          {Icon && <Icon size={12} aria-hidden className="opacity-70 shrink-0" />}
+          <span>{label}</span>
+          {count !== undefined && (
+            <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-snt-brand-primary-500 text-snt-text-on-accent text-snt-10 font-bold">
+              {count}
+            </span>
+          )}
+          {!clearable && <ChevronDown size={11} aria-hidden className="opacity-50" />}
+        </button>
+        {clearable && (
+          <button
+            type="button"
+            onClick={onClear}
             aria-label={`Clear ${label}`}
+            className="inline-flex items-center h-full pl-0.5 pr-2.5 rounded-lg cursor-pointer hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
-            <X size={11} />
-          </span>
-        ) : (
-          <ChevronDown size={11} className="opacity-50" />
+            <X size={11} aria-hidden />
+          </button>
         )}
-      </button>
+      </span>
     );
   },
 );
@@ -129,7 +128,7 @@ export const FilterSearch = React.forwardRef<HTMLInputElement, FilterSearchProps
   ({ value, onChange, placeholder = "Search…", className, ...props }, ref) => {
     return (
       <div className="relative flex items-center shrink-0">
-        <Search size={13} className="absolute left-3 text-s4e-text-disabled pointer-events-none" />
+        <Search size={13} className="absolute left-3 text-snt-text-secondary pointer-events-none" />
         <input
           ref={ref}
           type="text"
@@ -137,7 +136,7 @@ export const FilterSearch = React.forwardRef<HTMLInputElement, FilterSearchProps
           value={value ?? ""}
           onChange={(e) => onChange?.(e.target.value)}
           className={cn(
-            "h-8 w-48 pl-8 pr-3 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[12px] text-s4e-text-primary placeholder:text-s4e-text-disabled outline-none focus:border-s4e-brand-primary-500 focus:ring-2 focus:ring-s4e-brand-primary-500/20 transition-colors",
+            "h-8 w-48 pl-8 pr-3 rounded-lg border border-snt-border-default bg-snt-surface-app shadow-snt-control text-snt-12 text-snt-text-primary placeholder:text-snt-text-secondary outline-none focus:border-snt-brand-primary-500 focus:ring-2 focus:ring-snt-focus-ring/20 transition-colors",
             className,
           )}
           {...props}
@@ -162,13 +161,14 @@ export const FilterAction = React.forwardRef<HTMLButtonElement, FilterActionProp
         ref={ref}
         type="button"
         title={label}
+        aria-label={iconOnly ? label : undefined}
         disabled={disabled || muted}
         className={cn(
-          "inline-flex items-center gap-1.5 h-8 rounded-lg border text-[12px] font-medium transition-colors shrink-0",
+          "inline-flex items-center gap-1.5 h-8 compact:h-7 rounded-lg border text-snt-12 font-medium transition-colors shrink-0",
           iconOnly ? "w-8 justify-center" : "px-3",
           muted
-            ? "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-disabled cursor-not-allowed"
-            : "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-secondary hover:text-s4e-text-primary hover:border-s4e-neutral-grey-300",
+            ? "border-snt-border-default bg-snt-surface-app text-snt-text-disabled cursor-not-allowed"
+            : "border-snt-border-default bg-snt-surface-app text-snt-text-secondary hover:text-snt-text-primary hover:border-snt-border-strong",
           className,
         )}
         {...props}
@@ -181,7 +181,7 @@ export const FilterAction = React.forwardRef<HTMLButtonElement, FilterActionProp
 );
 FilterAction.displayName = "FilterAction";
 
-export interface FilterClearProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export type FilterClearProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const FilterClear = React.forwardRef<HTMLButtonElement, FilterClearProps>(
   ({ className, children = "Clear", ...props }, ref) => {
@@ -190,7 +190,7 @@ export const FilterClear = React.forwardRef<HTMLButtonElement, FilterClearProps>
         ref={ref}
         type="button"
         className={cn(
-          "inline-flex items-center gap-1 h-8 px-2.5 text-[12px] font-medium text-s4e-scale-red-600 hover:text-s4e-scale-red-700 transition-colors shrink-0",
+          "inline-flex items-center gap-1 h-8 compact:h-7 px-2.5 text-snt-12 font-medium text-snt-text-error hover:text-snt-scale-red-700 transition-colors shrink-0",
           className,
         )}
         {...props}
@@ -214,7 +214,7 @@ export const FilterOverflow = React.forwardRef<HTMLButtonElement, FilterOverflow
         ref={ref}
         type="button"
         className={cn(
-          "inline-flex items-center gap-1 h-8 px-3 rounded-lg border border-dashed border-s4e-neutral-divider-10 text-[12px] font-medium text-s4e-text-secondary hover:border-s4e-brand-primary-500 hover:text-s4e-brand-primary-500 transition-colors shrink-0",
+          "inline-flex items-center gap-1 h-8 compact:h-7 px-3 rounded-lg border border-dashed border-snt-border-default text-snt-12 font-medium text-snt-text-secondary hover:border-snt-brand-primary-500 hover:text-snt-brand-primary-500 transition-colors shrink-0",
           className,
         )}
         {...props}
@@ -227,7 +227,7 @@ export const FilterOverflow = React.forwardRef<HTMLButtonElement, FilterOverflow
 );
 FilterOverflow.displayName = "FilterOverflow";
 
-export interface FilterBarDividerProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type FilterBarDividerProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const FilterBarDivider = React.forwardRef<HTMLDivElement, FilterBarDividerProps>(
   ({ className, ...props }, ref) => {
@@ -235,7 +235,7 @@ export const FilterBarDivider = React.forwardRef<HTMLDivElement, FilterBarDivide
       <div
         ref={ref}
         aria-hidden
-        className={cn("w-px h-5 bg-s4e-neutral-divider-10 shrink-0", className)}
+        className={cn("w-px h-5 bg-snt-border-default shrink-0", className)}
         {...props}
       />
     );

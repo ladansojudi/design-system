@@ -4,27 +4,26 @@
 <resources>
 
     <!-- Colors -->
-    <color name="brand_primary_500">#1383D4</color>
-    <color name="brand_primary_600">#0F69A9</color>
+    <color name="brand_primary_500">#5B5BD6</color>
     <color name="scale_red_50">#FCF3F2</color>
     <color name="scale_red_500">#D13D2E</color>
     <color name="scale_red_600">#8E2A1F</color>
-    <color name="neutral_grey_100">#F7F8F8</color>
-    <color name="neutral_grey_200">#F4F5F5</color>
+    <color name="neutral_grey_100">#F4F4F5</color>
     <color name="surface_app">#FFFFFF</color>
-    <color name="text_primary">#121F28</color>
-    <color name="text_secondary">#657078</color>
-    <color name="text_disabled">#A7ADB2</color>
+    <color name="text_primary">#09090B</color>
+    <color name="text_secondary">#52525B</color>
+    <color name="text_disabled">#A1A1AA</color>
 
     <!-- Spacing -->
     <dimen name="space_2">8dp</dimen>
     <dimen name="space_4">16dp</dimen>
-    <dimen name="space_5">20dp</dimen>
-    <dimen name="space_1">4dp</dimen>
     <dimen name="space_10">40dp</dimen>
     <dimen name="space_6">24dp</dimen>
+    <dimen name="space_5">20dp</dimen>
+    <dimen name="space_1">4dp</dimen>
     <dimen name="space_8">32dp</dimen>
     <dimen name="space_3">12dp</dimen>
+    <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->
     <dimen name="radius_xl">12dp</dimen>
@@ -34,16 +33,14 @@
     <dimen name="border_width_1">1dp</dimen>
 
     <!-- Font size -->
-    <dimen name="font_size_10">10sp</dimen>
     <dimen name="font_size_11">11sp</dimen>
     <dimen name="font_size_12">12sp</dimen>
     <dimen name="font_size_14">14sp</dimen>
-    <dimen name="font_size_15">15sp</dimen>
     <dimen name="font_size_32">32sp</dimen>
 
     <!-- Font weight -->
-    <integer name="font_weight_medium">500</integer>
     <integer name="font_weight_semibold">600</integer>
+    <integer name="font_weight_medium">500</integer>
     <integer name="font_weight_normal">400</integer>
     <integer name="font_weight_bold">700</integer>
 

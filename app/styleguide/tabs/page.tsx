@@ -5,69 +5,88 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { TabsShowcase, TabsExamples } from "@/sections/tabs/tabs-showcase";
 import { TabsSpecs } from "@/sections/tabs/tabs-specs";
 import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { ViewModeTabs } from "@/components/styleguide/view-mode-tabs";
+import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
+import { FigmaNote } from "@/components/styleguide/figma-note";
+import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
+import { DocSection } from "@/components/styleguide/doc-section";
 
 export const metadata: Metadata = {
-  title: "Tabs — Design System",
+  title: "Tabs — Sentinel Design System",
 };
 
 export default function Page() {
   return (
     <>
-      <PageHero category="Molecules" title="Tabs" status="stable" description="Horizontal navigation pattern for switching between related views."
+      <PageHero category="Components"
+        categoryHref="/styleguide/components" title="Tabs" status="stable" description="Horizontal navigation pattern for switching between related views."
         actions={<OpenInFigma />}
-        tabs={<ViewModeTabs />}
+        tabs={<ComponentTabs />}
       />
 
+      <ComponentTabPanel>
       <PageBody>
 
 
       <ModeAware
+        specs={
+          <div className="mt-8 space-y-10 sm:mt-10">
+            <FigmaNote component="Tabs" />
+            <DocSection title="Specs" hideTitle>
+              <Anatomy
+                parts={[
+                  { label: "Tab item",   description: "Clickable segment holding the label and optional badge." },
+                  { label: "Indicator",  description: "Underline (2px bottom border) or filled pill that marks the active tab." },
+                  { label: "Badge (optional)", description: "Count chip used to surface activity (Findings · 12)." },
+                ]}
+              >
+                <div className="flex items-end border-b border-snt-neutral-divider-10">
+                  <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-snt-brand-primary-500 text-snt-brand-primary-500">Findings</span>
+                  <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-transparent text-snt-text-secondary">Assets</span>
+                </div>
+              </Anatomy>
+              <TabsSpecs />
+            </DocSection>
+          </div>
+        }
+        a11y={
+          <div className="mt-8 sm:mt-10">
+            <DocA11y slug="tabs" />
+          </div>
+        }
         design={
-          <div className="space-y-10 mt-8 sm:mt-10">
-            <TabsShowcase />
-
-            <Anatomy
-              parts={[
-                { label: "Tab item",   description: "Clickable segment holding the label and optional badge." },
-                { label: "Indicator",  description: "Underline (2px bottom border) or filled pill that marks the active tab." },
-                { label: "Badge (optional)", description: "Count chip used to surface activity (Findings · 12)." },
-              ]}
-            >
-              <div className="flex items-end border-b border-s4e-neutral-divider-10">
-                <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-s4e-brand-primary-500 text-s4e-brand-primary-500">Findings</span>
-                <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-transparent text-s4e-text-secondary">Assets</span>
-              </div>
-            </Anatomy>
-
-            <TabsSpecs />
-
-            <UseCases
-              items={[
-                "Use Underline for primary in-page navigation (Overview · Details · Scan Graph).",
-                "Use Pill for secondary segmented control situations, especially inside cards.",
-                "Add a badge when the user benefits from seeing counts without clicking.",
-              ]}
-            />
-
-            <Guidelines
-              items={[
-                { type: "do",   text: "Keep labels short (1–2 words) so all tabs fit on one row." },
-                { type: "dont", text: "Don't exceed 5 tabs; collapse the rest into an overflow menu." },
-                { type: "do",   text: "Default to the first tab — don't open on an empty state." },
-                { type: "dont", text: "Don't mix tabs with filters; they serve different mental models." },
-              ]}
-            />
+          <div className="space-y-16 mt-8 sm:mt-10">
+            <DocSection title="Examples">
+              <TabsShowcase />
+            </DocSection>
+            <DocSection title="Usage">
+              <UseCases
+                items={[
+                  "Use Underline for primary in-page navigation (Overview · Details · Scan Graph).",
+                  "Use Pill for secondary segmented control situations, especially inside cards.",
+                  "Add a badge when the user benefits from seeing counts without clicking.",
+                ]}
+              />
+              <Guidelines
+                items={[
+                  { type: "do",   text: "Keep labels short (1–2 words) so all tabs fit on one row." },
+                  { type: "dont", text: "Don't exceed 5 tabs; collapse the rest into an overflow menu." },
+                  { type: "do",   text: "Default to the first tab — don't open on an empty state." },
+                  { type: "dont", text: "Don't mix tabs with filters; they serve different mental models." },
+                ]}
+              />
+            </DocSection>
+            
           </div>
         }
         dev={
           <div className="mt-8 sm:mt-10">
-            <TabsExamples />
+            <DocSection title="Examples"><TabsExamples /></DocSection>
           </div>
         }
       />
       </PageBody>
+      </ComponentTabPanel>
     </>
   );
 }

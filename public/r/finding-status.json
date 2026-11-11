@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "finding-status",
+  "title": "Finding Status",
+  "description": "Shows where a finding is in its lifecycle, from Open to Resolved, with an icon and a label for each status.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/finding-status.tsx",
+      "content": "import * as React from \"react\";\nimport { CircleCheck, CircleDashed, CircleDot, CircleSlash, ShieldMinus } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — FindingStatus\n *\n * Drop this file into your project at components/ui/finding-status.tsx.\n *\n * Where a finding is in its lifecycle. Every status has its own icon as well\n * as a colour, so it never relies on colour alone. No \"use client\".\n *\n * Requires:\n *   • Tailwind CSS v4, lucide-react\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n */\n\nexport type FindingStatusValue = \"open\" | \"in-progress\" | \"resolved\" | \"accepted-risk\" | \"false-positive\";\n\ntype Config = { label: string; icon: React.ComponentType<{ className?: string; \"aria-hidden\"?: boolean }>; tone: string };\n\nconst STATUS: Record<FindingStatusValue, Config> = {\n  open:             { label: \"Open\",           icon: CircleDot,    tone: \"bg-snt-bg-error-subtle text-snt-text-error\" },\n  \"in-progress\":    { label: \"In progress\",    icon: CircleDashed, tone: \"bg-snt-bg-info-subtle text-snt-text-info\" },\n  resolved:         { label: \"Resolved\",       icon: CircleCheck,  tone: \"bg-snt-bg-success-subtle text-snt-text-success\" },\n  \"accepted-risk\":  { label: \"Accepted risk\",  icon: ShieldMinus,  tone: \"bg-snt-bg-warning-subtle text-snt-text-warning\" },\n  \"false-positive\": { label: \"False positive\", icon: CircleSlash,  tone: \"bg-snt-bg-subtle text-snt-text-secondary\" },\n};\n\nexport const FINDING_STATUSES = Object.keys(STATUS) as FindingStatusValue[];\n\nexport interface FindingStatusProps extends React.HTMLAttributes<HTMLSpanElement> {\n  status: FindingStatusValue;\n  /** Override the visible label (e.g. for translation). */\n  label?: string;\n  size?: \"sm\" | \"md\";\n}\n\nexport function FindingStatus({ status, label, size = \"md\", className, ...props }: FindingStatusProps) {\n  const cfg = STATUS[status];\n  const Icon = cfg.icon;\n  return (\n    <span\n      className={cn(\n        \"inline-flex items-center gap-1.5 whitespace-nowrap rounded-full font-medium ring-1 ring-inset ring-current/15\",\n        size === \"sm\" ? \"h-5 px-2 text-snt-11 [&_svg]:size-3\" : \"h-6 px-2.5 text-snt-12 [&_svg]:size-3.5\",\n        cfg.tone,\n        className,\n      )}\n      {...props}\n    >\n      <Icon aria-hidden />\n      {label ?? cfg.label}\n    </span>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "beta"
+  },
+  "docs": "Finding Status (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/finding-status.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

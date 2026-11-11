@@ -7,17 +7,17 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
+    static let brandPrimary500 = UIColor(hex: "#5B5BD6")
     static let scaleRed50 = UIColor(hex: "#FCF3F2")
     static let scaleRed100 = UIColor(hex: "#F4D1CD")
     static let scaleRed500 = UIColor(hex: "#D13D2E")
     static let scaleRed600 = UIColor(hex: "#8E2A1F")
-    static let neutralGrey100 = UIColor(hex: "#F7F8F8")
-    static let neutralGrey200 = UIColor(hex: "#F4F5F5")
+    static let neutralGrey100 = UIColor(hex: "#F4F4F5")
+    static let neutralGrey200 = UIColor(hex: "#E4E4E7")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
-    static let textPrimary = UIColor(hex: "#121F28")
-    static let textSecondary = UIColor(hex: "#657078")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
+    static let textPrimary = UIColor(hex: "#09090B")
+    static let textSecondary = UIColor(hex: "#52525B")
+    static let textDisabled = UIColor(hex: "#A1A1AA")
 }
 
 // MARK: - Sizing (CGFloat)
@@ -32,6 +32,7 @@ extension CGFloat {
     static let space10: CGFloat = 40
     static let space6: CGFloat = 24
     static let space3: CGFloat = 12
+    static let space16: CGFloat = 64
 
     // Radius
     static let radiusLg: CGFloat = 8
@@ -45,7 +46,6 @@ extension CGFloat {
     static let fontSize10: CGFloat = 10
     static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
-    static let fontSize15: CGFloat = 15
 
     // Focus ring width
     static let ringWidth2: CGFloat = 2

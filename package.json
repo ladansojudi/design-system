@@ -7,10 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "lint:ds": "eslint components/ui eslint scripts && node eslint/eslint-plugin-sentinel.test.mjs",
     "tokens": "node scripts/export-tokens.js",
     "components": "node scripts/export-components.js",
-    "svg": "node scripts/export-svg.js",
-    "export": "npm run tokens && npm run components && npm run svg",
+    "llms": "node scripts/export-llms.js",
+    "registry": "node scripts/export-registry.js",
+    "export": "npm run tokens && npm run components && npm run llms && npm run registry",
     "prebuild": "npm run export"
   },
   "dependencies": {

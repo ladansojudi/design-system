@@ -3,110 +3,41 @@
 import type React from "react";
 import { useState } from "react";
 import {
-  Search, ChevronDown, SlidersHorizontal, Upload, X, Plus,
+  SlidersHorizontal, Upload, X, Plus,
   Tag, CheckCircle, Shield, Calendar, Radar, Network,
+  CircleCheck,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { ExampleCard } from "@/components/styleguide/example-card";
+import { FilterPill, FilterSearch, FilterAction, FilterClear, FilterBarDivider } from "@/components/ui/filter-bar";
 
 // ── Filter Pill ────────────────────────────────────────────────────────────
-
-function FilterPill({
-  label,
-  icon: Icon,
-  count,
-  active,
-  onClear,
-}: {
-  label:    string;
-  icon?:    React.ComponentType<{ size?: number; className?: string }>;
-  count?:   number;
-  active?:  boolean;
-  onClear?: () => void;
-}) {
-  return (
-    <div className={cn(
-      "inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border text-[12px] font-medium cursor-pointer select-none transition-colors shrink-0",
-      active
-        ? "border-s4e-brand-primary-500 bg-s4e-brand-primary-50 text-s4e-brand-primary-500"
-        : "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-secondary hover:border-s4e-neutral-grey-300 hover:text-s4e-text-primary",
-    )}>
-      {Icon && <Icon size={12} className="opacity-70 shrink-0" />}
-      <span>{label}</span>
-      {count !== undefined && (
-        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-s4e-brand-primary-500 text-s4e-text-on-accent text-[10px] font-bold">
-          {count}
-        </span>
-      )}
-      {active && onClear
-        ? <button type="button" onClick={onClear} className="ml-0.5 hover:opacity-70"><X size={11} /></button>
-        : <ChevronDown size={11} className="opacity-50" />
-      }
-    </div>
-  );
-}
 
 // ── Search Input ───────────────────────────────────────────────────────────
 
 function SearchInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  return (
-    <div className="relative flex items-center shrink-0">
-      <Search size={13} className="absolute left-3 text-s4e-text-disabled pointer-events-none" />
-      <input
-        type="text"
-        placeholder="Search…"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="h-8 w-48 pl-8 pr-3 rounded-lg border border-s4e-neutral-divider-10 bg-s4e-surface-app text-[12px] text-s4e-text-primary placeholder:text-s4e-text-disabled outline-none focus:border-s4e-brand-primary-500 focus:ring-2 focus:ring-s4e-brand-primary-500/20 transition-colors"
-      />
-    </div>
-  );
+  return <FilterSearch aria-label="Search findings" placeholder="Search…" value={value} onChange={onChange} />;
 }
 
 // ── Action Button ──────────────────────────────────────────────────────────
 
 function ActionBtn({
-  icon: Icon,
+  icon,
   label,
   iconOnly,
   muted,
 }: {
-  icon:      React.ComponentType<{ size?: number; className?: string }>;
-  label:     string;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  label: string;
   iconOnly?: boolean;
-  muted?:    boolean;
+  muted?: boolean;
 }) {
-  return (
-    <button
-      type="button"
-      title={label}
-      className={cn(
-        "inline-flex items-center gap-1.5 h-8 rounded-lg border text-[12px] font-medium transition-colors shrink-0",
-        iconOnly ? "w-8 justify-center" : "px-3",
-        muted
-          ? "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-disabled cursor-not-allowed"
-          : "border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-secondary hover:text-s4e-text-primary hover:border-s4e-neutral-grey-300",
-      )}
-    >
-      <Icon size={13} />
-      {!iconOnly && label}
-    </button>
-  );
+  return <FilterAction icon={icon} label={label} iconOnly={iconOnly} muted={muted} />;
 }
 
 // ── Clear Button ───────────────────────────────────────────────────────────
 
 function ClearBtn({ onClick }: { onClick: () => void }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="inline-flex items-center gap-1 h-8 px-2.5 text-[12px] font-medium text-s4e-scale-red-600 hover:text-s4e-scale-red-700 transition-colors shrink-0"
-    >
-      <X size={13} />
-      Clear
-    </button>
-  );
+  return <FilterClear onClick={onClick} />;
 }
 
 // ── Section title ──────────────────────────────────────────────────────────
@@ -114,8 +45,8 @@ function ClearBtn({ onClick }: { onClick: () => void }) {
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <h3 className="text-snt-16 font-semibold text-snt-text-primary">{children}</h3>
     </div>
   );
 }
@@ -123,7 +54,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 // ── Divider ────────────────────────────────────────────────────────────────
 
 function VDivider() {
-  return <div className="w-px h-5 bg-s4e-neutral-divider-10 shrink-0" />;
+  return <FilterBarDivider />;
 }
 
 // ── Showcase ───────────────────────────────────────────────────────────────
@@ -150,11 +81,11 @@ export function FilterBarShowcase() {
       {/* Fits — all pills visible */}
       <div>
         <SectionTitle>Fits</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-4">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-4">
 
           <div>
-            <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">With Search</p>
-            <div className="border border-s4e-neutral-divider-10 rounded-xl p-3 overflow-x-auto s4e-scrollbar-hide">
+            <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">With Search</p>
+            <div className="border border-snt-neutral-divider-10 rounded-xl p-3 overflow-x-auto snt-scrollbar-hide">
               <div className="flex items-center gap-2 w-max md:w-auto">
                 <div className="flex items-center gap-2 md:flex-1 md:min-w-0">
                   <SearchInput value={search} onChange={setSearch} />
@@ -174,8 +105,8 @@ export function FilterBarShowcase() {
           </div>
 
           <div>
-            <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">Without Search</p>
-            <div className="border border-s4e-neutral-divider-10 rounded-xl p-3 overflow-x-auto s4e-scrollbar-hide">
+            <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">Without Search</p>
+            <div className="border border-snt-neutral-divider-10 rounded-xl p-3 overflow-x-auto snt-scrollbar-hide">
               <div className="flex items-center gap-2 w-max md:w-auto">
                 <div className="flex items-center gap-2 md:flex-1 md:min-w-0">
                   {VISIBLE_PILLS.map((p) => (
@@ -197,8 +128,8 @@ export function FilterBarShowcase() {
       {/* Overflow — extra pills hidden behind + button */}
       <div>
         <SectionTitle>Overflow</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
-          <div className="border border-s4e-neutral-divider-10 rounded-xl p-3 space-y-2 overflow-x-auto s4e-scrollbar-hide">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5">
+          <div className="border border-snt-neutral-divider-10 rounded-xl p-3 space-y-2 overflow-x-auto snt-scrollbar-hide">
 
             {/* Main row */}
             <div className="flex items-center gap-2 w-max md:w-auto">
@@ -213,7 +144,7 @@ export function FilterBarShowcase() {
                   <button
                     type="button"
                     onClick={() => setExpanded(true)}
-                    className="inline-flex items-center gap-1 h-8 px-3 rounded-lg border border-dashed border-s4e-neutral-divider-10 text-[12px] font-medium text-s4e-text-secondary hover:border-s4e-brand-primary-500 hover:text-s4e-brand-primary-500 transition-colors shrink-0"
+                    className="inline-flex items-center gap-1 h-8 px-3 rounded-lg border border-dashed border-snt-neutral-divider-10 text-[12px] font-medium text-snt-text-secondary hover:border-snt-brand-primary-500 hover:text-snt-brand-primary-500 transition-colors shrink-0"
                   >
                     <Plus size={12} />
                     {OVERFLOW_PILLS.length}
@@ -231,15 +162,15 @@ export function FilterBarShowcase() {
 
             {/* Expanded overflow row */}
             {expanded && (
-              <div className="flex items-center gap-2 pt-1 border-t border-s4e-neutral-divider-10 w-max md:w-auto">
-                <span className="text-[10px] text-s4e-text-disabled shrink-0">More filters</span>
+              <div className="flex items-center gap-2 pt-1 border-t border-snt-neutral-divider-10 w-max md:w-auto">
+                <span className="text-[10px] text-snt-text-disabled shrink-0">More filters</span>
                 {OVERFLOW_PILLS.map((p) => (
                   <FilterPill key={p.label} label={p.label} />
                 ))}
                 <button
                   type="button"
                   onClick={() => setExpanded(false)}
-                  className="md:ml-auto text-[11px] text-s4e-text-disabled hover:text-s4e-text-primary transition-colors shrink-0"
+                  className="md:ml-auto text-[11px] text-snt-text-disabled hover:text-snt-text-primary transition-colors shrink-0"
                 >
                   <X size={13} />
                 </button>
@@ -259,12 +190,12 @@ export function FilterBarShowcase() {
 function SearchOnlyExample() {
   const [v, setV] = useState("");
   return (
-    <div className="w-full max-w-2xl border border-s4e-neutral-divider-10 rounded-xl p-3">
+    <div className="w-full max-w-2xl border border-snt-neutral-divider-10 rounded-xl p-3">
       <div className="flex items-center gap-2">
         <SearchInput value={v} onChange={setV} />
         <VDivider />
         <FilterPill label="Tags" icon={Tag} />
-        <FilterPill label="Verify Status" icon={CheckCircle} />
+        <FilterPill label="Verify Status" icon={CircleCheck} />
       </div>
     </div>
   );
@@ -273,7 +204,7 @@ function SearchOnlyExample() {
 function FullBarExample() {
   const [v, setV] = useState("");
   return (
-    <div className="w-full max-w-3xl border border-s4e-neutral-divider-10 rounded-xl p-3 overflow-x-auto s4e-scrollbar-hide">
+    <div className="w-full max-w-3xl border border-snt-neutral-divider-10 rounded-xl p-3 overflow-x-auto snt-scrollbar-hide">
       <div className="flex items-center gap-2 w-max md:w-auto">
         <div className="flex items-center gap-2 md:flex-1 md:min-w-0">
           <SearchInput value={v} onChange={setV} />
@@ -294,11 +225,11 @@ function FullBarExample() {
 
 function ActivePillsExample() {
   return (
-    <div className="w-full max-w-2xl border border-s4e-neutral-divider-10 rounded-xl p-3">
+    <div className="w-full max-w-2xl border border-snt-neutral-divider-10 rounded-xl p-3">
       <div className="flex items-center gap-2">
         <FilterPill label="Tags" icon={Tag} count={2} active onClear={() => {}} />
         <FilterPill label="Advanced Security" icon={Shield} count={1} active onClear={() => {}} />
-        <FilterPill label="Verify Status" icon={CheckCircle} />
+        <FilterPill label="Verify Status" icon={CircleCheck} />
         <ClearBtn onClick={() => {}} />
       </div>
     </div>
@@ -308,7 +239,7 @@ function ActivePillsExample() {
 function OverflowExample() {
   const [v, setV] = useState("");
   return (
-    <div className="w-full max-w-3xl border border-s4e-neutral-divider-10 rounded-xl p-3 overflow-x-auto s4e-scrollbar-hide">
+    <div className="w-full max-w-3xl border border-snt-neutral-divider-10 rounded-xl p-3 overflow-x-auto snt-scrollbar-hide">
       <div className="flex items-center gap-2 w-max md:w-auto">
         <div className="flex items-center gap-2 md:flex-1 md:min-w-0">
           <SearchInput value={v} onChange={setV} />
@@ -318,7 +249,7 @@ function OverflowExample() {
           ))}
           <button
             type="button"
-            className="inline-flex items-center gap-1 h-8 px-3 rounded-lg border border-dashed border-s4e-neutral-divider-10 text-[12px] font-medium text-s4e-text-secondary hover:border-s4e-brand-primary-500 hover:text-s4e-brand-primary-500 transition-colors shrink-0"
+            className="inline-flex items-center gap-1 h-8 px-3 rounded-lg border border-dashed border-snt-neutral-divider-10 text-[12px] font-medium text-snt-text-secondary hover:border-snt-brand-primary-500 hover:text-snt-brand-primary-500 transition-colors shrink-0"
           >
             <Plus size={12} />
             {OVERFLOW_PILLS.length}
@@ -340,14 +271,15 @@ export function FilterBarExamples() {
         title="Full bar — search + filters + actions"
         density="default"
         code={`<FilterBar>
-  <SearchInput />
+  <FilterBarGroup grow>
+    <FilterSearch aria-label="Search findings" value={q} onChange={setQ} />
+  </FilterBarGroup>
   <FilterPill label="Tags" icon={Tag} />
-  <FilterPill label="Verify Status" icon={CheckCircle} />
+  <FilterPill label="Verify Status" icon={CircleCheck} />
   <FilterPill label="Advanced Security" icon={Shield} count={1} active />
-  <FilterBarActions>
-    <Button variant="outline" iconOnly><Upload /></Button>
-    <Button variant="outline">Bulk Actions</Button>
-  </FilterBarActions>
+  <FilterBarDivider />
+  <FilterAction icon={Upload} label="Export" iconOnly aria-label="Export" />
+  <FilterAction label="Bulk actions" />
 </FilterBar>`}
         preview={<FullBarExample />}
       />
@@ -355,9 +287,11 @@ export function FilterBarExamples() {
         title="Search only"
         density="default"
         code={`<FilterBar>
-  <SearchInput />
+  <FilterBarGroup grow>
+    <FilterSearch aria-label="Search findings" value={q} onChange={setQ} />
+  </FilterBarGroup>
   <FilterPill label="Tags" icon={Tag} />
-  <FilterPill label="Verify Status" icon={CheckCircle} />
+  <FilterPill label="Verify Status" icon={CircleCheck} />
 </FilterBar>`}
         preview={<SearchOnlyExample />}
       />
@@ -365,10 +299,10 @@ export function FilterBarExamples() {
         title="With active pills"
         density="default"
         code={`<FilterBar>
-  <FilterPill label="Tags" icon={Tag} count={2} active onClear={...} />
-  <FilterPill label="Advanced Security" icon={Shield} count={1} active onClear={...} />
-  <FilterPill label="Verify Status" icon={CheckCircle} />
-  <FilterBarClear onClick={...} />
+  <FilterPill label="Tags" icon={Tag} count={2} active onClear={clearFilter} />
+  <FilterPill label="Advanced Security" icon={Shield} count={1} active onClear={clearFilter} />
+  <FilterPill label="Verify Status" icon={CircleCheck} />
+  <FilterClear onClick={clearAll} />
 </FilterBar>`}
         preview={<ActivePillsExample />}
       />
@@ -376,11 +310,13 @@ export function FilterBarExamples() {
         title="With overflow"
         density="default"
         code={`<FilterBar>
-  <SearchInput />
+  <FilterBarGroup grow>
+    <FilterSearch aria-label="Search findings" value={q} onChange={setQ} />
+  </FilterBarGroup>
   <FilterPill label="Tags" icon={Tag} />
-  <FilterPill label="Verify Status" icon={CheckCircle} />
+  <FilterPill label="Verify Status" icon={CircleCheck} />
   <FilterPill label="Advanced Security" icon={Shield} count={1} active />
-  <FilterBarOverflow count={3} />
+  <FilterOverflow count={3} />
 </FilterBar>`}
         preview={<OverflowExample />}
       />

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert",
+  "title": "Alert",
+  "description": "An inline message tied to a page or section. It communicates a status that persists until the condition changes or the user dismisses it.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/alert.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { CheckCircle2, Info, AlertTriangle, OctagonAlert, X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — Alert\n *\n * Drop this file into your project at components/ui/alert.tsx.\n *\n * Requires:\n *   • Tailwind CSS v4\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n *   • lucide-react for icons.\n */\n\ntype Variant = \"info\" | \"success\" | \"warning\" | \"error\";\n\nexport interface AlertProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"title\"> {\n  variant?:     Variant;\n  title?:       React.ReactNode;\n  dismissible?: boolean;\n  action?:      React.ReactNode;\n  onDismiss?:   () => void;\n}\n\ntype VariantConfig = {\n  bg:        string;\n  border:    string;\n  text:      string;\n  title:     string;\n  iconClass: string;\n  icon:      React.ComponentType<{ size?: number; className?: string }>;\n};\n\nconst VARIANT_CLASS: Record<Variant, VariantConfig> = {\n  info: {\n    bg:        \"bg-snt-bg-info-subtle\",\n    border:    \"border-snt-scale-blue-200\",\n    text:      \"text-snt-text-info\",\n    title:     \"text-snt-text-info\",\n    iconClass: \"text-snt-text-info\",\n    icon:      Info,\n  },\n  success: {\n    bg:        \"bg-snt-bg-success-subtle\",\n    border:    \"border-snt-scale-green-200\",\n    text:      \"text-snt-text-success\",\n    title:     \"text-snt-text-success\",\n    iconClass: \"text-snt-text-success\",\n    icon:      CheckCircle2,\n  },\n  warning: {\n    bg:        \"bg-snt-bg-warning-subtle\",\n    border:    \"border-snt-scale-yellow-200\",\n    text:      \"text-snt-text-warning\",\n    title:     \"text-snt-text-warning\",\n    iconClass: \"text-snt-text-warning\",\n    icon:      AlertTriangle,\n  },\n  error: {\n    bg:        \"bg-snt-bg-error-subtle\",\n    border:    \"border-snt-scale-red-200\",\n    text:      \"text-snt-text-error\",\n    title:     \"text-snt-text-error\",\n    iconClass: \"text-snt-text-error\",\n    icon:      OctagonAlert,\n  },\n};\n\nexport const Alert = React.forwardRef<HTMLDivElement, AlertProps>(\n  (\n    {\n      variant     = \"info\",\n      title,\n      dismissible = false,\n      action,\n      onDismiss,\n      className,\n      children,\n      ...props\n    },\n    ref,\n  ) => {\n    const [open, setOpen] = React.useState(true);\n    const cfg = VARIANT_CLASS[variant];\n    const Icon = cfg.icon;\n    if (!open) return null;\n\n    const handleDismiss = () => {\n      setOpen(false);\n      onDismiss?.();\n    };\n\n    return (\n      <div\n        ref={ref}\n        role=\"alert\"\n        className={cn(\n          \"flex items-start gap-3 rounded-lg border px-4 py-3\",\n          cfg.bg,\n          cfg.border,\n          className,\n        )}\n        {...props}\n      >\n        <Icon size={16} className={cn(\"shrink-0 mt-px\", cfg.iconClass)} />\n        <div className=\"flex-1 min-w-0\">\n          {title && (\n            <div className={cn(\"text-snt-14 font-semibold leading-tight\", cfg.title)}>\n              {title}\n            </div>\n          )}\n          {children && (\n            <div className={cn(\"text-snt-12 leading-relaxed\", cfg.text, title && \"mt-1\")}>\n              {children}\n            </div>\n          )}\n          {action && <div className=\"mt-2.5\">{action}</div>}\n        </div>\n        {dismissible && (\n          <button\n            type=\"button\"\n            aria-label=\"Dismiss\"\n            onClick={handleDismiss}\n            className={cn(\n              \"shrink-0 p-1 -m-1 rounded hover:bg-snt-neutral-divider-10 cursor-pointer\",\n              cfg.text,\n            )}\n          >\n            <X size={14} />\n          </button>\n        )}\n      </div>\n    );\n  },\n);\nAlert.displayName = \"Alert\";\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "stable"
+  },
+  "docs": "Alert (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/alert.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

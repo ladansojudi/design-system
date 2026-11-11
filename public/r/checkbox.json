@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "Lets the user turn an independent option on or off, or pick several items from a list.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/checkbox.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Check, Minus } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — Checkbox\n *\n * Drop this file into your project at components/ui/checkbox.tsx.\n *\n * Requires:\n *   • Tailwind CSS v4\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n *   • lucide-react for the Check / Minus icons.\n */\n\ntype Tone = \"primary\" | \"neutral\";\n\nexport interface CheckboxProps\n  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, \"onChange\" | \"type\"> {\n  checked:        boolean;\n  indeterminate?: boolean;\n  onChange?:      (v: boolean) => void;\n  tone?:          Tone;\n  label?:         string;\n  description?:   string;\n}\n\nconst FILL_CLASS: Record<Tone, string> = {\n  primary: \"bg-snt-btn-primary-600 border-snt-btn-primary-600\",\n  neutral: \"bg-snt-btn-neutral-800 border-snt-btn-neutral-800\",\n};\n\nconst EMPTY_CLASS = \"border-snt-neutral-grey-400 bg-snt-surface-row\";\n\nexport const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(\n  (\n    {\n      checked,\n      indeterminate = false,\n      onChange,\n      disabled = false,\n      tone = \"primary\",\n      label,\n      description,\n      id,\n      className,\n      ...props\n    },\n    ref,\n  ) => {\n    const inputRef  = React.useRef<HTMLInputElement>(null);\n    React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);\n\n    // `indeterminate` only exists as a DOM property — without this, screen\n    // readers announce \"not checked\" instead of \"mixed\".\n    React.useEffect(() => {\n      if (inputRef.current) inputRef.current.indeterminate = indeterminate;\n    }, [indeterminate]);\n\n    const autoId    = React.useId();\n    const inputId   = id ?? autoId;\n    const descId    = `${inputId}-description`;\n    const filled    = checked || indeterminate;\n    const fillClass = filled ? FILL_CLASS[tone] : EMPTY_CLASS;\n\n    return (\n      <label\n        htmlFor={inputId}\n        className={cn(\n          \"flex items-start gap-2.5 group\",\n          disabled ? \"cursor-not-allowed opacity-40\" : \"cursor-pointer\",\n          className,\n        )}\n      >\n        <span className=\"relative inline-flex items-center justify-center mt-px\">\n          <input\n            ref={inputRef}\n            id={inputId}\n            type=\"checkbox\"\n            aria-describedby={description ? descId : undefined}\n            checked={checked}\n            disabled={disabled}\n            onChange={(e) => onChange?.(e.target.checked)}\n            className=\"peer sr-only\"\n            {...props}\n          />\n          <span\n            aria-hidden\n            className={cn(\n              \"w-[18px] h-[18px] rounded border-2 shadow-snt-control flex items-center justify-center transition-colors\",\n              \"peer-focus-visible:ring-2 peer-focus-visible:ring-offset-1 peer-focus-visible:ring-snt-focus-ring\",\n              fillClass,\n              !disabled && !filled && \"group-hover:border-snt-neutral-grey-600\",\n            )}\n          >\n            {indeterminate\n              ? <Minus size={12} aria-hidden className=\"text-snt-text-on-accent\" />\n              : checked && <Check size={12} aria-hidden className=\"text-snt-text-on-accent\" />\n            }\n          </span>\n        </span>\n        {(label || description) && (\n          <span className=\"flex-1 min-w-0\">\n            {label && (\n              <span className={cn(\n                \"block text-snt-14 leading-tight\",\n                disabled ? \"text-snt-text-disabled\" : \"text-snt-text-primary\",\n              )}>\n                {label}\n              </span>\n            )}\n            {description && (\n              <span id={descId} className=\"block text-snt-11 text-snt-text-secondary mt-0.5 leading-snug\">\n                {description}\n              </span>\n            )}\n          </span>\n        )}\n      </label>\n    );\n  },\n);\nCheckbox.displayName = \"Checkbox\";\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "beta"
+  },
+  "docs": "Checkbox (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/checkbox.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

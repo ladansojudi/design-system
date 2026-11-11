@@ -7,7 +7,7 @@ import { TextColors } from "@/sections/typography/text-colors";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Typography — Design System",
+  title: "Typography — Sentinel Design System",
 };
 
 export default function TypographyPage() {
@@ -17,7 +17,7 @@ export default function TypographyPage() {
         category="Foundations"
         title="Typography"
         status="stable"
-        description="Type scale for the s4e.io interface. All styles use the Inter variable font. Pair the size with the role — never pick by aesthetics alone."
+        description="Type scale for the Sentinel interface. All styles use Geist (UI) and Geist Mono (code, tokens, IDs). Pair the size with the role — never pick by aesthetics alone."
         actions={<OpenInFigma />}
       />
 
@@ -36,7 +36,7 @@ export default function TypographyPage() {
             "Use label-md / label-sm for form labels, badges, and table column headers — short non-prose UI text.",
             "Use caption for helper text under inputs and table descriptions.",
             "Use overline (10px / 600 / uppercase / +0.1em tracking) for small section markers above titles.",
-            "Use code-md / code-sm (IBM Plex Mono) for tokens, code snippets, and hex values.",
+            "Use code-md / code-sm (Geist Mono) for tokens, code snippets, and hex values.",
           ]}
         />
 

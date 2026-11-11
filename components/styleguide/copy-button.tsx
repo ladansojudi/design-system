@@ -37,12 +37,12 @@ export function CopyButton({
       onClick={handleCopy}
       aria-label={copied ? "Copied" : `Copy ${value}`}
       className={cn(
-        "inline-flex items-center gap-1.5 font-mono text-xs text-s4e-text-secondary hover:text-s4e-text-primary transition-colors duration-100",
+        "inline-flex items-center gap-1.5 font-mono text-xs text-snt-text-secondary hover:text-snt-text-primary transition-colors duration-100",
         className
       )}
     >
       {copied ? (
-        <Check size={11} className="text-s4e-scale-green-500" />
+        <Check size={11} className="text-snt-scale-green-500" />
       ) : (
         <Copy size={11} />
       )}

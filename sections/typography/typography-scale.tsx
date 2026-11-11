@@ -62,44 +62,44 @@ function FontSpecimen({
   showItalic?: boolean;
 }) {
   return (
-    <section className={cn("border border-s4e-neutral-divider-10 rounded-xl overflow-hidden mb-10", fontClass)}>
+    <section className={cn("border border-snt-neutral-divider-10 rounded-xl overflow-hidden mb-10", fontClass)}>
       {/* Heading strip */}
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 px-6 sm:px-8 py-6 border-b border-s4e-neutral-divider-10">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 px-6 sm:px-8 py-6 border-b border-snt-neutral-divider-10">
         <div>
-          <h2 className={cn("text-[28px] font-bold leading-none text-s4e-brand-primary-500", fontClass)}>
+          <h2 className={cn("text-[28px] font-bold leading-none text-snt-brand-primary-500", fontClass)}>
             {name}
           </h2>
-          <div className="mt-2 text-[10px] uppercase tracking-widest text-s4e-text-disabled">
+          <div className="mt-2 text-[10px] uppercase tracking-widest text-snt-text-disabled">
             {tagline}
           </div>
         </div>
-        <div className="text-[10.5px] font-mono text-s4e-text-secondary md:text-right">
+        <div className="text-[10.5px] font-mono text-snt-text-secondary md:text-right">
           {variants}
         </div>
       </div>
 
       {/* Pangram — large display */}
-      <div className="px-6 sm:px-8 py-7 border-b border-s4e-neutral-divider-10">
-        <div className="text-[10px] uppercase tracking-widest text-s4e-text-disabled mb-3">
+      <div className="px-6 sm:px-8 py-7 border-b border-snt-neutral-divider-10">
+        <div className="text-[10px] uppercase tracking-widest text-snt-text-disabled mb-3">
           Pangram · 36px
         </div>
-        <div className="text-[28px] sm:text-[36px] font-semibold leading-[1.15] text-s4e-text-primary tracking-[-0.01em]">
+        <div className="text-[28px] sm:text-[36px] font-semibold leading-[1.15] text-snt-text-primary tracking-[-0.01em]">
           {pangram}
         </div>
       </div>
 
       {/* Weight specimens — Aa */}
-      <div className="px-6 sm:px-8 py-7 border-b border-s4e-neutral-divider-10">
-        <div className="text-[10px] uppercase tracking-widest text-s4e-text-disabled mb-5">
+      <div className="px-6 sm:px-8 py-7 border-b border-snt-neutral-divider-10">
+        <div className="text-[10px] uppercase tracking-widest text-snt-text-disabled mb-5">
           Weights
         </div>
-        <div className="flex items-end gap-6 sm:gap-10 overflow-x-auto s4e-scrollbar-hide -mx-1 px-1">
+        <div className="flex items-end gap-6 sm:gap-10 overflow-x-auto snt-scrollbar-hide -mx-1 px-1">
           {weights.map(({ label, className }) => (
             <div key={label} className="flex flex-col items-center gap-2 shrink-0">
-              <span className={cn("text-[56px] sm:text-[72px] leading-none text-s4e-text-primary", className)}>
+              <span className={cn("text-[56px] sm:text-[72px] leading-none text-snt-text-primary", className)}>
                 Aa
               </span>
-              <span className="text-[10px] uppercase tracking-widest text-s4e-text-secondary">
+              <span className="text-[10px] uppercase tracking-widest text-snt-text-secondary">
                 {label}
               </span>
             </div>
@@ -107,17 +107,17 @@ function FontSpecimen({
         </div>
       </div>
 
-      {/* Italic — only for Inter */}
+      {/* Italic — only for families that ship one */}
       {showItalic && (
-        <div className="px-6 sm:px-8 py-7 border-b border-s4e-neutral-divider-10">
-          <div className="text-[10px] uppercase tracking-widest text-s4e-text-disabled mb-3">
+        <div className="px-6 sm:px-8 py-7 border-b border-snt-neutral-divider-10">
+          <div className="text-[10px] uppercase tracking-widest text-snt-text-disabled mb-3">
             Italic
           </div>
           <div className="space-y-2">
-            <div className="text-[24px] italic font-normal text-s4e-text-primary leading-tight">
+            <div className="text-[24px] italic font-normal text-snt-text-primary leading-tight">
               Italic Regular — quotes, emphasis, foreign terms
             </div>
-            <div className="text-[24px] italic font-semibold text-s4e-text-primary leading-tight">
+            <div className="text-[24px] italic font-semibold text-snt-text-primary leading-tight">
               Italic SemiBold — emphasized headings
             </div>
           </div>
@@ -125,27 +125,27 @@ function FontSpecimen({
       )}
 
       {/* Character set */}
-      <div className="px-6 sm:px-8 py-7 border-b border-s4e-neutral-divider-10">
-        <div className="text-[10px] uppercase tracking-widest text-s4e-text-disabled mb-3">
+      <div className="px-6 sm:px-8 py-7 border-b border-snt-neutral-divider-10">
+        <div className="text-[10px] uppercase tracking-widest text-snt-text-disabled mb-3">
           Character set
         </div>
-        <div className="space-y-1.5 text-[15px] text-s4e-text-primary tracking-wider break-words">
+        <div className="space-y-1.5 text-[15px] text-snt-text-primary tracking-wider break-words">
           <div>{charset.upper}</div>
           {charset.lower && <div>{charset.lower}</div>}
           <div className={cn(fontClass === "font-mono" && "font-mono")}>{charset.numerals}</div>
         </div>
-        <div className="mt-3 text-[10px] uppercase tracking-widest text-s4e-text-disabled mb-2">
+        <div className="mt-3 text-[10px] uppercase tracking-widest text-snt-text-disabled mb-2">
           Symbols
         </div>
-        <div className="text-[14px] text-s4e-text-secondary break-words">{charset.symbols}</div>
+        <div className="text-[14px] text-snt-text-secondary break-words">{charset.symbols}</div>
       </div>
 
       {/* Sample paragraph — readability check */}
       <div className="px-6 sm:px-8 py-7">
-        <div className="text-[10px] uppercase tracking-widest text-s4e-text-disabled mb-3">
+        <div className="text-[10px] uppercase tracking-widest text-snt-text-disabled mb-3">
           Sample paragraph · 16px / 1.6
         </div>
-        <p className="text-[16px] leading-[1.6] text-s4e-text-secondary max-w-2xl">
+        <p className="text-[16px] leading-[1.6] text-snt-text-secondary max-w-2xl">
           {SAMPLE_PARA}
         </p>
       </div>
@@ -158,25 +158,25 @@ function FontSpecimen({
 function SpecimenRow({ entry }: { entry: TypographyEntry }) {
   const { size, weight, lineHeight, letterSpacing, transform, family } = entry.specs;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-3 md:gap-6 border-b border-s4e-neutral-divider-10 last:border-b-0 px-4 sm:px-6 md:px-8 py-5 md:py-6">
+    <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-3 md:gap-6 border-b border-snt-neutral-divider-10 last:border-b-0 px-4 sm:px-6 md:px-8 py-5 md:py-6">
       <div className="shrink-0 pt-1">
-        <div className="font-mono text-[11px] text-s4e-brand-primary-500">{entry.name}</div>
+        <div className="font-mono text-[11px] text-snt-brand-primary-500">{entry.name}</div>
         <div className="mt-2 space-y-0.5">
-          <div className="font-mono text-[10px] text-s4e-text-disabled">
+          <div className="font-mono text-[10px] text-snt-text-disabled">
             {size} · {weight}
           </div>
-          <div className="font-mono text-[10px] text-s4e-text-disabled">
+          <div className="font-mono text-[10px] text-snt-text-disabled">
             lh {lineHeight}
             {letterSpacing ? ` · ls ${letterSpacing}` : ""}
             {transform     ? ` · ${transform}`        : ""}
           </div>
           {family && (
-            <div className="font-mono text-[10px] text-s4e-text-disabled">{family}</div>
+            <div className="font-mono text-[10px] text-snt-text-disabled">{family}</div>
           )}
         </div>
       </div>
 
-      <div className={cn("text-s4e-text-primary min-w-0", entry.className, entry.group === "body" ? "max-w-2xl" : "truncate")}>
+      <div className={cn("text-snt-text-primary min-w-0", entry.className, entry.group === "body" ? "max-w-2xl" : "truncate")}>
         {entry.example}
       </div>
     </div>
@@ -187,17 +187,17 @@ function GroupBlock({ group, entries }: { group: TypographyGroup; entries: Typog
   return (
     <section className="mb-10 last:mb-0">
       <div className="flex items-baseline gap-3 mb-3">
-        <h3 className="text-[14px] font-semibold text-s4e-text-primary">
+        <h3 className="text-[14px] font-semibold text-snt-text-primary">
           {GROUP_LABELS[group]}
         </h3>
-        <span className="text-[10px] uppercase tracking-widest text-s4e-text-disabled">
+        <span className="text-[10px] uppercase tracking-widest text-snt-text-disabled">
           {entries.length} {entries.length === 1 ? "style" : "styles"}
         </span>
       </div>
-      <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-3 max-w-2xl">
+      <p className="text-[12px] text-snt-text-secondary leading-relaxed mb-3 max-w-2xl">
         {GROUP_DESCRIPTIONS[group]}
       </p>
-      <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
+      <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
         {entries.map((e) => (
           <SpecimenRow key={e.name} entry={e} />
         ))}
@@ -215,9 +215,9 @@ export function TypographyScale() {
     <div>
       {/* Font specimens */}
       <FontSpecimen
-        name="Inter"
+        name="Geist"
         tagline="Sans · UI · marketing"
-        variants="Variable · Regular · Medium · SemiBold · Bold · Italic"
+        variants="Variable · Regular · Medium · SemiBold · Bold"
         weights={SANS_WEIGHTS}
         fontClass="font-sans"
         pangram={PANGRAM}
@@ -227,11 +227,10 @@ export function TypographyScale() {
           numerals: NUMERALS,
           symbols:  PUNCTUATION,
         }}
-        showItalic
       />
 
       <FontSpecimen
-        name="IBM Plex Mono"
+        name="Geist Mono"
         tagline="Monospace · tokens · code"
         variants="Regular · Medium · SemiBold · Bold"
         weights={MONO_WEIGHTS}

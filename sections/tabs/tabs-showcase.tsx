@@ -2,8 +2,8 @@
 
 import type React from "react";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 import { ExampleCard } from "@/components/styleguide/example-card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -18,21 +18,6 @@ type TabItem = {
 
 // ── Badge chip ─────────────────────────────────────────────────────────────
 
-function BadgeChip({ count, active }: { count: number; active: boolean }) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center justify-center rounded-full px-1.5 min-w-[18px] h-[18px] text-[10px] font-semibold tabular-nums transition-colors",
-        active
-          ? "bg-s4e-brand-primary-500 text-white"
-          : "bg-s4e-neutral-grey-200 text-s4e-text-secondary",
-      )}
-    >
-      {count}
-    </span>
-  );
-}
-
 // ── Tab Bar ────────────────────────────────────────────────────────────────
 
 function TabBar({
@@ -46,67 +31,16 @@ function TabBar({
   activeId: string;
   onSelect: (id: string) => void;
 }) {
-  if (variant === "underline") {
-    return (
-      <div className="flex items-end border-b border-s4e-neutral-divider-10 gap-0">
-        {items.map((tab) => {
-          const isActive   = tab.id === activeId;
-          const isDisabled = !!tab.disabled;
-          return (
-            <button
-              key={tab.id}
-              type="button"
-              disabled={isDisabled}
-              onClick={() => !isDisabled && onSelect(tab.id)}
-              className={cn(
-                "flex items-center gap-1.5 px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px transition-colors",
-                isActive
-                  ? "border-s4e-brand-primary-500 text-s4e-brand-primary-500"
-                  : isDisabled
-                  ? "border-transparent text-s4e-text-disabled cursor-not-allowed"
-                  : "border-transparent text-s4e-text-secondary hover:text-s4e-text-primary hover:border-s4e-neutral-divider-10",
-              )}
-            >
-              {tab.label}
-              {tab.badge !== undefined && (
-                <BadgeChip count={tab.badge} active={isActive} />
-              )}
-            </button>
-          );
-        })}
-      </div>
-    );
-  }
-
-  // pill
   return (
-    <div className="inline-flex items-center gap-1 bg-s4e-neutral-grey-100 rounded-lg p-1">
-      {items.map((tab) => {
-        const isActive   = tab.id === activeId;
-        const isDisabled = !!tab.disabled;
-        return (
-          <button
-            key={tab.id}
-            type="button"
-            disabled={isDisabled}
-            onClick={() => !isDisabled && onSelect(tab.id)}
-            className={cn(
-              "flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-[14px] font-medium transition-colors",
-              isActive
-                ? "bg-s4e-surface-row text-s4e-text-primary shadow-sm"
-                : isDisabled
-                ? "text-s4e-text-disabled cursor-not-allowed"
-                : "text-s4e-text-secondary hover:text-s4e-text-primary",
-            )}
-          >
+    <Tabs value={activeId} onValueChange={onSelect}>
+      <TabsList variant={variant} aria-label={`${variant} tabs example`}>
+        {items.map((tab) => (
+          <TabsTrigger key={tab.id} value={tab.id} disabled={tab.disabled} count={tab.badge}>
             {tab.label}
-            {tab.badge !== undefined && (
-              <BadgeChip count={tab.badge} active={isActive} />
-            )}
-          </button>
-        );
-      })}
-    </div>
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
   );
 }
 
@@ -115,8 +49,8 @@ function TabBar({
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <h3 className="text-snt-16 font-semibold text-snt-text-primary">{children}</h3>
     </div>
   );
 }
@@ -149,24 +83,24 @@ function VariantCard({ title, variant }: { title: string; variant: TabVariant })
   return (
     <div>
       <SectionTitle>{title}</SectionTitle>
-      <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-8">
+      <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-8">
 
         <div>
-          <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+          <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
             Default
           </p>
           <TabBar variant={variant} items={BASE_TABS} activeId={active1} onSelect={setActive1} />
         </div>
 
         <div>
-          <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+          <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
             With Badge
           </p>
           <TabBar variant={variant} items={BADGE_TABS} activeId={active2} onSelect={setActive2} />
         </div>
 
         <div>
-          <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+          <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
             With Disabled
           </p>
           <TabBar variant={variant} items={DISABLED_TABS} activeId={active3} onSelect={setActive3} />

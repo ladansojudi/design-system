@@ -5,7 +5,7 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { ComingSoon } from "@/components/styleguide/coming-soon";
 
 export const metadata: Metadata = {
-  title: "Threat Row — Design System",
+  title: "Threat Row — Sentinel Design System",
 };
 
 export default function Page() {

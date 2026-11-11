@@ -7,11 +7,11 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary100 = UIColor(hex: "#C7E5FA")
-    static let brandPrimary200 = UIColor(hex: "#8AC8F5")
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
-    static let textSecondary = UIColor(hex: "#657078")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
+    static let brandPrimary100 = UIColor(hex: "#E0E3FF")
+    static let brandPrimary200 = UIColor(hex: "#C7CCFE")
+    static let brandPrimary500 = UIColor(hex: "#5B5BD6")
+    static let textSecondary = UIColor(hex: "#52525B")
+    static let textDisabled = UIColor(hex: "#A1A1AA")
 }
 
 // MARK: - Sizing (CGFloat)

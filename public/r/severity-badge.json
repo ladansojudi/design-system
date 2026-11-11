@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "severity-badge",
+  "title": "Severity Badge",
+  "description": "The canonical way to show a finding's severity (Critical → Info), optionally with its numeric score (e.g. CVSS).",
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/severity-badge.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — SeverityBadge\n *\n * Drop this file into your project at components/ui/severity-badge.tsx.\n *\n * A finding's severity as signal bars: Critical fills four bars, High three,\n * Medium two, Low one; Info shows an empty ring. The bar count carries the\n * level as well as the colour, so it never relies on colour alone, and the\n * label is always written out. No \"use client\".\n *\n * Requires:\n *   • Tailwind CSS v4\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n */\n\nexport type Severity = \"critical\" | \"high\" | \"medium\" | \"low\" | \"info\";\n\nexport interface SeverityBadgeProps extends React.HTMLAttributes<HTMLDivElement> {\n  severity: Severity;\n  /** Optional numeric score (e.g. CVSS), shown after the label. */\n  score?:   number;\n  /** sm 24px for dense tables, md 28px. */\n  size?:    \"sm\" | \"md\";\n}\n\nconst CONFIG: Record<Severity, { label: string; level: number; fill: string }> = {\n  critical: { label: \"Critical\", level: 4, fill: \"bg-snt-severity-critical\" },\n  high:     { label: \"High\",     level: 3, fill: \"bg-snt-severity-high\" },\n  medium:   { label: \"Medium\",   level: 2, fill: \"bg-snt-severity-medium\" },\n  low:      { label: \"Low\",      level: 1, fill: \"bg-snt-severity-low\" },\n  info:     { label: \"Info\",     level: 0, fill: \"bg-snt-severity-info\" },\n};\n\n// Bar heights grow left to right, like a signal meter.\nconst BAR_HEIGHT = [\"h-1.5\", \"h-2\", \"h-2.5\", \"h-3\"];\n\nfunction Bars({ severity }: { severity: Severity }) {\n  const { level, fill } = CONFIG[severity];\n  if (level === 0) {\n    return <span aria-hidden className=\"size-3 shrink-0 rounded-full border-2 border-snt-severity-info\" />;\n  }\n  return (\n    <span aria-hidden className=\"flex h-3 shrink-0 items-end gap-0.5\">\n      {BAR_HEIGHT.map((h, i) => (\n        <span key={h} className={cn(\"w-[3px] rounded-[1px]\", h, i < level ? fill : \"bg-snt-border-default\")} />\n      ))}\n    </span>\n  );\n}\n\nexport const SeverityBadge = React.forwardRef<HTMLDivElement, SeverityBadgeProps>(\n  ({ severity, score, size = \"md\", className, ...props }, ref) => {\n    const cfg = CONFIG[severity];\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"inline-flex w-fit items-center gap-2 whitespace-nowrap rounded-md bg-snt-surface-app ring-1 ring-inset ring-snt-border-default\",\n          size === \"sm\" ? \"h-6 px-2 text-snt-12\" : \"h-7 px-2.5 text-snt-14\",\n          className,\n        )}\n        {...props}\n      >\n        <Bars severity={severity} />\n        <span className=\"font-medium text-snt-text-primary\">{cfg.label}</span>\n        {score !== undefined && (\n          <span className=\"font-mono tabular-nums text-snt-text-secondary\">{score.toFixed(1)}</span>\n        )}\n      </div>\n    );\n  },\n);\nSeverityBadge.displayName = \"SeverityBadge\";\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "stable"
+  },
+  "docs": "Severity Badge (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/severity-badge.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

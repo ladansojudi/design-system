@@ -3,50 +3,43 @@
 import * as React from "react";
 import { Info, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SeverityBadge, type Severity } from "@/components/ui/severity-badge";
 
 /**
- * s4e/ui — DataTable
+ * sentinel/ui — DataTable
  *
  * Drop this file into your project at components/ui/data-table.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
-type Severity = "high" | "critical";
+// Rows use the system's SeverityBadge, so severity looks the same everywhere.
+export type DataTableProps = React.HTMLAttributes<HTMLDivElement>;
 
-const SEVERITY_STYLES: Record<Severity, { label: string; bg: string; accent: string; text: string }> = {
-  high: {
-    label:  "High",
-    bg:     "bg-s4e-scale-red-50",
-    accent: "border-l-[3px] border-s4e-scale-red-500",
-    text:   "text-s4e-scale-red-600",
-  },
-  critical: {
-    label:  "Critical",
-    bg:     "bg-s4e-scale-purple-50",
-    accent: "border-l-[3px] border-s4e-scale-purple-500",
-    text:   "text-s4e-scale-purple-600",
-  },
-};
-
-export interface DataTableProps extends React.HTMLAttributes<HTMLDivElement> {}
+// Lets DataTableBody (role="table") take its accessible name from the
+// DataTableHeader title.
+const DataTableContext = React.createContext<{ titleId: string } | null>(null);
 
 export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
   ({ className, children, ...props }, ref) => {
+    const titleId = `${React.useId()}-title`;
+    const context = React.useMemo(() => ({ titleId }), [titleId]);
     return (
+      <DataTableContext.Provider value={context}>
       <div
         ref={ref}
         className={cn(
-          "border border-s4e-neutral-divider-10 rounded-xl bg-s4e-surface-app overflow-hidden",
+          "border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs overflow-hidden",
           className,
         )}
         {...props}
       >
         {children}
       </div>
+      </DataTableContext.Provider>
     );
   },
 );
@@ -75,23 +68,24 @@ export const DataTableHeader = React.forwardRef<HTMLDivElement, DataTableHeaderP
     },
     ref,
   ) => {
+    const ctx = React.useContext(DataTableContext);
     return (
       <div
         ref={ref}
         className={cn(
-          "flex items-center gap-3 px-5 py-3 bg-s4e-neutral-grey-100 border-b border-s4e-neutral-divider-10 rounded-t-xl",
+          "flex items-center gap-3 px-5 py-3 compact:px-4 compact:py-2 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl",
           className,
         )}
         {...props}
       >
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-[14px] font-semibold text-s4e-text-primary">{title}</span>
-          <InfoTooltip text={tooltip} />
+          <span id={ctx?.titleId} className="text-snt-14 font-semibold text-snt-text-primary">{title}</span>
+          <InfoTooltip text={tooltip} label={`About ${title}`} />
         </div>
-        <span className="text-[12px] text-s4e-text-disabled truncate flex-1 min-w-0">{description}</span>
+        <span className="text-snt-12 text-snt-text-secondary truncate flex-1 min-w-0">{description}</span>
         {badge && (
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-s4e-scale-yellow-50 text-s4e-scale-yellow-700 text-[11px] font-medium shrink-0">
-            <span className="w-[6px] h-[6px] rounded-full bg-s4e-scale-yellow-500" />
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-snt-bg-warning-subtle text-snt-scale-yellow-700 text-snt-11 font-medium shrink-0">
+            <span aria-hidden className="w-[6px] h-[6px] rounded-full bg-snt-scale-yellow-500" />
             {badge}
           </span>
         )}
@@ -99,7 +93,7 @@ export const DataTableHeader = React.forwardRef<HTMLDivElement, DataTableHeaderP
           <button
             type="button"
             onClick={onViewAll}
-            className="text-[12px] font-medium text-s4e-brand-primary-500 hover:text-s4e-brand-primary-600 transition-colors shrink-0 underline underline-offset-2"
+            className="text-snt-12 font-medium text-snt-brand-primary-500 hover:text-snt-brand-primary-600 transition-colors shrink-0 underline underline-offset-2"
           >
             {viewAllLabel}
           </button>
@@ -117,9 +111,12 @@ export interface DataTableBodyProps extends React.HTMLAttributes<HTMLDivElement>
 
 export const DataTableBody = React.forwardRef<HTMLDivElement, DataTableBodyProps>(
   ({ scroll = true, minWidth = 560, className, children, ...props }, ref) => {
+    const ctx = React.useContext(DataTableContext);
     const inner = (
       <div
         ref={ref}
+        role="table"
+        aria-labelledby={props["aria-label"] ? undefined : ctx?.titleId}
         style={scroll ? { minWidth } : undefined}
         className={cn(className)}
         {...props}
@@ -128,7 +125,7 @@ export const DataTableBody = React.forwardRef<HTMLDivElement, DataTableBodyProps
       </div>
     );
     return scroll ? (
-      <div className="overflow-x-auto s4e-scrollbar-hide">{inner}</div>
+      <div className="overflow-x-auto snt-scrollbar-hide">{inner}</div>
     ) : (
       inner
     );
@@ -164,19 +161,20 @@ export const DataTableColumnHeaders = React.forwardRef<HTMLDivElement, DataTable
     return (
       <div
         ref={ref}
-        className={cn(GRID_COLS, "px-5 py-2.5 border-b border-s4e-neutral-divider-10", className)}
+        role="row"
+        className={cn(GRID_COLS, "px-5 py-2.5 compact:px-4 compact:py-1.5 border-b border-snt-border-default", className)}
         {...props}
       >
-        <div className="flex items-center gap-1.5">
-          <span className="text-[11px] font-medium text-s4e-text-disabled uppercase tracking-wide">{threatsLabel}</span>
-          <InfoTooltip text={threatsTooltip} />
+        <div role="columnheader" className="flex items-center gap-1.5">
+          <span className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide">{threatsLabel}</span>
+          <InfoTooltip text={threatsTooltip} label={`About ${threatsLabel}`} />
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="text-[11px] font-medium text-s4e-text-disabled uppercase tracking-wide">{assetLabel}</span>
-          <InfoTooltip text={assetTooltip} />
+        <div role="columnheader" className="flex items-center gap-1.5">
+          <span className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide">{assetLabel}</span>
+          <InfoTooltip text={assetTooltip} label={`About ${assetLabel}`} />
         </div>
-        <span className="text-[11px] font-medium text-s4e-text-disabled uppercase tracking-wide text-right">{dateLabel}</span>
-        <span className="text-[11px] font-medium text-s4e-text-disabled uppercase tracking-wide text-right">{severityLabel}</span>
+        <span role="columnheader" className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide text-right">{dateLabel}</span>
+        <span role="columnheader" className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide text-right">{severityLabel}</span>
       </div>
     );
   },
@@ -195,23 +193,25 @@ export const DataTableRow = React.forwardRef<HTMLDivElement, DataTableRowProps>(
     return (
       <div
         ref={ref}
+        role="row"
         className={cn(
           GRID_COLS,
-          "items-center px-5 py-3 border-b border-s4e-neutral-divider-10 last:border-b-0 hover:bg-s4e-neutral-grey-100/50 transition-colors",
+          "items-center px-5 py-3 compact:px-4 compact:py-1.5 border-b border-snt-border-default last:border-b-0 hover:bg-snt-bg-subtle/50 transition-colors",
           className,
         )}
         {...props}
       >
-        <div className="flex items-center gap-1.5 min-w-0">
-          <span className="text-[14px] text-s4e-text-primary truncate">{threat}</span>
+        <div role="cell" className="flex items-center gap-1.5 min-w-0">
+          <span className="text-snt-14 text-snt-text-primary truncate">{threat}</span>
+          {/* Hover-only reveal of truncated text — AT already reads the full cell. */}
           <InfoTooltip text={threat} />
         </div>
-        <div className="flex items-center gap-1.5 min-w-0">
-          <span className="text-[14px] text-s4e-text-primary truncate">{asset}</span>
+        <div role="cell" className="flex items-center gap-1.5 min-w-0">
+          <span className="text-snt-14 text-snt-text-primary truncate">{asset}</span>
           <InfoTooltip text={asset} />
         </div>
-        <span className="text-[12px] text-s4e-text-secondary text-right tabular-nums">{date}</span>
-        <div className="flex justify-end">
+        <span role="cell" className="text-snt-12 text-snt-text-secondary text-right tabular-nums">{date}</span>
+        <div role="cell" className="flex justify-end">
           <SeverityCell severity={severity} />
         </div>
       </div>
@@ -232,37 +232,42 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
     return (
       <div
         ref={ref}
+        role="navigation"
+        aria-label="Pagination"
         className={cn(
-          "flex items-center justify-end gap-4 px-5 py-3 border-t border-s4e-neutral-divider-10",
+          "flex items-center justify-end gap-4 px-5 py-3 compact:px-4 compact:py-2 border-t border-snt-border-default",
           className,
         )}
         {...props}
       >
         <div className="flex items-center gap-2">
-          <span className="text-[12px] text-s4e-text-disabled">Row per page:</span>
+          <span className="text-snt-12 text-snt-text-secondary" aria-hidden>Rows per page:</span>
           <button
             type="button"
-            className="inline-flex items-center gap-1 text-[12px] text-s4e-text-primary hover:text-s4e-brand-primary-500 transition-colors"
+            aria-label={`Rows per page: ${perPage}`}
+            className="inline-flex items-center gap-1 text-snt-12 text-snt-text-primary hover:text-snt-brand-primary-500 transition-colors"
           >
             {perPage}
-            <ChevronDown size={12} className="text-s4e-text-disabled" />
+            <ChevronDown size={12} aria-hidden className="text-snt-text-secondary" />
           </button>
         </div>
-        <span className="text-[12px] text-s4e-text-disabled tabular-nums">{rangeLabel}</span>
+        <span className="text-snt-12 text-snt-text-secondary tabular-nums" aria-live="polite">{rangeLabel}</span>
         <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={onPrev}
-            className="w-6 h-6 rounded hover:bg-s4e-neutral-grey-100 flex items-center justify-center text-s4e-text-disabled hover:text-s4e-text-primary transition-colors"
+            aria-label="Previous page"
+            className="w-6 h-6 rounded hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
-            <ChevronLeft size={13} />
+            <ChevronLeft size={13} aria-hidden />
           </button>
           <button
             type="button"
             onClick={onNext}
-            className="w-6 h-6 rounded hover:bg-s4e-neutral-grey-100 flex items-center justify-center text-s4e-text-disabled hover:text-s4e-text-primary transition-colors"
+            aria-label="Next page"
+            className="w-6 h-6 rounded hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
-            <ChevronRight size={13} />
+            <ChevronRight size={13} aria-hidden />
           </button>
         </div>
       </div>
@@ -272,16 +277,15 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
 DataTableFooter.displayName = "DataTableFooter";
 
 function SeverityCell({ severity }: { severity: Severity }) {
-  const cfg = SEVERITY_STYLES[severity];
-  return (
-    <div className={cn("flex items-center justify-center rounded-md px-3 py-1 w-20", cfg.bg, cfg.accent)}>
-      <span className={cn("text-[12px] font-medium", cfg.text)}>{cfg.label}</span>
-    </div>
-  );
+  return <SeverityBadge severity={severity} size="sm" className="ml-auto" />;
 }
 
-function InfoTooltip({ text }: { text: string }) {
-  const triggerRef = React.useRef<HTMLSpanElement>(null);
+// With a `label`, the icon is a focusable button that shows the tooltip on
+// hover *and* focus (Escape hides it). Without one it's a decorative,
+// mouse-only reveal for text that assistive tech can already read.
+function InfoTooltip({ text, label }: { text: string; label?: string }) {
+  const triggerRef = React.useRef<HTMLElement>(null);
+  const tooltipId  = React.useId();
   const [show, setShow]     = React.useState(false);
   const [coords, setCoords] = React.useState({ top: 0, left: 0 });
 
@@ -294,22 +298,50 @@ function InfoTooltip({ text }: { text: string }) {
     });
   }, [show]);
 
-  return (
+  const bubble = show && (
     <span
-      ref={triggerRef}
-      className="inline-flex items-center shrink-0"
+      id={tooltipId}
+      role={label ? "tooltip" : undefined}
+      style={{ top: coords.top, left: coords.left }}
+      className="fixed -translate-x-1/2 -translate-y-full w-56 px-3 py-2 rounded-lg bg-snt-neutral-grey-900 text-snt-text-inverse text-snt-11 leading-relaxed pointer-events-none z-toast shadow-snt-lg"
+    >
+      {text}
+    </span>
+  );
+  const icon = (
+    <Info size={13} aria-hidden className="text-snt-text-secondary hover:text-snt-text-primary shrink-0 cursor-help transition-colors" />
+  );
+
+  if (!label) {
+    return (
+      <span
+        ref={triggerRef as React.RefObject<HTMLSpanElement>}
+        aria-hidden
+        className="inline-flex items-center shrink-0"
+        onMouseEnter={() => setShow(true)}
+        onMouseLeave={() => setShow(false)}
+      >
+        {icon}
+        {bubble}
+      </span>
+    );
+  }
+
+  return (
+    <button
+      ref={triggerRef as React.RefObject<HTMLButtonElement>}
+      type="button"
+      aria-label={label}
+      aria-describedby={show ? tooltipId : undefined}
+      className="inline-flex items-center shrink-0 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
+      onFocus={() => setShow(true)}
+      onBlur={() => setShow(false)}
+      onKeyDown={(e) => { if (e.key === "Escape") setShow(false); }}
     >
-      <Info size={13} className="text-s4e-text-disabled hover:text-s4e-text-primary shrink-0 cursor-help transition-colors" />
-      {show && (
-        <span
-          style={{ top: coords.top, left: coords.left }}
-          className="fixed -translate-x-1/2 -translate-y-full w-56 px-3 py-2 rounded-lg bg-s4e-neutral-grey-900 text-s4e-text-inverse text-[11px] leading-relaxed pointer-events-none z-toast shadow-s4e-lg"
-        >
-          {text}
-        </span>
-      )}
-    </span>
+      {icon}
+      {bubble}
+    </button>
   );
 }

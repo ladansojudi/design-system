@@ -5,7 +5,7 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { AccessibilityShowcase } from "@/sections/accessibility/accessibility-showcase";
 
 export const metadata: Metadata = {
-  title: "Accessibility — Design System",
+  title: "Accessibility — Sentinel Design System",
 };
 
 export default function AccessibilityPage() {

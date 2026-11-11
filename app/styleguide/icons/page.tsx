@@ -6,7 +6,7 @@ import { IconsGrid } from "@/sections/icons/icons-grid";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Icons — Design System",
+  title: "Icons — Sentinel Design System",
 };
 
 const SIZE_GUIDE = [
@@ -33,22 +33,22 @@ export default function IconsPage() {
       <div className="space-y-10">
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-            <span className="text-[15px] font-semibold text-s4e-text-primary">Sizing</span>
+            <span aria-hidden className="hidden">▶▶</span>
+            <span className="text-[15px] font-semibold text-snt-text-primary">Sizing</span>
           </div>
-          <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
+          <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
             <table className="w-full text-sm">
-              <thead className="bg-s4e-surface-table-header">
+              <thead className="bg-snt-surface-table-header">
                 <tr className="text-left">
-                  <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled w-24">Size</th>
-                  <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-s4e-text-disabled">Use case</th>
+                  <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled w-24">Size</th>
+                  <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">Use case</th>
                 </tr>
               </thead>
               <tbody>
                 {SIZE_GUIDE.map((row) => (
-                  <tr key={row.px} className="border-t border-s4e-neutral-divider-10">
-                    <td className="py-2.5 px-4 font-mono text-[12px] text-s4e-brand-primary-500">{row.px}</td>
-                    <td className="py-2.5 px-4 text-[12px] text-s4e-text-secondary">{row.use}</td>
+                  <tr key={row.px} className="border-t border-snt-neutral-divider-10">
+                    <td className="py-2.5 px-4 font-mono text-[12px] text-snt-brand-primary-500">{row.px}</td>
+                    <td className="py-2.5 px-4 text-[12px] text-snt-text-secondary">{row.use}</td>
                   </tr>
                 ))}
               </tbody>

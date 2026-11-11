@@ -10,8 +10,8 @@ import { cn } from "@/lib/utils";
 function DocSectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <h3 className="text-snt-16 font-semibold text-snt-text-primary">{children}</h3>
     </div>
   );
 }
@@ -57,8 +57,8 @@ function AnnotationChip({
       className={cn(
         "shrink-0 inline-flex items-center gap-1 h-[18px] px-1.5 rounded-[3px] text-[10px] font-medium font-mono leading-none whitespace-nowrap transition-all cursor-default",
         active
-          ? "bg-s4e-brand-primary-500 text-white shadow-s4e-sm"
-          : "bg-s4e-brand-primary-500/10 text-s4e-brand-primary-500 ring-1 ring-inset ring-s4e-brand-primary-500/20",
+          ? "bg-snt-brand-primary-500 text-white shadow-snt-sm"
+          : "bg-snt-brand-primary-500/10 text-snt-brand-primary-500 ring-1 ring-inset ring-snt-brand-primary-500/20",
         dimmed && !active && "opacity-25",
       )}
     >
@@ -73,7 +73,7 @@ function LegendDot({ active, dimmed }: { active: boolean; dimmed: boolean }) {
       aria-hidden
       className={cn(
         "shrink-0 inline-block w-1.5 h-1.5 rounded-full mt-[7px] transition-colors",
-        active   ? "bg-s4e-brand-primary-500"           : "bg-s4e-brand-primary-500/40",
+        active   ? "bg-snt-brand-primary-500"           : "bg-snt-brand-primary-500/40",
         dimmed && !active && "opacity-30",
       )}
     />
@@ -111,15 +111,15 @@ export function Anatomy({
   return (
     <div>
       <DocSectionTitle>Anatomy</DocSectionTitle>
-      <div className="border border-s4e-neutral-divider-10 rounded-xl overflow-hidden">
+      <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
         <div className={cn("grid", node && "lg:grid-cols-[1fr_minmax(0,1fr)]")}>
           {node && (
             <div
               className={cn(
-                "relative flex items-center justify-center min-h-[260px] p-16 border-b lg:border-b-0 lg:border-r border-s4e-neutral-divider-10",
+                "relative flex items-center justify-center min-h-[260px] p-16 border-b lg:border-b-0 lg:border-r border-snt-neutral-divider-10",
                 previewBg === "checker"
-                  ? "bg-[repeating-conic-gradient(var(--s4e-neutral-grey-100)_0_25%,transparent_0_50%)] bg-[length:14px_14px]"
-                  : "bg-s4e-neutral-grey-100",
+                  ? "bg-[repeating-conic-gradient(var(--snt-neutral-grey-100)_0_25%,transparent_0_50%)] bg-[length:14px_14px]"
+                  : "bg-snt-neutral-grey-100",
               )}
             >
               <div className="relative inline-block">
@@ -145,7 +145,7 @@ export function Anatomy({
                           x2={p.x}
                           y2={p.y}
                           vectorEffect="non-scaling-stroke"
-                          stroke={hover === i ? "var(--s4e-brand-primary-500)" : "var(--s4e-neutral-divider-20)"}
+                          stroke={hover === i ? "var(--snt-brand-primary-500)" : "var(--snt-neutral-divider-20)"}
                           strokeWidth={hover === i ? 1.25 : 1}
                           style={{
                             opacity: hover !== null && hover !== i ? 0.2 : 1,
@@ -169,8 +169,8 @@ export function Anatomy({
                       className={cn(
                         "absolute z-10 w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2 transition-all",
                         hover === i
-                          ? "bg-s4e-brand-primary-500 ring-2 ring-s4e-brand-primary-500/30"
-                          : "bg-s4e-brand-primary-500/70 ring-1 ring-s4e-brand-primary-500/30",
+                          ? "bg-snt-brand-primary-500 ring-2 ring-snt-brand-primary-500/30"
+                          : "bg-snt-brand-primary-500/70 ring-1 ring-snt-brand-primary-500/30",
                         hover !== null && hover !== i && "opacity-20",
                       )}
                       style={{ left: `${p.pinX}%`, top: `${p.pinY}%` }}
@@ -205,7 +205,7 @@ export function Anatomy({
             </div>
           )}
 
-          <ul className="divide-y divide-s4e-neutral-divider-10">
+          <ul className="divide-y divide-snt-neutral-divider-10">
             {parts.map((p, i) => (
               <li
                 key={p.label}
@@ -221,17 +221,17 @@ export function Anatomy({
                   <div className="flex items-center gap-2">
                     <span className={cn(
                       "text-[14px] font-medium transition-colors",
-                      hover === i ? "text-s4e-brand-primary-500" : "text-s4e-text-primary",
+                      hover === i ? "text-snt-brand-primary-500" : "text-snt-text-primary",
                     )}>
                       {p.label}
                     </span>
                     {p.shortLabel && p.shortLabel !== p.label && (
-                      <span className="font-mono text-[10px] text-s4e-text-disabled">
+                      <span className="font-mono text-[10px] text-snt-text-disabled">
                         {p.shortLabel}
                       </span>
                     )}
                   </div>
-                  <div className="text-[12px] text-s4e-text-disabled mt-0.5">{p.description}</div>
+                  <div className="text-[12px] text-snt-text-disabled mt-0.5">{p.description}</div>
                 </div>
               </li>
             ))}
@@ -247,12 +247,12 @@ export function Anatomy({
 export function UseCases({ items }: { items: string[] }) {
   return (
     <div>
-      <DocSectionTitle>Use Cases</DocSectionTitle>
-      <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5">
+      <DocSectionTitle>When to use</DocSectionTitle>
+      <div className="border border-snt-border-default rounded-xl px-6 py-5">
         <ul className="space-y-2.5">
           {items.map((item) => (
-            <li key={item} className="flex items-start gap-2.5 text-[14px] text-s4e-text-secondary leading-relaxed">
-              <span className="shrink-0 mt-[7px] w-1 h-1 rounded-full bg-s4e-brand-primary-500" />
+            <li key={item} className="flex items-start gap-2.5 text-snt-14 text-snt-text-primary leading-relaxed">
+              <span className="shrink-0 mt-[7px] w-1 h-1 rounded-full bg-snt-brand-primary-500" />
               {item}
             </li>
           ))}
@@ -269,7 +269,7 @@ export type Guideline = { type: "do" | "dont"; text: string };
 export function Guidelines({ items }: { items: Guideline[] }) {
   return (
     <div>
-      <DocSectionTitle>Guidelines</DocSectionTitle>
+      <DocSectionTitle>Do&apos;s and don&apos;ts</DocSectionTitle>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.map((g, i) => {
           const isDo = g.type === "do";
@@ -277,25 +277,20 @@ export function Guidelines({ items }: { items: Guideline[] }) {
             <div
               key={i}
               className={cn(
-                "border rounded-xl px-4 py-3 flex items-start gap-3",
-                isDo ? "border-s4e-scale-green-200 bg-s4e-scale-green-50" : "border-s4e-scale-red-200 bg-s4e-scale-red-50",
+                "rounded-xl border border-snt-border-default border-t-2 bg-snt-surface-app px-4 pb-4 pt-3",
+                isDo ? "border-t-snt-scale-green-500" : "border-t-snt-scale-red-500",
               )}
             >
-              <div className={cn(
-                "shrink-0 w-5 h-5 rounded-full flex items-center justify-center",
-                isDo ? "bg-s4e-scale-green-500 text-white" : "bg-s4e-scale-red-500 text-white",
-              )}>
-                {isDo ? <Check size={12} /> : <X size={12} />}
+              <div
+                className={cn(
+                  "mb-1.5 flex items-center gap-1.5 text-snt-12 font-semibold",
+                  isDo ? "text-snt-scale-green-600" : "text-snt-scale-red-600",
+                )}
+              >
+                {isDo ? <Check size={14} aria-hidden /> : <X size={14} aria-hidden />}
+                {isDo ? "Do" : "Don\u2019t"}
               </div>
-              <div className="flex-1 min-w-0">
-                <div className={cn(
-                  "text-[11px] font-semibold uppercase tracking-widest mb-0.5",
-                  isDo ? "text-s4e-scale-green-600" : "text-s4e-scale-red-600",
-                )}>
-                  {isDo ? "Do" : "Don't"}
-                </div>
-                <p className="text-[12px] text-s4e-text-primary leading-relaxed">{g.text}</p>
-              </div>
+              <p className="text-snt-14 leading-relaxed text-snt-text-primary">{g.text}</p>
             </div>
           );
         })}

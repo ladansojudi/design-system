@@ -2,9 +2,8 @@
 
 import type React from "react";
 import { useState } from "react";
-import { Search, X } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { ExampleCard } from "@/components/styleguide/example-card";
+import { SearchBar as UISearchBar } from "@/components/ui/search-bar";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -26,56 +25,17 @@ function SearchBar({
   onChange?:    (v: string) => void;
   placeholder?: string;
 }) {
-  const isDisabled = state === "disabled";
-  const isFocused  = state === "focused";
-  const hasClear   = !!value && !isDisabled;
-
+  // "focused" is a forced visual state for docs; real focus is :focus-within.
   return (
-    <div
-      className={cn(
-        "flex items-center gap-2 rounded-lg px-3 h-9 w-full transition-colors",
-        variant === "default"
-          ? cn(
-              "border bg-s4e-surface-app",
-              isFocused
-                ? "border-s4e-brand-primary-500 ring-2 ring-s4e-brand-primary-500/20"
-                : "border-s4e-neutral-divider-10",
-            )
-          : cn(
-              "bg-s4e-neutral-grey-100 border border-transparent",
-              isFocused && "border-s4e-brand-primary-500 ring-2 ring-s4e-brand-primary-500/20",
-            ),
-        isDisabled && "opacity-40 cursor-not-allowed",
-      )}
-    >
-      <Search
-        size={14}
-        className={cn(
-          "shrink-0",
-          isFocused ? "text-s4e-brand-primary-500" : "text-s4e-text-disabled",
-        )}
-      />
-      <input
-        type="text"
-        disabled={isDisabled}
-        placeholder={placeholder}
-        value={value ?? ""}
-        onChange={(e) => onChange?.(e.target.value)}
-        className={cn(
-          "flex-1 bg-transparent text-[14px] outline-none placeholder:text-s4e-text-disabled",
-          isDisabled ? "cursor-not-allowed text-s4e-text-disabled" : "text-s4e-text-primary",
-        )}
-      />
-      {hasClear && (
-        <button
-          type="button"
-          onClick={() => onChange?.("")}
-          className="shrink-0 text-s4e-text-disabled hover:text-s4e-text-primary transition-colors"
-        >
-          <X size={13} />
-        </button>
-      )}
-    </div>
+    <UISearchBar
+      variant={variant}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      disabled={state === "disabled"}
+      aria-label={placeholder}
+      className={state === "focused" ? "border-snt-brand-primary-500 ring-2 ring-snt-focus-ring/20" : undefined}
+    />
   );
 }
 
@@ -84,8 +44,8 @@ function SearchBar({
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <h3 className="text-snt-16 font-semibold text-snt-text-primary">{children}</h3>
     </div>
   );
 }
@@ -110,17 +70,17 @@ function VariantCard({
   return (
     <div>
       <SectionTitle>{title}</SectionTitle>
-      <div className="border border-s4e-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-6">
+      <div className="border border-snt-neutral-divider-10 rounded-xl px-4 sm:px-6 py-5 space-y-6">
 
         {/* Static states */}
         <div>
-          <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+          <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
             States
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {STATES.map(({ label, state }) => (
               <div key={state} className="space-y-1.5">
-                <p className="text-[10px] text-s4e-text-disabled">{label}</p>
+                <p className="text-[10px] text-snt-text-disabled">{label}</p>
                 <SearchBar variant={variant} state={state} />
               </div>
             ))}
@@ -129,7 +89,7 @@ function VariantCard({
 
         {/* Interactive — shows filled + clear */}
         <div>
-          <p className="text-[10px] font-medium uppercase tracking-widest text-s4e-text-disabled mb-3">
+          <p className="text-[10px] font-medium uppercase tracking-widest text-snt-text-disabled mb-3">
             Filled
           </p>
           <div className="max-w-xs">

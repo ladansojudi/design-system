@@ -1,118 +1,32 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import { Check } from "lucide-react";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
   SpacingDiagram,
-  OptionPill,
-  BoolSwatch,
+  
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
 
 // ── Visual swatches ───────────────────────────────────────────────────────
 
-function ToneSwatch({ tone }: { tone: "primary" | "neutral" }) {
-  const cls = tone === "primary" ? "bg-s4e-btn-primary-600" : "bg-s4e-btn-neutral-800";
-  return <span className={`inline-block w-3 h-3 rounded-[3px] ${cls}`} aria-hidden />;
-}
 
-function StateSwatch({ state }: { state: "off" | "on" | "mixed" }) {
-  if (state === "off") {
-    return <span className="inline-block w-3 h-3 rounded-[2px] border-2 border-s4e-neutral-grey-400" aria-hidden />;
-  }
-  if (state === "on") {
-    return (
-      <span className="inline-flex items-center justify-center w-3 h-3 rounded-[2px] bg-s4e-btn-primary-600" aria-hidden>
-        <span className="inline-block w-1.5 h-[1.5px] bg-white rotate-45 translate-x-[-1px] translate-y-[1px]" />
-        <span className="inline-block w-[7px] h-[1.5px] bg-white -rotate-45 translate-x-[-3px] translate-y-[-1px]" />
-      </span>
-    );
-  }
-  return (
-    <span className="inline-flex items-center justify-center w-3 h-3 rounded-[2px] bg-s4e-btn-primary-600" aria-hidden>
-      <span className="inline-block w-1.5 h-[1.5px] bg-white" />
-    </span>
-  );
-}
 
 export function CheckboxSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Every prop a designer can configure when placing a Checkbox. Use these names in Figma component properties for a 1:1 map with code.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:    "checked",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<StateSwatch state="off" />} label="false" />
-                  <OptionPill swatch={<StateSwatch state="on"  />} label="true" />
-                </div>
-              ),
-              default:     "false",
-              description: "Selected state. Pair with onChange for controlled use.",
-            },
-            {
-              name:    "indeterminate",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<StateSwatch state="mixed" />} label="true" />
-                </div>
-              ),
-              default:     "false",
-              description: "Partial parent state — shows a minus glyph. Trumps checked.",
-            },
-            {
-              name:    "tone",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<ToneSwatch tone="primary" />} label="primary" />
-                  <OptionPill swatch={<ToneSwatch tone="neutral" />} label="neutral" />
-                </div>
-              ),
-              default:     "primary",
-              description: "Fill color when checked. Use neutral inside dense data tables.",
-            },
-            {
-              name:    "disabled",
-              type:    "boolean",
-              values:  (
-                <div className="flex items-center gap-1.5">
-                  <OptionPill swatch={<BoolSwatch on={false} />} label="false" />
-                  <OptionPill swatch={<BoolSwatch on={true}  />} label="true" />
-                </div>
-              ),
-              default:     "false",
-              description: "Non-interactive state — 40% opacity, pointer-events disabled.",
-            },
-            {
-              name:    "label",
-              type:    "string",
-              values:  <OptionPill label="optional" />,
-              default: "—",
-              description: "Inline label; click target extends to the whole label.",
-            },
-            {
-              name:    "description",
-              type:    "string",
-              values:  <OptionPill label="optional" />,
-              default: "—",
-              description: "12px helper below the label, in disabled color.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="checkbox" />
       </section>
 
       {/* Sizing & spacing */}
@@ -123,7 +37,7 @@ export function CheckboxSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={16} height={16} padX={4} padY={4} radius={4} scale={5}>
-          <div className="w-full h-full inline-flex items-center justify-center rounded-[3px] bg-s4e-btn-primary-600">
+          <div className="w-full h-full inline-flex items-center justify-center rounded-[3px] bg-snt-btn-primary-600">
             <Check size={10} className="text-white" strokeWidth={3} />
           </div>
         </SpacingDiagram>
@@ -132,7 +46,7 @@ export function CheckboxSpecs() {
           <DimensionsTable
             columns={["default"]}
             rows={[
-              { label: "Box size",              values: ["16px"], note: "Square. Tick auto-centered." },
+              { label: "Box size",              values: ["18px"], note: "Square. Tick auto-centered." },
               { label: "Border width",          values: ["2px"], note: "Outline when unchecked." },
               { label: "Border radius",         values: ["4px"] },
               { label: "Tick icon size",        values: ["12px"], note: "Lucide Check / Minus." },

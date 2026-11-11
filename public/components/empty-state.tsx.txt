@@ -4,14 +4,14 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — EmptyState
+ * sentinel/ui — EmptyState
  *
  * Drop this file into your project at components/ui/empty-state.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 export type EmptyStateTone = "neutral" | "warning" | "alert";
@@ -34,9 +34,9 @@ export interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElemen
 }
 
 const TONE_ICON_WRAP: Record<EmptyStateTone, string> = {
-  neutral: "bg-s4e-neutral-grey-100 text-s4e-text-secondary",
-  warning: "bg-s4e-scale-yellow-50 text-s4e-scale-yellow-600",
-  alert:   "bg-s4e-scale-red-50 text-s4e-scale-red-600",
+  neutral: "bg-snt-bg-subtle text-snt-text-secondary",
+  warning: "bg-snt-bg-warning-subtle text-snt-scale-yellow-600",
+  alert:   "bg-snt-bg-error-subtle text-snt-text-error",
 };
 
 export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
@@ -56,8 +56,8 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
   ) => {
     const iconBox   = size === "sm" ? "w-10 h-10"   : "w-14 h-14";
     const iconSize  = size === "sm" ? 18            : 24;
-    const titleSize = size === "sm" ? "text-[14px]" : "text-[15px]";
-    const descSize  = size === "sm" ? "text-[12px]" : "text-[14px]";
+    const titleSize = size === "sm" ? "text-snt-14" : "text-snt-16";
+    const descSize  = size === "sm" ? "text-snt-12" : "text-snt-14";
     const pad       = size === "sm" ? "px-6 py-8"   : "px-6 py-12";
 
     return (
@@ -80,14 +80,14 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
           <Icon size={iconSize} />
         </div>
 
-        <div className={cn("font-semibold text-s4e-text-primary", titleSize)}>
+        <div className={cn("font-semibold text-snt-text-primary", titleSize)}>
           {title}
         </div>
 
         {description && (
           <p
             className={cn(
-              "mt-1.5 max-w-sm text-s4e-text-secondary leading-relaxed",
+              "mt-1.5 max-w-sm text-snt-text-secondary leading-relaxed",
               descSize,
             )}
           >
@@ -101,7 +101,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
               <button
                 type="button"
                 onClick={primaryAction.onClick}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-s4e-brand-primary-500 text-s4e-text-white text-[12px] font-medium hover:bg-s4e-brand-primary-600 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-snt-brand-primary-500 shadow-snt-raised text-snt-text-white text-snt-12 font-medium hover:bg-snt-brand-primary-600 transition-colors"
               >
                 {primaryAction.icon && <primaryAction.icon size={13} />}
                 {primaryAction.label}
@@ -111,7 +111,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
               <button
                 type="button"
                 onClick={secondaryAction.onClick}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md border border-s4e-neutral-divider-10 bg-s4e-surface-app text-s4e-text-primary text-[12px] font-medium hover:bg-s4e-neutral-grey-100 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md border border-snt-border-default bg-snt-surface-app shadow-snt-control text-snt-text-primary text-snt-12 font-medium hover:bg-snt-bg-subtle transition-colors"
               >
                 {secondaryAction.icon && <secondaryAction.icon size={13} />}
                 {secondaryAction.label}

@@ -9,9 +9,9 @@
     <color name="severity_medium">#F5BF40</color>
     <color name="severity_high">#D13D2E</color>
     <color name="severity_critical">#772ED1</color>
-    <color name="brand_primary_50">#E8F4FD</color>
-    <color name="brand_primary_500">#1383D4</color>
-    <color name="brand_primary_600">#0F69A9</color>
+    <color name="brand_primary_50">#EEF0FF</color>
+    <color name="brand_primary_500">#5B5BD6</color>
+    <color name="brand_primary_600">#4F46E5</color>
     <color name="brand_secondary_500">#EE7B59</color>
     <color name="scale_blue_50">#F7FAFD</color>
     <color name="scale_blue_200">#C9DEEE</color>
@@ -31,15 +31,15 @@
     <color name="scale_purple_500">#772ED1</color>
     <color name="scale_purple_600">#5D24A3</color>
     <color name="neutral_grey_00">#FFFFFF</color>
-    <color name="neutral_grey_100">#F7F8F8</color>
-    <color name="neutral_grey_200">#F4F5F5</color>
-    <color name="neutral_grey_300">#DFE2E2</color>
-    <color name="neutral_grey_400">#C9CFCF</color>
-    <color name="neutral_grey_900">#131515</color>
+    <color name="neutral_grey_100">#F4F4F5</color>
+    <color name="neutral_grey_200">#E4E4E7</color>
+    <color name="neutral_grey_300">#D4D4D8</color>
+    <color name="neutral_grey_400">#8F8F98</color>
+    <color name="neutral_grey_900">#18181B</color>
     <color name="surface_app">#FFFFFF</color>
-    <color name="surface_page">#FCFDFD</color>
+    <color name="surface_page">#FAFAFA</color>
     <color name="surface_row">#FFFFFF</color>
-    <color name="surface_table_header">#F7F8F8</color>
+    <color name="surface_table_header">#F4F4F5</color>
     <color name="data_1">#9ACBE5</color>
     <color name="data_2">#FFAF97</color>
     <color name="data_3">#C4DEF3</color>
@@ -48,14 +48,14 @@
     <color name="data_6">#C1674D</color>
     <color name="data_7">#1F5077</color>
     <color name="data_8">#394751</color>
-    <color name="text_primary">#121F28</color>
-    <color name="text_secondary">#657078</color>
-    <color name="text_disabled">#A7ADB2</color>
+    <color name="text_primary">#09090B</color>
+    <color name="text_secondary">#52525B</color>
+    <color name="text_disabled">#A1A1AA</color>
     <color name="text_white">#FFFFFF</color>
     <color name="text_on_accent">#FFFFFF</color>
-    <color name="btn_neutral_800">#202323</color>
-    <color name="btn_primary_600">#0F69AA</color>
-    <color name="btn_primary_700">#024A72</color>
+    <color name="btn_neutral_800">#18181B</color>
+    <color name="btn_primary_600">#4F46E5</color>
+    <color name="btn_primary_700">#4338CA</color>
 
     <!-- Spacing -->
     <dimen name="space_2">8dp</dimen>

@@ -3,20 +3,22 @@
 import { useViewMode, type ViewMode } from "@/components/styleguide/view-mode-provider";
 import { cn } from "@/lib/utils";
 
-const LABEL: Record<ViewMode, string> = {
+const LABEL: Record<"design" | "dev", string> = {
   design: "Design",
   dev:    "Dev",
 };
 
 export function ViewModeTabs() {
-  const { mode, setMode } = useViewMode();
+  const { mode: raw, setMode } = useViewMode();
+  // Two-tab pages show Specs / Accessibility selections as Design.
+  const mode: ViewMode = raw === "dev" ? "dev" : "design";
   return (
     <div
       role="tablist"
       aria-label="View mode"
-      className="flex items-center gap-2 border-b border-s4e-neutral-divider-10"
+      className="flex items-center gap-2 border-b border-snt-neutral-divider-10"
     >
-      {(["design", "dev"] as ViewMode[]).map((m) => {
+      {(["design", "dev"] as const).map((m) => {
         const active = mode === m;
         return (
           <button
@@ -28,10 +30,10 @@ export function ViewModeTabs() {
             className={cn(
               "inline-flex items-center px-4 pt-2 pb-2.5 -mb-px text-[14px] font-medium whitespace-nowrap tracking-tight",
               "border-b-[2px] transition-colors cursor-pointer",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-s4e-brand-primary-500/40",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-snt-brand-primary-500/40",
               active
-                ? "text-s4e-text-primary border-s4e-brand-primary-500"
-                : "text-s4e-text-secondary border-transparent hover:text-s4e-text-primary",
+                ? "text-snt-text-primary border-snt-brand-primary-500"
+                : "text-snt-text-secondary border-transparent hover:text-snt-text-primary",
             )}
           >
             {LABEL[m]}

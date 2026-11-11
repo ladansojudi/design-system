@@ -23,14 +23,14 @@ export function Inspectable({
   return (
     <div
       className={cn(
-        "relative group rounded-xl ring-1 ring-dashed ring-s4e-brand-primary-500/30 transition-shadow",
-        "hover:ring-2 hover:ring-s4e-brand-primary-500/70",
+        "relative group rounded-xl ring-1 ring-dashed ring-snt-brand-primary-500/30 transition-shadow",
+        "hover:ring-2 hover:ring-snt-brand-primary-500/70",
         className,
       )}
     >
       <Link
         href={`/styleguide/${slug}`}
-        className="absolute -top-2.5 left-3 z-dropdown inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-s4e-brand-primary-500 text-s4e-text-on-accent text-[10px] font-medium shadow-s4e-sm hover:bg-s4e-brand-primary-600 transition-colors"
+        className="absolute -top-2.5 left-3 z-dropdown inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-snt-brand-primary-500 text-snt-text-on-accent text-[10px] font-medium shadow-snt-sm hover:bg-snt-brand-primary-600 transition-colors"
       >
         {label}
         <ArrowUpRight size={11} />

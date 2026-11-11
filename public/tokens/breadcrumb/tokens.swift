@@ -7,10 +7,9 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#1383D4")
-    static let textPrimary = UIColor(hex: "#121F28")
-    static let textSecondary = UIColor(hex: "#657078")
-    static let textDisabled = UIColor(hex: "#A7ADB2")
+    static let brandPrimary500 = UIColor(hex: "#5B5BD6")
+    static let textPrimary = UIColor(hex: "#09090B")
+    static let textDisabled = UIColor(hex: "#A1A1AA")
 }
 
 // MARK: - Sizing (CGFloat)
@@ -23,6 +22,7 @@ extension CGFloat {
     static let space6: CGFloat = 24
     static let space5: CGFloat = 20
     static let space8: CGFloat = 32
+    static let space16: CGFloat = 64
 
     // Radius
     static let radiusXl: CGFloat = 12
@@ -32,10 +32,8 @@ extension CGFloat {
 
     // Font size
     static let fontSize10: CGFloat = 10
-    static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
     static let fontSize14: CGFloat = 14
-    static let fontSize15: CGFloat = 15
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)

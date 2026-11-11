@@ -3,14 +3,16 @@ import Link from "next/link";
 export type ComponentStatus = "alpha" | "beta" | "stable" | "deprecated";
 
 const STATUS_STYLES: Record<ComponentStatus, { label: string; cls: string }> = {
-  alpha:      { label: "Alpha",      cls: "bg-s4e-scale-yellow-500/12 text-s4e-scale-yellow-700 border-s4e-scale-yellow-500/20" },
-  beta:       { label: "Beta",       cls: "bg-s4e-brand-primary-500/12 text-s4e-brand-primary-500 border-s4e-brand-primary-500/20" },
-  stable:     { label: "Stable",     cls: "bg-s4e-scale-green-500/12 text-s4e-scale-green-600 border-s4e-scale-green-500/20" },
-  deprecated: { label: "Deprecated", cls: "bg-s4e-scale-red-500/12 text-s4e-scale-red-600 border-s4e-scale-red-500/20" },
+  alpha:      { label: "Alpha",      cls: "bg-snt-scale-yellow-500/12 text-snt-scale-yellow-700 border-snt-scale-yellow-500/20" },
+  beta:       { label: "Beta",       cls: "bg-snt-brand-primary-500/12 text-snt-brand-primary-500 border-snt-brand-primary-500/20" },
+  stable:     { label: "Stable",     cls: "bg-snt-scale-green-500/12 text-snt-scale-green-600 border-snt-scale-green-500/20" },
+  deprecated: { label: "Deprecated", cls: "bg-snt-scale-red-500/12 text-snt-scale-red-600 border-snt-scale-red-500/20" },
 };
 
 interface PageHeaderProps {
   category:     string;
+  /** Makes the category crumb a link (e.g. the Components index). */
+  categoryHref?: string;
   title:        string;
   description?: string;
   status?:      ComponentStatus;
@@ -19,25 +21,29 @@ interface PageHeaderProps {
   actions?:     React.ReactNode;
 }
 
-export function PageHeader({ category, title, description, status, version, actions }: PageHeaderProps) {
+export function PageHeader({ category, categoryHref, title, description, status, version, actions }: PageHeaderProps) {
   return (
     <header className="mb-2 sm:mb-4">
       {/* Breadcrumb path + page actions */}
       <div className="flex items-center justify-between gap-3 mb-4">
         <nav aria-label="Breadcrumb">
-          <ol className="flex items-center gap-1.5 text-[12px] text-s4e-text-disabled">
+          <ol className="flex items-center gap-1.5 text-[12px] text-snt-text-disabled">
             <li>
               <Link
-                href="/"
-                className="hover:text-s4e-text-primary transition-colors"
+                href="/styleguide/overview"
+                className="hover:text-snt-text-primary transition-colors"
               >
-                Design System
+                Sentinel
               </Link>
             </li>
-            <li aria-hidden className="text-s4e-neutral-grey-300">/</li>
-            <li className="text-s4e-text-secondary">{category}</li>
-            <li aria-hidden className="text-s4e-neutral-grey-300">/</li>
-            <li className="text-s4e-text-primary font-medium">{title}</li>
+            <li aria-hidden className="text-snt-neutral-grey-300">/</li>
+            <li className="text-snt-text-secondary">
+              {categoryHref ? (
+                <Link href={categoryHref} className="hover:text-snt-text-primary transition-colors">{category}</Link>
+              ) : category}
+            </li>
+            <li aria-hidden className="text-snt-neutral-grey-300">/</li>
+            <li className="text-snt-text-primary font-medium">{title}</li>
           </ol>
         </nav>
         {actions && <div className="shrink-0">{actions}</div>}
@@ -45,7 +51,7 @@ export function PageHeader({ category, title, description, status, version, acti
 
       {/* Title row */}
       <div className="flex flex-wrap items-center gap-3 mb-3">
-        <h1 className="text-[28px] sm:text-[32px] font-semibold text-s4e-text-primary leading-[1.15] tracking-tight">
+        <h1 className="text-[28px] sm:text-[32px] font-semibold text-snt-text-primary leading-[1.15] tracking-tight">
           {title}
         </h1>
         {status && (
@@ -56,7 +62,7 @@ export function PageHeader({ category, title, description, status, version, acti
           </span>
         )}
         {version && (
-          <span className="text-[11px] font-mono text-s4e-text-disabled px-1.5 py-0.5 rounded border border-s4e-neutral-divider-10">
+          <span className="text-[11px] font-mono text-snt-text-disabled px-1.5 py-0.5 rounded border border-snt-neutral-divider-10">
             v{version}
           </span>
         )}
@@ -64,7 +70,7 @@ export function PageHeader({ category, title, description, status, version, acti
 
       {/* Description */}
       {description && (
-        <p className="text-[15px] leading-[1.6] text-s4e-text-secondary max-w-[640px]">
+        <p className="text-[15px] leading-[1.6] text-snt-text-secondary max-w-[640px]">
           {description}
         </p>
       )}

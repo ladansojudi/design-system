@@ -4,14 +4,14 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — Gauge
+ * sentinel/ui — Gauge
  *
  * Drop this file into your project at components/ui/gauge.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 type GaugeColor = "blue" | "green" | "yellow" | "red" | "purple";
@@ -23,35 +23,35 @@ export interface GaugeProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TRACK_STROKE: Record<GaugeColor, string> = {
-  blue:   "stroke-s4e-scale-blue-100",
-  green:  "stroke-s4e-scale-green-100",
-  yellow: "stroke-s4e-scale-yellow-100",
-  red:    "stroke-s4e-scale-red-100",
-  purple: "stroke-s4e-scale-purple-100",
+  blue:   "stroke-snt-scale-blue-100",
+  green:  "stroke-snt-scale-green-100",
+  yellow: "stroke-snt-scale-yellow-100",
+  red:    "stroke-snt-scale-red-100",
+  purple: "stroke-snt-scale-purple-100",
 };
 
 const FILL_STROKE: Record<GaugeColor, string> = {
-  blue:   "stroke-s4e-scale-blue-500",
-  green:  "stroke-s4e-scale-green-500",
-  yellow: "stroke-s4e-scale-yellow-500",
-  red:    "stroke-s4e-scale-red-500",
-  purple: "stroke-s4e-scale-purple-500",
+  blue:   "stroke-snt-scale-blue-500",
+  green:  "stroke-snt-scale-green-500",
+  yellow: "stroke-snt-scale-yellow-500",
+  red:    "stroke-snt-scale-red-500",
+  purple: "stroke-snt-scale-purple-500",
 };
 
 const TICK_LIGHT_STROKE: Record<GaugeColor, string> = {
-  blue:   "stroke-s4e-scale-blue-200",
-  green:  "stroke-s4e-scale-green-200",
-  yellow: "stroke-s4e-scale-yellow-200",
-  red:    "stroke-s4e-scale-red-200",
-  purple: "stroke-s4e-scale-purple-200",
+  blue:   "stroke-snt-scale-blue-200",
+  green:  "stroke-snt-scale-green-200",
+  yellow: "stroke-snt-scale-yellow-200",
+  red:    "stroke-snt-scale-red-200",
+  purple: "stroke-snt-scale-purple-200",
 };
 
 const TICK_DARK_STROKE: Record<GaugeColor, string> = {
-  blue:   "stroke-s4e-scale-blue-600",
-  green:  "stroke-s4e-scale-green-600",
-  yellow: "stroke-s4e-scale-yellow-600",
-  red:    "stroke-s4e-scale-red-600",
-  purple: "stroke-s4e-scale-purple-600",
+  blue:   "stroke-snt-scale-blue-600",
+  green:  "stroke-snt-scale-green-600",
+  yellow: "stroke-snt-scale-yellow-600",
+  red:    "stroke-snt-scale-red-600",
+  purple: "stroke-snt-scale-purple-600",
 };
 
 function polar(cx: number, cy: number, r: number, deg: number) {
@@ -128,7 +128,7 @@ export const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
             strokeDashoffset={drawn}
             className={cn(
               FILL_STROKE[color],
-              "[animation:s4e-gauge-draw_1.1s_ease-out_forwards]",
+              "[animation:snt-gauge-draw_1.1s_ease-out_forwards]",
             )}
           />
 
@@ -156,9 +156,9 @@ export const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
           <g transform={`rotate(${needleAngle} ${cx} ${cy})`}>
             <path
               d={`M ${cx} ${cy - r * 0.72} L ${cx - 3} ${cy + 2} L ${cx + 3} ${cy + 2} Z`}
-              className="fill-s4e-neutral-grey-500"
+              className="fill-snt-neutral-grey-500"
             />
-            <circle cx={cx} cy={cy} r={3.5} className="fill-s4e-neutral-grey-600" />
+            <circle cx={cx} cy={cy} r={3.5} className="fill-snt-neutral-grey-600" />
             <animateTransform
               attributeName="transform"
               type="rotate"
@@ -173,8 +173,8 @@ export const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
         </svg>
 
         <div className="text-center -mt-2">
-          <span className="font-bold text-s4e-text-primary text-[14px]">{value}</span>
-          <span className="text-s4e-text-disabled text-[12px]"> / {max}</span>
+          <span className="font-bold text-snt-text-primary text-snt-14">{value}</span>
+          <span className="text-snt-text-secondary text-snt-12"> / {max}</span>
         </div>
       </div>
     );

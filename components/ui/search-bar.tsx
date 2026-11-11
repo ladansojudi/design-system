@@ -5,14 +5,14 @@ import { Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * s4e/ui — SearchBar
+ * sentinel/ui — SearchBar
  *
  * Drop this file into your project at components/ui/search-bar.tsx.
  *
  * Requires:
  *   • Tailwind CSS v4
  *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
- *   • s4e-* design tokens — grab tokens.css from the Theming page.
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
 type Variant = "default" | "ghost";
@@ -28,20 +28,20 @@ export interface SearchBarProps
 }
 
 const CONTAINER_BASE =
-  "flex items-center gap-2 rounded-lg px-3 h-9 w-full transition-colors";
+  "flex items-center gap-2 rounded-lg px-3 h-9 compact:h-8 w-full transition-colors";
 
 const VARIANT_CONTAINER: Record<Variant, string> = {
   default:
-    "border border-s4e-neutral-divider-10 bg-s4e-surface-app " +
-    "focus-within:border-s4e-brand-primary-500 focus-within:ring-2 focus-within:ring-s4e-brand-primary-500/20",
+    "border border-snt-border-default bg-snt-surface-app shadow-snt-control " +
+    "focus-within:border-snt-brand-primary-500 focus-within:ring-2 focus-within:ring-snt-focus-ring/20",
   ghost:
-    "bg-s4e-neutral-grey-100 border border-transparent " +
-    "focus-within:border-s4e-brand-primary-500 focus-within:ring-2 focus-within:ring-s4e-brand-primary-500/20",
+    "bg-snt-bg-subtle border border-transparent " +
+    "focus-within:border-snt-brand-primary-500 focus-within:ring-2 focus-within:ring-snt-focus-ring/20",
 };
 
 const INPUT_BASE =
-  "flex-1 bg-transparent text-[14px] outline-none placeholder:text-s4e-text-disabled " +
-  "text-s4e-text-primary disabled:cursor-not-allowed disabled:text-s4e-text-disabled";
+  "flex-1 bg-transparent text-snt-14 outline-none placeholder:text-snt-text-secondary " +
+  "text-snt-text-primary disabled:cursor-not-allowed disabled:text-snt-text-disabled";
 
 export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
   (
@@ -76,7 +76,7 @@ export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
       >
         <Search
           size={14}
-          className="shrink-0 text-s4e-text-disabled group-focus-within:text-s4e-brand-primary-500"
+          className="shrink-0 text-snt-text-secondary group-focus-within:text-snt-brand-primary-500"
         />
         <input
           ref={ref}
@@ -92,7 +92,7 @@ export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
           <button
             type="button"
             onClick={handleClear}
-            className="shrink-0 text-s4e-text-disabled hover:text-s4e-text-primary transition-colors"
+            className="shrink-0 text-snt-text-secondary hover:text-snt-text-primary transition-colors"
             aria-label="Clear search"
           >
             <X size={13} />

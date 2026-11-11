@@ -18,9 +18,9 @@ import { useViewMode } from "@/components/styleguide/view-mode-provider";
 // async panels like Installation / Developer Notes finish loading in Dev mode.
 
 const MARKER = "▶▶";
-const HEADER_OFFSET = 76; // sticky TopBar height + breathing room
+const HEADER_OFFSET = 24; // breathing room above a heading (the site header sits outside the scroller)
 
-type TocItem = { id: string; label: string };
+type TocItem = { id: string; label: string; level: 1 | 2 };
 
 function slugify(text: string): string {
   return text
@@ -39,7 +39,12 @@ function collectHeadings(): HTMLElement[] {
     const heading = marker.nextElementSibling as HTMLElement | null;
     const text = heading?.textContent?.trim();
     if (!heading || !text) return;
-    if (!heading.id) heading.id = slugify(text);
+    if (!heading.id) {
+      // Subsection names repeat across groups ("Sizes" …) — keep ids unique.
+      let id = slugify(text);
+      for (let n = 2; document.getElementById(id); n++) id = `${slugify(text)}-${n}`;
+      heading.id = id;
+    }
     heading.style.scrollMarginTop = `${HEADER_OFFSET}px`;
     out.push(heading);
   });
@@ -68,7 +73,15 @@ export function PageTOC() {
       if (signature === signatureRef.current) return;
       signatureRef.current = signature;
 
-      setItems(headings.map((h) => ({ id: h.id, label: h.textContent?.trim() ?? "" })));
+      // h2 = page group, anything else = subsection. Pages without groups stay flat.
+      const grouped = headings.some((h) => h.tagName === "H2");
+      setItems(
+        headings.map((h) => ({
+          id: h.id,
+          label: h.textContent?.trim() ?? "",
+          level: grouped && h.tagName !== "H2" ? 2 : 1,
+        })),
+      );
       setActive((prev) => (prev && headings.some((h) => h.id === prev) ? prev : headings[0]?.id ?? null));
 
       io?.disconnect();
@@ -114,12 +127,12 @@ export function PageTOC() {
   if (items.length < 2) return null;
 
   return (
-    <nav aria-label="On this page" className="text-[12px]">
-      <div className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-s4e-text-disabled">
+    <nav aria-label="On this page" className="text-snt-12">
+      <div className="mb-3 text-snt-11 font-medium text-snt-text-secondary">
         On this page
       </div>
-      <ul className="border-l border-s4e-neutral-divider-10">
-        {items.map((it) => {
+      <ul className="border-l border-snt-border-default">
+        {items.map((it, i) => {
           const isActive = it.id === active;
           return (
             <li key={it.id}>
@@ -127,10 +140,17 @@ export function PageTOC() {
                 href={`#${it.id}`}
                 onClick={(e) => onClick(e, it.id)}
                 className={cn(
-                  "block -ml-px border-l-2 pl-3 py-1 leading-snug transition-colors",
+                  "block -ml-px border-l-2 py-1 leading-snug transition-colors",
+                  it.level === 1 ? "pl-3 font-medium" : "pl-6",
+                  it.level === 1 && i > 0 && "mt-2",
                   isActive
-                    ? "border-s4e-brand-primary-500 text-s4e-brand-primary-500 font-medium"
-                    : "border-transparent text-s4e-text-secondary hover:text-s4e-text-primary hover:border-s4e-neutral-grey-300",
+                    ? "border-snt-brand-primary-500 text-snt-text-brand"
+                    : cn(
+                        "border-transparent hover:border-snt-border-strong",
+                        it.level === 1
+                          ? "text-snt-text-primary"
+                          : "text-snt-text-secondary hover:text-snt-text-primary",
+                      ),
                 )}
               >
                 {it.label}

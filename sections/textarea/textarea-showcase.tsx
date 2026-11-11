@@ -2,35 +2,19 @@
 
 import type React from "react";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 import { Copyable } from "@/components/styleguide/copyable";
 import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
+import { Textarea as UITextarea } from "@/components/ui/textarea";
 
 // ── Textarea component ────────────────────────────────────────────────────
 
 type State = "Default" | "Hover" | "Focused" | "Error" | "Disabled";
 
-const STATE_BORDER: Record<State, string> = {
-  Default:  "border-s4e-neutral-grey-300",
-  Hover:    "border-s4e-neutral-grey-500",
-  Focused:  "border-s4e-brand-primary-600 ring-2 ring-s4e-brand-primary-500/20",
-  Error:    "border-s4e-scale-red-600",
-  Disabled: "border-s4e-neutral-grey-200 opacity-40",
-};
-
 function Textarea({
-  label,
-  value,
   onChange,
-  placeholder,
   state = "Default",
-  helperText,
-  errorText,
-  maxLength,
-  rows = 4,
-  disabled = false,
-  showCounter = false,
+  ...props
 }: {
   label?:       string;
   value?:       string;
@@ -44,53 +28,9 @@ function Textarea({
   disabled?:    boolean;
   showCounter?: boolean;
 }) {
-  const isError    = state === "Error";
-  const isDisabled = disabled || state === "Disabled";
-  const len        = (value ?? "").length;
-
-  return (
-    <div className="w-full">
-      {label && (
-        <label className={cn(
-          "block text-[11px] font-medium mb-1.5",
-          isError ? "text-s4e-scale-red-600" : "text-s4e-text-secondary",
-        )}>
-          {label}
-        </label>
-      )}
-      <textarea
-        rows={rows}
-        value={value}
-        disabled={isDisabled}
-        maxLength={maxLength}
-        onChange={(e) => onChange?.(e.target.value)}
-        placeholder={placeholder}
-        className={cn(
-          "block w-full rounded-md px-3 py-2 text-[14px] text-s4e-text-primary placeholder:text-s4e-text-disabled bg-s4e-surface-row",
-          "border resize-y transition-colors",
-          "focus:outline-none focus:border-s4e-brand-primary-600 focus:ring-2 focus:ring-s4e-brand-primary-500/20",
-          STATE_BORDER[state],
-          isDisabled && "cursor-not-allowed",
-        )}
-      />
-      <div className="mt-1 flex items-start justify-between gap-2">
-        <div className={cn(
-          "text-[10.5px] leading-tight flex-1",
-          isError ? "text-s4e-scale-red-600" : "text-s4e-text-disabled",
-        )}>
-          {isError ? errorText : helperText}
-        </div>
-        {(showCounter || maxLength) && (
-          <div className={cn(
-            "text-[10.5px] tabular-nums shrink-0",
-            maxLength && len > maxLength * 0.9 ? "text-s4e-scale-yellow-700" : "text-s4e-text-disabled",
-          )}>
-            {len}{maxLength ? `/${maxLength}` : ""}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  // Renders the shipped component; the showcase keeps its PascalCase state names.
+  const uiState = state === "Hover" ? "default" : (state.toLowerCase() as "default" | "focused" | "error" | "disabled");
+  return <UITextarea {...props} state={uiState} onChange={(e) => onChange?.(e.target.value)} />;
 }
 
 // ── Snippet builders ──────────────────────────────────────────────────────
@@ -119,11 +59,11 @@ function textareaSnippets({
     rows        ? ` rows={${rows}}`                          : "",
   ].join("");
   const swiftMods = [
-    `.textEditorStyle(.s4e(.outlined))`,
-    label       ? `.s4eLabel("${label}")`                    : null,
-    helperText  ? `.s4eHelperText("${helperText}")`          : null,
-    isError && errorText ? `.s4eErrorText("${errorText}")`   : null,
-    maxLength   ? `.s4eMaxLength(${maxLength})`              : null,
+    `.textEditorStyle(.sentinel(.outlined))`,
+    label       ? `.sentinelLabel("${label}")`                    : null,
+    helperText  ? `.sentinelHelperText("${helperText}")`          : null,
+    isError && errorText ? `.sentinelErrorText("${errorText}")`   : null,
+    maxLength   ? `.sentinelMaxLength(${maxLength})`              : null,
   ].filter(Boolean).join("\n    ");
   const xmlAttrs = [
     label       ? `\n    android:hint="${label}"`            : "",
@@ -156,8 +96,8 @@ ${editAttrs} />
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mb-4">
-      <span className="text-s4e-brand-primary-500 text-[10px]">▶▶</span>
-      <span className="text-[15px] font-semibold text-s4e-text-primary">{children}</span>
+      <span aria-hidden className="hidden">▶▶</span>
+      <h3 className="text-snt-16 font-semibold text-snt-text-primary">{children}</h3>
     </div>
   );
 }
@@ -171,7 +111,7 @@ export function TextareaShowcase() {
     <div className="space-y-10">
       <div>
         <SectionTitle>Variants</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
           <Copyable
             className="block w-full"
             snippets={textareaSnippets({
@@ -236,7 +176,7 @@ export function TextareaShowcase() {
 
       <div>
         <SectionTitle>States</SectionTitle>
-        <div className="border border-s4e-neutral-divider-10 rounded-xl px-6 py-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="border border-snt-neutral-divider-10 rounded-xl px-6 py-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {(["Default", "Hover", "Focused", "Error", "Disabled"] as State[]).map((s) => (
             <Textarea
               key={s}
@@ -261,7 +201,7 @@ export function TextareaExamples() {
     <div className="space-y-10">
       <div>
         <SectionTitle>Variants</SectionTitle>
-        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+        <p className="text-[12px] text-snt-text-secondary leading-relaxed mb-4 max-w-2xl">
           Common configurations — with helper, placeholder, counter, and error.
         </p>
         <div className="space-y-4">
@@ -342,7 +282,7 @@ export function TextareaExamples() {
 
       <div>
         <SectionTitle>States</SectionTitle>
-        <p className="text-[12px] text-s4e-text-secondary leading-relaxed mb-4 max-w-2xl">
+        <p className="text-[12px] text-snt-text-secondary leading-relaxed mb-4 max-w-2xl">
           Five field states.
         </p>
         <div className="space-y-4">

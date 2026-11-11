@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 export type CodeLang =
   | "tsx" | "jsx" | "ts" | "js"
-  | "css" | "html" | "xml" | "swift" | "json";
+  | "css" | "html" | "xml" | "swift" | "json" | "bash";
 
 const THEME = "dark-plus";
 
@@ -28,7 +28,7 @@ function getHighlighter(): Promise<Highlighter> {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighter({
       themes: [THEME],
-      langs: ["tsx", "jsx", "typescript", "javascript", "css", "html", "xml", "swift", "json"],
+      langs: ["tsx", "jsx", "typescript", "javascript", "css", "html", "xml", "swift", "json", "bash"],
       engine: createJavaScriptRegexEngine(),
     });
   }

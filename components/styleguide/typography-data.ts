@@ -137,16 +137,16 @@ export const typographyScale: TypographyEntry[] = [
   {
     name:      "code-md",
     group:     "code",
-    example:   "--s4e-brand-primary-500",
+    example:   "--snt-brand-primary-500",
     className: "text-[14px] font-normal leading-[1.55] font-mono",
-    specs: { size: "13px", weight: "Regular", lineHeight: "1.55", family: "IBM Plex Mono" },
+    specs: { size: "13px", weight: "Regular", lineHeight: "1.55", family: "Geist Mono" },
   },
   {
     name:      "code-sm",
     group:     "code",
-    example:   "npm install @s4e/design-system",
+    example:   "npm install @sentinel/design-system",
     className: "text-[12px] font-normal leading-[1.55] font-mono",
-    specs: { size: "12px", weight: "Regular", lineHeight: "1.55", family: "IBM Plex Mono" },
+    specs: { size: "12px", weight: "Regular", lineHeight: "1.55", family: "Geist Mono" },
   },
 ];
 

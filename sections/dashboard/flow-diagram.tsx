@@ -71,14 +71,14 @@ const H = 320;
 const COL_X = [60, 430, 800, 1120]; // node x per column (last is the "why" outcomes)
 
 const TONE_FILL: Record<string, string> = {
-  primary: "var(--s4e-data-1)",
-  muted:   "var(--s4e-neutral-grey-300)",
-  alert:   "var(--s4e-scale-red-200)",
+  primary: "var(--snt-data-1)",
+  muted:   "var(--snt-neutral-grey-300)",
+  alert:   "var(--snt-scale-red-200)",
 };
 const NODE_FILL: Record<string, string> = {
-  primary: "var(--s4e-data-5)",
-  muted:   "var(--s4e-neutral-grey-400)",
-  alert:   "var(--s4e-scale-red-500)",
+  primary: "var(--snt-data-5)",
+  muted:   "var(--snt-neutral-grey-400)",
+  alert:   "var(--snt-scale-red-500)",
 };
 
 function nodeY(n: Node) { return 40 + n.y * (H - 70); }
@@ -92,21 +92,21 @@ const OUTCOME_Y: Record<string, number> = { risk: 0.42, findings: 0.78 };
 
 export function FlowDiagram() {
   return (
-    <div className="border border-s4e-neutral-divider-10 rounded-xl bg-s4e-surface-app overflow-hidden">
+    <div className="border border-snt-neutral-divider-10 rounded-xl bg-snt-surface-app overflow-hidden">
       {/* Header */}
-      <div className="flex items-center gap-2 px-5 py-3 bg-s4e-neutral-grey-100 border-b border-s4e-neutral-divider-10">
-        <span className="text-[14px] font-semibold text-s4e-text-primary">Scans Workflow Overview</span>
-        <span className="hidden sm:inline text-[12px] text-s4e-text-disabled truncate">
+      <div className="flex items-center gap-2 px-5 py-3 bg-snt-neutral-grey-100 border-b border-snt-neutral-divider-10">
+        <span className="text-[14px] font-semibold text-snt-text-primary">Scans Workflow Overview</span>
+        <span className="hidden sm:inline text-[12px] text-snt-text-disabled truncate">
           Korem ipsum dolor sit amet, consectetur adipiscing elit.
         </span>
         <span className="inline-flex items-center gap-1.5 ml-auto shrink-0">
-          <span className="w-[7px] h-[7px] rounded-full bg-s4e-scale-green-500 s4e-pulse-dot" />
-          <span className="text-[11px] text-s4e-text-secondary">Live</span>
+          <span className="w-[7px] h-[7px] rounded-full bg-snt-scale-green-500 snt-pulse-dot" />
+          <span className="text-[11px] text-snt-text-secondary">Live</span>
         </span>
       </div>
 
       {/* Column titles */}
-      <div className="grid grid-cols-4 px-5 pt-4 text-[12px] font-medium text-s4e-text-secondary">
+      <div className="grid grid-cols-4 px-5 pt-4 text-[12px] font-medium text-snt-text-secondary">
         <span>What we protect</span>
         <span>What is running</span>
         <span>What we do</span>
@@ -114,7 +114,7 @@ export function FlowDiagram() {
       </div>
 
       {/* Diagram */}
-      <div className="px-3 pb-5 overflow-x-auto s4e-scrollbar-hide">
+      <div className="px-3 pb-5 overflow-x-auto snt-scrollbar-hide">
         <svg viewBox={`0 0 ${W} ${H}`} className="w-full min-w-[820px]" style={{ height: H }}>
           {/* Ribbons */}
           {LINKS.map(([fc, fid, tc, tid], i) => {
@@ -147,11 +147,11 @@ export function FlowDiagram() {
               return (
                 <g key={n.id}>
                   <rect x={COL_X[ci]} y={y - h / 2} width={14} height={h} rx={3} fill={NODE_FILL[n.tone]} />
-                  <text x={COL_X[ci] + 22} y={y - 2} fontSize="11" fontWeight="500" fill="var(--s4e-text-primary)">
+                  <text x={COL_X[ci] + 22} y={y - 2} fontSize="11" fontWeight="500" fill="var(--snt-text-primary)">
                     {n.label}
                   </text>
                   <text x={COL_X[ci] + 22} y={y + 12} fontSize="11" fontWeight="700"
-                    fill={n.tone === "alert" ? "var(--s4e-scale-red-600)" : "var(--s4e-text-primary)"}>
+                    fill={n.tone === "alert" ? "var(--snt-scale-red-600)" : "var(--snt-text-primary)"}>
                     {n.value}
                   </text>
                 </g>
@@ -161,12 +161,12 @@ export function FlowDiagram() {
 
           {/* Outcomes (last column) */}
           <g>
-            <rect x={COL_X[3] - 26} y={40 + OUTCOME_Y.risk * (H - 70) - 22} width={14} height={44} rx={3} fill="var(--s4e-scale-red-500)" />
-            <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.risk * (H - 70) - 8} fontSize="11" fontWeight="500" textAnchor="end" fill="var(--s4e-text-secondary)">Overall Risk Score</text>
-            <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.risk * (H - 70) + 8} fontSize="13" fontWeight="700" textAnchor="end" fill="var(--s4e-scale-purple-600)">Critical 80/100</text>
+            <rect x={COL_X[3] - 26} y={40 + OUTCOME_Y.risk * (H - 70) - 22} width={14} height={44} rx={3} fill="var(--snt-scale-red-500)" />
+            <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.risk * (H - 70) - 8} fontSize="11" fontWeight="500" textAnchor="end" fill="var(--snt-text-secondary)">Overall Risk Score</text>
+            <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.risk * (H - 70) + 8} fontSize="13" fontWeight="700" textAnchor="end" fill="var(--snt-scale-purple-600)">Critical 80/100</text>
 
-            <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.findings * (H - 70) - 8} fontSize="11" fontWeight="500" textAnchor="end" fill="var(--s4e-text-secondary)">Key Findings</text>
-            <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.findings * (H - 70) + 10} fontSize="12" fontWeight="700" textAnchor="end" fill="var(--s4e-text-primary)">10 · 24 · 56 · 03 · 12</text>
+            <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.findings * (H - 70) - 8} fontSize="11" fontWeight="500" textAnchor="end" fill="var(--snt-text-secondary)">Key Findings</text>
+            <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.findings * (H - 70) + 10} fontSize="12" fontWeight="700" textAnchor="end" fill="var(--snt-text-primary)">10 · 24 · 56 · 03 · 12</text>
           </g>
         </svg>
       </div>

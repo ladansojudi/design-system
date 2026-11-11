@@ -6,7 +6,7 @@ import { ComponentStatusShowcase } from "@/sections/component-status/component-s
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Component Status — Design System",
+  title: "Component Status — Sentinel Design System",
 };
 
 export default function ComponentStatusPage() {

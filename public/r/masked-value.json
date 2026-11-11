@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "masked-value",
+  "title": "Masked Value",
+  "description": "A secret — API key, token, password — shown masked, with reveal and copy.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "http://localhost:3000/r/utils.json",
+    "http://localhost:3000/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/masked-value.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Check, Copy, Eye, EyeOff } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — MaskedValue\n *\n * Drop this file into your project at components/ui/masked-value.tsx.\n *\n * A secret (API key, token, password) shown masked, with optional reveal and\n * copy. Copy always copies the real value; revealing is a separate choice.\n *\n * Requires:\n *   • Tailwind CSS v4, lucide-react\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n */\n\nexport interface MaskedValueProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"children\"> {\n  value: string;\n  /** What the secret is, e.g. \"API key\". Names the buttons for screen readers. */\n  label: string;\n  /** Characters left visible at the end while masked. */\n  visibleChars?: number;\n  revealable?: boolean;\n  copyable?: boolean;\n}\n\nconst btn =\n  \"inline-flex size-7 shrink-0 items-center justify-center rounded-md text-snt-text-secondary transition-colors cursor-pointer \" +\n  \"hover:bg-snt-bg-subtle hover:text-snt-text-primary \" +\n  \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring [&_svg]:size-3.5\";\n\nexport function MaskedValue({\n  value,\n  label,\n  visibleChars = 4,\n  revealable = true,\n  copyable = true,\n  className,\n  ...props\n}: MaskedValueProps) {\n  const [shown, setShown] = React.useState(false);\n  const [copied, setCopied] = React.useState(false);\n\n  const tail = visibleChars > 0 ? value.slice(-visibleChars) : \"\";\n  const masked = \"•\".repeat(Math.min(12, Math.max(4, value.length - tail.length))) + tail;\n\n  const copy = async () => {\n    try {\n      await navigator.clipboard.writeText(value);\n      setCopied(true);\n      setTimeout(() => setCopied(false), 1500);\n    } catch {\n      /* clipboard blocked: nothing to announce */\n    }\n  };\n\n  return (\n    <div\n      className={cn(\n        \"inline-flex h-9 max-w-full items-center gap-1 rounded-md border border-snt-border-default bg-snt-bg-subtle pl-3 pr-1\",\n        className,\n      )}\n      {...props}\n    >\n      <code className=\"min-w-0 flex-1 truncate font-mono text-snt-12 text-snt-text-primary\">\n        {shown ? value : <><span aria-hidden>{masked}</span><span className=\"sr-only\">{label}, hidden{tail ? `, ends in ${tail}` : \"\"}</span></>}\n      </code>\n      {revealable && (\n        <button type=\"button\" className={btn} aria-label={shown ? `Hide ${label}` : `Show ${label}`} aria-pressed={shown} onClick={() => setShown((v) => !v)}>\n          {shown ? <EyeOff aria-hidden /> : <Eye aria-hidden />}\n        </button>\n      )}\n      {copyable && (\n        <button type=\"button\" className={btn} aria-label={`Copy ${label}`} onClick={copy}>\n          {copied ? <Check aria-hidden className=\"text-snt-text-success\" /> : <Copy aria-hidden />}\n        </button>\n      )}\n      <span role=\"status\" className=\"sr-only\">{copied ? `${label} copied` : \"\"}</span>\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "beta"
+  },
+  "docs": "Masked Value (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/masked-value.md",
+  "categories": [
+    "atom"
+  ],
+  "type": "registry:ui"
+}

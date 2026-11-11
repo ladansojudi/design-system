@@ -31,7 +31,7 @@ export function CopyToastProvider({ children }: { children: React.ReactNode }) {
         aria-live="polite"
         className={
           "fixed bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none " +
-          "bg-s4e-brand-primary-500 text-s4e-text-white " +
+          "bg-snt-brand-primary-500 text-snt-text-white " +
           "px-5 py-2 rounded-sm text-[12px] font-mono " +
           "transition-all duration-200 " +
           (msg ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3")

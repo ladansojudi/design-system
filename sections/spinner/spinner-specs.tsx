@@ -1,91 +1,32 @@
 "use client";
 
+import { PropsFromCode } from "@/components/styleguide/props-from-code";
 import {
-  PropertiesTable,
+  
   DimensionsTable,
   ColorTokenTabs,
-  OptionPill,
+  
   SpecSectionTitle,
   SpecLede,
 } from "@/components/styleguide/specs";
 
 // ── Swatches ──────────────────────────────────────────────────────────────
 
-function SizeSwatch({ size }: { size: "xs" | "sm" | "md" | "lg" }) {
-  const d = { xs: 8, sm: 10, md: 12, lg: 14 }[size];
-  return (
-    <span
-      className="inline-block rounded-full border-2 border-s4e-neutral-grey-300 border-t-s4e-text-primary"
-      style={{ width: d, height: d }}
-      aria-hidden
-    />
-  );
-}
 
-function ToneSwatch({ tone }: { tone: "primary" | "neutral" | "white" }) {
-  const cls = {
-    primary: "border-s4e-brand-primary-500/30 border-t-s4e-brand-primary-500",
-    neutral: "border-s4e-text-disabled/25 border-t-s4e-text-secondary",
-    white:   "border-white/40 border-t-white",
-  }[tone];
-  return (
-    <span
-      className={`inline-block w-3 h-3 rounded-full border-2 ${cls} ${tone === "white" ? "bg-s4e-neutral-grey-800" : ""}`}
-      aria-hidden
-    />
-  );
-}
 
 // ── Spec section ──────────────────────────────────────────────────────────
 
 export function SpinnerSpecs() {
   return (
     <div className="space-y-10">
-      {/* Instance properties */}
+      {/* Properties */}
       <section>
-        <SpecSectionTitle>Instance properties</SpecSectionTitle>
+        <SpecSectionTitle>Properties</SpecSectionTitle>
         <SpecLede>
           Spinner is a pure indicator — no content slot, no padding. Only two designer-facing props
           and an optional accessible label.
         </SpecLede>
-        <PropertiesTable
-          rows={[
-            {
-              name:    "size",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap items-end gap-1.5">
-                  <OptionPill swatch={<SizeSwatch size="xs" />} label="xs" />
-                  <OptionPill swatch={<SizeSwatch size="sm" />} label="sm" />
-                  <OptionPill swatch={<SizeSwatch size="md" />} label="md" />
-                  <OptionPill swatch={<SizeSwatch size="lg" />} label="lg" />
-                </div>
-              ),
-              default:     "md",
-              description: "Outer diameter — match the surrounding text or container.",
-            },
-            {
-              name:    "tone",
-              type:    "enum",
-              values:  (
-                <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<ToneSwatch tone="primary" />} label="primary" />
-                  <OptionPill swatch={<ToneSwatch tone="neutral" />} label="neutral" />
-                  <OptionPill swatch={<ToneSwatch tone="white"   />} label="white" />
-                </div>
-              ),
-              default:     "primary",
-              description: "Stroke colorway. White is intended for dark surfaces and primary buttons.",
-            },
-            {
-              name:    "label",
-              type:    "string",
-              values:  <OptionPill label="aria-label" />,
-              default:     "Loading",
-              description: "Accessible label announced by screen readers via role=status.",
-            },
-          ]}
-        />
+        <PropsFromCode slug="spinner" />
       </section>
 
       {/* Sizing & spacing */}
