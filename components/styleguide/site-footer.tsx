@@ -24,7 +24,7 @@ export function SiteFooter() {
             <SentinelMark size={18} /> Sentinel
           </Link>
           <p className="mt-3 max-w-xs text-snt-14 leading-relaxed text-snt-text-secondary">
-            An open design system for cybersecurity products. Designed and built by Laden Sojudi.
+            An open design system for cybersecurity products. Designed and built by Ladan Sojudi.
           </p>
           <p className="mt-4 font-mono text-snt-12 text-snt-text-secondary">v{version}</p>
         </div>
