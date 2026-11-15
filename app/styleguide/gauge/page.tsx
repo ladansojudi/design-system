@@ -10,6 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Gauge } from "@/components/ui/gauge";
 
 export const metadata: Metadata = {
   title: "Gauge",
@@ -19,7 +20,7 @@ export default function Page() {
   return (
     <>
       <PageHero category="Components"
-        categoryHref="/styleguide/components" title="Gauge" status="stable" description="Animated half-arc visualization for displaying a value within a defined range."
+        categoryHref="/styleguide/components" title="Gauge" status="beta" description="Animated half-arc visualization for displaying a value within a defined range."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}
       />
@@ -35,12 +36,15 @@ export default function Page() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Track arc",         description: "Light half-arc that represents the full range. Omitted in the minimal variant." },
-                  { label: "Progress arc",      description: "Thick colored arc that animates from 0 to the current value on mount." },
-                  { label: "Severity markers", description: "Three small arc segments (light · dark · light) clustered at the end of the progress, above the main arc — they reinforce where the value lands on the severity scale. Default variant only." },
-                  { label: "Needle",            description: "Grey pointer that rotates from the left edge to the value angle. Default variant only." },
-                  { label: "Label",             description: "Bold numeric value followed by a muted \"/ max\" reference." },
+                  { label: "Track arc", target: "svg > path|0", side: "left", description: "Light half-arc showing the full range." },
+                  { label: "Progress arc", target: "svg > path|1", side: "top", description: "Thick coloured arc that grows from 0 to the value on load." },
+                  { label: "Severity markers", target: "svg > g|0", side: "top", description: "Three short arc segments at the end of the progress, showing where the value sits on the severity scale." },
+                  { label: "Needle", target: "svg > g|1", side: "right", description: "Grey pointer that turns from the left edge to the value." },
+                  { label: "Label", target: ":scope > div > div", side: "bottom", description: "The value and its maximum, e.g. 72 / 100." },
                 ]}
+                preview={
+                  <Gauge value={72} color="green" />
+                }
               />
               <GaugeSpecs />
             </DocSection>
@@ -61,7 +65,7 @@ export default function Page() {
                 items={[
                   "Use it on dashboards to surface one score against a known scale (risk score, coverage, SLA).",
                   "In dense lists or small cards, show the number alone — a full gauge would dominate the layout.",
-                  "Match the color to the meaning of the score — green for healthy, yellow for warning, red for critical, blue / purple for neutral categories.",
+                  "Match the color to the meaning of the score — green for healthy, yellow for warning, red for critical, blue / brand for neutral categories.",
                   "Pair with a stat card for context (label + delta) when a single number isn't enough to interpret the value.",
                 ]}
               />

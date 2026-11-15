@@ -4,15 +4,24 @@
 
 :root {
   /* Colors */
-  --snt-severity-info: #7dafd6;
-  --snt-severity-low: #63a100;
-  --snt-severity-medium: #f5bf40;
-  --snt-severity-high: #d13d2e;
-  --snt-severity-critical: #772ed1;
+  --snt-severity-info: #a8a29e;
+  --snt-severity-low: #1b9e8f;
+  --snt-severity-medium: #f0ad1d;
+  --snt-severity-high: #e5532d;
+  --snt-severity-critical: #b4136c;
+  --snt-severity-info-subtle: #f6f6f5;
+  --snt-severity-info-text: #726f6d;
+  --snt-severity-low-subtle: #e8f5f4;
+  --snt-severity-low-text: #177c71;
+  --snt-severity-medium-subtle: #fef7e8;
+  --snt-severity-medium-text: #8c6615;
+  --snt-severity-high-subtle: #fceeea;
+  --snt-severity-high-text: #bc4527;
+  --snt-severity-critical-subtle: #f8e7f0;
+  --snt-severity-critical-text: #b4136c;
   --snt-brand-primary-50: #eef0ff;
   --snt-brand-primary-500: #5b5bd6;
   --snt-brand-primary-600: #4f46e5;
-  --snt-brand-secondary-500: #ee7b59;
   --snt-scale-blue-50: #f7fafd;
   --snt-scale-blue-200: #c9deee;
   --snt-scale-blue-500: #7dafd6;
@@ -27,9 +36,6 @@
   --snt-scale-red-200: #ebaaa3;
   --snt-scale-red-500: #d13d2e;
   --snt-scale-red-600: #8e2a1f;
-  --snt-scale-purple-50: #f7f2fc;
-  --snt-scale-purple-500: #772ed1;
-  --snt-scale-purple-600: #5d24a3;
   --snt-neutral-grey-00: #ffffff;
   --snt-neutral-grey-100: #f4f4f5;
   --snt-neutral-grey-200: #e4e4e7;
@@ -40,22 +46,21 @@
   --snt-surface-page: #fafafa;
   --snt-surface-row: #ffffff;
   --snt-surface-table-header: #f4f4f5;
-  --snt-data-1: #9acbe5;
-  --snt-data-2: #ffaf97;
-  --snt-data-3: #c4def3;
-  --snt-data-4: #a7adb2;
-  --snt-data-5: #0f69aa;
-  --snt-data-6: #c1674d;
-  --snt-data-7: #1f5077;
-  --snt-data-8: #394751;
+  --snt-data-1: #4f46e5;
+  --snt-data-2: #0ea5e9;
+  --snt-data-3: #8b5cf6;
+  --snt-data-4: #64748b;
+  --snt-data-5: #65a30d;
+  --snt-data-6: #be7c4d;
+  --snt-data-7: #1e3a8a;
+  --snt-data-8: #c7d2fe;
   --snt-text-primary: #09090b;
   --snt-text-secondary: #52525b;
   --snt-text-disabled: #a1a1aa;
   --snt-text-white: #ffffff;
   --snt-text-on-accent: #ffffff;
+  --snt-text-link: #4f46e5;
   --snt-btn-neutral-800: #18181b;
-  --snt-btn-primary-600: #4f46e5;
-  --snt-btn-primary-700: #4338ca;
 
   /* Spacing */
   --space-2: 8px;

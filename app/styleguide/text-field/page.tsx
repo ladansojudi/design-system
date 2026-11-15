@@ -10,6 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { TextField } from "@/components/ui/text-field";
 
 export const metadata: Metadata = {
   title: "Text Field",
@@ -22,7 +23,7 @@ export default function TextFieldPage() {
         category="Components"
         categoryHref="/styleguide/components"
         title="Text Field"
-        status="stable"
+        status="beta"
         description="Filled and outlined variants across five states. Text Space provides a rich-text editing surface with simple and full toolbar configurations."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}
@@ -39,19 +40,13 @@ export default function TextFieldPage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Label",       description: "Always-visible descriptor placed above (outlined) or floating inside (filled)." },
-                  { label: "Container",   description: "Surface that holds the input, defining border, background and state colors." },
-                  { label: "Input",       description: "Text entry area that accepts user value and reflects focus, error and disabled states." },
-                  { label: "Helper text", description: "Small caption directly below the field — plain helper, or an icon + red message on error." },
+                  { label: "Label", target: "label", side: "top", description: "Always-visible name, floating on the border (outlined) or inside the surface (filled)." },
+                  { label: "Container", target: "[class*=\"rounded-md\"]", side: "left", description: "The surface that holds the input; its border and background show the state." },
+                  { label: "Input", target: "input", side: "bottom", description: "Where the value goes. Reflects focus, error and disabled states." },
+                  { label: "Helper text", target: "div.mt-1", side: "bottom", description: "Short caption under the field: a hint, or an icon and a red message on error." },
                 ]}
                 preview={
-                  <div className="w-64 flex flex-col gap-1.5">
-                    <span className="text-[11px] text-snt-text-secondary">Asset name</span>
-                    <div className="h-10 px-3 rounded-lg border border-snt-neutral-divider-10 bg-snt-surface-app flex items-center text-[14px] text-snt-text-primary">
-                      zero.webappsecurity.com
-                    </div>
-                    <span className="text-[11px] text-snt-text-disabled">Use the primary domain you want to monitor.</span>
-                  </div>
+                  <div className="w-72"><TextField variant="outlined" label="Asset name" defaultValue="api.example.com" helperText="Use the full hostname." /></div>
                 }
               />
               <TextFieldSpecs />

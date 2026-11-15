@@ -2,7 +2,7 @@
 title: Spinner
 slug: spinner
 category: Atom
-status: alpha
+status: beta
 source: components/ui/spinner.tsx
 styleguide: /styleguide/spinner
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=7-124
@@ -95,9 +95,8 @@ Single state. When reduced motion is on, the global rule stops the rotation, so 
 ```
 
 ## Known gaps
-- [ ] Alpha: the size scale (12 / 16 / 24 / 36) doesn't match Button's internal spinner (13 / 14 / 16). Unify them so Button can reuse `Spinner`.
-- [ ] The `neutral` tone uses `text-disabled` (2.27:1). That's acceptable for a decorative ring, but it fails 3:1 for non-text UI if the spinner is the only indicator.
-- [ ] No built-in delay prop.
+- [ ] Button draws its own loading spinner (14 / 14 / 16px) instead of reusing `Spinner`; the sizes are intentionally close but not shared.
+- [ ] No built-in delay prop (show only after ~300ms).
 
 ## Related
 - [Skeleton](./skeleton.md) · [Button](./button.md)

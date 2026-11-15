@@ -2,7 +2,7 @@
 title: Empty State
 slug: empty-state
 category: Organism
-status: stable
+status: beta
 source: components/ui/empty-state.tsx
 styleguide: /styleguide/empty-state
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=11-50

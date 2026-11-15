@@ -4,17 +4,14 @@
 <resources>
 
     <!-- Colors -->
-    <color name="severity_info">#7DAFD6</color>
-    <color name="severity_low">#63A100</color>
-    <color name="severity_medium">#F5BF40</color>
-    <color name="severity_high">#D13D2E</color>
-    <color name="severity_critical">#772ED1</color>
+    <color name="severity_info">#A8A29E</color>
+    <color name="severity_low">#1B9E8F</color>
+    <color name="severity_medium">#F0AD1D</color>
+    <color name="severity_high">#E5532D</color>
+    <color name="severity_critical">#B4136C</color>
     <color name="brand_primary_200">#C7CCFE</color>
     <color name="brand_primary_500">#5B5BD6</color>
     <color name="brand_primary_600">#4F46E5</color>
-    <color name="brand_secondary_200">#F5B6A3</color>
-    <color name="brand_secondary_500">#EE7B59</color>
-    <color name="brand_secondary_600">#E85326</color>
     <color name="scale_green_500">#63A100</color>
     <color name="scale_green_600">#3F6600</color>
     <color name="scale_yellow_500">#F5BF40</color>

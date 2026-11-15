@@ -35,7 +35,7 @@ export function DashboardShowcase() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-[22px] font-bold text-snt-text-primary">Dashboard</h2>
           <div className="flex items-center gap-2.5">
-            <button type="button" className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-snt-btn-primary-600 text-snt-text-on-accent text-[14px] font-medium hover:bg-snt-btn-primary-700 transition-colors">
+            <button type="button" className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-snt-action-primary text-snt-text-on-accent text-[14px] font-medium hover:bg-snt-action-primary-hover transition-colors">
               Start a Scan <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/20"><ArrowRight size={11} /></span>
             </button>
             <button type="button" className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-snt-neutral-divider-10 text-[14px] font-medium text-snt-text-primary hover:bg-snt-neutral-grey-100 transition-colors">
@@ -125,7 +125,7 @@ export function DashboardExamples() {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-[22px] font-bold text-snt-text-primary">Dashboard</h2>
               <div className="flex items-center gap-2.5">
-                <span className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-snt-btn-primary-600 text-snt-text-on-accent text-[14px] font-medium">
+                <span className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-snt-action-primary text-snt-text-on-accent text-[14px] font-medium">
                   Start a Scan <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/20"><ArrowRight size={11} /></span>
                 </span>
                 <span className="inline-flex items-center gap-2 h-9 px-3 rounded-lg border border-snt-neutral-divider-10 text-[14px] font-medium text-snt-text-primary">

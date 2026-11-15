@@ -6,7 +6,6 @@
   /* Colors */
   --snt-text-primary: #09090b;
   --snt-text-disabled: #a1a1aa;
-  --snt-btn-primary-600: #4f46e5;
 
   /* Spacing */
   --space-2: 8px;
@@ -27,8 +26,6 @@
 
   /* Font size */
   --font-size-10: 10px;
-  --font-size-11: 11px;
-  --font-size-14: 14px;
 
   /* Font weight */
   --font-weight-medium: 500;

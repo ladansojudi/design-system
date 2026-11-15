@@ -36,7 +36,7 @@ export function DataTableSpecs() {
           <div className="w-full h-full border border-snt-neutral-divider-10 bg-snt-surface-app rounded-md grid grid-cols-[1fr_1fr_80px_72px] items-center gap-3 px-5">
             <span className="text-[12px] text-snt-text-primary truncate">SQL Injection</span>
             <span className="text-[12px] text-snt-text-primary truncate">api.example.com</span>
-            <span className="text-[11px] text-snt-text-secondary text-right tabular-nums">19.09.2024</span>
+            <span className="text-[11px] text-snt-text-secondary tabular-nums">2026-11-09</span>
             <div className="flex justify-end">
               <SeverityBadge severity="high" size="sm" />
             </div>

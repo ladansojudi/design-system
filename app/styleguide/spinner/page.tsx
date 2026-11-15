@@ -10,6 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Spinner } from "@/components/ui/spinner";
 
 export const metadata: Metadata = {
   title: "Spinner",
@@ -39,10 +40,19 @@ export default function SpinnerPage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Ring",  description: "3/4 circle with a transparent quarter that rotates 360° per second." },
-                  { label: "Color", description: "Brand for primary actions, neutral for ambient loading, white on dark surfaces." },
-                  { label: "Size",  description: "xs (12px), sm (16px), md (24px), lg (36px). Match the surrounding text size." },
+                  { label: "Ring", target: "[role=\"status\"]:nth-of-type(4) > span:first-child", side: "top", description: "Three quarters of a circle with a transparent quarter, turning once a second." },
+                  { label: "Size", target: "[role=\"status\"]|0", side: "bottom", description: "xs 12px, sm 16px, md 24px, lg 36px. Match the text or button it sits in." },
+                  { label: "Colour", target: "[role=\"status\"]|4", side: "bottom", description: "Primary for actions, neutral for ambient loading, white on dark surfaces." },
                 ]}
+                preview={
+                  <div className="flex items-center gap-8">
+                    <Spinner size="xs" />
+                    <Spinner size="sm" />
+                    <Spinner size="md" />
+                    <Spinner size="lg" />
+                    <Spinner size="md" tone="neutral" />
+                  </div>
+                }
               />
               <SpinnerSpecs />
             </DocSection>

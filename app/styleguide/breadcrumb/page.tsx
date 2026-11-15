@@ -10,6 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 export const metadata: Metadata = {
   title: "Breadcrumb",
@@ -35,19 +36,20 @@ export default function Page() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Link",       description: "Navigable ancestor page; primary text color with hover underline." },
-                  { label: "Separator",  description: "Bullet (•) divider in disabled text color, non-selectable." },
-                  { label: "Current",    description: "Final, non-interactive segment rendered in muted text." },
+                  { label: "Link", target: "nav a|0", side: "bottom", description: "A parent page you can go back to." },
+                  { label: "Separator", target: "nav [aria-hidden]|0", side: "top", description: "Divider between segments; not read out by screen readers." },
+                  { label: "Current", target: "[aria-current=\"page\"]", side: "bottom", description: "The page you are on: last segment, not a link." },
                 ]}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-[14px] font-medium text-snt-text-primary">Main</span>
-                  <span className="text-snt-text-disabled text-[12px]">•</span>
-                  <span className="text-[14px] font-medium text-snt-text-primary">Asset Manager</span>
-                  <span className="text-snt-text-disabled text-[12px]">•</span>
-                  <span className="text-[14px] text-snt-text-disabled">zero.webappsecurity.com</span>
-                </div>
-              </Anatomy>
+                preview={
+                  <Breadcrumb>
+                    <BreadcrumbItem href="#">Main</BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem href="#">Asset Manager</BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem isCurrent>zero.webappsecurity.com</BreadcrumbItem>
+                  </Breadcrumb>
+                }
+              />
               <BreadcrumbSpecs />
             </DocSection>
           </div>

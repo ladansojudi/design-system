@@ -67,9 +67,9 @@ export default function ScanProgressPage() {
           </SpecSection>
           <SpecSection title="Color tokens">
             <ColorTokenTabs groups={[{ id: "s", label: "Status", rows: [
-              { variant: "Done", bg: { token: "btn-primary-600" }, text: { token: "text-on-accent" } },
+              { variant: "Done", bg: { token: "action-primary" }, text: { token: "text-on-accent" } },
               { variant: "Active", bg: { token: "surface-app" }, text: { token: "text-primary" }, border: { token: "focus-ring" } },
-              { variant: "Failed", bg: { token: "btn-error-600" }, text: { token: "text-error" } },
+              { variant: "Failed", bg: { token: "action-destructive" }, text: { token: "text-error" } },
               { variant: "Pending", bg: { token: "surface-app" }, text: { token: "text-secondary" }, border: { token: "border-strong" } },
             ] }]} />
           </SpecSection>
@@ -96,7 +96,7 @@ export default function ScanProgressPage() {
           </A11ySection>
           <A11ySection title="Contrast">
             <ContrastTable rows={[
-              { label: "Done marker", fg: "btn-primary-600", bg: "surface-app", min: 3 },
+              { label: "Done marker", fg: "action-primary", bg: "surface-app", min: 3 },
               { label: "Pending marker", fg: "border-strong", bg: "surface-app", min: 3 },
               { label: "Pending label", fg: "text-secondary", bg: "surface-app", min: 4.5 },
               { label: "Failed label", fg: "text-error", bg: "surface-app", min: 4.5 },

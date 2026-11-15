@@ -4,8 +4,8 @@
   "title": "Text Field",
   "description": "A single-line input for short free text: names, domains, IPs, emails.",
   "registryDependencies": [
-    "http://localhost:3000/r/utils.json",
-    "http://localhost:3000/r/theme.json"
+    "https://ladan-design-system.vercel.app/r/utils.json",
+    "https://ladan-design-system.vercel.app/r/theme.json"
   ],
   "files": [
     {
@@ -15,9 +15,9 @@
     }
   ],
   "meta": {
-    "status": "stable"
+    "status": "beta"
   },
-  "docs": "Text Field (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/text-field.md",
+  "docs": "Text Field (beta). Usage, accessibility and known gaps: https://ladan-design-system.vercel.app/docs/components/text-field.md",
   "categories": [
     "atom"
   ],

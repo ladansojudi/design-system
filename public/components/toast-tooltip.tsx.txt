@@ -3,7 +3,7 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { CircleCheck, CircleAlert, Lightbulb, Ban, X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, inheritTheme } from "@/lib/utils";
 
 /**
  * sentinel/ui — Toast & Tooltip
@@ -78,19 +78,19 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         aria-live={intent === "alert" ? "assertive" : "polite"}
         aria-atomic="true"
         className={cn(
-          "overflow-hidden bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-lg",
+          "snt-toast overflow-hidden bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-lg",
           className,
         )}
         {...props}
       >
-        <div className="flex items-center gap-3 px-4 py-3">
-          <Icon size={20} aria-hidden className={cn("shrink-0", TOAST_COLOR[intent])} />
+        <div className="flex items-start gap-3 px-4 py-3.5">
+          <Icon size={18} aria-hidden className={cn("mt-px shrink-0", TOAST_COLOR[intent])} />
           <div className="flex-1 min-w-0">
             {title && (
-              <div className="text-snt-14 font-semibold text-snt-text-primary">{title}</div>
+              <div className="text-snt-14 font-semibold tracking-tight text-snt-text-primary">{title}</div>
             )}
             {description && (
-              <div className="text-snt-12 text-snt-text-secondary">{description}</div>
+              <div className="mt-0.5 text-snt-12 leading-relaxed text-snt-text-secondary">{description}</div>
             )}
             {!title && !description && children}
           </div>
@@ -98,14 +98,14 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
             <button
               type="button"
               onClick={onDismiss}
-              className="shrink-0 rounded text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
+              className="-mr-1.5 -mt-1 flex size-7 shrink-0 items-center justify-center rounded-md text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
               aria-label="Dismiss"
             >
               <X size={15} aria-hidden />
             </button>
           )}
         </div>
-        <div className="h-[3px] w-full bg-snt-bg-subtle">
+        <div className="h-0.5 w-full bg-snt-bg-subtle">
           <div
             className={cn("h-full toast-timer-bar", TOAST_BAR[intent])}
             style={{ animationDuration: `${duration}ms`, animationPlayState: paused ? "paused" : "running" }}
@@ -161,11 +161,20 @@ export function ToastProvider({ children, max = 3 }: { children: React.ReactNode
     [max],
   );
 
+  // The toast region is portalled to <body>; copy the app's theme onto it.
+  const anchorRef = React.useRef<HTMLSpanElement>(null);
+  const regionRef = React.useRef<HTMLElement>(null);
+  React.useEffect(() => {
+    inheritTheme(anchorRef.current, regionRef.current);
+  });
+
   return (
     <ToastContext.Provider value={toast}>
       {children}
+      <span ref={anchorRef} hidden />
       {isClient && createPortal(
         <section
+          ref={regionRef}
           aria-label="Notifications"
           className="fixed bottom-4 right-4 z-toast flex w-[360px] max-w-[calc(100vw-2rem)] flex-col gap-2"
         >

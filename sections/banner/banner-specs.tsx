@@ -36,7 +36,7 @@ export function BannerSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={460} height={40} padX={16} padY={12} radius={0}>
-          <div className="w-full h-full flex items-center gap-3 px-4 py-2.5 bg-snt-btn-primary-600 text-snt-text-white">
+          <div className="w-full h-full flex items-center gap-3 px-4 py-2.5 bg-snt-action-primary text-snt-text-white">
             <Sparkles size={14} className="shrink-0" />
             <div className="flex-1 min-w-0 text-[12px] leading-tight">
               New: AI-assisted vulnerability triage is live.
@@ -94,7 +94,7 @@ export function BannerSpecs() {
               rows: [
                 {
                   variant: "Surface",
-                  bg:    { token: "btn-primary-600", hex: "#0f69aa" },
+                  bg:    { token: "action-primary", hex: "#0f69aa" },
                   text:  { token: "text-white",      hex: "#ffffff" },
                   hover: { token: "text-white/10",   hex: "#ffffff1a" },
                 },

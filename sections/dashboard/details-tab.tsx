@@ -125,7 +125,7 @@ export function DetailsTab() {
               <span className="px-1.5 py-0.5 rounded bg-snt-scale-green-50 text-snt-scale-green-600">85</span>
               <span className="px-1.5 py-0.5 rounded bg-snt-scale-yellow-50 text-snt-scale-yellow-700">305</span>
               <span className="px-1.5 py-0.5 rounded bg-snt-scale-red-50 text-snt-scale-red-600">3</span>
-              <span className="px-1.5 py-0.5 rounded bg-snt-scale-purple-50 text-snt-scale-purple-600">100000000</span>
+              <span className="px-1.5 py-0.5 rounded bg-snt-brand-primary-50 text-snt-brand-primary-600">100000000</span>
             </div>
           </div>
         ))}

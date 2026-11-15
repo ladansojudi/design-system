@@ -1,5 +1,6 @@
 "use client";
 
+import { BrandCheck } from "@/sections/theming/brand-check";
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -81,11 +82,12 @@ function Convention() {
           <div className="px-4 py-2 bg-snt-surface-table-header text-[10px] uppercase tracking-widest text-snt-text-disabled font-medium border-b border-snt-neutral-divider-10">Example</div>
 
           {[
-            { cat: "brand",     role: "primary, secondary",    ex: "--snt-brand-primary-500"     },
-            { cat: "scale",     role: "blue, green, red, …",   ex: "--snt-scale-red-600"         },
+            { cat: "brand",     role: "primary",              ex: "--snt-brand-primary-500"     },
+            { cat: "scale",     role: "blue, green, yellow, red", ex: "--snt-scale-red-600"         },
             { cat: "neutral",   role: "grey, divider",         ex: "--snt-neutral-grey-100"      },
             { cat: "text",      role: "primary, secondary, link, error, on-accent", ex: "--snt-text-link" },
             { cat: "surface",   role: "app, row, table-header", ex: "--snt-surface-app"          },
+            { cat: "action",    role: "primary, destructive (+ -hover)", ex: "--snt-action-primary" },
             { cat: "btn",       role: "primary-600, error-700", ex: "--snt-btn-primary-600"      },
             { cat: "severity",  role: "info, low, medium, high, critical", ex: "--snt-severity-critical" },
             { cat: "shadow",    role: "xs, sm, md, lg",         ex: "--snt-shadow-sm"             },
@@ -109,19 +111,19 @@ const THEMING_CSS = `/* app/globals.css */
 /* Light values (default) */
 :root,
 [data-snt-theme="light"] {
-  --snt-text-primary:   #121f28;
+  --snt-text-primary:   #09090b;
   --snt-text-inverse:   #ffffff;
-  --snt-text-link:      #0066cc;
+  --snt-text-link:      #4f46e5;
   --snt-surface-app:    #ffffff;
-  /* …23 colors total */
+  /* …and every other token */
 }
 
 /* Dark values — flipped */
 [data-snt-theme="dark"] {
-  --snt-text-primary:   #ffffff;
-  --snt-text-inverse:   #121f28;
-  --snt-text-link:      #56b3ff;
-  --snt-surface-app:    #0f1010;
+  --snt-text-primary:   #fafafa;
+  --snt-text-inverse:   #09090b;
+  --snt-text-link:      #a5b4fc;
+  --snt-surface-app:    #09090b;
   /* …same keys, different hex */
 }`;
 
@@ -182,7 +184,6 @@ function ThreeFlavors() {
 
         <div className="border border-snt-neutral-divider-10 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-snt-btn-warning-600" />
             <h3 className="text-[14px] font-semibold text-snt-text-primary">Static · same in both modes</h3>
           </div>
           <p className="text-[12px] text-snt-text-secondary leading-relaxed mb-3">
@@ -190,7 +191,7 @@ function ThreeFlavors() {
             Pair with <TokenChip name="snt-text-on-accent" /> for guaranteed contrast.
           </p>
           <div className="flex flex-wrap gap-1.5">
-            {["btn-primary-600", "btn-primary-700", "btn-error-600", "btn-error-700", "btn-success-600", "btn-warning-600", "severity-info", "severity-low", "severity-medium", "severity-high", "severity-critical", "text-on-accent"].map((t) => (
+            {["btn-primary-600", "btn-primary-700", "btn-error-600", "btn-error-700", "severity-info", "severity-low", "severity-medium", "severity-high", "severity-critical", "text-on-accent"].map((t) => (
               <TokenChip key={t} name={`snt-${t}`} />
             ))}
           </div>
@@ -227,8 +228,8 @@ const CUSTOM_CSS = `/* my-app/globals.css — after importing tokens.css */
   --snt-brand-primary-600: #5b21b6;
   --snt-brand-primary-700: #4c1d95;
 
-  --snt-btn-primary-600:   #5b21b6;
-  --snt-btn-primary-700:   #4c1d95;
+  --snt-action-primary:       #5b21b6;  /* buttons, checkboxes, switches */
+  --snt-action-primary-hover: #4c1d95;
 
   --snt-text-link:         #6d28d9;
 }
@@ -304,7 +305,7 @@ function PreviewTile({ scheme }: { scheme: "light" | "dark" }) {
         <a
           href="#"
           className="inline-flex items-center text-[14px] font-medium underline-offset-2 hover:underline"
-          style={{ color: scheme === "light" ? "#0066cc" : "#56b3ff" }}
+          style={{ color: scheme === "light" ? "#4f46e5" : "#a5b4fc" }}
         >
           View dashboard
         </a>
@@ -319,7 +320,7 @@ function LivePreview() {
       <SectionTitle>Same tokens, both modes</SectionTitle>
       <Lede>
         Identical markup. The only thing that differs between the two cards is the <code className="font-mono text-snt-text-primary">data-snt-theme</code> attribute on the wrapper.
-        The semantic tokens (text, surface, divider) flip; <TokenChip name="snt-btn-primary-600" /> stays the same exact blue.
+        The semantic tokens (text, surface, divider) flip; <TokenChip name="snt-btn-primary-600" /> stays the same indigo.
       </Lede>
       <div className="grid sm:grid-cols-2 gap-4">
         <PreviewTile scheme="light" />
@@ -355,6 +356,14 @@ export function ThemingShowcase() {
           </p>
         }
       />
+
+      <div>
+        <SectionTitle>Check your brand colour</SectionTitle>
+        <p className="mb-4 max-w-2xl text-[14px] leading-relaxed text-snt-text-secondary">
+          Severity colours are reserved. If you re-brand, keep your colour clearly apart from them: a violet like the example above sits close to Critical in many palettes.
+        </p>
+        <BrandCheck />
+      </div>
     </div>
   );
 }

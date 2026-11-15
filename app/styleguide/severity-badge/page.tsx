@@ -23,7 +23,7 @@ export default function SeverityBadgePage() {
         category="Components"
         categoryHref="/styleguide/components"
         title="Severity Badge"
-        status="stable"
+        status="beta"
         description="Five severity levels — Low, Info, Medium, High, Critical — each with a distinct color accent. Available with label only or label plus score."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}
@@ -40,10 +40,10 @@ export default function SeverityBadgePage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Signal bars",      description: "Four bars, filled to the level: Critical 4, High 3, Medium 2, Low 1. Info is a ring. Count and colour carry the level together." },
-                  { label: "Label",            description: "Severity name, always written out." },
-                  { label: "Score (optional)", description: "CVSS or internal score in mono, one decimal." },
-                  { label: "Container",        description: "Neutral surface with a hairline ring, so badges stay calm in dense tables." },
+                  { label: "Signal bars", target: '[aria-hidden]|0', side: "left", description: "Four bars, filled to the level: Critical 4, High 3, Medium 2, Low 1. Info is a ring. Count and colour carry the level together." },
+                  { label: "Label", target: 'span.font-medium', side: "top", description: "Severity name, always written out." },
+                  { label: "Score (optional)", target: 'span.font-mono', side: "bottom", description: "CVSS or internal score in mono, one decimal." },
+                  { label: "Container", target: ':scope > *', side: "right", description: "Neutral surface with a hairline ring, so badges stay calm in dense tables." },
                 ]}
                 preview={<SeverityBadge severity="critical" score={9.8} />}
               />

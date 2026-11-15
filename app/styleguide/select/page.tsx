@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { ChevronDown } from "lucide-react";
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
@@ -11,10 +10,10 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Select } from "@/components/ui/select";
 
 export const metadata: Metadata = {
-  title: "Select",
-};
+  title: "Select" };
 
 export default function SelectPage() {
   return (
@@ -40,28 +39,19 @@ export default function SelectPage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Label",          description: "Sits above the trigger. Always present unless the surrounding context makes the purpose obvious." },
-                  { label: "Trigger",        description: "Button-styled control that opens the popover. Shows the selected value or a placeholder." },
-                  { label: "Chevron",        description: "14px caret that rotates 180° when open — the only motion signal for state." },
-                  { label: "Popover",        description: "Floating list with options. Closes on outside click, escape, or selection." },
-                  { label: "Option",         description: "Selectable row with a check mark on the chosen entry. Disabled options are dimmed." },
-                  { label: "Helper / Error", description: "10.5px text below the trigger. Error message replaces helper when present." },
+                  { label: "Label", target: "label", side: "top", description: "Sits above the trigger. Always present unless the context makes the purpose obvious." },
+                  { label: "Trigger", target: "[role=\"combobox\"]", side: "left", description: "Button-like control that shows the chosen value or a placeholder. Click opens the option list (see Examples)." },
+                  { label: "Chevron", target: "[role=\"combobox\"] svg", side: "right", description: "Caret that turns upside down while the list is open." },
+                  { label: "Helper / Error", target: "div.mt-1", side: "bottom", description: "Hint under the trigger; an error message replaces it when present." },
                 ]}
                 preview={
-                  <div className="w-[260px]">
-                    <label className="block text-[11px] font-medium mb-1.5 text-snt-text-secondary">Region</label>
-                    <div className="relative">
-                      <div className="w-full flex items-center justify-between gap-2 h-9 px-3 rounded-md text-[14px] border border-snt-brand-primary-600 bg-snt-surface-row ring-2 ring-snt-brand-primary-500/20">
-                        <span className="text-snt-text-primary truncate">Europe (Frankfurt)</span>
-                        <ChevronDown size={14} className="text-snt-text-disabled rotate-180" />
-                      </div>
-                      <div className="absolute left-0 right-0 mt-1.5 rounded-md border border-snt-neutral-divider-10 bg-snt-surface-row shadow-snt-lg">
-                        <div className="px-3 py-2 text-[14px] text-snt-text-primary bg-snt-brand-primary-500/8">Europe (Frankfurt)</div>
-                        <div className="px-3 py-2 text-[14px] text-snt-text-primary">US East (Virginia)</div>
-                        <div className="px-3 py-2 text-[14px] text-snt-text-primary">US West (Oregon)</div>
-                      </div>
-                    </div>
-                    <div className="mt-1 text-[10.5px] text-snt-text-disabled">Data is processed in this region only.</div>
+                  <div className="w-72">
+                    <Select
+                      label="Region"
+                      value="eu"
+                      options={[{ value: "eu", label: "Europe (Frankfurt)" }, { value: "us", label: "US East (Virginia)" }]}
+                      helperText="Data is processed in this region only."
+                    />
                   </div>
                 }
               />

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pagination",
+  "title": "Pagination",
+  "description": "Moves between pages of a long list; always shows the first, last and current pages with their neighbours.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://ladan-design-system.vercel.app/r/utils.json",
+    "https://ladan-design-system.vercel.app/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/pagination.tsx",
+      "content": "import * as React from \"react\";\nimport { ChevronLeft, ChevronRight } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * sentinel/ui — Pagination\n *\n * Drop this file into your project at components/ui/pagination.tsx.\n *\n * Page controls for a table or list: previous, page numbers with \"…\" gaps,\n * next. Controlled: you own `page`. No \"use client\" — it renders in Server\n * Components; pass `onPageChange` from a client component.\n *\n * Requires:\n *   • Tailwind CSS v4, lucide-react\n *   • cn() helper at @/lib/utils (clsx + tailwind-merge)\n *   • snt-* design tokens — grab tokens.css from the Theming page.\n */\n\nexport interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>, \"onChange\"> {\n  /** Current page, 1-based. */\n  page: number;\n  pageCount: number;\n  onPageChange?: (page: number) => void;\n  /** Page numbers shown on each side of the current page. */\n  siblingCount?: number;\n  size?: \"sm\" | \"md\";\n  /** Accessible name of the navigation landmark. */\n  label?: string;\n}\n\nconst range = (from: number, to: number) => Array.from({ length: Math.max(0, to - from + 1) }, (_, i) => from + i);\n\n/** The page numbers to show, with \"…\" where pages are skipped. */\nexport function pageRange(page: number, pageCount: number, siblingCount = 1): (number | \"…\")[] {\n  const slots = siblingCount * 2 + 5; // first, last, current, two gaps\n  if (pageCount <= slots) return range(1, pageCount);\n  const left = Math.max(page - siblingCount, 1);\n  const right = Math.min(page + siblingCount, pageCount);\n  const gapLeft = left > 2;\n  const gapRight = right < pageCount - 1;\n  const edge = 3 + 2 * siblingCount;\n  if (!gapLeft && gapRight) return [...range(1, edge), \"…\", pageCount];\n  if (gapLeft && !gapRight) return [1, \"…\", ...range(pageCount - edge + 1, pageCount)];\n  return [1, \"…\", ...range(left, right), \"…\", pageCount];\n}\n\nconst BASE =\n  \"inline-flex items-center justify-center rounded-md font-medium tabular-nums transition-colors cursor-pointer select-none \" +\n  \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring \" +\n  \"disabled:opacity-40 disabled:cursor-not-allowed\";\n\nexport function Pagination({\n  page,\n  pageCount,\n  onPageChange,\n  siblingCount = 1,\n  size = \"md\",\n  label = \"Pagination\",\n  className,\n  ...props\n}: PaginationProps) {\n  const current = Math.min(Math.max(1, page), Math.max(1, pageCount));\n  const dim = size === \"sm\" ? \"h-8 min-w-8 px-2 text-snt-12\" : \"h-9 min-w-9 px-2.5 text-snt-14\";\n  const go = (p: number) => onPageChange?.(Math.min(Math.max(1, p), pageCount));\n\n  return (\n    <nav aria-label={label} className={className} {...props}>\n      <ul className=\"flex items-center gap-1\">\n        <li>\n          <button\n            type=\"button\"\n            aria-label=\"Previous page\"\n            disabled={current <= 1}\n            onClick={() => go(current - 1)}\n            className={cn(BASE, dim, \"text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary [&_svg]:size-4\")}\n          >\n            <ChevronLeft aria-hidden />\n          </button>\n        </li>\n        {pageRange(current, pageCount, siblingCount).map((item, i) =>\n          item === \"…\" ? (\n            <li key={`gap-${i}`} aria-hidden className={cn(\"inline-flex items-center justify-center text-snt-text-secondary\", dim)}>\n              …\n            </li>\n          ) : (\n            <li key={item}>\n              <button\n                type=\"button\"\n                aria-label={`Page ${item}`}\n                aria-current={item === current ? \"page\" : undefined}\n                onClick={() => go(item)}\n                className={cn(\n                  BASE,\n                  dim,\n                  item === current\n                    ? \"bg-snt-text-primary text-snt-text-inverse shadow-snt-raised\"\n                    : \"text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary\",\n                )}\n              >\n                {item}\n              </button>\n            </li>\n          ),\n        )}\n        <li>\n          <button\n            type=\"button\"\n            aria-label=\"Next page\"\n            disabled={current >= pageCount}\n            onClick={() => go(current + 1)}\n            className={cn(BASE, dim, \"text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary [&_svg]:size-4\")}\n          >\n            <ChevronRight aria-hidden />\n          </button>\n        </li>\n      </ul>\n    </nav>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "status": "beta"
+  },
+  "docs": "Pagination (beta). Usage, accessibility and known gaps: https://ladan-design-system.vercel.app/docs/components/pagination.md",
+  "categories": [
+    "molecule"
+  ],
+  "type": "registry:ui"
+}

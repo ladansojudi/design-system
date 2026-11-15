@@ -10,6 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Switch } from "@/components/ui/switch-radio";
 
 export const metadata: Metadata = {
   title: "Switch · Radio",
@@ -22,7 +23,7 @@ export default function SwitchRadioPage() {
         category="Components"
         categoryHref="/styleguide/components"
         title="Switch · Radio"
-        status="stable"
+        status="beta"
         description="Toggle switches in unchecked, dark, and primary variants. Radio buttons across unchecked, hovered, disabled, and checked states."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}
@@ -39,18 +40,17 @@ export default function SwitchRadioPage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Track", description: "Container that shifts color between checked and unchecked states." },
-                  { label: "Thumb", description: "Circular indicator that slides left or right to reflect state." },
-                  { label: "Label (external)", description: "Text placed next to the control describing what the toggle controls." },
+                  { label: "Track", target: "[role=\"switch\"]", side: "top", description: "The pill that changes colour between on and off." },
+                  { label: "Thumb", target: "[role=\"switch\"] > span", side: "bottom", description: "The circle that slides to show the state." },
+                  { label: "Label (external)", target: ":scope > div > span", side: "right", description: "Text beside the control saying what it switches. Switch has no built-in label." },
                 ]}
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="relative w-9 h-[22px] rounded-full bg-snt-btn-primary-600">
-                    <div className="absolute top-[3px] w-4 h-4 rounded-full bg-white shadow-sm translate-x-[18px]" />
+                preview={
+                  <div className="flex items-center gap-2.5">
+                    <Switch checked variant="primary" aria-label="Continuous monitoring" />
+                    <span className="text-snt-14 text-snt-text-primary">Continuous monitoring</span>
                   </div>
-                  <span className="text-[14px] text-snt-text-primary">Continuous monitoring</span>
-                </div>
-              </Anatomy>
+                }
+              />
               <SwitchRadioSpecs />
             </DocSection>
           </div>

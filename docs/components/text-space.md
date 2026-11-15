@@ -2,7 +2,7 @@
 title: Text Space
 slug: text-space
 category: Organism
-status: stable
+status: alpha
 source: components/ui/text-space.tsx
 styleguide: /styleguide/text-space
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=15-50

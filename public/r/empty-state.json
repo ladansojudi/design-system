@@ -4,8 +4,8 @@
   "title": "Empty State",
   "description": "Fills a region that has no content yet. It explains why it's empty and what to do next.",
   "registryDependencies": [
-    "http://localhost:3000/r/utils.json",
-    "http://localhost:3000/r/theme.json"
+    "https://ladan-design-system.vercel.app/r/utils.json",
+    "https://ladan-design-system.vercel.app/r/theme.json"
   ],
   "files": [
     {
@@ -15,9 +15,9 @@
     }
   ],
   "meta": {
-    "status": "stable"
+    "status": "beta"
   },
-  "docs": "Empty State (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/empty-state.md",
+  "docs": "Empty State (beta). Usage, accessibility and known gaps: https://ladan-design-system.vercel.app/docs/components/empty-state.md",
   "categories": [
     "organism"
   ],

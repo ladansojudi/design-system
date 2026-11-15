@@ -25,12 +25,12 @@ export interface SwitchProps
 
 const TRACK_ON: Record<SwitchVariant, string> = {
   dark:    "bg-snt-neutral-grey-800",
-  primary: "bg-snt-btn-primary-600",
+  primary: "bg-snt-action-primary",
 };
 
 const TRACK_ON_HOVER: Record<SwitchVariant, string> = {
   dark:    "hover:bg-snt-neutral-grey-900",
-  primary: "hover:bg-snt-btn-primary-700",
+  primary: "hover:bg-snt-action-primary-hover",
 };
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(

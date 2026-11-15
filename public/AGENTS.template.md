@@ -4,13 +4,13 @@ This project's UI is built with the **Sentinel Design System**. Follow these rul
 
 ## Before you write UI code
 
-1. Read the rules and component index: https://<your-styleguide-domain>/llms.txt
-2. Look up the component you need in the manifest (props, defaults, when to use): https://<your-styleguide-domain>/sentinel-manifest.json
+1. Read the rules and component index: https://ladan-design-system.vercel.app/llms.txt
+2. Look up the component you need in the manifest (props, defaults, when to use): https://ladan-design-system.vercel.app/sentinel-manifest.json
 3. If it isn't installed yet, add it from the registry — never hand-write a copy:
    ```bash
    npx shadcn add @sentinel/<name>
    ```
-   (`components.json` → `"registries": { "@sentinel": "https://<your-styleguide-domain>/r/{name}.json" }`; the theme is `@sentinel/theme`.)
+   (`components.json` → `"registries": { "@sentinel": "https://ladan-design-system.vercel.app/r/{name}.json" }`; the theme is `@sentinel/theme`.)
 
 ## Rules
 
@@ -24,4 +24,4 @@ This project's UI is built with the **Sentinel Design System**. Follow these rul
 
 ## Before you finish
 
-Run the linter and fix every `sentinel/*` error. The plugin (`eslint-plugin-sentinel.mjs`, from https://<your-styleguide-domain>/eslint-plugin-sentinel.mjs) is configured in `eslint.config.mjs` with `sentinel.configs.recommended`.
+Run the linter and fix every `sentinel/*` error. The plugin (`eslint-plugin-sentinel.mjs`, from https://ladan-design-system.vercel.app/eslint-plugin-sentinel.mjs) is configured in `eslint.config.mjs` with `sentinel.configs.recommended`.

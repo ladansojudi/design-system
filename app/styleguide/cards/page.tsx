@@ -1,171 +1,190 @@
 import type { Metadata } from "next";
-import { ArrowRight, Link2, TrendingDown } from "lucide-react";
-import { PageHero } from "@/components/styleguide/page-hero";
-import { PageBody } from "@/components/styleguide/page-body";
-import { OpenInFigma } from "@/components/styleguide/open-in-figma";
-import { CardsShowcase, CardsExamples } from "@/sections/cards/cards-showcase";
-import { CardsSpecs } from "@/sections/cards/cards-specs";
-import { StatCardShowcase } from "@/sections/stat-card/stat-card-showcase";
-import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component-docs";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/component-tabs";
-import { FigmaNote } from "@/components/styleguide/figma-note";
-import { DocA11y } from "@/components/styleguide/doc-a11y";
-import { ModeAware } from "@/components/styleguide/mode-aware";
-import { DocSection } from "@/components/styleguide/doc-section";
+import { ComponentPage } from "@/components/styleguide/component-page";
+import { InlineCode, SpecSection, SubSection, WhenToUse } from "@/components/styleguide/doc-blocks";
+import { Anatomy, Guidelines } from "@/components/styleguide/component-docs";
+import { ExampleCard } from "@/components/styleguide/example-card";
+import { DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
+import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
+import { Button } from "@/components/ui/button";
+import { StatDemo, StatGrid } from "@/sections/cards/stat-demos";
+import { AlertExample, InsightExample } from "@/sections/cards/examples";
 
-export const metadata: Metadata = {
-  title: "Cards",
-};
+export const metadata: Metadata = { title: "Cards" };
 
-export default function Page() {
+const INSIGHT = `<Card>
+  <CardHeader>
+    <CardTitle>Live risk score</CardTitle>
+    <Button intent="primary" variant="ghost" size="sm">View details <ArrowRight /></Button>
+  </CardHeader>
+  <CardContent>
+    <dl className="divide-y divide-snt-border-default">
+      {rows.map((r) => (
+        <div key={r.label} className="flex justify-between py-3">
+          <dt className="text-snt-12 text-snt-text-secondary">{r.label}</dt>
+          <dd className="text-snt-14 font-semibold tabular-nums">{r.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </CardContent>
+</Card>`;
+const ALERT = `<Card>
+  <CardHeader className="border-b pb-4">
+    <CardTitle>Attention needed</CardTitle>
+    <span className="…pill…">2 active</span>
+  </CardHeader>
+  <CardContent>
+    <p className="font-semibold">Security blind spots</p>
+    <CardDescription>Assets excluded from scheduled scans.</CardDescription>
+  </CardContent>
+  <CardFooter>
+    <Button variant="ghost" size="sm">Review assets <ArrowRight /></Button>
+  </CardFooter>
+</Card>`;
+const STAT = `<StatCard
+  icon={Link2}
+  title="Total URLs"
+  value="816"
+  trend={{ direction: "down", value: "23%", label: "from last month", positive: true }}
+/>`;
+
+const insightDemo = (
+  <InsightExample
+    title="Live risk score"
+    rows={[
+      { label: "Critical vulnerabilities", value: 0 },
+      { label: "Coverage gaps", value: 20 },
+      { label: "Highest-risk asset", value: 14.6 },
+    ]}
+  />
+);
+const alertDemo = (
+  <AlertExample title="Attention needed" count={2} heading="Security blind spots" description="Assets excluded from scheduled scans — potential blind spots in your coverage." action="Review assets" />
+);
+const statDemo = <StatDemo />;
+
+export default function CardsPage() {
   return (
-    <>
-      <PageHero
-        category="Components"
-        categoryHref="/styleguide/components"
-        title="Cards"
-        status="stable"
-        description="Content surfaces for dashboards — Stat Card for single metrics, Insight and Alert Cards for structured content."
-        actions={<OpenInFigma />}
-        tabs={<ComponentTabs />}
-      />
-
-      <ComponentTabPanel>
-      <PageBody>
-
-
-      <ModeAware
-        specs={
-          <div className="mt-8 space-y-10 sm:mt-10">
-            <FigmaNote component="Cards" />
-            <DocSection title="Insight & Alert card">
-                  <Anatomy
-                    parts={[
-                      { label: "Header bar",  description: "Grey-100 strip with card title on the left and an active-count pill on the right." },
-                      { label: "Pulse dot",   description: "Animated red dot that signals an actionable alert is live." },
-                      { label: "Body",        description: "Primary content area — alert title + description or metric rows." },
-                      { label: "Action link", description: "Text-style link with arrow that directs the user to the fix or detail view." },
-                    ]}
-                  >
-                    <div className="w-80 rounded-xl overflow-hidden border border-snt-neutral-divider-10 bg-snt-surface-app">
-                      <div className="flex items-center justify-between px-4 py-2 bg-snt-neutral-grey-100 border-b border-snt-neutral-divider-10">
-                        <span className="text-[12px] font-semibold text-snt-text-primary">Attention Needed</span>
-                        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-snt-scale-red-50 text-[11px] font-semibold text-snt-scale-red-600">
-                          <span className="snt-pulse-dot w-[6px] h-[6px] rounded-full bg-snt-scale-red-500 shrink-0" />
-                          2 Active
-                        </span>
-                      </div>
-                      <div className="px-4 py-4 space-y-4">
-                        <div>
-                          <div className="text-[14px] font-semibold text-snt-text-primary">Security Blind Spots</div>
-                          <p className="text-[12px] text-snt-text-disabled leading-relaxed">Assets excluded from scheduled scans.</p>
-                        </div>
-                        <button type="button" className="flex items-center gap-1 text-[12px] font-medium text-snt-brand-primary-500">
-                          Review Assets
-                          <ArrowRight size={12} />
-                        </button>
-                      </div>
-                    </div>
-                  </Anatomy>
-                  <CardsSpecs />
-                </DocSection>
-            <DocSection title="Stat card">
-                  <Anatomy
-                    parts={[
-                      { label: "Icon + title",         description: "12px glyph and a short metric name that together label the card." },
-                      { label: "Metric",               description: "Large numeric value (32px, bold) — the primary information on the card." },
-                      { label: "Trend / description",  description: "Optional comparison vs previous period, or short helper sentence." },
-                    ]}
-                  >
-                    <div className="w-60 border border-snt-neutral-divider-10 rounded-xl px-5 py-4 bg-snt-surface-app flex flex-col gap-3">
-                      <div className="flex items-center gap-2">
-                        <Link2 size={14} className="text-snt-text-disabled" />
-                        <span className="text-[12px] font-medium text-snt-text-secondary">Total URL</span>
-                      </div>
-                      <div className="text-[32px] font-bold leading-none text-snt-text-primary tracking-tight">816</div>
-                      <div className="flex items-center gap-1 text-[12px] font-medium text-snt-scale-red-600">
-                        <TrendingDown size={13} />
-                        <span>-23%</span>
-                        <span className="font-normal text-snt-text-disabled">from last month</span>
-                      </div>
-                    </div>
-                  </Anatomy>
-                </DocSection>
-          </div>
-        }
-        a11y={
-          <div className="mt-8 sm:mt-10">
-            <DocA11y slug="cards" />
-          </div>
-        }
-        design={
-          <div className="mt-8 sm:mt-10">
-            <Tabs defaultValue="insight-alert" className="gap-8">
-              <TabsList>
-                <TabsTrigger value="insight-alert">Insight & Alert</TabsTrigger>
-                <TabsTrigger value="stat-card">Stat Card</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="insight-alert" className="space-y-16">
-                <DocSection title="Examples">
-                  <CardsShowcase />
-                </DocSection>
-                <DocSection title="Usage">
-                  <UseCases
-                    items={[
-                      "Use Insight Card to summarise a metric cluster (risk score + dimensions) with a View Details action.",
-                      "Use Alert Card for items requiring user attention — blind spots, expiring certificates, failed scans.",
-                      "Combine both types side-by-side on dashboards to balance status and action.",
-                    ]}
-                  />
-                  <Guidelines
-                    items={[
-                      { type: "do",   text: "Use the pulse dot only for live, unresolved alerts — not for static info." },
-                      { type: "dont", text: "Don't stack more than 3 alert cards; collapse older ones into a list." },
-                      { type: "do",   text: "Keep Insight rows to a maximum of five so the card stays scannable." },
-                      { type: "dont", text: "Don't put call-to-action buttons inside Insight Cards; they're informational." },
-                    ]}
-                  />
-                </DocSection>
-                
-              </TabsContent>
-
-              <TabsContent value="stat-card" className="space-y-16">
-                <DocSection title="Examples">
-                  <StatCardShowcase />
-                </DocSection>
-                <DocSection title="Usage">
-                  <UseCases
-                    items={[
-                      "Place at the top of an overview page to surface KPIs at a glance.",
-                      "Group 3 to 4 stat cards in a single row for dashboard summaries.",
-                      "Use the trend variant when the delta vs. a previous period is meaningful.",
-                      "Use the description variant when the number needs a one-line explanation.",
-                    ]}
-                  />
-                  <Guidelines
-                    items={[
-                      { type: "do",   text: "Keep the metric short — format large numbers with thousand separators (1,091)." },
-                      { type: "dont", text: "Don't mix trend and description on the same card; pick one." },
-                      { type: "do",   text: "Color trends green for positive outcomes and red for negative regardless of direction." },
-                      { type: "dont", text: "Don't put charts inside a stat card; escalate to an Insight Card instead." },
-                    ]}
-                  />
-                </DocSection>
-                
-              </TabsContent>
-            </Tabs>
-          </div>
-        }
-        dev={
-          <div className="mt-8 sm:mt-10">
-            <DocSection title="Examples"><CardsExamples /></DocSection>
-          </div>
-        }
-      />
-      </PageBody>
-      </ComponentTabPanel>
-    </>
+    <ComponentPage
+      title="Cards"
+      status="stable"
+      description="The container for dashboard content. Card is the base, StatCard is a ready-made preset for one number, and the Usage tab shows how to compose summaries and alerts from the parts."
+      examples={
+        <>
+          <SubSection title="Stat card" lede="One number, with a trend or a one-line explanation.">
+            <StatGrid />
+          </SubSection>
+          <SubSection title="Card, composed" lede="Insight and alert cards are not separate components: they are product patterns built from CardHeader, CardTitle, CardContent and CardFooter.">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {insightDemo}
+              {alertDemo}
+            </div>
+          </SubSection>
+        </>
+      }
+      usage={
+        <>
+          <WhenToUse
+            use={[
+              <><InlineCode>StatCard</InlineCode>: a KPI at the top of an overview. Three or four in a row.</>,
+              <><InlineCode>Card</InlineCode> parts: any summary or callout, such as a figures list with a View details action, or an alert with a count and a next step.</>,
+            ]}
+            avoid={[
+              <>Charts — use <InlineCode>ChartCard</InlineCode>.</>,
+              <>Lists of records — use the Data table.</>,
+              <>A message that must stay on the page until resolved — use <InlineCode>Alert</InlineCode>.</>,
+            ]}
+          />
+          <Guidelines items={[
+            { type: "do", text: "Keep cards in a grid with equal heights." },
+            { type: "dont", text: "Put a trend and a description on the same stat card; pick one." },
+            { type: "do", text: "Colour a trend by whether it is good news, not by its direction (fewer open findings is green)." },
+            { type: "dont", text: "Stack more than three alert cards; collapse older ones into a list." },
+            { type: "do", text: "Keep Insight rows to five or fewer so the card stays scannable." },
+            { type: "dont", text: "Make the whole card and the button inside it both clickable." },
+          ]} />
+        </>
+      }
+      specs={
+        <>
+          <SpecSection title="Parts">
+            <SubSection title="Stat card">
+              <Anatomy
+                parts={[
+                  { label: "Icon + title", target: "[class*=\"gap-2\"]", side: "left", description: "A small icon and a short metric name." },
+                  { label: "Value", target: "[class*=\"text-snt-32\"]", side: "right", description: "The number: 32px semibold, tabular figures." },
+                  { label: "Trend", target: "[class*=\"rounded-full\"]", side: "bottom", description: "Change versus the previous period, coloured by good or bad news." },
+                ]}
+                preview={<div className="w-72">{statDemo}</div>}
+              />
+            </SubSection>
+            <SubSection title="Card">
+              <Anatomy
+                parts={[
+                  { label: "Header", target: "[class*=\"border-b\"]", side: "left", description: "CardHeader: title on the left, an optional action or status on the right." },
+                  { label: "Title", target: "h3", side: "top", description: "CardTitle: a heading (h3 by default; choose the level with as)." },
+                  { label: "Content", target: "[class*=\"space-y-1\"]", side: "right", description: "CardContent: the body." },
+                  { label: "Footer", target: "button", side: "bottom", description: "CardFooter: the next step, as a ghost button." },
+                ]}
+                preview={<div className="w-80">{alertDemo}</div>}
+              />
+            </SubSection>
+          </SpecSection>
+          <SpecSection title="Properties">
+            <PropertiesTable rows={[
+              { name: "StatCard · title, value", type: "string, string | number", default: "—", description: "Metric name and the number." },
+              { name: "StatCard · trend", type: "{ direction, value, label?, positive? }", default: "—", description: "Change vs. the previous period. positive says whether this direction is good news." },
+              { name: "StatCard · description", type: "string", default: "—", description: "One helper sentence. Use instead of trend." },
+              { name: "Card, CardHeader, CardContent, CardFooter", type: "HTMLAttributes<HTMLDivElement>", default: "—", description: "Containers; pass className to adjust spacing." },
+              { name: "CardTitle · as", type: "\"h2\" | \"h3\" | \"h4\"", default: "\"h3\"", description: "Heading level for the page outline." },
+              { name: "CardDescription", type: "HTMLAttributes<HTMLParagraphElement>", default: "—", description: "Secondary text, 12px." },
+            ]} />
+          </SpecSection>
+          <SpecSection title="Sizing & spacing">
+            <DimensionsTable columns={["value"]} rows={[
+              { label: "Radius", values: ["12px"], note: "rounded-xl" },
+              { label: "Padding", values: ["20px"], note: "16px vertical on Stat and Alert body" },
+              { label: "Recommended width", values: ["288–360px"] },
+              { label: "Stat value", values: ["32 / 600"] },
+              { label: "Title", values: ["16 / 600"] },
+            ]} />
+          </SpecSection>
+        </>
+      }
+      code={
+        <>
+          <ExampleCard title="Stat card" code={`import { StatCard } from "@/components/ui/cards";\nimport { Link2 } from "lucide-react";\n\n${STAT}`} preview={<div className="w-72">{statDemo}</div>} />
+          <ExampleCard title="Figures summary (composed)" density="tall" code={`import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/cards";\nimport { Button } from "@/components/ui/button";\n\n${INSIGHT}`} preview={<div className="w-80">{insightDemo}</div>} />
+          <ExampleCard title="Attention alert (composed)" density="tall" code={`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/cards";\n\n${ALERT}`} preview={<div className="w-80">{alertDemo}</div>} />
+        </>
+      }
+      accessibility={
+        <>
+          <A11ySection title="Built in">
+            <A11yList items={[
+              <><InlineCode>CardTitle</InlineCode> is a heading (<InlineCode>h3</InlineCode> by default) so dashboard sections can be navigated.</>,
+              "The live dot and trend arrows are decorative: the count and the percentage are real text.",
+              "Trends use an icon, a sign and a label as well as colour, so good and bad are not colour alone.",
+              "Actions are real buttons with a focus ring.",
+            ]} />
+          </A11ySection>
+          <A11ySection title="Your responsibility">
+            <A11yList items={[
+              "Make action labels describe the target (\"Review 20 assets\"), not just \"View\".",
+              "Set CardTitle as=\"h2\" / \"h3\" / \"h4\" so cards fit the page outline.",
+              "Don't make the whole card clickable as well as the button.",
+            ]} />
+          </A11ySection>
+          <A11ySection title="Contrast" lede="Computed live from the tokens in the current theme.">
+            <ContrastTable rows={[
+              { label: "Title and value", fg: "text-primary", bg: "surface-app", min: 4.5 },
+              { label: "Label and description", fg: "text-secondary", bg: "surface-app", min: 4.5 },
+              { label: "Action", fg: "text-link", bg: "surface-app", min: 4.5 },
+              { label: "Good trend", fg: "text-success", bg: "bg-success-subtle", min: 4.5 },
+              { label: "Bad trend", fg: "text-error", bg: "bg-error-subtle", min: 4.5 },
+            ]} />
+          </A11ySection>
+        </>
+      }
+    />
   );
 }

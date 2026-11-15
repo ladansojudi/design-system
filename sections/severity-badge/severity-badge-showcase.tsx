@@ -5,6 +5,7 @@ import { Copyable } from "@/components/styleguide/copyable";
 import { ExampleCard } from "@/components/styleguide/example-card";
 import { type Platform } from "@/components/styleguide/platform-provider";
 import { SeverityBadge } from "@/components/ui/severity-badge";
+import { ColorBlindPreview } from "@/components/styleguide/colorblind-preview";
 
 // ── Types & config ─────────────────────────────────────────────────────────
 
@@ -26,9 +27,9 @@ const SEVERITY: Record<Severity, SeverityConfig> = {
   },
   critical: {
     label:  "Critical",
-    bg:     "bg-snt-scale-purple-50",
-    accent: "border-l-[3px] border-snt-scale-purple-500",
-    text:   "text-snt-scale-purple-600",
+    bg:     "bg-snt-brand-primary-50",
+    accent: "border-l-[3px] border-snt-brand-primary-500",
+    text:   "text-snt-brand-primary-600",
   },
   high: {
     label:  "High",
@@ -163,6 +164,20 @@ export function SeverityBadgeExamples() {
         code={severitySnippets("info").react}
         preview={<SeverityBadge severity="info" />}
       />
+
+      <div>
+        <SectionTitle>Colour-blind preview</SectionTitle>
+        <p className="mb-4 max-w-2xl text-[14px] leading-relaxed text-snt-text-secondary">
+          The bars and the written label carry the level as well as the colour. Switch the simulation to check.
+        </p>
+        <div className="rounded-xl border border-snt-border-default px-4 py-5 sm:px-6">
+          <ColorBlindPreview>
+            <div className="flex flex-wrap gap-2">
+              {SEVERITIES.map((s) => <SeverityBadge key={s} severity={s} score={SCORES[s]} />)}
+            </div>
+          </ColorBlindPreview>
+        </div>
+      </div>
     </div>
   );
 }

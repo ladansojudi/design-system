@@ -10,6 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "Skeleton",
@@ -22,7 +23,7 @@ export default function SkeletonPage() {
         category="Components"
         categoryHref="/styleguide/components"
         title="Skeleton"
-        status="beta"
+        status="stable"
         description="Placeholder shapes that match the layout of the real content while data loads. Reduces perceived latency and prevents layout shift."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}
@@ -39,10 +40,22 @@ export default function SkeletonPage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Shape",     description: "Rounded rectangle or circle that mirrors the bounding box of the real element." },
-                  { label: "Fill",      description: "Neutral grey (snt-neutral-grey-200) — never a brand or semantic color." },
-                  { label: "Pulse",     description: "2-second opacity pulse signals the content is loading, not broken." },
+                  { label: "Shape", target: "[class*=\"rounded-full\"]", side: "left", description: "Rectangle or circle that matches the box of the real element." },
+                  { label: "Fill", target: "[class*=\"h-16\"]", side: "right", description: "Neutral grey: never a brand or semantic colour." },
+                  { label: "Pulse", target: "[class*=\"h-3\"]|0", side: "top", description: "A slow pulse says the content is loading, not broken." },
                 ]}
+                preview={
+                  <div className="w-64 space-y-3">
+                    <div className="flex items-center gap-3">
+                      <Skeleton className="size-10 rounded-full" />
+                      <div className="flex-1 space-y-2">
+                        <Skeleton className="h-3 w-3/4" />
+                        <Skeleton className="h-3 w-1/2" />
+                      </div>
+                    </div>
+                    <Skeleton className="h-16 w-full" />
+                  </div>
+                }
               />
               <SkeletonSpecs />
             </DocSection>

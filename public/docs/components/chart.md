@@ -2,7 +2,7 @@
 title: Chart
 slug: chart
 category: Organism
-status: stable
+status: beta
 source: components/ui/chart.tsx
 styleguide: /styleguide/chart
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=14-50

@@ -4,6 +4,9 @@
 
 :root {
   /* Colors */
+  --snt-brand-primary-50: #eef0ff;
+  --snt-brand-primary-500: #5b5bd6;
+  --snt-brand-primary-600: #4f46e5;
   --snt-scale-blue-50: #f7fafd;
   --snt-scale-blue-500: #7dafd6;
   --snt-scale-blue-600: #2f6893;
@@ -16,10 +19,8 @@
   --snt-scale-red-50: #fcf3f2;
   --snt-scale-red-500: #d13d2e;
   --snt-scale-red-600: #8e2a1f;
-  --snt-scale-purple-50: #f7f2fc;
-  --snt-scale-purple-500: #772ed1;
-  --snt-scale-purple-600: #5d24a3;
   --snt-text-primary: #09090b;
+  --snt-text-secondary: #52525b;
   --snt-text-disabled: #a1a1aa;
 
   /* Spacing */
@@ -40,6 +41,7 @@
 
   /* Font size */
   --font-size-10: 10px;
+  --font-size-14: 14px;
 
   /* Font weight */
   --font-weight-medium: 500;

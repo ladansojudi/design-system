@@ -4,7 +4,7 @@
 
 :root {
   /* Colors */
-  --snt-severity-critical: #772ed1;
+  --snt-severity-critical: #b4136c;
   --snt-brand-primary-50: #eef0ff;
   --snt-brand-primary-500: #5b5bd6;
   --snt-brand-primary-600: #4f46e5;
@@ -24,17 +24,19 @@
   --snt-text-inverse: #ffffff;
   --snt-text-on-accent: #ffffff;
   --snt-text-link: #4f46e5;
+  --snt-text-success: #2f7d2c;
+  --snt-text-error: #b0291e;
   --snt-btn-primary-600: #4f46e5;
   --snt-btn-primary-700: #4338ca;
-  --snt-btn-warning-600: #e6a200;
 
   /* Spacing */
-  --space-2: 8px;
-  --space-4: 16px;
-  --space-1: 4px;
-  --space-3: 12px;
   --space-5: 20px;
+  --space-2: 8px;
+  --space-3: 12px;
   --space-9: 36px;
+  --space-4: 16px;
+  --space-16: 64px;
+  --space-1: 4px;
   --space-10: 40px;
 
   /* Radius */
@@ -56,6 +58,9 @@
   /* Font weight */
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
+
+  /* Focus ring */
+  --ring-width-2: 2px;
 
   /* Shadows */
   --snt-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04);

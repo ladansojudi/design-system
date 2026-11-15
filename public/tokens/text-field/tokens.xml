@@ -23,7 +23,7 @@
 
     <!-- Radius -->
     <dimen name="radius_xl">12dp</dimen>
-    <dimen name="radius_lg">8dp</dimen>
+    <dimen name="radius_md">6dp</dimen>
 
     <!-- Border width -->
     <dimen name="border_width_1">1dp</dimen>
@@ -32,7 +32,6 @@
     <dimen name="font_size_9">9sp</dimen>
     <dimen name="font_size_11">11sp</dimen>
     <dimen name="font_size_12">12sp</dimen>
-    <dimen name="font_size_14">14sp</dimen>
     <dimen name="font_size_16">16sp</dimen>
 
     <!-- Font weight -->

@@ -37,7 +37,7 @@ export function CheckboxSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={16} height={16} padX={4} padY={4} radius={4} scale={5}>
-          <div className="w-full h-full inline-flex items-center justify-center rounded-[3px] bg-snt-btn-primary-600">
+          <div className="w-full h-full inline-flex items-center justify-center rounded-[3px] bg-snt-action-primary">
             <Check size={10} className="text-white" strokeWidth={3} />
           </div>
         </SpacingDiagram>
@@ -77,9 +77,9 @@ export function CheckboxSpecs() {
               rows: [
                 {
                   variant: "Checked",
-                  bg:     { token: "btn-primary-600",  hex: "#0f69aa" },
+                  bg:     { token: "action-primary",  hex: "#0f69aa" },
                   text:   { token: "text-on-accent",   hex: "#ffffff" },
-                  border: { token: "btn-primary-600",  hex: "#0f69aa" },
+                  border: { token: "action-primary",  hex: "#0f69aa" },
                 },
                 {
                   variant: "Unchecked",

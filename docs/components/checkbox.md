@@ -84,7 +84,7 @@ Lets the user turn an independent option on or off, or pick several items from a
 
 | Role | Token |
 |---|---|
-| Fill (primary / neutral) | `snt-btn-primary-600` / `snt-btn-neutral-800` |
+| Fill (primary / neutral) | `snt-action-primary` / `snt-btn-neutral-800` |
 | Empty border / bg | `snt-neutral-grey-400` / `snt-surface-row` |
 | Check icon | `snt-text-on-accent` |
 | Label / description / disabled | `snt-text-primary` / `snt-text-secondary` / `snt-text-disabled` |

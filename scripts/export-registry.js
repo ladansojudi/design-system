@@ -13,7 +13,7 @@
  * Install from a consumer project:
  *   npx shadcn add <SITE_URL>/r/button.json
  *
- * Set SITE_URL (e.g. on the deploy) so cross-item links are absolute.
+ * Links use SITE_URL (default: lib/site.ts; override for a local server).
  *
  * Run manually: `npm run registry`
  * Auto-runs:   `npm run build` (via the prebuild script in package.json)
@@ -28,12 +28,9 @@ const ROOT     = path.resolve(__dirname, "..");
 const UI_DIR   = path.join(ROOT, "components", "ui");
 const DOCS_DIR = path.join(ROOT, "docs", "components");
 const PUBLIC   = path.join(ROOT, "public");
-const SITE_URL = (process.env.SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+const SITE_URL = require("./site-url");
 const PKG      = require(path.join(ROOT, "package.json"));
 
-if (!process.env.SITE_URL) {
-  console.warn("  export-registry: SITE_URL not set — registry links point at http://localhost:3000");
-}
 
 // ── Docs front-matter (title, category, status, summary) ───────────────────
 

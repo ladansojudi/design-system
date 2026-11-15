@@ -19,11 +19,12 @@ extension UIColor {
     static let neutralGrey200 = UIColor(hex: "#E4E4E7")
     static let neutralGrey300 = UIColor(hex: "#D4D4D8")
     static let neutralGrey400 = UIColor(hex: "#8F8F98")
+    static let neutralGrey900 = UIColor(hex: "#18181B")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
     static let textPrimary = UIColor(hex: "#09090B")
+    static let textSecondary = UIColor(hex: "#52525B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
-    static let btnPrimary600 = UIColor(hex: "#4F46E5")
-    static let btnPrimary700 = UIColor(hex: "#4338CA")
+    static let textError = UIColor(hex: "#B0291E")
 }
 
 // MARK: - Sizing (CGFloat)

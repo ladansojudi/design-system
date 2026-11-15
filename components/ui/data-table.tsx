@@ -32,7 +32,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
       <div
         ref={ref}
         className={cn(
-          "border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs overflow-hidden",
+          "border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-control overflow-hidden",
           className,
         )}
         {...props}
@@ -73,29 +73,32 @@ export const DataTableHeader = React.forwardRef<HTMLDivElement, DataTableHeaderP
       <div
         ref={ref}
         className={cn(
-          "flex items-center gap-3 px-5 py-3 compact:px-4 compact:py-2 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl",
+          "flex items-center gap-4 px-5 py-4 compact:px-4 compact:py-3 border-b border-snt-border-default",
           className,
         )}
         {...props}
       >
-        <div className="flex items-center gap-2 shrink-0">
-          <span id={ctx?.titleId} className="text-snt-14 font-semibold text-snt-text-primary">{title}</span>
-          <InfoTooltip text={tooltip} label={`About ${title}`} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <span id={ctx?.titleId} className="text-snt-16 font-semibold tracking-tight text-snt-text-primary">{title}</span>
+            <InfoTooltip text={tooltip} label={`About ${title}`} />
+            {badge && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-snt-border-default px-2 py-0.5 text-snt-11 font-medium text-snt-text-secondary shrink-0">
+                <span aria-hidden className="size-1.5 rounded-full bg-snt-scale-green-600 motion-safe:animate-pulse" />
+                {badge}
+              </span>
+            )}
+          </div>
+          <p className="mt-0.5 truncate text-snt-12 text-snt-text-secondary">{description}</p>
         </div>
-        <span className="text-snt-12 text-snt-text-secondary truncate flex-1 min-w-0">{description}</span>
-        {badge && (
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-snt-bg-warning-subtle text-snt-scale-yellow-700 text-snt-11 font-medium shrink-0">
-            <span aria-hidden className="w-[6px] h-[6px] rounded-full bg-snt-scale-yellow-500" />
-            {badge}
-          </span>
-        )}
         {viewAllLabel && (
           <button
             type="button"
             onClick={onViewAll}
-            className="text-snt-12 font-medium text-snt-brand-primary-500 hover:text-snt-brand-primary-600 transition-colors shrink-0 underline underline-offset-2"
+            className="inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-snt-12 font-medium text-snt-text-link transition-colors hover:bg-snt-bg-brand-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
             {viewAllLabel}
+            <ChevronRight size={12} aria-hidden />
           </button>
         )}
       </div>
@@ -133,7 +136,7 @@ export const DataTableBody = React.forwardRef<HTMLDivElement, DataTableBodyProps
 );
 DataTableBody.displayName = "DataTableBody";
 
-const GRID_COLS = "grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_90px_80px] gap-3";
+const GRID_COLS = "grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_90px_96px] gap-3";
 
 export interface DataTableColumnHeadersProps extends React.HTMLAttributes<HTMLDivElement> {
   threatsLabel?:        string;
@@ -162,19 +165,19 @@ export const DataTableColumnHeaders = React.forwardRef<HTMLDivElement, DataTable
       <div
         ref={ref}
         role="row"
-        className={cn(GRID_COLS, "px-5 py-2.5 compact:px-4 compact:py-1.5 border-b border-snt-border-default", className)}
+        className={cn(GRID_COLS, "px-5 py-2 compact:px-4 compact:py-1.5 bg-snt-bg-subtle border-b border-snt-border-default", className)}
         {...props}
       >
         <div role="columnheader" className="flex items-center gap-1.5">
-          <span className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide">{threatsLabel}</span>
+          <span className="text-snt-12 font-medium text-snt-text-secondary">{threatsLabel}</span>
           <InfoTooltip text={threatsTooltip} label={`About ${threatsLabel}`} />
         </div>
         <div role="columnheader" className="flex items-center gap-1.5">
-          <span className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide">{assetLabel}</span>
+          <span className="text-snt-12 font-medium text-snt-text-secondary">{assetLabel}</span>
           <InfoTooltip text={assetTooltip} label={`About ${assetLabel}`} />
         </div>
-        <span role="columnheader" className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide text-right">{dateLabel}</span>
-        <span role="columnheader" className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide text-right">{severityLabel}</span>
+        <span role="columnheader" className="text-snt-12 font-medium text-snt-text-secondary">{dateLabel}</span>
+        <span role="columnheader" className="text-snt-12 font-medium text-snt-text-secondary">{severityLabel}</span>
       </div>
     );
   },
@@ -196,22 +199,19 @@ export const DataTableRow = React.forwardRef<HTMLDivElement, DataTableRowProps>(
         role="row"
         className={cn(
           GRID_COLS,
-          "items-center px-5 py-3 compact:px-4 compact:py-1.5 border-b border-snt-border-default last:border-b-0 hover:bg-snt-bg-subtle/50 transition-colors",
+          "items-center px-5 py-3.5 compact:px-4 compact:py-1.5 border-b border-snt-border-default/60 last:border-b-0 hover:bg-snt-bg-subtle transition-colors",
           className,
         )}
         {...props}
       >
         <div role="cell" className="flex items-center gap-1.5 min-w-0">
-          <span className="text-snt-14 text-snt-text-primary truncate">{threat}</span>
-          {/* Hover-only reveal of truncated text — AT already reads the full cell. */}
-          <InfoTooltip text={threat} />
+          <span title={threat} className="text-snt-14 font-medium text-snt-text-primary truncate">{threat}</span>
         </div>
         <div role="cell" className="flex items-center gap-1.5 min-w-0">
-          <span className="text-snt-14 text-snt-text-primary truncate">{asset}</span>
-          <InfoTooltip text={asset} />
+          <span title={asset} className="font-mono text-snt-12 text-snt-text-secondary truncate">{asset}</span>
         </div>
-        <span role="cell" className="text-snt-12 text-snt-text-secondary text-right tabular-nums">{date}</span>
-        <div role="cell" className="flex justify-end">
+        <span role="cell" className="text-snt-12 text-snt-text-secondary tabular-nums">{date}</span>
+        <div role="cell">
           <SeverityCell severity={severity} />
         </div>
       </div>
@@ -235,7 +235,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
         role="navigation"
         aria-label="Pagination"
         className={cn(
-          "flex items-center justify-end gap-4 px-5 py-3 compact:px-4 compact:py-2 border-t border-snt-border-default",
+          "flex items-center justify-end gap-4 px-5 py-3 compact:px-4 compact:py-2 border-t border-snt-border-default bg-snt-bg-subtle/50",
           className,
         )}
         {...props}
@@ -257,7 +257,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
             type="button"
             onClick={onPrev}
             aria-label="Previous page"
-            className="w-6 h-6 rounded hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
+            className="size-7 rounded-md border border-snt-border-default bg-snt-surface-app shadow-snt-control hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
             <ChevronLeft size={13} aria-hidden />
           </button>
@@ -265,7 +265,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
             type="button"
             onClick={onNext}
             aria-label="Next page"
-            className="w-6 h-6 rounded hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
+            className="size-7 rounded-md border border-snt-border-default bg-snt-surface-app shadow-snt-control hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
             <ChevronRight size={13} aria-hidden />
           </button>
@@ -277,7 +277,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
 DataTableFooter.displayName = "DataTableFooter";
 
 function SeverityCell({ severity }: { severity: Severity }) {
-  return <SeverityBadge severity={severity} size="sm" className="ml-auto" />;
+  return <SeverityBadge severity={severity} size="sm" className="shrink-0" />;
 }
 
 // With a `label`, the icon is a focusable button that shows the tooltip on

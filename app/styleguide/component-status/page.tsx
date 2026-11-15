@@ -13,7 +13,8 @@ export default function ComponentStatusPage() {
   return (
     <>
       <PageHero
-        category="Foundations"
+        category="Get started"
+        categoryHref="/styleguide/overview"
         title="Component Status"
         status="stable"
         description="Every component carries an Alpha / Beta / Stable / Deprecated badge so consumers know how confidently they can depend on it. This page is the contract behind those badges."

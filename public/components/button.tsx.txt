@@ -67,8 +67,8 @@ const VARIANT_CLASS: Record<Intent, Record<Variant, string>> = {
   },
   primary: {
     solid:
-      "bg-snt-btn-primary-600 text-snt-text-on-accent shadow-snt-raised " +
-      "hover:bg-snt-btn-primary-700 " +
+      "bg-snt-action-primary text-snt-text-on-accent shadow-snt-raised " +
+      "hover:bg-snt-action-primary-hover " +
       "focus-visible:ring-snt-focus-ring",
     outline:
       "border border-snt-text-link text-snt-text-link bg-snt-surface-app shadow-snt-control " +
@@ -81,8 +81,8 @@ const VARIANT_CLASS: Record<Intent, Record<Variant, string>> = {
   },
   destructive: {
     solid:
-      "bg-snt-btn-error-600 text-snt-text-on-accent shadow-snt-raised " +
-      "hover:bg-snt-btn-error-700 " +
+      "bg-snt-action-destructive text-snt-text-on-accent shadow-snt-raised " +
+      "hover:bg-snt-action-destructive-hover " +
       "focus-visible:ring-snt-focus-ring-error",
     outline:
       "border border-snt-text-error text-snt-text-error bg-snt-surface-app shadow-snt-control " +

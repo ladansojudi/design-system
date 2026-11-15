@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 const SIZE_GUIDE = [
   { px: "12px", use: "Inline text decorations, super-compact tables, badge prefixes." },
-  { px: "14px", use: "Default in buttons, inputs, menu items — matches 13px body text." },
-  { px: "16px", use: "Default in toolbars and side navigation. Pairs with 14–15px labels." },
+  { px: "14px", use: "Default in buttons, inputs, menu items — matches 14px body text." },
+  { px: "16px", use: "Default in toolbars and side navigation. Pairs with 14px labels." },
   { px: "20px", use: "Empty-state illustrations, larger interactive targets, alert icons." },
   { px: "24px", use: "Section-level icons, feature tiles, page headers." },
 ];
@@ -24,7 +24,7 @@ export default function IconsPage() {
         category="Foundations"
         title="Icons"
         status="stable"
-        description="Lucide React icon set. Click any icon to copy its component name. Stick to the five sizes below — there's no need for 13px or 22px."
+        description="Lucide React icon set. Click any icon to copy its component name. Stick to the five sizes below — stay on the scale instead of picking 13px or 22px."
         actions={<OpenInFigma />}
       />
 

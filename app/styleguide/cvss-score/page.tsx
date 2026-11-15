@@ -91,10 +91,10 @@ export default function CvssScorePage() {
                 id: "rating",
                 label: "Rating",
                 rows: [
-                  { variant: "Critical", bg: { token: "scale-purple-50" }, text: { token: "scale-purple-600" }, border: { token: "scale-purple-500" } },
-                  { variant: "High",     bg: { token: "scale-red-50" },    text: { token: "scale-red-600" },    border: { token: "scale-red-500" } },
-                  { variant: "Medium",   bg: { token: "scale-yellow-50" }, text: { token: "scale-yellow-700" }, border: { token: "scale-yellow-500" } },
-                  { variant: "Low",      bg: { token: "scale-green-50" },  text: { token: "scale-green-600" },  border: { token: "scale-green-500" } },
+                  { variant: "Critical", bg: { token: "severity-critical-subtle" }, text: { token: "severity-critical-text" }, border: { token: "severity-critical-border" } },
+                  { variant: "High",     bg: { token: "severity-high-subtle" }, text: { token: "severity-high-text" }, border: { token: "severity-high-border" } },
+                  { variant: "Medium",   bg: { token: "severity-medium-subtle" }, text: { token: "severity-medium-text" }, border: { token: "severity-medium-border" } },
+                  { variant: "Low",      bg: { token: "severity-low-subtle" }, text: { token: "severity-low-text" }, border: { token: "severity-low-border" } },
                   { variant: "None",     bg: { token: "bg-subtle" },       text: { token: "text-primary" } },
                 ],
               }]}
@@ -138,10 +138,10 @@ export default function CvssScorePage() {
           <A11ySection title="Contrast">
             <ContrastTable
               rows={[
-                { label: "Critical score", fg: "scale-purple-600", bg: "scale-purple-50", min: 4.5 },
-                { label: "High score",     fg: "scale-red-600",    bg: "scale-red-50",    min: 4.5 },
-                { label: "Medium score",   fg: "scale-yellow-700", bg: "scale-yellow-50", min: 4.5 },
-                { label: "Low score",      fg: "scale-green-600",  bg: "scale-green-50",  min: 4.5 },
+                { label: "Critical score", fg: "severity-critical-text", bg: "severity-critical-subtle", min: 4.5 },
+                { label: "High score",     fg: "severity-high-text",    bg: "severity-high-subtle",    min: 4.5 },
+                { label: "Medium score",   fg: "severity-medium-text", bg: "severity-medium-subtle", min: 4.5 },
+                { label: "Low score",      fg: "severity-low-text",  bg: "severity-low-subtle",  min: 4.5 },
                 { label: "Metric name",    fg: "text-secondary",   bg: "surface-app",     min: 4.5 },
               ]}
             />

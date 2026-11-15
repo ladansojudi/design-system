@@ -2,7 +2,7 @@
 title: Alert
 slug: alert
 category: Atom
-status: stable
+status: beta
 source: components/ui/alert.tsx
 styleguide: /styleguide/alert
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-214
@@ -72,8 +72,7 @@ An inline message tied to a page or section. It communicates a status that persi
 
 **Pattern:** [APG — Alert](https://www.w3.org/WAI/ARIA/apg/patterns/alert/)
 
-- Root has `role="alert"` (assertive live region). Screen readers interrupt to read it **when it's inserted**.
-- `role="alert"` is right for `error` / `warning` that appear in response to an action. For `info` / `success`, or alerts present on page load, `role="status"` is less disruptive.
+- `error` and `warning` use `role="alert"` (assertive): screen readers interrupt to read them when inserted. `info` and `success` use `role="status"` (polite).
 - The dismiss button is a native `<button>` with `aria-label`. Move focus somewhere sensible after dismissal.
 - The icon is decorative; the variant meaning should also appear in the title text.
 
@@ -115,7 +114,6 @@ An inline message tied to a page or section. It communicates a status that persi
 ```
 
 ## Known gaps
-- [ ] `role="alert"` is hard-coded for every variant. Add a `live` prop or use `status` for info / success.
 - [ ] No full-width / page-level layout option to replace Banner.
 
 ## Related

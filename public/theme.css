@@ -21,12 +21,43 @@
 
 :root,
 [data-snt-theme="light"] {
+  /* Colour tokens come in three layers, from raw to meaningful:
+       1. Severity     — its own palette, plus tints (see below).
+       2. Primitives   — Brand / Primary (indigo), the four feedback scales
+                         (Blue, Green, Yellow, Red) and Neutral (Grey, Divider).
+       3. Semantic     — Surface, Text, Border, Feedback, Data, Action.
+     Components use layer 3 first; reach for a primitive only when the hue
+     itself is the meaning. Only tokens that are used live here: add one when a
+     component needs it, not in advance. */
+
   /* Severity — static, same in both modes */
-  --snt-severity-info: #7dafd6;
-  --snt-severity-low: #63a100;
-  --snt-severity-medium: #f5bf40;
-  --snt-severity-high: #d13d2e;
-  --snt-severity-critical: #772ed1;
+  /* Severity is its own palette: no value here is shared with a feedback or
+     brand token (scripts/check-tokens.js enforces it). Low is teal, not
+     green, so it never reads as "success", and red / green stay apart for
+     colour-blind users. */
+  --snt-severity-info: #a8a29e;
+  --snt-severity-low: #1b9e8f;
+  --snt-severity-medium: #f0ad1d;
+  --snt-severity-high: #e5532d;
+  --snt-severity-critical: #b4136c;
+
+  /* Severity tints — light. Subtle fill, border and AA text per level, so
+     chips and rows can tint without borrowing a scale colour. */
+  --snt-severity-info-subtle: #f6f6f5;
+  --snt-severity-info-border: #dcdad8;
+  --snt-severity-info-text: #726f6d;
+  --snt-severity-low-subtle: #e8f5f4;
+  --snt-severity-low-border: #a4d8d2;
+  --snt-severity-low-text: #177c71;
+  --snt-severity-medium-subtle: #fef7e8;
+  --snt-severity-medium-border: #f9dea5;
+  --snt-severity-medium-text: #8c6615;
+  --snt-severity-high-subtle: #fceeea;
+  --snt-severity-high-border: #f5baab;
+  --snt-severity-high-text: #bc4527;
+  --snt-severity-critical-subtle: #f8e7f0;
+  --snt-severity-critical-border: #e1a1c4;
+  --snt-severity-critical-text: #b4136c;
 
   /* Brand / Primary — indigo (Tailwind indigo 600/700, 500 darkened for 5.4:1 text) */
   --snt-brand-primary-50:  #eef0ff;
@@ -37,32 +68,21 @@
   --snt-brand-primary-700: #4338ca;
   --snt-brand-primary-800: #312e81;
 
-  /* Brand / Secondary — base hsl(14, 81%, 64%) */
-  --snt-brand-secondary-50:  #fef4f1;
-  --snt-brand-secondary-100: #fadad1;
-  --snt-brand-secondary-200: #f5b6a3;
-  --snt-brand-secondary-500: #ee7b59;
-  --snt-brand-secondary-600: #e85326;
-  --snt-brand-secondary-700: #c23d14;
-  --snt-brand-secondary-800: #81290e;
-
+  /* Feedback scales — Blue, Green, Yellow, Red. They back the feedback and
+     tint tokens and the few places that need a general-purpose hue. */
   /* Scale / Blue — base hsl(206, 52%, 66%) */
   --snt-scale-blue-50:  #f7fafd;
   --snt-scale-blue-100: #e8f1f8;
   --snt-scale-blue-200: #c9deee;
   --snt-scale-blue-500: #7dafd6;
   --snt-scale-blue-600: #2f6893;
-  --snt-scale-blue-700: #234f70;
-  --snt-scale-blue-800: #18374e;
 
   /* Scale / Green — base hsl(83, 100%, 32%) */
   --snt-scale-green-50:  #f1ffdb;
   --snt-scale-green-100: #e8ffc2;
-  --snt-scale-green-200: #a5ff14;
+  --snt-scale-green-200: #b7e35d;
   --snt-scale-green-500: #63a100;
   --snt-scale-green-600: #3f6600;
-  --snt-scale-green-700: #294200;
-  --snt-scale-green-800: #192900;
 
   /* Scale / Yellow — base hsl(42, 90%, 61%) */
   --snt-scale-yellow-50:  #fefaf0;
@@ -71,7 +91,6 @@
   --snt-scale-yellow-500: #f5bf40;
   --snt-scale-yellow-600: #da9c0b;
   --snt-scale-yellow-700: #795706;
-  --snt-scale-yellow-800: #443104;
 
   /* Scale / Red — base hsl(6, 64%, 50%) */
   --snt-scale-red-50:  #fcf3f2;
@@ -80,16 +99,6 @@
   --snt-scale-red-500: #d13d2e;
   --snt-scale-red-600: #8e2a1f;
   --snt-scale-red-700: #712219;
-  --snt-scale-red-800: #471510;
-
-  /* Scale / Purple — base hsl(267, 64%, 50%) */
-  --snt-scale-purple-50:  #f7f2fc;
-  --snt-scale-purple-100: #dcc9f3;
-  --snt-scale-purple-200: #ab7de3;
-  --snt-scale-purple-500: #772ed1;
-  --snt-scale-purple-600: #5d24a3;
-  --snt-scale-purple-700: #4f1e8a;
-  --snt-scale-purple-800: #301254;
 
   /* Neutral / Grey — zinc; 400 tuned to 3.2:1 so it can bound inputs */
   --snt-neutral-grey-00:  #ffffff;
@@ -100,7 +109,6 @@
   --snt-neutral-grey-400: #8f8f98;
   --snt-neutral-grey-500: #71717a;
   --snt-neutral-grey-600: #52525b;
-  --snt-neutral-grey-700: #3f3f46;
   --snt-neutral-grey-800: #27272a;
   --snt-neutral-grey-900: #18181b;
 
@@ -113,7 +121,6 @@
   --snt-surface-page: #fafafa;
   --snt-surface-row: #ffffff;
   --snt-surface-row-hover: #f4f4f5;
-  --snt-surface-row-visited: #fafafa;
   --snt-surface-table-header: #f4f4f5;
 
   /* Feedback */
@@ -123,28 +130,14 @@
   --snt-feedback-alert: #ae2700;
 
   /* Data */
-  --snt-data-1: #9acbe5;
-  --snt-data-2: #ffaf97;
-  --snt-data-3: #c4def3;
-  --snt-data-4: #a7adb2;
-  --snt-data-5: #0f69aa;
-  --snt-data-6: #c1674d;
-  --snt-data-7: #1f5077;
-  --snt-data-8: #394751;
-  --snt-data-9: #cde5f2;
-  --snt-data-10: #ffd9ce;
-
-  /* Status */
-  --snt-status-ongoing: #7dafd6;
-  --snt-status-finished: #63a100;
-  --snt-status-not-accessible: #e6a200;
-  --snt-status-incomplete: #e6a200;
-  --snt-status-delayed: #e6a200;
-  --snt-status-cancelled: #ae2700;
-  --snt-status-timeout: #ae2700;
-  --snt-status-error: #ae2700;
-  --snt-status-inaccessible: #ae2700;
-  --snt-status-too-many-inaccessible: #ae2700;
+  --snt-data-1: #4f46e5;
+  --snt-data-2: #0ea5e9;
+  --snt-data-3: #8b5cf6;
+  --snt-data-4: #64748b;
+  --snt-data-5: #65a30d;
+  --snt-data-6: #be7c4d;
+  --snt-data-7: #1e3a8a;
+  --snt-data-8: #c7d2fe;
 
   /* Text — structural roles */
   --snt-text-primary:     #09090b;
@@ -194,28 +187,17 @@
   --input: rgba(9, 9, 11, 0.14);
   --ring: #5b5bd6;
   --radius: 0.5rem;
-  --chart-1: #9acbe5;
-  --chart-2: #ffaf97;
-  --chart-3: #c4def3;
-  --chart-4: #a7adb2;
-  --chart-5: #0f69aa;
+  --chart-1: #4f46e5;
+  --chart-2: #0ea5e9;
+  --chart-3: #8b5cf6;
+  --chart-4: #64748b;
+  --chart-5: #65a30d;
 
-  /* Button color tokens — static, light-mode values in both themes */
-  --snt-btn-neutral-100: #f4f4f5;
-  --snt-btn-neutral-300: #d4d4d8;
-  --snt-btn-neutral-600: #52525b;
-  --snt-btn-neutral-700: #3f3f46;
+  /* Button fills — static, light-mode values in both themes. Components use the
+     --snt-action-* tokens below; these are their raw values. */
   --snt-btn-neutral-800: #18181b;
-  --snt-btn-primary-50:  #eef0ff;
   --snt-btn-primary-600: #4f46e5;
   --snt-btn-primary-700: #4338ca;
-  --snt-btn-success-50:  #eff7e5;
-  --snt-btn-success-600: #406800;
-  --snt-btn-success-700: #284000;
-  --snt-btn-warning-50:  #fffbf0;
-  --snt-btn-warning-600: #e6a200;
-  --snt-btn-warning-700: #805a00;
-  --snt-btn-error-50:    #fff0ef;
   --snt-btn-error-600:   #ae2700;
   --snt-btn-error-700:   #881f00;
 
@@ -262,32 +244,19 @@
   --snt-brand-primary-700: #c7d2fe;
   --snt-brand-primary-800: #e0e7ff;
 
-  /* Brand / Secondary — flipped, base hsl(14, 81%, 64%) */
-  --snt-brand-secondary-50:  #81290e;
-  --snt-brand-secondary-100: #c23d14;
-  --snt-brand-secondary-200: #e85326;
-  --snt-brand-secondary-500: #ee7b59;
-  --snt-brand-secondary-600: #f5b6a3;
-  --snt-brand-secondary-700: #fadad1;
-  --snt-brand-secondary-800: #fef4f1;
-
   /* Scale / Blue — flipped, base hsl(206, 52%, 66%) */
   --snt-scale-blue-50:  #18374e;
   --snt-scale-blue-100: #234f70;
   --snt-scale-blue-200: #2f6893;
   --snt-scale-blue-500: #7dafd6;
   --snt-scale-blue-600: #c9deee;
-  --snt-scale-blue-700: #e8f1f8;
-  --snt-scale-blue-800: #f7fafd;
 
   /* Scale / Green — flipped, base hsl(83, 100%, 32%) */
   --snt-scale-green-50:  #192900;
   --snt-scale-green-100: #294200;
   --snt-scale-green-200: #3f6600;
   --snt-scale-green-500: #63a100;
-  --snt-scale-green-600: #a5ff14;
-  --snt-scale-green-700: #e8ffc2;
-  --snt-scale-green-800: #f1ffdb;
+  --snt-scale-green-600: #b7e35d;
 
   /* Scale / Yellow — flipped, base hsl(42, 90%, 61%) */
   --snt-scale-yellow-50:  #443104;
@@ -296,7 +265,6 @@
   --snt-scale-yellow-500: #f5bf40;
   --snt-scale-yellow-600: #f8d072;
   --snt-scale-yellow-700: #fcebc5;
-  --snt-scale-yellow-800: #fefaf0;
 
   /* Scale / Red — flipped, base hsl(6, 64%, 50%) */
   --snt-scale-red-50:  #471510;
@@ -305,16 +273,6 @@
   --snt-scale-red-500: #d13d2e;
   --snt-scale-red-600: #ebaaa3;
   --snt-scale-red-700: #f4d1cd;
-  --snt-scale-red-800: #fcf3f2;
-
-  /* Scale / Purple — flipped, base hsl(267, 64%, 50%) */
-  --snt-scale-purple-50:  #301254;
-  --snt-scale-purple-100: #4f1e8a;
-  --snt-scale-purple-200: #5d24a3;
-  --snt-scale-purple-500: #772ed1;
-  --snt-scale-purple-600: #ab7de3;
-  --snt-scale-purple-700: #dcc9f3;
-  --snt-scale-purple-800: #f7f2fc;
 
   /* Neutral / Grey — zinc, flipped; 400 = 3.4:1 on the dark surface */
   --snt-neutral-grey-00:  #09090b;
@@ -325,7 +283,6 @@
   --snt-neutral-grey-400: #65656f;
   --snt-neutral-grey-500: #8f8f98;
   --snt-neutral-grey-600: #a1a1aa;
-  --snt-neutral-grey-700: #d4d4d8;
   --snt-neutral-grey-800: #f4f4f5;
   --snt-neutral-grey-900: #fafafa;
 
@@ -338,30 +295,38 @@
   --snt-surface-page: #0c0c0e;
   --snt-surface-row: #09090b;
   --snt-surface-row-hover: #18181b;
-  --snt-surface-row-visited: #0e0e10;
   --snt-surface-table-header: #111113;
 
   /* Feedback — alert changes in dark */
   --snt-feedback-alert: #ff9b90;
 
-  /* Data — flipped */
-  --snt-data-1: #0f69aa;
-  --snt-data-2: #c1674d;
-  --snt-data-3: #2a6898;
-  --snt-data-4: #a7adb2;
-  --snt-data-5: #9acbe5;
-  --snt-data-6: #ffaf97;
-  --snt-data-7: #e2f2ff;
-  --snt-data-8: #f4f6f8;
-  --snt-data-9: #1f5077;
-  --snt-data-10: #9b4f39;
+  /* Severity tints — dark. Subtle fill, border and AA text per level, so
+     chips and rows can tint without borrowing a scale colour. */
+  --snt-severity-info-subtle: #262525;
+  --snt-severity-info-border: #494646;
+  --snt-severity-info-text: #a8a29e;
+  --snt-severity-low-subtle: #0c2423;
+  --snt-severity-low-border: #104540;
+  --snt-severity-low-text: #1b9e8f;
+  --snt-severity-medium-subtle: #33270e;
+  --snt-severity-medium-border: #654b12;
+  --snt-severity-medium-text: #f0ad1d;
+  --snt-severity-high-subtle: #311611;
+  --snt-severity-high-border: #612719;
+  --snt-severity-high-text: #e65c38;
+  --snt-severity-critical-subtle: #280b1c;
+  --snt-severity-critical-border: #4d0d32;
+  --snt-severity-critical-text: #cb5a98;
 
-  /* Status — error states change in dark */
-  --snt-status-cancelled: #ff9b90;
-  --snt-status-timeout: #ff9b90;
-  --snt-status-error: #ff9b90;
-  --snt-status-inaccessible: #ff9b90;
-  --snt-status-too-many-inaccessible: #ff9b90;
+  /* Data — flipped */
+  --snt-data-1: #818cf8;
+  --snt-data-2: #38bdf8;
+  --snt-data-3: #a78bfa;
+  --snt-data-4: #94a3b8;
+  --snt-data-5: #a3e635;
+  --snt-data-6: #d6a77a;
+  --snt-data-7: #93c5fd;
+  --snt-data-8: #3730a3;
 
   /* Text — flipped */
   --snt-text-primary:     #fafafa;
@@ -378,11 +343,6 @@
   --snt-text-info:    #67a9dc; /* medium blue — 7.52:1, AAA (replaces pale wash) */
 
   /* Button hover-overlay backgrounds — flipped to dark tints so hover doesn't appear as a bright patch on dark page surfaces */
-  --snt-btn-primary-50:  #1b1a3f;
-  --snt-btn-success-50:  #192900;
-  --snt-btn-warning-50:  #443104;
-  --snt-btn-error-50:    #471510;
-  --snt-btn-neutral-100: #18181b;
 
   /* Shadow — stronger alpha on dark surfaces */
   --snt-shadow-xs:  0 1px 2px 0 rgba(0, 0, 0, 0.24);
@@ -413,11 +373,11 @@
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.14);
   --ring: #818cf8;
-  --chart-1: #0f69aa;
-  --chart-2: #c1674d;
-  --chart-3: #2a6898;
-  --chart-4: #a7adb2;
-  --chart-5: #9acbe5;
+  --chart-1: #818cf8;
+  --chart-2: #38bdf8;
+  --chart-3: #a78bfa;
+  --chart-4: #94a3b8;
+  --chart-5: #a3e635;
 }
 
 /* ===================================================================
@@ -443,6 +403,12 @@
   --snt-bg-error-subtle:   var(--snt-scale-red-50);        /* Error tint */
   --snt-focus-ring:        var(--snt-brand-primary-500);   /* Keyboard focus ring */
   --snt-focus-ring-error:  var(--snt-scale-red-500);       /* Focus ring on destructive controls */
+  /* Actions — what a primary / destructive control is painted with. Components
+     use these, never btn-* steps. Static in both themes (white text on top). */
+  --snt-action-primary:           var(--snt-btn-primary-600);
+  --snt-action-primary-hover:     var(--snt-btn-primary-700);
+  --snt-action-destructive:       var(--snt-btn-error-600);
+  --snt-action-destructive-hover: var(--snt-btn-error-700);
 
   /* Type scale — numeric names match the Figma text styles (Text/14/Medium) */
   --snt-font-size-10: 10px;
@@ -510,6 +476,21 @@
   --color-snt-severity-medium: var(--snt-severity-medium);
   --color-snt-severity-high: var(--snt-severity-high);
   --color-snt-severity-critical: var(--snt-severity-critical);
+  --color-snt-severity-info-subtle: var(--snt-severity-info-subtle);
+  --color-snt-severity-info-border: var(--snt-severity-info-border);
+  --color-snt-severity-info-text: var(--snt-severity-info-text);
+  --color-snt-severity-low-subtle: var(--snt-severity-low-subtle);
+  --color-snt-severity-low-border: var(--snt-severity-low-border);
+  --color-snt-severity-low-text: var(--snt-severity-low-text);
+  --color-snt-severity-medium-subtle: var(--snt-severity-medium-subtle);
+  --color-snt-severity-medium-border: var(--snt-severity-medium-border);
+  --color-snt-severity-medium-text: var(--snt-severity-medium-text);
+  --color-snt-severity-high-subtle: var(--snt-severity-high-subtle);
+  --color-snt-severity-high-border: var(--snt-severity-high-border);
+  --color-snt-severity-high-text: var(--snt-severity-high-text);
+  --color-snt-severity-critical-subtle: var(--snt-severity-critical-subtle);
+  --color-snt-severity-critical-border: var(--snt-severity-critical-border);
+  --color-snt-severity-critical-text: var(--snt-severity-critical-text);
 
   /* Sentinel — Brand / Primary */
   --color-snt-brand-primary-50: var(--snt-brand-primary-50);
@@ -520,23 +501,12 @@
   --color-snt-brand-primary-700: var(--snt-brand-primary-700);
   --color-snt-brand-primary-800: var(--snt-brand-primary-800);
 
-  /* Sentinel — Brand / Secondary */
-  --color-snt-brand-secondary-50: var(--snt-brand-secondary-50);
-  --color-snt-brand-secondary-100: var(--snt-brand-secondary-100);
-  --color-snt-brand-secondary-200: var(--snt-brand-secondary-200);
-  --color-snt-brand-secondary-500: var(--snt-brand-secondary-500);
-  --color-snt-brand-secondary-600: var(--snt-brand-secondary-600);
-  --color-snt-brand-secondary-700: var(--snt-brand-secondary-700);
-  --color-snt-brand-secondary-800: var(--snt-brand-secondary-800);
-
   /* Sentinel — Scale / Blue */
   --color-snt-scale-blue-50: var(--snt-scale-blue-50);
   --color-snt-scale-blue-100: var(--snt-scale-blue-100);
   --color-snt-scale-blue-200: var(--snt-scale-blue-200);
   --color-snt-scale-blue-500: var(--snt-scale-blue-500);
   --color-snt-scale-blue-600: var(--snt-scale-blue-600);
-  --color-snt-scale-blue-700: var(--snt-scale-blue-700);
-  --color-snt-scale-blue-800: var(--snt-scale-blue-800);
 
   /* Sentinel — Scale / Green */
   --color-snt-scale-green-50: var(--snt-scale-green-50);
@@ -544,8 +514,6 @@
   --color-snt-scale-green-200: var(--snt-scale-green-200);
   --color-snt-scale-green-500: var(--snt-scale-green-500);
   --color-snt-scale-green-600: var(--snt-scale-green-600);
-  --color-snt-scale-green-700: var(--snt-scale-green-700);
-  --color-snt-scale-green-800: var(--snt-scale-green-800);
 
   /* Sentinel — Scale / Yellow */
   --color-snt-scale-yellow-50: var(--snt-scale-yellow-50);
@@ -554,7 +522,6 @@
   --color-snt-scale-yellow-500: var(--snt-scale-yellow-500);
   --color-snt-scale-yellow-600: var(--snt-scale-yellow-600);
   --color-snt-scale-yellow-700: var(--snt-scale-yellow-700);
-  --color-snt-scale-yellow-800: var(--snt-scale-yellow-800);
 
   /* Sentinel — Scale / Red */
   --color-snt-scale-red-50: var(--snt-scale-red-50);
@@ -563,16 +530,6 @@
   --color-snt-scale-red-500: var(--snt-scale-red-500);
   --color-snt-scale-red-600: var(--snt-scale-red-600);
   --color-snt-scale-red-700: var(--snt-scale-red-700);
-  --color-snt-scale-red-800: var(--snt-scale-red-800);
-
-  /* Sentinel — Scale / Purple */
-  --color-snt-scale-purple-50: var(--snt-scale-purple-50);
-  --color-snt-scale-purple-100: var(--snt-scale-purple-100);
-  --color-snt-scale-purple-200: var(--snt-scale-purple-200);
-  --color-snt-scale-purple-500: var(--snt-scale-purple-500);
-  --color-snt-scale-purple-600: var(--snt-scale-purple-600);
-  --color-snt-scale-purple-700: var(--snt-scale-purple-700);
-  --color-snt-scale-purple-800: var(--snt-scale-purple-800);
 
   /* Sentinel — Neutral / Grey */
   --color-snt-neutral-grey-00: var(--snt-neutral-grey-00);
@@ -583,7 +540,6 @@
   --color-snt-neutral-grey-400: var(--snt-neutral-grey-400);
   --color-snt-neutral-grey-500: var(--snt-neutral-grey-500);
   --color-snt-neutral-grey-600: var(--snt-neutral-grey-600);
-  --color-snt-neutral-grey-700: var(--snt-neutral-grey-700);
   --color-snt-neutral-grey-800: var(--snt-neutral-grey-800);
   --color-snt-neutral-grey-900: var(--snt-neutral-grey-900);
 
@@ -596,7 +552,6 @@
   --color-snt-surface-page: var(--snt-surface-page);
   --color-snt-surface-row: var(--snt-surface-row);
   --color-snt-surface-row-hover: var(--snt-surface-row-hover);
-  --color-snt-surface-row-visited: var(--snt-surface-row-visited);
   --color-snt-surface-table-header: var(--snt-surface-table-header);
 
   /* Sentinel — Feedback */
@@ -614,20 +569,6 @@
   --color-snt-data-6: var(--snt-data-6);
   --color-snt-data-7: var(--snt-data-7);
   --color-snt-data-8: var(--snt-data-8);
-  --color-snt-data-9: var(--snt-data-9);
-  --color-snt-data-10: var(--snt-data-10);
-
-  /* Sentinel — Status */
-  --color-snt-status-ongoing: var(--snt-status-ongoing);
-  --color-snt-status-finished: var(--snt-status-finished);
-  --color-snt-status-not-accessible: var(--snt-status-not-accessible);
-  --color-snt-status-incomplete: var(--snt-status-incomplete);
-  --color-snt-status-delayed: var(--snt-status-delayed);
-  --color-snt-status-cancelled: var(--snt-status-cancelled);
-  --color-snt-status-timeout: var(--snt-status-timeout);
-  --color-snt-status-error: var(--snt-status-error);
-  --color-snt-status-inaccessible: var(--snt-status-inaccessible);
-  --color-snt-status-too-many-inaccessible: var(--snt-status-too-many-inaccessible);
 
   /* Sentinel — Text */
   --color-snt-text-primary:     var(--snt-text-primary);
@@ -668,24 +609,16 @@
   --color-snt-bg-error-subtle:   var(--snt-bg-error-subtle);
   --color-snt-focus-ring:        var(--snt-focus-ring);
   --color-snt-focus-ring-error:  var(--snt-focus-ring-error);
+  --color-snt-action-primary:           var(--snt-action-primary);
+  --color-snt-action-primary-hover:     var(--snt-action-primary-hover);
+  --color-snt-action-destructive:       var(--snt-action-destructive);
+  --color-snt-action-destructive-hover: var(--snt-action-destructive-hover);
   --color-snt-text-info:        var(--snt-text-info);
 
   /* Sentinel — Button (static, no dark flip) */
-  --color-snt-btn-neutral-100: var(--snt-btn-neutral-100);
-  --color-snt-btn-neutral-300: var(--snt-btn-neutral-300);
-  --color-snt-btn-neutral-600: var(--snt-btn-neutral-600);
-  --color-snt-btn-neutral-700: var(--snt-btn-neutral-700);
   --color-snt-btn-neutral-800: var(--snt-btn-neutral-800);
-  --color-snt-btn-primary-50:  var(--snt-btn-primary-50);
   --color-snt-btn-primary-600: var(--snt-btn-primary-600);
   --color-snt-btn-primary-700: var(--snt-btn-primary-700);
-  --color-snt-btn-success-50:  var(--snt-btn-success-50);
-  --color-snt-btn-success-600: var(--snt-btn-success-600);
-  --color-snt-btn-success-700: var(--snt-btn-success-700);
-  --color-snt-btn-warning-50:  var(--snt-btn-warning-50);
-  --color-snt-btn-warning-600: var(--snt-btn-warning-600);
-  --color-snt-btn-warning-700: var(--snt-btn-warning-700);
-  --color-snt-btn-error-50:    var(--snt-btn-error-50);
   --color-snt-btn-error-600:   var(--snt-btn-error-600);
   --color-snt-btn-error-700:   var(--snt-btn-error-700);
 
@@ -721,6 +654,86 @@
 @keyframes toast-timer {
   from { width: 100%; }
   to   { width: 0%;   }
+}
+
+/* Drawer slide-in (200ms; none for reduced motion) */
+@keyframes snt-modal-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes snt-modal-panel-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+@keyframes snt-toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .snt-toast { animation: snt-toast-in 180ms ease-out; }
+  .snt-modal-backdrop { animation: snt-modal-backdrop-in 150ms ease-out; }
+  .snt-modal-panel    { animation: snt-modal-panel-in 180ms ease-out; }
+}
+
+@keyframes snt-drawer-in-right { from { transform: translateX(100%); }  to { transform: none; } }
+
+@keyframes snt-drawer-in-left  { from { transform: translateX(-100%); } to { transform: none; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .snt-drawer-right { animation: snt-drawer-in-right 200ms ease-out; }
+  .snt-drawer-left  { animation: snt-drawer-in-left 200ms ease-out; }
+}
+
+/* Ask AI — a pill with a gradient hairline border. The border is drawn with a
+   masked ::before so the inside stays the normal surface colour. At rest it is
+   quiet; on hover/focus the gradient brightens and slides, and the sparkle
+   twinkles (only when motion is allowed). */
+.snt-ai-button {
+  position: relative;
+  isolation: isolate;
+  border-radius: 9999px;
+  background: var(--snt-surface-app);
+  color: var(--snt-text-primary);
+  transition: box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.snt-ai-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, var(--snt-brand-primary-500), var(--snt-scale-blue-500), var(--snt-brand-primary-500));
+  background-size: 250% 100%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0.45;
+  transition: opacity 200ms ease;
+}
+
+.snt-ai-button:hover,
+.snt-ai-button:focus-visible {
+  background: var(--snt-bg-brand-subtle);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--snt-brand-primary-500) 12%, transparent);
+}
+
+.snt-ai-button:hover::before,
+.snt-ai-button:focus-visible::before {
+  opacity: 1;
+}
+
+.snt-ai-button .snt-ai-icon {
+  color: var(--snt-text-link);
+}
+
+@keyframes snt-ai-slide { to { background-position: 250% 0; } }
+
+@keyframes snt-ai-twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50%      { transform: scale(1.18) rotate(12deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .snt-ai-button:hover::before,
+  .snt-ai-button:focus-visible::before { animation: snt-ai-slide 2.4s linear infinite; }
+  .snt-ai-button:hover .snt-ai-icon,
+  .snt-ai-button:focus-visible .snt-ai-icon { animation: snt-ai-twinkle 1.2s ease-in-out infinite; }
 }
 
 .toast-timer-bar {

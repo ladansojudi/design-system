@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Bold, Italic, Underline } from "lucide-react";
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
@@ -11,10 +10,10 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { TextSpace } from "@/components/ui/text-space";
 
 export const metadata: Metadata = {
-  title: "Text Space",
-};
+  title: "Text Space" };
 
 export default function TextSpacePage() {
   return (
@@ -23,7 +22,7 @@ export default function TextSpacePage() {
         category="Components"
         categoryHref="/styleguide/components"
         title="Text Space"
-        status="stable"
+        status="alpha"
         description="Rich-text editing surface with simple and full toolbar configurations, shown across enabled, disabled, and error states."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}
@@ -40,20 +39,14 @@ export default function TextSpacePage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Toolbar",    description: "Grouped formatting controls — Simple (one row) or Full (with type settings)." },
-                  { label: "Editor",     description: "Multi-line editable surface that accepts rich text and keyboard shortcuts." },
-                  { label: "Container",  description: "Rounded surface with border that shifts to Error or Disabled when needed." },
+                  { label: "Toolbar", target: "[role=\"toolbar\"]", side: "top", description: "Grouped formatting controls: Simple (one row) or Full (with type settings)." },
+                  { label: "Editor", target: "[contenteditable]", side: "left", description: "Multi-line editable area for rich text and keyboard shortcuts." },
+                  { label: "Container", target: ":scope > *", side: "right", description: "Rounded surface; its border turns red on error and dims when disabled." },
                 ]}
-              >
-                <div className="w-80 rounded-lg border border-snt-neutral-divider-10 bg-snt-surface-app overflow-hidden">
-                  <div className="flex items-center gap-1 px-3 py-1.5 border-b border-snt-neutral-divider-10">
-                    <Bold size={13} className="text-snt-text-secondary" />
-                    <Italic size={13} className="text-snt-text-secondary" />
-                    <Underline size={13} className="text-snt-text-secondary" />
-                  </div>
-                  <div className="px-4 py-3 h-20 text-[12px] text-snt-text-disabled">Write something awesome…</div>
-                </div>
-              </Anatomy>
+                preview={
+                  <div className="w-96"><TextSpace label="Remediation notes" placeholder="Describe the remediation steps…" /></div>
+                }
+              />
               <TextSpaceSpecs />
             </DocSection>
           </div>

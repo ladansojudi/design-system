@@ -44,7 +44,7 @@ export function SeverityBadgeSpecs() {
             columns={["sm", "md"]}
             rows={[
               { label: "Height",                values: ["24px", "28px"] },
-              { label: "Width",                 values: ["auto", "auto"], note: "Follows the label; right-align the column in tables." },
+              { label: "Width",                 values: ["96px", "112px"], note: "Fixed, so a table column stays tidy. With a score: 128 / 144px." },
               { label: "Padding · horizontal",  values: ["8px", "10px"] },
               { label: "Bars",                  values: ["4 × 3px", "4 × 3px"], note: "6 / 8 / 10 / 12px tall, 2px apart; Info is a 12px ring" },
               { label: "Bars · label gap",      values: ["8px", "8px"] },

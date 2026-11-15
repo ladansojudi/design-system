@@ -2,7 +2,7 @@
 title: Skeleton
 slug: skeleton
 category: Atom
-status: beta
+status: stable
 source: components/ui/skeleton.tsx
 styleguide: /styleguide/skeleton
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=7-150

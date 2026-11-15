@@ -1,12 +1,12 @@
 "use client";
 
 import type React from "react";
+import type { Severity } from "@/components/ui/severity-badge";
 import { ExampleCard } from "@/components/styleguide/example-card";
 import { DataTable as UIDataTable, DataTableHeader, DataTableBody, DataTableColumnHeaders, DataTableRow, DataTableFooter } from "@/components/ui/data-table";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-type Severity = "high" | "critical";
 
 type Row = {
   id:       number;
@@ -16,20 +16,22 @@ type Row = {
   severity: Severity;
 };
 
+// Long names show how cells truncate; dates are ISO (YYYY-MM-DD), which sorts
+// and reads the same everywhere.
 const ROWS_LONG: Row[] = [
-  { id: 1, threat: "Oorem ipsum dolor sit amet, dolore eu fugiat nulla pariatur.", asset: "Morem ipsum dolor sit amet, dolore eu fugiat nulla pariatur.", date: "19.09.2024", severity: "high" },
-  { id: 2, threat: "Oorem ipsum dolor sit amet, dolore eu fugiat nulla pariatur.", asset: "Morem ipsum dolor sit amet, dolore eu fugiat nulla pariatur.", date: "19.09.2024", severity: "high" },
-  { id: 3, threat: "Eorem ipsum dolor sit amet, ut labore et dolore magna aliqua.",  asset: "Sorem ipsum dolor sit amet, ut labore et dolore magna aliqua.", date: "17.09.2024", severity: "high" },
-  { id: 4, threat: "lorem ipsum dolor sit amet, quis nostrud exercitation ullamco laboris nisi ut aliquip.", asset: "Dorem ipsum dolor sit amet, quis nostrud exercitation ullamco laboris.", date: "18.09.2024", severity: "critical" },
-  { id: 5, threat: "Jorem ipsum dolor sit amet, consectetur adipiscing elit.",       asset: "Vorem ipsum dolor sit amet, consectetur adipiscing elit.",          date: "15.09.2024", severity: "critical" },
+  { id: 1, threat: "Remote code execution in Apache Log4j 2.14 (CVE-2021-44228)", asset: "payments-api.production.example.com", date: "2026-11-09", severity: "critical" },
+  { id: 2, threat: "SQL injection in the /search endpoint via the q parameter",    asset: "storefront.production.example.com",   date: "2026-11-09", severity: "critical" },
+  { id: 3, threat: "TLS certificate expires in 6 days on the public load balancer", asset: "lb-eu-west-1.example.com",            date: "2026-11-07", severity: "high" },
+  { id: 4, threat: "SSH exposed to the internet with password authentication enabled", asset: "bastion.staging.example.com",       date: "2026-11-08", severity: "high" },
+  { id: 5, threat: "Directory listing enabled on a public asset bucket",           asset: "cdn.assets.example.com",              date: "2026-11-05", severity: "medium" },
 ];
 
 const ROWS_SHORT: Row[] = [
-  { id: 1, threat: "SQL Injection",          asset: "api.example.com",      date: "19.09.2024", severity: "critical" },
-  { id: 2, threat: "SSL Expiring",           asset: "zero.webapp.com", date: "19.09.2024", severity: "high"     },
-  { id: 3, threat: "Open Port",              asset: "prod.mail.io",    date: "17.09.2024", severity: "high"     },
-  { id: 4, threat: "Weak Cipher",            asset: "vpn.onuraktas.com", date: "18.09.2024", severity: "critical" },
-  { id: 5, threat: "Directory Listing",      asset: "cdn.onuraktas.com", date: "15.09.2024", severity: "high"     },
+  { id: 1, threat: "SQL Injection",     asset: "api.example.com",     date: "2026-11-09", severity: "critical" },
+  { id: 2, threat: "SSL Expiring",      asset: "shop.example.com",    date: "2026-11-09", severity: "high"     },
+  { id: 3, threat: "Open Port",         asset: "mail.example.com",    date: "2026-11-07", severity: "high"     },
+  { id: 4, threat: "Weak Cipher",       asset: "vpn.example.com",     date: "2026-11-08", severity: "medium"   },
+  { id: 5, threat: "Directory Listing", asset: "cdn.example.com",     date: "2026-11-05", severity: "low"      },
 ];
 
 // ── Tooltip bubble ─────────────────────────────────────────────────────────
@@ -62,7 +64,7 @@ function DataTable({ header, rows }: { header: HeaderProps; rows?: Row[] }) {
           <DataTableRow key={r.id} threat={r.threat} asset={r.asset} date={r.date} severity={r.severity} />
         ))}
       </DataTableBody>
-      <DataTableFooter perPage={3} rangeLabel="1–3 of 492" />
+      <DataTableFooter perPage={5} rangeLabel="1–5 of 492" />
     </UIDataTable>
   );
 }
@@ -85,56 +87,19 @@ export function DataTableShowcase() {
     <div className="space-y-10">
 
       <div>
-        <SectionTitle>Full — Badge + View all</SectionTitle>
+        <SectionTitle>Default</SectionTitle>
         <DataTable
           header={{
-            title:        "Forem ipsum",
-            description:  "Korem ipsum dolor sit amet, consectetur adipiscing elit.",
-            badge:        "Yorem",
-            viewAllLabel: "Korem",
-          }}
-        />
-      </div>
-
-      <div>
-        <SectionTitle>Short Text Rows</SectionTitle>
-        <p className="text-[11px] text-snt-text-disabled mb-3">
-          When threat / asset names are short, the info icon sticks right at the end of the sentence instead of the cell edge.
-        </p>
-        <DataTable
-          header={{
-            title:        "Priority Actions",
-            description:  "Security issues prioritized by risk growth, not severity alone.",
-            viewAllLabel: "View all",
-          }}
-          rows={ROWS_SHORT}
-        />
-      </div>
-
-      <div>
-        <SectionTitle>No Badge</SectionTitle>
-        <DataTable
-          header={{
-            title:        "Priority Actions",
-            description:  "Security issues prioritized by risk growth, not severity alone.",
+            title:        "Priority actions",
+            description:  "Security issues prioritised by risk growth, not severity alone.",
+            badge:        "Live",
             viewAllLabel: "View all",
           }}
         />
       </div>
 
       <div>
-        <SectionTitle>No View All</SectionTitle>
-        <DataTable
-          header={{
-            title:       "Recently Detected",
-            description: "New findings since the last scan cycle.",
-            badge:       "Live",
-          }}
-        />
-      </div>
-
-      <div>
-        <SectionTitle>Minimal — Title + Description only</SectionTitle>
+        <SectionTitle>Minimal: no badge, no View all</SectionTitle>
         <DataTable
           header={{
             title:       "All Findings",
@@ -153,7 +118,7 @@ export function DataTableExamples() {
   return (
     <div className="space-y-4">
       <ExampleCard
-        title="Full — Badge + View all"
+        title="Default"
         density="tall"
         code={`<DataTable>
   <DataTableHeader
@@ -167,7 +132,7 @@ export function DataTableExamples() {
     <DataTableColumnHeaders />
     {rows.map((r) => <DataTableRow key={r.id} {...r} />)}
   </DataTableBody>
-  <DataTableFooter rangeLabel="1–3 of 492" onPrev={prev} onNext={next} />
+  <DataTableFooter perPage={5} rangeLabel="1–5 of 492" onPrev={prev} onNext={next} />
 </DataTable>`}
         preview={
           <div className="w-full">
@@ -184,7 +149,7 @@ export function DataTableExamples() {
         }
       />
       <ExampleCard
-        title="Minimal — Title + Description only"
+        title="Minimal: no badge, no View all"
         density="tall"
         code={`<DataTable>
   <DataTableHeader title="All findings" description="Every active finding across the monitored assets." />

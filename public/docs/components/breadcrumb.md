@@ -41,7 +41,7 @@ Shows where the current page sits in the hierarchy and lets users jump back up.
 | Hover | `brand-primary-500`, underlined |
 | Visited | `text-secondary` |
 | Current | `text-secondary`, not interactive |
-| Focus | Should show a visible ring (see Known gaps) |
+| Focus | Visible focus ring (`focus-visible`) |
 
 ## Content guidelines
 - Use the destination page's title as the label, shortened if needed.
@@ -61,7 +61,7 @@ Shows where the current page sits in the hierarchy and lets users jump back up.
 - `<nav aria-label="Breadcrumb">` landmark. ✅
 - The current item has `aria-current="page"`. ✅
 - Separators are `aria-hidden`. ✅
-- APG recommends wrapping items in an ordered list (`<ol><li>`) so screen readers announce "list, 3 items". See Known gaps.
+- APG recommends wrapping items in an ordered list (`<ol><li>`) so screen readers announce "list, 3 items". The component does this.
 
 ## Design tokens
 
@@ -100,8 +100,6 @@ Shows where the current page sits in the hierarchy and lets users jump back up.
 ```
 
 ## Known gaps
-- [ ] No `<ol>/<li>` list semantics.
-- [ ] Links have no `focus-visible` style.
 - [ ] Renders a plain `<a>`. No `asChild` for Next `<Link>` client-side navigation.
 - [ ] No built-in collapse / ellipsis for long paths.
 

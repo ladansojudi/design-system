@@ -2,13 +2,13 @@
   "$schema": "sentinel-manifest/1",
   "name": "sentinel",
   "version": "1.3.1",
-  "homepage": "http://localhost:3000",
+  "homepage": "https://ladan-design-system.vercel.app",
   "install": {
-    "theme": "npx shadcn add http://localhost:3000/r/theme.json",
-    "component": "npx shadcn add http://localhost:3000/r/<name>.json"
+    "theme": "npx shadcn add https://ladan-design-system.vercel.app/r/theme.json",
+    "component": "npx shadcn add https://ladan-design-system.vercel.app/r/<name>.json"
   },
-  "rules": "http://localhost:3000/llms.txt",
-  "lint": "http://localhost:3000/eslint-plugin-sentinel.mjs",
+  "rules": "https://ladan-design-system.vercel.app/llms.txt",
+  "lint": "https://ladan-design-system.vercel.app/eslint-plugin-sentinel.mjs",
   "components": [
     {
       "name": "activity-timeline",
@@ -57,17 +57,17 @@
       "clientComponent": false,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/activity-timeline.md",
-        "source": "http://localhost:3000/components/activity-timeline.tsx.txt",
-        "registry": "http://localhost:3000/r/activity-timeline.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/activity-timeline.md",
+        "source": "https://ladan-design-system.vercel.app/components/activity-timeline.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/activity-timeline.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/activity-timeline.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/activity-timeline.json"
     },
     {
       "name": "alert",
       "title": "Alert",
       "category": "Atom",
-      "status": "stable",
+      "status": "beta",
       "summary": "An inline message tied to a page or section. It communicates a status that persists until the condition changes or the user dismisses it.",
       "whenToUse": [
         "A form or section-level error (\"3 fields need attention\").",
@@ -124,13 +124,13 @@
         "snt-bg-info-subtle",
         "snt-bg-success-subtle",
         "snt-bg-warning-subtle",
+        "snt-border-default",
+        "snt-focus-ring",
         "snt-neutral-divider-10",
-        "snt-scale-blue-200",
-        "snt-scale-green-200",
-        "snt-scale-red-200",
-        "snt-scale-yellow-200",
         "snt-text-error",
         "snt-text-info",
+        "snt-text-primary",
+        "snt-text-secondary",
         "snt-text-success",
         "snt-text-warning"
       ],
@@ -139,11 +139,11 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/alert.md",
-        "source": "http://localhost:3000/components/alert.tsx.txt",
-        "registry": "http://localhost:3000/r/alert.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/alert.md",
+        "source": "https://ladan-design-system.vercel.app/components/alert.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/alert.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/alert.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/alert.json"
     },
     {
       "name": "badge-tag",
@@ -234,11 +234,11 @@
       "clientComponent": true,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/badge-tag.md",
-        "source": "http://localhost:3000/components/badge-tag.tsx.txt",
-        "registry": "http://localhost:3000/r/badge-tag.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/badge-tag.md",
+        "source": "https://ladan-design-system.vercel.app/components/badge-tag.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/badge-tag.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/badge-tag.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/badge-tag.json"
     },
     {
       "name": "banner",
@@ -303,8 +303,8 @@
       "tokens": [
         "snt-11",
         "snt-12",
+        "snt-action-primary",
         "snt-btn-neutral-800",
-        "snt-btn-primary-600",
         "snt-scale-yellow-500",
         "snt-text-white"
       ],
@@ -313,11 +313,11 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/banner.md",
-        "source": "http://localhost:3000/components/banner.tsx.txt",
-        "registry": "http://localhost:3000/r/banner.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/banner.md",
+        "source": "https://ladan-design-system.vercel.app/components/banner.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/banner.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/banner.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/banner.json"
     },
     {
       "name": "breadcrumb",
@@ -368,17 +368,18 @@
         "snt-12",
         "snt-14",
         "snt-brand-primary-500",
+        "snt-focus-ring",
         "snt-text-primary",
         "snt-text-secondary"
       ],
       "clientComponent": true,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/breadcrumb.md",
-        "source": "http://localhost:3000/components/breadcrumb.tsx.txt",
-        "registry": "http://localhost:3000/r/breadcrumb.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/breadcrumb.md",
+        "source": "https://ladan-design-system.vercel.app/components/breadcrumb.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/breadcrumb.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/breadcrumb.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/breadcrumb.json"
     },
     {
       "name": "button",
@@ -441,14 +442,14 @@
       "tokens": [
         "snt-12",
         "snt-14",
+        "snt-action-destructive",
+        "snt-action-destructive-hover",
+        "snt-action-primary",
+        "snt-action-primary-hover",
         "snt-bg-brand-subtle",
         "snt-bg-error-subtle",
         "snt-bg-subtle",
         "snt-border-strong",
-        "snt-btn-error-600",
-        "snt-btn-error-700",
-        "snt-btn-primary-600",
-        "snt-btn-primary-700",
         "snt-control",
         "snt-focus-ring",
         "snt-focus-ring-error",
@@ -464,26 +465,26 @@
       "clientComponent": false,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/button.md",
-        "source": "http://localhost:3000/components/button.tsx.txt",
-        "registry": "http://localhost:3000/r/button.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/button.md",
+        "source": "https://ladan-design-system.vercel.app/components/button.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/button.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/button.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/button.json"
     },
     {
       "name": "cards",
       "title": "Cards",
       "category": "Organism",
       "status": "stable",
-      "summary": "Dashboard cards that summarise a topic and lead to a next step. There are two presets: **InsightCard** (a key/value list) and **AlertCard** (an active-issue callout).",
+      "summary": "The container for dashboard content. `Card` and its parts are the base; `StatCard` is a ready-made preset for one number. Summaries and alerts are composed from the parts (see the styleguide page), not separate components.",
       "whenToUse": [
-        "**InsightCard:** a compact summary of 3–6 metrics with an optional \"view more\" action.",
-        "**AlertCard:** highlighting active issues that need attention, with a count and a CTA."
+        "**StatCard:** a single KPI, with a trend or a one-line description.",
+        "**Card parts:** any other grouped content: a figures list with a View details action, a callout with a count and a next step."
       ],
       "whenNotToUse": [
         "Charts → [Chart](./chart.md) `ChartCard`.",
         "Tabular records → [Data Table](./data-table.md).",
-        "A generic container. There's also `components/ui/card.tsx` (shadcn); see Known gaps."
+        "A message that stays until resolved → [Alert](./alert.md)."
       ],
       "exports": [
         "Card",
@@ -492,8 +493,7 @@
         "CardDescription",
         "CardContent",
         "CardFooter",
-        "InsightCard",
-        "AlertCard"
+        "StatCard"
       ],
       "props": {
         "CardTitleProps": {
@@ -508,121 +508,73 @@
             }
           ]
         },
-        "InsightCardProps": {
+        "StatCardProps": {
           "extends": "React.HTMLAttributes<HTMLDivElement>",
           "members": [
+            {
+              "name": "icon",
+              "type": "React.ComponentType<{ size?: number; className?: string }>",
+              "optional": true
+            },
             {
               "name": "title",
               "type": "string",
               "optional": false
             },
             {
-              "name": "rows",
-              "type": "InsightRow[]",
+              "name": "value",
+              "type": "string | number",
               "optional": false
             },
             {
-              "name": "actionLabel",
-              "type": "string",
+              "name": "trend",
+              "type": "StatTrend",
               "optional": true,
-              "default": "\"View Details\""
-            },
-            {
-              "name": "onActionClick",
-              "type": "() => void",
-              "optional": true
-            },
-            {
-              "name": "headingLevel",
-              "type": "\"h2\" | \"h3\" | \"h4\"",
-              "optional": true
-            }
-          ]
-        },
-        "AlertCardProps": {
-          "extends": "React.HTMLAttributes<HTMLDivElement>",
-          "members": [
-            {
-              "name": "title",
-              "type": "string",
-              "optional": false
-            },
-            {
-              "name": "activeCount",
-              "type": "number",
-              "optional": false
-            },
-            {
-              "name": "alertTitle",
-              "type": "string",
-              "optional": false
-            },
-            {
-              "name": "alertBadge",
-              "type": "string",
-              "optional": true
+              "description": "Change versus the previous period. Pick this or `description`, not both."
             },
             {
               "name": "description",
               "type": "string",
-              "optional": false
-            },
-            {
-              "name": "action",
-              "type": "string",
-              "optional": false
-            },
-            {
-              "name": "onActionClick",
-              "type": "() => void",
-              "optional": true
-            },
-            {
-              "name": "headingLevel",
-              "type": "\"h2\" | \"h3\" | \"h4\"",
               "optional": true
             }
           ]
         }
       },
       "types": {
-        "InsightRow": {
-          "type": "{ label: string; value: string | number }"
+        "StatTrend": {
+          "type": "{ direction: \"up\" | \"down\"; value: string; label?: string; /** Is this direction good news? Defaults to up = good. */ positive?: boolean }"
         }
       },
       "tokens": [
-        "snt-10",
-        "snt-11",
         "snt-12",
-        "snt-14",
+        "snt-16",
+        "snt-32",
         "snt-bg-error-subtle",
-        "snt-bg-subtle",
+        "snt-bg-success-subtle",
         "snt-border-default",
-        "snt-brand-primary-500",
-        "snt-brand-primary-600",
-        "snt-scale-red-500",
+        "snt-control",
         "snt-surface-app",
         "snt-text-error",
         "snt-text-primary",
         "snt-text-secondary",
-        "snt-xs"
+        "snt-text-success"
       ],
       "clientComponent": true,
       "dependencies": [
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/cards.md",
-        "source": "http://localhost:3000/components/cards.tsx.txt",
-        "registry": "http://localhost:3000/r/cards.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/cards.md",
+        "source": "https://ladan-design-system.vercel.app/components/cards.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/cards.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/cards.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/cards.json"
     },
     {
       "name": "chart",
       "title": "Chart",
       "category": "Organism",
-      "status": "stable",
+      "status": "beta",
       "summary": "A dependency-free set of SVG chart primitives in a shared card shell: donut, bar, line and treemap, plus stat blocks.",
       "whenToUse": [],
       "whenNotToUse": [
@@ -832,24 +784,29 @@
         "snt-12",
         "snt-14",
         "snt-16",
-        "snt-bg-subtle",
+        "snt-20",
+        "snt-bg-brand-subtle",
         "snt-border-default",
         "snt-brand-primary-500",
         "snt-brand-primary-600",
+        "snt-control",
+        "snt-focus-ring",
         "snt-surface-app",
+        "snt-text-link",
         "snt-text-on-accent",
         "snt-text-primary",
-        "snt-text-secondary",
-        "snt-xs"
+        "snt-text-secondary"
       ],
       "clientComponent": true,
-      "dependencies": [],
+      "dependencies": [
+        "lucide-react"
+      ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/chart.md",
-        "source": "http://localhost:3000/components/chart.tsx.txt",
-        "registry": "http://localhost:3000/r/chart.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/chart.md",
+        "source": "https://ladan-design-system.vercel.app/components/chart.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/chart.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/chart.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/chart.json"
     },
     {
       "name": "checkbox",
@@ -912,8 +869,8 @@
       "tokens": [
         "snt-11",
         "snt-14",
+        "snt-action-primary",
         "snt-btn-neutral-800",
-        "snt-btn-primary-600",
         "snt-control",
         "snt-focus-ring",
         "snt-neutral-grey-400",
@@ -929,11 +886,123 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/checkbox.md",
-        "source": "http://localhost:3000/components/checkbox.tsx.txt",
-        "registry": "http://localhost:3000/r/checkbox.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/checkbox.md",
+        "source": "https://ladan-design-system.vercel.app/components/checkbox.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/checkbox.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/checkbox.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/checkbox.json"
+    },
+    {
+      "name": "command-palette",
+      "title": "Command palette",
+      "category": "Organism",
+      "status": "beta",
+      "summary": "A searchable list of commands and destinations opened with a shortcut; built on Modal.",
+      "whenToUse": [],
+      "whenNotToUse": [],
+      "exports": [
+        "CommandPalette"
+      ],
+      "props": {
+        "CommandItem": {
+          "members": [
+            {
+              "name": "id",
+              "type": "string",
+              "optional": false
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "optional": false,
+              "default": "\"Command palette\""
+            },
+            {
+              "name": "group",
+              "type": "string",
+              "optional": true
+            },
+            {
+              "name": "hint",
+              "type": "string",
+              "optional": true,
+              "description": "Right-aligned hint, e.g. \"G S\"."
+            },
+            {
+              "name": "icon",
+              "type": "React.ReactNode",
+              "optional": true
+            },
+            {
+              "name": "keywords",
+              "type": "string[]",
+              "optional": true,
+              "description": "Extra words that should match the search but aren't shown."
+            },
+            {
+              "name": "onSelect",
+              "type": "() => void",
+              "optional": false
+            }
+          ]
+        },
+        "CommandPaletteProps": {
+          "members": [
+            {
+              "name": "open",
+              "type": "boolean",
+              "optional": false
+            },
+            {
+              "name": "onOpenChange",
+              "type": "(open: boolean) => void",
+              "optional": false
+            },
+            {
+              "name": "items",
+              "type": "CommandItem[]",
+              "optional": false
+            },
+            {
+              "name": "placeholder",
+              "type": "string",
+              "optional": true,
+              "default": "\"Type a command or search…\""
+            },
+            {
+              "name": "emptyLabel",
+              "type": "string",
+              "optional": true,
+              "default": "\"No results found.\""
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "optional": true,
+              "description": "Accessible name of the dialog.",
+              "default": "\"Command palette\""
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-11",
+        "snt-12",
+        "snt-14",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "https://ladan-design-system.vercel.app/docs/components/command-palette.md",
+        "source": "https://ladan-design-system.vercel.app/components/command-palette.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/command-palette.json"
+      },
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/command-palette.json"
     },
     {
       "name": "cve-tag",
@@ -1001,11 +1070,11 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/cve-tag.md",
-        "source": "http://localhost:3000/components/cve-tag.tsx.txt",
-        "registry": "http://localhost:3000/r/cve-tag.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/cve-tag.md",
+        "source": "https://ladan-design-system.vercel.app/components/cve-tag.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/cve-tag.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/cve-tag.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/cve-tag.json"
     },
     {
       "name": "cvss-score",
@@ -1073,17 +1142,17 @@
       "clientComponent": false,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/cvss-score.md",
-        "source": "http://localhost:3000/components/cvss-score.tsx.txt",
-        "registry": "http://localhost:3000/r/cvss-score.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/cvss-score.md",
+        "source": "https://ladan-design-system.vercel.app/components/cvss-score.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/cvss-score.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/cvss-score.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/cvss-score.json"
     },
     {
       "name": "data-table",
       "title": "Data Table",
       "category": "Organism",
-      "status": "stable",
+      "status": "beta",
       "summary": "A composable card that lists findings (threat, asset, date, severity) with a header, column headers, rows and a pagination footer.",
       "whenToUse": [
         "Lists of findings or threats where users scan, compare and page through records."
@@ -1258,38 +1327,209 @@
         "snt-11",
         "snt-12",
         "snt-14",
+        "snt-16",
+        "snt-bg-brand-subtle",
         "snt-bg-subtle",
-        "snt-bg-warning-subtle",
         "snt-border-default",
         "snt-brand-primary-500",
-        "snt-brand-primary-600",
+        "snt-control",
         "snt-focus-ring",
         "snt-lg",
         "snt-neutral-grey-900",
-        "snt-scale-yellow-500",
-        "snt-scale-yellow-700",
+        "snt-scale-green-600",
         "snt-surface-app",
         "snt-text-inverse",
+        "snt-text-link",
         "snt-text-primary",
-        "snt-text-secondary",
-        "snt-xs"
+        "snt-text-secondary"
       ],
       "clientComponent": true,
       "dependencies": [
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/data-table.md",
-        "source": "http://localhost:3000/components/data-table.tsx.txt",
-        "registry": "http://localhost:3000/r/data-table.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/data-table.md",
+        "source": "https://ladan-design-system.vercel.app/components/data-table.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/data-table.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/data-table.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/data-table.json"
+    },
+    {
+      "name": "drawer",
+      "title": "Drawer",
+      "category": "Molecule",
+      "status": "beta",
+      "summary": "A panel that slides in from the left or right edge for details or a short form, built like Modal.",
+      "whenToUse": [],
+      "whenNotToUse": [],
+      "exports": [
+        "Drawer",
+        "DrawerHeader",
+        "DrawerTitle",
+        "DrawerDescription",
+        "DrawerBody",
+        "DrawerFooter"
+      ],
+      "props": {
+        "DrawerProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "open",
+              "type": "boolean",
+              "optional": false
+            },
+            {
+              "name": "onOpenChange",
+              "type": "(open: boolean) => void",
+              "optional": false
+            },
+            {
+              "name": "side",
+              "type": "\"right\" | \"left\"",
+              "optional": true,
+              "default": "\"right\""
+            },
+            {
+              "name": "size",
+              "type": "\"sm\" | \"md\" | \"lg\"",
+              "optional": true,
+              "default": "\"md\""
+            },
+            {
+              "name": "closeOnBackdrop",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            },
+            {
+              "name": "closeOnEscape",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            }
+          ]
+        },
+        "DrawerHeaderProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "onClose",
+              "type": "() => void",
+              "optional": true
+            },
+            {
+              "name": "showClose",
+              "type": "boolean",
+              "optional": true,
+              "default": "true"
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-14",
+        "snt-16",
+        "snt-2xl",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-focus-ring",
+        "snt-surface-app",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "https://ladan-design-system.vercel.app/docs/components/drawer.md",
+        "source": "https://ladan-design-system.vercel.app/components/drawer.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/drawer.json"
+      },
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/drawer.json"
+    },
+    {
+      "name": "dropdown-menu",
+      "title": "Dropdown menu",
+      "category": "Molecule",
+      "status": "beta",
+      "summary": "A dropdown list of actions behind a button, following the WAI-ARIA menu-button pattern.",
+      "whenToUse": [],
+      "whenNotToUse": [],
+      "exports": [
+        "DropdownMenu",
+        "DropdownMenuTrigger",
+        "DropdownMenuContent",
+        "DropdownMenuItem",
+        "DropdownMenuSeparator",
+        "DropdownMenuLabel"
+      ],
+      "props": {
+        "DropdownMenuContentProps": {
+          "extends": "React.HTMLAttributes<HTMLDivElement>",
+          "members": [
+            {
+              "name": "align",
+              "type": "\"start\" | \"end\"",
+              "optional": true,
+              "description": "Which edge of the button the menu lines up with.",
+              "default": "\"start\""
+            }
+          ]
+        },
+        "DropdownMenuItemProps": {
+          "extends": "Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, \"onSelect\">",
+          "members": [
+            {
+              "name": "onSelect",
+              "type": "() => void",
+              "optional": true
+            },
+            {
+              "name": "destructive",
+              "type": "boolean",
+              "optional": true,
+              "description": "Red text: an action that destroys something."
+            },
+            {
+              "name": "shortcut",
+              "type": "string",
+              "optional": true,
+              "description": "Right-aligned hint, e.g. \"⌘E\". Not a binding — you wire the shortcut."
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-11",
+        "snt-12",
+        "snt-14",
+        "snt-bg-error-subtle",
+        "snt-bg-subtle",
+        "snt-border-default",
+        "snt-md",
+        "snt-surface-app",
+        "snt-text-error",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": true,
+      "dependencies": [],
+      "links": {
+        "docs": "https://ladan-design-system.vercel.app/docs/components/dropdown-menu.md",
+        "source": "https://ladan-design-system.vercel.app/components/dropdown-menu.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/dropdown-menu.json"
+      },
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/dropdown-menu.json"
     },
     {
       "name": "empty-state",
       "title": "Empty State",
       "category": "Organism",
-      "status": "stable",
+      "status": "beta",
       "summary": "Fills a region that has no content yet. It explains why it's empty and what to do next.",
       "whenToUse": [
         "First use (\"No assets yet\"), no results (\"No findings match these filters\"), cleared state (\"All caught up\"), or a recoverable error (\"Couldn't load findings\")."
@@ -1378,17 +1618,17 @@
       "clientComponent": true,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/empty-state.md",
-        "source": "http://localhost:3000/components/empty-state.tsx.txt",
-        "registry": "http://localhost:3000/r/empty-state.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/empty-state.md",
+        "source": "https://ladan-design-system.vercel.app/components/empty-state.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/empty-state.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/empty-state.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/empty-state.json"
     },
     {
       "name": "filter-bar",
       "title": "Filter Bar",
       "category": "Molecule",
-      "status": "stable",
+      "status": "beta",
       "summary": "A horizontal toolbar that combines search, filter pills and view actions above a table or list.",
       "whenToUse": [
         "Above a [Data Table](./data-table.md) or list where users narrow the results by several dimensions."
@@ -1535,11 +1775,11 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/filter-bar.md",
-        "source": "http://localhost:3000/components/filter-bar.tsx.txt",
-        "registry": "http://localhost:3000/r/filter-bar.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/filter-bar.md",
+        "source": "https://ladan-design-system.vercel.app/components/filter-bar.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/filter-bar.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/filter-bar.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/filter-bar.json"
     },
     {
       "name": "finding-status",
@@ -1607,17 +1847,17 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/finding-status.md",
-        "source": "http://localhost:3000/components/finding-status.tsx.txt",
-        "registry": "http://localhost:3000/r/finding-status.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/finding-status.md",
+        "source": "https://ladan-design-system.vercel.app/components/finding-status.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/finding-status.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/finding-status.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/finding-status.json"
     },
     {
       "name": "gauge",
       "title": "Gauge",
       "category": "Organism",
-      "status": "stable",
+      "status": "beta",
       "summary": "A semicircular meter that shows a single value against a known maximum, such as a security score.",
       "whenToUse": [
         "One headline value on a bounded scale (Security score 72 / 100, coverage %)."
@@ -1647,7 +1887,7 @@
             },
             {
               "name": "color",
-              "type": "\"blue\" | \"green\" | \"yellow\" | \"red\" | \"purple\"",
+              "type": "\"blue\" | \"green\" | \"yellow\" | \"red\" | \"brand\"",
               "optional": true,
               "default": "\"blue\""
             }
@@ -1657,40 +1897,28 @@
       "types": {},
       "tokens": [
         "snt-12",
-        "snt-14",
-        "snt-neutral-grey-500",
-        "snt-neutral-grey-600",
+        "snt-24",
+        "snt-brand-primary-100",
+        "snt-brand-primary-500",
         "snt-scale-blue-100",
-        "snt-scale-blue-200",
         "snt-scale-blue-500",
-        "snt-scale-blue-600",
         "snt-scale-green-100",
-        "snt-scale-green-200",
         "snt-scale-green-500",
-        "snt-scale-green-600",
-        "snt-scale-purple-100",
-        "snt-scale-purple-200",
-        "snt-scale-purple-500",
-        "snt-scale-purple-600",
         "snt-scale-red-100",
-        "snt-scale-red-200",
         "snt-scale-red-500",
-        "snt-scale-red-600",
         "snt-scale-yellow-100",
-        "snt-scale-yellow-200",
         "snt-scale-yellow-500",
-        "snt-scale-yellow-600",
         "snt-text-primary",
         "snt-text-secondary"
       ],
       "clientComponent": true,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/gauge.md",
-        "source": "http://localhost:3000/components/gauge.tsx.txt",
-        "registry": "http://localhost:3000/r/gauge.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/gauge.md",
+        "source": "https://ladan-design-system.vercel.app/components/gauge.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/gauge.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/gauge.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/gauge.json"
     },
     {
       "name": "indicator",
@@ -1768,11 +1996,11 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/indicator.md",
-        "source": "http://localhost:3000/components/indicator.tsx.txt",
-        "registry": "http://localhost:3000/r/indicator.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/indicator.md",
+        "source": "https://ladan-design-system.vercel.app/components/indicator.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/indicator.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/indicator.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/indicator.json"
     },
     {
       "name": "masked-value",
@@ -1837,11 +2065,11 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/masked-value.md",
-        "source": "http://localhost:3000/components/masked-value.tsx.txt",
-        "registry": "http://localhost:3000/r/masked-value.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/masked-value.md",
+        "source": "https://ladan-design-system.vercel.app/components/masked-value.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/masked-value.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/masked-value.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/masked-value.json"
     },
     {
       "name": "modal",
@@ -1950,6 +2178,7 @@
       "types": {},
       "tokens": [
         "snt-14",
+        "snt-16",
         "snt-2xl",
         "snt-bg-subtle",
         "snt-border-default",
@@ -1963,11 +2192,88 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/modal.md",
-        "source": "http://localhost:3000/components/modal.tsx.txt",
-        "registry": "http://localhost:3000/r/modal.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/modal.md",
+        "source": "https://ladan-design-system.vercel.app/components/modal.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/modal.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/modal.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/modal.json"
+    },
+    {
+      "name": "pagination",
+      "title": "Pagination",
+      "category": "Molecule",
+      "status": "beta",
+      "summary": "Moves between pages of a long list; always shows the first, last and current pages with their neighbours.",
+      "whenToUse": [],
+      "whenNotToUse": [],
+      "exports": [
+        "pageRange",
+        "Pagination"
+      ],
+      "props": {
+        "PaginationProps": {
+          "extends": "Omit<React.HTMLAttributes<HTMLElement>, \"onChange\">",
+          "members": [
+            {
+              "name": "page",
+              "type": "number",
+              "optional": false,
+              "description": "Current page, 1-based."
+            },
+            {
+              "name": "pageCount",
+              "type": "number",
+              "optional": false
+            },
+            {
+              "name": "onPageChange",
+              "type": "(page: number) => void",
+              "optional": true
+            },
+            {
+              "name": "siblingCount",
+              "type": "number",
+              "optional": true,
+              "description": "Page numbers shown on each side of the current page.",
+              "default": "1"
+            },
+            {
+              "name": "size",
+              "type": "\"sm\" | \"md\"",
+              "optional": true,
+              "default": "\"md\""
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "optional": true,
+              "description": "Accessible name of the navigation landmark.",
+              "default": "\"Pagination\""
+            }
+          ]
+        }
+      },
+      "types": {},
+      "tokens": [
+        "snt-12",
+        "snt-14",
+        "snt-bg-subtle",
+        "snt-focus-ring",
+        "snt-raised",
+        "snt-text-inverse",
+        "snt-text-primary",
+        "snt-text-secondary"
+      ],
+      "clientComponent": false,
+      "dependencies": [
+        "lucide-react"
+      ],
+      "links": {
+        "docs": "https://ladan-design-system.vercel.app/docs/components/pagination.md",
+        "source": "https://ladan-design-system.vercel.app/components/pagination.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/pagination.json"
+      },
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/pagination.json"
     },
     {
       "name": "scan-progress",
@@ -2010,10 +2316,10 @@
       "tokens": [
         "snt-11",
         "snt-12",
+        "snt-action-destructive",
+        "snt-action-primary",
         "snt-border-default",
         "snt-border-strong",
-        "snt-btn-error-600",
-        "snt-btn-primary-600",
         "snt-focus-ring",
         "snt-surface-app",
         "snt-text-error",
@@ -2026,17 +2332,17 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/scan-progress.md",
-        "source": "http://localhost:3000/components/scan-progress.tsx.txt",
-        "registry": "http://localhost:3000/r/scan-progress.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/scan-progress.md",
+        "source": "https://ladan-design-system.vercel.app/components/scan-progress.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/scan-progress.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/scan-progress.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/scan-progress.json"
     },
     {
       "name": "search-bar",
       "title": "Search Bar",
       "category": "Molecule",
-      "status": "stable",
+      "status": "beta",
       "summary": "A text input dedicated to searching or filtering content, with a search icon and a clear button.",
       "whenToUse": [
         "Free-text search across a page, table or the whole product."
@@ -2106,11 +2412,11 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/search-bar.md",
-        "source": "http://localhost:3000/components/search-bar.tsx.txt",
-        "registry": "http://localhost:3000/r/search-bar.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/search-bar.md",
+        "source": "https://ladan-design-system.vercel.app/components/search-bar.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/search-bar.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/search-bar.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/search-bar.json"
     },
     {
       "name": "select",
@@ -2221,17 +2527,17 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/select.md",
-        "source": "http://localhost:3000/components/select.tsx.txt",
-        "registry": "http://localhost:3000/r/select.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/select.md",
+        "source": "https://ladan-design-system.vercel.app/components/select.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/select.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/select.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/select.json"
     },
     {
       "name": "severity-badge",
       "title": "Severity Badge",
       "category": "Atom",
-      "status": "stable",
+      "status": "beta",
       "summary": "The canonical way to show a finding's severity (Critical → Info), optionally with its numeric score (e.g. CVSS).",
       "whenToUse": [
         "Any time a vulnerability, threat or finding's severity is shown: tables, cards, detail headers."
@@ -2262,7 +2568,7 @@
               "name": "size",
               "type": "\"sm\" | \"md\"",
               "optional": true,
-              "description": "sm 24px for dense tables, md 28px.",
+              "description": "sm 24px tall (96px wide, 128px with a score) for dense tables; md 28px (112 / 144px).",
               "default": "\"md\""
             }
           ]
@@ -2289,11 +2595,11 @@
       "clientComponent": false,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/severity-badge.md",
-        "source": "http://localhost:3000/components/severity-badge.tsx.txt",
-        "registry": "http://localhost:3000/r/severity-badge.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/severity-badge.md",
+        "source": "https://ladan-design-system.vercel.app/components/severity-badge.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/severity-badge.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/severity-badge.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/severity-badge.json"
     },
     {
       "name": "severity-bar",
@@ -2366,17 +2672,17 @@
       "clientComponent": false,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/severity-bar.md",
-        "source": "http://localhost:3000/components/severity-bar.tsx.txt",
-        "registry": "http://localhost:3000/r/severity-bar.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/severity-bar.md",
+        "source": "https://ladan-design-system.vercel.app/components/severity-bar.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/severity-bar.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/severity-bar.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/severity-bar.json"
     },
     {
       "name": "skeleton",
       "title": "Skeleton",
       "category": "Atom",
-      "status": "beta",
+      "status": "stable",
       "summary": "A pulsing placeholder that mirrors the shape of content while it loads.",
       "whenToUse": [
         "Loading cards, tables, lists or charts whose layout is known.",
@@ -2397,17 +2703,17 @@
       "clientComponent": true,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/skeleton.md",
-        "source": "http://localhost:3000/components/skeleton.tsx.txt",
-        "registry": "http://localhost:3000/r/skeleton.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/skeleton.md",
+        "source": "https://ladan-design-system.vercel.app/components/skeleton.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/skeleton.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/skeleton.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/skeleton.json"
     },
     {
       "name": "spinner",
       "title": "Spinner",
       "category": "Atom",
-      "status": "alpha",
+      "status": "beta",
       "summary": "An indeterminate loading indicator for short waits when the shape of the result is unknown.",
       "whenToUse": [
         "Short waits (< ~3s) inside a button, a small panel, or an inline region.",
@@ -2455,17 +2761,17 @@
       "clientComponent": true,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/spinner.md",
-        "source": "http://localhost:3000/components/spinner.tsx.txt",
-        "registry": "http://localhost:3000/r/spinner.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/spinner.md",
+        "source": "https://ladan-design-system.vercel.app/components/spinner.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/spinner.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/spinner.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/spinner.json"
     },
     {
       "name": "switch-radio",
       "title": "Switch · Radio",
       "category": "Atom",
-      "status": "stable",
+      "status": "beta",
       "summary": "**Switch** turns a single setting on or off, effective immediately. **Radio** picks exactly one option from a small, visible set.",
       "whenToUse": [
         "**Switch:** a setting that applies the moment it changes (\"Continuous scanning\").",
@@ -2553,8 +2859,8 @@
       "types": {},
       "tokens": [
         "snt-14",
-        "snt-btn-primary-600",
-        "snt-btn-primary-700",
+        "snt-action-primary",
+        "snt-action-primary-hover",
         "snt-focus-ring",
         "snt-neutral-grey-300",
         "snt-neutral-grey-400",
@@ -2568,11 +2874,11 @@
       "clientComponent": true,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/switch-radio.md",
-        "source": "http://localhost:3000/components/switch-radio.tsx.txt",
-        "registry": "http://localhost:3000/r/switch-radio.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/switch-radio.md",
+        "source": "https://ladan-design-system.vercel.app/components/switch-radio.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/switch-radio.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/switch-radio.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/switch-radio.json"
     },
     {
       "name": "tabs",
@@ -2666,10 +2972,10 @@
       "tokens": [
         "snt-10",
         "snt-14",
+        "snt-action-primary",
         "snt-bg-subtle",
         "snt-border-default",
         "snt-brand-primary-500",
-        "snt-btn-primary-600",
         "snt-control",
         "snt-focus-ring",
         "snt-neutral-grey-200",
@@ -2681,17 +2987,17 @@
       "clientComponent": true,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/tabs.md",
-        "source": "http://localhost:3000/components/tabs.tsx.txt",
-        "registry": "http://localhost:3000/r/tabs.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/tabs.md",
+        "source": "https://ladan-design-system.vercel.app/components/tabs.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/tabs.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/tabs.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/tabs.json"
     },
     {
       "name": "text-field",
       "title": "Text Field",
       "category": "Atom",
-      "status": "stable",
+      "status": "beta",
       "summary": "A single-line input for short free text: names, domains, IPs, emails.",
       "whenToUse": [
         "The answer is one line and can't be picked from a known list."
@@ -2759,17 +3065,17 @@
       "clientComponent": true,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/text-field.md",
-        "source": "http://localhost:3000/components/text-field.tsx.txt",
-        "registry": "http://localhost:3000/r/text-field.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/text-field.md",
+        "source": "https://ladan-design-system.vercel.app/components/text-field.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/text-field.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/text-field.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/text-field.json"
     },
     {
       "name": "text-space",
       "title": "Text Space",
       "category": "Organism",
-      "status": "stable",
+      "status": "alpha",
       "summary": "A rich-text composer (toolbar + writing area) for formatted notes, reports and comments.",
       "whenToUse": [
         "Long-form content that needs formatting: remediation notes, report summaries, comments with lists or links."
@@ -2887,17 +3193,17 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/text-space.md",
-        "source": "http://localhost:3000/components/text-space.tsx.txt",
-        "registry": "http://localhost:3000/r/text-space.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/text-space.md",
+        "source": "https://ladan-design-system.vercel.app/components/text-space.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/text-space.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/text-space.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/text-space.json"
     },
     {
       "name": "textarea",
       "title": "Textarea",
       "category": "Atom",
-      "status": "stable",
+      "status": "beta",
       "summary": "A multi-line plain-text input for notes, descriptions and justifications.",
       "whenToUse": [
         "The answer may need more than one sentence (scan notes, exception justification)."
@@ -2962,11 +3268,11 @@
       "clientComponent": true,
       "dependencies": [],
       "links": {
-        "docs": "http://localhost:3000/docs/components/textarea.md",
-        "source": "http://localhost:3000/components/textarea.tsx.txt",
-        "registry": "http://localhost:3000/r/textarea.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/textarea.md",
+        "source": "https://ladan-design-system.vercel.app/components/textarea.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/textarea.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/textarea.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/textarea.json"
     },
     {
       "name": "toast-tooltip",
@@ -3115,11 +3421,11 @@
         "lucide-react"
       ],
       "links": {
-        "docs": "http://localhost:3000/docs/components/toast-tooltip.md",
-        "source": "http://localhost:3000/components/toast-tooltip.tsx.txt",
-        "registry": "http://localhost:3000/r/toast-tooltip.json"
+        "docs": "https://ladan-design-system.vercel.app/docs/components/toast-tooltip.md",
+        "source": "https://ladan-design-system.vercel.app/components/toast-tooltip.tsx.txt",
+        "registry": "https://ladan-design-system.vercel.app/r/toast-tooltip.json"
       },
-      "install": "npx shadcn add http://localhost:3000/r/toast-tooltip.json"
+      "install": "npx shadcn add https://ladan-design-system.vercel.app/r/toast-tooltip.json"
     }
   ]
 }

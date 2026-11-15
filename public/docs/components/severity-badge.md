@@ -2,7 +2,7 @@
 title: Severity Badge
 slug: severity-badge
 category: Atom
-status: stable
+status: beta
 source: components/ui/severity-badge.tsx
 styleguide: /styleguide/severity-badge
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=3-96
@@ -34,19 +34,19 @@ The canonical way to show a finding's severity (Critical → Info), optionally w
 2. **Label**: severity name, always written out (colour is never the only signal).
 3. **Score** (optional): mono, one decimal.
 
-Width follows the label. Right-align the severity column in tables so the bars line up. Sizes: `md` 28px, `sm` 24px for dense tables.
+Width is fixed per size, so every badge in a column is the same size: `sm` 24px tall, 96px wide (128px with a score); `md` 28px tall, 112px wide (144px with a score). The score sits at the right edge, so scores line up too.
 
 ## Variants
 
 | `severity` | Colour family | Typical CVSS |
 |---|---|---|
-| `critical` | Purple · 4 bars | 9.0–10.0 |
-| `high` | Red · 3 bars | 7.0–8.9 |
-| `medium` | Yellow · 2 bars | 4.0–6.9 |
-| `low` | Green · 1 bar | 0.1–3.9 |
-| `info` | Blue · ring | 0.0 |
+| `critical` | Magenta · 4 bars | 9.0–10.0 |
+| `high` | Orange-red · 3 bars | 7.0–8.9 |
+| `medium` | Amber · 2 bars | 4.0–6.9 |
+| `low` | Teal · 1 bar | 0.1–3.9 |
+| `info` | Grey · ring | 0.0 |
 
-The order and colours are product-wide conventions. Don't recolour them per screen.
+The order and colours are product-wide conventions. Don't recolour them per screen. Severity is its own palette: none of these values is shared with the feedback colours (success, warning, error, info) or sits close to the brand colour. `npm run lint:ds` checks this.
 
 ## States
 Static.

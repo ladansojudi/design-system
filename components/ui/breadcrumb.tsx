@@ -22,10 +22,19 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       <nav
         ref={ref}
         aria-label="Breadcrumb"
-        className={cn("flex items-center gap-2", className)}
+        className={className}
         {...props}
       >
-        {children}
+        <ol className="flex flex-wrap items-center gap-2">
+          {React.Children.map(children, (child) => (
+            <li
+              aria-hidden={React.isValidElement(child) && child.type === BreadcrumbSeparator ? true : undefined}
+              className="flex items-center"
+            >
+              {child}
+            </li>
+          ))}
+        </ol>
       </nav>
     );
   },
@@ -56,7 +65,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLAnchorElement, BreadcrumbItem
         ref={ref}
         href={href}
         className={cn(
-          "text-snt-14 font-medium cursor-pointer transition-colors",
+          "rounded-sm text-snt-14 font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-snt-surface-app",
           visited
             ? "text-snt-text-secondary"
             : "text-snt-text-primary hover:text-snt-brand-primary-500 hover:underline hover:underline-offset-2",

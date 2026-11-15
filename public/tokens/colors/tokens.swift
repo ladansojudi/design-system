@@ -7,17 +7,14 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let severityInfo = UIColor(hex: "#7DAFD6")
-    static let severityLow = UIColor(hex: "#63A100")
-    static let severityMedium = UIColor(hex: "#F5BF40")
-    static let severityHigh = UIColor(hex: "#D13D2E")
-    static let severityCritical = UIColor(hex: "#772ED1")
+    static let severityInfo = UIColor(hex: "#A8A29E")
+    static let severityLow = UIColor(hex: "#1B9E8F")
+    static let severityMedium = UIColor(hex: "#F0AD1D")
+    static let severityHigh = UIColor(hex: "#E5532D")
+    static let severityCritical = UIColor(hex: "#B4136C")
     static let brandPrimary200 = UIColor(hex: "#C7CCFE")
     static let brandPrimary500 = UIColor(hex: "#5B5BD6")
     static let brandPrimary600 = UIColor(hex: "#4F46E5")
-    static let brandSecondary200 = UIColor(hex: "#F5B6A3")
-    static let brandSecondary500 = UIColor(hex: "#EE7B59")
-    static let brandSecondary600 = UIColor(hex: "#E85326")
     static let scaleGreen500 = UIColor(hex: "#63A100")
     static let scaleGreen600 = UIColor(hex: "#3F6600")
     static let scaleYellow500 = UIColor(hex: "#F5BF40")

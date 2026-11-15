@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -31,7 +31,37 @@ export type AnatomyPart = {
   /** Optional pin position inside the component (the dot the leader line points to). */
   pinX?:        number;
   pinY?:        number;
+  /**
+   * CSS selector of the element this part is, inside the preview. A numbered
+   * marker is placed on it and it is outlined on hover. Add "|N" to take the
+   * Nth match instead of the first (e.g. `[role="row"]|1`).
+   */
+  target?:      string;
+  /** Which edge of the element the marker sits on. Default "top". */
+  side?:        "top" | "bottom" | "left" | "right";
 };
+
+type Box = { l: number; t: number; w: number; h: number };
+
+function splitTarget(target: string): [string, number] {
+  const m = target.match(/^(.*)\|(\d+)$/);
+  return m ? [m[1], Number(m[2])] : [target, 0];
+}
+
+function NumberBadge({ n, active, dimmed }: { n: number; active: boolean; dimmed: boolean }) {
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        "flex size-5 shrink-0 items-center justify-center rounded-full text-snt-11 font-semibold tabular-nums transition-all",
+        active ? "bg-snt-brand-primary-600 text-snt-text-on-accent ring-4 ring-snt-brand-primary-500/25" : "bg-snt-brand-primary-600 text-snt-text-on-accent shadow-snt-sm",
+        dimmed && !active && "opacity-30",
+      )}
+    >
+      {n}
+    </span>
+  );
+}
 
 function AnnotationChip({
   label,
@@ -96,6 +126,7 @@ export function Anatomy({
   preview,
   children,
   previewBg = "checker",
+  layout = "side",
 }: {
   parts:       AnatomyPart[];
   /** The component to display. Use `preview` for clarity; `children` works for backwards compat. */
@@ -103,26 +134,72 @@ export function Anatomy({
   children?:   React.ReactNode;
   /** Background style of the preview canvas. */
   previewBg?:  "plain" | "checker";
+  /** "stacked" puts the legend under a full-width preview — for wide components like tables. */
+  layout?:     "side" | "stacked";
 }) {
   const node = preview ?? children;
   const [hover, setHover] = useState<number | null>(null);
+  const [boxes, setBoxes] = useState<(Box | null)[]>([]);
+  const canvasRef = useRef<HTMLDivElement>(null);
   const hasMarkers = parts.some((p) => p.x !== undefined && p.y !== undefined);
+  const hasTargets = parts.some((p) => p.target);
+
+  // Measure each part's element, relative to the canvas, and keep it in sync
+  // with resizes and re-renders. Measuring happens in observer callbacks, not
+  // synchronously in the effect.
+  useEffect(() => {
+    const el = canvasRef.current;
+    if (!el || !hasTargets) return;
+    const measure = () => {
+      const base = el.getBoundingClientRect();
+      setBoxes(
+        parts.map((p) => {
+          if (!p.target) return null;
+          const [sel, idx] = splitTarget(p.target);
+          let t: Element | undefined;
+          try {
+            t = el.querySelectorAll(sel)[idx];
+          } catch {
+            return null; // invalid selector: no marker rather than a crash
+          }
+          if (!t) return null;
+          const r = t.getBoundingClientRect();
+          return { l: r.left - base.left, t: r.top - base.top, w: r.width, h: r.height };
+        }),
+      );
+    };
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    const mo = new MutationObserver(measure);
+    mo.observe(el, { childList: true, subtree: true, attributes: true });
+    window.addEventListener("resize", measure);
+    const raf = requestAnimationFrame(measure);
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      mo.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [parts, hasTargets]);
+
+  const stacked = layout === "stacked";
 
   return (
     <div>
       <DocSectionTitle>Anatomy</DocSectionTitle>
-      <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
-        <div className={cn("grid", node && "lg:grid-cols-[1fr_minmax(0,1fr)]")}>
+      <div className="border border-snt-border-default rounded-xl overflow-hidden">
+        <div className={cn("grid grid-cols-[minmax(0,1fr)]", node && !stacked && "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]")}>
           {node && (
             <div
               className={cn(
-                "relative flex items-center justify-center min-h-[260px] p-16 border-b lg:border-b-0 lg:border-r border-snt-neutral-divider-10",
+                "relative flex min-h-[260px] min-w-0 items-center justify-center overflow-x-auto border-b border-snt-border-default",
+                stacked ? "px-6 py-14 sm:px-14" : "p-16 lg:border-b-0 lg:border-r",
                 previewBg === "checker"
                   ? "bg-[repeating-conic-gradient(var(--snt-neutral-grey-100)_0_25%,transparent_0_50%)] bg-[length:14px_14px]"
                   : "bg-snt-neutral-grey-100",
               )}
             >
-              <div className="relative inline-block">
+              <div ref={canvasRef} className={cn("relative", stacked ? "w-full max-w-3xl" : "inline-block")}>
                 {/* SVG layer for leader lines — coordinates in % of the component box */}
                 {hasMarkers && (
                   <svg
@@ -201,11 +278,42 @@ export function Anatomy({
                     </span>
                   );
                 })}
+
+                {/* Numbered markers sitting on the real elements, with an outline on hover */}
+                {parts.map((p, i) => {
+                  const b = boxes[i];
+                  if (!b) return null;
+                  const side = p.side ?? "top";
+                  // The marker sits just outside the element's edge, so it never covers its content.
+                  const GAP = 14;
+                  const cx = side === "left" ? b.l - GAP : side === "right" ? b.l + b.w + GAP : b.l + b.w / 2;
+                  const cy = side === "top" ? b.t - GAP : side === "bottom" ? b.t + b.h + GAP : b.t + b.h / 2;
+                  return (
+                    <span key={"t-" + p.label}>
+                      <span
+                        aria-hidden
+                        className={cn(
+                          "pointer-events-none absolute z-10 rounded-md ring-2 ring-snt-brand-primary-500 transition-opacity duration-150",
+                          hover === i ? "opacity-100" : "opacity-0",
+                        )}
+                        style={{ left: b.l - 3, top: b.t - 3, width: b.w + 6, height: b.h + 6 }}
+                      />
+                      <span
+                        className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
+                        style={{ left: cx, top: cy }}
+                        onMouseEnter={() => setHover(i)}
+                        onMouseLeave={() => setHover(null)}
+                      >
+                        <NumberBadge n={i + 1} active={hover === i} dimmed={hover !== null} />
+                      </span>
+                    </span>
+                  );
+                })}
               </div>
             </div>
           )}
 
-          <ul className="divide-y divide-snt-neutral-divider-10">
+          <ol className={cn("divide-y divide-snt-border-default", stacked && "sm:grid sm:grid-cols-2 sm:divide-y-0")}>
             {parts.map((p, i) => (
               <li
                 key={p.label}
@@ -213,29 +321,34 @@ export function Anatomy({
                 onMouseLeave={() => setHover(null)}
                 className={cn(
                   "flex items-start gap-3 px-6 py-3 transition-opacity",
+                  stacked && "sm:border-b sm:border-snt-border-default",
                   hover !== null && hover !== i && "opacity-50",
                 )}
               >
-                <LegendDot active={hover === i} dimmed={false} />
+                {p.target || hasTargets ? (
+                  <span className="mt-0.5"><NumberBadge n={i + 1} active={hover === i} dimmed={false} /></span>
+                ) : (
+                  <LegendDot active={hover === i} dimmed={false} />
+                )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className={cn(
-                      "text-[14px] font-medium transition-colors",
-                      hover === i ? "text-snt-brand-primary-500" : "text-snt-text-primary",
+                      "text-snt-14 font-medium transition-colors",
+                      hover === i ? "text-snt-text-brand" : "text-snt-text-primary",
                     )}>
                       {p.label}
                     </span>
                     {p.shortLabel && p.shortLabel !== p.label && (
-                      <span className="font-mono text-[10px] text-snt-text-disabled">
+                      <span className="font-mono text-snt-11 text-snt-text-secondary">
                         {p.shortLabel}
                       </span>
                     )}
                   </div>
-                  <div className="text-[12px] text-snt-text-disabled mt-0.5">{p.description}</div>
+                  <div className="text-snt-12 text-snt-text-secondary mt-0.5">{p.description}</div>
                 </div>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </div>
     </div>

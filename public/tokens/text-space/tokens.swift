@@ -10,7 +10,6 @@ extension UIColor {
     static let neutralGrey300 = UIColor(hex: "#D4D4D8")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
     static let textPrimary = UIColor(hex: "#09090B")
-    static let textSecondary = UIColor(hex: "#52525B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
 }
 

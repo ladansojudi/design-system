@@ -2,7 +2,7 @@
 title: Gauge
 slug: gauge
 category: Organism
-status: stable
+status: beta
 source: components/ui/gauge.tsx
 styleguide: /styleguide/gauge
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=11-212
@@ -45,7 +45,7 @@ A semicircular meter that shows a single value against a known maximum, such as 
 | `green` | Good (e.g. score ≥ 80) |
 | `yellow` | Fair |
 | `red` | Poor |
-| `purple` | Critical-related metric |
+| `brand` | Neutral, product-level metric (no good/bad meaning) |
 
 Pick the colour from **thresholds** documented with the metric, not by eye. Write the threshold table next to the screen spec.
 
@@ -72,7 +72,7 @@ Pick the colour from **thresholds** documented with the metric, not by eye. Writ
 
 | Role | Token |
 |---|---|
-| Track | `snt-scale-{blue,green,yellow,red,purple}-100` |
+| Track | `snt-scale-{blue,green,yellow,red}-100` / `snt-brand-primary-100` |
 | Fill | `snt-scale-*-500` |
 | Ticks | `snt-scale-*-200` / `snt-scale-*-600` |
 | Value / max | `snt-text-primary` / `snt-text-secondary` |
@@ -90,7 +90,7 @@ Pick the colour from **thresholds** documented with the metric, not by eye. Writ
 |---|---|---|---|
 | `value` | `number` | — | **Required** |
 | `max` | `number` | `100` | Upper bound |
-| `color` | `"blue" \| "green" \| "yellow" \| "red" \| "purple"` | `"blue"` | Fill colour |
+| `color` | `"blue" \| "green" \| "yellow" \| "red" \| "brand"` | `"blue"` | Fill colour |
 | …rest | `HTMLAttributes<HTMLDivElement>` | — | Forwarded |
 
 ## Examples
@@ -103,7 +103,6 @@ Pick the colour from **thresholds** documented with the metric, not by eye. Writ
 ```
 
 ## Known gaps
-- [ ] Use `role="meter"` + `aria-value*` and accept an accessible label prop.
 - [ ] No threshold API (`thresholds={{ 50: "yellow", 80: "green" }}`), so colour logic is duplicated across screens.
 - [ ] No size prop.
 

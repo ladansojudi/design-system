@@ -3,6 +3,7 @@ import { FileText, FileJson, Package, ShieldCheck, Bot, Palette, ArrowUpRight } 
 
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
+import { SITE_URL } from "@/lib/site";
 import { SectionTitle } from "@/components/styleguide/section-title";
 import { HighlightedCode } from "@/components/styleguide/highlighted-code";
 
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   description: "How Sentinel makes coding agents use the design system correctly: llms.txt, a typed manifest, a shadcn registry and lint guardrails.",
 };
 
-const SITE = (process.env.SITE_URL ?? "https://<your-styleguide-domain>").replace(/\/$/, "");
+const SITE = (process.env.SITE_URL ?? SITE_URL).replace(/\/$/, "");
 
 const PACKAGE = [
   { icon: FileText, file: "/llms.txt",            title: "llms.txt",            body: "Entry point for agents: the rules, setup and a link to every component's docs and source." },
@@ -149,7 +150,7 @@ export default [
             <div className="rounded-xl border border-snt-border-default p-5">
               <div className="text-snt-14 font-semibold text-snt-text-primary">One source, many outputs</div>
               <p className="mt-2 text-snt-12 leading-relaxed text-snt-text-secondary">
-                Docs, tokens and components live in the repo; the site, the Figma library and the AI package are generated from them — so none of them can drift on its own.
+                Docs, tokens and components live in the repo; the site's component pages and the whole AI package are generated from them, so those can't drift on their own. The Figma library is kept in step by hand.
               </p>
             </div>
           </div>

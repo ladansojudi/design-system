@@ -2,7 +2,7 @@
 title: Data Table
 slug: data-table
 category: Organism
-status: stable
+status: beta
 source: components/ui/data-table.tsx
 styleguide: /styleguide/data-table
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=13-50
@@ -37,7 +37,7 @@ A composable card that lists findings (threat, asset, date, severity) with a hea
 └──────────────────────────────────────────────────────────────┘
 ```
 
-Grid: `1fr 1fr 90px 80px`, gap 12px. Column headers are 11px uppercase.
+Grid: `1fr 1fr 90px 96px`, gap 12px. Column headers are 12px medium, sentence case, on a subtle band.
 
 ## States
 
@@ -50,7 +50,7 @@ Grid: `1fr 1fr 90px 80px`, gap 12px. Column headers are 11px uppercase.
 | Table | Empty | Use [Empty State](./empty-state.md) `size="sm"` inside the body |
 
 ## Content guidelines
-- Column headers: 1 word, uppercase is applied by CSS. Write them in sentence case in code.
+- Column headers: 1 word, sentence case.
 - Dates: relative for < 7 days ("2 days ago"), absolute after that ("12 Jun 2026"). Show the full timestamp on hover.
 - Truncate long asset names in the middle (`api.…example.com`), not at the end.
 
@@ -67,7 +67,7 @@ Grid: `1fr 1fr 90px 80px`, gap 12px. Column headers are 11px uppercase.
 
 - CSS-grid `<div>`s carry ARIA table roles: `DataTableBody` is `role="table"` (named by the header title via `aria-labelledby`), with `row`, `columnheader` and `cell` inside. Screen readers can navigate by row and column.
 - Header and column info icons are focusable buttons (`aria-label="About <column>"`). The tooltip opens on hover **and** focus and closes on Escape.
-- Row info icons only reveal truncated text on hover and are `aria-hidden`. The full text is already in the cell.
+- Truncated threat and asset text keeps its full value in the `title` attribute; the full text is already in the cell for screen readers.
 - The footer is `role="navigation"` labelled "Pagination", with "Previous page" / "Next page" labels; the range label is a polite live region.
 - Severity uses colour + text ✅.
 

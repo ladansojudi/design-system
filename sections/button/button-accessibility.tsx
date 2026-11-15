@@ -47,9 +47,9 @@ export function ButtonAccessibility() {
       <A11ySection title="Contrast" lede="Computed live from the tokens in the current theme. Switch to dark mode to check it too.">
         <ContrastTable
           rows={[
-            { label: "Primary label",      fg: "text-on-accent", bg: "btn-primary-600", min: 4.5 },
+            { label: "Primary label",      fg: "text-on-accent", bg: "action-primary", min: 4.5 },
             { label: "Neutral label",      fg: "text-inverse",   bg: "text-primary",    min: 4.5 },
-            { label: "Destructive label",  fg: "text-on-accent", bg: "btn-error-600",   min: 4.5 },
+            { label: "Destructive label",  fg: "text-on-accent", bg: "action-destructive",   min: 4.5 },
             { label: "Outline / ghost label", fg: "text-link",   bg: "surface-app",     min: 4.5 },
             { label: "Outline border",     fg: "border-strong",  bg: "surface-app",     min: 3 },
             { label: "Focus ring",         fg: "focus-ring",     bg: "surface-app",     min: 3 },

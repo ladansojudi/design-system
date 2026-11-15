@@ -10,6 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { ModalAnatomyPreview } from "@/sections/modal/modal-showcase";
 
 export const metadata: Metadata = {
   title: "Modal",
@@ -34,14 +35,18 @@ export default function Page() {
             <FigmaNote component="Modal" />
             <DocSection title="Specs" hideTitle>
               <Anatomy
+                layout="stacked"
                 parts={[
-                  { label: "Backdrop",      description: "Dimmed, blurred layer that disables the content behind. Clicking it closes non-destructive modals." },
-                  { label: "Container",     description: "Centered card with rounded corners and drop shadow; max width varies by variant." },
-                  { label: "Header",        description: "Title on the left, close (×) button on the right. Omitted in compact Alert / Confirm where context is inline." },
-                  { label: "Icon badge",    description: "Round 40px tinted badge that signals intent — success (green), warning (yellow), destructive (red)." },
-                  { label: "Title + body",  description: "Semantic content block: short title + 1–2 sentence explanation." },
-                  { label: "Actions",       description: "Right-aligned footer with Cancel + primary button. Primary turns red for destructive variants." },
+                  { label: "Backdrop", target: ":scope > div", side: "top", description: "Dimmed layer that blocks the page behind. Clicking it closes non-destructive modals." },
+                  { label: "Container", target: ":scope > div > div", side: "right", description: "Centred card with rounded corners and a shadow; the width follows the size." },
+                  { label: "Header", target: ":scope > div > div > div:first-child", side: "top", description: "Title on the left, close button on the right." },
+                  { label: "Icon badge", target: "[class*=\"size-10\"]", side: "left", description: "Round 40px badge that signals intent: success, warning or destructive." },
+                  { label: "Title + body", target: "[class*=\"font-semibold\"]", side: "left", description: "A short title and one or two sentences saying what will happen." },
+                  { label: "Actions", target: ":scope > div > div > div:last-child", side: "bottom", description: "Cancel on the left, the main action on the right. Destructive actions use the destructive button." },
                 ]}
+                preview={
+                  <ModalAnatomyPreview />
+                }
               />
               <ModalSpecs />
             </DocSection>

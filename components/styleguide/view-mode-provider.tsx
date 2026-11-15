@@ -46,8 +46,15 @@ export function ViewModeProvider({ children }: { children: React.ReactNode }) {
   // false for the hydration render, when urlMode is still the server's "design".
   const hydrated = useSyncExternalStore(noopSubscribe, () => true, () => false);
   const [chosen, setMode] = useState<ViewMode | null>(null);
-  // Adopt a ?view= link once, so it survives navigations that drop the query.
+  // Adopt a ?view= link once, on the page it was opened on.
   if (chosen === null && urlMode !== "design") setMode(urlMode);
+  // Moving to another page starts on Usage again: the sidebar links carry no
+  // ?view=, so a tab chosen on one component must not follow you to the next.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setMode("design");
+  }
   const mode = chosen ?? urlMode;
 
   // Keep the URL in sync with the mode. Also re-asserts the param after client

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { ExampleCard } from "@/components/styleguide/example-card";
 import { Modal, ModalHeader as UIModalHeader, ModalTitle } from "@/components/ui/modal";
 import { SeverityBadge } from "@/components/ui/severity-badge";
+import { Button } from "@/components/ui/button";
 
 // ── Shared: backdrop + container ───────────────────────────────────────────
 
@@ -69,7 +70,7 @@ function AlertModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex items-center h-9 px-4 rounded-lg bg-snt-btn-primary-600 hover:bg-snt-btn-primary-700 text-white text-[14px] font-medium transition-colors"
+          className="inline-flex items-center h-9 px-4 rounded-lg bg-snt-action-primary hover:bg-snt-action-primary-hover text-white text-[14px] font-medium transition-colors"
         >
           Got it
         </button>
@@ -126,7 +127,7 @@ function ConfirmModal({
             "inline-flex items-center h-9 px-4 rounded-lg text-white text-[14px] font-medium transition-colors",
             destructive
               ? "bg-snt-scale-red-600 hover:bg-snt-scale-red-700"
-              : "bg-snt-btn-primary-600 hover:bg-snt-btn-primary-700",
+              : "bg-snt-action-primary hover:bg-snt-action-primary-hover",
           )}
         >
           {destructive ? "Delete" : "Restart"}
@@ -154,7 +155,7 @@ function Toggle({
       className={cn(
         "relative w-9 h-[22px] rounded-full transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-snt-brand-primary-500",
         checked
-          ? "bg-snt-btn-primary-600 hover:bg-snt-btn-primary-700"
+          ? "bg-snt-action-primary hover:bg-snt-action-primary-hover"
           : "bg-snt-neutral-grey-300 hover:bg-snt-neutral-grey-400",
       )}
     >
@@ -249,7 +250,7 @@ function OnboardingModal({ open, onClose }: { open: boolean; onClose: () => void
           className={cn(
             "w-full h-10 rounded-lg text-[14px] font-medium transition-colors mt-1",
             canSubmit
-              ? "bg-snt-btn-primary-600 hover:bg-snt-btn-primary-700 text-white"
+              ? "bg-snt-action-primary hover:bg-snt-action-primary-hover text-white"
               : "bg-snt-neutral-grey-200 text-snt-text-disabled cursor-not-allowed",
           )}
         >
@@ -306,7 +307,7 @@ function DetailModal({ open, onClose }: { open: boolean; onClose: () => void }) 
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex items-center h-9 px-4 rounded-lg bg-snt-btn-primary-600 hover:bg-snt-btn-primary-700 text-white text-[14px] font-medium transition-colors"
+          className="inline-flex items-center h-9 px-4 rounded-lg bg-snt-action-primary hover:bg-snt-action-primary-hover text-white text-[14px] font-medium transition-colors"
         >
           Open ticket
         </button>
@@ -429,6 +430,33 @@ function FakeModalCard({
   );
 }
 
+/** Static modal on a dimmed backdrop, for the Anatomy preview (the real Modal opens full-screen). */
+export function ModalAnatomyPreview() {
+  return (
+    <div className="mx-auto flex w-[520px] max-w-full items-center justify-center rounded-xl bg-snt-neutral-grey-900/15 px-6 py-8">
+      <div className="w-full max-w-sm rounded-xl border border-snt-border-default bg-snt-surface-app shadow-snt-xl">
+        <div className="flex items-center justify-between px-5 pt-4">
+          <span className="text-snt-12 font-medium text-snt-text-secondary">Delete asset</span>
+          <span className="flex size-7 items-center justify-center rounded-md text-snt-text-secondary"><X size={14} aria-hidden /></span>
+        </div>
+        <div className="px-5 pb-4 pt-3">
+          <div className="mb-3 flex size-10 items-center justify-center rounded-full bg-snt-bg-error-subtle">
+            <AlertTriangle size={18} aria-hidden className="text-snt-text-error" />
+          </div>
+          <div className="mb-1 text-snt-14 font-semibold text-snt-text-primary">Delete this asset?</div>
+          <p className="text-snt-14 leading-relaxed text-snt-text-secondary">
+            This permanently removes the asset and all of its findings. This can&apos;t be undone.
+          </p>
+        </div>
+        <div className="flex justify-end gap-2 px-5 pb-4">
+          <Button intent="neutral" variant="outline">Cancel</Button>
+          <Button intent="destructive">Delete</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ModalExamples() {
   return (
     <div className="space-y-4">
@@ -460,7 +488,7 @@ export function ModalExamples() {
               </p>
             </div>
             <div className="flex justify-end px-5 pb-4">
-              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-snt-btn-primary-600 text-white text-[14px] font-medium">
+              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-snt-action-primary text-white text-[14px] font-medium">
                 Got it
               </span>
             </div>
@@ -544,7 +572,7 @@ export function ModalExamples() {
               <span className="inline-flex items-center h-9 px-4 rounded-lg border border-snt-neutral-divider-10 text-[14px] font-medium text-snt-text-primary">
                 Close
               </span>
-              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-snt-btn-primary-600 text-white text-[14px] font-medium">
+              <span className="inline-flex items-center h-9 px-4 rounded-lg bg-snt-action-primary text-white text-[14px] font-medium">
                 Open ticket
               </span>
             </div>

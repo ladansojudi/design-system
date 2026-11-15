@@ -9,11 +9,11 @@ import { SeverityBadge } from "@/components/ui/severity-badge";
 export type Severity = "info" | "low" | "medium" | "high" | "critical";
 
 const SEV: Record<Severity, { label: string; bg: string; text: string; dot: string }> = {
-  info:     { label: "Info",     bg: "bg-snt-scale-blue-50",   text: "text-snt-scale-blue-600",   dot: "bg-snt-severity-info"     },
-  low:      { label: "Low",      bg: "bg-snt-scale-green-50",  text: "text-snt-scale-green-600",  dot: "bg-snt-severity-low"      },
-  medium:   { label: "Medium",   bg: "bg-snt-scale-yellow-50", text: "text-snt-scale-yellow-700", dot: "bg-snt-severity-medium"   },
-  high:     { label: "High",     bg: "bg-snt-scale-red-50",    text: "text-snt-scale-red-600",    dot: "bg-snt-severity-high"     },
-  critical: { label: "Critical", bg: "bg-snt-scale-purple-50", text: "text-snt-scale-purple-600", dot: "bg-snt-severity-critical" },
+  info:     { label: "Info",     bg: "bg-snt-severity-info-subtle",   text: "text-snt-severity-info-text",   dot: "bg-snt-severity-info"     },
+  low:      { label: "Low",      bg: "bg-snt-severity-low-subtle",  text: "text-snt-severity-low-text",  dot: "bg-snt-severity-low"      },
+  medium:   { label: "Medium",   bg: "bg-snt-severity-medium-subtle", text: "text-snt-severity-medium-text", dot: "bg-snt-severity-medium"   },
+  high:     { label: "High",     bg: "bg-snt-severity-high-subtle",    text: "text-snt-severity-high-text",    dot: "bg-snt-severity-high"     },
+  critical: { label: "Critical", bg: "bg-snt-severity-critical-subtle", text: "text-snt-severity-critical-text", dot: "bg-snt-severity-critical" },
 };
 
 export function SeverityPill({ severity }: { severity: Severity }) {

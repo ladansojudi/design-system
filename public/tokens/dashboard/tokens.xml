@@ -4,15 +4,24 @@
 <resources>
 
     <!-- Colors -->
-    <color name="severity_info">#7DAFD6</color>
-    <color name="severity_low">#63A100</color>
-    <color name="severity_medium">#F5BF40</color>
-    <color name="severity_high">#D13D2E</color>
-    <color name="severity_critical">#772ED1</color>
+    <color name="severity_info">#A8A29E</color>
+    <color name="severity_low">#1B9E8F</color>
+    <color name="severity_medium">#F0AD1D</color>
+    <color name="severity_high">#E5532D</color>
+    <color name="severity_critical">#B4136C</color>
+    <color name="severity_info_subtle">#F6F6F5</color>
+    <color name="severity_info_text">#726F6D</color>
+    <color name="severity_low_subtle">#E8F5F4</color>
+    <color name="severity_low_text">#177C71</color>
+    <color name="severity_medium_subtle">#FEF7E8</color>
+    <color name="severity_medium_text">#8C6615</color>
+    <color name="severity_high_subtle">#FCEEEA</color>
+    <color name="severity_high_text">#BC4527</color>
+    <color name="severity_critical_subtle">#F8E7F0</color>
+    <color name="severity_critical_text">#B4136C</color>
     <color name="brand_primary_50">#EEF0FF</color>
     <color name="brand_primary_500">#5B5BD6</color>
     <color name="brand_primary_600">#4F46E5</color>
-    <color name="brand_secondary_500">#EE7B59</color>
     <color name="scale_blue_50">#F7FAFD</color>
     <color name="scale_blue_200">#C9DEEE</color>
     <color name="scale_blue_500">#7DAFD6</color>
@@ -27,9 +36,6 @@
     <color name="scale_red_200">#EBAAA3</color>
     <color name="scale_red_500">#D13D2E</color>
     <color name="scale_red_600">#8E2A1F</color>
-    <color name="scale_purple_50">#F7F2FC</color>
-    <color name="scale_purple_500">#772ED1</color>
-    <color name="scale_purple_600">#5D24A3</color>
     <color name="neutral_grey_00">#FFFFFF</color>
     <color name="neutral_grey_100">#F4F4F5</color>
     <color name="neutral_grey_200">#E4E4E7</color>
@@ -40,22 +46,21 @@
     <color name="surface_page">#FAFAFA</color>
     <color name="surface_row">#FFFFFF</color>
     <color name="surface_table_header">#F4F4F5</color>
-    <color name="data_1">#9ACBE5</color>
-    <color name="data_2">#FFAF97</color>
-    <color name="data_3">#C4DEF3</color>
-    <color name="data_4">#A7ADB2</color>
-    <color name="data_5">#0F69AA</color>
-    <color name="data_6">#C1674D</color>
-    <color name="data_7">#1F5077</color>
-    <color name="data_8">#394751</color>
+    <color name="data_1">#4F46E5</color>
+    <color name="data_2">#0EA5E9</color>
+    <color name="data_3">#8B5CF6</color>
+    <color name="data_4">#64748B</color>
+    <color name="data_5">#65A30D</color>
+    <color name="data_6">#BE7C4D</color>
+    <color name="data_7">#1E3A8A</color>
+    <color name="data_8">#C7D2FE</color>
     <color name="text_primary">#09090B</color>
     <color name="text_secondary">#52525B</color>
     <color name="text_disabled">#A1A1AA</color>
     <color name="text_white">#FFFFFF</color>
     <color name="text_on_accent">#FFFFFF</color>
+    <color name="text_link">#4F46E5</color>
     <color name="btn_neutral_800">#18181B</color>
-    <color name="btn_primary_600">#4F46E5</color>
-    <color name="btn_primary_700">#4338CA</color>
 
     <!-- Spacing -->
     <dimen name="space_2">8dp</dimen>

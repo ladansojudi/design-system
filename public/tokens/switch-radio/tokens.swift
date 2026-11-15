@@ -10,7 +10,6 @@ extension UIColor {
     static let textPrimary = UIColor(hex: "#09090B")
     static let textSecondary = UIColor(hex: "#52525B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
-    static let btnPrimary600 = UIColor(hex: "#4F46E5")
 }
 
 // MARK: - Sizing (CGFloat)
@@ -23,7 +22,6 @@ extension CGFloat {
     static let space16: CGFloat = 64
     static let space6: CGFloat = 24
     static let space10: CGFloat = 40
-    static let space9: CGFloat = 36
 
     // Radius
     static let radiusXl: CGFloat = 12

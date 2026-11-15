@@ -3,7 +3,7 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, inheritTheme } from "@/lib/utils";
 
 /**
  * sentinel/ui — Modal
@@ -111,6 +111,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     React.useEffect(() => {
       if (!open || !mounted) return;
       const previouslyFocused = document.activeElement as HTMLElement | null;
+      inheritTheme(previouslyFocused, backdropRef.current);
       const panel = panelRef.current;
       const target =
         panel?.querySelector<HTMLElement>("[data-autofocus], [autofocus]") ??
@@ -145,7 +146,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     return createPortal(
       <div
         ref={backdropRef}
-        className="fixed inset-0 z-modal flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 z-modal flex items-center justify-center p-4 bg-black/40 backdrop-blur-[2px] snt-modal-backdrop"
         onClick={closeOnBackdrop ? () => onOpenChange(false) : undefined}
       >
         <ModalContext.Provider value={context}>
@@ -157,7 +158,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             aria-describedby={hasDescription ? descriptionId : undefined}
             tabIndex={-1}
             className={cn(
-              "relative w-full bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-2xl focus:outline-none",
+              "snt-modal-panel relative w-full bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-2xl focus:outline-none",
               SIZE_CLASS[size],
               className,
             )}
@@ -185,7 +186,7 @@ export const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
       <div
         ref={ref}
         className={cn(
-          "flex items-center justify-between px-5 py-3.5 border-b border-snt-border-default",
+          "flex items-start justify-between gap-4 px-6 pt-5 pb-1",
           className,
         )}
         {...props}
@@ -196,7 +197,7 @@ export const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="w-7 h-7 rounded-md hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
+            className="-mr-2 -mt-1 size-8 shrink-0 rounded-md hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
             <X size={15} aria-hidden />
           </button>
@@ -221,7 +222,7 @@ export const ModalTitle = React.forwardRef<HTMLSpanElement, ModalTitleProps>(
       <span
         ref={ref}
         id={id ?? ctx?.titleId}
-        className={cn("text-snt-14 font-semibold text-snt-text-primary", className)}
+        className={cn("text-snt-16 font-semibold tracking-tight text-snt-text-primary", className)}
         {...props}
       >
         {children}
@@ -265,7 +266,7 @@ export const ModalBody = React.forwardRef<HTMLDivElement, ModalBodyProps>(
       <div
         ref={ref}
         className={cn(
-          "px-5 py-5",
+          "px-6 pb-5 pt-3",
           scrollable && "max-h-[60vh] overflow-y-auto",
           className,
         )}
@@ -290,8 +291,8 @@ export const ModalFooter = React.forwardRef<HTMLDivElement, ModalFooterProps>(
         className={cn(
           "flex justify-end gap-2",
           bordered
-            ? "px-5 py-3.5 border-t border-snt-border-default"
-            : "px-5 pb-4",
+            ? "px-6 py-4 border-t border-snt-border-default bg-snt-bg-subtle/50 rounded-b-xl"
+            : "px-6 pb-5",
           className,
         )}
         {...props}

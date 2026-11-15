@@ -26,7 +26,7 @@ const steps = [
   },
   {
     title: "Add to the style guide",
-    body:  "The component is not done until it has a page here. Preview, anatomy, use cases, and guidelines — all four required.",
+    body:  "The component is not done until it has a page here and a doc in docs/components. Then run npm run export and npm run lint:ds, and add a line to the changelog.",
   },
   {
     title: "Update Figma",
@@ -38,7 +38,8 @@ export default function ContributionPage() {
   return (
     <>
       <PageHero
-        category="Foundations"
+        category="Get started"
+        categoryHref="/styleguide/overview"
         title="Contribution Guide"
         status="stable"
         description="Six steps every contributor follows when adding or extending a component. Skipping a step is how the system drifts out of alignment."

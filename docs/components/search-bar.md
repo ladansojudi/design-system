@@ -2,7 +2,7 @@
 title: Search Bar
 slug: search-bar
 category: Molecule
-status: stable
+status: beta
 source: components/ui/search-bar.tsx
 styleguide: /styleguide/search-bar
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-164

@@ -2,7 +2,7 @@
 title: Switch · Radio
 slug: switch-radio
 category: Atom
-status: stable
+status: beta
 source: components/ui/switch-radio.tsx
 styleguide: /styleguide/switch-radio
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=4-126
@@ -84,7 +84,7 @@ Switch                      Radio group
 | Role | Token |
 |---|---|
 | Switch track off | `snt-neutral-grey-300` |
-| Switch track on (dark / primary) | `snt-neutral-grey-900` / `snt-btn-primary-600` (hover `-700`) |
+| Switch track on (dark / primary) | `snt-neutral-grey-900` / `snt-action-primary` (hover `snt-action-primary-hover`) |
 | Radio border / dot | `snt-neutral-grey-400` → `snt-neutral-grey-800` |
 | Label / disabled | `snt-text-primary` / `snt-text-disabled` |
 | Focus ring | `snt-focus-ring` |

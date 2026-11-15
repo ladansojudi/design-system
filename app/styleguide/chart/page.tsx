@@ -21,7 +21,7 @@ export default function Page() {
         category="Components"
         categoryHref="/styleguide/components"
         title="Chart"
-        status="stable"
+        status="beta"
         description="Dashboard chart cards — Donut, Treemap, Bar and Line/Area. Each chart has its own examples and documentation in the tabs below."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}

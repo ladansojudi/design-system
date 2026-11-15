@@ -137,7 +137,7 @@ A dialog that interrupts the current task to request a decision or focused input
 ```
 
 ## Known gaps
-- [ ] No enter / exit animation.
+- [ ] No exit animation (the panel fades and scales in on open; it disappears instantly on close).
 - [ ] No alert-dialog variant (`role="alertdialog"`) for destructive confirms.
 
 ## Related

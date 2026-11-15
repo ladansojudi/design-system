@@ -46,7 +46,7 @@ const TONE_CLASS: Record<Tone, ToneConfig> = {
     icon:  Megaphone,
   },
   promo: {
-    bg:    "bg-snt-btn-primary-600",
+    bg:    "bg-snt-action-primary",
     text:  "text-snt-text-white",
     hover: "hover:bg-snt-text-white/10",
     icon:  Sparkles,

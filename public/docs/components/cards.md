@@ -11,35 +11,33 @@ apg: N/A
 
 # Cards
 
-Dashboard cards that summarise a topic and lead to a next step. There are two presets: **InsightCard** (a key/value list) and **AlertCard** (an active-issue callout).
+The container for dashboard content. `Card` and its parts are the base; `StatCard` is a ready-made preset for one number. Summaries and alerts are composed from the parts (see the styleguide page), not separate components.
 
 ## Overview
 
 ### When to use
-- **InsightCard:** a compact summary of 3–6 metrics with an optional "view more" action.
-- **AlertCard:** highlighting active issues that need attention, with a count and a CTA.
+- **StatCard:** a single KPI, with a trend or a one-line description.
+- **Card parts:** any other grouped content: a figures list with a View details action, a callout with a count and a next step.
 
 ### When not to use
 - Charts → [Chart](./chart.md) `ChartCard`.
 - Tabular records → [Data Table](./data-table.md).
-- A generic container. There's also `components/ui/card.tsx` (shadcn); see Known gaps.
+- A message that stays until resolved → [Alert](./alert.md).
 
 ## Anatomy
 
 ```
-InsightCard                       AlertCard
-┌──────────────────────────┐      ┌──────────────────────────────┐
-│ ① Title                  │      │ ① Title       ② ● 3 active   │
-│ ② Label ........ Value   │      │ ③ Alert title  [badge]       │
-│   Label ........ Value   │      │ ④ Description…               │
-│ ③ Action →               │      │ ⑤ [Action]                   │
-└──────────────────────────┘      └──────────────────────────────┘
+Card
+┌──────────────────────────────┐
+│ CardHeader: ① CardTitle  ② ⟶ │
+│ CardContent: ③ body          │
+│ CardFooter: ④ action         │
+└──────────────────────────────┘
 ```
 
-InsightCard: ① title · ② rows (12px label / 14px semibold value) · ③ optional action.
-AlertCard: ① title · ② pulsing active count · ③ alert title + optional badge · ④ description · ⑤ action.
+StatCard: ① icon + title · ② value (32px) · ③ trend pill or description.
 
-Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20px padding.
+Shared shell: 12px radius (`rounded-xl`), 1px border, `surface-app`, 20px padding.
 
 ## States
 
@@ -50,7 +48,6 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 
 ## Content guidelines
 - Titles are nouns ("Exposure summary"). Values are formatted (`1,204`, `98.2%`).
-- AlertCard description: what happened + the impact in one sentence.
 
 ## Do / Don't
 
@@ -60,8 +57,8 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 | Make only the action clickable | Make the whole card and the inner button both clickable |
 
 ## Accessibility
-- Card titles should be headings (`h3`) so dashboard sections are navigable. Today they're `<span>`s.
-- The pulsing dot is decorative. The count must be text ("3 active").
+- Card titles are headings (`h3` by default; set `headingLevel`) so dashboard sections are navigable.
+- A pulsing status dot is decorative. The count must be text ("3 active").
 - Action buttons must describe their target ("View all 3 alerts"), not just "View".
 
 ## Design tokens
@@ -70,51 +67,41 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 |---|---|
 | Shell | `snt-surface-app`, `snt-border-default` |
 | Title / value / label | `snt-text-primary` / `snt-text-primary` / `snt-text-secondary` |
-| Action | `snt-brand-primary-500` (hover `-600`) |
-| Active pill | `snt-bg-error-subtle` / `snt-scale-red-500` / `snt-text-error` |
+| Action | `snt-text-link` (hover `snt-bg-brand-subtle`) |
+| Status pill | `snt-border-default` / `snt-severity-high` dot / `snt-text-secondary` |
 | Badge | `snt-bg-subtle` / `snt-text-secondary` |
 
 ## Design ↔ Code
 
 | Figma component | Code |
 |---|---|
-| Card / Insight | `InsightCard` (`title`, `rows`, `actionLabel`) |
-| Card / Alert | `AlertCard` (`title`, `activeCount`, `alertTitle`, `alertBadge`, `description`, `action`) |
+| Card / Container | `Card`, `CardHeader`, `CardTitle`, `CardContent`, `CardFooter` |
+| Card / Stat | `StatCard` (`icon`, `title`, `value`, `trend`, `description`) |
 
 ## API
 
-**Card** (generic container): `Card`, `CardHeader`, `CardTitle` (`as="h2" | "h3" | "h4"`, default h3), `CardDescription`, `CardContent`, `CardFooter`. InsightCard and AlertCard are built on it and accept `headingLevel`.
+**Card** (generic container): `Card`, `CardHeader`, `CardTitle` (`as="h2" | "h3" | "h4"`, default h3), `CardDescription`, `CardContent`, `CardFooter`.
 
-**InsightCard**
-
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | **Required** |
-| `rows` | `{ label: string; value: string \| number }[]` | **Required** |
-| `actionLabel` | `string` | Shows the action when set |
-| `onActionClick` | `() => void` | — |
-
-**AlertCard**
+**StatCard**
 
 | Prop | Type | Description |
 |---|---|---|
 | `title` | `string` | **Required** |
-| `activeCount` | `number` | **Required** |
-| `alertTitle` | `string` | **Required** |
-| `alertBadge` | `string` | Optional badge |
-| `description` | `string` | **Required** |
-| `action` | `string` | **Required** CTA label |
-| `onActionClick` | `() => void` | — |
+| `value` | `string \| number` | **Required** |
+| `icon` | `ComponentType` | Optional |
+| `trend` | `{ direction: "up" \| "down"; value: string; label?: string; positive?: boolean }` | `positive` says whether the direction is good news (default: up) |
+| `description` | `string` | Use instead of `trend` |
 
 ## Examples
 
 ```tsx
-<InsightCard
-  title="Exposure summary"
-  rows={[{ label: "Open ports", value: 14 }, { label: "Expired certs", value: 2 }]}
-  actionLabel="View details"
-  onActionClick={open}
-/>
+<StatCard icon={Link2} title="Total URLs" value="816"
+  trend={{ direction: "down", value: "23%", label: "from last month", positive: true }} />
+
+<Card>
+  <CardHeader><CardTitle>Exposure summary</CardTitle></CardHeader>
+  <CardContent>…</CardContent>
+</Card>
 ```
 
 ## Known gaps

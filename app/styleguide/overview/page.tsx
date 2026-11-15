@@ -9,7 +9,8 @@ import { OriginCode } from "@/components/styleguide/origin-code";
 import { FIGMA_FILE_URL } from "@/components/styleguide/figma-data";
 
 export const metadata: Metadata = {
-  title: "Introduction",
+  // The site opens here (/ redirects), so this page carries the site-wide title.
+  title: { absolute: "Sentinel Design System by Ladan Sojudi" },
   description: "How to start with Sentinel: the Figma library for designers, a one-command install for developers, and llms.txt for AI agents.",
 };
 

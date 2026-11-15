@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Info, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
@@ -11,7 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
-import { SeverityBadge } from "@/components/ui/severity-badge";
+import { DataTable, DataTableHeader, DataTableBody, DataTableColumnHeaders, DataTableRow, DataTableFooter } from "@/components/ui/data-table";
 
 export const metadata: Metadata = {
   title: "Data Table",
@@ -21,7 +20,7 @@ export default function Page() {
   return (
     <>
       <PageHero category="Components"
-        categoryHref="/styleguide/components" title="Data Table" status="stable" description="Dashboard table surface for listing threats, assets and findings — configurable header with badge, description and View all link."
+        categoryHref="/styleguide/components" title="Data Table" status="beta" description="Dashboard table surface for listing threats, assets and findings — configurable header with badge, description and View all link."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}
       />
@@ -36,81 +35,29 @@ export default function Page() {
             <FigmaNote component="Data Table" />
             <DocSection title="Specs" hideTitle>
               <Anatomy
+                layout="stacked"
                 parts={[
-                  { label: "Top header",        description: "Grey strip with title, info tooltip, description, optional badge and optional View all link." },
-                  { label: "Info tooltip",      description: "13px Info icon placed after the title, column or row text — reveals context on hover." },
-                  { label: "Badge (optional)",  description: "Pill in the header that tags the widget (Live, New, Beta…) with a colored dot." },
-                  { label: "View all (optional)", description: "Right-aligned link that navigates to the full list view." },
-                  { label: "Column headers",    description: "Uppercase 11px labels; info tooltip available for ambiguous columns." },
-                  { label: "Row",               description: "Text cells + severity badge; hover highlight makes the row selectable." },
-                  { label: "Row tooltip",       description: "When the cell text is truncated, the info icon sits right after the sentence so the pairing is unambiguous." },
-                  { label: "Footer",            description: "Row-per-page selector + range indicator + prev/next paginator." },
+                  { label: "Top header",          target: '[class*="rounded-t-xl"]', side: "left", description: "Grey strip with title, info tooltip, description, optional badge and optional View all link." },
+                  { label: "Info tooltip",        target: 'button[aria-label^="About"]', side: "top", description: "Info icon placed after the title, column or row text; reveals context on hover and focus." },
+                  { label: "Badge (optional)",    target: '[class*="bg-snt-bg-warning-subtle"]', side: "top", description: "Pill in the header that tags the widget (Live, New, Beta…) with a coloured dot." },
+                  { label: "View all (optional)", target: 'button[class*="underline"]', side: "top", description: "Link that opens the full list view." },
+                  { label: "Column headers",      target: '[role="row"]|0', side: "left", description: "Uppercase 11px labels, each starting at the left edge of its column." },
+                  { label: "Row",                 target: '[role="row"]|1', side: "left", description: "Text cells and a severity badge; the hover highlight makes the row selectable." },
+                  { label: "Severity badge",      target: '[role="row"]:nth-of-type(2) [role="cell"]:last-child > div', side: "right", description: "Fixed-width badge, so the column stays tidy." },
+                  { label: "Footer",              target: '[aria-label="Pagination"]', side: "left", description: "Rows-per-page selector, range indicator and previous / next buttons." },
                 ]}
-              >
-                {/* Mini full table */}
-                <div className="w-full max-w-2xl border border-snt-neutral-divider-10 rounded-xl bg-snt-surface-app">
-                  {/* Header */}
-                  <div className="flex items-center gap-3 px-5 py-3 bg-snt-neutral-grey-100 border-b border-snt-neutral-divider-10 rounded-t-xl">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[14px] font-semibold text-snt-text-primary">Priority Actions</span>
-                      <Info size={13} className="text-snt-text-disabled" />
-                    </div>
-                    <span className="text-[12px] text-snt-text-disabled flex-1 truncate">Security issues prioritized by risk growth.</span>
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-snt-scale-yellow-50 text-snt-scale-yellow-700 text-[11px] font-medium">
-                      <span className="w-[6px] h-[6px] rounded-full bg-snt-scale-yellow-500" />
-                      Live
-                    </span>
-                    <button type="button" className="text-[12px] font-medium text-snt-brand-primary-500 underline underline-offset-2">View all</button>
-                  </div>
-
-                  {/* Column headers */}
-                  <div className="grid grid-cols-[1fr_1fr_90px_80px] gap-3 px-5 py-2 border-b border-snt-neutral-divider-10">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[11px] font-medium text-snt-text-disabled uppercase">Threats</span>
-                      <Info size={11} className="text-snt-text-disabled" />
-                    </div>
-                    <span className="text-[11px] font-medium text-snt-text-disabled uppercase">Asset</span>
-                    <span className="text-[11px] font-medium text-snt-text-disabled uppercase text-right">Date</span>
-                    <span className="text-[11px] font-medium text-snt-text-disabled uppercase text-right">Severity</span>
-                  </div>
-
-                  {/* Sample rows */}
-                  {[
-                    { t: "SQL Injection",  a: "api.example.com",     d: "19.09.2024" },
-                    { t: "SSL Expiring",   a: "zero.webapp.com", d: "19.09.2024" },
-                  ].map((r) => (
-                    <div key={r.t} className="grid grid-cols-[1fr_1fr_90px_80px] gap-3 items-center px-5 py-2.5 border-b border-snt-neutral-divider-10">
-                      <div className="flex items-center gap-1.5 min-w-0">
-                        <span className="text-[12px] text-snt-text-primary truncate">{r.t}</span>
-                        <Info size={11} className="text-snt-text-disabled shrink-0" />
-                      </div>
-                      <div className="flex items-center gap-1.5 min-w-0">
-                        <span className="text-[12px] text-snt-text-primary truncate">{r.a}</span>
-                        <Info size={11} className="text-snt-text-disabled shrink-0" />
-                      </div>
-                      <span className="text-[11px] text-snt-text-secondary text-right tabular-nums">{r.d}</span>
-                      <div className="flex justify-end">
-                        <SeverityBadge severity="high" size="sm" />
-                      </div>
-                    </div>
-                  ))}
-
-                  {/* Footer */}
-                  <div className="flex items-center justify-end gap-3 px-5 py-2">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[11px] text-snt-text-disabled">Row per page:</span>
-                      <span className="inline-flex items-center gap-0.5 text-[11px] text-snt-text-primary">
-                        3 <ChevronDown size={10} className="text-snt-text-disabled" />
-                      </span>
-                    </div>
-                    <span className="text-[11px] text-snt-text-disabled tabular-nums">1–3 of 492</span>
-                    <div className="flex items-center gap-0.5">
-                      <ChevronLeft size={12} className="text-snt-text-disabled" />
-                      <ChevronRight size={12} className="text-snt-text-disabled" />
-                    </div>
-                  </div>
-                </div>
-              </Anatomy>
+                preview={
+                  <DataTable>
+                    <DataTableHeader title="Priority actions" description="Security issues prioritised by risk growth." badge="Live" viewAllLabel="View all" />
+                    <DataTableBody>
+                      <DataTableColumnHeaders />
+                      <DataTableRow threat="SQL injection in /search" asset="storefront.example.com" date="2026-11-09" severity="critical" />
+                      <DataTableRow threat="TLS certificate expiring" asset="lb-eu-west-1.example.com" date="2026-11-07" severity="high" />
+                    </DataTableBody>
+                    <DataTableFooter perPage={5} rangeLabel="1–2 of 492" />
+                  </DataTable>
+                }
+              />
               <DataTableSpecs />
             </DocSection>
           </div>

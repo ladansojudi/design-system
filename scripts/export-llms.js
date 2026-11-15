@@ -16,7 +16,7 @@
  *   public/AGENTS.template.md          — rules file for consumer repos
  *
  * Sources: docs/components/*.md, eslint/eslint-plugin-sentinel.mjs, components/ui/*.tsx, lib/utils.ts,
- * app/globals.css. Set SITE_URL to emit absolute links in llms.txt.
+ * app/globals.css. Links use SITE_URL (default: lib/site.ts).
  *
  * Run manually: `npm run llms`
  * Auto-runs:   `npm run build` (via the prebuild script in package.json)
@@ -29,7 +29,7 @@ const ROOT      = path.resolve(__dirname, "..");
 const DOCS_DIR  = path.join(ROOT, "docs", "components");
 const UI_DIR    = path.join(ROOT, "components", "ui");
 const PUBLIC    = path.join(ROOT, "public");
-const SITE_URL  = (process.env.SITE_URL ?? "").replace(/\/$/, "");
+const SITE_URL  = require("./site-url");
 const VERSION   = require(path.join(ROOT, "package.json")).version;
 
 const url = (p) => `${SITE_URL}${p}`;

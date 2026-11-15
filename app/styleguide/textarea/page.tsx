@@ -10,6 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Textarea } from "@/components/ui/textarea";
 
 export const metadata: Metadata = {
   title: "Textarea",
@@ -39,24 +40,13 @@ export default function TextareaPage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Label",   description: "11px label that names the field. Always present unless the surrounding context is obvious." },
-                  { label: "Field",   description: "Bordered surface with internal padding. Vertical resize handle in the bottom-right." },
-                  { label: "Counter", description: "Optional character count, right-aligned. Turns amber as the user approaches the limit." },
-                  { label: "Helper",  description: "10.5px helper line below. Replaced by an error message when the field is in error state." },
+                  { label: "Label", target: "label", side: "top", description: "11px label that names the field." },
+                  { label: "Field", target: "textarea", side: "left", description: "Bordered surface with a vertical resize handle at the bottom right." },
+                  { label: "Helper", target: "div.mt-1 > div:first-child", side: "bottom", description: "Hint under the field; replaced by an error message in the error state." },
+                  { label: "Counter", target: "div.mt-1 > div:last-child", side: "bottom", description: "Optional character count, turning amber near the limit." },
                 ]}
                 preview={
-                  <div className="w-[300px]">
-                    <label className="block text-[11px] font-medium mb-1.5 text-snt-text-secondary">
-                      Finding description
-                    </label>
-                    <div className="block w-full rounded-md px-3 py-2 text-[14px] text-snt-text-primary bg-snt-surface-row border border-snt-neutral-grey-300 min-h-[88px] leading-relaxed">
-                      Found exposed credentials in the staging .env file.
-                    </div>
-                    <div className="mt-1 flex items-start justify-between gap-2">
-                      <div className="text-[10.5px] text-snt-text-disabled flex-1">Markdown is supported.</div>
-                      <div className="text-[10.5px] text-snt-text-disabled tabular-nums">52/200</div>
-                    </div>
-                  </div>
+                  <div className="w-72"><Textarea label="Finding description" defaultValue="Port 22 is open to the internet on the staging bastion." helperText="Describe the impact." showCounter maxLength={200} /></div>
                 }
               />
               <TextareaSpecs />

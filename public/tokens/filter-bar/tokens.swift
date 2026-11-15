@@ -12,7 +12,6 @@ extension UIColor {
     static let textPrimary = UIColor(hex: "#09090B")
     static let textSecondary = UIColor(hex: "#52525B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
-    static let btnPrimary50 = UIColor(hex: "#EEF0FF")
 }
 
 // MARK: - Sizing (CGFloat)

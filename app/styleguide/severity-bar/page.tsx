@@ -6,6 +6,7 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { SeverityBar } from "@/components/ui/severity-bar";
+import { ColorBlindPreview } from "@/components/styleguide/colorblind-preview";
 
 export const metadata: Metadata = { title: "Severity bar" };
 
@@ -29,6 +30,13 @@ export default function SeverityBarPage() {
             <Panel>
               <Row label="Medium"><SeverityBar counts={COUNTS} showLegend={false} /></Row>
               <Row label="Small"><SeverityBar counts={COUNTS} size="sm" showLegend={false} /></Row>
+            </Panel>
+          </SubSection>
+          <SubSection title="Colour-blind preview" lede="Severity never relies on colour alone: the bar order, the legend and the text summary carry the level too. Check it for yourself.">
+            <Panel className="py-6">
+              <ColorBlindPreview>
+                <SeverityBar counts={COUNTS} />
+              </ColorBlindPreview>
             </Panel>
           </SubSection>
           <SubSection title="States" lede="Severities with no findings are left out. With nothing to show, the bar stays as an empty track.">

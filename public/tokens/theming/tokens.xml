@@ -4,7 +4,7 @@
 <resources>
 
     <!-- Colors -->
-    <color name="severity_critical">#772ED1</color>
+    <color name="severity_critical">#B4136C</color>
     <color name="brand_primary_50">#EEF0FF</color>
     <color name="brand_primary_500">#5B5BD6</color>
     <color name="brand_primary_600">#4F46E5</color>
@@ -24,17 +24,19 @@
     <color name="text_inverse">#FFFFFF</color>
     <color name="text_on_accent">#FFFFFF</color>
     <color name="text_link">#4F46E5</color>
+    <color name="text_success">#2F7D2C</color>
+    <color name="text_error">#B0291E</color>
     <color name="btn_primary_600">#4F46E5</color>
     <color name="btn_primary_700">#4338CA</color>
-    <color name="btn_warning_600">#E6A200</color>
 
     <!-- Spacing -->
-    <dimen name="space_2">8dp</dimen>
-    <dimen name="space_4">16dp</dimen>
-    <dimen name="space_1">4dp</dimen>
-    <dimen name="space_3">12dp</dimen>
     <dimen name="space_5">20dp</dimen>
+    <dimen name="space_2">8dp</dimen>
+    <dimen name="space_3">12dp</dimen>
     <dimen name="space_9">36dp</dimen>
+    <dimen name="space_4">16dp</dimen>
+    <dimen name="space_16">64dp</dimen>
+    <dimen name="space_1">4dp</dimen>
     <dimen name="space_10">40dp</dimen>
 
     <!-- Radius -->
@@ -56,5 +58,8 @@
     <!-- Font weight -->
     <integer name="font_weight_medium">500</integer>
     <integer name="font_weight_semibold">600</integer>
+
+    <!-- Focus ring -->
+    <dimen name="ring_width_2">2dp</dimen>
 
 </resources>

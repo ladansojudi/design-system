@@ -2,7 +2,7 @@
 title: Text Field
 slug: text-field
 category: Atom
-status: stable
+status: beta
 source: components/ui/text-field.tsx
 styleguide: /styleguide/text-field
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=4-2

@@ -3,10 +3,9 @@
 import type React from "react";
 import { useState } from "react";
 import {
-  LayoutDashboard, BarChart3, Briefcase,
-  ScanLine, Sliders, Activity,
-  Shield, FileText, Bug, FileCheck, Database, Sparkles,
-  ChevronDown, ChevronLeft, ChevronRight, Zap,
+  LayoutDashboard, Radar, Server, ScanLine, Bug, Globe2,
+  Siren, ListChecks, ShieldCheck, FileText, Plug, Users, Settings,
+  ChevronDown, ChevronLeft, ChevronRight, ChevronsUpDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -26,35 +25,41 @@ type NavGroup = {
 
 const NAV_GROUPS: NavGroup[] = [
   {
-    label: "General",
+    label: "Overview",
     items: [
-      { id: "dashboard",     label: "Dashboard",     icon: LayoutDashboard },
-      { id: "insight",       label: "Insight",       icon: BarChart3 },
-      { id: "asset-manager", label: "Asset Manager", icon: Briefcase },
+      { id: "dashboard",      label: "Dashboard",      icon: LayoutDashboard },
+      { id: "attack-surface", label: "Attack surface", icon: Radar },
     ],
   },
   {
-    label: "Scans",
+    label: "Assets & exposure",
     items: [
-      { id: "start",      label: "Start",      icon: ScanLine, expandable: true },
-      { id: "manage",     label: "Manage",     icon: Sliders,  expandable: true },
-      { id: "activities", label: "Activities", icon: Activity },
+      { id: "assets",          label: "Assets",          icon: Server },
+      { id: "scans",           label: "Scans",           icon: ScanLine, expandable: true },
+      { id: "vulnerabilities", label: "Vulnerabilities", icon: Bug },
+      { id: "threat-intel",    label: "Threat intelligence", icon: Globe2 },
     ],
   },
   {
-    label: "Compliance",
+    label: "Response",
     items: [
-      { id: "pc-dss", label: "PC-DSS 4.0", icon: Shield },
+      { id: "incidents",   label: "Incidents",   icon: Siren },
+      { id: "remediation", label: "Remediation", icon: ListChecks },
     ],
   },
   {
-    label: "Results",
+    label: "Governance",
     items: [
-      { id: "scan-reports",    label: "Scan Reports",        icon: FileText,  expandable: true },
-      { id: "crawler-results", label: "Crawler Results",     icon: Bug,       expandable: true },
-      { id: "security-txt",    label: "Security.txt Reports", icon: FileCheck },
-      { id: "data-explorer",   label: "Data Explorer",       icon: Database },
-      { id: "smart-assistant", label: "Smart Assistant",     icon: Sparkles },
+      { id: "compliance", label: "Compliance", icon: ShieldCheck, expandable: true },
+      { id: "reports",    label: "Reports",    icon: FileText },
+    ],
+  },
+  {
+    label: "Workspace",
+    items: [
+      { id: "integrations", label: "Integrations", icon: Plug },
+      { id: "team",         label: "Team & access", icon: Users },
+      { id: "settings",     label: "Settings",     icon: Settings },
     ],
   },
 ];
@@ -79,18 +84,31 @@ function Sidebar({
         collapsed ? "w-[68px]" : "w-[240px]",
       )}
     >
-    <div className="flex flex-col bg-snt-surface-app border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
-      {/* Logo */}
-      <div className="flex items-center gap-2 h-[56px] px-4 border-b border-snt-neutral-divider-10 shrink-0">
-        <div className="w-8 h-8 rounded-lg bg-snt-brand-primary-500 flex items-center justify-center shrink-0">
-          <div className="w-3.5 h-3.5 rounded-sm bg-snt-text-white/90 rotate-45" />
-        </div>
-        {!collapsed && (
-          <>
-            <span className="text-[15px] font-bold text-snt-text-primary tracking-tight">Acme</span>
-            <span className="ml-auto px-2 py-0.5 rounded-md bg-snt-btn-primary-600 text-white text-[10px] font-semibold">Pro</span>
-          </>
-        )}
+    <div className="flex flex-col bg-snt-surface-app border border-snt-border-default rounded-xl overflow-hidden shadow-snt-control">
+      {/* Workspace switcher */}
+      <div className="h-[60px] px-2 border-b border-snt-border-default shrink-0 flex items-center">
+        <button
+          type="button"
+          aria-label="Switch workspace"
+          title={collapsed ? "Northwind Security" : undefined}
+          className={cn(
+            "flex w-full items-center gap-2.5 rounded-md p-1.5 text-left transition-colors hover:bg-snt-bg-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring",
+            collapsed && "justify-center",
+          )}
+        >
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-snt-action-primary">
+            <span className="size-3.5 rotate-45 rounded-sm bg-snt-text-on-accent/90" />
+          </span>
+          {!collapsed && (
+            <>
+              <span className="min-w-0 flex-1 leading-tight">
+                <span className="block truncate text-snt-14 font-semibold tracking-tight text-snt-text-primary">Northwind Security</span>
+                <span className="block truncate text-snt-11 text-snt-text-secondary">Production workspace</span>
+              </span>
+              <ChevronsUpDown size={14} aria-hidden className="shrink-0 text-snt-text-secondary" />
+            </>
+          )}
+        </button>
       </div>
 
       {/* Nav */}
@@ -100,7 +118,7 @@ function Sidebar({
             {/* Group header — same height in both variants */}
             <div className="h-[26px] flex items-center">
               {!collapsed ? (
-                <span className="px-4 text-[10px] uppercase tracking-widest text-snt-text-disabled">
+                <span className="px-5 text-snt-11 font-medium text-snt-text-secondary">
                   {group.label}
                 </span>
               ) : (
@@ -117,20 +135,17 @@ function Sidebar({
                   onClick={() => onSelect(item.id)}
                   title={collapsed ? item.label : undefined}
                   className={cn(
-                    "group flex items-center w-full h-9 transition-colors relative",
-                    collapsed ? "justify-center px-3" : "px-4 gap-2.5",
+                    "group flex items-center h-9 transition-colors rounded-md mx-2 w-[calc(100%-1rem)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring",
+                    collapsed ? "justify-center px-3" : "px-3 gap-2.5",
                     isActive
-                      ? "bg-snt-neutral-grey-100 text-snt-text-primary"
-                      : "text-snt-text-secondary hover:bg-snt-neutral-grey-100 hover:text-snt-text-primary",
+                      ? "bg-snt-bg-brand-subtle text-snt-text-link"
+                      : "text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary",
                   )}
                 >
-                  {isActive && (
-                    <span className="absolute left-0 top-1 bottom-1 w-[2px] bg-snt-brand-primary-500 rounded-r" />
-                  )}
-                  <Icon size={16} className="shrink-0" />
+                  <Icon size={16} aria-hidden className="shrink-0" />
                   {!collapsed && (
                     <>
-                      <span className="text-[14px] font-medium flex-1 text-left">{item.label}</span>
+                      <span className="text-snt-14 font-medium flex-1 text-left">{item.label}</span>
                       {item.expandable && (
                         <ChevronDown size={14} className="text-snt-text-disabled shrink-0" />
                       )}
@@ -144,35 +159,39 @@ function Sidebar({
 
       </nav>
 
-      {/* Footer — same height in both variants (~126px) */}
-      <div className="border-t border-snt-neutral-divider-10 shrink-0 h-[126px] flex flex-col">
-        {!collapsed ? (
-          <div className="p-3 flex flex-col gap-2.5 h-full">
-            <div className="rounded-lg border border-snt-brand-primary-500 px-3 py-1.5 flex items-center justify-between">
-              <span className="text-[11px] font-medium text-snt-text-primary">Getting Started</span>
-              <span className="text-[11px] font-semibold text-snt-brand-primary-500">14%</span>
+      {/* Footer — same height in both variants */}
+      <div className="border-t border-snt-border-default shrink-0 h-[116px] flex flex-col justify-end gap-2 p-2">
+        {!collapsed && (
+          <div className="rounded-lg border border-snt-border-default px-3 py-2">
+            <div className="flex items-center justify-between text-snt-11">
+              <span className="font-medium text-snt-text-primary">Set-up progress</span>
+              <span className="tabular-nums text-snt-text-secondary">14%</span>
             </div>
-            <button
-              type="button"
-              className="w-full inline-flex items-center justify-center gap-1.5 h-9 rounded-lg bg-snt-btn-primary-600 hover:bg-snt-btn-primary-700 text-white text-[14px] font-medium transition-colors"
-            >
-              <Zap size={13} />
-              Upgrade plan
-            </button>
-            <div className="mt-auto text-center text-[10px] text-snt-text-disabled">Status · v03.23.0</div>
-          </div>
-        ) : (
-          <div className="p-3 flex flex-col items-center h-full">
-            <button
-              type="button"
-              title="Upgrade plan"
-              className="w-10 h-10 inline-flex items-center justify-center rounded-lg bg-snt-btn-primary-600 hover:bg-snt-btn-primary-700 text-white transition-colors"
-            >
-              <Zap size={14} />
-            </button>
-            <div className="mt-auto text-center text-[9px] text-snt-text-disabled">v03.23.0</div>
+            <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-snt-bg-subtle" role="progressbar" aria-label="Set-up progress" aria-valuenow={14} aria-valuemin={0} aria-valuemax={100}>
+              <div className="h-full w-[14%] rounded-full bg-snt-action-primary" />
+            </div>
           </div>
         )}
+        <button
+          type="button"
+          aria-label="Account menu"
+          title={collapsed ? "Selin Demir" : undefined}
+          className={cn(
+            "flex w-full items-center gap-2.5 rounded-md p-1.5 text-left transition-colors hover:bg-snt-bg-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring",
+            collapsed && "justify-center",
+          )}
+        >
+          <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-snt-bg-brand-subtle text-snt-12 font-semibold text-snt-text-link">SD</span>
+          {!collapsed && (
+            <>
+              <span className="min-w-0 flex-1 leading-tight">
+                <span className="block truncate text-snt-12 font-medium text-snt-text-primary">Selin Demir</span>
+                <span className="block truncate text-snt-11 text-snt-text-secondary">Security analyst</span>
+              </span>
+              <ChevronsUpDown size={14} aria-hidden className="shrink-0 text-snt-text-secondary" />
+            </>
+          )}
+        </button>
       </div>
 
     </div>
@@ -182,7 +201,7 @@ function Sidebar({
         type="button"
         onClick={onToggle}
         aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        className="absolute -right-3 bottom-[132px] w-6 h-6 rounded-full bg-snt-surface-app border border-snt-neutral-divider-10 text-snt-text-secondary hover:text-snt-text-primary hover:border-snt-brand-primary-500 transition-colors flex items-center justify-center shadow-sm z-10"
+        className="absolute -right-3 bottom-[124px] w-6 h-6 rounded-full bg-snt-surface-app border border-snt-neutral-divider-10 text-snt-text-secondary hover:text-snt-text-primary hover:border-snt-brand-primary-500 transition-colors flex items-center justify-center shadow-sm z-10"
       >
         {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
       </button>
@@ -202,6 +221,15 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 }
 
 // ── Showcase ───────────────────────────────────────────────────────────────
+
+/** Static expanded sidebar, for the Anatomy preview. */
+export function SidebarAnatomyPreview() {
+  return (
+    <div className="mx-auto w-fit">
+      <Sidebar collapsed={false} onToggle={() => {}} active="dashboard" onSelect={() => {}} />
+    </div>
+  );
+}
 
 export function SidebarShowcase() {
   const [collapsedA, setCollapsedA] = useState(false);

@@ -7,10 +7,8 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary600 = UIColor(hex: "#4F46E5")
     static let textPrimary = UIColor(hex: "#09090B")
     static let textWhite = UIColor(hex: "#FFFFFF")
-    static let btnPrimary600 = UIColor(hex: "#4F46E5")
 }
 
 // MARK: - Sizing (CGFloat)

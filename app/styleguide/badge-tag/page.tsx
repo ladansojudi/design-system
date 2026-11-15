@@ -10,6 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Badge } from "@/components/ui/badge-tag";
 
 export const metadata: Metadata = {
   title: "Badge · Tag",
@@ -35,16 +36,14 @@ export default function Page() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Dot (optional)", description: "7px colored circle that reinforces the badge color on either end." },
-                  { label: "Label",          description: "Short noun — one or two words describing the category or status." },
-                  { label: "Surface",        description: "Filled pill or outlined border depending on the variant." },
+                  { label: "Dot (optional)", target: "[class*=\"w-[7px]\"]", side: "top", description: "7px coloured circle that reinforces the badge colour, on either end." },
+                  { label: "Label", target: "span > span:not([aria-hidden])", side: "bottom", description: "Short noun: one or two words naming the category or status." },
+                  { label: "Surface", target: ":scope > *", side: "right", description: "Filled pill or outlined border, depending on the variant." },
                 ]}
-              >
-                <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium bg-snt-scale-green-50 text-snt-scale-green-600">
-                  <span className="w-[7px] h-[7px] rounded-full bg-snt-scale-green-500 shrink-0" />
-                  Success
-                </div>
-              </Anatomy>
+                preview={
+                  <Badge tone="success" showDot>Success</Badge>
+                }
+              />
               <BadgeTagSpecs />
             </DocSection>
           </div>

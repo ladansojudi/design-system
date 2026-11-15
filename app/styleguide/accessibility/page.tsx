@@ -15,7 +15,7 @@ export default function AccessibilityPage() {
         category="Foundations"
         title="Accessibility"
         status="stable"
-        description="Contrast, color independence and keyboard support are non-negotiable. Every component is verified against these rules before it ships."
+        description="Contrast, color independence and keyboard support are non-negotiable. Each component page lists its own keyboard model and contrast, computed from the tokens."
         actions={<OpenInFigma />}
       />
 

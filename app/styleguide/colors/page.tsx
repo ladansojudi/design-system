@@ -5,7 +5,7 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { ColorsSystem } from "@/sections/colors/colors-system";
 
 export const metadata: Metadata = {
-  title: "Design System",
+  title: "Colors & tokens",
 };
 
 export default function ColorsPage() {

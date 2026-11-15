@@ -1,10 +1,10 @@
 # Sentinel Design System
 
-> React + Tailwind v4 component library and design tokens for cybersecurity products (threat dashboards, scans, assets, findings, severity). Version 1.3.1. 32 copy-paste components (shadcn-style: you own the code), themed with `snt-*` CSS variables in light and dark mode, targeting WCAG 2.2 AA and the WAI-ARIA Authoring Practices (remaining gaps are listed per component).
+> React + Tailwind v4 component library and design tokens for cybersecurity products (threat dashboards, scans, assets, findings, severity). Version 1.3.1. 36 copy-paste components (shadcn-style: you own the code), themed with `snt-*` CSS variables in light and dark mode, targeting WCAG 2.2 AA and the WAI-ARIA Authoring Practices (remaining gaps are listed per component).
 
 ## Rules for AI agents
 
-1. **Use the existing components.** Install them with the shadcn CLI (`npx shadcn add @sentinel/<name>`, see Setup) — or copy `/components/<slug>.tsx.txt` into `components/ui/<slug>.tsx`. Don't recreate a component that already exists, and don't restyle it from scratch. Check props and defaults in [sentinel-manifest.json](/sentinel-manifest.json).
+1. **Use the existing components.** Install them with the shadcn CLI (`npx shadcn add @sentinel/<name>`, see Setup) — or copy `/components/<slug>.tsx.txt` into `components/ui/<slug>.tsx`. Don't recreate a component that already exists, and don't restyle it from scratch. Check props and defaults in [sentinel-manifest.json](https://ladan-design-system.vercel.app/sentinel-manifest.json).
 2. **Never hard-code colours, font sizes, shadows or z-indexes.** Use the `snt-*` tokens through Tailwind utilities (`bg-snt-surface-app`, `text-snt-text-secondary`, `border-snt-border-default`, `shadow-snt-lg`, `z-modal`). Font sizes use the type scale `text-snt-{10,11,12,14,16,18,20,24,32,48}` (numbers are px). Every token is defined in `theme.css`.
 3. **Prefer semantic tokens over scale primitives.** Borders: `border-snt-border-default` / `-strong` / `-focus` / `-error`. Tints: `bg-snt-bg-subtle`, `bg-snt-bg-{brand,info,success,warning,error}-subtle`. Focus: `ring-snt-focus-ring` (`-error` for destructive). Text: `text-snt-text-*`. Surfaces: `bg-snt-surface-*`. Use `snt-scale-<hue>-<step>` / `snt-neutral-*` primitives only when the hue itself is the meaning (severity, data series). Use `text-snt-text-disabled` only for disabled controls; it fails contrast for normal text.
 4. **Follow each component's "When to use / When not to use".** For example, a destructive confirm is a `Modal` with `Button intent="destructive"`, a vulnerability level is always `SeverityBadge`, and navigation is a link, not a `Button`.
@@ -12,15 +12,15 @@
 6. **Respect the status.** `deprecated` components (Banner) must not be used in new code; follow the migration note. `alpha` components may change.
 7. **Check "Known gaps"** in each doc before assuming a behaviour exists.
 8. **Naming:** states are lowercase (`state="error"`), colour families are `tone` (not `color`).
-9. **Lint your output.** Add [eslint-plugin-sentinel](/eslint-plugin-sentinel.mjs) (`sentinel.configs.recommended`): it rejects hard-coded colours and unlabeled icon-only buttons, and autofixes primitives to semantic tokens. Fix every error before finishing.
+9. **Lint your output.** Add [eslint-plugin-sentinel](https://ladan-design-system.vercel.app/eslint-plugin-sentinel.mjs) (`sentinel.configs.recommended`): it rejects hard-coded colours and unlabeled icon-only buttons, and autofixes primitives to semantic tokens. Fix every error before finishing.
 
 ## Setup
 
 - **Requirements:** React 19, Tailwind CSS v4, `clsx`, `tailwind-merge` and `lucide-react`. `Tabs` has no extra deps; `Modal` uses `react-dom`'s `createPortal`.
-- **Install with the shadcn CLI:** add `"registries": { "@sentinel": "/r/{name}.json" }` to `components.json`, then `npx shadcn add @sentinel/theme` once and `npx shadcn add @sentinel/<name>` per component. The same config lets the shadcn MCP server (`npx shadcn mcp init`) list and search Sentinel components for your agent.
-- **Project rules file:** copy [AGENTS.template.md](/AGENTS.template.md) to your repo root as `AGENTS.md`.
-- **Lint guardrails:** save [eslint-plugin-sentinel.mjs](/eslint-plugin-sentinel.mjs) in your repo and add `import sentinel from "./eslint-plugin-sentinel.mjs"` + `sentinel.configs.recommended` to `eslint.config.mjs` (flat config).
-- **Tokens and theme:** add [theme.css](/theme.css) after `@import "tailwindcss";`. Dark mode is enabled with `.dark` or `[data-snt-theme="dark"]` on an ancestor.
+- **Install with the shadcn CLI:** add `"registries": { "@sentinel": "https://ladan-design-system.vercel.app/r/{name}.json" }` to `components.json`, then `npx shadcn add @sentinel/theme` once and `npx shadcn add @sentinel/<name>` per component. The same config lets the shadcn MCP server (`npx shadcn mcp init`) list and search Sentinel components for your agent.
+- **Project rules file:** copy [AGENTS.template.md](https://ladan-design-system.vercel.app/AGENTS.template.md) to your repo root as `AGENTS.md`.
+- **Lint guardrails:** save [eslint-plugin-sentinel.mjs](https://ladan-design-system.vercel.app/eslint-plugin-sentinel.mjs) in your repo and add `import sentinel from "./eslint-plugin-sentinel.mjs"` + `sentinel.configs.recommended` to `eslint.config.mjs` (flat config).
+- **Tokens and theme:** add [theme.css](https://ladan-design-system.vercel.app/theme.css) after `@import "tailwindcss";`. Dark mode is enabled with `.dark` or `[data-snt-theme="dark"]` on an ancestor.
 - **`cn()` helper** at `@/lib/utils`:
 
 ```ts
@@ -41,51 +41,70 @@ const twMerge = extendTailwindMerge({
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+/**
+ * Portalled UI (Modal, Drawer, Menu, Select list, Toasts) is mounted on <body>,
+ * outside the app's `.dark` / `[data-snt-theme]` wrapper, so it would always
+ * render light. Call this with the element it belongs to (the trigger, or the
+ * previously focused element) to copy the nearest theme onto the portalled node.
+ */
+export function inheritTheme(source: Element | null | undefined, target: HTMLElement | null | undefined) {
+  if (!target) return
+  const themed = source?.closest<HTMLElement>(".dark, [data-snt-theme]")
+  const dark = !!themed && (themed.classList.contains("dark") || themed.dataset.sntTheme === "dark")
+  target.classList.toggle("dark", dark)
+  if (dark) target.dataset.sntTheme = "dark"
+  else delete target.dataset.sntTheme
+}
 ```
 
 ## Atoms
 
-- [Activity Timeline](/docs/components/activity-timeline.md) **[beta]**: A time-ordered list of events: an attack timeline, an audit log, or the history of a finding. Source: [activity-timeline.tsx](/components/activity-timeline.tsx.txt)
-- [Alert](/docs/components/alert.md): An inline message tied to a page or section. It communicates a status that persists until the condition changes or the user dismisses it. Source: [alert.tsx](/components/alert.tsx.txt)
-- [Badge · Tag](/docs/components/badge-tag.md): A small pill that labels an object with a status (**Badge**) or a category (**Tag**). It's the same primitive; Badge shows a status dot by default. Source: [badge-tag.tsx](/components/badge-tag.tsx.txt)
-- [Banner](/docs/components/banner.md) **[deprecated]**: Do not use in new code; see the migration note. A full-width strip at the top of the app for product-wide announcements, promotions or warnings. Source: [banner.tsx](/components/banner.tsx.txt)
-- [Button](/docs/components/button.md): Buttons trigger an action on the current page: submitting a form, opening a modal, starting a scan. Source: [button.tsx](/components/button.tsx.txt)
-- [Checkbox](/docs/components/checkbox.md) **[beta]**: Lets the user turn an independent option on or off, or pick several items from a list. Source: [checkbox.tsx](/components/checkbox.tsx.txt)
-- [CVE Tag](/docs/components/cve-tag.md) **[beta]**: A CVE identifier that links to its advisory, with optional exploit signals: KEV (in CISA's Known Exploited Vulnerabilities catalog) and EPSS (probability of exploitation in the next 30 days). Source: [cve-tag.tsx](/components/cve-tag.tsx.txt)
-- [CVSS Score](/docs/components/cvss-score.md) **[beta]**: A CVSS base score with its qualitative rating and, when given the vector string, each metric in plain words. Source: [cvss-score.tsx](/components/cvss-score.tsx.txt)
-- [Finding Status](/docs/components/finding-status.md) **[beta]**: Shows where a finding is in its lifecycle, from Open to Resolved, with an icon and a label for each status. Source: [finding-status.tsx](/components/finding-status.tsx.txt)
-- [Indicator](/docs/components/indicator.md) **[beta]**: An indicator of compromise (IP, domain, URL, hash, email) with type, reputation verdict and copy. Optional defanging (example[.]com). Source: [indicator.tsx](/components/indicator.tsx.txt)
-- [Masked Value](/docs/components/masked-value.md) **[beta]**: A secret — API key, token, password — shown masked, with reveal and copy. Source: [masked-value.tsx](/components/masked-value.tsx.txt)
-- [Scan Progress](/docs/components/scan-progress.md) **[beta]**: The stages of a scan or long job and where it is now: done, running, failed or pending. Source: [scan-progress.tsx](/components/scan-progress.tsx.txt)
-- [Select](/docs/components/select.md) **[beta]**: A single-choice dropdown that picks one value from a list of options. Source: [select.tsx](/components/select.tsx.txt)
-- [Severity Badge](/docs/components/severity-badge.md): The canonical way to show a finding's severity (Critical → Info), optionally with its numeric score (e.g. CVSS). Source: [severity-badge.tsx](/components/severity-badge.tsx.txt)
-- [Severity Bar](/docs/components/severity-bar.md) **[beta]**: One horizontal bar that splits a set of findings by severity, with an optional legend of counts. Source: [severity-bar.tsx](/components/severity-bar.tsx.txt)
-- [Skeleton](/docs/components/skeleton.md) **[beta]**: A pulsing placeholder that mirrors the shape of content while it loads. Source: [skeleton.tsx](/components/skeleton.tsx.txt)
-- [Spinner](/docs/components/spinner.md) **[alpha]**: An indeterminate loading indicator for short waits when the shape of the result is unknown. Source: [spinner.tsx](/components/spinner.tsx.txt)
-- [Switch · Radio](/docs/components/switch-radio.md): **Switch** turns a single setting on or off, effective immediately. **Radio** picks exactly one option from a small, visible set. Source: [switch-radio.tsx](/components/switch-radio.tsx.txt)
-- [Text Field](/docs/components/text-field.md): A single-line input for short free text: names, domains, IPs, emails. Source: [text-field.tsx](/components/text-field.tsx.txt)
-- [Textarea](/docs/components/textarea.md): A multi-line plain-text input for notes, descriptions and justifications. Source: [textarea.tsx](/components/textarea.tsx.txt)
-- [Toast · Tooltip](/docs/components/toast-tooltip.md): **Toast** is a brief, non-blocking confirmation of something that just happened. **Tooltip** is a short label or hint that appears on hover or focus of a control. Source: [toast-tooltip.tsx](/components/toast-tooltip.tsx.txt)
+- [Activity Timeline](https://ladan-design-system.vercel.app/docs/components/activity-timeline.md) **[beta]**: A time-ordered list of events: an attack timeline, an audit log, or the history of a finding. Source: [activity-timeline.tsx](https://ladan-design-system.vercel.app/components/activity-timeline.tsx.txt)
+- [Alert](https://ladan-design-system.vercel.app/docs/components/alert.md) **[beta]**: An inline message tied to a page or section. It communicates a status that persists until the condition changes or the user dismisses it. Source: [alert.tsx](https://ladan-design-system.vercel.app/components/alert.tsx.txt)
+- [Badge · Tag](https://ladan-design-system.vercel.app/docs/components/badge-tag.md): A small pill that labels an object with a status (**Badge**) or a category (**Tag**). It's the same primitive; Badge shows a status dot by default. Source: [badge-tag.tsx](https://ladan-design-system.vercel.app/components/badge-tag.tsx.txt)
+- [Banner](https://ladan-design-system.vercel.app/docs/components/banner.md) **[deprecated]**: Do not use in new code; see the migration note. A full-width strip at the top of the app for product-wide announcements, promotions or warnings. Source: [banner.tsx](https://ladan-design-system.vercel.app/components/banner.tsx.txt)
+- [Button](https://ladan-design-system.vercel.app/docs/components/button.md): Buttons trigger an action on the current page: submitting a form, opening a modal, starting a scan. Source: [button.tsx](https://ladan-design-system.vercel.app/components/button.tsx.txt)
+- [Checkbox](https://ladan-design-system.vercel.app/docs/components/checkbox.md) **[beta]**: Lets the user turn an independent option on or off, or pick several items from a list. Source: [checkbox.tsx](https://ladan-design-system.vercel.app/components/checkbox.tsx.txt)
+- [CVE Tag](https://ladan-design-system.vercel.app/docs/components/cve-tag.md) **[beta]**: A CVE identifier that links to its advisory, with optional exploit signals: KEV (in CISA's Known Exploited Vulnerabilities catalog) and EPSS (probability of exploitation in the next 30 days). Source: [cve-tag.tsx](https://ladan-design-system.vercel.app/components/cve-tag.tsx.txt)
+- [CVSS Score](https://ladan-design-system.vercel.app/docs/components/cvss-score.md) **[beta]**: A CVSS base score with its qualitative rating and, when given the vector string, each metric in plain words. Source: [cvss-score.tsx](https://ladan-design-system.vercel.app/components/cvss-score.tsx.txt)
+- [Finding Status](https://ladan-design-system.vercel.app/docs/components/finding-status.md) **[beta]**: Shows where a finding is in its lifecycle, from Open to Resolved, with an icon and a label for each status. Source: [finding-status.tsx](https://ladan-design-system.vercel.app/components/finding-status.tsx.txt)
+- [Indicator](https://ladan-design-system.vercel.app/docs/components/indicator.md) **[beta]**: An indicator of compromise (IP, domain, URL, hash, email) with type, reputation verdict and copy. Optional defanging (example[.]com). Source: [indicator.tsx](https://ladan-design-system.vercel.app/components/indicator.tsx.txt)
+- [Masked Value](https://ladan-design-system.vercel.app/docs/components/masked-value.md) **[beta]**: A secret — API key, token, password — shown masked, with reveal and copy. Source: [masked-value.tsx](https://ladan-design-system.vercel.app/components/masked-value.tsx.txt)
+- [Scan Progress](https://ladan-design-system.vercel.app/docs/components/scan-progress.md) **[beta]**: The stages of a scan or long job and where it is now: done, running, failed or pending. Source: [scan-progress.tsx](https://ladan-design-system.vercel.app/components/scan-progress.tsx.txt)
+- [Select](https://ladan-design-system.vercel.app/docs/components/select.md) **[beta]**: A single-choice dropdown that picks one value from a list of options. Source: [select.tsx](https://ladan-design-system.vercel.app/components/select.tsx.txt)
+- [Severity Badge](https://ladan-design-system.vercel.app/docs/components/severity-badge.md) **[beta]**: The canonical way to show a finding's severity (Critical → Info), optionally with its numeric score (e.g. CVSS). Source: [severity-badge.tsx](https://ladan-design-system.vercel.app/components/severity-badge.tsx.txt)
+- [Severity Bar](https://ladan-design-system.vercel.app/docs/components/severity-bar.md) **[beta]**: One horizontal bar that splits a set of findings by severity, with an optional legend of counts. Source: [severity-bar.tsx](https://ladan-design-system.vercel.app/components/severity-bar.tsx.txt)
+- [Skeleton](https://ladan-design-system.vercel.app/docs/components/skeleton.md): A pulsing placeholder that mirrors the shape of content while it loads. Source: [skeleton.tsx](https://ladan-design-system.vercel.app/components/skeleton.tsx.txt)
+- [Spinner](https://ladan-design-system.vercel.app/docs/components/spinner.md) **[beta]**: An indeterminate loading indicator for short waits when the shape of the result is unknown. Source: [spinner.tsx](https://ladan-design-system.vercel.app/components/spinner.tsx.txt)
+- [Switch · Radio](https://ladan-design-system.vercel.app/docs/components/switch-radio.md) **[beta]**: **Switch** turns a single setting on or off, effective immediately. **Radio** picks exactly one option from a small, visible set. Source: [switch-radio.tsx](https://ladan-design-system.vercel.app/components/switch-radio.tsx.txt)
+- [Text Field](https://ladan-design-system.vercel.app/docs/components/text-field.md) **[beta]**: A single-line input for short free text: names, domains, IPs, emails. Source: [text-field.tsx](https://ladan-design-system.vercel.app/components/text-field.tsx.txt)
+- [Textarea](https://ladan-design-system.vercel.app/docs/components/textarea.md) **[beta]**: A multi-line plain-text input for notes, descriptions and justifications. Source: [textarea.tsx](https://ladan-design-system.vercel.app/components/textarea.tsx.txt)
+- [Toast · Tooltip](https://ladan-design-system.vercel.app/docs/components/toast-tooltip.md): **Toast** is a brief, non-blocking confirmation of something that just happened. **Tooltip** is a short label or hint that appears on hover or focus of a control. Source: [toast-tooltip.tsx](https://ladan-design-system.vercel.app/components/toast-tooltip.tsx.txt)
 
 ## Molecules
 
-- [Breadcrumb](/docs/components/breadcrumb.md): Shows where the current page sits in the hierarchy and lets users jump back up. Source: [breadcrumb.tsx](/components/breadcrumb.tsx.txt)
-- [Filter Bar](/docs/components/filter-bar.md): A horizontal toolbar that combines search, filter pills and view actions above a table or list. Source: [filter-bar.tsx](/components/filter-bar.tsx.txt)
-- [Search Bar](/docs/components/search-bar.md): A text input dedicated to searching or filtering content, with a search icon and a clear button. Source: [search-bar.tsx](/components/search-bar.tsx.txt)
-- [Tabs](/docs/components/tabs.md): Switches between related views of the same object without leaving the page. Source: [tabs.tsx](/components/tabs.tsx.txt)
+- [Breadcrumb](https://ladan-design-system.vercel.app/docs/components/breadcrumb.md): Shows where the current page sits in the hierarchy and lets users jump back up. Source: [breadcrumb.tsx](https://ladan-design-system.vercel.app/components/breadcrumb.tsx.txt)
+- [Drawer](https://ladan-design-system.vercel.app/docs/components/drawer.md) **[beta]**: A panel that slides in from the left or right edge for details or a short form, built like Modal. Source: [drawer.tsx](https://ladan-design-system.vercel.app/components/drawer.tsx.txt)
+- [Dropdown menu](https://ladan-design-system.vercel.app/docs/components/dropdown-menu.md) **[beta]**: A dropdown list of actions behind a button, following the WAI-ARIA menu-button pattern. Source: [dropdown-menu.tsx](https://ladan-design-system.vercel.app/components/dropdown-menu.tsx.txt)
+- [Filter Bar](https://ladan-design-system.vercel.app/docs/components/filter-bar.md) **[beta]**: A horizontal toolbar that combines search, filter pills and view actions above a table or list. Source: [filter-bar.tsx](https://ladan-design-system.vercel.app/components/filter-bar.tsx.txt)
+- [Pagination](https://ladan-design-system.vercel.app/docs/components/pagination.md) **[beta]**: Moves between pages of a long list; always shows the first, last and current pages with their neighbours. Source: [pagination.tsx](https://ladan-design-system.vercel.app/components/pagination.tsx.txt)
+- [Search Bar](https://ladan-design-system.vercel.app/docs/components/search-bar.md) **[beta]**: A text input dedicated to searching or filtering content, with a search icon and a clear button. Source: [search-bar.tsx](https://ladan-design-system.vercel.app/components/search-bar.tsx.txt)
+- [Tabs](https://ladan-design-system.vercel.app/docs/components/tabs.md): Switches between related views of the same object without leaving the page. Source: [tabs.tsx](https://ladan-design-system.vercel.app/components/tabs.tsx.txt)
 
 ## Organisms
 
-- [Cards](/docs/components/cards.md): Dashboard cards that summarise a topic and lead to a next step. There are two presets: **InsightCard** (a key/value list) and **AlertCard** (an active-issue callout). Source: [cards.tsx](/components/cards.tsx.txt)
-- [Chart](/docs/components/chart.md): A dependency-free set of SVG chart primitives in a shared card shell: donut, bar, line and treemap, plus stat blocks. Source: [chart.tsx](/components/chart.tsx.txt)
-- [Data Table](/docs/components/data-table.md): A composable card that lists findings (threat, asset, date, severity) with a header, column headers, rows and a pagination footer. Source: [data-table.tsx](/components/data-table.tsx.txt)
-- [Empty State](/docs/components/empty-state.md): Fills a region that has no content yet. It explains why it's empty and what to do next. Source: [empty-state.tsx](/components/empty-state.tsx.txt)
-- [Gauge](/docs/components/gauge.md): A semicircular meter that shows a single value against a known maximum, such as a security score. Source: [gauge.tsx](/components/gauge.tsx.txt)
-- [Modal](/docs/components/modal.md): A dialog that interrupts the current task to request a decision or focused input. It traps focus and blocks interaction with the rest of the page until it closes. Source: [modal.tsx](/components/modal.tsx.txt)
-- [Text Space](/docs/components/text-space.md): A rich-text composer (toolbar + writing area) for formatted notes, reports and comments. Source: [text-space.tsx](/components/text-space.tsx.txt)
+- [Cards](https://ladan-design-system.vercel.app/docs/components/cards.md): The container for dashboard content. `Card` and its parts are the base; `StatCard` is a ready-made preset for one number. Summaries and alerts are composed from the parts (see the styleguide page), not separate components. Source: [cards.tsx](https://ladan-design-system.vercel.app/components/cards.tsx.txt)
+- [Chart](https://ladan-design-system.vercel.app/docs/components/chart.md) **[beta]**: A dependency-free set of SVG chart primitives in a shared card shell: donut, bar, line and treemap, plus stat blocks. Source: [chart.tsx](https://ladan-design-system.vercel.app/components/chart.tsx.txt)
+- [Command palette](https://ladan-design-system.vercel.app/docs/components/command-palette.md) **[beta]**: A searchable list of commands and destinations opened with a shortcut; built on Modal. Source: [command-palette.tsx](https://ladan-design-system.vercel.app/components/command-palette.tsx.txt)
+- [Data Table](https://ladan-design-system.vercel.app/docs/components/data-table.md) **[beta]**: A composable card that lists findings (threat, asset, date, severity) with a header, column headers, rows and a pagination footer. Source: [data-table.tsx](https://ladan-design-system.vercel.app/components/data-table.tsx.txt)
+- [Empty State](https://ladan-design-system.vercel.app/docs/components/empty-state.md) **[beta]**: Fills a region that has no content yet. It explains why it's empty and what to do next. Source: [empty-state.tsx](https://ladan-design-system.vercel.app/components/empty-state.tsx.txt)
+- [Gauge](https://ladan-design-system.vercel.app/docs/components/gauge.md) **[beta]**: A semicircular meter that shows a single value against a known maximum, such as a security score. Source: [gauge.tsx](https://ladan-design-system.vercel.app/components/gauge.tsx.txt)
+- [Modal](https://ladan-design-system.vercel.app/docs/components/modal.md): A dialog that interrupts the current task to request a decision or focused input. It traps focus and blocks interaction with the rest of the page until it closes. Source: [modal.tsx](https://ladan-design-system.vercel.app/components/modal.tsx.txt)
+- [Text Space](https://ladan-design-system.vercel.app/docs/components/text-space.md) **[alpha]**: A rich-text composer (toolbar + writing area) for formatted notes, reports and comments. Source: [text-space.tsx](https://ladan-design-system.vercel.app/components/text-space.tsx.txt)
 
 ## Optional
 
-- [sentinel-manifest.json](/sentinel-manifest.json): machine-readable component manifest — props with types and defaults, status, when to use, tokens, install command
-- [llms-full.txt](/llms-full.txt): every doc, the full theme CSS and every component's source in one file (~84k tokens)
-- [Per-platform token exports](/tokens/_all/tokens.css): CSS (light only), also [Swift](/tokens/_all/tokens.swift) and [Android XML](/tokens/_all/tokens.xml)
+- [sentinel-manifest.json](https://ladan-design-system.vercel.app/sentinel-manifest.json): machine-readable component manifest — props with types and defaults, status, when to use, tokens, install command
+- [llms-full.txt](https://ladan-design-system.vercel.app/llms-full.txt): every doc, the full theme CSS and every component's source in one file (~92k tokens)
+- [Per-platform token exports](https://ladan-design-system.vercel.app/tokens/_all/tokens.css): CSS (light only), also [Swift](https://ladan-design-system.vercel.app/tokens/_all/tokens.swift) and [Android XML](https://ladan-design-system.vercel.app/tokens/_all/tokens.xml)

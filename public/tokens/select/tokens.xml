@@ -4,12 +4,9 @@
 <resources>
 
     <!-- Colors -->
-    <color name="brand_primary_500">#5B5BD6</color>
-    <color name="brand_primary_600">#4F46E5</color>
     <color name="neutral_grey_300">#D4D4D8</color>
     <color name="surface_row">#FFFFFF</color>
     <color name="text_primary">#09090B</color>
-    <color name="text_secondary">#52525B</color>
     <color name="text_disabled">#A1A1AA</color>
 
     <!-- Spacing -->
@@ -20,7 +17,6 @@
     <dimen name="space_5">20dp</dimen>
     <dimen name="space_3">12dp</dimen>
     <dimen name="space_8">32dp</dimen>
-    <dimen name="space_9">36dp</dimen>
     <dimen name="space_1">4dp</dimen>
     <dimen name="space_16">64dp</dimen>
 
@@ -32,14 +28,9 @@
     <dimen name="border_width_1">1dp</dimen>
 
     <!-- Font size -->
-    <dimen name="font_size_11">11sp</dimen>
     <dimen name="font_size_14">14sp</dimen>
 
     <!-- Font weight -->
     <integer name="font_weight_semibold">600</integer>
-    <integer name="font_weight_medium">500</integer>
-
-    <!-- Focus ring -->
-    <dimen name="ring_width_2">2dp</dimen>
 
 </resources>

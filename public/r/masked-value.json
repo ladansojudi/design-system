@@ -7,8 +7,8 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "http://localhost:3000/r/utils.json",
-    "http://localhost:3000/r/theme.json"
+    "https://ladan-design-system.vercel.app/r/utils.json",
+    "https://ladan-design-system.vercel.app/r/theme.json"
   ],
   "files": [
     {
@@ -20,7 +20,7 @@
   "meta": {
     "status": "beta"
   },
-  "docs": "Masked Value (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/masked-value.md",
+  "docs": "Masked Value (beta). Usage, accessibility and known gaps: https://ladan-design-system.vercel.app/docs/components/masked-value.md",
   "categories": [
     "atom"
   ],

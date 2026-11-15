@@ -163,7 +163,7 @@ export function FlowDiagram() {
           <g>
             <rect x={COL_X[3] - 26} y={40 + OUTCOME_Y.risk * (H - 70) - 22} width={14} height={44} rx={3} fill="var(--snt-scale-red-500)" />
             <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.risk * (H - 70) - 8} fontSize="11" fontWeight="500" textAnchor="end" fill="var(--snt-text-secondary)">Overall Risk Score</text>
-            <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.risk * (H - 70) + 8} fontSize="13" fontWeight="700" textAnchor="end" fill="var(--snt-scale-purple-600)">Critical 80/100</text>
+            <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.risk * (H - 70) + 8} fontSize="13" fontWeight="700" textAnchor="end" fill="var(--snt-severity-critical-text)">Critical 80/100</text>
 
             <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.findings * (H - 70) - 8} fontSize="11" fontWeight="500" textAnchor="end" fill="var(--snt-text-secondary)">Key Findings</text>
             <text x={COL_X[3] - 40} y={40 + OUTCOME_Y.findings * (H - 70) + 10} fontSize="12" fontWeight="700" textAnchor="end" fill="var(--snt-text-primary)">10 · 24 · 56 · 03 · 12</text>

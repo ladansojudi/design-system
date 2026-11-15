@@ -4,9 +4,9 @@
   "title": "CVSS Score",
   "description": "A CVSS base score with its qualitative rating and, when given the vector string, each metric in plain words.",
   "registryDependencies": [
-    "http://localhost:3000/r/utils.json",
-    "http://localhost:3000/r/theme.json",
-    "http://localhost:3000/r/severity-badge.json"
+    "https://ladan-design-system.vercel.app/r/utils.json",
+    "https://ladan-design-system.vercel.app/r/theme.json",
+    "https://ladan-design-system.vercel.app/r/severity-badge.json"
   ],
   "files": [
     {
@@ -18,7 +18,7 @@
   "meta": {
     "status": "beta"
   },
-  "docs": "CVSS Score (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/cvss-score.md",
+  "docs": "CVSS Score (beta). Usage, accessibility and known gaps: https://ladan-design-system.vercel.app/docs/components/cvss-score.md",
   "categories": [
     "atom"
   ],

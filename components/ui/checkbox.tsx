@@ -29,7 +29,7 @@ export interface CheckboxProps
 }
 
 const FILL_CLASS: Record<Tone, string> = {
-  primary: "bg-snt-btn-primary-600 border-snt-btn-primary-600",
+  primary: "bg-snt-action-primary border-snt-action-primary",
   neutral: "bg-snt-btn-neutral-800 border-snt-btn-neutral-800",
 };
 

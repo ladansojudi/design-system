@@ -38,33 +38,33 @@ type VariantConfig = {
 const VARIANT_CLASS: Record<Variant, VariantConfig> = {
   info: {
     bg:        "bg-snt-bg-info-subtle",
-    border:    "border-snt-scale-blue-200",
-    text:      "text-snt-text-info",
-    title:     "text-snt-text-info",
+    border:    "border-snt-border-default",
+    text:      "text-snt-text-secondary",
+    title:     "text-snt-text-primary",
     iconClass: "text-snt-text-info",
     icon:      Info,
   },
   success: {
     bg:        "bg-snt-bg-success-subtle",
-    border:    "border-snt-scale-green-200",
-    text:      "text-snt-text-success",
-    title:     "text-snt-text-success",
+    border:    "border-snt-border-default",
+    text:      "text-snt-text-secondary",
+    title:     "text-snt-text-primary",
     iconClass: "text-snt-text-success",
     icon:      CheckCircle2,
   },
   warning: {
     bg:        "bg-snt-bg-warning-subtle",
-    border:    "border-snt-scale-yellow-200",
-    text:      "text-snt-text-warning",
-    title:     "text-snt-text-warning",
+    border:    "border-snt-border-default",
+    text:      "text-snt-text-secondary",
+    title:     "text-snt-text-primary",
     iconClass: "text-snt-text-warning",
     icon:      AlertTriangle,
   },
   error: {
     bg:        "bg-snt-bg-error-subtle",
-    border:    "border-snt-scale-red-200",
-    text:      "text-snt-text-error",
-    title:     "text-snt-text-error",
+    border:    "border-snt-border-default",
+    text:      "text-snt-text-secondary",
+    title:     "text-snt-text-primary",
     iconClass: "text-snt-text-error",
     icon:      OctagonAlert,
   },
@@ -97,19 +97,19 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     return (
       <div
         ref={ref}
-        role="alert"
+        role={variant === "error" || variant === "warning" ? "alert" : "status"}
         className={cn(
-          "flex items-start gap-3 rounded-lg border px-4 py-3",
+          "flex items-start gap-3 rounded-xl border px-4 py-3.5",
           cfg.bg,
           cfg.border,
           className,
         )}
         {...props}
       >
-        <Icon size={16} className={cn("shrink-0 mt-px", cfg.iconClass)} />
+        <Icon size={18} aria-hidden className={cn("shrink-0 mt-px", cfg.iconClass)} />
         <div className="flex-1 min-w-0">
           {title && (
-            <div className={cn("text-snt-14 font-semibold leading-tight", cfg.title)}>
+            <div className={cn("text-snt-14 font-semibold tracking-tight leading-tight", cfg.title)}>
               {title}
             </div>
           )}
@@ -126,11 +126,11 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
             aria-label="Dismiss"
             onClick={handleDismiss}
             className={cn(
-              "shrink-0 p-1 -m-1 rounded hover:bg-snt-neutral-divider-10 cursor-pointer",
+              "flex size-7 shrink-0 -mr-1.5 -mt-1 items-center justify-center rounded-md hover:bg-snt-neutral-divider-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring",
               cfg.text,
             )}
           >
-            <X size={14} />
+            <X size={14} aria-hidden />
           </button>
         )}
       </div>

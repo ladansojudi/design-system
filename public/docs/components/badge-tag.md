@@ -108,7 +108,6 @@ Exports: `Badge`, `Tag` (`TagProps = BadgeProps`).
 ```
 
 ## Known gaps
-- [ ] The styleguide showcase (`sections/badge-tag/`) still uses `snt-scale-*-300` border tokens, which don't exist (the scale has no 300 step), so its outlined badges have no coloured border. `components/ui` was fixed to `-200`; decide whether the scale needs a 300 step.
 - [ ] No size scale (`sm` for tables).
 - [ ] No removable-tag variant (✕ button with an accessible name).
 

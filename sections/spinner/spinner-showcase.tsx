@@ -82,7 +82,7 @@ export function SpinnerShowcase() {
               <Spinner tone="neutral" />
             </Copyable>
             <Copyable snippets={spinnerSnippets({ tone: "white", size: "sm" })}>
-              <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-snt-btn-primary-600">
+              <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-snt-action-primary">
                 <Spinner tone="white" size="sm" />
               </div>
             </Copyable>
@@ -99,7 +99,7 @@ export function SpinnerShowcase() {
             <button
               type="button"
               disabled
-              className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-snt-btn-primary-600 text-snt-text-on-accent text-[14px] font-medium cursor-wait opacity-90"
+              className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-snt-action-primary text-snt-text-on-accent text-[14px] font-medium cursor-wait opacity-90"
             >
               <Spinner size="sm" tone="white" />
               Saving…
@@ -172,7 +172,7 @@ export function SpinnerExamples() {
             title="White (on dark surface)"
             code={spinnerSnippets({ tone: "white", size: "sm" }).react}
             preview={
-              <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-snt-btn-primary-600">
+              <div className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-snt-action-primary">
                 <Spinner tone="white" size="sm" />
               </div>
             }
@@ -194,7 +194,7 @@ export function SpinnerExamples() {
               <button
                 type="button"
                 disabled
-                className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-snt-btn-primary-600 text-snt-text-on-accent text-[14px] font-medium cursor-wait opacity-90"
+                className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-snt-action-primary text-snt-text-on-accent text-[14px] font-medium cursor-wait opacity-90"
               >
                 <Spinner size="sm" tone="white" />
                 Saving…

@@ -102,6 +102,10 @@ const SEMANTIC = [
   ["border", "brand-primary-600", "border-focus"],
   ["bg", "neutral-grey-100", "bg-subtle"],
   ["ring", "brand-primary-500", "focus-ring"],
+  ["(?:bg|border)", "btn-primary-600", "action-primary"],
+  ["(?:bg|border)", "btn-primary-700", "action-primary-hover"],
+  ["(?:bg|border)", "btn-error-600", "action-destructive"],
+  ["(?:bg|border)", "btn-error-700", "action-destructive-hover"],
 ];
 const SEMANTIC_RE = SEMANTIC.map(([pre, prim, sem]) => ({
   re: new RegExp(`(?<![\\w-])((?:[a-z-]+:)*${pre})-snt-${prim}(?![\\w-])`, "g"),

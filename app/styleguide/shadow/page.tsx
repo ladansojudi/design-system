@@ -27,11 +27,11 @@ export default function ShadowPage() {
         <UseCases
           items={[
             "xs — quietly separate stationary surfaces (toolbar from background, card from page).",
-            "sm — interactive cards on hover, dropdown popovers, tooltips.",
-            "md — sticky surfaces that float over content (top bar after scroll, sticky filter row).",
-            "lg — drawers and sidebars sliding in from edges.",
+            "sm — resting cards, buttons and inputs.",
+            "md — dropdowns, menus and tooltips: short-lived floating UI.",
+            "lg — popovers, drawers and floating panels.",
             "xl — modal dialogs centered on top of a scrim.",
-            "2xl — popovers and dropdowns that need clear separation on a busy canvas.",
+            "2xl — full-screen sheets and overlays on top of modals.",
           ]}
         />
 

@@ -149,7 +149,7 @@ export function DashboardSpecs() {
               rows: [
                 { variant: "Title",      text: { token: "text-primary",      hex: "#121f28" } },
                 { variant: "Subtitle",   text: { token: "text-disabled",     hex: "#8a9199" } },
-                { variant: "Primary CTA",bg: { token: "btn-primary-600",     hex: "#0f69aa" }, text: { token: "text-on-accent", hex: "#ffffff" }, hover: { token: "btn-primary-700", hex: "#024a72" } },
+                { variant: "Primary CTA",bg: { token: "action-primary",     hex: "#0f69aa" }, text: { token: "text-on-accent", hex: "#ffffff" }, hover: { token: "action-primary-hover", hex: "#024a72" } },
                 { variant: "Secondary",  bg: { token: "surface-app",         hex: "#ffffff" }, text: { token: "text-primary",   hex: "#121f28" }, border: { token: "neutral-divider-10", hex: "#e6e8e8" }, hover: { token: "neutral-grey-100", hex: "#f7f8f8" } },
                 { variant: "Action tag", text: { token: "brand-primary-500", hex: "#0066cc" } },
                 { variant: "Meta tag",   text: { token: "text-disabled",     hex: "#8a9199" } },

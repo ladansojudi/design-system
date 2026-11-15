@@ -183,7 +183,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
           <span
             className={cn(
               "inline-flex items-center justify-center rounded-full px-1.5 min-w-[18px] h-[18px] text-snt-10 font-semibold tabular-nums",
-              isActive ? "bg-snt-btn-primary-600 text-snt-text-on-accent" : "bg-snt-neutral-grey-200 text-snt-text-secondary",
+              isActive ? "bg-snt-action-primary text-snt-text-on-accent" : "bg-snt-neutral-grey-200 text-snt-text-secondary",
             )}
           >
             {count}

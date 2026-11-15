@@ -9,7 +9,8 @@ import { cn } from "@/lib/utils";
  * A finding's severity as signal bars: Critical fills four bars, High three,
  * Medium two, Low one; Info shows an empty ring. The bar count carries the
  * level as well as the colour, so it never relies on colour alone, and the
- * label is always written out. No "use client".
+ * label is always written out. Every badge of a size has the same width (with
+ * or without a score), so a table column stays tidy. No "use client".
  *
  * Requires:
  *   • Tailwind CSS v4
@@ -23,7 +24,7 @@ export interface SeverityBadgeProps extends React.HTMLAttributes<HTMLDivElement>
   severity: Severity;
   /** Optional numeric score (e.g. CVSS), shown after the label. */
   score?:   number;
-  /** sm 24px for dense tables, md 28px. */
+  /** sm 24px tall (96px wide, 128px with a score) for dense tables; md 28px (112 / 144px). */
   size?:    "sm" | "md";
 }
 
@@ -40,11 +41,16 @@ const BAR_HEIGHT = ["h-1.5", "h-2", "h-2.5", "h-3"];
 
 function Bars({ severity }: { severity: Severity }) {
   const { level, fill } = CONFIG[severity];
+  // Both shapes sit in the same 18px slot, so labels line up across levels.
   if (level === 0) {
-    return <span aria-hidden className="size-3 shrink-0 rounded-full border-2 border-snt-severity-info" />;
+    return (
+      <span aria-hidden className="flex h-3 w-[18px] shrink-0 items-center">
+        <span className="size-3 rounded-full border-2 border-snt-severity-info" />
+      </span>
+    );
   }
   return (
-    <span aria-hidden className="flex h-3 shrink-0 items-end gap-0.5">
+    <span aria-hidden className="flex h-3 w-[18px] shrink-0 items-end gap-0.5">
       {BAR_HEIGHT.map((h, i) => (
         <span key={h} className={cn("w-[3px] rounded-[1px]", h, i < level ? fill : "bg-snt-border-default")} />
       ))}
@@ -59,8 +65,12 @@ export const SeverityBadge = React.forwardRef<HTMLDivElement, SeverityBadgeProps
       <div
         ref={ref}
         className={cn(
-          "inline-flex w-fit items-center gap-2 whitespace-nowrap rounded-md bg-snt-surface-app ring-1 ring-inset ring-snt-border-default",
-          size === "sm" ? "h-6 px-2 text-snt-12" : "h-7 px-2.5 text-snt-14",
+          // Fixed width, so every badge in a column is the same size. The score
+          // sits at the right edge, so scores line up as well.
+          "inline-flex items-center gap-2 whitespace-nowrap rounded-md bg-snt-surface-app ring-1 ring-inset ring-snt-border-default",
+          size === "sm"
+            ? cn("h-6 px-2 text-snt-12", score !== undefined ? "w-32" : "w-24")
+            : cn("h-7 px-2.5 text-snt-14", score !== undefined ? "w-36" : "w-28"),
           className,
         )}
         {...props}
@@ -68,7 +78,7 @@ export const SeverityBadge = React.forwardRef<HTMLDivElement, SeverityBadgeProps
         <Bars severity={severity} />
         <span className="font-medium text-snt-text-primary">{cfg.label}</span>
         {score !== undefined && (
-          <span className="font-mono tabular-nums text-snt-text-secondary">{score.toFixed(1)}</span>
+          <span className="ml-auto font-mono tabular-nums text-snt-text-secondary">{score.toFixed(1)}</span>
         )}
       </div>
     );

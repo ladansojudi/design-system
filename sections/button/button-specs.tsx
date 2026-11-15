@@ -56,9 +56,9 @@ export function ButtonSpecs() {
               type: "enum",
               values: (
                 <div className="flex flex-wrap gap-1.5">
-                  <OptionPill swatch={<Swatch token="btn-primary-600" />} label="primary" />
+                  <OptionPill swatch={<Swatch token="action-primary" />} label="primary" />
                   <OptionPill swatch={<Swatch token="text-primary" />} label="neutral" />
-                  <OptionPill swatch={<Swatch token="btn-error-600" />} label="destructive" />
+                  <OptionPill swatch={<Swatch token="action-destructive" />} label="destructive" />
                 </div>
               ),
               default: "primary",
@@ -123,7 +123,7 @@ export function ButtonSpecs() {
               id: "primary",
               label: "Primary",
               rows: [
-                { variant: "Solid",   bg: { token: "btn-primary-600" }, text: { token: "text-on-accent" }, hover: { token: "btn-primary-700" } },
+                { variant: "Solid",   bg: { token: "action-primary" }, text: { token: "text-on-accent" }, hover: { token: "action-primary-hover" } },
                 { variant: "Outline", bg: { token: "surface-app" }, text: { token: "text-link" }, border: { token: "text-link" }, hover: { token: "bg-brand-subtle" } },
                 { variant: "Ghost",   text: { token: "text-link" }, hover: { token: "bg-brand-subtle" } },
               ],
@@ -141,7 +141,7 @@ export function ButtonSpecs() {
               id: "destructive",
               label: "Destructive",
               rows: [
-                { variant: "Solid",   bg: { token: "btn-error-600" }, text: { token: "text-on-accent" }, hover: { token: "btn-error-700" } },
+                { variant: "Solid",   bg: { token: "action-destructive" }, text: { token: "text-on-accent" }, hover: { token: "action-destructive-hover" } },
                 { variant: "Outline", bg: { token: "surface-app" }, text: { token: "text-error" }, border: { token: "text-error" }, hover: { token: "bg-error-subtle" } },
                 { variant: "Ghost",   text: { token: "text-error" }, hover: { token: "bg-error-subtle" } },
               ],

@@ -6,8 +6,6 @@
   /* Colors */
   --snt-scale-blue-50: #f7fafd;
   --snt-scale-blue-200: #c9deee;
-  --snt-scale-yellow-50: #fefaf0;
-  --snt-scale-yellow-200: #f8d072;
   --snt-scale-yellow-700: #795706;
   --snt-text-primary: #09090b;
 
@@ -25,7 +23,6 @@
   /* Radius */
   --radius-xl: 12px;
   --radius-md: 6px;
-  --radius-base: 4px;
 
   /* Border width */
   --border-width-1: 1px;

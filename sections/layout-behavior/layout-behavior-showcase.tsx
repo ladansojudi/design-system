@@ -244,11 +244,11 @@ function MotionSection() {
 // ── Border radius ─────────────────────────────────────────────────────────
 
 const RADII = [
-  { token: "rounded-sm",   px: "3.6px",  use: "Inline tags, status pills"     },
-  { token: "rounded-md",   px: "4.8px",  use: "Compact controls, small chips" },
-  { token: "rounded-lg",   px: "6px",    use: "Default — inputs, buttons, cards" },
-  { token: "rounded-xl",   px: "8.4px",  use: "Section containers, popovers"  },
-  { token: "rounded-2xl",  px: "10.8px", use: "Modals, drawers"               },
+  { token: "rounded-sm",   px: "6px",    use: "Inline tags, status pills"     },
+  { token: "rounded-md",   px: "8px",    use: "Default — buttons, inputs, selects" },
+  { token: "rounded-lg",   px: "10px",   use: "Menus, small cards" },
+  { token: "rounded-xl",   px: "14px",   use: "Cards, modals, drawers, popovers"  },
+  { token: "rounded-2xl",  px: "14.4px", use: "Large panels (close to xl — prefer xl)" },
   { token: "rounded-full", px: "9999px", use: "Avatars, pill badges, toggle thumbs" },
 ];
 
@@ -258,7 +258,7 @@ function RadiusSection() {
       <SectionTitle>Border Radius</SectionTitle>
       <p className="text-[12px] text-snt-text-secondary leading-relaxed mb-4 max-w-2xl">
         Six steps derived from a single{" "}
-        <code className="font-mono text-snt-text-primary">--radius: 0.375rem</code> base
+        <code className="font-mono text-snt-text-primary">--radius: 0.5rem</code> base
         (defined in <code className="font-mono text-snt-text-primary">globals.css</code>) with
         fixed multipliers. Larger surfaces use larger radii — a modal inside a button looks broken.
       </p>

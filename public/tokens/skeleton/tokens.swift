@@ -7,7 +7,6 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let neutralGrey200 = UIColor(hex: "#E4E4E7")
     static let surfaceRow = UIColor(hex: "#FFFFFF")
     static let surfaceTableHeader = UIColor(hex: "#F4F4F5")
     static let textPrimary = UIColor(hex: "#09090B")

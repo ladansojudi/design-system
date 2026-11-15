@@ -29,8 +29,8 @@ export interface ScanProgressProps extends React.HTMLAttributes<HTMLOListElement
 
 function Marker({ status }: { status: ScanStepStatus }) {
   const base = "relative z-10 flex size-6 shrink-0 items-center justify-center rounded-full [&_svg]:size-3.5";
-  if (status === "done") return <span className={cn(base, "bg-snt-btn-primary-600 text-snt-text-on-accent")}><Check aria-hidden /></span>;
-  if (status === "failed") return <span className={cn(base, "bg-snt-btn-error-600 text-snt-text-on-accent")}><X aria-hidden /></span>;
+  if (status === "done") return <span className={cn(base, "bg-snt-action-primary text-snt-text-on-accent")}><Check aria-hidden /></span>;
+  if (status === "failed") return <span className={cn(base, "bg-snt-action-destructive text-snt-text-on-accent")}><X aria-hidden /></span>;
   if (status === "active")
     return (
       <span className={cn(base, "bg-snt-surface-app ring-2 ring-snt-focus-ring")}>
@@ -54,7 +54,7 @@ export function ScanProgress({ steps, label = "Scan progress", className, ...pro
               aria-hidden
               className={cn(
                 "absolute right-1/2 top-3 h-0.5 w-full -translate-y-1/2",
-                s.status === "pending" ? "bg-snt-border-default" : "bg-snt-btn-primary-600",
+                s.status === "pending" ? "bg-snt-border-default" : "bg-snt-action-primary",
               )}
             />
           )}

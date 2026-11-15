@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Tag, ChevronDown } from "lucide-react";
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
@@ -11,16 +10,16 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { FilterBarAnatomyPreview } from "@/sections/anatomy-previews";
 
 export const metadata: Metadata = {
-  title: "Filter Bar",
-};
+  title: "Filter Bar" };
 
 export default function Page() {
   return (
     <>
       <PageHero category="Components"
-        categoryHref="/styleguide/components" title="Filter Bar" status="stable" description="Horizontal toolbar for applying and managing active filters."
+        categoryHref="/styleguide/components" title="Filter Bar" status="beta" description="Horizontal toolbar for applying and managing active filters."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}
       />
@@ -35,20 +34,17 @@ export default function Page() {
             <FigmaNote component="Filter Bar" />
             <DocSection title="Specs" hideTitle>
               <Anatomy
+                layout="stacked"
                 parts={[
-                  { label: "Filter pill",   description: "Selectable chip with icon + label; turns blue when a value is active." },
-                  { label: "Active count",  description: "Small numeric badge inside the pill indicating how many values are applied." },
-                  { label: "Overflow (+ N)",description: "Dashed pill that reveals extra filters hidden due to space." },
-                  { label: "Actions",       description: "Right-aligned buttons (Export, Bulk Actions) separated from filters." },
+                  { label: "Filter pill", target: "span[class*=\"rounded-lg\"]|0", side: "top", description: "Chip with an icon and a label; turns brand-coloured when a value is applied." },
+                  { label: "Active count", target: "span[class*=\"rounded-full\"]", side: "top", description: "Small number inside the pill: how many values are applied." },
+                  { label: "Overflow (+ N)", target: "div.items-center > button|0", side: "bottom", description: "Dashed pill that reveals the filters that don't fit." },
+                  { label: "Actions", target: "div.items-center > button|1", side: "bottom", description: "Buttons such as Export, kept apart from the filters." },
                 ]}
-              >
-                <div className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-snt-brand-primary-500 bg-snt-btn-primary-50 text-snt-brand-primary-500 text-[12px] font-medium">
-                  <Tag size={12} className="opacity-70" />
-                  <span>Tags</span>
-                  <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-snt-brand-primary-500 text-white text-[10px] font-bold">2</span>
-                  <ChevronDown size={11} className="opacity-50" />
-                </div>
-              </Anatomy>
+                preview={
+                  <FilterBarAnatomyPreview />
+                }
+              />
               <FilterBarSpecs />
             </DocSection>
           </div>

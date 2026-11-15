@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -29,22 +30,27 @@ export const ChartCard = React.forwardRef<HTMLDivElement, ChartCardProps>(
     return (
       <div
         ref={ref}
-        className={cn("border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs", className)}
+        className={cn("border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-control", className)}
         {...props}
       >
-        <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl">
-          <span className="text-snt-14 font-semibold text-snt-text-primary shrink-0">{title}</span>
-          {description && (
-            <span className="hidden sm:inline text-snt-12 text-snt-text-secondary truncate flex-1 min-w-0">{description}</span>
-          )}
-          {trailing}
+        <div className="flex items-center gap-4 px-4 sm:px-5 py-4 border-b border-snt-border-default">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2">
+              <span className="text-snt-16 font-semibold tracking-tight text-snt-text-primary">{title}</span>
+              {trailing}
+            </div>
+            {description && (
+              <p className="mt-0.5 hidden truncate text-snt-12 text-snt-text-secondary sm:block">{description}</p>
+            )}
+          </div>
           {viewAll && (
             <button
               type="button"
               onClick={onViewAll}
-              className="ml-auto text-snt-12 font-medium text-snt-brand-primary-500 hover:text-snt-brand-primary-600 transition-colors shrink-0 underline underline-offset-2"
+              className="inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1 -mr-2 text-snt-12 font-medium text-snt-text-link transition-colors hover:bg-snt-bg-brand-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
             >
               View all
+              <ChevronRight size={12} aria-hidden />
             </button>
           )}
         </div>
@@ -68,11 +74,11 @@ export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
     return (
       <div
         ref={ref}
-        className={cn("flex-1 min-w-0 rounded-lg bg-snt-bg-subtle px-4 py-3", className)}
+        className={cn("flex-1 min-w-0 rounded-lg border border-snt-border-default px-4 py-3", className)}
         {...props}
       >
         <div className="text-snt-12 text-snt-text-secondary mb-1 truncate">{label}</div>
-        <div className={cn("text-snt-16 font-bold tabular-nums truncate", accent ?? "text-snt-text-primary")}>
+        <div className={cn("text-snt-20 font-semibold tracking-tight tabular-nums truncate", accent ?? "text-snt-text-primary")}>
           {value}
         </div>
       </div>

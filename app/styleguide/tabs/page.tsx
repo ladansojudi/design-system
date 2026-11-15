@@ -10,6 +10,7 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const metadata: Metadata = {
   title: "Tabs",
@@ -35,16 +36,19 @@ export default function Page() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Tab item",   description: "Clickable segment holding the label and optional badge." },
-                  { label: "Indicator",  description: "Underline (2px bottom border) or filled pill that marks the active tab." },
-                  { label: "Badge (optional)", description: "Count chip used to surface activity (Findings · 12)." },
+                  { label: "Tab item", target: "[role=\"tab\"]|1", side: "bottom", description: "One clickable segment: label plus optional badge." },
+                  { label: "Indicator", target: "[role=\"tab\"][aria-selected=\"true\"]", side: "top", description: "The underline (or filled pill) marks the active tab." },
+                  { label: "Badge (optional)", target: "[role=\"tab\"] > span", side: "top", description: "Count chip that surfaces activity, e.g. Findings \u00b7 12." },
                 ]}
-              >
-                <div className="flex items-end border-b border-snt-neutral-divider-10">
-                  <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-snt-brand-primary-500 text-snt-brand-primary-500">Findings</span>
-                  <span className="px-4 pb-2.5 pt-2 text-[14px] font-medium border-b-2 -mb-px border-transparent text-snt-text-secondary">Assets</span>
-                </div>
-              </Anatomy>
+                preview={
+                  <Tabs defaultValue="findings">
+                    <TabsList aria-label="Anatomy example">
+                      <TabsTrigger value="findings" count={12}>Findings</TabsTrigger>
+                      <TabsTrigger value="assets">Assets</TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                }
+              />
               <TabsSpecs />
             </DocSection>
           </div>

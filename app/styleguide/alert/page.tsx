@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AlertTriangle, X } from "lucide-react";
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
@@ -11,10 +10,10 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Alert } from "@/components/ui/alert";
 
 export const metadata: Metadata = {
-  title: "Alert",
-};
+  title: "Alert" };
 
 export default function AlertPage() {
   return (
@@ -40,37 +39,18 @@ export default function AlertPage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Surface",            description: "Tinted background + matching border in the variant's scale-50/200 colors." },
-                  { label: "Icon",               description: "Severity icon (Info, CheckCircle, Triangle, Octagon) tied to the variant." },
-                  { label: "Title (optional)",   description: "Short headline summarizing the message in 4–8 words." },
-                  { label: "Description",        description: "One sentence with the actionable detail. Avoid long paragraphs." },
-                  { label: "Action (optional)",  description: "Inline link or button taking the user to the next step." },
-                  { label: "Dismiss (optional)", description: "Close button — only for alerts the user can safely ignore." },
+                  { label: "Surface", target: ":scope > *", side: "left", description: "Tinted background and matching border in the variant's colours." },
+                  { label: "Icon", target: "svg|0", side: "top", description: "Icon that matches the variant: info, check, triangle or octagon." },
+                  { label: "Title (optional)", target: "div.font-semibold", side: "top", description: "Short headline in 4\u20138 words." },
+                  { label: "Description", target: "div.flex-1 > div:nth-child(2)", side: "right", description: "One sentence with the actionable detail." },
+                  { label: "Action (optional)", target: "div.flex-1 > div:nth-child(3)", side: "bottom", description: "Inline link or button that takes the user to the next step." },
+                  { label: "Dismiss (optional)", target: "button", side: "top", description: "Close button, only for alerts that are safe to ignore." },
                 ]}
                 preview={
-                  <div className="flex items-start gap-3 rounded-md border border-snt-scale-yellow-200 bg-snt-scale-yellow-50 px-4 py-3 w-[320px]">
-                    <AlertTriangle size={16} className="text-snt-scale-yellow-700 shrink-0 mt-px" />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-[14px] font-semibold text-snt-scale-yellow-700 leading-tight">
-                        Quota almost exceeded
-                      </div>
-                      <div className="text-[12px] text-snt-scale-yellow-700 mt-1 leading-relaxed">
-                        You have used 9.2 GB of your 10 GB allowance.
-                      </div>
-                      <button
-                        type="button"
-                        className="mt-2.5 text-[11px] font-medium underline text-snt-scale-yellow-700"
-                      >
-                        Upgrade plan
-                      </button>
-                    </div>
-                    <button
-                      type="button"
-                      aria-label="Dismiss"
-                      className="shrink-0 p-1 -m-1 rounded text-snt-scale-yellow-700"
-                    >
-                      <X size={14} />
-                    </button>
+                  <div className="w-[480px] max-w-full">
+                    <Alert variant="warning" title="2 assets not scanned in 30 days" dismissible action={<a href="#" className="text-snt-12 font-medium underline">Schedule a scan</a>}>
+                      Schedule a scan to keep the exposure score current.
+                    </Alert>
                   </div>
                 }
               />

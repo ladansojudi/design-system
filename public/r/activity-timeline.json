@@ -4,8 +4,8 @@
   "title": "Activity Timeline",
   "description": "A time-ordered list of events: an attack timeline, an audit log, or the history of a finding.",
   "registryDependencies": [
-    "http://localhost:3000/r/utils.json",
-    "http://localhost:3000/r/theme.json"
+    "https://ladan-design-system.vercel.app/r/utils.json",
+    "https://ladan-design-system.vercel.app/r/theme.json"
   ],
   "files": [
     {
@@ -17,7 +17,7 @@
   "meta": {
     "status": "beta"
   },
-  "docs": "Activity Timeline (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/activity-timeline.md",
+  "docs": "Activity Timeline (beta). Usage, accessibility and known gaps: https://ladan-design-system.vercel.app/docs/components/activity-timeline.md",
   "categories": [
     "atom"
   ],

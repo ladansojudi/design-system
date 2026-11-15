@@ -4,10 +4,8 @@
 
 :root {
   /* Colors */
-  --snt-brand-primary-600: #4f46e5;
   --snt-text-primary: #09090b;
   --snt-text-white: #ffffff;
-  --snt-btn-primary-600: #4f46e5;
 
   /* Spacing */
   --space-2: 8px;

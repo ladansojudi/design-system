@@ -93,7 +93,7 @@ export function AppSidebar() {
             <div className="h-full w-[14%] bg-snt-brand-primary-500" />
           </div>
         </div>
-        <button type="button" className="w-full inline-flex items-center justify-center gap-1.5 h-9 rounded-lg bg-snt-btn-primary-600 text-snt-text-on-accent text-[14px] font-medium hover:bg-snt-btn-primary-700 transition-colors">
+        <button type="button" className="w-full inline-flex items-center justify-center gap-1.5 h-9 rounded-lg bg-snt-action-primary text-snt-text-on-accent text-[14px] font-medium hover:bg-snt-action-primary-hover transition-colors">
           <Rocket size={14} /> Upgrade plan
         </button>
         <div className="text-center text-[10px] text-snt-text-disabled">Status · v03.23.0</div>

@@ -17,7 +17,6 @@
     <dimen name="space_3">12dp</dimen>
     <dimen name="space_10">40dp</dimen>
     <dimen name="space_8">32dp</dimen>
-    <dimen name="space_9">36dp</dimen>
     <dimen name="space_16">64dp</dimen>
 
     <!-- Radius -->

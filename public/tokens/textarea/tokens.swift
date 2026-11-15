@@ -9,7 +9,6 @@ import UIKit
 extension UIColor {
     static let neutralGrey300 = UIColor(hex: "#D4D4D8")
     static let surfaceApp = UIColor(hex: "#FFFFFF")
-    static let surfaceRow = UIColor(hex: "#FFFFFF")
     static let textPrimary = UIColor(hex: "#09090B")
     static let textSecondary = UIColor(hex: "#52525B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
@@ -31,18 +30,14 @@ extension CGFloat {
 
     // Radius
     static let radiusXl: CGFloat = 12
-    static let radiusMd: CGFloat = 6
 
     // Border width
     static let borderWidth1: CGFloat = 1
 
     // Font size
-    static let fontSize11: CGFloat = 11
     static let fontSize12: CGFloat = 12
-    static let fontSize14: CGFloat = 14
     static let fontSize15: CGFloat = 15
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)
 // font-weight-semibold → .semibold   (CSS 600)
-// font-weight-medium → .medium   (CSS 500)

@@ -4,17 +4,14 @@
 
 :root {
   /* Colors */
-  --snt-severity-info: #7dafd6;
-  --snt-severity-low: #63a100;
-  --snt-severity-medium: #f5bf40;
-  --snt-severity-high: #d13d2e;
-  --snt-severity-critical: #772ed1;
+  --snt-severity-info: #a8a29e;
+  --snt-severity-low: #1b9e8f;
+  --snt-severity-medium: #f0ad1d;
+  --snt-severity-high: #e5532d;
+  --snt-severity-critical: #b4136c;
   --snt-brand-primary-200: #c7ccfe;
   --snt-brand-primary-500: #5b5bd6;
   --snt-brand-primary-600: #4f46e5;
-  --snt-brand-secondary-200: #f5b6a3;
-  --snt-brand-secondary-500: #ee7b59;
-  --snt-brand-secondary-600: #e85326;
   --snt-scale-green-500: #63a100;
   --snt-scale-green-600: #3f6600;
   --snt-scale-yellow-500: #f5bf40;

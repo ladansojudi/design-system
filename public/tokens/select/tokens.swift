@@ -7,12 +7,9 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
-    static let brandPrimary500 = UIColor(hex: "#5B5BD6")
-    static let brandPrimary600 = UIColor(hex: "#4F46E5")
     static let neutralGrey300 = UIColor(hex: "#D4D4D8")
     static let surfaceRow = UIColor(hex: "#FFFFFF")
     static let textPrimary = UIColor(hex: "#09090B")
-    static let textSecondary = UIColor(hex: "#52525B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
 }
 
@@ -27,7 +24,6 @@ extension CGFloat {
     static let space5: CGFloat = 20
     static let space3: CGFloat = 12
     static let space8: CGFloat = 32
-    static let space9: CGFloat = 36
     static let space1: CGFloat = 4
     static let space16: CGFloat = 64
 
@@ -39,13 +35,8 @@ extension CGFloat {
     static let borderWidth1: CGFloat = 1
 
     // Font size
-    static let fontSize11: CGFloat = 11
     static let fontSize14: CGFloat = 14
-
-    // Focus ring width
-    static let ringWidth2: CGFloat = 2
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)
 // font-weight-semibold → .semibold   (CSS 600)
-// font-weight-medium → .medium   (CSS 500)

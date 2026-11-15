@@ -1,6 +1,7 @@
 "use client";
 
 import type React from "react";
+import { ContrastTable as LiveContrastTable } from "@/components/styleguide/a11y-docs";
 import { cn } from "@/lib/utils";
 
 // ── Section title (matches the existing component-docs pattern) ───────────
@@ -14,75 +15,27 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ── Contrast ratios ───────────────────────────────────────────────────────
+// ── Contrast ratios (computed live from the tokens, not typed in) ─────────
 
-type Level = "pass" | "warn";
-
-const contrastRows: { token: string; background: string; ratio: string; level: string; status: Level }[] = [
-  { token: "--text-primary",   background: "--bg-base",      ratio: "16.8:1", level: "AAA",                status: "pass" },
-  { token: "--text-secondary", background: "--bg-surface",   ratio: "5.2:1",  level: "AA",                 status: "pass" },
-  { token: "--text-muted",     background: "--bg-surface",   ratio: "2.4:1",  level: "Captions only ⚠",   status: "warn" },
-  { token: "--critical-text",  background: "--critical-bg",  ratio: "4.6:1",  level: "AA",                 status: "pass" },
-  { token: "--low-text",       background: "--low-bg",       ratio: "4.8:1",  level: "AA",                 status: "pass" },
-  { token: "--text-mono",      background: "--bg-card",      ratio: "5.1:1",  level: "AA",                 status: "pass" },
-];
-
-function ContrastTable() {
+function ContrastRatios() {
   return (
     <div>
       <SectionTitle>Contrast ratios</SectionTitle>
-      <div className="border border-snt-neutral-divider-10 rounded-xl overflow-hidden">
-        <div className="overflow-x-auto snt-scrollbar-hide">
-          <table className="w-full min-w-[520px] text-sm">
-            <thead className="bg-snt-surface-table-header">
-              <tr className="text-left">
-                <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">
-                  Token
-                </th>
-                <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">
-                  Background
-                </th>
-                <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">
-                  Ratio
-                </th>
-                <th className="py-2.5 px-4 text-[10px] uppercase tracking-widest font-medium text-snt-text-disabled">
-                  Level
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {contrastRows.map((row) => (
-                <tr
-                  key={row.token + row.background}
-                  className="border-t border-snt-neutral-divider-10 hover:bg-snt-surface-row-hover transition-colors duration-75"
-                >
-                  <td className="py-2.5 px-4">
-                    <span className="font-mono text-[12px] text-snt-text-secondary">{row.token}</span>
-                  </td>
-                  <td className="py-2.5 px-4">
-                    <span className="font-mono text-[12px] text-snt-text-secondary">{row.background}</span>
-                  </td>
-                  <td className="py-2.5 px-4">
-                    <span className="font-mono text-[12px] text-snt-text-primary">{row.ratio}</span>
-                  </td>
-                  <td className="py-2.5 px-4">
-                    <span
-                      className={cn(
-                        "text-[12px] font-medium",
-                        row.status === "pass"
-                          ? "text-snt-scale-green-600"
-                          : "text-snt-scale-yellow-700",
-                      )}
-                    >
-                      {row.level}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <p className="mb-4 text-snt-14 text-snt-text-secondary">
+        Computed from the tokens in the current theme — switch to dark mode to check it too.
+        Disabled text is exempt from WCAG contrast, so it is not listed.
+      </p>
+      <LiveContrastTable
+        rows={[
+          { label: "Primary text",      fg: "text-primary",   bg: "surface-app",     min: 4.5 },
+          { label: "Secondary text",    fg: "text-secondary", bg: "surface-app",     min: 4.5 },
+          { label: "Link",              fg: "text-link",      bg: "surface-app",     min: 4.5 },
+          { label: "Error text",        fg: "text-error",     bg: "bg-error-subtle", min: 4.5 },
+          { label: "Success text",      fg: "text-success",   bg: "bg-success-subtle", min: 4.5 },
+          { label: "Strong border",     fg: "border-strong",  bg: "surface-app",     min: 3 },
+          { label: "Focus ring",        fg: "focus-ring",     bg: "surface-app",     min: 3 },
+        ]}
+      />
     </div>
   );
 }
@@ -96,11 +49,11 @@ type Severity = {
 };
 
 const severities: Severity[] = [
-  { label: "Info",     dotClass: "bg-snt-severity-info",     textClass: "text-snt-scale-blue-600"   },
-  { label: "Low",      dotClass: "bg-snt-severity-low",      textClass: "text-snt-scale-green-600"  },
-  { label: "Medium",   dotClass: "bg-snt-severity-medium",   textClass: "text-snt-scale-yellow-700" },
-  { label: "High",     dotClass: "bg-snt-severity-high",     textClass: "text-snt-scale-red-600"    },
-  { label: "Critical", dotClass: "bg-snt-severity-critical", textClass: "text-snt-scale-purple-600" },
+  { label: "Info",     dotClass: "bg-snt-severity-info",     textClass: "text-snt-severity-info-text"   },
+  { label: "Low",      dotClass: "bg-snt-severity-low",      textClass: "text-snt-severity-low-text"  },
+  { label: "Medium",   dotClass: "bg-snt-severity-medium",   textClass: "text-snt-severity-medium-text" },
+  { label: "High",     dotClass: "bg-snt-severity-high",     textClass: "text-snt-severity-high-text"    },
+  { label: "Critical", dotClass: "bg-snt-severity-critical", textClass: "text-snt-severity-critical-text" },
 ];
 
 function SeverityNotColorAlone() {
@@ -135,7 +88,9 @@ const keyboardRows: { component: string; keys: string }[] = [
   { component: "Data table",     keys: "↑ ↓ navigate · Enter open · Space select" },
   { component: "Sidebar nav",    keys: "Tab move · Enter / Space activate" },
   { component: "Modal",          keys: "Escape close · focus trapped inside" },
-  { component: "Dropdown",       keys: "↑ ↓ options · Enter select · Escape close" },
+  { component: "Select",         keys: "↑ ↓ options · Enter select · Escape close" },
+  { component: "Dropdown menu",           keys: "Enter / Space / ↓ open · ↑ ↓ items · type-ahead · Escape close" },
+  { component: "Drawer",         keys: "Escape close · focus trapped inside" },
   { component: "CommandPalette", keys: "⌘K open · ↑ ↓ results · Enter activate" },
 ];
 
@@ -183,7 +138,7 @@ function KeyboardTable() {
 export function AccessibilityShowcase() {
   return (
     <div className="space-y-10">
-      <ContrastTable />
+      <ContrastRatios />
       <SeverityNotColorAlone />
       <KeyboardTable />
     </div>

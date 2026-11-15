@@ -98,14 +98,14 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 - Renders a native `<button>` with `type="button"` by default. Pass `type="submit"` inside forms.
 - `iconOnly` requires `aria-label`. The visible icon should be `aria-hidden`.
 - For a toggle button, pass `aria-pressed`. For a menu trigger, pass `aria-haspopup` and `aria-expanded`.
-- Contrast: label on `btn-primary-600` and `btn-error-600` passes 4.5:1. The focus ring is 3:1 against the surface.
+- Contrast: label on `action-primary` and `action-destructive` passes 4.5:1. The focus ring is 3:1 against the surface.
 
 ## Design tokens
 
 | Role | Token |
 |---|---|
-| Primary bg / hover | `snt-btn-primary-600` / `snt-btn-primary-700` |
-| Destructive bg / hover | `snt-btn-error-600` / `snt-btn-error-700` |
+| Primary bg / hover | `snt-action-primary` / `snt-action-primary-hover` |
+| Destructive bg / hover | `snt-action-destructive` / `snt-action-destructive-hover` |
 | Default solid bg / hover | `snt-text-primary` / `snt-neutral-grey-800` |
 | Label on solid | `snt-text-on-accent`, `snt-text-inverse` |
 | Outline / ghost label | `snt-text-link`, `snt-text-error`, `snt-text-primary` |

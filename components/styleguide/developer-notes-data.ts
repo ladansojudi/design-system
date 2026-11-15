@@ -17,6 +17,52 @@ export type DevNote = {
  * Props document the intended public API (the showcases implement it inline).
  */
 export const DEV_NOTES: Record<string, DevNote> = {
+  pagination: {
+    importLine: 'import { Pagination } from "@/components/ui/pagination";',
+    usage: `<Pagination page={page} pageCount={20} onPageChange={setPage} />`,
+    props: [
+      { name: "page", type: "number", desc: "Current page, from 1." },
+      { name: "pageCount", type: "number", desc: "Total pages." },
+      { name: "onPageChange", type: "(page: number) => void", desc: "Called with the new page." },
+      { name: "siblingCount", type: "number", def: "1", desc: "Pages each side of the current one." },
+    ],
+    notes: ["Works in Server Components when given no handler; pass onPageChange from a client component.", "pageRange() is exported if you need the same page list for your own UI."],
+    edgeCases: ["pageCount of 1 renders a single disabled-arrows control; hide it yourself if you don't want it."],
+  },
+  drawer: {
+    importLine: 'import { Drawer, DrawerHeader, DrawerTitle, DrawerBody, DrawerFooter } from "@/components/ui/drawer";',
+    usage: `<Drawer open={open} onOpenChange={setOpen}>…</Drawer>`,
+    props: [
+      { name: "open", type: "boolean", desc: "Shown or hidden." },
+      { name: "onOpenChange", type: "(open: boolean) => void", desc: "Open / close request." },
+      { name: "side", type: '"left" | "right"', def: '"right"', desc: "Edge it slides from." },
+      { name: "size", type: '"sm" | "md" | "lg"', def: '"md"', desc: "Maximum width." },
+    ],
+    notes: ["Client component. Renders in a portal and mirrors the theme of its opener.", "Focus trap, Escape, scroll lock and inert page behave like Modal."],
+    edgeCases: ["Two drawers open at once are not supported."],
+  },
+  "dropdown-menu": {
+    importLine: 'import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";',
+    usage: `<DropdownMenu><DropdownMenuTrigger>Actions</DropdownMenuTrigger><DropdownMenuContent><DropdownMenuItem onSelect={rescan}>Re-run scan</DropdownMenuItem></DropdownMenuContent></DropdownMenu>`,
+    props: [
+      { name: "align", type: '"start" | "end"', def: '"start"', desc: "DropdownMenuContent: edge it lines up with." },
+      { name: "onSelect", type: "() => void", desc: "DropdownMenuItem: called when chosen; menu closes." },
+      { name: "destructive", type: "boolean", def: "false", desc: "DropdownMenuItem: red text." },
+    ],
+    notes: ["Client component; content is portalled to <body> and positioned with fixed coordinates.", "Style DropdownMenuTrigger yourself, e.g. with buttonVariants()."],
+    edgeCases: ["Flips above the button when there is no room below; follows scroll and resize."],
+  },
+  "command-palette": {
+    importLine: 'import { CommandPalette } from "@/components/ui/command-palette";',
+    usage: `<CommandPalette open={open} onOpenChange={setOpen} items={items} />`,
+    props: [
+      { name: "items", type: "CommandItem[]", desc: "id, label, onSelect + optional group, hint, icon, keywords." },
+      { name: "open", type: "boolean", desc: "Shown or hidden." },
+      { name: "onOpenChange", type: "(open: boolean) => void", desc: "Open / close request." },
+    ],
+    notes: ["Built on Modal. Bind the ⌘K shortcut yourself (see the Code tab).", "Search matches every typed word against label, group and keywords."],
+    edgeCases: ["Typing resets the highlight to the first result."],
+  },
   "masked-value": {
     importLine: 'import { MaskedValue } from "@/components/ui/masked-value";',
     usage: `<MaskedValue label="API key" value={apiKey} />`,

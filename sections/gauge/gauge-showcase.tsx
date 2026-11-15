@@ -6,7 +6,7 @@ import { Gauge } from "@/components/ui/gauge";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
-type GaugeColor = "blue" | "green" | "yellow" | "red" | "purple";
+type GaugeColor = "blue" | "green" | "yellow" | "red" | "brand";
 
 // ── Token maps (Tailwind stroke / fill classes for Sentinel tokens) ─────────────
 
@@ -27,7 +27,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 
 // ── Showcase ───────────────────────────────────────────────────────────────
 
-const colors: GaugeColor[] = ["blue", "green", "yellow", "red", "purple"];
+const colors: GaugeColor[] = ["blue", "green", "yellow", "red", "brand"];
 
 export function GaugeShowcase() {
   return (
@@ -80,10 +80,10 @@ export function GaugeExamples() {
         preview={<Gauge color="red" value={88} />}
       />
       <ExampleCard
-        title="Purple"
+        title="Brand"
         density="tall"
-        code={`<Gauge value={33} color="purple" />`}
-        preview={<Gauge color="purple" value={33} />}
+        code={`<Gauge value={33} color="brand" />`}
+        preview={<Gauge color="brand" value={33} />}
       />
     </div>
   );

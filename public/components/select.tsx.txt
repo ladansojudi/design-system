@@ -3,7 +3,7 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { Check, ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, inheritTheme } from "@/lib/utils";
 
 /**
  * sentinel/ui — Select
@@ -121,9 +121,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
         list.style.width     = `${rect.width}px`;
         list.style.maxHeight = `${room}px`;
         list.style.top       = flip ? `${rect.top - gap - Math.min(wanted, room)}px` : `${rect.bottom + gap}px`;
-        // Carry a nested theme (e.g. a dark preview panel) into the portal.
-        const themed = trigger.closest<HTMLElement>("[data-snt-theme]");
-        if (themed) list.setAttribute("data-snt-theme", themed.dataset.sntTheme ?? "");
+        // Carry the theme (dark mode, or a nested preview panel) into the portal.
+        inheritTheme(trigger, list);
       };
       place();
       window.addEventListener("resize", place);

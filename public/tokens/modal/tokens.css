@@ -16,11 +16,12 @@
   --snt-neutral-grey-200: #e4e4e7;
   --snt-neutral-grey-300: #d4d4d8;
   --snt-neutral-grey-400: #8f8f98;
+  --snt-neutral-grey-900: #18181b;
   --snt-surface-app: #ffffff;
   --snt-text-primary: #09090b;
+  --snt-text-secondary: #52525b;
   --snt-text-disabled: #a1a1aa;
-  --snt-btn-primary-600: #4f46e5;
-  --snt-btn-primary-700: #4338ca;
+  --snt-text-error: #b0291e;
 
   /* Spacing */
   --space-9: 36px;

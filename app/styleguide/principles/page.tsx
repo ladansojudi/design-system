@@ -14,15 +14,15 @@ const principles = [
   },
   {
     title: "Severity is never decorative",
-    body:  "Purple means Critical, red means High. Severity colours are reserved — never used for charts, backgrounds or UI states. A misread severity level in a security tool has real consequences.",
+    body:  "Magenta means Critical, orange-red means High. Severity colours are reserved — never used for charts, backgrounds or UI states — and are always paired with a label or icon. A misread severity level in a security tool has real consequences.",
   },
   {
     title: "Density with breathing room",
     body:  "Security products are data-heavy. Components are designed to show a lot of information without feeling overwhelming.",
   },
   {
-    title: "Dark first, light always",
-    body:  "Security teams live in these tools for hours, often in dark rooms. Every component works in dark and light, and both are tested equally.",
+    title: "Dark and light, equally",
+    body:  "Security teams live in these tools for hours, often in dark rooms, and others work in bright offices. Every component works in dark and light, and both are checked equally.",
   },
   {
     title: "One source, no exceptions",
@@ -34,7 +34,8 @@ export default function PrinciplesPage() {
   return (
     <>
       <PageHero
-        category="Foundations"
+        category="Get started"
+        categoryHref="/styleguide/overview"
         title="Design Principles"
         status="stable"
         description="Five principles that guide every decision in this design system — from token names to component anatomy to the way severity is represented."

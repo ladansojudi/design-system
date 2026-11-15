@@ -27,7 +27,7 @@ function RiskGauge({ value }: { value: number }) {
       <path d={arc(start, start + 60)}  fill="none" strokeWidth="12" strokeLinecap="round" className="stroke-snt-scale-green-500" />
       <path d={arc(start + 60, start + 120)} fill="none" strokeWidth="12" strokeLinecap="round" className="stroke-snt-scale-yellow-500" />
       <path d={arc(start + 120, start + 160)} fill="none" strokeWidth="12" strokeLinecap="round" className="stroke-snt-scale-red-500" />
-      <path d={arc(start + 160, end)} fill="none" strokeWidth="12" strokeLinecap="round" className="stroke-snt-scale-purple-500" />
+      <path d={arc(start + 160, end)} fill="none" strokeWidth="12" strokeLinecap="round" className="stroke-snt-brand-primary-500" />
       <circle cx={knob.x} cy={knob.y} r="7" className="fill-snt-surface-app stroke-snt-text-primary" strokeWidth="2.5" />
       <text x={CX} y={CY - 6} textAnchor="middle" className="fill-snt-text-primary" fontSize="26" fontWeight="700">{value}</text>
     </svg>
@@ -65,7 +65,7 @@ function TerminalLog() {
         {LOG.map((l, i) => (
           <div key={i} className={l.kind === "ERROR" ? "text-snt-scale-red-500" : "text-snt-text-white"}>
             <span className="text-[#8a8a8a]">$: {l.time} </span>
-            <span className="text-snt-brand-secondary-500">[{l.kind}] </span>
+            <span className="text-snt-text-link">[{l.kind}] </span>
             <span className="text-snt-brand-primary-500">[{l.source}] </span>
             {l.tag} {l.text}
           </div>
@@ -178,7 +178,7 @@ export function OverviewTab() {
             <p className="text-[12px] text-snt-text-secondary mt-1 leading-relaxed">
               These assets are currently outside your security coverage. Hidden vulnerabilities may go undetected.
             </p>
-            <button type="button" className="mt-3 inline-flex items-center h-9 px-4 rounded-lg bg-snt-btn-primary-600 text-snt-text-on-accent text-[14px] font-medium hover:bg-snt-btn-primary-700 transition-colors">
+            <button type="button" className="mt-3 inline-flex items-center h-9 px-4 rounded-lg bg-snt-action-primary text-snt-text-on-accent text-[14px] font-medium hover:bg-snt-action-primary-hover transition-colors">
               Review Assets
             </button>
             <div className="flex items-center gap-1.5 mt-4">

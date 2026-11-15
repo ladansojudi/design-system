@@ -7,8 +7,8 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "http://localhost:3000/r/utils.json",
-    "http://localhost:3000/r/theme.json"
+    "https://ladan-design-system.vercel.app/r/utils.json",
+    "https://ladan-design-system.vercel.app/r/theme.json"
   ],
   "files": [
     {
@@ -18,9 +18,9 @@
     }
   ],
   "meta": {
-    "status": "stable"
+    "status": "alpha"
   },
-  "docs": "Text Space (stable). Usage, accessibility and known gaps: http://localhost:3000/docs/components/text-space.md",
+  "docs": "Text Space (alpha). Usage, accessibility and known gaps: https://ladan-design-system.vercel.app/docs/components/text-space.md",
   "categories": [
     "organism"
   ],

@@ -56,7 +56,7 @@ _Draft rationale, inferred from the code. Confirm with design before publishing.
 | `tone` | Background |
 |---|---|
 | `neutral` *(default)* | `snt-btn-neutral-800` |
-| `promo` | `snt-btn-primary-600` |
+| `promo` | `snt-action-primary` |
 | `warning` | `snt-scale-yellow-500` |
 
 ## Accessibility

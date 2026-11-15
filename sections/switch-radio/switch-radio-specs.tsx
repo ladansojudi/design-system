@@ -39,7 +39,7 @@ export function SwitchRadioSpecs() {
         </SpecLede>
 
         <SpacingDiagram width={40} height={20} padX={4} padY={4} radius={16}>
-          <div className="absolute inset-0 rounded-full bg-snt-btn-primary-600 flex items-center">
+          <div className="absolute inset-0 rounded-full bg-snt-action-primary flex items-center">
             <span className="block w-[16px] h-[16px] rounded-full bg-white shadow-sm ml-auto mr-[2px]" />
           </div>
         </SpacingDiagram>
@@ -87,7 +87,7 @@ export function SwitchRadioSpecs() {
               id: "switch-primary",
               label: "Switch · primary",
               rows: [
-                { variant: "Checked",   bg: { token: "btn-primary-600",   hex: "#0f69aa" }, text: { token: "white",              hex: "#ffffff" }, hover: { token: "btn-primary-700",   hex: "#024a72" } },
+                { variant: "Checked",   bg: { token: "action-primary",   hex: "#0f69aa" }, text: { token: "white",              hex: "#ffffff" }, hover: { token: "action-primary-hover",   hex: "#024a72" } },
                 { variant: "Unchecked", bg: { token: "neutral-grey-300",  hex: "#dfe2e2" }, text: { token: "white",              hex: "#ffffff" }, hover: { token: "neutral-grey-400",  hex: "#b7bcbe" } },
               ],
             },

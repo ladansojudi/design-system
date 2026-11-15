@@ -6,8 +6,6 @@
     <!-- Colors -->
     <color name="scale_blue_50">#F7FAFD</color>
     <color name="scale_blue_200">#C9DEEE</color>
-    <color name="scale_yellow_50">#FEFAF0</color>
-    <color name="scale_yellow_200">#F8D072</color>
     <color name="scale_yellow_700">#795706</color>
     <color name="text_primary">#09090B</color>
 
@@ -25,7 +23,6 @@
     <!-- Radius -->
     <dimen name="radius_xl">12dp</dimen>
     <dimen name="radius_md">6dp</dimen>
-    <dimen name="radius_base">4dp</dimen>
 
     <!-- Border width -->
     <dimen name="border_width_1">1dp</dimen>

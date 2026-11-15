@@ -1,10 +1,10 @@
 # Sentinel Design System
 
-> React + Tailwind v4 component library and design tokens for cybersecurity products (threat dashboards, scans, assets, findings, severity). Version 1.3.1. 32 copy-paste components (shadcn-style: you own the code), themed with `snt-*` CSS variables in light and dark mode, targeting WCAG 2.2 AA and the WAI-ARIA Authoring Practices (remaining gaps are listed per component).
+> React + Tailwind v4 component library and design tokens for cybersecurity products (threat dashboards, scans, assets, findings, severity). Version 1.3.1. 36 copy-paste components (shadcn-style: you own the code), themed with `snt-*` CSS variables in light and dark mode, targeting WCAG 2.2 AA and the WAI-ARIA Authoring Practices (remaining gaps are listed per component).
 
 ## Rules for AI agents
 
-1. **Use the existing components.** Install them with the shadcn CLI (`npx shadcn add @sentinel/<name>`, see Setup) — or copy `/components/<slug>.tsx.txt` into `components/ui/<slug>.tsx`. Don't recreate a component that already exists, and don't restyle it from scratch. Check props and defaults in [sentinel-manifest.json](/sentinel-manifest.json).
+1. **Use the existing components.** Install them with the shadcn CLI (`npx shadcn add @sentinel/<name>`, see Setup) — or copy `/components/<slug>.tsx.txt` into `components/ui/<slug>.tsx`. Don't recreate a component that already exists, and don't restyle it from scratch. Check props and defaults in [sentinel-manifest.json](https://ladan-design-system.vercel.app/sentinel-manifest.json).
 2. **Never hard-code colours, font sizes, shadows or z-indexes.** Use the `snt-*` tokens through Tailwind utilities (`bg-snt-surface-app`, `text-snt-text-secondary`, `border-snt-border-default`, `shadow-snt-lg`, `z-modal`). Font sizes use the type scale `text-snt-{10,11,12,14,16,18,20,24,32,48}` (numbers are px). Every token is defined in `theme.css`.
 3. **Prefer semantic tokens over scale primitives.** Borders: `border-snt-border-default` / `-strong` / `-focus` / `-error`. Tints: `bg-snt-bg-subtle`, `bg-snt-bg-{brand,info,success,warning,error}-subtle`. Focus: `ring-snt-focus-ring` (`-error` for destructive). Text: `text-snt-text-*`. Surfaces: `bg-snt-surface-*`. Use `snt-scale-<hue>-<step>` / `snt-neutral-*` primitives only when the hue itself is the meaning (severity, data series). Use `text-snt-text-disabled` only for disabled controls; it fails contrast for normal text.
 4. **Follow each component's "When to use / When not to use".** For example, a destructive confirm is a `Modal` with `Button intent="destructive"`, a vulnerability level is always `SeverityBadge`, and navigation is a link, not a `Button`.
@@ -12,15 +12,15 @@
 6. **Respect the status.** `deprecated` components (Banner) must not be used in new code; follow the migration note. `alpha` components may change.
 7. **Check "Known gaps"** in each doc before assuming a behaviour exists.
 8. **Naming:** states are lowercase (`state="error"`), colour families are `tone` (not `color`).
-9. **Lint your output.** Add [eslint-plugin-sentinel](/eslint-plugin-sentinel.mjs) (`sentinel.configs.recommended`): it rejects hard-coded colours and unlabeled icon-only buttons, and autofixes primitives to semantic tokens. Fix every error before finishing.
+9. **Lint your output.** Add [eslint-plugin-sentinel](https://ladan-design-system.vercel.app/eslint-plugin-sentinel.mjs) (`sentinel.configs.recommended`): it rejects hard-coded colours and unlabeled icon-only buttons, and autofixes primitives to semantic tokens. Fix every error before finishing.
 
 ## Setup
 
 - **Requirements:** React 19, Tailwind CSS v4, `clsx`, `tailwind-merge` and `lucide-react`. `Tabs` has no extra deps; `Modal` uses `react-dom`'s `createPortal`.
-- **Install with the shadcn CLI:** add `"registries": { "@sentinel": "/r/{name}.json" }` to `components.json`, then `npx shadcn add @sentinel/theme` once and `npx shadcn add @sentinel/<name>` per component. The same config lets the shadcn MCP server (`npx shadcn mcp init`) list and search Sentinel components for your agent.
-- **Project rules file:** copy [AGENTS.template.md](/AGENTS.template.md) to your repo root as `AGENTS.md`.
-- **Lint guardrails:** save [eslint-plugin-sentinel.mjs](/eslint-plugin-sentinel.mjs) in your repo and add `import sentinel from "./eslint-plugin-sentinel.mjs"` + `sentinel.configs.recommended` to `eslint.config.mjs` (flat config).
-- **Tokens and theme:** add [theme.css](/theme.css) after `@import "tailwindcss";`. Dark mode is enabled with `.dark` or `[data-snt-theme="dark"]` on an ancestor.
+- **Install with the shadcn CLI:** add `"registries": { "@sentinel": "https://ladan-design-system.vercel.app/r/{name}.json" }` to `components.json`, then `npx shadcn add @sentinel/theme` once and `npx shadcn add @sentinel/<name>` per component. The same config lets the shadcn MCP server (`npx shadcn mcp init`) list and search Sentinel components for your agent.
+- **Project rules file:** copy [AGENTS.template.md](https://ladan-design-system.vercel.app/AGENTS.template.md) to your repo root as `AGENTS.md`.
+- **Lint guardrails:** save [eslint-plugin-sentinel.mjs](https://ladan-design-system.vercel.app/eslint-plugin-sentinel.mjs) in your repo and add `import sentinel from "./eslint-plugin-sentinel.mjs"` + `sentinel.configs.recommended` to `eslint.config.mjs` (flat config).
+- **Tokens and theme:** add [theme.css](https://ladan-design-system.vercel.app/theme.css) after `@import "tailwindcss";`. Dark mode is enabled with `.dark` or `[data-snt-theme="dark"]` on an ancestor.
 - **`cn()` helper** at `@/lib/utils`:
 
 ```ts
@@ -41,12 +41,27 @@ const twMerge = extendTailwindMerge({
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+/**
+ * Portalled UI (Modal, Drawer, Menu, Select list, Toasts) is mounted on <body>,
+ * outside the app's `.dark` / `[data-snt-theme]` wrapper, so it would always
+ * render light. Call this with the element it belongs to (the trigger, or the
+ * previously focused element) to copy the nearest theme onto the portalled node.
+ */
+export function inheritTheme(source: Element | null | undefined, target: HTMLElement | null | undefined) {
+  if (!target) return
+  const themed = source?.closest<HTMLElement>(".dark, [data-snt-theme]")
+  const dark = !!themed && (themed.classList.contains("dark") || themed.dataset.sntTheme === "dark")
+  target.classList.toggle("dark", dark)
+  if (dark) target.dataset.sntTheme = "dark"
+  else delete target.dataset.sntTheme
+}
 ```
 
 ## Index
 
 - Activity Timeline (`activity-timeline`, Atom, beta)
-- Alert (`alert`, Atom, stable)
+- Alert (`alert`, Atom, beta)
 - Badge · Tag (`badge-tag`, Atom, stable)
 - Banner (`banner`, Atom, deprecated)
 - Button (`button`, Atom, stable)
@@ -58,25 +73,29 @@ export function cn(...inputs: ClassValue[]) {
 - Masked Value (`masked-value`, Atom, beta)
 - Scan Progress (`scan-progress`, Atom, beta)
 - Select (`select`, Atom, beta)
-- Severity Badge (`severity-badge`, Atom, stable)
+- Severity Badge (`severity-badge`, Atom, beta)
 - Severity Bar (`severity-bar`, Atom, beta)
-- Skeleton (`skeleton`, Atom, beta)
-- Spinner (`spinner`, Atom, alpha)
-- Switch · Radio (`switch-radio`, Atom, stable)
-- Text Field (`text-field`, Atom, stable)
-- Textarea (`textarea`, Atom, stable)
+- Skeleton (`skeleton`, Atom, stable)
+- Spinner (`spinner`, Atom, beta)
+- Switch · Radio (`switch-radio`, Atom, beta)
+- Text Field (`text-field`, Atom, beta)
+- Textarea (`textarea`, Atom, beta)
 - Toast · Tooltip (`toast-tooltip`, Atom, stable)
 - Breadcrumb (`breadcrumb`, Molecule, stable)
-- Filter Bar (`filter-bar`, Molecule, stable)
-- Search Bar (`search-bar`, Molecule, stable)
+- Drawer (`drawer`, Molecule, beta)
+- Dropdown menu (`dropdown-menu`, Molecule, beta)
+- Filter Bar (`filter-bar`, Molecule, beta)
+- Pagination (`pagination`, Molecule, beta)
+- Search Bar (`search-bar`, Molecule, beta)
 - Tabs (`tabs`, Molecule, stable)
 - Cards (`cards`, Organism, stable)
-- Chart (`chart`, Organism, stable)
-- Data Table (`data-table`, Organism, stable)
-- Empty State (`empty-state`, Organism, stable)
-- Gauge (`gauge`, Organism, stable)
+- Chart (`chart`, Organism, beta)
+- Command palette (`command-palette`, Organism, beta)
+- Data Table (`data-table`, Organism, beta)
+- Empty State (`empty-state`, Organism, beta)
+- Gauge (`gauge`, Organism, beta)
 - Modal (`modal`, Organism, stable)
-- Text Space (`text-space`, Organism, stable)
+- Text Space (`text-space`, Organism, alpha)
 
 ## Theme CSS (`theme.css`)
 
@@ -104,12 +123,43 @@ export function cn(...inputs: ClassValue[]) {
 
 :root,
 [data-snt-theme="light"] {
+  /* Colour tokens come in three layers, from raw to meaningful:
+       1. Severity     — its own palette, plus tints (see below).
+       2. Primitives   — Brand / Primary (indigo), the four feedback scales
+                         (Blue, Green, Yellow, Red) and Neutral (Grey, Divider).
+       3. Semantic     — Surface, Text, Border, Feedback, Data, Action.
+     Components use layer 3 first; reach for a primitive only when the hue
+     itself is the meaning. Only tokens that are used live here: add one when a
+     component needs it, not in advance. */
+
   /* Severity — static, same in both modes */
-  --snt-severity-info: #7dafd6;
-  --snt-severity-low: #63a100;
-  --snt-severity-medium: #f5bf40;
-  --snt-severity-high: #d13d2e;
-  --snt-severity-critical: #772ed1;
+  /* Severity is its own palette: no value here is shared with a feedback or
+     brand token (scripts/check-tokens.js enforces it). Low is teal, not
+     green, so it never reads as "success", and red / green stay apart for
+     colour-blind users. */
+  --snt-severity-info: #a8a29e;
+  --snt-severity-low: #1b9e8f;
+  --snt-severity-medium: #f0ad1d;
+  --snt-severity-high: #e5532d;
+  --snt-severity-critical: #b4136c;
+
+  /* Severity tints — light. Subtle fill, border and AA text per level, so
+     chips and rows can tint without borrowing a scale colour. */
+  --snt-severity-info-subtle: #f6f6f5;
+  --snt-severity-info-border: #dcdad8;
+  --snt-severity-info-text: #726f6d;
+  --snt-severity-low-subtle: #e8f5f4;
+  --snt-severity-low-border: #a4d8d2;
+  --snt-severity-low-text: #177c71;
+  --snt-severity-medium-subtle: #fef7e8;
+  --snt-severity-medium-border: #f9dea5;
+  --snt-severity-medium-text: #8c6615;
+  --snt-severity-high-subtle: #fceeea;
+  --snt-severity-high-border: #f5baab;
+  --snt-severity-high-text: #bc4527;
+  --snt-severity-critical-subtle: #f8e7f0;
+  --snt-severity-critical-border: #e1a1c4;
+  --snt-severity-critical-text: #b4136c;
 
   /* Brand / Primary — indigo (Tailwind indigo 600/700, 500 darkened for 5.4:1 text) */
   --snt-brand-primary-50:  #eef0ff;
@@ -120,32 +170,21 @@ export function cn(...inputs: ClassValue[]) {
   --snt-brand-primary-700: #4338ca;
   --snt-brand-primary-800: #312e81;
 
-  /* Brand / Secondary — base hsl(14, 81%, 64%) */
-  --snt-brand-secondary-50:  #fef4f1;
-  --snt-brand-secondary-100: #fadad1;
-  --snt-brand-secondary-200: #f5b6a3;
-  --snt-brand-secondary-500: #ee7b59;
-  --snt-brand-secondary-600: #e85326;
-  --snt-brand-secondary-700: #c23d14;
-  --snt-brand-secondary-800: #81290e;
-
+  /* Feedback scales — Blue, Green, Yellow, Red. They back the feedback and
+     tint tokens and the few places that need a general-purpose hue. */
   /* Scale / Blue — base hsl(206, 52%, 66%) */
   --snt-scale-blue-50:  #f7fafd;
   --snt-scale-blue-100: #e8f1f8;
   --snt-scale-blue-200: #c9deee;
   --snt-scale-blue-500: #7dafd6;
   --snt-scale-blue-600: #2f6893;
-  --snt-scale-blue-700: #234f70;
-  --snt-scale-blue-800: #18374e;
 
   /* Scale / Green — base hsl(83, 100%, 32%) */
   --snt-scale-green-50:  #f1ffdb;
   --snt-scale-green-100: #e8ffc2;
-  --snt-scale-green-200: #a5ff14;
+  --snt-scale-green-200: #b7e35d;
   --snt-scale-green-500: #63a100;
   --snt-scale-green-600: #3f6600;
-  --snt-scale-green-700: #294200;
-  --snt-scale-green-800: #192900;
 
   /* Scale / Yellow — base hsl(42, 90%, 61%) */
   --snt-scale-yellow-50:  #fefaf0;
@@ -154,7 +193,6 @@ export function cn(...inputs: ClassValue[]) {
   --snt-scale-yellow-500: #f5bf40;
   --snt-scale-yellow-600: #da9c0b;
   --snt-scale-yellow-700: #795706;
-  --snt-scale-yellow-800: #443104;
 
   /* Scale / Red — base hsl(6, 64%, 50%) */
   --snt-scale-red-50:  #fcf3f2;
@@ -163,16 +201,6 @@ export function cn(...inputs: ClassValue[]) {
   --snt-scale-red-500: #d13d2e;
   --snt-scale-red-600: #8e2a1f;
   --snt-scale-red-700: #712219;
-  --snt-scale-red-800: #471510;
-
-  /* Scale / Purple — base hsl(267, 64%, 50%) */
-  --snt-scale-purple-50:  #f7f2fc;
-  --snt-scale-purple-100: #dcc9f3;
-  --snt-scale-purple-200: #ab7de3;
-  --snt-scale-purple-500: #772ed1;
-  --snt-scale-purple-600: #5d24a3;
-  --snt-scale-purple-700: #4f1e8a;
-  --snt-scale-purple-800: #301254;
 
   /* Neutral / Grey — zinc; 400 tuned to 3.2:1 so it can bound inputs */
   --snt-neutral-grey-00:  #ffffff;
@@ -183,7 +211,6 @@ export function cn(...inputs: ClassValue[]) {
   --snt-neutral-grey-400: #8f8f98;
   --snt-neutral-grey-500: #71717a;
   --snt-neutral-grey-600: #52525b;
-  --snt-neutral-grey-700: #3f3f46;
   --snt-neutral-grey-800: #27272a;
   --snt-neutral-grey-900: #18181b;
 
@@ -196,7 +223,6 @@ export function cn(...inputs: ClassValue[]) {
   --snt-surface-page: #fafafa;
   --snt-surface-row: #ffffff;
   --snt-surface-row-hover: #f4f4f5;
-  --snt-surface-row-visited: #fafafa;
   --snt-surface-table-header: #f4f4f5;
 
   /* Feedback */
@@ -206,28 +232,14 @@ export function cn(...inputs: ClassValue[]) {
   --snt-feedback-alert: #ae2700;
 
   /* Data */
-  --snt-data-1: #9acbe5;
-  --snt-data-2: #ffaf97;
-  --snt-data-3: #c4def3;
-  --snt-data-4: #a7adb2;
-  --snt-data-5: #0f69aa;
-  --snt-data-6: #c1674d;
-  --snt-data-7: #1f5077;
-  --snt-data-8: #394751;
-  --snt-data-9: #cde5f2;
-  --snt-data-10: #ffd9ce;
-
-  /* Status */
-  --snt-status-ongoing: #7dafd6;
-  --snt-status-finished: #63a100;
-  --snt-status-not-accessible: #e6a200;
-  --snt-status-incomplete: #e6a200;
-  --snt-status-delayed: #e6a200;
-  --snt-status-cancelled: #ae2700;
-  --snt-status-timeout: #ae2700;
-  --snt-status-error: #ae2700;
-  --snt-status-inaccessible: #ae2700;
-  --snt-status-too-many-inaccessible: #ae2700;
+  --snt-data-1: #4f46e5;
+  --snt-data-2: #0ea5e9;
+  --snt-data-3: #8b5cf6;
+  --snt-data-4: #64748b;
+  --snt-data-5: #65a30d;
+  --snt-data-6: #be7c4d;
+  --snt-data-7: #1e3a8a;
+  --snt-data-8: #c7d2fe;
 
   /* Text — structural roles */
   --snt-text-primary:     #09090b;
@@ -277,28 +289,17 @@ export function cn(...inputs: ClassValue[]) {
   --input: rgba(9, 9, 11, 0.14);
   --ring: #5b5bd6;
   --radius: 0.5rem;
-  --chart-1: #9acbe5;
-  --chart-2: #ffaf97;
-  --chart-3: #c4def3;
-  --chart-4: #a7adb2;
-  --chart-5: #0f69aa;
+  --chart-1: #4f46e5;
+  --chart-2: #0ea5e9;
+  --chart-3: #8b5cf6;
+  --chart-4: #64748b;
+  --chart-5: #65a30d;
 
-  /* Button color tokens — static, light-mode values in both themes */
-  --snt-btn-neutral-100: #f4f4f5;
-  --snt-btn-neutral-300: #d4d4d8;
-  --snt-btn-neutral-600: #52525b;
-  --snt-btn-neutral-700: #3f3f46;
+  /* Button fills — static, light-mode values in both themes. Components use the
+     --snt-action-* tokens below; these are their raw values. */
   --snt-btn-neutral-800: #18181b;
-  --snt-btn-primary-50:  #eef0ff;
   --snt-btn-primary-600: #4f46e5;
   --snt-btn-primary-700: #4338ca;
-  --snt-btn-success-50:  #eff7e5;
-  --snt-btn-success-600: #406800;
-  --snt-btn-success-700: #284000;
-  --snt-btn-warning-50:  #fffbf0;
-  --snt-btn-warning-600: #e6a200;
-  --snt-btn-warning-700: #805a00;
-  --snt-btn-error-50:    #fff0ef;
   --snt-btn-error-600:   #ae2700;
   --snt-btn-error-700:   #881f00;
 
@@ -345,32 +346,19 @@ export function cn(...inputs: ClassValue[]) {
   --snt-brand-primary-700: #c7d2fe;
   --snt-brand-primary-800: #e0e7ff;
 
-  /* Brand / Secondary — flipped, base hsl(14, 81%, 64%) */
-  --snt-brand-secondary-50:  #81290e;
-  --snt-brand-secondary-100: #c23d14;
-  --snt-brand-secondary-200: #e85326;
-  --snt-brand-secondary-500: #ee7b59;
-  --snt-brand-secondary-600: #f5b6a3;
-  --snt-brand-secondary-700: #fadad1;
-  --snt-brand-secondary-800: #fef4f1;
-
   /* Scale / Blue — flipped, base hsl(206, 52%, 66%) */
   --snt-scale-blue-50:  #18374e;
   --snt-scale-blue-100: #234f70;
   --snt-scale-blue-200: #2f6893;
   --snt-scale-blue-500: #7dafd6;
   --snt-scale-blue-600: #c9deee;
-  --snt-scale-blue-700: #e8f1f8;
-  --snt-scale-blue-800: #f7fafd;
 
   /* Scale / Green — flipped, base hsl(83, 100%, 32%) */
   --snt-scale-green-50:  #192900;
   --snt-scale-green-100: #294200;
   --snt-scale-green-200: #3f6600;
   --snt-scale-green-500: #63a100;
-  --snt-scale-green-600: #a5ff14;
-  --snt-scale-green-700: #e8ffc2;
-  --snt-scale-green-800: #f1ffdb;
+  --snt-scale-green-600: #b7e35d;
 
   /* Scale / Yellow — flipped, base hsl(42, 90%, 61%) */
   --snt-scale-yellow-50:  #443104;
@@ -379,7 +367,6 @@ export function cn(...inputs: ClassValue[]) {
   --snt-scale-yellow-500: #f5bf40;
   --snt-scale-yellow-600: #f8d072;
   --snt-scale-yellow-700: #fcebc5;
-  --snt-scale-yellow-800: #fefaf0;
 
   /* Scale / Red — flipped, base hsl(6, 64%, 50%) */
   --snt-scale-red-50:  #471510;
@@ -388,16 +375,6 @@ export function cn(...inputs: ClassValue[]) {
   --snt-scale-red-500: #d13d2e;
   --snt-scale-red-600: #ebaaa3;
   --snt-scale-red-700: #f4d1cd;
-  --snt-scale-red-800: #fcf3f2;
-
-  /* Scale / Purple — flipped, base hsl(267, 64%, 50%) */
-  --snt-scale-purple-50:  #301254;
-  --snt-scale-purple-100: #4f1e8a;
-  --snt-scale-purple-200: #5d24a3;
-  --snt-scale-purple-500: #772ed1;
-  --snt-scale-purple-600: #ab7de3;
-  --snt-scale-purple-700: #dcc9f3;
-  --snt-scale-purple-800: #f7f2fc;
 
   /* Neutral / Grey — zinc, flipped; 400 = 3.4:1 on the dark surface */
   --snt-neutral-grey-00:  #09090b;
@@ -408,7 +385,6 @@ export function cn(...inputs: ClassValue[]) {
   --snt-neutral-grey-400: #65656f;
   --snt-neutral-grey-500: #8f8f98;
   --snt-neutral-grey-600: #a1a1aa;
-  --snt-neutral-grey-700: #d4d4d8;
   --snt-neutral-grey-800: #f4f4f5;
   --snt-neutral-grey-900: #fafafa;
 
@@ -421,30 +397,38 @@ export function cn(...inputs: ClassValue[]) {
   --snt-surface-page: #0c0c0e;
   --snt-surface-row: #09090b;
   --snt-surface-row-hover: #18181b;
-  --snt-surface-row-visited: #0e0e10;
   --snt-surface-table-header: #111113;
 
   /* Feedback — alert changes in dark */
   --snt-feedback-alert: #ff9b90;
 
-  /* Data — flipped */
-  --snt-data-1: #0f69aa;
-  --snt-data-2: #c1674d;
-  --snt-data-3: #2a6898;
-  --snt-data-4: #a7adb2;
-  --snt-data-5: #9acbe5;
-  --snt-data-6: #ffaf97;
-  --snt-data-7: #e2f2ff;
-  --snt-data-8: #f4f6f8;
-  --snt-data-9: #1f5077;
-  --snt-data-10: #9b4f39;
+  /* Severity tints — dark. Subtle fill, border and AA text per level, so
+     chips and rows can tint without borrowing a scale colour. */
+  --snt-severity-info-subtle: #262525;
+  --snt-severity-info-border: #494646;
+  --snt-severity-info-text: #a8a29e;
+  --snt-severity-low-subtle: #0c2423;
+  --snt-severity-low-border: #104540;
+  --snt-severity-low-text: #1b9e8f;
+  --snt-severity-medium-subtle: #33270e;
+  --snt-severity-medium-border: #654b12;
+  --snt-severity-medium-text: #f0ad1d;
+  --snt-severity-high-subtle: #311611;
+  --snt-severity-high-border: #612719;
+  --snt-severity-high-text: #e65c38;
+  --snt-severity-critical-subtle: #280b1c;
+  --snt-severity-critical-border: #4d0d32;
+  --snt-severity-critical-text: #cb5a98;
 
-  /* Status — error states change in dark */
-  --snt-status-cancelled: #ff9b90;
-  --snt-status-timeout: #ff9b90;
-  --snt-status-error: #ff9b90;
-  --snt-status-inaccessible: #ff9b90;
-  --snt-status-too-many-inaccessible: #ff9b90;
+  /* Data — flipped */
+  --snt-data-1: #818cf8;
+  --snt-data-2: #38bdf8;
+  --snt-data-3: #a78bfa;
+  --snt-data-4: #94a3b8;
+  --snt-data-5: #a3e635;
+  --snt-data-6: #d6a77a;
+  --snt-data-7: #93c5fd;
+  --snt-data-8: #3730a3;
 
   /* Text — flipped */
   --snt-text-primary:     #fafafa;
@@ -461,11 +445,6 @@ export function cn(...inputs: ClassValue[]) {
   --snt-text-info:    #67a9dc; /* medium blue — 7.52:1, AAA (replaces pale wash) */
 
   /* Button hover-overlay backgrounds — flipped to dark tints so hover doesn't appear as a bright patch on dark page surfaces */
-  --snt-btn-primary-50:  #1b1a3f;
-  --snt-btn-success-50:  #192900;
-  --snt-btn-warning-50:  #443104;
-  --snt-btn-error-50:    #471510;
-  --snt-btn-neutral-100: #18181b;
 
   /* Shadow — stronger alpha on dark surfaces */
   --snt-shadow-xs:  0 1px 2px 0 rgba(0, 0, 0, 0.24);
@@ -496,11 +475,11 @@ export function cn(...inputs: ClassValue[]) {
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.14);
   --ring: #818cf8;
-  --chart-1: #0f69aa;
-  --chart-2: #c1674d;
-  --chart-3: #2a6898;
-  --chart-4: #a7adb2;
-  --chart-5: #9acbe5;
+  --chart-1: #818cf8;
+  --chart-2: #38bdf8;
+  --chart-3: #a78bfa;
+  --chart-4: #94a3b8;
+  --chart-5: #a3e635;
 }
 
 /* ===================================================================
@@ -526,6 +505,12 @@ export function cn(...inputs: ClassValue[]) {
   --snt-bg-error-subtle:   var(--snt-scale-red-50);        /* Error tint */
   --snt-focus-ring:        var(--snt-brand-primary-500);   /* Keyboard focus ring */
   --snt-focus-ring-error:  var(--snt-scale-red-500);       /* Focus ring on destructive controls */
+  /* Actions — what a primary / destructive control is painted with. Components
+     use these, never btn-* steps. Static in both themes (white text on top). */
+  --snt-action-primary:           var(--snt-btn-primary-600);
+  --snt-action-primary-hover:     var(--snt-btn-primary-700);
+  --snt-action-destructive:       var(--snt-btn-error-600);
+  --snt-action-destructive-hover: var(--snt-btn-error-700);
 
   /* Type scale — numeric names match the Figma text styles (Text/14/Medium) */
   --snt-font-size-10: 10px;
@@ -593,6 +578,21 @@ export function cn(...inputs: ClassValue[]) {
   --color-snt-severity-medium: var(--snt-severity-medium);
   --color-snt-severity-high: var(--snt-severity-high);
   --color-snt-severity-critical: var(--snt-severity-critical);
+  --color-snt-severity-info-subtle: var(--snt-severity-info-subtle);
+  --color-snt-severity-info-border: var(--snt-severity-info-border);
+  --color-snt-severity-info-text: var(--snt-severity-info-text);
+  --color-snt-severity-low-subtle: var(--snt-severity-low-subtle);
+  --color-snt-severity-low-border: var(--snt-severity-low-border);
+  --color-snt-severity-low-text: var(--snt-severity-low-text);
+  --color-snt-severity-medium-subtle: var(--snt-severity-medium-subtle);
+  --color-snt-severity-medium-border: var(--snt-severity-medium-border);
+  --color-snt-severity-medium-text: var(--snt-severity-medium-text);
+  --color-snt-severity-high-subtle: var(--snt-severity-high-subtle);
+  --color-snt-severity-high-border: var(--snt-severity-high-border);
+  --color-snt-severity-high-text: var(--snt-severity-high-text);
+  --color-snt-severity-critical-subtle: var(--snt-severity-critical-subtle);
+  --color-snt-severity-critical-border: var(--snt-severity-critical-border);
+  --color-snt-severity-critical-text: var(--snt-severity-critical-text);
 
   /* Sentinel — Brand / Primary */
   --color-snt-brand-primary-50: var(--snt-brand-primary-50);
@@ -603,23 +603,12 @@ export function cn(...inputs: ClassValue[]) {
   --color-snt-brand-primary-700: var(--snt-brand-primary-700);
   --color-snt-brand-primary-800: var(--snt-brand-primary-800);
 
-  /* Sentinel — Brand / Secondary */
-  --color-snt-brand-secondary-50: var(--snt-brand-secondary-50);
-  --color-snt-brand-secondary-100: var(--snt-brand-secondary-100);
-  --color-snt-brand-secondary-200: var(--snt-brand-secondary-200);
-  --color-snt-brand-secondary-500: var(--snt-brand-secondary-500);
-  --color-snt-brand-secondary-600: var(--snt-brand-secondary-600);
-  --color-snt-brand-secondary-700: var(--snt-brand-secondary-700);
-  --color-snt-brand-secondary-800: var(--snt-brand-secondary-800);
-
   /* Sentinel — Scale / Blue */
   --color-snt-scale-blue-50: var(--snt-scale-blue-50);
   --color-snt-scale-blue-100: var(--snt-scale-blue-100);
   --color-snt-scale-blue-200: var(--snt-scale-blue-200);
   --color-snt-scale-blue-500: var(--snt-scale-blue-500);
   --color-snt-scale-blue-600: var(--snt-scale-blue-600);
-  --color-snt-scale-blue-700: var(--snt-scale-blue-700);
-  --color-snt-scale-blue-800: var(--snt-scale-blue-800);
 
   /* Sentinel — Scale / Green */
   --color-snt-scale-green-50: var(--snt-scale-green-50);
@@ -627,8 +616,6 @@ export function cn(...inputs: ClassValue[]) {
   --color-snt-scale-green-200: var(--snt-scale-green-200);
   --color-snt-scale-green-500: var(--snt-scale-green-500);
   --color-snt-scale-green-600: var(--snt-scale-green-600);
-  --color-snt-scale-green-700: var(--snt-scale-green-700);
-  --color-snt-scale-green-800: var(--snt-scale-green-800);
 
   /* Sentinel — Scale / Yellow */
   --color-snt-scale-yellow-50: var(--snt-scale-yellow-50);
@@ -637,7 +624,6 @@ export function cn(...inputs: ClassValue[]) {
   --color-snt-scale-yellow-500: var(--snt-scale-yellow-500);
   --color-snt-scale-yellow-600: var(--snt-scale-yellow-600);
   --color-snt-scale-yellow-700: var(--snt-scale-yellow-700);
-  --color-snt-scale-yellow-800: var(--snt-scale-yellow-800);
 
   /* Sentinel — Scale / Red */
   --color-snt-scale-red-50: var(--snt-scale-red-50);
@@ -646,16 +632,6 @@ export function cn(...inputs: ClassValue[]) {
   --color-snt-scale-red-500: var(--snt-scale-red-500);
   --color-snt-scale-red-600: var(--snt-scale-red-600);
   --color-snt-scale-red-700: var(--snt-scale-red-700);
-  --color-snt-scale-red-800: var(--snt-scale-red-800);
-
-  /* Sentinel — Scale / Purple */
-  --color-snt-scale-purple-50: var(--snt-scale-purple-50);
-  --color-snt-scale-purple-100: var(--snt-scale-purple-100);
-  --color-snt-scale-purple-200: var(--snt-scale-purple-200);
-  --color-snt-scale-purple-500: var(--snt-scale-purple-500);
-  --color-snt-scale-purple-600: var(--snt-scale-purple-600);
-  --color-snt-scale-purple-700: var(--snt-scale-purple-700);
-  --color-snt-scale-purple-800: var(--snt-scale-purple-800);
 
   /* Sentinel — Neutral / Grey */
   --color-snt-neutral-grey-00: var(--snt-neutral-grey-00);
@@ -666,7 +642,6 @@ export function cn(...inputs: ClassValue[]) {
   --color-snt-neutral-grey-400: var(--snt-neutral-grey-400);
   --color-snt-neutral-grey-500: var(--snt-neutral-grey-500);
   --color-snt-neutral-grey-600: var(--snt-neutral-grey-600);
-  --color-snt-neutral-grey-700: var(--snt-neutral-grey-700);
   --color-snt-neutral-grey-800: var(--snt-neutral-grey-800);
   --color-snt-neutral-grey-900: var(--snt-neutral-grey-900);
 
@@ -679,7 +654,6 @@ export function cn(...inputs: ClassValue[]) {
   --color-snt-surface-page: var(--snt-surface-page);
   --color-snt-surface-row: var(--snt-surface-row);
   --color-snt-surface-row-hover: var(--snt-surface-row-hover);
-  --color-snt-surface-row-visited: var(--snt-surface-row-visited);
   --color-snt-surface-table-header: var(--snt-surface-table-header);
 
   /* Sentinel — Feedback */
@@ -697,20 +671,6 @@ export function cn(...inputs: ClassValue[]) {
   --color-snt-data-6: var(--snt-data-6);
   --color-snt-data-7: var(--snt-data-7);
   --color-snt-data-8: var(--snt-data-8);
-  --color-snt-data-9: var(--snt-data-9);
-  --color-snt-data-10: var(--snt-data-10);
-
-  /* Sentinel — Status */
-  --color-snt-status-ongoing: var(--snt-status-ongoing);
-  --color-snt-status-finished: var(--snt-status-finished);
-  --color-snt-status-not-accessible: var(--snt-status-not-accessible);
-  --color-snt-status-incomplete: var(--snt-status-incomplete);
-  --color-snt-status-delayed: var(--snt-status-delayed);
-  --color-snt-status-cancelled: var(--snt-status-cancelled);
-  --color-snt-status-timeout: var(--snt-status-timeout);
-  --color-snt-status-error: var(--snt-status-error);
-  --color-snt-status-inaccessible: var(--snt-status-inaccessible);
-  --color-snt-status-too-many-inaccessible: var(--snt-status-too-many-inaccessible);
 
   /* Sentinel — Text */
   --color-snt-text-primary:     var(--snt-text-primary);
@@ -751,24 +711,16 @@ export function cn(...inputs: ClassValue[]) {
   --color-snt-bg-error-subtle:   var(--snt-bg-error-subtle);
   --color-snt-focus-ring:        var(--snt-focus-ring);
   --color-snt-focus-ring-error:  var(--snt-focus-ring-error);
+  --color-snt-action-primary:           var(--snt-action-primary);
+  --color-snt-action-primary-hover:     var(--snt-action-primary-hover);
+  --color-snt-action-destructive:       var(--snt-action-destructive);
+  --color-snt-action-destructive-hover: var(--snt-action-destructive-hover);
   --color-snt-text-info:        var(--snt-text-info);
 
   /* Sentinel — Button (static, no dark flip) */
-  --color-snt-btn-neutral-100: var(--snt-btn-neutral-100);
-  --color-snt-btn-neutral-300: var(--snt-btn-neutral-300);
-  --color-snt-btn-neutral-600: var(--snt-btn-neutral-600);
-  --color-snt-btn-neutral-700: var(--snt-btn-neutral-700);
   --color-snt-btn-neutral-800: var(--snt-btn-neutral-800);
-  --color-snt-btn-primary-50:  var(--snt-btn-primary-50);
   --color-snt-btn-primary-600: var(--snt-btn-primary-600);
   --color-snt-btn-primary-700: var(--snt-btn-primary-700);
-  --color-snt-btn-success-50:  var(--snt-btn-success-50);
-  --color-snt-btn-success-600: var(--snt-btn-success-600);
-  --color-snt-btn-success-700: var(--snt-btn-success-700);
-  --color-snt-btn-warning-50:  var(--snt-btn-warning-50);
-  --color-snt-btn-warning-600: var(--snt-btn-warning-600);
-  --color-snt-btn-warning-700: var(--snt-btn-warning-700);
-  --color-snt-btn-error-50:    var(--snt-btn-error-50);
   --color-snt-btn-error-600:   var(--snt-btn-error-600);
   --color-snt-btn-error-700:   var(--snt-btn-error-700);
 
@@ -804,6 +756,86 @@ export function cn(...inputs: ClassValue[]) {
 @keyframes toast-timer {
   from { width: 100%; }
   to   { width: 0%;   }
+}
+
+/* Drawer slide-in (200ms; none for reduced motion) */
+@keyframes snt-modal-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes snt-modal-panel-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+@keyframes snt-toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .snt-toast { animation: snt-toast-in 180ms ease-out; }
+  .snt-modal-backdrop { animation: snt-modal-backdrop-in 150ms ease-out; }
+  .snt-modal-panel    { animation: snt-modal-panel-in 180ms ease-out; }
+}
+
+@keyframes snt-drawer-in-right { from { transform: translateX(100%); }  to { transform: none; } }
+
+@keyframes snt-drawer-in-left  { from { transform: translateX(-100%); } to { transform: none; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .snt-drawer-right { animation: snt-drawer-in-right 200ms ease-out; }
+  .snt-drawer-left  { animation: snt-drawer-in-left 200ms ease-out; }
+}
+
+/* Ask AI — a pill with a gradient hairline border. The border is drawn with a
+   masked ::before so the inside stays the normal surface colour. At rest it is
+   quiet; on hover/focus the gradient brightens and slides, and the sparkle
+   twinkles (only when motion is allowed). */
+.snt-ai-button {
+  position: relative;
+  isolation: isolate;
+  border-radius: 9999px;
+  background: var(--snt-surface-app);
+  color: var(--snt-text-primary);
+  transition: box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.snt-ai-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, var(--snt-brand-primary-500), var(--snt-scale-blue-500), var(--snt-brand-primary-500));
+  background-size: 250% 100%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0.45;
+  transition: opacity 200ms ease;
+}
+
+.snt-ai-button:hover,
+.snt-ai-button:focus-visible {
+  background: var(--snt-bg-brand-subtle);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--snt-brand-primary-500) 12%, transparent);
+}
+
+.snt-ai-button:hover::before,
+.snt-ai-button:focus-visible::before {
+  opacity: 1;
+}
+
+.snt-ai-button .snt-ai-icon {
+  color: var(--snt-text-link);
+}
+
+@keyframes snt-ai-slide { to { background-position: 250% 0; } }
+
+@keyframes snt-ai-twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50%      { transform: scale(1.18) rotate(12deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .snt-ai-button:hover::before,
+  .snt-ai-button:focus-visible::before { animation: snt-ai-slide 2.4s linear infinite; }
+  .snt-ai-button:hover .snt-ai-icon,
+  .snt-ai-button:focus-visible .snt-ai-icon { animation: snt-ai-twinkle 1.2s ease-in-out infinite; }
 }
 
 .toast-timer-bar {
@@ -974,7 +1006,7 @@ export function ActivityTimeline({ items, className, ...props }: ActivityTimelin
 title: Alert
 slug: alert
 category: Atom
-status: stable
+status: beta
 source: components/ui/alert.tsx
 styleguide: /styleguide/alert
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-214
@@ -1044,8 +1076,7 @@ An inline message tied to a page or section. It communicates a status that persi
 
 **Pattern:** [APG — Alert](https://www.w3.org/WAI/ARIA/apg/patterns/alert/)
 
-- Root has `role="alert"` (assertive live region). Screen readers interrupt to read it **when it's inserted**.
-- `role="alert"` is right for `error` / `warning` that appear in response to an action. For `info` / `success`, or alerts present on page load, `role="status"` is less disruptive.
+- `error` and `warning` use `role="alert"` (assertive): screen readers interrupt to read them when inserted. `info` and `success` use `role="status"` (polite).
 - The dismiss button is a native `<button>` with `aria-label`. Move focus somewhere sensible after dismissal.
 - The icon is decorative; the variant meaning should also appear in the title text.
 
@@ -1087,7 +1118,6 @@ An inline message tied to a page or section. It communicates a status that persi
 ```
 
 ## Known gaps
-- [ ] `role="alert"` is hard-coded for every variant. Add a `live` prop or use `status` for info / success.
 - [ ] No full-width / page-level layout option to replace Banner.
 
 ## Related
@@ -1136,33 +1166,33 @@ type VariantConfig = {
 const VARIANT_CLASS: Record<Variant, VariantConfig> = {
   info: {
     bg:        "bg-snt-bg-info-subtle",
-    border:    "border-snt-scale-blue-200",
-    text:      "text-snt-text-info",
-    title:     "text-snt-text-info",
+    border:    "border-snt-border-default",
+    text:      "text-snt-text-secondary",
+    title:     "text-snt-text-primary",
     iconClass: "text-snt-text-info",
     icon:      Info,
   },
   success: {
     bg:        "bg-snt-bg-success-subtle",
-    border:    "border-snt-scale-green-200",
-    text:      "text-snt-text-success",
-    title:     "text-snt-text-success",
+    border:    "border-snt-border-default",
+    text:      "text-snt-text-secondary",
+    title:     "text-snt-text-primary",
     iconClass: "text-snt-text-success",
     icon:      CheckCircle2,
   },
   warning: {
     bg:        "bg-snt-bg-warning-subtle",
-    border:    "border-snt-scale-yellow-200",
-    text:      "text-snt-text-warning",
-    title:     "text-snt-text-warning",
+    border:    "border-snt-border-default",
+    text:      "text-snt-text-secondary",
+    title:     "text-snt-text-primary",
     iconClass: "text-snt-text-warning",
     icon:      AlertTriangle,
   },
   error: {
     bg:        "bg-snt-bg-error-subtle",
-    border:    "border-snt-scale-red-200",
-    text:      "text-snt-text-error",
-    title:     "text-snt-text-error",
+    border:    "border-snt-border-default",
+    text:      "text-snt-text-secondary",
+    title:     "text-snt-text-primary",
     iconClass: "text-snt-text-error",
     icon:      OctagonAlert,
   },
@@ -1195,19 +1225,19 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     return (
       <div
         ref={ref}
-        role="alert"
+        role={variant === "error" || variant === "warning" ? "alert" : "status"}
         className={cn(
-          "flex items-start gap-3 rounded-lg border px-4 py-3",
+          "flex items-start gap-3 rounded-xl border px-4 py-3.5",
           cfg.bg,
           cfg.border,
           className,
         )}
         {...props}
       >
-        <Icon size={16} className={cn("shrink-0 mt-px", cfg.iconClass)} />
+        <Icon size={18} aria-hidden className={cn("shrink-0 mt-px", cfg.iconClass)} />
         <div className="flex-1 min-w-0">
           {title && (
-            <div className={cn("text-snt-14 font-semibold leading-tight", cfg.title)}>
+            <div className={cn("text-snt-14 font-semibold tracking-tight leading-tight", cfg.title)}>
               {title}
             </div>
           )}
@@ -1224,11 +1254,11 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
             aria-label="Dismiss"
             onClick={handleDismiss}
             className={cn(
-              "shrink-0 p-1 -m-1 rounded hover:bg-snt-neutral-divider-10 cursor-pointer",
+              "flex size-7 shrink-0 -mr-1.5 -mt-1 items-center justify-center rounded-md hover:bg-snt-neutral-divider-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring",
               cfg.text,
             )}
           >
-            <X size={14} />
+            <X size={14} aria-hidden />
           </button>
         )}
       </div>
@@ -1350,7 +1380,6 @@ Exports: `Badge`, `Tag` (`TagProps = BadgeProps`).
 ```
 
 ## Known gaps
-- [ ] The styleguide showcase (`sections/badge-tag/`) still uses `snt-scale-*-300` border tokens, which don't exist (the scale has no 300 step), so its outlined badges have no coloured border. `components/ui` was fixed to `-200`; decide whether the scale needs a 300 step.
 - [ ] No size scale (`sm` for tables).
 - [ ] No removable-tag variant (✕ button with an accessible name).
 
@@ -1555,7 +1584,7 @@ _Draft rationale, inferred from the code. Confirm with design before publishing.
 | `tone` | Background |
 |---|---|
 | `neutral` *(default)* | `snt-btn-neutral-800` |
-| `promo` | `snt-btn-primary-600` |
+| `promo` | `snt-action-primary` |
 | `warning` | `snt-scale-yellow-500` |
 
 ## Accessibility
@@ -1625,7 +1654,7 @@ const TONE_CLASS: Record<Tone, ToneConfig> = {
     icon:  Megaphone,
   },
   promo: {
-    bg:    "bg-snt-btn-primary-600",
+    bg:    "bg-snt-action-primary",
     text:  "text-snt-text-white",
     hover: "hover:bg-snt-text-white/10",
     icon:  Sparkles,
@@ -1801,14 +1830,14 @@ Buttons trigger an action on the current page: submitting a form, opening a moda
 - Renders a native `<button>` with `type="button"` by default. Pass `type="submit"` inside forms.
 - `iconOnly` requires `aria-label`. The visible icon should be `aria-hidden`.
 - For a toggle button, pass `aria-pressed`. For a menu trigger, pass `aria-haspopup` and `aria-expanded`.
-- Contrast: label on `btn-primary-600` and `btn-error-600` passes 4.5:1. The focus ring is 3:1 against the surface.
+- Contrast: label on `action-primary` and `action-destructive` passes 4.5:1. The focus ring is 3:1 against the surface.
 
 ## Design tokens
 
 | Role | Token |
 |---|---|
-| Primary bg / hover | `snt-btn-primary-600` / `snt-btn-primary-700` |
-| Destructive bg / hover | `snt-btn-error-600` / `snt-btn-error-700` |
+| Primary bg / hover | `snt-action-primary` / `snt-action-primary-hover` |
+| Destructive bg / hover | `snt-action-destructive` / `snt-action-destructive-hover` |
 | Default solid bg / hover | `snt-text-primary` / `snt-neutral-grey-800` |
 | Label on solid | `snt-text-on-accent`, `snt-text-inverse` |
 | Outline / ghost label | `snt-text-link`, `snt-text-error`, `snt-text-primary` |
@@ -1938,8 +1967,8 @@ const VARIANT_CLASS: Record<Intent, Record<Variant, string>> = {
   },
   primary: {
     solid:
-      "bg-snt-btn-primary-600 text-snt-text-on-accent shadow-snt-raised " +
-      "hover:bg-snt-btn-primary-700 " +
+      "bg-snt-action-primary text-snt-text-on-accent shadow-snt-raised " +
+      "hover:bg-snt-action-primary-hover " +
       "focus-visible:ring-snt-focus-ring",
     outline:
       "border border-snt-text-link text-snt-text-link bg-snt-surface-app shadow-snt-control " +
@@ -1952,8 +1981,8 @@ const VARIANT_CLASS: Record<Intent, Record<Variant, string>> = {
   },
   destructive: {
     solid:
-      "bg-snt-btn-error-600 text-snt-text-on-accent shadow-snt-raised " +
-      "hover:bg-snt-btn-error-700 " +
+      "bg-snt-action-destructive text-snt-text-on-accent shadow-snt-raised " +
+      "hover:bg-snt-action-destructive-hover " +
       "focus-visible:ring-snt-focus-ring-error",
     outline:
       "border border-snt-text-error text-snt-text-error bg-snt-surface-app shadow-snt-control " +
@@ -2131,7 +2160,7 @@ Lets the user turn an independent option on or off, or pick several items from a
 
 | Role | Token |
 |---|---|
-| Fill (primary / neutral) | `snt-btn-primary-600` / `snt-btn-neutral-800` |
+| Fill (primary / neutral) | `snt-action-primary` / `snt-btn-neutral-800` |
 | Empty border / bg | `snt-neutral-grey-400` / `snt-surface-row` |
 | Check icon | `snt-text-on-accent` |
 | Label / description / disabled | `snt-text-primary` / `snt-text-secondary` / `snt-text-disabled` |
@@ -2214,7 +2243,7 @@ export interface CheckboxProps
 }
 
 const FILL_CLASS: Record<Tone, string> = {
-  primary: "bg-snt-btn-primary-600 border-snt-btn-primary-600",
+  primary: "bg-snt-action-primary border-snt-action-primary",
   neutral: "bg-snt-btn-neutral-800 border-snt-btn-neutral-800",
 };
 
@@ -3183,8 +3212,8 @@ export interface ScanProgressProps extends React.HTMLAttributes<HTMLOListElement
 
 function Marker({ status }: { status: ScanStepStatus }) {
   const base = "relative z-10 flex size-6 shrink-0 items-center justify-center rounded-full [&_svg]:size-3.5";
-  if (status === "done") return <span className={cn(base, "bg-snt-btn-primary-600 text-snt-text-on-accent")}><Check aria-hidden /></span>;
-  if (status === "failed") return <span className={cn(base, "bg-snt-btn-error-600 text-snt-text-on-accent")}><X aria-hidden /></span>;
+  if (status === "done") return <span className={cn(base, "bg-snt-action-primary text-snt-text-on-accent")}><Check aria-hidden /></span>;
+  if (status === "failed") return <span className={cn(base, "bg-snt-action-destructive text-snt-text-on-accent")}><X aria-hidden /></span>;
   if (status === "active")
     return (
       <span className={cn(base, "bg-snt-surface-app ring-2 ring-snt-focus-ring")}>
@@ -3208,7 +3237,7 @@ export function ScanProgress({ steps, label = "Scan progress", className, ...pro
               aria-hidden
               className={cn(
                 "absolute right-1/2 top-3 h-0.5 w-full -translate-y-1/2",
-                s.status === "pending" ? "bg-snt-border-default" : "bg-snt-btn-primary-600",
+                s.status === "pending" ? "bg-snt-border-default" : "bg-snt-action-primary",
               )}
             />
           )}
@@ -3385,7 +3414,7 @@ A single-choice dropdown that picks one value from a list of options.
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { Check, ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, inheritTheme } from "@/lib/utils";
 
 /**
  * sentinel/ui — Select
@@ -3503,9 +3532,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
         list.style.width     = `${rect.width}px`;
         list.style.maxHeight = `${room}px`;
         list.style.top       = flip ? `${rect.top - gap - Math.min(wanted, room)}px` : `${rect.bottom + gap}px`;
-        // Carry a nested theme (e.g. a dark preview panel) into the portal.
-        const themed = trigger.closest<HTMLElement>("[data-snt-theme]");
-        if (themed) list.setAttribute("data-snt-theme", themed.dataset.sntTheme ?? "");
+        // Carry the theme (dark mode, or a nested preview panel) into the portal.
+        inheritTheme(trigger, list);
       };
       place();
       window.addEventListener("resize", place);
@@ -3734,7 +3762,7 @@ Select.displayName = "Select";
 title: Severity Badge
 slug: severity-badge
 category: Atom
-status: stable
+status: beta
 source: components/ui/severity-badge.tsx
 styleguide: /styleguide/severity-badge
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=3-96
@@ -3766,19 +3794,19 @@ The canonical way to show a finding's severity (Critical → Info), optionally w
 2. **Label**: severity name, always written out (colour is never the only signal).
 3. **Score** (optional): mono, one decimal.
 
-Width follows the label. Right-align the severity column in tables so the bars line up. Sizes: `md` 28px, `sm` 24px for dense tables.
+Width is fixed per size, so every badge in a column is the same size: `sm` 24px tall, 96px wide (128px with a score); `md` 28px tall, 112px wide (144px with a score). The score sits at the right edge, so scores line up too.
 
 ## Variants
 
 | `severity` | Colour family | Typical CVSS |
 |---|---|---|
-| `critical` | Purple · 4 bars | 9.0–10.0 |
-| `high` | Red · 3 bars | 7.0–8.9 |
-| `medium` | Yellow · 2 bars | 4.0–6.9 |
-| `low` | Green · 1 bar | 0.1–3.9 |
-| `info` | Blue · ring | 0.0 |
+| `critical` | Magenta · 4 bars | 9.0–10.0 |
+| `high` | Orange-red · 3 bars | 7.0–8.9 |
+| `medium` | Amber · 2 bars | 4.0–6.9 |
+| `low` | Teal · 1 bar | 0.1–3.9 |
+| `info` | Grey · ring | 0.0 |
 
-The order and colours are product-wide conventions. Don't recolour them per screen.
+The order and colours are product-wide conventions. Don't recolour them per screen. Severity is its own palette: none of these values is shared with the feedback colours (success, warning, error, info) or sits close to the brand colour. `npm run lint:ds` checks this.
 
 ## States
 Static.
@@ -3852,7 +3880,8 @@ import { cn } from "@/lib/utils";
  * A finding's severity as signal bars: Critical fills four bars, High three,
  * Medium two, Low one; Info shows an empty ring. The bar count carries the
  * level as well as the colour, so it never relies on colour alone, and the
- * label is always written out. No "use client".
+ * label is always written out. Every badge of a size has the same width (with
+ * or without a score), so a table column stays tidy. No "use client".
  *
  * Requires:
  *   • Tailwind CSS v4
@@ -3866,7 +3895,7 @@ export interface SeverityBadgeProps extends React.HTMLAttributes<HTMLDivElement>
   severity: Severity;
   /** Optional numeric score (e.g. CVSS), shown after the label. */
   score?:   number;
-  /** sm 24px for dense tables, md 28px. */
+  /** sm 24px tall (96px wide, 128px with a score) for dense tables; md 28px (112 / 144px). */
   size?:    "sm" | "md";
 }
 
@@ -3883,11 +3912,16 @@ const BAR_HEIGHT = ["h-1.5", "h-2", "h-2.5", "h-3"];
 
 function Bars({ severity }: { severity: Severity }) {
   const { level, fill } = CONFIG[severity];
+  // Both shapes sit in the same 18px slot, so labels line up across levels.
   if (level === 0) {
-    return <span aria-hidden className="size-3 shrink-0 rounded-full border-2 border-snt-severity-info" />;
+    return (
+      <span aria-hidden className="flex h-3 w-[18px] shrink-0 items-center">
+        <span className="size-3 rounded-full border-2 border-snt-severity-info" />
+      </span>
+    );
   }
   return (
-    <span aria-hidden className="flex h-3 shrink-0 items-end gap-0.5">
+    <span aria-hidden className="flex h-3 w-[18px] shrink-0 items-end gap-0.5">
       {BAR_HEIGHT.map((h, i) => (
         <span key={h} className={cn("w-[3px] rounded-[1px]", h, i < level ? fill : "bg-snt-border-default")} />
       ))}
@@ -3902,8 +3936,12 @@ export const SeverityBadge = React.forwardRef<HTMLDivElement, SeverityBadgeProps
       <div
         ref={ref}
         className={cn(
-          "inline-flex w-fit items-center gap-2 whitespace-nowrap rounded-md bg-snt-surface-app ring-1 ring-inset ring-snt-border-default",
-          size === "sm" ? "h-6 px-2 text-snt-12" : "h-7 px-2.5 text-snt-14",
+          // Fixed width, so every badge in a column is the same size. The score
+          // sits at the right edge, so scores line up as well.
+          "inline-flex items-center gap-2 whitespace-nowrap rounded-md bg-snt-surface-app ring-1 ring-inset ring-snt-border-default",
+          size === "sm"
+            ? cn("h-6 px-2 text-snt-12", score !== undefined ? "w-32" : "w-24")
+            : cn("h-7 px-2.5 text-snt-14", score !== undefined ? "w-36" : "w-28"),
           className,
         )}
         {...props}
@@ -3911,7 +3949,7 @@ export const SeverityBadge = React.forwardRef<HTMLDivElement, SeverityBadgeProps
         <Bars severity={severity} />
         <span className="font-medium text-snt-text-primary">{cfg.label}</span>
         {score !== undefined && (
-          <span className="font-mono tabular-nums text-snt-text-secondary">{score.toFixed(1)}</span>
+          <span className="ml-auto font-mono tabular-nums text-snt-text-secondary">{score.toFixed(1)}</span>
         )}
       </div>
     );
@@ -4114,7 +4152,7 @@ export function SeverityBar({
 title: Skeleton
 slug: skeleton
 category: Atom
-status: beta
+status: stable
 source: components/ui/skeleton.tsx
 styleguide: /styleguide/skeleton
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=7-150
@@ -4243,7 +4281,7 @@ Skeleton.displayName = "Skeleton";
 title: Spinner
 slug: spinner
 category: Atom
-status: alpha
+status: beta
 source: components/ui/spinner.tsx
 styleguide: /styleguide/spinner
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=7-124
@@ -4336,9 +4374,8 @@ Single state. When reduced motion is on, the global rule stops the rotation, so 
 ```
 
 ## Known gaps
-- [ ] Alpha: the size scale (12 / 16 / 24 / 36) doesn't match Button's internal spinner (13 / 14 / 16). Unify them so Button can reuse `Spinner`.
-- [ ] The `neutral` tone uses `text-disabled` (2.27:1). That's acceptable for a decorative ring, but it fails 3:1 for non-text UI if the spinner is the only indicator.
-- [ ] No built-in delay prop.
+- [ ] Button draws its own loading spinner (14 / 14 / 16px) instead of reusing `Spinner`; the sizes are intentionally close but not shared.
+- [ ] No built-in delay prop (show only after ~300ms).
 
 ## Related
 - [Skeleton](./skeleton.md) · [Button](./button.md)
@@ -4424,7 +4461,7 @@ Spinner.displayName = "Spinner";
 title: Switch · Radio
 slug: switch-radio
 category: Atom
-status: stable
+status: beta
 source: components/ui/switch-radio.tsx
 styleguide: /styleguide/switch-radio
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=4-126
@@ -4506,7 +4543,7 @@ Switch                      Radio group
 | Role | Token |
 |---|---|
 | Switch track off | `snt-neutral-grey-300` |
-| Switch track on (dark / primary) | `snt-neutral-grey-900` / `snt-btn-primary-600` (hover `-700`) |
+| Switch track on (dark / primary) | `snt-neutral-grey-900` / `snt-action-primary` (hover `snt-action-primary-hover`) |
 | Radio border / dot | `snt-neutral-grey-400` → `snt-neutral-grey-800` |
 | Label / disabled | `snt-text-primary` / `snt-text-disabled` |
 | Focus ring | `snt-focus-ring` |
@@ -4593,12 +4630,12 @@ export interface SwitchProps
 
 const TRACK_ON: Record<SwitchVariant, string> = {
   dark:    "bg-snt-neutral-grey-800",
-  primary: "bg-snt-btn-primary-600",
+  primary: "bg-snt-action-primary",
 };
 
 const TRACK_ON_HOVER: Record<SwitchVariant, string> = {
   dark:    "hover:bg-snt-neutral-grey-900",
-  primary: "hover:bg-snt-btn-primary-700",
+  primary: "hover:bg-snt-action-primary-hover",
 };
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
@@ -4802,7 +4839,7 @@ Radio.displayName = "Radio";
 title: Text Field
 slug: text-field
 category: Atom
-status: stable
+status: beta
 source: components/ui/text-field.tsx
 styleguide: /styleguide/text-field
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=4-2
@@ -5120,7 +5157,7 @@ TextField.displayName = "TextField";
 title: Textarea
 slug: textarea
 category: Atom
-status: stable
+status: beta
 source: components/ui/textarea.tsx
 styleguide: /styleguide/textarea
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-134
@@ -5537,7 +5574,7 @@ export function ScheduleScan() {
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { CircleCheck, CircleAlert, Lightbulb, Ban, X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, inheritTheme } from "@/lib/utils";
 
 /**
  * sentinel/ui — Toast & Tooltip
@@ -5612,19 +5649,19 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         aria-live={intent === "alert" ? "assertive" : "polite"}
         aria-atomic="true"
         className={cn(
-          "overflow-hidden bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-lg",
+          "snt-toast overflow-hidden bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-lg",
           className,
         )}
         {...props}
       >
-        <div className="flex items-center gap-3 px-4 py-3">
-          <Icon size={20} aria-hidden className={cn("shrink-0", TOAST_COLOR[intent])} />
+        <div className="flex items-start gap-3 px-4 py-3.5">
+          <Icon size={18} aria-hidden className={cn("mt-px shrink-0", TOAST_COLOR[intent])} />
           <div className="flex-1 min-w-0">
             {title && (
-              <div className="text-snt-14 font-semibold text-snt-text-primary">{title}</div>
+              <div className="text-snt-14 font-semibold tracking-tight text-snt-text-primary">{title}</div>
             )}
             {description && (
-              <div className="text-snt-12 text-snt-text-secondary">{description}</div>
+              <div className="mt-0.5 text-snt-12 leading-relaxed text-snt-text-secondary">{description}</div>
             )}
             {!title && !description && children}
           </div>
@@ -5632,14 +5669,14 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
             <button
               type="button"
               onClick={onDismiss}
-              className="shrink-0 rounded text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
+              className="-mr-1.5 -mt-1 flex size-7 shrink-0 items-center justify-center rounded-md text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
               aria-label="Dismiss"
             >
               <X size={15} aria-hidden />
             </button>
           )}
         </div>
-        <div className="h-[3px] w-full bg-snt-bg-subtle">
+        <div className="h-0.5 w-full bg-snt-bg-subtle">
           <div
             className={cn("h-full toast-timer-bar", TOAST_BAR[intent])}
             style={{ animationDuration: `${duration}ms`, animationPlayState: paused ? "paused" : "running" }}
@@ -5695,11 +5732,20 @@ export function ToastProvider({ children, max = 3 }: { children: React.ReactNode
     [max],
   );
 
+  // The toast region is portalled to <body>; copy the app's theme onto it.
+  const anchorRef = React.useRef<HTMLSpanElement>(null);
+  const regionRef = React.useRef<HTMLElement>(null);
+  React.useEffect(() => {
+    inheritTheme(anchorRef.current, regionRef.current);
+  });
+
   return (
     <ToastContext.Provider value={toast}>
       {children}
+      <span ref={anchorRef} hidden />
       {isClient && createPortal(
         <section
+          ref={regionRef}
           aria-label="Notifications"
           className="fixed bottom-4 right-4 z-toast flex w-[360px] max-w-[calc(100vw-2rem)] flex-col gap-2"
         >
@@ -5908,7 +5954,7 @@ Shows where the current page sits in the hierarchy and lets users jump back up.
 | Hover | `brand-primary-500`, underlined |
 | Visited | `text-secondary` |
 | Current | `text-secondary`, not interactive |
-| Focus | Should show a visible ring (see Known gaps) |
+| Focus | Visible focus ring (`focus-visible`) |
 
 ## Content guidelines
 - Use the destination page's title as the label, shortened if needed.
@@ -5928,7 +5974,7 @@ Shows where the current page sits in the hierarchy and lets users jump back up.
 - `<nav aria-label="Breadcrumb">` landmark. ✅
 - The current item has `aria-current="page"`. ✅
 - Separators are `aria-hidden`. ✅
-- APG recommends wrapping items in an ordered list (`<ol><li>`) so screen readers announce "list, 3 items". See Known gaps.
+- APG recommends wrapping items in an ordered list (`<ol><li>`) so screen readers announce "list, 3 items". The component does this.
 
 ## Design tokens
 
@@ -5967,8 +6013,6 @@ Shows where the current page sits in the hierarchy and lets users jump back up.
 ```
 
 ## Known gaps
-- [ ] No `<ol>/<li>` list semantics.
-- [ ] Links have no `focus-visible` style.
 - [ ] Renders a plain `<a>`. No `asChild` for Next `<Link>` client-side navigation.
 - [ ] No built-in collapse / ellipsis for long paths.
 
@@ -6002,10 +6046,19 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       <nav
         ref={ref}
         aria-label="Breadcrumb"
-        className={cn("flex items-center gap-2", className)}
+        className={className}
         {...props}
       >
-        {children}
+        <ol className="flex flex-wrap items-center gap-2">
+          {React.Children.map(children, (child) => (
+            <li
+              aria-hidden={React.isValidElement(child) && child.type === BreadcrumbSeparator ? true : undefined}
+              className="flex items-center"
+            >
+              {child}
+            </li>
+          ))}
+        </ol>
       </nav>
     );
   },
@@ -6036,7 +6089,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLAnchorElement, BreadcrumbItem
         ref={ref}
         href={href}
         className={cn(
-          "text-snt-14 font-medium cursor-pointer transition-colors",
+          "rounded-sm text-snt-14 font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-snt-surface-app",
           visited
             ? "text-snt-text-secondary"
             : "text-snt-text-primary hover:text-snt-brand-primary-500 hover:underline hover:underline-offset-2",
@@ -6070,13 +6123,633 @@ export const BreadcrumbSeparator = React.forwardRef<HTMLSpanElement, BreadcrumbS
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
 ```
 
+<!-- ===== Drawer (drawer) ===== -->
+
+---
+title: Drawer
+slug: drawer
+category: Molecule
+status: beta
+source: components/ui/drawer.tsx
+styleguide: /styleguide/drawer
+figma: TBD
+apg: N/A
+---
+
+# Drawer
+
+A panel that slides in from the left or right edge for details or a short form, built like Modal.
+
+## Accessibility
+
+`role="dialog"` + `aria-modal`, named by `DrawerTitle`. Focus is trapped and restored, the page is inert, Escape closes it. Slide-in is skipped with reduced motion.
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `open` | `boolean` | — | Shown or hidden |
+| `onOpenChange` | `(open: boolean) => void` | — | Open / close request |
+| `side` | `"left" \| "right"` | `"right"` | Edge |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Maximum width |
+| `closeOnBackdrop` | `boolean` | `true` | Click outside closes |
+| `closeOnEscape` | `boolean` | `true` | Escape closes |
+
+## Examples
+
+```tsx
+import { Drawer, DrawerHeader, DrawerTitle, DrawerBody, DrawerFooter } from "@/components/ui/drawer";
+
+<Drawer open={open} onOpenChange={setOpen}>
+  <DrawerHeader onClose={() => setOpen(false)}><DrawerTitle>Finding</DrawerTitle></DrawerHeader>
+  <DrawerBody>…</DrawerBody>
+</Drawer>
+```
+
+## Known gaps
+- [ ] Not in the Figma library yet.
+
+## Related
+- [Modal](./modal.md)
+
+Full usage guidance, do / don't and specs: the styleguide page `/styleguide/drawer`.
+
+### Source — `components/ui/drawer.tsx`
+
+```tsx
+"use client";
+
+import * as React from "react";
+import { createPortal } from "react-dom";
+import { X } from "lucide-react";
+import { cn, inheritTheme } from "@/lib/utils";
+
+/**
+ * sentinel/ui — Drawer
+ *
+ * Drop this file into your project at components/ui/drawer.tsx.
+ *
+ * A side panel for details and edits that keep the page behind in context:
+ * a finding's detail, filters, an asset's history. Same dialog behaviour as
+ * Modal: focus trap, Escape, focus restore, scroll lock, inert page.
+ *
+ * Requires:
+ *   • Tailwind CSS v4, lucide-react
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css (incl. the drawer animation) from the Theming page.
+ */
+
+type Side = "right" | "left";
+type Size = "sm" | "md" | "lg";
+
+const SIZE_CLASS: Record<Size, string> = { sm: "max-w-sm", md: "max-w-md", lg: "max-w-2xl" };
+
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), ' +
+  'textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
+
+type DrawerContextValue = {
+  titleId: string;
+  descriptionId: string;
+  setHasTitle: (v: boolean) => void;
+  setHasDescription: (v: boolean) => void;
+};
+const DrawerContext = React.createContext<DrawerContextValue | null>(null);
+const noopSubscribe = () => () => {};
+
+export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  side?: Side;
+  size?: Size;
+  closeOnBackdrop?: boolean;
+  closeOnEscape?: boolean;
+}
+
+export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
+  (
+    { open, onOpenChange, side = "right", size = "md", closeOnBackdrop = true, closeOnEscape = true, className, children, ...props },
+    ref,
+  ) => {
+    const mounted = React.useSyncExternalStore(noopSubscribe, () => true, () => false);
+    const [hasTitle, setHasTitle] = React.useState(false);
+    const [hasDescription, setHasDesc] = React.useState(false);
+    const panelRef = React.useRef<HTMLDivElement>(null);
+    const backdropRef = React.useRef<HTMLDivElement>(null);
+    React.useImperativeHandle(ref, () => panelRef.current as HTMLDivElement);
+
+    const autoId = React.useId();
+    const titleId = `${autoId}-title`;
+    const descriptionId = `${autoId}-description`;
+
+    // Escape to close + Tab focus trap.
+    React.useEffect(() => {
+      if (!open) return;
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === "Escape" && closeOnEscape) {
+          e.stopPropagation();
+          onOpenChange(false);
+          return;
+        }
+        if (e.key !== "Tab" || !panelRef.current) return;
+        const nodes = Array.from(panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+          (el) => el.offsetParent !== null || el === document.activeElement,
+        );
+        if (nodes.length === 0) {
+          e.preventDefault();
+          panelRef.current.focus();
+          return;
+        }
+        const first = nodes[0];
+        const last = nodes[nodes.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && (active === first || !panelRef.current.contains(active))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && (active === last || !panelRef.current.contains(active))) {
+          e.preventDefault();
+          first.focus();
+        }
+      };
+      document.addEventListener("keydown", onKey);
+      return () => document.removeEventListener("keydown", onKey);
+    }, [open, closeOnEscape, onOpenChange]);
+
+    // Initial focus, focus restore, scroll lock, inert page.
+    React.useEffect(() => {
+      if (!open || !mounted) return;
+      const previouslyFocused = document.activeElement as HTMLElement | null;
+      inheritTheme(previouslyFocused, backdropRef.current);
+      const panel = panelRef.current;
+      const target =
+        panel?.querySelector<HTMLElement>("[data-autofocus], [autofocus]") ??
+        panel?.querySelector<HTMLElement>(FOCUSABLE) ??
+        panel;
+      target?.focus();
+
+      const { overflow } = document.body.style;
+      document.body.style.overflow = "hidden";
+      const inerted = Array.from(document.body.children).filter(
+        (el): el is HTMLElement => el instanceof HTMLElement && el !== backdropRef.current && !el.inert,
+      );
+      inerted.forEach((el) => { el.inert = true; });
+
+      return () => {
+        inerted.forEach((el) => { el.inert = false; });
+        document.body.style.overflow = overflow;
+        previouslyFocused?.focus?.();
+      };
+    }, [open, mounted]);
+
+    const context = React.useMemo<DrawerContextValue>(
+      () => ({ titleId, descriptionId, setHasTitle, setHasDescription: setHasDesc }),
+      [titleId, descriptionId],
+    );
+
+    if (!mounted || !open) return null;
+
+    return createPortal(
+      <div
+        ref={backdropRef}
+        className="fixed inset-0 z-modal bg-black/50 backdrop-blur-sm"
+        onClick={closeOnBackdrop ? () => onOpenChange(false) : undefined}
+      >
+        <DrawerContext.Provider value={context}>
+          <div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={hasTitle && !props["aria-label"] ? titleId : undefined}
+            aria-describedby={hasDescription ? descriptionId : undefined}
+            tabIndex={-1}
+            className={cn(
+              "absolute inset-y-0 flex w-full flex-col bg-snt-surface-app shadow-snt-2xl focus:outline-none",
+              side === "right" ? "right-0 border-l snt-drawer-right" : "left-0 border-r snt-drawer-left",
+              "border-snt-border-default",
+              SIZE_CLASS[size],
+              className,
+            )}
+            onClick={(e) => e.stopPropagation()}
+            {...props}
+          >
+            {children}
+          </div>
+        </DrawerContext.Provider>
+      </div>,
+      document.body,
+    );
+  },
+);
+Drawer.displayName = "Drawer";
+
+export interface DrawerHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  onClose?: () => void;
+  showClose?: boolean;
+}
+
+export const DrawerHeader = React.forwardRef<HTMLDivElement, DrawerHeaderProps>(
+  ({ className, children, onClose, showClose = true, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn("flex shrink-0 items-start justify-between gap-4 border-b border-snt-border-default px-5 py-4", className)}
+      {...props}
+    >
+      <div className="min-w-0">{children}</div>
+      {showClose && onClose && (
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="flex size-7 shrink-0 items-center justify-center rounded-md text-snt-text-secondary transition-colors hover:bg-snt-bg-subtle hover:text-snt-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
+        >
+          <X size={15} aria-hidden />
+        </button>
+      )}
+    </div>
+  ),
+);
+DrawerHeader.displayName = "DrawerHeader";
+
+export const DrawerTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, children, id, ...props }, ref) => {
+    const ctx = React.useContext(DrawerContext);
+    React.useLayoutEffect(() => {
+      if (!ctx || id) return;
+      ctx.setHasTitle(true);
+      return () => ctx.setHasTitle(false);
+    }, [ctx, id]);
+    return (
+      <h2 ref={ref} id={id ?? ctx?.titleId} className={cn("text-snt-16 font-semibold text-snt-text-primary", className)} {...props}>
+        {children}
+      </h2>
+    );
+  },
+);
+DrawerTitle.displayName = "DrawerTitle";
+
+export const DrawerDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
+  ({ className, children, id, ...props }, ref) => {
+    const ctx = React.useContext(DrawerContext);
+    React.useLayoutEffect(() => {
+      if (!ctx || id) return;
+      ctx.setHasDescription(true);
+      return () => ctx.setHasDescription(false);
+    }, [ctx, id]);
+    return (
+      <p ref={ref} id={id ?? ctx?.descriptionId} className={cn("mt-1 text-snt-14 leading-relaxed text-snt-text-secondary", className)} {...props}>
+        {children}
+      </p>
+    );
+  },
+);
+DrawerDescription.displayName = "DrawerDescription";
+
+export const DrawerBody = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("min-h-0 flex-1 overflow-y-auto px-5 py-5", className)} {...props} />
+  ),
+);
+DrawerBody.displayName = "DrawerBody";
+
+export const DrawerFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn("flex shrink-0 justify-end gap-2 border-t border-snt-border-default px-5 py-3.5", className)}
+      {...props}
+    />
+  ),
+);
+DrawerFooter.displayName = "DrawerFooter";
+```
+
+<!-- ===== Dropdown menu (dropdown-menu) ===== -->
+
+---
+title: Dropdown menu
+slug: dropdown-menu
+category: Molecule
+status: beta
+source: components/ui/dropdown-menu.tsx
+styleguide: /styleguide/dropdown-menu
+figma: TBD
+apg: N/A
+---
+
+# Dropdown menu
+
+A dropdown list of actions behind a button, following the WAI-ARIA menu-button pattern.
+
+## Accessibility
+
+`aria-haspopup`, `aria-expanded`, `role=menu` / `menuitem`. Enter / Space / arrows open it, arrows + Home / End + type-ahead move, Escape returns focus to the button, Tab closes.
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `align` | `"start" \| "end"` | `"start"` | DropdownMenuContent: edge it lines up with |
+| `onSelect` | `() => void` | — | DropdownMenuItem: chosen |
+| `destructive` | `boolean` | `false` | DropdownMenuItem: red text |
+| `shortcut` | `string` | — | DropdownMenuItem: display-only hint |
+| `disabled` | `boolean` | `false` | DropdownMenuItem: can't be chosen |
+
+## Examples
+
+```tsx
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+
+<DropdownMenu>
+  <DropdownMenuTrigger className={buttonVariants({ intent: "neutral", variant: "outline" })}>Actions</DropdownMenuTrigger>
+  <DropdownMenuContent><DropdownMenuItem onSelect={rescan}>Re-run scan</DropdownMenuItem></DropdownMenuContent>
+</DropdownMenu>
+```
+
+## Known gaps
+- [ ] Not in the Figma library yet.
+
+## Related
+- [Select](./select.md)
+
+Full usage guidance, do / don't and specs: the styleguide page `/styleguide/dropdown-menu`.
+
+### Source — `components/ui/dropdown-menu.tsx`
+
+```tsx
+"use client";
+
+import * as React from "react";
+import { createPortal } from "react-dom";
+import { cn, inheritTheme } from "@/lib/utils";
+
+/**
+ * sentinel/ui — DropdownMenu
+ *
+ * Drop this file into your project at components/ui/dropdown-menu.tsx.
+ *
+ * A dropdown menu of actions behind a button (row actions, "More", account).
+ * Follows the WAI-ARIA menu-button pattern: arrow keys, Home / End,
+ * type-ahead, Escape returns focus to the button.
+ *
+ *   <DropdownMenu>
+ *     <DropdownMenuTrigger className={buttonVariants({ intent: "neutral", variant: "outline" })}>Actions</DropdownMenuTrigger>
+ *     <DropdownMenuContent>
+ *       <DropdownMenuItem onSelect={rescan}>Re-run scan</DropdownMenuItem>
+ *       <DropdownMenuSeparator />
+ *       <DropdownMenuItem destructive onSelect={remove}>Delete asset</DropdownMenuItem>
+ *     </DropdownMenuContent>
+ *   </DropdownMenu>
+ *
+ * Requires:
+ *   • Tailwind CSS v4
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
+ */
+
+type DropdownMenuContextValue = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
+  focusOnOpenRef: React.RefObject<"first" | "last">;
+  menuId: string;
+  triggerId: string;
+};
+const DropdownMenuContext = React.createContext<DropdownMenuContextValue | null>(null);
+const useDropdownMenu = () => {
+  const ctx = React.useContext(DropdownMenuContext);
+  if (!ctx) throw new Error("DropdownMenu parts must be used inside <DropdownMenu>");
+  return ctx;
+};
+const noopSubscribe = () => () => {};
+
+const ITEM = '[role="menuitem"]:not([aria-disabled="true"])';
+
+export function DropdownMenu({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement | null>(null);
+  const focusOnOpenRef = React.useRef<"first" | "last">("first");
+  const id = React.useId();
+  const value = React.useMemo(
+    () => ({ open, setOpen, triggerRef, focusOnOpenRef, menuId: `${id}-menu`, triggerId: `${id}-trigger` }),
+    [open, id],
+  );
+  return <DropdownMenuContext.Provider value={value}>{children}</DropdownMenuContext.Provider>;
+}
+
+export const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
+  ({ onClick, onKeyDown, children, ...props }, ref) => {
+    const { open, setOpen, triggerRef, focusOnOpenRef, menuId, triggerId } = useDropdownMenu();
+    return (
+      <button
+        ref={(node) => {
+          triggerRef.current = node;
+          if (typeof ref === "function") ref(node);
+          else if (ref) ref.current = node;
+        }}
+        id={triggerId}
+        type="button"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-controls={open ? menuId : undefined}
+        onClick={(e) => {
+          onClick?.(e);
+          if (e.defaultPrevented) return;
+          focusOnOpenRef.current = "first";
+          setOpen(!open);
+        }}
+        onKeyDown={(e) => {
+          onKeyDown?.(e);
+          if (e.defaultPrevented) return;
+          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            e.preventDefault();
+            focusOnOpenRef.current = e.key === "ArrowUp" ? "last" : "first";
+            setOpen(true);
+          }
+        }}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  },
+);
+DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
+
+export interface DropdownMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Which edge of the button the menu lines up with. */
+  align?: "start" | "end";
+}
+
+export function DropdownMenuContent({ align = "start", className, children, onKeyDown, ...props }: DropdownMenuContentProps) {
+  const { open, setOpen, triggerRef, focusOnOpenRef, menuId, triggerId } = useDropdownMenu();
+  const mounted = React.useSyncExternalStore(noopSubscribe, () => true, () => false);
+  const menuRef = React.useRef<HTMLDivElement>(null);
+  const typeahead = React.useRef({ text: "", timer: 0 });
+
+  const close = React.useCallback(
+    (restoreFocus: boolean) => {
+      setOpen(false);
+      if (restoreFocus) triggerRef.current?.focus();
+    },
+    [setOpen, triggerRef],
+  );
+
+  // Place under the button (or above when there's no room), follow scroll / resize.
+  React.useLayoutEffect(() => {
+    if (!open) return;
+    const menu = menuRef.current;
+    const trigger = triggerRef.current;
+    if (!menu || !trigger) return;
+    inheritTheme(trigger, menu);
+    const place = () => {
+      const r = trigger.getBoundingClientRect();
+      const gap = 4;
+      const height = menu.offsetHeight;
+      const below = window.innerHeight - r.bottom - gap - 8;
+      const flip = below < height && r.top > below;
+      menu.style.minWidth = `${r.width}px`;
+      menu.style.top = `${flip ? Math.max(8, r.top - gap - height) : r.bottom + gap}px`;
+      if (align === "end") {
+        menu.style.left = "auto";
+        menu.style.right = `${Math.max(8, window.innerWidth - r.right)}px`;
+      } else {
+        menu.style.right = "auto";
+        menu.style.left = `${Math.min(r.left, window.innerWidth - menu.offsetWidth - 8)}px`;
+      }
+    };
+    place();
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, true);
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place, true);
+    };
+  }, [open, align, triggerRef]);
+
+  // Focus the first / last item on open; close on outside press.
+  React.useEffect(() => {
+    if (!open) return;
+    const items = Array.from(menuRef.current?.querySelectorAll<HTMLElement>(ITEM) ?? []);
+    (focusOnOpenRef.current === "last" ? items[items.length - 1] : items[0])?.focus();
+    const onDown = (e: MouseEvent) => {
+      const t = e.target as Node;
+      if (menuRef.current?.contains(t) || triggerRef.current?.contains(t)) return;
+      setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open, focusOnOpenRef, setOpen, triggerRef]);
+
+  if (!mounted || !open) return null;
+
+  const onMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(e);
+    if (e.defaultPrevented) return;
+    const items = Array.from(menuRef.current?.querySelectorAll<HTMLElement>(ITEM) ?? []);
+    const at = items.indexOf(document.activeElement as HTMLElement);
+    const move = (i: number) => { e.preventDefault(); items[(i + items.length) % items.length]?.focus(); };
+    switch (e.key) {
+      case "ArrowDown": return move(at + 1);
+      case "ArrowUp":   return move(at - 1);
+      case "Home":      return move(0);
+      case "End":       return move(items.length - 1);
+      case "Escape":    e.preventDefault(); e.stopPropagation(); return close(true);
+      case "Tab":       return close(false);
+    }
+    // Type-ahead: jump to the next item whose label starts with what was typed.
+    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      const ta = typeahead.current;
+      window.clearTimeout(ta.timer);
+      ta.text += e.key.toLowerCase();
+      ta.timer = window.setTimeout(() => { ta.text = ""; }, 500);
+      const hit = [...items.slice(at + 1), ...items.slice(0, at + 1)].find((el) =>
+        (el.textContent ?? "").trim().toLowerCase().startsWith(ta.text),
+      );
+      hit?.focus();
+    }
+  };
+
+  return createPortal(
+    <div
+      ref={menuRef}
+      id={menuId}
+      role="menu"
+      aria-labelledby={triggerId}
+      tabIndex={-1}
+      onKeyDown={onMenuKeyDown}
+      className={cn(
+        "fixed z-modal min-w-40 overflow-y-auto rounded-lg border border-snt-border-default bg-snt-surface-app p-1 shadow-snt-md focus:outline-none",
+        className,
+      )}
+      style={{ maxHeight: "min(20rem, 80vh)" }}
+      {...props}
+    >
+      <DropdownMenuCloseContext.Provider value={() => close(true)}>{children}</DropdownMenuCloseContext.Provider>
+    </div>,
+    document.body,
+  );
+}
+
+const DropdownMenuCloseContext = React.createContext<() => void>(() => {});
+
+export interface DropdownMenuItemProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onSelect"> {
+  onSelect?: () => void;
+  /** Red text: an action that destroys something. */
+  destructive?: boolean;
+  /** Right-aligned hint, e.g. "⌘E". Not a binding — you wire the shortcut. */
+  shortcut?: string;
+}
+
+export const DropdownMenuItem = React.forwardRef<HTMLButtonElement, DropdownMenuItemProps>(
+  ({ onSelect, destructive, shortcut, disabled, className, children, onClick, ...props }, ref) => {
+    const close = React.useContext(DropdownMenuCloseContext);
+    return (
+      <button
+        ref={ref}
+        type="button"
+        role="menuitem"
+        tabIndex={-1}
+        aria-disabled={disabled || undefined}
+        onClick={(e) => {
+          onClick?.(e);
+          if (disabled || e.defaultPrevented) return;
+          onSelect?.();
+          close();
+        }}
+        className={cn(
+          "flex w-full cursor-pointer items-center gap-2 rounded-md px-2.5 py-1.5 text-left text-snt-14 transition-colors focus:outline-none [&_svg]:size-4 [&_svg]:shrink-0",
+          destructive
+            ? "text-snt-text-error focus:bg-snt-bg-error-subtle"
+            : "text-snt-text-primary focus:bg-snt-bg-subtle",
+          disabled && "cursor-not-allowed opacity-40",
+          className,
+        )}
+        {...props}
+      >
+        <span className="flex flex-1 items-center gap-2">{children}</span>
+        {shortcut && <span className="font-mono text-snt-12 text-snt-text-secondary">{shortcut}</span>}
+      </button>
+    );
+  },
+);
+DropdownMenuItem.displayName = "DropdownMenuItem";
+
+export function DropdownMenuSeparator({ className }: { className?: string }) {
+  return <div role="separator" className={cn("-mx-1 my-1 h-px bg-snt-border-default", className)} />;
+}
+
+export function DropdownMenuLabel({ className, children }: { className?: string; children: React.ReactNode }) {
+  return <div role="presentation" className={cn("px-2.5 pb-1 pt-2 text-snt-11 font-medium uppercase tracking-wide text-snt-text-secondary", className)}>{children}</div>;
+}
+```
+
 <!-- ===== Filter Bar (filter-bar) ===== -->
 
 ---
 title: Filter Bar
 slug: filter-bar
 category: Molecule
-status: stable
+status: beta
 source: components/ui/filter-bar.tsx
 styleguide: /styleguide/filter-bar
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=9-50
@@ -6445,13 +7118,186 @@ export const FilterBarDivider = React.forwardRef<HTMLDivElement, FilterBarDivide
 FilterBarDivider.displayName = "FilterBarDivider";
 ```
 
+<!-- ===== Pagination (pagination) ===== -->
+
+---
+title: Pagination
+slug: pagination
+category: Molecule
+status: beta
+source: components/ui/pagination.tsx
+styleguide: /styleguide/pagination
+figma: TBD
+apg: N/A
+---
+
+# Pagination
+
+Moves between pages of a long list; always shows the first, last and current pages with their neighbours.
+
+## Accessibility
+
+Native buttons in a nav landmark. The current page has `aria-current="page"`, buttons are named "Page N", and the arrows are disabled (not removed) at the ends. Announce the result of a page change in a live region.
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `page` | `number` | — | Current page, from 1 |
+| `pageCount` | `number` | — | Total pages |
+| `onPageChange` | `(page: number) => void` | — | Called with the new page |
+| `siblingCount` | `number` | `1` | Pages each side of the current one |
+| `size` | `"sm" \| "md"` | `"md"` | Button size |
+| `label` | `string` | `"Pagination"` | Accessible name |
+
+## Examples
+
+```tsx
+import { Pagination } from "@/components/ui/pagination";
+
+<Pagination page={page} pageCount={20} onPageChange={setPage} />
+```
+
+## Known gaps
+- [ ] Not in the Figma library yet.
+
+## Related
+- [Data table](./data-table.md)
+
+Full usage guidance, do / don't and specs: the styleguide page `/styleguide/pagination`.
+
+### Source — `components/ui/pagination.tsx`
+
+```tsx
+import * as React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+/**
+ * sentinel/ui — Pagination
+ *
+ * Drop this file into your project at components/ui/pagination.tsx.
+ *
+ * Page controls for a table or list: previous, page numbers with "…" gaps,
+ * next. Controlled: you own `page`. No "use client" — it renders in Server
+ * Components; pass `onPageChange` from a client component.
+ *
+ * Requires:
+ *   • Tailwind CSS v4, lucide-react
+ *   • cn() helper at @/lib/utils (clsx + tailwind-merge)
+ *   • snt-* design tokens — grab tokens.css from the Theming page.
+ */
+
+export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>, "onChange"> {
+  /** Current page, 1-based. */
+  page: number;
+  pageCount: number;
+  onPageChange?: (page: number) => void;
+  /** Page numbers shown on each side of the current page. */
+  siblingCount?: number;
+  size?: "sm" | "md";
+  /** Accessible name of the navigation landmark. */
+  label?: string;
+}
+
+const range = (from: number, to: number) => Array.from({ length: Math.max(0, to - from + 1) }, (_, i) => from + i);
+
+/** The page numbers to show, with "…" where pages are skipped. */
+export function pageRange(page: number, pageCount: number, siblingCount = 1): (number | "…")[] {
+  const slots = siblingCount * 2 + 5; // first, last, current, two gaps
+  if (pageCount <= slots) return range(1, pageCount);
+  const left = Math.max(page - siblingCount, 1);
+  const right = Math.min(page + siblingCount, pageCount);
+  const gapLeft = left > 2;
+  const gapRight = right < pageCount - 1;
+  const edge = 3 + 2 * siblingCount;
+  if (!gapLeft && gapRight) return [...range(1, edge), "…", pageCount];
+  if (gapLeft && !gapRight) return [1, "…", ...range(pageCount - edge + 1, pageCount)];
+  return [1, "…", ...range(left, right), "…", pageCount];
+}
+
+const BASE =
+  "inline-flex items-center justify-center rounded-md font-medium tabular-nums transition-colors cursor-pointer select-none " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring " +
+  "disabled:opacity-40 disabled:cursor-not-allowed";
+
+export function Pagination({
+  page,
+  pageCount,
+  onPageChange,
+  siblingCount = 1,
+  size = "md",
+  label = "Pagination",
+  className,
+  ...props
+}: PaginationProps) {
+  const current = Math.min(Math.max(1, page), Math.max(1, pageCount));
+  const dim = size === "sm" ? "h-8 min-w-8 px-2 text-snt-12" : "h-9 min-w-9 px-2.5 text-snt-14";
+  const go = (p: number) => onPageChange?.(Math.min(Math.max(1, p), pageCount));
+
+  return (
+    <nav aria-label={label} className={className} {...props}>
+      <ul className="flex items-center gap-1">
+        <li>
+          <button
+            type="button"
+            aria-label="Previous page"
+            disabled={current <= 1}
+            onClick={() => go(current - 1)}
+            className={cn(BASE, dim, "text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary [&_svg]:size-4")}
+          >
+            <ChevronLeft aria-hidden />
+          </button>
+        </li>
+        {pageRange(current, pageCount, siblingCount).map((item, i) =>
+          item === "…" ? (
+            <li key={`gap-${i}`} aria-hidden className={cn("inline-flex items-center justify-center text-snt-text-secondary", dim)}>
+              …
+            </li>
+          ) : (
+            <li key={item}>
+              <button
+                type="button"
+                aria-label={`Page ${item}`}
+                aria-current={item === current ? "page" : undefined}
+                onClick={() => go(item)}
+                className={cn(
+                  BASE,
+                  dim,
+                  item === current
+                    ? "bg-snt-text-primary text-snt-text-inverse shadow-snt-raised"
+                    : "text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary",
+                )}
+              >
+                {item}
+              </button>
+            </li>
+          ),
+        )}
+        <li>
+          <button
+            type="button"
+            aria-label="Next page"
+            disabled={current >= pageCount}
+            onClick={() => go(current + 1)}
+            className={cn(BASE, dim, "text-snt-text-secondary hover:bg-snt-bg-subtle hover:text-snt-text-primary [&_svg]:size-4")}
+          >
+            <ChevronRight aria-hidden />
+          </button>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+```
+
 <!-- ===== Search Bar (search-bar) ===== -->
 
 ---
 title: Search Bar
 slug: search-bar
 category: Molecule
-status: stable
+status: beta
 source: components/ui/search-bar.tsx
 styleguide: /styleguide/search-bar
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-164
@@ -6991,7 +7837,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
           <span
             className={cn(
               "inline-flex items-center justify-center rounded-full px-1.5 min-w-[18px] h-[18px] text-snt-10 font-semibold tabular-nums",
-              isActive ? "bg-snt-btn-primary-600 text-snt-text-on-accent" : "bg-snt-neutral-grey-200 text-snt-text-secondary",
+              isActive ? "bg-snt-action-primary text-snt-text-on-accent" : "bg-snt-neutral-grey-200 text-snt-text-secondary",
             )}
           >
             {count}
@@ -7043,35 +7889,33 @@ apg: N/A
 
 # Cards
 
-Dashboard cards that summarise a topic and lead to a next step. There are two presets: **InsightCard** (a key/value list) and **AlertCard** (an active-issue callout).
+The container for dashboard content. `Card` and its parts are the base; `StatCard` is a ready-made preset for one number. Summaries and alerts are composed from the parts (see the styleguide page), not separate components.
 
 ## Overview
 
 ### When to use
-- **InsightCard:** a compact summary of 3–6 metrics with an optional "view more" action.
-- **AlertCard:** highlighting active issues that need attention, with a count and a CTA.
+- **StatCard:** a single KPI, with a trend or a one-line description.
+- **Card parts:** any other grouped content: a figures list with a View details action, a callout with a count and a next step.
 
 ### When not to use
 - Charts → [Chart](./chart.md) `ChartCard`.
 - Tabular records → [Data Table](./data-table.md).
-- A generic container. There's also `components/ui/card.tsx` (shadcn); see Known gaps.
+- A message that stays until resolved → [Alert](./alert.md).
 
 ## Anatomy
 
 ```
-InsightCard                       AlertCard
-┌──────────────────────────┐      ┌──────────────────────────────┐
-│ ① Title                  │      │ ① Title       ② ● 3 active   │
-│ ② Label ........ Value   │      │ ③ Alert title  [badge]       │
-│   Label ........ Value   │      │ ④ Description…               │
-│ ③ Action →               │      │ ⑤ [Action]                   │
-└──────────────────────────┘      └──────────────────────────────┘
+Card
+┌──────────────────────────────┐
+│ CardHeader: ① CardTitle  ② ⟶ │
+│ CardContent: ③ body          │
+│ CardFooter: ④ action         │
+└──────────────────────────────┘
 ```
 
-InsightCard: ① title · ② rows (12px label / 14px semibold value) · ③ optional action.
-AlertCard: ① title · ② pulsing active count · ③ alert title + optional badge · ④ description · ⑤ action.
+StatCard: ① icon + title · ② value (32px) · ③ trend pill or description.
 
-Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20px padding.
+Shared shell: 12px radius (`rounded-xl`), 1px border, `surface-app`, 20px padding.
 
 ## States
 
@@ -7082,7 +7926,6 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 
 ## Content guidelines
 - Titles are nouns ("Exposure summary"). Values are formatted (`1,204`, `98.2%`).
-- AlertCard description: what happened + the impact in one sentence.
 
 ## Do / Don't
 
@@ -7092,8 +7935,8 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 | Make only the action clickable | Make the whole card and the inner button both clickable |
 
 ## Accessibility
-- Card titles should be headings (`h3`) so dashboard sections are navigable. Today they're `<span>`s.
-- The pulsing dot is decorative. The count must be text ("3 active").
+- Card titles are headings (`h3` by default; set `headingLevel`) so dashboard sections are navigable.
+- A pulsing status dot is decorative. The count must be text ("3 active").
 - Action buttons must describe their target ("View all 3 alerts"), not just "View".
 
 ## Design tokens
@@ -7102,51 +7945,41 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 |---|---|
 | Shell | `snt-surface-app`, `snt-border-default` |
 | Title / value / label | `snt-text-primary` / `snt-text-primary` / `snt-text-secondary` |
-| Action | `snt-brand-primary-500` (hover `-600`) |
-| Active pill | `snt-bg-error-subtle` / `snt-scale-red-500` / `snt-text-error` |
+| Action | `snt-text-link` (hover `snt-bg-brand-subtle`) |
+| Status pill | `snt-border-default` / `snt-severity-high` dot / `snt-text-secondary` |
 | Badge | `snt-bg-subtle` / `snt-text-secondary` |
 
 ## Design ↔ Code
 
 | Figma component | Code |
 |---|---|
-| Card / Insight | `InsightCard` (`title`, `rows`, `actionLabel`) |
-| Card / Alert | `AlertCard` (`title`, `activeCount`, `alertTitle`, `alertBadge`, `description`, `action`) |
+| Card / Container | `Card`, `CardHeader`, `CardTitle`, `CardContent`, `CardFooter` |
+| Card / Stat | `StatCard` (`icon`, `title`, `value`, `trend`, `description`) |
 
 ## API
 
-**Card** (generic container): `Card`, `CardHeader`, `CardTitle` (`as="h2" | "h3" | "h4"`, default h3), `CardDescription`, `CardContent`, `CardFooter`. InsightCard and AlertCard are built on it and accept `headingLevel`.
+**Card** (generic container): `Card`, `CardHeader`, `CardTitle` (`as="h2" | "h3" | "h4"`, default h3), `CardDescription`, `CardContent`, `CardFooter`.
 
-**InsightCard**
-
-| Prop | Type | Description |
-|---|---|---|
-| `title` | `string` | **Required** |
-| `rows` | `{ label: string; value: string \| number }[]` | **Required** |
-| `actionLabel` | `string` | Shows the action when set |
-| `onActionClick` | `() => void` | — |
-
-**AlertCard**
+**StatCard**
 
 | Prop | Type | Description |
 |---|---|---|
 | `title` | `string` | **Required** |
-| `activeCount` | `number` | **Required** |
-| `alertTitle` | `string` | **Required** |
-| `alertBadge` | `string` | Optional badge |
-| `description` | `string` | **Required** |
-| `action` | `string` | **Required** CTA label |
-| `onActionClick` | `() => void` | — |
+| `value` | `string \| number` | **Required** |
+| `icon` | `ComponentType` | Optional |
+| `trend` | `{ direction: "up" \| "down"; value: string; label?: string; positive?: boolean }` | `positive` says whether the direction is good news (default: up) |
+| `description` | `string` | Use instead of `trend` |
 
 ## Examples
 
 ```tsx
-<InsightCard
-  title="Exposure summary"
-  rows={[{ label: "Open ports", value: 14 }, { label: "Expired certs", value: 2 }]}
-  actionLabel="View details"
-  onActionClick={open}
-/>
+<StatCard icon={Link2} title="Total URLs" value="816"
+  trend={{ direction: "down", value: "23%", label: "from last month", positive: true }} />
+
+<Card>
+  <CardHeader><CardTitle>Exposure summary</CardTitle></CardHeader>
+  <CardContent>…</CardContent>
+</Card>
 ```
 
 ## Known gaps
@@ -7161,7 +7994,7 @@ Shared shell: 12px radius (`rounded-xl`), 1px divider border, `surface-app`, 20p
 "use client";
 
 import * as React from "react";
-import { ArrowRight } from "lucide-react";
+import { TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -7175,7 +8008,7 @@ import { cn } from "@/lib/utils";
  *   • snt-* design tokens — grab tokens.css from the Theming page.
  *
  * Card is the generic container (Header / Title / Description / Content /
- * Footer); InsightCard and AlertCard are presets built on it.
+ * Footer); StatCard is a preset built on it.
  */
 
 type HeadingLevel = "h2" | "h3" | "h4";
@@ -7184,7 +8017,7 @@ export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("rounded-xl border border-snt-border-default bg-snt-surface-app text-snt-text-primary shadow-snt-xs", className)}
+      className={cn("rounded-xl border border-snt-border-default bg-snt-surface-app text-snt-text-primary shadow-snt-control", className)}
       {...props}
     />
   ),
@@ -7205,7 +8038,7 @@ export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement>
 
 export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ as: Heading = "h3", className, ...props }, ref) => (
-    <Heading ref={ref} className={cn("text-snt-14 font-semibold text-snt-text-primary", className)} {...props} />
+    <Heading ref={ref} className={cn("text-snt-16 font-semibold tracking-tight text-snt-text-primary", className)} {...props} />
   ),
 );
 CardTitle.displayName = "CardTitle";
@@ -7229,109 +8062,43 @@ export const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
 );
 CardFooter.displayName = "CardFooter";
 
-export type InsightRow = { label: string; value: string | number };
+export type StatTrend = { direction: "up" | "down"; value: string; label?: string; /** Is this direction good news? Defaults to up = good. */ positive?: boolean };
 
-export interface InsightCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  title:           string;
-  rows:            InsightRow[];
-  actionLabel?:    string;
-  onActionClick?:  () => void;
-  headingLevel?:   HeadingLevel;
-}
-
-export const InsightCard = React.forwardRef<HTMLDivElement, InsightCardProps>(
-  ({ title, rows, actionLabel = "View Details", onActionClick, headingLevel, className, ...props }, ref) => {
-    return (
-      <Card ref={ref} className={cn("px-5 py-5 flex flex-col gap-4", className)} {...props}>
-        <div className="flex items-center justify-between">
-          <CardTitle as={headingLevel}>{title}</CardTitle>
-          <button
-            type="button"
-            onClick={onActionClick}
-            className="text-snt-12 font-medium text-snt-brand-primary-500 hover:text-snt-brand-primary-600 transition-colors"
-          >
-            {actionLabel}
-          </button>
-        </div>
-
-        <div className="space-y-0 divide-y divide-snt-border-default">
-          {rows.map((row) => (
-            <div key={row.label} className="flex items-center justify-between py-2.5">
-              <span className="text-snt-12 text-snt-text-secondary">{row.label}</span>
-              <span className="text-snt-14 font-semibold text-snt-text-primary">{row.value}</span>
-            </div>
-          ))}
-        </div>
-      </Card>
-    );
-  },
-);
-InsightCard.displayName = "InsightCard";
-
-export interface AlertCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface StatCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  icon?:         React.ComponentType<{ size?: number; className?: string }>;
   title:         string;
-  activeCount:   number;
-  alertTitle:    string;
-  alertBadge?:   string;
-  description:   string;
-  action:        string;
-  onActionClick?: () => void;
-  headingLevel?: HeadingLevel;
+  value:         string | number;
+  /** Change versus the previous period. Pick this or `description`, not both. */
+  trend?:        StatTrend;
+  description?:  string;
 }
 
-export const AlertCard = React.forwardRef<HTMLDivElement, AlertCardProps>(
-  (
-    {
-      title,
-      activeCount,
-      alertTitle,
-      alertBadge,
-      description,
-      action,
-      onActionClick,
-      headingLevel,
-      className,
-      ...props
-    },
-    ref,
-  ) => {
+export const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
+  ({ icon: Icon, title, value, trend, description, className, ...props }, ref) => {
+    const good = trend ? (trend.positive ?? trend.direction === "up") : true;
     return (
-      <Card ref={ref} className={cn("overflow-hidden", className)} {...props}>
-        <div className="flex items-center justify-between px-4 py-2 bg-snt-bg-subtle border-b border-snt-border-default">
-          <CardTitle as={headingLevel} className="text-snt-12">{title}</CardTitle>
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-snt-bg-error-subtle text-snt-11 font-semibold text-snt-text-error">
-            <span aria-hidden className="snt-pulse-dot w-[6px] h-[6px] rounded-full bg-snt-scale-red-500 shrink-0" />
-            {activeCount} Active
-          </span>
+      <Card ref={ref} className={cn("flex flex-col gap-3 px-5 py-4", className)} {...props}>
+        <div className="flex items-center gap-2 text-snt-text-secondary">
+          {Icon && <Icon size={14} aria-hidden className="shrink-0" />}
+          <span className="text-snt-12 font-medium">{title}</span>
         </div>
-
-        <div className="px-4 py-4 space-y-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-snt-14 font-semibold text-snt-text-primary">{alertTitle}</span>
-              {alertBadge && (
-                <span className="px-2 py-0.5 rounded-full bg-snt-bg-subtle text-snt-10 font-medium text-snt-text-secondary">
-                  {alertBadge}
-                </span>
-              )}
-            </div>
-            <p className="text-snt-12 text-snt-text-secondary leading-relaxed">{description}</p>
+        <div className="text-snt-32 font-semibold leading-none tracking-tight tabular-nums text-snt-text-primary">{value}</div>
+        {trend ? (
+          <div className="flex items-center gap-1.5 text-snt-12">
+            <span className={cn("inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 font-medium", good ? "bg-snt-bg-success-subtle text-snt-text-success" : "bg-snt-bg-error-subtle text-snt-text-error")}>
+              {trend.direction === "up" ? <TrendingUp size={12} aria-hidden /> : <TrendingDown size={12} aria-hidden />}
+              <span className="tabular-nums">{trend.value}</span>
+            </span>
+            {trend.label && <span className="text-snt-text-secondary">{trend.label}</span>}
           </div>
-
-          <button
-            type="button"
-            onClick={onActionClick}
-            className="flex items-center gap-1 text-snt-12 font-medium text-snt-brand-primary-500 hover:text-snt-brand-primary-600 transition-colors group"
-          >
-            {action}
-            <ArrowRight size={12} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
-          </button>
-        </div>
+        ) : description ? (
+          <p className="text-snt-12 leading-relaxed text-snt-text-secondary">{description}</p>
+        ) : null}
       </Card>
     );
   },
 );
-AlertCard.displayName = "AlertCard";
+StatCard.displayName = "StatCard";
 ```
 
 <!-- ===== Chart (chart) ===== -->
@@ -7340,7 +8107,7 @@ AlertCard.displayName = "AlertCard";
 title: Chart
 slug: chart
 category: Organism
-status: stable
+status: beta
 source: components/ui/chart.tsx
 styleguide: /styleguide/chart
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=14-50
@@ -7461,6 +8228,7 @@ A dependency-free set of SVG chart primitives in a shared card shell: donut, bar
 "use client";
 
 import * as React from "react";
+import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -7489,22 +8257,27 @@ export const ChartCard = React.forwardRef<HTMLDivElement, ChartCardProps>(
     return (
       <div
         ref={ref}
-        className={cn("border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs", className)}
+        className={cn("border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-control", className)}
         {...props}
       >
-        <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl">
-          <span className="text-snt-14 font-semibold text-snt-text-primary shrink-0">{title}</span>
-          {description && (
-            <span className="hidden sm:inline text-snt-12 text-snt-text-secondary truncate flex-1 min-w-0">{description}</span>
-          )}
-          {trailing}
+        <div className="flex items-center gap-4 px-4 sm:px-5 py-4 border-b border-snt-border-default">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2">
+              <span className="text-snt-16 font-semibold tracking-tight text-snt-text-primary">{title}</span>
+              {trailing}
+            </div>
+            {description && (
+              <p className="mt-0.5 hidden truncate text-snt-12 text-snt-text-secondary sm:block">{description}</p>
+            )}
+          </div>
           {viewAll && (
             <button
               type="button"
               onClick={onViewAll}
-              className="ml-auto text-snt-12 font-medium text-snt-brand-primary-500 hover:text-snt-brand-primary-600 transition-colors shrink-0 underline underline-offset-2"
+              className="inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1 -mr-2 text-snt-12 font-medium text-snt-text-link transition-colors hover:bg-snt-bg-brand-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
             >
               View all
+              <ChevronRight size={12} aria-hidden />
             </button>
           )}
         </div>
@@ -7528,11 +8301,11 @@ export const StatBlock = React.forwardRef<HTMLDivElement, StatBlockProps>(
     return (
       <div
         ref={ref}
-        className={cn("flex-1 min-w-0 rounded-lg bg-snt-bg-subtle px-4 py-3", className)}
+        className={cn("flex-1 min-w-0 rounded-lg border border-snt-border-default px-4 py-3", className)}
         {...props}
       >
         <div className="text-snt-12 text-snt-text-secondary mb-1 truncate">{label}</div>
-        <div className={cn("text-snt-16 font-bold tabular-nums truncate", accent ?? "text-snt-text-primary")}>
+        <div className={cn("text-snt-20 font-semibold tracking-tight tabular-nums truncate", accent ?? "text-snt-text-primary")}>
           {value}
         </div>
       </div>
@@ -7873,13 +8646,217 @@ export const TreemapChart = React.forwardRef<HTMLDivElement, TreemapChartProps>(
 TreemapChart.displayName = "TreemapChart";
 ```
 
+<!-- ===== Command palette (command-palette) ===== -->
+
+---
+title: Command palette
+slug: command-palette
+category: Organism
+status: beta
+source: components/ui/command-palette.tsx
+styleguide: /styleguide/command-palette
+figma: TBD
+apg: N/A
+---
+
+# Command palette
+
+A searchable list of commands and destinations opened with a shortcut; built on Modal.
+
+## Accessibility
+
+Combobox input controlling a listbox with `aria-activedescendant`; arrows, Home / End, Enter, Escape. Built on Modal for focus trap and restore. Result count announced politely.
+
+## API
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `open` | `boolean` | — | Shown or hidden |
+| `onOpenChange` | `(open: boolean) => void` | — | Open / close request |
+| `items` | `CommandItem[]` | — | `id`, `label`, `onSelect` + optional `group`, `hint`, `icon`, `keywords` |
+| `placeholder` | `string` | `"Type a command or search…"` | Input placeholder |
+| `emptyLabel` | `string` | `"No results found."` | Empty text |
+| `label` | `string` | `"Command palette"` | Accessible name |
+
+## Examples
+
+```tsx
+import { CommandPalette } from "@/components/ui/command-palette";
+
+<CommandPalette open={open} onOpenChange={setOpen} items={items} />
+```
+
+## Known gaps
+- [ ] Not in the Figma library yet.
+
+## Related
+- [Modal](./modal.md)
+
+Full usage guidance, do / don't and specs: the styleguide page `/styleguide/command-palette`.
+
+### Source — `components/ui/command-palette.tsx`
+
+```tsx
+"use client";
+
+import * as React from "react";
+import { Modal } from "@/components/ui/modal";
+import { cn } from "@/lib/utils";
+
+/**
+ * sentinel/ui — CommandPalette
+ *
+ * Drop this file into your project at components/ui/command-palette.tsx.
+ * Depends on components/ui/modal.tsx.
+ *
+ * A searchable list of commands and destinations ("Go to Scans", "Re-run scan").
+ * You own the shortcut that opens it (usually ⌘K) — see the docs for a snippet.
+ *
+ *   <CommandPalette open={open} onOpenChange={setOpen} items={[
+ *     { id: "scans", label: "Go to Scans", group: "Navigate", onSelect: () => router.push("/scans") },
+ *   ]} />
+ *
+ * Requires: Tailwind CSS v4, cn() at @/lib/utils, snt-* tokens.
+ */
+
+export interface CommandItem {
+  id: string;
+  label: string;
+  group?: string;
+  /** Right-aligned hint, e.g. "G S". */
+  hint?: string;
+  icon?: React.ReactNode;
+  /** Extra words that should match the search but aren't shown. */
+  keywords?: string[];
+  onSelect: () => void;
+}
+
+export interface CommandPaletteProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  items: CommandItem[];
+  placeholder?: string;
+  emptyLabel?: string;
+  /** Accessible name of the dialog. */
+  label?: string;
+}
+
+function matches(item: CommandItem, query: string) {
+  const hay = [item.label, item.group ?? "", ...(item.keywords ?? [])].join(" ").toLowerCase();
+  return query.toLowerCase().split(/\s+/).filter(Boolean).every((w) => hay.includes(w));
+}
+
+export function CommandPalette({
+  open,
+  onOpenChange,
+  items,
+  placeholder = "Type a command or search…",
+  emptyLabel = "No results found.",
+  label = "Command palette",
+}: CommandPaletteProps) {
+  const [query, setQuery] = React.useState("");
+  const [active, setActive] = React.useState(0);
+  const listRef = React.useRef<HTMLUListElement>(null);
+  const id = React.useId();
+  const listId = `${id}-list`;
+
+  const results = React.useMemo(() => items.filter((i) => matches(i, query)), [items, query]);
+  const current = Math.min(active, Math.max(results.length - 1, 0));
+
+  React.useEffect(() => {
+    listRef.current?.querySelector<HTMLElement>('[aria-selected="true"]')?.scrollIntoView({ block: "nearest" });
+  }, [current, results]);
+
+  const choose = (item: CommandItem | undefined) => {
+    if (!item) return;
+    onOpenChange(false);
+    item.onSelect();
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown") { e.preventDefault(); setActive(results.length ? (current + 1) % results.length : 0); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setActive(results.length ? (current - 1 + results.length) % results.length : 0); }
+    else if (e.key === "Home") { e.preventDefault(); setActive(0); }
+    else if (e.key === "End") { e.preventDefault(); setActive(Math.max(results.length - 1, 0)); }
+    else if (e.key === "Enter") { e.preventDefault(); choose(results[current]); }
+  };
+
+  return (
+    <Modal
+      open={open}
+      onOpenChange={(v) => { if (!v) { setQuery(""); setActive(0); } onOpenChange(v); }}
+      size="lg"
+      aria-label={label}
+      className="overflow-hidden p-0"
+    >
+      <div className="border-b border-snt-border-default">
+        <input
+          data-autofocus
+          role="combobox"
+          aria-expanded="true"
+          aria-controls={listId}
+          aria-activedescendant={results[current] ? `${id}-${results[current].id}` : undefined}
+          aria-autocomplete="list"
+          aria-label={label}
+          value={query}
+          onChange={(e) => { setQuery(e.target.value); setActive(0); }}
+          onKeyDown={onKeyDown}
+          placeholder={placeholder}
+          className="h-12 w-full bg-transparent px-4 text-snt-14 text-snt-text-primary placeholder:text-snt-text-secondary focus:outline-none"
+        />
+      </div>
+
+      <ul ref={listRef} id={listId} role="listbox" aria-label="Results" className="max-h-80 overflow-y-auto p-1.5">
+        {results.map((item, i) => {
+          const heading = item.group && item.group !== results[i - 1]?.group ? item.group : null;
+          return (
+            <React.Fragment key={item.id}>
+              {heading && (
+                <li role="presentation" className="px-2.5 pb-1 pt-2 text-snt-11 font-medium uppercase tracking-wide text-snt-text-secondary">
+                  {heading}
+                </li>
+              )}
+              <li
+                id={`${id}-${item.id}`}
+                role="option"
+                aria-selected={i === current}
+                onMouseMove={() => setActive(i)}
+                onClick={() => choose(item)}
+                className={cn(
+                  "flex cursor-pointer items-center gap-2.5 rounded-md px-2.5 py-2 text-snt-14 text-snt-text-primary [&_svg]:size-4 [&_svg]:shrink-0",
+                  i === current && "bg-snt-bg-subtle",
+                )}
+              >
+                {item.icon}
+                <span className="flex-1 truncate">{item.label}</span>
+                {item.hint && <span className="font-mono text-snt-12 text-snt-text-secondary">{item.hint}</span>}
+              </li>
+            </React.Fragment>
+          );
+        })}
+        {results.length === 0 && (
+          <li role="presentation" className="px-3 py-8 text-center text-snt-14 text-snt-text-secondary">{emptyLabel}</li>
+        )}
+      </ul>
+
+      <div className="flex items-center gap-4 border-t border-snt-border-default px-4 py-2 text-snt-12 text-snt-text-secondary">
+        <span><kbd className="font-mono">↑↓</kbd> navigate</span>
+        <span><kbd className="font-mono">↵</kbd> select</span>
+        <span><kbd className="font-mono">esc</kbd> close</span>
+      </div>
+      <div aria-live="polite" className="sr-only">{results.length} results</div>
+    </Modal>
+  );
+}
+```
+
 <!-- ===== Data Table (data-table) ===== -->
 
 ---
 title: Data Table
 slug: data-table
 category: Organism
-status: stable
+status: beta
 source: components/ui/data-table.tsx
 styleguide: /styleguide/data-table
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=13-50
@@ -7914,7 +8891,7 @@ A composable card that lists findings (threat, asset, date, severity) with a hea
 └──────────────────────────────────────────────────────────────┘
 ```
 
-Grid: `1fr 1fr 90px 80px`, gap 12px. Column headers are 11px uppercase.
+Grid: `1fr 1fr 90px 96px`, gap 12px. Column headers are 12px medium, sentence case, on a subtle band.
 
 ## States
 
@@ -7927,7 +8904,7 @@ Grid: `1fr 1fr 90px 80px`, gap 12px. Column headers are 11px uppercase.
 | Table | Empty | Use [Empty State](./empty-state.md) `size="sm"` inside the body |
 
 ## Content guidelines
-- Column headers: 1 word, uppercase is applied by CSS. Write them in sentence case in code.
+- Column headers: 1 word, sentence case.
 - Dates: relative for < 7 days ("2 days ago"), absolute after that ("12 Jun 2026"). Show the full timestamp on hover.
 - Truncate long asset names in the middle (`api.…example.com`), not at the end.
 
@@ -7944,7 +8921,7 @@ Grid: `1fr 1fr 90px 80px`, gap 12px. Column headers are 11px uppercase.
 
 - CSS-grid `<div>`s carry ARIA table roles: `DataTableBody` is `role="table"` (named by the header title via `aria-labelledby`), with `row`, `columnheader` and `cell` inside. Screen readers can navigate by row and column.
 - Header and column info icons are focusable buttons (`aria-label="About <column>"`). The tooltip opens on hover **and** focus and closes on Escape.
-- Row info icons only reveal truncated text on hover and are `aria-hidden`. The full text is already in the cell.
+- Truncated threat and asset text keeps its full value in the `title` attribute; the full text is already in the cell for screen readers.
 - The footer is `role="navigation"` labelled "Pagination", with "Previous page" / "Next page" labels; the range label is a polite live region.
 - Severity uses colour + text ✅.
 
@@ -8038,7 +9015,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
       <div
         ref={ref}
         className={cn(
-          "border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-xs overflow-hidden",
+          "border border-snt-border-default rounded-xl bg-snt-surface-app shadow-snt-control overflow-hidden",
           className,
         )}
         {...props}
@@ -8079,29 +9056,32 @@ export const DataTableHeader = React.forwardRef<HTMLDivElement, DataTableHeaderP
       <div
         ref={ref}
         className={cn(
-          "flex items-center gap-3 px-5 py-3 compact:px-4 compact:py-2 bg-snt-bg-subtle border-b border-snt-border-default rounded-t-xl",
+          "flex items-center gap-4 px-5 py-4 compact:px-4 compact:py-3 border-b border-snt-border-default",
           className,
         )}
         {...props}
       >
-        <div className="flex items-center gap-2 shrink-0">
-          <span id={ctx?.titleId} className="text-snt-14 font-semibold text-snt-text-primary">{title}</span>
-          <InfoTooltip text={tooltip} label={`About ${title}`} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <span id={ctx?.titleId} className="text-snt-16 font-semibold tracking-tight text-snt-text-primary">{title}</span>
+            <InfoTooltip text={tooltip} label={`About ${title}`} />
+            {badge && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-snt-border-default px-2 py-0.5 text-snt-11 font-medium text-snt-text-secondary shrink-0">
+                <span aria-hidden className="size-1.5 rounded-full bg-snt-scale-green-600 motion-safe:animate-pulse" />
+                {badge}
+              </span>
+            )}
+          </div>
+          <p className="mt-0.5 truncate text-snt-12 text-snt-text-secondary">{description}</p>
         </div>
-        <span className="text-snt-12 text-snt-text-secondary truncate flex-1 min-w-0">{description}</span>
-        {badge && (
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-snt-bg-warning-subtle text-snt-scale-yellow-700 text-snt-11 font-medium shrink-0">
-            <span aria-hidden className="w-[6px] h-[6px] rounded-full bg-snt-scale-yellow-500" />
-            {badge}
-          </span>
-        )}
         {viewAllLabel && (
           <button
             type="button"
             onClick={onViewAll}
-            className="text-snt-12 font-medium text-snt-brand-primary-500 hover:text-snt-brand-primary-600 transition-colors shrink-0 underline underline-offset-2"
+            className="inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-snt-12 font-medium text-snt-text-link transition-colors hover:bg-snt-bg-brand-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
             {viewAllLabel}
+            <ChevronRight size={12} aria-hidden />
           </button>
         )}
       </div>
@@ -8139,7 +9119,7 @@ export const DataTableBody = React.forwardRef<HTMLDivElement, DataTableBodyProps
 );
 DataTableBody.displayName = "DataTableBody";
 
-const GRID_COLS = "grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_90px_80px] gap-3";
+const GRID_COLS = "grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_90px_96px] gap-3";
 
 export interface DataTableColumnHeadersProps extends React.HTMLAttributes<HTMLDivElement> {
   threatsLabel?:        string;
@@ -8168,19 +9148,19 @@ export const DataTableColumnHeaders = React.forwardRef<HTMLDivElement, DataTable
       <div
         ref={ref}
         role="row"
-        className={cn(GRID_COLS, "px-5 py-2.5 compact:px-4 compact:py-1.5 border-b border-snt-border-default", className)}
+        className={cn(GRID_COLS, "px-5 py-2 compact:px-4 compact:py-1.5 bg-snt-bg-subtle border-b border-snt-border-default", className)}
         {...props}
       >
         <div role="columnheader" className="flex items-center gap-1.5">
-          <span className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide">{threatsLabel}</span>
+          <span className="text-snt-12 font-medium text-snt-text-secondary">{threatsLabel}</span>
           <InfoTooltip text={threatsTooltip} label={`About ${threatsLabel}`} />
         </div>
         <div role="columnheader" className="flex items-center gap-1.5">
-          <span className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide">{assetLabel}</span>
+          <span className="text-snt-12 font-medium text-snt-text-secondary">{assetLabel}</span>
           <InfoTooltip text={assetTooltip} label={`About ${assetLabel}`} />
         </div>
-        <span role="columnheader" className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide text-right">{dateLabel}</span>
-        <span role="columnheader" className="text-snt-11 font-medium text-snt-text-secondary uppercase tracking-wide text-right">{severityLabel}</span>
+        <span role="columnheader" className="text-snt-12 font-medium text-snt-text-secondary">{dateLabel}</span>
+        <span role="columnheader" className="text-snt-12 font-medium text-snt-text-secondary">{severityLabel}</span>
       </div>
     );
   },
@@ -8202,22 +9182,19 @@ export const DataTableRow = React.forwardRef<HTMLDivElement, DataTableRowProps>(
         role="row"
         className={cn(
           GRID_COLS,
-          "items-center px-5 py-3 compact:px-4 compact:py-1.5 border-b border-snt-border-default last:border-b-0 hover:bg-snt-bg-subtle/50 transition-colors",
+          "items-center px-5 py-3.5 compact:px-4 compact:py-1.5 border-b border-snt-border-default/60 last:border-b-0 hover:bg-snt-bg-subtle transition-colors",
           className,
         )}
         {...props}
       >
         <div role="cell" className="flex items-center gap-1.5 min-w-0">
-          <span className="text-snt-14 text-snt-text-primary truncate">{threat}</span>
-          {/* Hover-only reveal of truncated text — AT already reads the full cell. */}
-          <InfoTooltip text={threat} />
+          <span title={threat} className="text-snt-14 font-medium text-snt-text-primary truncate">{threat}</span>
         </div>
         <div role="cell" className="flex items-center gap-1.5 min-w-0">
-          <span className="text-snt-14 text-snt-text-primary truncate">{asset}</span>
-          <InfoTooltip text={asset} />
+          <span title={asset} className="font-mono text-snt-12 text-snt-text-secondary truncate">{asset}</span>
         </div>
-        <span role="cell" className="text-snt-12 text-snt-text-secondary text-right tabular-nums">{date}</span>
-        <div role="cell" className="flex justify-end">
+        <span role="cell" className="text-snt-12 text-snt-text-secondary tabular-nums">{date}</span>
+        <div role="cell">
           <SeverityCell severity={severity} />
         </div>
       </div>
@@ -8241,7 +9218,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
         role="navigation"
         aria-label="Pagination"
         className={cn(
-          "flex items-center justify-end gap-4 px-5 py-3 compact:px-4 compact:py-2 border-t border-snt-border-default",
+          "flex items-center justify-end gap-4 px-5 py-3 compact:px-4 compact:py-2 border-t border-snt-border-default bg-snt-bg-subtle/50",
           className,
         )}
         {...props}
@@ -8263,7 +9240,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
             type="button"
             onClick={onPrev}
             aria-label="Previous page"
-            className="w-6 h-6 rounded hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
+            className="size-7 rounded-md border border-snt-border-default bg-snt-surface-app shadow-snt-control hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
             <ChevronLeft size={13} aria-hidden />
           </button>
@@ -8271,7 +9248,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
             type="button"
             onClick={onNext}
             aria-label="Next page"
-            className="w-6 h-6 rounded hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
+            className="size-7 rounded-md border border-snt-border-default bg-snt-surface-app shadow-snt-control hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
             <ChevronRight size={13} aria-hidden />
           </button>
@@ -8283,7 +9260,7 @@ export const DataTableFooter = React.forwardRef<HTMLDivElement, DataTableFooterP
 DataTableFooter.displayName = "DataTableFooter";
 
 function SeverityCell({ severity }: { severity: Severity }) {
-  return <SeverityBadge severity={severity} size="sm" className="ml-auto" />;
+  return <SeverityBadge severity={severity} size="sm" className="shrink-0" />;
 }
 
 // With a `label`, the icon is a focusable button that shows the tooltip on
@@ -8359,7 +9336,7 @@ function InfoTooltip({ text, label }: { text: string; label?: string }) {
 title: Empty State
 slug: empty-state
 category: Organism
-status: stable
+status: beta
 source: components/ui/empty-state.tsx
 styleguide: /styleguide/empty-state
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=11-50
@@ -8612,7 +9589,7 @@ EmptyState.displayName = "EmptyState";
 title: Gauge
 slug: gauge
 category: Organism
-status: stable
+status: beta
 source: components/ui/gauge.tsx
 styleguide: /styleguide/gauge
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=11-212
@@ -8655,7 +9632,7 @@ A semicircular meter that shows a single value against a known maximum, such as 
 | `green` | Good (e.g. score ≥ 80) |
 | `yellow` | Fair |
 | `red` | Poor |
-| `purple` | Critical-related metric |
+| `brand` | Neutral, product-level metric (no good/bad meaning) |
 
 Pick the colour from **thresholds** documented with the metric, not by eye. Write the threshold table next to the screen spec.
 
@@ -8682,7 +9659,7 @@ Pick the colour from **thresholds** documented with the metric, not by eye. Writ
 
 | Role | Token |
 |---|---|
-| Track | `snt-scale-{blue,green,yellow,red,purple}-100` |
+| Track | `snt-scale-{blue,green,yellow,red}-100` / `snt-brand-primary-100` |
 | Fill | `snt-scale-*-500` |
 | Ticks | `snt-scale-*-200` / `snt-scale-*-600` |
 | Value / max | `snt-text-primary` / `snt-text-secondary` |
@@ -8700,7 +9677,7 @@ Pick the colour from **thresholds** documented with the metric, not by eye. Writ
 |---|---|---|---|
 | `value` | `number` | — | **Required** |
 | `max` | `number` | `100` | Upper bound |
-| `color` | `"blue" \| "green" \| "yellow" \| "red" \| "purple"` | `"blue"` | Fill colour |
+| `color` | `"blue" \| "green" \| "yellow" \| "red" \| "brand"` | `"blue"` | Fill colour |
 | …rest | `HTMLAttributes<HTMLDivElement>` | — | Forwarded |
 
 ## Examples
@@ -8713,7 +9690,6 @@ Pick the colour from **thresholds** documented with the metric, not by eye. Writ
 ```
 
 ## Known gaps
-- [ ] Use `role="meter"` + `aria-value*` and accept an accessible label prop.
 - [ ] No threshold API (`thresholds={{ 50: "yellow", 80: "green" }}`), so colour logic is duplicated across screens.
 - [ ] No size prop.
 
@@ -8739,7 +9715,7 @@ import { cn } from "@/lib/utils";
  *   • snt-* design tokens — grab tokens.css from the Theming page.
  */
 
-type GaugeColor = "blue" | "green" | "yellow" | "red" | "purple";
+type GaugeColor = "blue" | "green" | "yellow" | "red" | "brand";
 
 export interface GaugeProps extends React.HTMLAttributes<HTMLDivElement> {
   value:  number;
@@ -8752,7 +9728,7 @@ const TRACK_STROKE: Record<GaugeColor, string> = {
   green:  "stroke-snt-scale-green-100",
   yellow: "stroke-snt-scale-yellow-100",
   red:    "stroke-snt-scale-red-100",
-  purple: "stroke-snt-scale-purple-100",
+  brand:  "stroke-snt-brand-primary-100",
 };
 
 const FILL_STROKE: Record<GaugeColor, string> = {
@@ -8760,146 +9736,55 @@ const FILL_STROKE: Record<GaugeColor, string> = {
   green:  "stroke-snt-scale-green-500",
   yellow: "stroke-snt-scale-yellow-500",
   red:    "stroke-snt-scale-red-500",
-  purple: "stroke-snt-scale-purple-500",
+  brand:  "stroke-snt-brand-primary-500",
 };
-
-const TICK_LIGHT_STROKE: Record<GaugeColor, string> = {
-  blue:   "stroke-snt-scale-blue-200",
-  green:  "stroke-snt-scale-green-200",
-  yellow: "stroke-snt-scale-yellow-200",
-  red:    "stroke-snt-scale-red-200",
-  purple: "stroke-snt-scale-purple-200",
-};
-
-const TICK_DARK_STROKE: Record<GaugeColor, string> = {
-  blue:   "stroke-snt-scale-blue-600",
-  green:  "stroke-snt-scale-green-600",
-  yellow: "stroke-snt-scale-yellow-600",
-  red:    "stroke-snt-scale-red-600",
-  purple: "stroke-snt-scale-purple-600",
-};
-
-function polar(cx: number, cy: number, r: number, deg: number) {
-  const rad = (deg * Math.PI) / 180;
-  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
-}
-
-function arcSegment(cx: number, cy: number, r: number, centerDeg: number, spanDeg: number) {
-  const p0 = polar(cx, cy, r, centerDeg - spanDeg / 2);
-  const p1 = polar(cx, cy, r, centerDeg + spanDeg / 2);
-  return `M ${p0.x} ${p0.y} A ${r} ${r} 0 0 1 ${p1.x} ${p1.y}`;
-}
 
 export const Gauge = React.forwardRef<HTMLDivElement, GaugeProps>(
   ({ value, max = 100, color = "blue", className, ...props }, ref) => {
     const clamped = Math.max(0, Math.min(value, max));
-    const pct     = clamped / max;
+    const pct     = max > 0 ? clamped / max : 0;
 
     const W  = 170;
-    const H  = 104;
+    const H  = 96;
     const cx = W / 2;
-    const cy = H - 8;
-    const r  = 68;
-    const sw = 11;
+    const cy = H - 10;
+    const r  = 70;
+    const sw = 12;
 
     const arcPath = `M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`;
-    const needleAngle = -90 + pct * 180;
-
-    const endAngle = -180 + pct * 180;
-    const tickR    = r + sw * 1;
-    const numDash  = 5;
-    const gapDeg   = 6;
-    const dashDeg  = (180 - (numDash - 1) * gapDeg) / numDash;
-    const tickAngles = Array.from({ length: numDash }, (_, i) =>
-      -180 + dashDeg / 2 + i * (dashDeg + gapDeg),
-    );
-    const ticks       = tickAngles.map((a) => arcSegment(cx, cy, tickR, a, dashDeg));
-    const activeIndex = tickAngles.reduce(
-      (best, a, i, arr) => (Math.abs(a - endAngle) < Math.abs(arr[best] - endAngle) ? i : best),
-      0,
-    );
-
     const pathLen = Math.PI * r;
     const drawn   = pct * pathLen;
 
     return (
       <div
         ref={ref}
-        className={cn("flex flex-col items-center w-[170px]", className)}
+        role="meter"
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-valuenow={clamped}
+        aria-valuetext={`${value} out of ${max}`}
+        aria-label={props["aria-label"] ?? "Score"}
+        className={cn("relative flex w-[170px] flex-col items-center", className)}
         {...props}
       >
-        <svg
-          width={W}
-          height={H}
-          viewBox={`0 0 ${W} ${H}`}
-          overflow="visible"
-          role="img"
-          aria-label={`${value} out of ${max}`}
-        >
-          <path
-            d={arcPath}
-            fill="none"
-            strokeWidth={sw}
-            strokeLinecap="round"
-            className={cn(TRACK_STROKE[color])}
-          />
-
-          <path
-            d={arcPath}
-            fill="none"
-            strokeWidth={sw}
-            strokeLinecap="round"
-            strokeDasharray={`${drawn} ${pathLen * 2}`}
-            strokeDashoffset={drawn}
-            className={cn(
-              FILL_STROKE[color],
-              "[animation:snt-gauge-draw_1.1s_ease-out_forwards]",
-            )}
-          />
-
-          <g>
-            {ticks.map((d, i) => (
-              <path
-                key={i}
-                d={d}
-                fill="none"
-                strokeWidth={3.5}
-                strokeLinecap="round"
-                className={cn(i === activeIndex ? TICK_DARK_STROKE[color] : TICK_LIGHT_STROKE[color])}
-              />
-            ))}
-            <animate
-              attributeName="opacity"
-              from="0"
-              to="1"
-              dur="0.45s"
-              begin="0.55s"
-              fill="freeze"
-            />
-          </g>
-
-          <g transform={`rotate(${needleAngle} ${cx} ${cy})`}>
+        <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} overflow="visible" aria-hidden>
+          <path d={arcPath} fill="none" strokeWidth={sw} strokeLinecap="round" className={TRACK_STROKE[color]} />
+          {pct > 0 && (
             <path
-              d={`M ${cx} ${cy - r * 0.72} L ${cx - 3} ${cy + 2} L ${cx + 3} ${cy + 2} Z`}
-              className="fill-snt-neutral-grey-500"
+              d={arcPath}
+              fill="none"
+              strokeWidth={sw}
+              strokeLinecap="round"
+              strokeDasharray={`${drawn} ${pathLen * 2}`}
+              strokeDashoffset={drawn}
+              className={cn(FILL_STROKE[color], "[animation:snt-gauge-draw_1.1s_ease-out_forwards] motion-reduce:[animation:none] motion-reduce:[stroke-dashoffset:0]")}
             />
-            <circle cx={cx} cy={cy} r={3.5} className="fill-snt-neutral-grey-600" />
-            <animateTransform
-              attributeName="transform"
-              type="rotate"
-              from={`-90 ${cx} ${cy}`}
-              to={`${needleAngle} ${cx} ${cy}`}
-              dur="1.1s"
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.25 0.1 0.25 1"
-            />
-          </g>
+          )}
         </svg>
 
-        <div className="text-center -mt-2">
-          <span className="font-bold text-snt-text-primary text-snt-14">{value}</span>
-          <span className="text-snt-text-secondary text-snt-12"> / {max}</span>
+        <div className="absolute inset-x-0 bottom-0 text-center leading-none">
+          <span className="text-snt-24 font-semibold tracking-tight tabular-nums text-snt-text-primary">{value}</span>
+          <span className="ml-1 text-snt-12 text-snt-text-secondary">/ {max}</span>
         </div>
       </div>
     );
@@ -9049,7 +9934,7 @@ A dialog that interrupts the current task to request a decision or focused input
 ```
 
 ## Known gaps
-- [ ] No enter / exit animation.
+- [ ] No exit animation (the panel fades and scales in on open; it disappears instantly on close).
 - [ ] No alert-dialog variant (`role="alertdialog"`) for destructive confirms.
 
 ## Related
@@ -9063,7 +9948,7 @@ A dialog that interrupts the current task to request a decision or focused input
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, inheritTheme } from "@/lib/utils";
 
 /**
  * sentinel/ui — Modal
@@ -9171,6 +10056,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     React.useEffect(() => {
       if (!open || !mounted) return;
       const previouslyFocused = document.activeElement as HTMLElement | null;
+      inheritTheme(previouslyFocused, backdropRef.current);
       const panel = panelRef.current;
       const target =
         panel?.querySelector<HTMLElement>("[data-autofocus], [autofocus]") ??
@@ -9205,7 +10091,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     return createPortal(
       <div
         ref={backdropRef}
-        className="fixed inset-0 z-modal flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 z-modal flex items-center justify-center p-4 bg-black/40 backdrop-blur-[2px] snt-modal-backdrop"
         onClick={closeOnBackdrop ? () => onOpenChange(false) : undefined}
       >
         <ModalContext.Provider value={context}>
@@ -9217,7 +10103,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
             aria-describedby={hasDescription ? descriptionId : undefined}
             tabIndex={-1}
             className={cn(
-              "relative w-full bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-2xl focus:outline-none",
+              "snt-modal-panel relative w-full bg-snt-surface-app border border-snt-border-default rounded-xl shadow-snt-2xl focus:outline-none",
               SIZE_CLASS[size],
               className,
             )}
@@ -9245,7 +10131,7 @@ export const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
       <div
         ref={ref}
         className={cn(
-          "flex items-center justify-between px-5 py-3.5 border-b border-snt-border-default",
+          "flex items-start justify-between gap-4 px-6 pt-5 pb-1",
           className,
         )}
         {...props}
@@ -9256,7 +10142,7 @@ export const ModalHeader = React.forwardRef<HTMLDivElement, ModalHeaderProps>(
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="w-7 h-7 rounded-md hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
+            className="-mr-2 -mt-1 size-8 shrink-0 rounded-md hover:bg-snt-bg-subtle flex items-center justify-center text-snt-text-secondary hover:text-snt-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-snt-focus-ring"
           >
             <X size={15} aria-hidden />
           </button>
@@ -9281,7 +10167,7 @@ export const ModalTitle = React.forwardRef<HTMLSpanElement, ModalTitleProps>(
       <span
         ref={ref}
         id={id ?? ctx?.titleId}
-        className={cn("text-snt-14 font-semibold text-snt-text-primary", className)}
+        className={cn("text-snt-16 font-semibold tracking-tight text-snt-text-primary", className)}
         {...props}
       >
         {children}
@@ -9325,7 +10211,7 @@ export const ModalBody = React.forwardRef<HTMLDivElement, ModalBodyProps>(
       <div
         ref={ref}
         className={cn(
-          "px-5 py-5",
+          "px-6 pb-5 pt-3",
           scrollable && "max-h-[60vh] overflow-y-auto",
           className,
         )}
@@ -9350,8 +10236,8 @@ export const ModalFooter = React.forwardRef<HTMLDivElement, ModalFooterProps>(
         className={cn(
           "flex justify-end gap-2",
           bordered
-            ? "px-5 py-3.5 border-t border-snt-border-default"
-            : "px-5 pb-4",
+            ? "px-6 py-4 border-t border-snt-border-default bg-snt-bg-subtle/50 rounded-b-xl"
+            : "px-6 pb-5",
           className,
         )}
         {...props}
@@ -9370,7 +10256,7 @@ ModalFooter.displayName = "ModalFooter";
 title: Text Space
 slug: text-space
 category: Organism
-status: stable
+status: alpha
 source: components/ui/text-space.tsx
 styleguide: /styleguide/text-space
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=15-50

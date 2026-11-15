@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Search } from "lucide-react";
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
@@ -11,16 +10,16 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { SearchBar } from "@/components/ui/search-bar";
 
 export const metadata: Metadata = {
-  title: "Search Bar",
-};
+  title: "Search Bar" };
 
 export default function Page() {
   return (
     <>
       <PageHero category="Components"
-        categoryHref="/styleguide/components" title="Search Bar" status="stable" description="Input combined with search affordance for filtering and finding content."
+        categoryHref="/styleguide/components" title="Search Bar" status="beta" description="Input combined with search affordance for filtering and finding content."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}
       />
@@ -36,16 +35,14 @@ export default function Page() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Search icon",  description: "14px magnifier on the left — turns primary blue when focused." },
-                  { label: "Input",        description: "Single-line text field for the query; bg is white (default) or grey (ghost)." },
-                  { label: "Clear (optional)", description: "× appears on the right only when the input has value." },
+                  { label: "Search icon", target: "svg|0", side: "left", description: "Magnifier on the left." },
+                  { label: "Input", target: "input", side: "top", description: "Single-line field for the query." },
+                  { label: "Clear (optional)", target: "button", side: "right", description: "Appears on the right only when the field has a value." },
                 ]}
-              >
-                <div className="flex items-center gap-2 rounded-lg px-3 h-9 w-72 border border-snt-neutral-divider-10 bg-snt-surface-app">
-                  <Search size={14} className="text-snt-text-disabled shrink-0" />
-                  <span className="flex-1 text-[14px] text-snt-text-disabled">Search assets…</span>
-                </div>
-              </Anatomy>
+                preview={
+                  <SearchBar value="api.example.com" placeholder="Search assets…" />
+                }
+              />
               <SearchBarSpecs />
             </DocSection>
           </div>

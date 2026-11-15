@@ -124,7 +124,9 @@ function StatusCard({ info }: { info: StatusInfo }) {
             <dt className="text-[10px] uppercase tracking-widest text-snt-text-disabled">Promoted to</dt>
             <dd className="text-[12px] text-snt-text-secondary">
               <span className="font-semibold text-snt-text-primary capitalize">{info.promotedTo}</span>{" "}
-              when usage in production reaches at least 3 teams with no API changes in 60 days.
+              {info.promotedTo === "beta"
+                ? "when it has a full docs page, is checked in light and dark, and is used by at least one product team."
+                : "when usage in production reaches at least 3 teams with no API changes in 60 days."}
             </dd>
           </div>
         )}

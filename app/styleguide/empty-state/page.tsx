@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inbox, Plus } from "lucide-react";
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
@@ -11,16 +10,16 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { EmptyStateAnatomyPreview } from "@/sections/anatomy-previews";
 
 export const metadata: Metadata = {
-  title: "Empty State",
-};
+  title: "Empty State" };
 
 export default function Page() {
   return (
     <>
       <PageHero category="Components"
-        categoryHref="/styleguide/components" title="Empty State" status="stable" description="Placeholder surface shown when a list or view has no content to display."
+        categoryHref="/styleguide/components" title="Empty State" status="beta" description="Placeholder surface shown when a list or view has no content to display."
         actions={<OpenInFigma />}
         tabs={<ComponentTabs />}
       />
@@ -36,28 +35,16 @@ export default function Page() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Icon container",   description: "Circular badge with a themed background that sets the tone — neutral, warning, or alert." },
-                  { label: "Title",            description: "Short, human sentence that names the situation (e.g. \"No scans yet\")." },
-                  { label: "Description",      description: "One-line explanation of why the view is empty and how to move forward." },
-                  { label: "Primary action",   description: "Filled brand button for the main next step (start scan, retry, etc.)." },
-                  { label: "Secondary action", description: "Outlined button for an alternate path — clear filters, read docs, request access." },
+                  { label: "Icon container", target: "[class*=\"rounded-full\"]|0", side: "top", description: "Round badge; its colour sets the tone: neutral, warning or alert." },
+                  { label: "Title", target: "[class*=\"font-semibold\"]", side: "left", description: "Short sentence that names the situation, e.g. \u201cNo scans yet\u201d." },
+                  { label: "Description", target: "p", side: "right", description: "One line on why it's empty and how to move on." },
+                  { label: "Primary action", target: "[class*=\"mt-5\"] > :nth-child(1)", side: "bottom", description: "Filled button for the main next step." },
+                  { label: "Secondary action", target: "[class*=\"mt-5\"] > :nth-child(2)", side: "bottom", description: "Outlined button for another path: clear filters, read the docs." },
                 ]}
-              >
-                <div className="w-80 flex flex-col items-center text-center px-6 py-10 border border-snt-neutral-divider-10 rounded-xl">
-                  <div className="w-14 h-14 rounded-full bg-snt-neutral-grey-100 text-snt-text-secondary flex items-center justify-center mb-4">
-                    <Inbox size={24} />
-                  </div>
-                  <div className="text-[15px] font-semibold text-snt-text-primary">No scans yet</div>
-                  <p className="mt-1.5 text-[14px] text-snt-text-secondary">Run your first crawler to start collecting assets.</p>
-                  <button
-                    type="button"
-                    className="mt-5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-snt-brand-primary-500 text-snt-text-white text-[12px] font-medium"
-                  >
-                    <Plus size={13} />
-                    Start a scan
-                  </button>
-                </div>
-              </Anatomy>
+                preview={
+                  <EmptyStateAnatomyPreview />
+                }
+              />
               <EmptyStateSpecs />
             </DocSection>
           </div>

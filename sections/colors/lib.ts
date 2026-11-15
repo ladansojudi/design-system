@@ -216,14 +216,6 @@ export const SEMANTIC_ROLES: { label: string; chips: RoleChip[] }[] = [
     ],
   },
   {
-    label: "Brand / Secondary",
-    chips: [
-      { token: "Secondary-500", bgClass: "bg-snt-brand-secondary-500" },
-      { token: "Secondary-600", bgClass: "bg-snt-brand-secondary-600" },
-      { token: "Secondary-200", bgClass: "bg-snt-brand-secondary-200" },
-    ],
-  },
-  {
     label: "Feedback",
     chips: [
       { token: "Feedback/Info",    bgClass: "bg-snt-feedback-info" },

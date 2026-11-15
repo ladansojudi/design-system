@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Sparkles, X } from "lucide-react";
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
@@ -11,10 +10,10 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Banner } from "@/components/ui/banner";
 
 export const metadata: Metadata = {
-  title: "Banner",
-};
+  title: "Banner" };
 
 export default function BannerPage() {
   return (
@@ -40,24 +39,15 @@ export default function BannerPage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Surface", shortLabel: "Surface", description: "Solid full-bleed background; tone defines color.",                       pinX: 50, pinY: 0,  x: 50, y: -50, anchor: "center" },
-                  { label: "Icon",    shortLabel: "Icon",    description: "Single small icon (14px) signalling the tone.",                          pinX: 4,  pinY: 50, x: 4,  y: 140, anchor: "tl" },
-                  { label: "Message", shortLabel: "Message", description: "One sentence in the active voice.",                                      pinX: 35, pinY: 50, x: 32, y: 140, anchor: "tl" },
-                  { label: "CTA",     shortLabel: "CTA",     description: "Optional underlined link to resolve or learn more.",                     pinX: 80, pinY: 50, x: 70, y: 140, anchor: "tl" },
-                  { label: "Dismiss", shortLabel: "Dismiss", description: "Optional close button. Omit when the user must act before continuing.",  pinX: 97, pinY: 50, x: 95, y: 140, anchor: "tl" },
+                  { label: "Surface", target: ":scope > *", side: "left", description: "Solid, full-width background; the tone sets the colour." },
+                  { label: "Icon", target: "svg|0", side: "top", description: "14px icon that signals the tone." },
+                  { label: "Message", target: "div.flex-1", side: "top", description: "One sentence in the active voice." },
+                  { label: "CTA", target: "a", side: "top", description: "Optional underlined link to resolve or learn more." },
+                  { label: "Dismiss", target: "button", side: "top", description: "Close button. Don't make critical banners dismissible." },
                 ]}
                 preview={
-                  <div className="flex items-center gap-3 px-4 py-2.5 w-[460px] bg-snt-brand-primary-600 text-snt-text-white">
-                    <Sparkles size={14} className="shrink-0" />
-                    <div className="flex-1 min-w-0 text-[12px] leading-tight">
-                      New: AI-assisted vulnerability triage is live for all teams.
-                    </div>
-                    <a href="#" className="text-[11px] font-semibold underline underline-offset-2 shrink-0">
-                      Try it
-                    </a>
-                    <button type="button" aria-label="Dismiss" className="shrink-0 p-1 -m-1 rounded">
-                      <X size={14} />
-                    </button>
+                  <div className="w-[520px] max-w-full">
+                    <Banner tone="promo" message="Scheduled maintenance on Sunday at 02:00 UTC." cta={{ label: "Learn more", href: "#" }} />
                   </div>
                 }
               />

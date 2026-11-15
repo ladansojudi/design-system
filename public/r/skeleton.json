@@ -4,8 +4,8 @@
   "title": "Skeleton",
   "description": "A pulsing placeholder that mirrors the shape of content while it loads.",
   "registryDependencies": [
-    "http://localhost:3000/r/utils.json",
-    "http://localhost:3000/r/theme.json"
+    "https://ladan-design-system.vercel.app/r/utils.json",
+    "https://ladan-design-system.vercel.app/r/theme.json"
   ],
   "files": [
     {
@@ -15,9 +15,9 @@
     }
   ],
   "meta": {
-    "status": "beta"
+    "status": "stable"
   },
-  "docs": "Skeleton (beta). Usage, accessibility and known gaps: http://localhost:3000/docs/components/skeleton.md",
+  "docs": "Skeleton (stable). Usage, accessibility and known gaps: https://ladan-design-system.vercel.app/docs/components/skeleton.md",
   "categories": [
     "atom"
   ],

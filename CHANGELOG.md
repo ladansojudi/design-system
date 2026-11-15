@@ -11,6 +11,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Favicon, SVG icon and Apple touch icon are the Ladan Sojudi portfolio mark (from ladan-sojudi.vercel.app).
 
+### Added — new components
+- **Pagination**, **Drawer**, **Menu** (WAI-ARIA menu button) and **Command palette** (built on Modal), each with a docs page, `docs/components/*.md`, dev notes and registry entry.
+- `inheritTheme()` in `lib/utils.ts`: portalled overlays (Modal, Drawer, Select, Menu, Toast) now follow the dark theme; `ThemeShell` also toggles `dark` on `<html>`.
+
+### Changed
+- Data table redesigned: white header with the title and description stacked, a quiet "Live" pill, a ghost "View all" link, sentence-case column headers on a subtle band, medium-weight threat names with monospace assets, and bordered pager buttons. The per-cell info icons are gone (truncated text uses `title`). The API is unchanged.
+
+- Same visual language applied to **Cards** (stacked title, ghost action with arrow, quiet pill), **Chart card** and **Stat block**, **Modal** (roomier header, tinted footer, fade/scale entry), **Toast** (aligned layout, slide-in), **Alert** (neutral text on a tinted surface; `info`/`success` now `role="status"`), **Gauge** (clean arc with the value inside; needle and ticks removed; now `role="meter"`) and the **Sidebar** demo (inset rounded items with a brand-tinted active state).
+
+- **Cards** is now one page (no tabs): `Card` and its parts are the base, `StatCard` is the one preset. **Breaking:** `InsightCard` and `AlertCard` were removed from `components/ui/cards.tsx`; they are product patterns, now shown as composed examples built from the Card parts (use `Alert` for messages that stay until resolved). `StatCard` is a real component in `components/ui/cards.tsx` (it was only a demo). Its trend can say whether the direction is good news, so "fewer findings" shows green.
+
+- **Menu is now Dropdown menu** (`components/ui/dropdown-menu.tsx`; `DropdownMenu`, `DropdownMenuTrigger`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuSeparator`, `DropdownMenuLabel`), the name shadcn and Radix users expect. It has not been released, so there is no alias.
+- **Top bar** redesigned as a standard security-product header: breadcrumb, global search that opens the command palette, Ask AI, help, notifications with a count and an account dropdown. **Ask AI** is a new pill with a gradient hairline border (`.snt-ai-button`) that brightens and slides on hover/focus; the old ripple styles and their hard-coded colours are gone.
+- **Sidebar** demo: standard security navigation (Overview, Assets & exposure, Response, Governance, Workspace); workspace switcher (replaces the "Acme" placeholder and the Pro badge), sentence-case labels, set-up progress and an account row (replaces the Upgrade button and version line).
+- **Data table** examples cut from five variants to two (default and minimal).
+
+### Changed — palette follow-through
+- **Severity tints:** every severity now has `-subtle`, `-border` and `-text` tokens (light and dark), so chips, rows and tables tint from the severity colour instead of a scale colour. The dashboard demo, the Accessibility page and the CVSS spec use them. `check-tokens` also requires each severity text to pass 4.5:1 on its tint.
+- **Data palette** replaced: ten categorical colours (indigo, sky, violet, slate, lime, tan and four supporting tints) that avoid the severity hues; `--chart-1…5` follow it.
+- **Status** colours now reference the feedback tokens, so they can't drift apart.
+- **Scale / Green 200** is no longer neon (`#a5ff14` → `#b7e35d`).
+
+### Removed — unused colour tokens
+- Dropped 46 tokens nothing used: **Brand / Secondary** (all steps), **Scale / Purple** (all steps), all ten **Status** colours (the feedback tokens cover them), unused scale steps (Blue and Green 700/800, Yellow and Red 800), `neutral-grey-700`, `surface-row-visited`, `data-9` and `data-10`, and twelve `btn-*` steps (`neutral` 100/300/600/700, `primary-50`, `success-*`, `warning-*`, `error-50`). The Colors page, the exported tokens and the AI package follow.
+- **Breaking:** `Gauge` `color="purple"` is now `color="brand"` (indigo). The Colors page preview cards and the dashboard demo moved from purple and the secondary brand colour to the brand indigo.
+- `app/globals.css` now opens with a short map of the three layers (severity, primitives, semantic).
+
+### Fixed
+- Component pages always open on Usage when you move to another page; a tab picked on one page no longer follows you to the next.
+- Component statuses re-checked against their open gaps: Stable only where nothing blocks use (Button, Modal, Tabs, Toast · Tooltip, Cards, Badge · Tag, Breadcrumb, Skeleton); Beta for components with accessibility or API gaps; Text space is Alpha (its toolbar pickers don't work yet), and so are Sidebar and Top bar: they are page-layout examples with no `components/ui` file, doc or registry entry yet. Spinner is Beta.
+- Breadcrumb now renders an ordered list and has a focus ring.
+- Accessibility page: the contrast table used token names that don't exist and typed-in ratios; it is now computed live from the tokens.
+
+### Changed — severity palette, semantic action tokens
+
+- Severity is its own palette: Critical magenta `#b4136c`, High orange-red `#e5532d`, Medium amber `#f0ad1d`, Low teal `#1b9e8f`, Info warm grey `#a8a29e`. None equals a feedback colour (Low is no longer success green) and none sits close to the brand colour. The old Critical purple was only ΔE 7.8 from the indigo brand.
+- `npm run lint:ds` now runs `scripts/check-tokens.js`: fails if a severity colour equals a feedback colour, or if the brand colour is closer than CIEDE2000 15 to a severity colour in light or dark.
+- Theming page: "Check your brand colour" tool. Severity bar and Severity badge pages: colour-blind preview (protanopia, deuteranopia, tritanopia).
+- New semantic tokens `--snt-action-primary`, `-primary-hover`, `-destructive`, `-destructive-hover`. Button, Checkbox, Switch, Tabs, Banner and Scan progress use them instead of `btn-primary-600` / `btn-error-700` steps; the lint rule `prefer-semantic-tokens` autofixes the old names.
+- `llms.txt`, the shadcn registry and the manifest now carry the real site address (`lib/site.ts`; override with `SITE_URL`).
+
+### Changed — Anatomy shows the parts on the component
+
+- Anatomy can now place a numbered marker on the real element of each part (`target` CSS selector, optional `side`), outline it on hover, and number the legend to match. `layout="stacked"` gives wide components a full-width preview. Data table is the first page converted: its Anatomy renders the real component instead of a drawing.
+- Data table: the Date and Severity headers and cells start at the left edge of their columns.
+- All 23 component pages now use it: every Anatomy shows the real component (Badge, Checkbox, Alert, Gauge, Cards, Filter bar …) with a numbered marker on each part. Sidebar, Top bar and Modal show a complete static example (Modal opens full-screen, so it can't be shown live). The preview scrolls instead of widening the page on narrow screens.
+
+### Fixed — quick wins from a design review
+
+- The light / dark choice is saved (localStorage) and survives page changes and reloads.
+- Install commands on Introduction use the real site address on the server instead of a `your-sentinel-site` placeholder, so crawlers and no-JS readers see it too (the browser still uses the current origin).
+- Data table sample data is realistic: real finding titles and hosts instead of lorem ipsum, ISO dates (YYYY-MM-DD), five rows with "Rows per page: 5 · 1–5 of 492", and all five severities.
+
 ### Added — SEO
 
 - Root metadata for the author name: title template "%s — Sentinel by Ladan Sojudi", canonical URLs, authors / creator, Google site verification, Open Graph and Twitter titles, JSON-LD (`CreativeWork` with the author as `Person`). Page titles no longer repeat the site name.
@@ -19,7 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed — Severity badge redesign
 
-- Severity badge is now a signal-bar badge: four bars filled to the level (Critical 4 … Low 1, Info a ring) on a neutral surface with a hairline ring, label always written out, optional mono score. Uses the `snt-severity-*` tokens shared with charts. New `size` prop (sm 24px / md 28px); width follows the label instead of a fixed 160px. No "use client". API otherwise unchanged.
+- Severity badge is now a signal-bar badge: four bars filled to the level (Critical 4 … Low 1, Info a ring) on a neutral surface with a hairline ring, label always written out, optional mono score. Uses the `snt-severity-*` tokens shared with charts. New `size` prop (sm 24px / md 28px); fixed per size (sm 96px, md 112px; 128 / 144px with a score) instead of 160px, so every badge in a table column is the same size. No "use client". API otherwise unchanged.
 - The new look is used everywhere severity appears: Data table rows render `SeverityBadge` (and now accept all five levels, not just high / critical), CVSS score shows the signal bars next to the score, and the Modal, Data table, Severity badge and dashboard mocks use the real component. Registry items now list the components they import (Data table, CVSS score → Severity badge), so `shadcn add` installs them together.
 
 ### Fixed — component pages checked against the code

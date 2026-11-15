@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Check } from "lucide-react";
 import { PageHero } from "@/components/styleguide/page-hero";
 import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
@@ -11,10 +10,10 @@ import { FigmaNote } from "@/components/styleguide/figma-note";
 import { DocA11y } from "@/components/styleguide/doc-a11y";
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const metadata: Metadata = {
-  title: "Checkbox",
-};
+  title: "Checkbox" };
 
 export default function CheckboxPage() {
   return (
@@ -40,27 +39,13 @@ export default function CheckboxPage() {
             <DocSection title="Specs" hideTitle>
               <Anatomy
                 parts={[
-                  { label: "Box",           description: "18px square with 3px radius. Empty when off, filled with check or minus when on." },
-                  { label: "Check / Minus", description: "12px icon inside the box. Minus indicates indeterminate (partial)." },
-                  { label: "Label",         description: "13px text aligned to the top of the box. Click target extends to the whole label." },
-                  { label: "Description",   description: "Optional 11px helper below the label, in disabled color." },
+                  { label: "Box", target: "[class*=\"w-[18px]\"]", side: "left", description: "18px square. Empty when off, filled when on." },
+                  { label: "Check / Minus", target: "svg", side: "top", description: "12px icon inside the box. Minus means indeterminate (some selected)." },
+                  { label: "Label", target: "span.flex-1 > span:first-child", side: "right", description: "14px text next to the box. The whole label is the click target." },
+                  { label: "Description", target: "span.flex-1 > span:nth-child(2)", side: "right", description: "Optional 11px helper under the label." },
                 ]}
                 preview={
-                  <label className="flex items-start gap-2.5 w-[280px]">
-                    <span className="relative inline-flex items-center justify-center mt-[1px]">
-                      <span className="w-[18px] h-[18px] rounded-[3px] flex items-center justify-center bg-snt-btn-primary-600">
-                        <Check size={12} className="text-white" />
-                      </span>
-                    </span>
-                    <span className="flex-1 min-w-0">
-                      <span className="block text-[14px] leading-tight text-snt-text-primary">
-                        Enable real-time alerts
-                      </span>
-                      <span className="block text-[11px] text-snt-text-disabled mt-0.5 leading-snug">
-                        Notifies you within seconds when a critical finding lands.
-                      </span>
-                    </span>
-                  </label>
+                  <Checkbox checked label="Enable real-time alerts" description="Notifies you within seconds when a critical finding lands." />
                 }
               />
               <CheckboxSpecs />

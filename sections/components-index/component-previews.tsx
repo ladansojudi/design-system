@@ -241,6 +241,38 @@ const PREVIEWS: Record<string, () => React.ReactNode> = {
       <span className="size-5 rounded-full bg-snt-neutral-grey-400" />
     </div>
   ),
+  pagination: () => (
+    <div className="flex items-center gap-1 text-snt-12">
+      {["‹", "1", "2", "3", "…", "9", "›"].map((t, i) => (
+        <span key={i} className={`flex size-7 items-center justify-center rounded-md ${t === "2" ? "bg-snt-text-primary text-snt-text-inverse" : "text-snt-text-primary"}`}>{t}</span>
+      ))}
+    </div>
+  ),
+  drawer: () => (
+    <div className="relative flex h-full w-full justify-end overflow-hidden rounded-md bg-snt-neutral-grey-900/10">
+      <div className="h-full w-28 border-l border-snt-border-default bg-snt-surface-app p-3 shadow-snt-lg">
+        <div className="text-snt-12 font-semibold text-snt-text-primary">Finding</div>
+        <div className="mt-2 space-y-1.5"><Line w="90%" /><Line w="70%" /><Line w="80%" /></div>
+      </div>
+    </div>
+  ),
+  "dropdown-menu": () => (
+    <div className="w-36 rounded-lg border border-snt-border-default bg-snt-surface-app p-1 shadow-snt-lg text-snt-12">
+      <div className="rounded-md bg-snt-bg-subtle px-2 py-1 text-snt-text-primary">Re-run scan</div>
+      <div className="px-2 py-1 text-snt-text-primary">View report</div>
+      <div className="my-1 h-px bg-snt-border-default" />
+      <div className="px-2 py-1 text-snt-text-error">Delete</div>
+    </div>
+  ),
+  "command-palette": () => (
+    <div className="w-48 overflow-hidden rounded-lg border border-snt-border-default bg-snt-surface-app shadow-snt-lg text-snt-12">
+      <div className="border-b border-snt-border-default px-2.5 py-1.5 text-snt-text-secondary">Search…</div>
+      <div className="p-1">
+        <div className="rounded-md bg-snt-bg-subtle px-2 py-1 text-snt-text-primary">Go to Scans</div>
+        <div className="px-2 py-1 text-snt-text-primary">Go to Findings</div>
+      </div>
+    </div>
+  ),
   modal: () => (
     <div className="relative flex h-full w-full items-center justify-center rounded-md bg-snt-neutral-grey-900/10">
       <div className="w-44 rounded-lg border border-snt-border-default bg-snt-surface-app p-3 shadow-snt-lg">
@@ -248,7 +280,7 @@ const PREVIEWS: Record<string, () => React.ReactNode> = {
         <div className="mt-1.5"><Line w="90%" /></div>
         <div className="mt-3 flex justify-end gap-1.5">
           <span className="rounded border border-snt-border-strong px-2 py-0.5 text-snt-10 text-snt-text-primary">Cancel</span>
-          <span className="rounded bg-snt-btn-error-600 px-2 py-0.5 text-snt-10 text-snt-text-on-accent">Delete</span>
+          <span className="rounded bg-snt-action-destructive px-2 py-0.5 text-snt-10 text-snt-text-on-accent">Delete</span>
         </div>
       </div>
     </div>

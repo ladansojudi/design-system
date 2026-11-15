@@ -2,7 +2,7 @@
 title: Textarea
 slug: textarea
 category: Atom
-status: stable
+status: beta
 source: components/ui/textarea.tsx
 styleguide: /styleguide/textarea
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=6-134

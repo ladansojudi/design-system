@@ -7,6 +7,9 @@ import UIKit
 // MARK: - Colors
 
 extension UIColor {
+    static let brandPrimary50 = UIColor(hex: "#EEF0FF")
+    static let brandPrimary500 = UIColor(hex: "#5B5BD6")
+    static let brandPrimary600 = UIColor(hex: "#4F46E5")
     static let scaleBlue50 = UIColor(hex: "#F7FAFD")
     static let scaleBlue500 = UIColor(hex: "#7DAFD6")
     static let scaleBlue600 = UIColor(hex: "#2F6893")
@@ -19,10 +22,8 @@ extension UIColor {
     static let scaleRed50 = UIColor(hex: "#FCF3F2")
     static let scaleRed500 = UIColor(hex: "#D13D2E")
     static let scaleRed600 = UIColor(hex: "#8E2A1F")
-    static let scalePurple50 = UIColor(hex: "#F7F2FC")
-    static let scalePurple500 = UIColor(hex: "#772ED1")
-    static let scalePurple600 = UIColor(hex: "#5D24A3")
     static let textPrimary = UIColor(hex: "#09090B")
+    static let textSecondary = UIColor(hex: "#52525B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
 }
 
@@ -47,6 +48,7 @@ extension CGFloat {
 
     // Font size
     static let fontSize10: CGFloat = 10
+    static let fontSize14: CGFloat = 14
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)

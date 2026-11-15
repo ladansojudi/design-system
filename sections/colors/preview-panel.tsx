@@ -25,34 +25,33 @@ function buildCards(palettes: Palette[]): CardCfg[] {
   const light   = pick(palettes, "neutral-grey", "00")   ?? "#FFFFFF";
   const text    = pick(palettes, "typography",   "Text/Primary")  ?? dark;
   const onDark  = pick(palettes, "neutral-grey", "00")   ?? "#FFFFFF";
-  const primary = pick(palettes, "brand-primary",   "500") ?? "#1383D4";
-  const second  = pick(palettes, "brand-secondary", "500") ?? "#EE7B59";
-  const purple  = pick(palettes, "scale-purple",    "500") ?? "#772ED1";
+  const primary = pick(palettes, "brand-primary",   "500") ?? "#4F46E5";
+  const deep    = pick(palettes, "brand-primary",   "800") ?? "#312E81";
 
   return [
     {
       title:  "Dark Surface",
-      desc:   "Koyu zemin üzerine birincil metin. Marka renginin vurgu olarak kullanımı.",
-      btn:    "Başla",
+      desc:   "Primary text on a dark surface, with the brand colour as the accent.",
+      btn:    "Get started",
       bg:     dark, fg: onDark, accent: primary, btnBg: primary, btnFg: onDark,
     },
     {
       title:  "Primary CTA",
-      desc:   "Marka birincil zemini üzerine zıt metin. Yüksek görünürlük.",
-      btn:    "Devam",
+      desc:   "Contrasting text on the brand colour. High visibility.",
+      btn:    "Continue",
       bg:     primary, fg: onDark, accent: light, btnBg: dark, btnFg: onDark,
     },
     {
-      title:  "Accent Card",
-      desc:   "Purple zemin üzerinde light metin. Kritik vurgular için ayrılmıştır.",
-      btn:    "İncele",
-      bg:     purple, fg: onDark, accent: light, btnBg: dark, btnFg: onDark,
+      title:  "Deep Brand",
+      desc:   "Light text on the deepest brand step, for a quiet emphasis band.",
+      btn:    "Review",
+      bg:     deep, fg: onDark, accent: light, btnBg: dark, btnFg: onDark,
     },
     {
       title:  "Light Surface",
-      desc:   "Açık zemin kullanımı. Koyu metin + secondary marka rengi.",
-      btn:    "Katıl",
-      bg:     light, fg: text, accent: second, btnBg: second, btnFg: onDark,
+      desc:   "Light surface: dark text with the brand colour as the accent.",
+      btn:    "Join",
+      bg:     light, fg: text, accent: primary, btnBg: primary, btnFg: onDark,
     },
   ];
 }

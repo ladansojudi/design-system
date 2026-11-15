@@ -129,8 +129,8 @@ export default function FindingStatusPage() {
           />
           <ExampleCard
             title="Translated label"
-            code={`<FindingStatus status="resolved" label="Çözüldü" />`}
-            preview={<FindingStatus status="resolved" label="Çözüldü" />}
+            code={`<FindingStatus status="resolved" label="Fixed" />`}
+            preview={<FindingStatus status="resolved" label="Fixed" />}
           />
         </>
       }

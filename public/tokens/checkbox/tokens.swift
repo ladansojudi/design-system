@@ -9,7 +9,6 @@ import UIKit
 extension UIColor {
     static let textPrimary = UIColor(hex: "#09090B")
     static let textDisabled = UIColor(hex: "#A1A1AA")
-    static let btnPrimary600 = UIColor(hex: "#4F46E5")
 }
 
 // MARK: - Sizing (CGFloat)
@@ -34,8 +33,6 @@ extension CGFloat {
 
     // Font size
     static let fontSize10: CGFloat = 10
-    static let fontSize11: CGFloat = 11
-    static let fontSize14: CGFloat = 14
 }
 
 // MARK: - Font weights (use UIFont.Weight directly)

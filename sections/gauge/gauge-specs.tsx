@@ -103,13 +103,13 @@ export function GaugeSpecs() {
               ],
             },
             {
-              id: "purple",
-              label: "Purple",
+              id: "brand",
+              label: "Brand",
               rows: [
-                { variant: "Track",         bg: { token: "scale-purple-100", hex: "#ede1f6" }, text: { token: "—", hex: "#ede1f6" } },
-                { variant: "Fill arc",      bg: { token: "scale-purple-500", hex: "#8a4dbf" }, text: { token: "—", hex: "#8a4dbf" } },
-                { variant: "Marker · idle", bg: { token: "scale-purple-200", hex: "#dbc4ec" }, text: { token: "—", hex: "#dbc4ec" } },
-                { variant: "Marker · active", bg: { token: "scale-purple-600", hex: "#6a3995" }, text: { token: "—", hex: "#6a3995" } },
+                { variant: "Track",         bg: { token: "brand-primary-100", hex: "#ede1f6" }, text: { token: "—", hex: "#ede1f6" } },
+                { variant: "Fill arc",      bg: { token: "brand-primary-500", hex: "#8a4dbf" }, text: { token: "—", hex: "#8a4dbf" } },
+                { variant: "Marker · idle", bg: { token: "brand-primary-200", hex: "#dbc4ec" }, text: { token: "—", hex: "#dbc4ec" } },
+                { variant: "Marker · active", bg: { token: "brand-primary-600", hex: "#6a3995" }, text: { token: "—", hex: "#6a3995" } },
               ],
             },
             {

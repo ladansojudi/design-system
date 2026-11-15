@@ -9,7 +9,6 @@
     <color name="text_secondary">#52525B</color>
     <color name="text_disabled">#A1A1AA</color>
     <color name="text_on_accent">#FFFFFF</color>
-    <color name="btn_primary_600">#4F46E5</color>
 
     <!-- Spacing -->
     <dimen name="space_2">8dp</dimen>

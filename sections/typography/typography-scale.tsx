@@ -81,9 +81,9 @@ function FontSpecimen({
       {/* Pangram — large display */}
       <div className="px-6 sm:px-8 py-7 border-b border-snt-neutral-divider-10">
         <div className="text-[10px] uppercase tracking-widest text-snt-text-disabled mb-3">
-          Pangram · 36px
+          Pangram · 32px
         </div>
-        <div className="text-[28px] sm:text-[36px] font-semibold leading-[1.15] text-snt-text-primary tracking-[-0.01em]">
+        <div className="text-snt-24 sm:text-snt-32 font-semibold leading-[1.15] text-snt-text-primary tracking-[-0.01em]">
           {pangram}
         </div>
       </div>

@@ -14,9 +14,9 @@ export default function SpacingPage() {
     <>
       <PageHero
         category="Foundations"
-        title="Spacing System"
+        title="Spacing & grid"
         status="stable"
-        description="8pt grid exclusively. Every padding, gap, and margin references a spacing token. Arbitrary values are a build error, not a style choice."
+        description="A 4px base unit with an 8px rhythm. Every padding, gap and margin comes from the spacing scale; the linter warns on arbitrary values."
         actions={<OpenInFigma />}
       />
 

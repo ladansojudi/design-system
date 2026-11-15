@@ -2,7 +2,7 @@
 title: Filter Bar
 slug: filter-bar
 category: Molecule
-status: stable
+status: beta
 source: components/ui/filter-bar.tsx
 styleguide: /styleguide/filter-bar
 figma: https://www.figma.com/design/8o9lKCRex1Bu2mp6zcJxEq/Sentinel-Design-System?node-id=9-50

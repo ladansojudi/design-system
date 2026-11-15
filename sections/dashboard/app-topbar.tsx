@@ -16,7 +16,7 @@ export function AppTopbar() {
           <ScanLine size={14} className="text-snt-brand-primary-500" /> Scan Generator
         </button>
         <button type="button" className="inline-flex items-center gap-1.5 text-[12px] font-medium text-snt-text-secondary hover:text-snt-text-primary transition-colors">
-          <Sparkles size={14} className="text-snt-scale-purple-500" /> Ask AI
+          <Sparkles size={14} className="text-snt-brand-primary-500" /> Ask AI
         </button>
         <button type="button" aria-label="Notifications" className="text-snt-text-secondary hover:text-snt-text-primary transition-colors">
           <Bell size={16} />
