@@ -13,7 +13,7 @@ import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
 export const metadata: Metadata = {
-  title: "Severity Badge — Sentinel Design System",
+  title: "Severity Badge",
 };
 
 export default function SeverityBadgePage() {

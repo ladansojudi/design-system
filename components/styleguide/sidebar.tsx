@@ -10,6 +10,7 @@ import { useMobileSidebar } from "@/components/styleguide/mobile-sidebar-provide
 import { sections, sectionForPath } from "@/components/styleguide/nav-data";
 import type { ComponentStatus } from "@/components/styleguide/page-header";
 import { version as PKG_VERSION } from "@/package.json";
+import { AUTHOR } from "@/lib/site";
 
 const RELEASE_URL = `https://github.com/ladansojudi/design-system/releases/tag/v${PKG_VERSION}`;
 
@@ -126,7 +127,10 @@ export function Sidebar({ mobileOnly = false }: { mobileOnly?: boolean }) {
             v{PKG_VERSION}
           </a>
           <span aria-hidden> · </span>
-          by Laden Sojudi
+          by{" "}
+          <a href={AUTHOR.url} rel="author" className="hover:text-snt-text-primary hover:underline underline-offset-2">
+            {AUTHOR.name}
+          </a>
         </div>
       </aside>
     </>

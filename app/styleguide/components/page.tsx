@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/styleguide/site-footer";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Components — Sentinel Design System",
+  title: "Components",
   description: "Every Sentinel component, grouped by what it does: actions, forms, feedback, data display, navigation and overlays.",
 };
 

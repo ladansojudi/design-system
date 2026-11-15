@@ -6,7 +6,7 @@ import { SpacingScale } from "@/sections/spacing/spacing-scale";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Spacing & Grid — Sentinel Design System",
+  title: "Spacing & Grid",
 };
 
 export default function SpacingPage() {

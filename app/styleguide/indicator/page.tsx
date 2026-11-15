@@ -7,7 +7,7 @@ import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/s
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { Indicator } from "@/components/ui/indicator";
 
-export const metadata: Metadata = { title: "Indicator — Sentinel Design System" };
+export const metadata: Metadata = { title: "Indicator" };
 
 const HASH = "44d88612fea8a8f36de82e1278abb02f";
 

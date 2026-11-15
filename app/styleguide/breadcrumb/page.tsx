@@ -12,7 +12,7 @@ import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
 export const metadata: Metadata = {
-  title: "Breadcrumb — Sentinel Design System",
+  title: "Breadcrumb",
 };
 
 export default function Page() {

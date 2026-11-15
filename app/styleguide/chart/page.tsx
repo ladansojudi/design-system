@@ -11,7 +11,7 @@ import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
 export const metadata: Metadata = {
-  title: "Chart — Sentinel Design System",
+  title: "Chart",
 };
 
 export default function Page() {

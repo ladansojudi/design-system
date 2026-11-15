@@ -7,7 +7,7 @@ import { TextColors } from "@/sections/typography/text-colors";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Typography — Sentinel Design System",
+  title: "Typography",
 };
 
 export default function TypographyPage() {

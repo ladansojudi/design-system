@@ -5,7 +5,7 @@ import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 import { ComingSoon } from "@/components/styleguide/coming-soon";
 
 export const metadata: Metadata = {
-  title: "Scan Type Item — Sentinel Design System",
+  title: "Scan Type Item",
 };
 
 export default function Page() {
