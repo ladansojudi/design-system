@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SHARE_DESCRIPTION =
+  "A 560+ component design system built in code: token-based, WCAG-audited, synced to Figma and readable by AI agents.";
+
 const DESCRIPTION =
   "Sentinel — an open design system for cybersecurity products. Tokens, components and docs, designed in Figma, built in React, ready for AI agents. By Ladan Sojudi.";
 
@@ -33,16 +36,18 @@ export const metadata: Metadata = {
   creator: AUTHOR.name,
   alternates: { canonical: "./" },
   verification: { google: "lruknaiaRoIoh0U89a9f9Q5Fa0psnYi2BMfDgCh62lA" },
+  // Share image: app/opengraph-image.png and app/twitter-image.png.
   openGraph: {
-    title: "Sentinel Design System by Ladan Sojudi",
-    description: DESCRIPTION,
-    siteName: "Sentinel Design System",
     type: "website",
+    siteName: "Ladan Sojudi",
+    title: "Sentinel Design System by Ladan Sojudi",
+    description: SHARE_DESCRIPTION,
+    url: "/",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Sentinel Design System by Ladan Sojudi",
-    description: DESCRIPTION,
+    description: SHARE_DESCRIPTION,
   },
 };
 
@@ -51,8 +56,7 @@ const JSON_LD = {
   "@type": "CreativeWork",
   name: "Sentinel Design System",
   url: SITE_URL,
-  description:
-    "A 560+ component design system built in code: token-based, WCAG-audited, synced to Figma and readable by AI agents.",
+  description: SHARE_DESCRIPTION,
   author: {
     "@type": "Person",
     name: AUTHOR.name,
