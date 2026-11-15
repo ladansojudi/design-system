@@ -14,7 +14,7 @@ import { DocSection } from "@/components/styleguide/doc-section";
 import { SeverityBadge } from "@/components/ui/severity-badge";
 
 export const metadata: Metadata = {
-  title: "Data Table — Sentinel Design System",
+  title: "Data Table",
 };
 
 export default function Page() {

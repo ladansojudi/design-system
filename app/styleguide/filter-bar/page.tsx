@@ -13,7 +13,7 @@ import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
 export const metadata: Metadata = {
-  title: "Filter Bar — Sentinel Design System",
+  title: "Filter Bar",
 };
 
 export default function Page() {

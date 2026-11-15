@@ -12,7 +12,7 @@ import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
 export const metadata: Metadata = {
-  title: "Badge · Tag — Sentinel Design System",
+  title: "Badge · Tag",
 };
 
 export default function Page() {

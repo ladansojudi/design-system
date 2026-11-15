@@ -6,7 +6,7 @@ import { IconsGrid } from "@/sections/icons/icons-grid";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Icons — Sentinel Design System",
+  title: "Icons",
 };
 
 const SIZE_GUIDE = [

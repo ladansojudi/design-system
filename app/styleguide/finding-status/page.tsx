@@ -7,7 +7,7 @@ import { ColorTokenTabs, DimensionsTable, OptionPill, PropertiesTable } from "@/
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { FindingStatus, FINDING_STATUSES } from "@/components/ui/finding-status";
 
-export const metadata: Metadata = { title: "Finding status — Sentinel Design System" };
+export const metadata: Metadata = { title: "Finding status" };
 
 const IMPORT = `import { FindingStatus } from "@/components/ui/finding-status";`;
 

@@ -13,7 +13,7 @@ import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
 export const metadata: Metadata = {
-  title: "Text Space — Sentinel Design System",
+  title: "Text Space",
 };
 
 export default function TextSpacePage() {

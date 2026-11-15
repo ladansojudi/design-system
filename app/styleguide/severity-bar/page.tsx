@@ -7,7 +7,7 @@ import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/s
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { SeverityBar } from "@/components/ui/severity-bar";
 
-export const metadata: Metadata = { title: "Severity bar — Sentinel Design System" };
+export const metadata: Metadata = { title: "Severity bar" };
 
 const COUNTS = { critical: 3, high: 8, medium: 14, low: 21, info: 6 };
 const IMPORT = `import { SeverityBar } from "@/components/ui/severity-bar";`;

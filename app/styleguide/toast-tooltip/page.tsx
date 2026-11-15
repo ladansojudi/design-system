@@ -13,7 +13,7 @@ import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 
 export const metadata: Metadata = {
-  title: "Toast · Tooltip — Sentinel Design System",
+  title: "Toast · Tooltip",
 };
 
 export default function ToastTooltipPage() {

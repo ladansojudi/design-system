@@ -8,7 +8,7 @@ import { Anatomy, UseCases, Guidelines } from "@/components/styleguide/component
 import { DocSection } from "@/components/styleguide/doc-section";
 
 export const metadata: Metadata = {
-  title: "Top Bar — Sentinel Design System",
+  title: "Top Bar",
 };
 
 export default function Page() {

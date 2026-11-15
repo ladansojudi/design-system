@@ -4,7 +4,7 @@ import { PageBody } from "@/components/styleguide/page-body";
 import { OpenInFigma } from "@/components/styleguide/open-in-figma";
 
 export const metadata: Metadata = {
-  title: "Design Principles — Sentinel Design System",
+  title: "Design Principles",
 };
 
 const principles = [

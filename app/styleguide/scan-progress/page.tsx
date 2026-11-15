@@ -7,7 +7,7 @@ import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/s
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { ScanProgress, type ScanStep } from "@/components/ui/scan-progress";
 
-export const metadata: Metadata = { title: "Scan progress — Sentinel Design System" };
+export const metadata: Metadata = { title: "Scan progress" };
 
 const RUNNING: ScanStep[] = [
   { label: "Queued", status: "done" },

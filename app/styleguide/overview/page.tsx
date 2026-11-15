@@ -9,7 +9,7 @@ import { OriginCode } from "@/components/styleguide/origin-code";
 import { FIGMA_FILE_URL } from "@/components/styleguide/figma-data";
 
 export const metadata: Metadata = {
-  title: "Introduction — Sentinel Design System",
+  title: "Introduction",
   description: "How to start with Sentinel: the Figma library for designers, a one-command install for developers, and llms.txt for AI agents.",
 };
 

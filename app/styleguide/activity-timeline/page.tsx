@@ -8,7 +8,7 @@ import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/s
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { ActivityTimeline, type TimelineItem } from "@/components/ui/activity-timeline";
 
-export const metadata: Metadata = { title: "Activity timeline — Sentinel Design System" };
+export const metadata: Metadata = { title: "Activity timeline" };
 
 const ITEMS: TimelineItem[] = [
   { id: "1", title: "Suspicious login from new country", time: "14:02", dateTime: "2026-11-09T14:02:00Z", actor: "Detection rule · Impossible travel", tone: "error", icon: <ShieldAlert className="text-snt-text-error" /> },

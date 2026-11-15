@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Favicon, SVG icon and Apple touch icon are the Ladan Sojudi portfolio mark (from ladan-sojudi.vercel.app).
 
+### Added — SEO
+
+- Root metadata for the author name: title template "%s — Sentinel by Ladan Sojudi", canonical URLs, authors / creator, Google site verification, Open Graph and Twitter titles, JSON-LD (`CreativeWork` with the author as `Person`). Page titles no longer repeat the site name.
+- `robots.txt` and `sitemap.xml` (generated from the sidebar navigation data, so new pages are listed automatically). Site constants live in `lib/site.ts`.
+- The sidebar footer links "Ladan Sojudi" to the portfolio (`rel="author"`); the name was misspelled "Laden" in three places.
+
 ### Changed — Severity badge redesign
 
 - Severity badge is now a signal-bar badge: four bars filled to the level (Critical 4 … Low 1, Info a ring) on a neutral surface with a hairline ring, label always written out, optional mono score. Uses the `snt-severity-*` tokens shared with charts. New `size` prop (sm 24px / md 28px); width follows the label instead of a fixed 160px. No "use client". API otherwise unchanged.

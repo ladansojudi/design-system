@@ -7,7 +7,7 @@ import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/s
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { CvssScore } from "@/components/ui/cvss-score";
 
-export const metadata: Metadata = { title: "CVSS score — Sentinel Design System" };
+export const metadata: Metadata = { title: "CVSS score" };
 
 const VECTOR = "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H";
 const IMPORT = `import { CvssScore } from "@/components/ui/cvss-score";`;

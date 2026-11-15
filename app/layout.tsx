@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AUTHOR, SITE_URL } from "@/lib/site";
 import { PreviewThemeProvider } from "@/components/styleguide/preview-theme-provider";
 import { PlatformProvider } from "@/components/styleguide/platform-provider";
 import { ViewModeProvider } from "@/components/styleguide/view-mode-provider";
@@ -18,22 +19,50 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SHARE_DESCRIPTION =
+  "A 560+ component design system built in code: token-based, WCAG-audited, synced to Figma and readable by AI agents.";
+
+const DESCRIPTION =
+  "Sentinel — an open design system for cybersecurity products. Tokens, components and docs, designed in Figma, built in React, ready for AI agents. By Ladan Sojudi.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ladan-design-system.vercel.app"),
-  title: "Sentinel Design System",
-  description: "Sentinel — an open design system for cybersecurity products. Tokens, components and docs, designed in Figma, built in React, ready for AI agents. By Ladan Sojudi.",
-  authors: [{ name: "Ladan Sojudi" }],
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Sentinel Design System by Ladan Sojudi",
+    template: "%s — Sentinel by Ladan Sojudi",
+  },
+  description: DESCRIPTION,
+  authors: [{ name: AUTHOR.name, url: AUTHOR.url }],
+  creator: AUTHOR.name,
+  alternates: { canonical: "./" },
+  verification: { google: "lruknaiaRoIoh0U89a9f9Q5Fa0psnYi2BMfDgCh62lA" },
+  // Share image: app/opengraph-image.png and app/twitter-image.png.
   openGraph: {
     type: "website",
     siteName: "Ladan Sojudi",
-    title: "Sentinel Design System",
-    description: "A 560+ component design system built in code: token-based, WCAG-audited, synced to Figma and readable by AI agents.",
+    title: "Sentinel Design System by Ladan Sojudi",
+    description: SHARE_DESCRIPTION,
     url: "/",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sentinel Design System",
-    description: "A 560+ component design system built in code: token-based, WCAG-audited, synced to Figma and readable by AI agents.",
+    title: "Sentinel Design System by Ladan Sojudi",
+    description: SHARE_DESCRIPTION,
+  },
+};
+
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: "Sentinel Design System",
+  url: SITE_URL,
+  description: SHARE_DESCRIPTION,
+  author: {
+    "@type": "Person",
+    name: AUTHOR.name,
+    jobTitle: "Product Designer",
+    url: AUTHOR.url,
+    sameAs: [AUTHOR.linkedin, AUTHOR.github],
   },
 };
 
@@ -48,6 +77,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD).replace(/</g, "\\u003c") }}
+        />
         <PreviewThemeProvider>
           <PlatformProvider>
             <ViewModeProvider>

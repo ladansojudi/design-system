@@ -7,7 +7,7 @@ import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/s
 import { A11yList, A11ySection, ContrastTable, KeyboardTable } from "@/components/styleguide/a11y-docs";
 import { MaskedValue } from "@/components/ui/masked-value";
 
-export const metadata: Metadata = { title: "Masked value — Sentinel Design System" };
+export const metadata: Metadata = { title: "Masked value" };
 
 const KEY = "sk_live_51NcX9fQe2R8vT4mZ7a3b";
 

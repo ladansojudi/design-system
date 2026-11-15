@@ -6,7 +6,7 @@ import { ShadowScale } from "@/sections/shadow/shadow-scale";
 import { UseCases, Guidelines } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = {
-  title: "Shadow — Sentinel Design System",
+  title: "Shadow",
 };
 
 export default function ShadowPage() {

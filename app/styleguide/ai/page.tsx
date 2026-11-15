@@ -7,7 +7,7 @@ import { SectionTitle } from "@/components/styleguide/section-title";
 import { HighlightedCode } from "@/components/styleguide/highlighted-code";
 
 export const metadata: Metadata = {
-  title: "Built for AI — Sentinel Design System",
+  title: "Built for AI",
   description: "How Sentinel makes coding agents use the design system correctly: llms.txt, a typed manifest, a shadcn registry and lint guardrails.",
 };
 

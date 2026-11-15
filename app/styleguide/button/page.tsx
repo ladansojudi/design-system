@@ -13,7 +13,7 @@ import { ButtonUsage } from "@/sections/button/button-usage";
 import { ButtonAccessibility } from "@/sections/button/button-accessibility";
 
 export const metadata: Metadata = {
-  title: "Button — Sentinel Design System",
+  title: "Button",
 };
 
 export default function ButtonPage() {
