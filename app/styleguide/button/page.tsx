@@ -6,7 +6,8 @@ import { ComponentTabs, ComponentTabPanel } from "@/components/styleguide/compon
 import { ModeAware } from "@/components/styleguide/mode-aware";
 import { DocSection } from "@/components/styleguide/doc-section";
 import { FigmaNote } from "@/components/styleguide/figma-note";
-import { Guidelines } from "@/components/styleguide/component-docs";
+import { Anatomy, Guidelines } from "@/components/styleguide/component-docs";
+import { ButtonAnatomyPreview } from "@/sections/overlays/anatomy";
 import { ButtonShowcase, ButtonExamples } from "@/sections/button/button-showcase";
 import { ButtonSpecs } from "@/sections/button/button-specs";
 import { ButtonUsage } from "@/sections/button/button-usage";
@@ -59,6 +60,16 @@ export default function ButtonPage() {
             specs={
               <div className="mt-8 space-y-14 sm:mt-10">
                 <FigmaNote component="Button" />
+                <DocSection title="Parts" hideTitle>
+                  <Anatomy
+                    parts={[
+                      { label: "Container", target: "button", side: "left", description: "A native button: 8px radius, height 32 / 36 / 44px, solid, outline or ghost." },
+                      { label: "Label", target: "button > span", side: "top", description: "A short verb: \"Start scan\", \"Delete asset\"." },
+                      { label: "Icon", target: "svg", side: "right", description: "Optional, 14 or 16px and sized by the button; decorative, so it is hidden from screen readers." },
+                    ]}
+                    preview={<ButtonAnatomyPreview />}
+                  />
+                </DocSection>
                 <ButtonSpecs />
               </div>
             }

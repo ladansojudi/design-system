@@ -10,6 +10,7 @@ extension UIColor {
     static let surfaceApp = UIColor(hex: "#FFFFFF")
     static let textPrimary = UIColor(hex: "#09090B")
     static let textSecondary = UIColor(hex: "#52525B")
+    static let textLink = UIColor(hex: "#4F46E5")
 }
 
 // MARK: - Sizing (CGFloat)
@@ -27,6 +28,7 @@ extension CGFloat {
 
     // Radius
     static let radiusMd: CGFloat = 6
+    static let radiusFull: CGFloat = 9999
 
     // Border width
     static let borderWidth1: CGFloat = 1

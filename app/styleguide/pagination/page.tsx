@@ -6,6 +6,7 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable, KeyboardTable } from "@/components/styleguide/a11y-docs";
 import { PaginationDemo } from "@/sections/overlays/demos";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "Pagination" };
 
@@ -36,6 +37,17 @@ export default function PaginationPage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Previous / Next", target: 'button[aria-label="Previous page"]', side: "left", description: "Arrow buttons; disabled (not removed) at the ends so the layout doesn't shift." },
+                  { label: "Page button", target: 'button[aria-label="Page 3"]', side: "top", description: "Opens that page. Named \"Page N\" for screen readers." },
+                  { label: "Current page", target: '[aria-current="page"]', side: "bottom", description: "Filled with the primary text colour and marked aria-current." },
+                  { label: "Ellipsis", target: 'li[aria-hidden="true"]|0', side: "top", description: "Stands for the pages that are skipped; hidden from screen readers." },
+              ]}
+              preview={<div><PaginationDemo initial={4} /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable rows={[
               { name: "page", type: "number", default: "—", description: "Current page, starting at 1." },

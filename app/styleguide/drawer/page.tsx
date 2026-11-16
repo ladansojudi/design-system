@@ -6,6 +6,8 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable, KeyboardTable } from "@/components/styleguide/a11y-docs";
 import { DrawerDemo } from "@/sections/overlays/demos";
+import { DrawerAnatomyPreview } from "@/sections/overlays/anatomy";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "Drawer" };
 
@@ -36,6 +38,18 @@ export default function DrawerPage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Header", target: '[class*="border-b"]', side: "left", description: "Title and description on the left, close button on the right." },
+                  { label: "Title", target: 'h2', side: "top", description: "DrawerTitle names the dialog for screen readers." },
+                  { label: "Close", target: 'button[aria-label="Close"]', side: "top", description: "Closes the drawer; Escape does the same." },
+                  { label: "Body", target: '[class*="overflow-y-auto"]', side: "right", description: "Scrolls on its own, so the header and footer stay put." },
+                  { label: "Footer", target: '[class*="border-t"]', side: "left", description: "The actions, with the primary action last." },
+              ]}
+              preview={<div><DrawerAnatomyPreview /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable rows={[
               { name: "open", type: "boolean", default: "—", description: "Whether the drawer is shown." },

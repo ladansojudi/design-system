@@ -10,4 +10,7 @@
   --space-2: 8px;
   --space-4: 16px;
   --space-6: 24px;
+
+  /* Radius */
+  --radius-full: 9999px;
 }

@@ -7,6 +7,7 @@
   --snt-surface-app: #ffffff;
   --snt-text-primary: #09090b;
   --snt-text-secondary: #52525b;
+  --snt-text-link: #4f46e5;
 
   /* Spacing */
   --space-2: 8px;
@@ -20,6 +21,7 @@
 
   /* Radius */
   --radius-md: 6px;
+  --radius-full: 9999px;
 
   /* Border width */
   --border-width-1: 1px;

@@ -38,9 +38,7 @@ export default function Page() {
                 parts={[
                   { label: "Track arc", target: "svg > path|0", side: "left", description: "Light half-arc showing the full range." },
                   { label: "Progress arc", target: "svg > path|1", side: "top", description: "Thick coloured arc that grows from 0 to the value on load." },
-                  { label: "Severity markers", target: "svg > g|0", side: "top", description: "Three short arc segments at the end of the progress, showing where the value sits on the severity scale." },
-                  { label: "Needle", target: "svg > g|1", side: "right", description: "Grey pointer that turns from the left edge to the value." },
-                  { label: "Label", target: ":scope > div > div", side: "bottom", description: "The value and its maximum, e.g. 72 / 100." },
+                  { label: "Value", target: ":scope > div > div", side: "bottom", description: "The value and its maximum, e.g. 72 / 100, inside the arc." },
                 ]}
                 preview={
                   <Gauge value={72} color="green" />

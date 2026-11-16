@@ -7,6 +7,7 @@ import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/s
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { SeverityBar } from "@/components/ui/severity-bar";
 import { ColorBlindPreview } from "@/components/styleguide/colorblind-preview";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "Severity bar" };
 
@@ -71,6 +72,16 @@ export default function SeverityBarPage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Bar", target: '[role="img"]', side: "top", description: "One rounded track; the text summary is its accessible name." },
+                  { label: "Segment", target: '[role="img"] > span|1', side: "bottom", description: "Width is the share of findings; ordered Critical to Info." },
+                  { label: "Legend", target: 'ul', side: "right", description: "Repeats the counts so colour is never the only signal." },
+              ]}
+              preview={<div><SeverityBar counts={COUNTS} /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable
               rows={[

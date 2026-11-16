@@ -6,4 +6,7 @@
 
   /* Spacing */
   --space-6: 24px;
+
+  /* Radius */
+  --radius-base: 4px;
 }

@@ -9,4 +9,7 @@ import UIKit
 extension CGFloat {
     // Spacing
     static let space6: CGFloat = 24
+
+    // Radius
+    static let radiusBase: CGFloat = 4
 }

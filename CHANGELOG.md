@@ -38,6 +38,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking:** `Gauge` `color="purple"` is now `color="brand"` (indigo). The Colors page preview cards and the dashboard demo moved from purple and the secondary brand colour to the brand indigo.
 - `app/globals.css` now opens with a short map of the three layers (severity, primitives, semantic).
 
+### Changed — Anatomy on every component
+- Every component page now has a numbered Anatomy: added to Button, Chart, Pagination, Drawer, Dropdown menu, Command palette, Indicator, Masked value, CVE tag, CVSS score, Finding status, Severity bar, Scan progress and Activity timeline; the overlays use static, in-flow previews.
+- Fixed Anatomy markers that no longer matched after the redesigns: Data table (header, pill, View all), Gauge (needle and ticks are gone) and Toast (timer bar).
+
 ### Fixed
 - Component pages always open on Usage when you move to another page; a tab picked on one page no longer follows you to the next.
 - Component statuses re-checked against their open gaps: Stable only where nothing blocks use (Button, Modal, Tabs, Toast · Tooltip, Cards, Badge · Tag, Breadcrumb, Skeleton); Beta for components with accessibility or API gaps; Text space is Alpha (its toolbar pickers don't work yet), and so are Sidebar and Top bar: they are page-layout examples with no `components/ui` file, doc or registry entry yet. Spinner is Beta.

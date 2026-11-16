@@ -37,11 +37,11 @@ export default function Page() {
               <Anatomy
                 layout="stacked"
                 parts={[
-                  { label: "Top header",          target: '[class*="rounded-t-xl"]', side: "left", description: "Grey strip with title, info tooltip, description, optional badge and optional View all link." },
+                  { label: "Top header",          target: '[class*="gap-4"][class*="py-4"]', side: "left", description: "Title with an info tooltip, the description underneath, an optional status pill and an optional View all button." },
                   { label: "Info tooltip",        target: 'button[aria-label^="About"]', side: "top", description: "Info icon placed after the title, column or row text; reveals context on hover and focus." },
-                  { label: "Badge (optional)",    target: '[class*="bg-snt-bg-warning-subtle"]', side: "top", description: "Pill in the header that tags the widget (Live, New, Beta…) with a coloured dot." },
-                  { label: "View all (optional)", target: 'button[class*="underline"]', side: "top", description: "Link that opens the full list view." },
-                  { label: "Column headers",      target: '[role="row"]|0', side: "left", description: "Uppercase 11px labels, each starting at the left edge of its column." },
+                  { label: "Badge (optional)",    target: 'span[class*="rounded-full"][class*="border"]', side: "top", description: "Quiet pill next to the title that tags the widget (Live, New, Beta…) with a status dot." },
+                  { label: "View all (optional)", target: 'button[class*="text-snt-text-link"]', side: "top", description: "Ghost button with an arrow that opens the full list view." },
+                  { label: "Column headers",      target: '[role="row"]|0', side: "left", description: "12px sentence-case labels on a subtle band, each starting at the left edge of its column." },
                   { label: "Row",                 target: '[role="row"]|1', side: "left", description: "Text cells and a severity badge; the hover highlight makes the row selectable." },
                   { label: "Severity badge",      target: '[role="row"]:nth-of-type(2) [role="cell"]:last-child > div', side: "right", description: "Fixed-width badge, so the column stays tidy." },
                   { label: "Footer",              target: '[aria-label="Pagination"]', side: "left", description: "Rows-per-page selector, range indicator and previous / next buttons." },

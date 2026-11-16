@@ -7,6 +7,12 @@
   /* Spacing */
   --space-6: 24px;
 
+  /* Radius */
+  --radius-full: 9999px;
+
   /* Border width */
   --border-width-1: 1px;
+
+  /* Font weight */
+  --font-weight-medium: 500;
 }

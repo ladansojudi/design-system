@@ -6,6 +6,8 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable, KeyboardTable } from "@/components/styleguide/a11y-docs";
 import { CommandPaletteDemo } from "@/sections/overlays/demos";
+import { CommandPaletteAnatomyPreview } from "@/sections/overlays/anatomy";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "Command palette" };
 
@@ -35,6 +37,18 @@ export default function CommandpalettePage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Search field", target: 'input', side: "top", description: "A combobox: type to filter by label, group and keywords." },
+                  { label: "Group heading", target: 'li[role="presentation"]', side: "left", description: "Groups results; shown when the group changes." },
+                  { label: "Result", target: '[role="option"]|1', side: "right", description: "One command or destination; hover or arrows move the highlight." },
+                  { label: "Highlighted result", target: '[role="option"][aria-selected="true"]', side: "left", description: "Enter runs it." },
+                  { label: "Hints", target: 'ul + div', side: "bottom", description: "The keys that work: arrows, Enter, Esc." },
+              ]}
+              preview={<div><CommandPaletteAnatomyPreview /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable rows={[
               { name: "open", type: "boolean", default: "—", description: "Whether it is shown." },

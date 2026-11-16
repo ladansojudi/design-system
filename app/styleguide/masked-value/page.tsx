@@ -6,6 +6,7 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable, KeyboardTable } from "@/components/styleguide/a11y-docs";
 import { MaskedValue } from "@/components/ui/masked-value";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "Masked value" };
 
@@ -44,6 +45,16 @@ export default function MaskedValuePage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Value", target: 'code', side: "top", description: "Masked except the last characters; screen readers hear \"hidden, ends in …\"." },
+                  { label: "Reveal", target: 'button[aria-pressed]', side: "bottom", description: "Shows or hides the value (aria-pressed)." },
+                  { label: "Copy", target: 'button[aria-label^="Copy"]', side: "top", description: "Copies the real value even while masked." },
+              ]}
+              preview={<div><MaskedValue label="API key" value="sk_live_51NcX9fQe7a3b" /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable rows={[
               { name: "value", type: "string", default: "—", description: "The secret. Copy always copies this." },

@@ -15,4 +15,10 @@ extension UIColor {
 extension CGFloat {
     // Spacing
     static let space6: CGFloat = 24
+
+    // Radius
+    static let radiusFull: CGFloat = 9999
 }
+
+// MARK: - Font weights (use UIFont.Weight directly)
+// font-weight-medium → .medium   (CSS 500)

@@ -6,6 +6,7 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { ColorTokenTabs, DimensionsTable, OptionPill, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { FindingStatus, FINDING_STATUSES } from "@/components/ui/finding-status";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "Finding status" };
 
@@ -71,6 +72,15 @@ export default function FindingStatusPage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Pill", target: 'span[class*="rounded-full"]|0', side: "top", description: "Status colour and a hairline ring." },
+                  { label: "Icon", target: 'svg', side: "left", description: "Shape per status, so colour is never the only signal." },
+              ]}
+              preview={<div><FindingStatus status="in-progress" /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable
               rows={[

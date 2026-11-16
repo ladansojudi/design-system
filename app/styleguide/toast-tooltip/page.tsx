@@ -42,7 +42,7 @@ export default function ToastTooltipPage() {
                   { label: "Icon", target: "svg|0", side: "top", description: "Status icon, coloured by the intent." },
                   { label: "Message", target: "div.flex-1", side: "top", description: "A short sentence about what happened, ideally in the past tense." },
                   { label: "Dismiss", target: "button", side: "top", description: "Lets people remove the toast right away." },
-                  { label: "Timer bar", target: "[class*=\"h-[3px]\"]", side: "bottom", description: "3px bar that counts down and closes the toast after 4 seconds." },
+                  { label: "Timer bar", target: "[class*=\"h-0.5\"]", side: "bottom", description: "2px bar that counts down and closes the toast after 4 seconds." },
                 ]}
                 preview={
                   <ToastAnatomyPreview />

@@ -7,6 +7,7 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { ActivityTimeline, type TimelineItem } from "@/components/ui/activity-timeline";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "Activity timeline" };
 
@@ -44,6 +45,18 @@ export default function ActivityTimelinePage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Marker", target: 'li > span[class*="rounded-full"]|0', side: "left", description: "A coloured dot by tone, or an icon for the event that matters most." },
+                  { label: "Connector", target: 'li > span[class*="w-px"]|0', side: "left", description: "The line that links events in order." },
+                  { label: "Title", target: 'li p[class*="font-medium"]|0', side: "top", description: "What happened." },
+                  { label: "Time", target: 'time|0', side: "right", description: "Machine-readable dateTime plus a short display time." },
+                  { label: "Actor", target: 'li p[class*="text-snt-12"]|0', side: "bottom", description: "Who or what did it: half of an audit trail." },
+              ]}
+              preview={<div><ActivityTimeline items={ITEMS} /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable rows={[
               { name: "items", type: "TimelineItem[]", default: "—", description: "{ id, title, time, dateTime?, actor?, description?, tone?, icon? }" },

@@ -6,6 +6,7 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { Indicator } from "@/components/ui/indicator";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "Indicator" };
 
@@ -51,6 +52,17 @@ export default function IndicatorPage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Type", target: 'span[class*="uppercase"]', side: "top", description: "Written out (IP, Domain, Hash…), never icon alone." },
+                  { label: "Value", target: 'code', side: "bottom", description: "The indicator in monospace; copy always copies it unchanged." },
+                  { label: "Copy button", target: 'button[aria-label^="Copy"]', side: "top", description: "Names what it copies; \"Copied\" is announced." },
+                  { label: "Verdict", target: 'span[class*="ring-1"]', side: "right", description: "Reputation chip: malicious, suspicious, clean or unknown." },
+              ]}
+              preview={<div><Indicator type="ip" value="185.220.101.47" verdict="malicious" /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable rows={[
               { name: "value", type: "string", default: "—", description: "The indicator. Copy always copies it unchanged." },

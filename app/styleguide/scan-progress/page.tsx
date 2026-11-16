@@ -6,6 +6,7 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { ScanProgress, type ScanStep } from "@/components/ui/scan-progress";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "Scan progress" };
 
@@ -51,6 +52,17 @@ export default function ScanProgressPage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Stage marker", target: 'li > span[class*="rounded-full"]|0', side: "top", description: "Check when done, a spinner when running, a cross when failed, an empty ring when pending." },
+                  { label: "Connector", target: 'li > span[aria-hidden][class*="h-0.5"]|0', side: "top", description: "Filled for stages already reached." },
+                  { label: "Label", target: 'li > span[class*="font-medium"]|1', side: "bottom", description: "The stage name; state is also written for screen readers." },
+                  { label: "Detail", target: 'li > span[class*="text-snt-11"]|0', side: "bottom", description: "Optional extra: hosts found, percent, or why it failed." },
+              ]}
+              preview={<div><ScanProgress steps={RUNNING} label="Scan of api.example.com" /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable rows={[
               { name: "steps", type: "ScanStep[]", default: "—", description: "{ label, status: pending | active | done | failed, detail? }" },

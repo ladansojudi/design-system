@@ -8,4 +8,10 @@
 
   /* Spacing */
   --space-6: 24px;
+
+  /* Radius */
+  --radius-full: 9999px;
+
+  /* Font weight */
+  --font-weight-medium: 500;
 }

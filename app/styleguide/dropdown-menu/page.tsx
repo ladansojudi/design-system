@@ -6,6 +6,8 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable, KeyboardTable } from "@/components/styleguide/a11y-docs";
 import { DropdownMenuDemo } from "@/sections/overlays/demos";
+import { DropdownMenuAnatomyPreview } from "@/sections/overlays/anatomy";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "Dropdown menu" };
 
@@ -35,6 +37,19 @@ export default function MenuPage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Trigger", target: 'button[aria-haspopup]', side: "top", description: "A button with aria-haspopup and aria-expanded." },
+                  { label: "Menu panel", target: '[role="menu"]', side: "left", description: "Floating surface, opened below the trigger, flips above when there is no room." },
+                  { label: "Label", target: '[role="presentation"]', side: "right", description: "Groups related items; not focusable." },
+                  { label: "Item", target: '[role="menuitem"]|0', side: "right", description: "Icon, label and an optional shortcut hint." },
+                  { label: "Separator", target: '[role="separator"]', side: "right", description: "Sets off the destructive action." },
+                  { label: "Destructive item", target: '[role="menuitem"]|2', side: "right", description: "Red text for actions that destroy data." },
+              ]}
+              preview={<div><DropdownMenuAnatomyPreview /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable rows={[
               { name: "align", type: "\"start\" | \"end\"", default: "\"start\"", description: "DropdownMenuContent: which edge of the button it lines up with." },

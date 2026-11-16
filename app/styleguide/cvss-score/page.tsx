@@ -6,6 +6,7 @@ import { ExampleCard } from "@/components/styleguide/example-card";
 import { ColorTokenTabs, DimensionsTable, PropertiesTable } from "@/components/styleguide/specs";
 import { A11yList, A11ySection, ContrastTable } from "@/components/styleguide/a11y-docs";
 import { CvssScore } from "@/components/ui/cvss-score";
+import { Anatomy } from "@/components/styleguide/component-docs";
 
 export const metadata: Metadata = { title: "CVSS score" };
 
@@ -61,6 +62,18 @@ export default function CvssScorePage() {
       }
       specs={
         <>
+          <SpecSection title="Parts">
+            <Anatomy
+              parts={[
+                  { label: "Score", target: 'span[class*="font-mono"][class*="text-snt-18"]', side: "left", description: "The base score, one decimal." },
+                  { label: "Rating", target: 'span[class*="flex-col"] > :first-child', side: "top", description: "A severity badge for the rating band." },
+                  { label: "Version", target: 'span[class*="flex-col"] > span:last-child', side: "bottom", description: "CVSS version of the score." },
+                  { label: "Metrics", target: 'dl', side: "right", description: "Parsed vector metrics, when a vector is given." },
+                  { label: "Vector", target: 'code', side: "bottom", description: "The raw vector string." },
+              ]}
+              preview={<div><CvssScore score={9.8} vector="CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H" /></div>}
+            />
+          </SpecSection>
           <SpecSection title="Properties">
             <PropertiesTable
               rows={[
