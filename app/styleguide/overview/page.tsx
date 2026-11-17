@@ -8,10 +8,25 @@ import { SectionTitle } from "@/components/styleguide/section-title";
 import { OriginCode } from "@/components/styleguide/origin-code";
 import { FIGMA_FILE_URL } from "@/components/styleguide/figma-data";
 
+const DESCRIPTION =
+  "A 560+ component design system built in code by product designer Ladan Sojudi: token-based, WCAG-audited, synced to Figma and readable by AI agents.";
+
 export const metadata: Metadata = {
   // The site opens here (/ redirects), so this page carries the site-wide title.
   title: { absolute: "Sentinel Design System by Ladan Sojudi" },
-  description: "How to start with Sentinel: the Figma library for designers, a one-command install for developers, and llms.txt for AI agents.",
+  description: DESCRIPTION,
+  openGraph: {
+    type: "website",
+    siteName: "Ladan Sojudi",
+    title: "Sentinel Design System by Ladan Sojudi",
+    description: DESCRIPTION,
+    url: "/styleguide/overview",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sentinel Design System by Ladan Sojudi",
+    description: DESCRIPTION,
+  },
 };
 
 function Step({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
@@ -48,7 +63,7 @@ export default function IntroductionPage() {
     <>
       <PageHero
         category="Get started"
-        title="Introduction"
+        title="Sentinel Design System"
         description="Sentinel is an open design system for cybersecurity products. Pick your path: design in Figma, build in React, or let an AI agent build with it."
       />
 

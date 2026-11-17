@@ -62,7 +62,7 @@ const JSON_LD = {
     name: AUTHOR.name,
     jobTitle: "Product Designer",
     url: AUTHOR.url,
-    sameAs: [AUTHOR.linkedin, AUTHOR.github],
+    sameAs: [AUTHOR.url, AUTHOR.linkedin, AUTHOR.github],
   },
 };
 
