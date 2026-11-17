@@ -21,11 +21,13 @@ export const metadata: Metadata = {
     title: "Sentinel Design System by Ladan Sojudi",
     description: DESCRIPTION,
     url: "/styleguide/overview",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sentinel Design System by Ladan Sojudi",
     description: DESCRIPTION,
+    images: ["/twitter-image.png"],
   },
 };
 
